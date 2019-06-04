@@ -102,4 +102,7 @@ local.properties
 # vitrualenv
 venv/
 
+# sqlite database
+db.sqlite3
+
 # prod settings
