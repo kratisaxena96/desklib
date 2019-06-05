@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'user_sessions',
 ]
 
 MIDDLEWARE = [
@@ -139,5 +140,8 @@ ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300
-ACCOUNT_USER_DISPLAY = 'user.email'
+# ACCOUNT_USER_DISPLAY = ''
 ACCOUNT_USERNAME_MIN_LENGTH = 2
+
+
+SITE_ID = 1
