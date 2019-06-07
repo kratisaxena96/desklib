@@ -6,6 +6,8 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 
+# https://stackoverflow.com/questions/235950/how-to-lookup-django-session-for-a-particular-user/6238346
+# http://gavinballard.com/associating-django-users-sessions/
 class UserSession(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     session = models.ForeignKey(Session, on_delete=models.CASCADE)
