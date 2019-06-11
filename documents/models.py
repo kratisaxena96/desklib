@@ -1,5 +1,8 @@
+import os
+import tempfile
+
 from django.db import models
-from documents.utils import key_generator
+from documents.utils import key_generator, get_text
 from django.utils.translation import ugettext_lazy as _
 from ckeditor.fields import RichTextField
 from django.conf import settings
@@ -121,6 +124,21 @@ class Document(models.Model):
 
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''
+        # Get the complete file path to obtain filename
+        filename = self.file.name
+        filename = os.path.basename(filename)
+
+        f1 = self.file.file  # File to copy from
+        temp = tempfile.NamedTemporaryFile(suffix=filename)  # File to copy to
+        # Copying file contents
+        with open(temp.name, 'wb') as f2:
+            f2.write(f1.read())
+
+        f2.close()
+        # Extracting text
+        text = get_text(temp.name)
+        self.content = text
+
         if not self.id:
             self.created = timezone.now()
         self.updated = timezone.now()

@@ -5,6 +5,8 @@ chardet==2.3.0
 defusedxml==0.6.0
 Django==2.2.2
 django-allauth==0.39.1
+django-ckeditor==5.7.1
+django-js-asset==1.2.2
 docx2txt==0.6
 EbookLib==0.15
 idna==2.8
