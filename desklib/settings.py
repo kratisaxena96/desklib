@@ -25,7 +25,7 @@ SECRET_KEY = '=+8ji%nhjimtp+_4!bwfv!$hn92)jwnk7lr$sl+%wsrgmfq%ou'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0']
+ALLOWED_HOSTS = ['0.0.0.0', "*"]
 
 
 # Application definition
@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'user_sessions',
+    'ckeditor',
+    'documents',
 ]
 
 MIDDLEWARE = [

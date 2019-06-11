@@ -7,6 +7,9 @@ from nltk import sent_tokenize
 from nltk import word_tokenize
 from nltk.corpus import stopwords
 from bs4 import BeautifulSoup
+import random
+import string
+
 
 FILES_DIR = 'files'
 files_list = os.listdir(FILES_DIR)
@@ -18,6 +21,8 @@ ALLOWED_FORMATS = ['.doc', '.docx', '.pdf', '.ppt', '.pptx', '.odt']  # + ['.png
 # ALLOWED_FORMATS = ['.doc']
 os.environ['TESSDATA_PREFIX'] = '/usr/local/share/tessdata/'
 
+def key_generator(size=10, chars=string.ascii_uppercase + string.digits):
+    return ''.join(random.SystemRandom().choice(chars) for _ in range(size))
 
 def get_text(loc):
     try:
