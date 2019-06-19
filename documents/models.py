@@ -1,6 +1,8 @@
 import os
 import tempfile
 import datetime
+import tempfile
+
 
 from django.db import models
 from documents.utils import key_generator, get_text, get_title, get_summary, get_sentences_from_text, get_first_sentence
@@ -11,6 +13,9 @@ from django.utils import timezone
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from django.core.files import File as DjangoFile
+from pdf2image.exceptions import (PDFInfoNotInstalledError,PDFPageCountError,PDFSyntaxError)
+from pdf2image import convert_from_path, convert_from_bytes
+
 
 # Create your models here.
 
@@ -109,7 +114,7 @@ class Course(models.Model):
     semester = models.IntegerField(null=True, blank=True)
 
     created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True                                      )
+    updated = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = _('course')
@@ -181,6 +186,8 @@ class Document(models.Model):
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''
         # Get the complete file path to obtain filename
+
+        # First time save
         filename = self.upload_file.name
         filename = os.path.basename(filename)
 
@@ -223,12 +230,16 @@ class Document(models.Model):
         file_without_ext = os.path.splitext(filename)[0]
         file_with_pdf_ext = file_without_ext +".pdf"
 
+        pdf_converted_loc = os.path.splitext(temp.name)
+        pdf_converted_loc = pdf_converted_loc[0] + ".pdf"
 
-        converted_pdf_loc = temp.name
-        f = open(converted_pdf_loc, 'rb')
+        f = open(pdf_converted_loc, 'rb')
         myfile = DjangoFile(f)
         self.pdf_converted_file = myfile
         self.pdf_converted_file.name = file_with_pdf_ext
+
+        images = convert_from_path(pdf_converted_loc, output_folder='/tmp', fmt='jpg')
+
 
         return super(Document, self).save(*args, **kwargs)
 
