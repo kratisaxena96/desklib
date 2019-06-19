@@ -45,9 +45,11 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'taggit',
     'user_sessions',
     'ckeditor',
     'documents',
+    'subjects',
 ]
 
 MIDDLEWARE = [
@@ -152,3 +154,4 @@ ACCOUNT_USERNAME_MIN_LENGTH = 2
 
 SITE_ID = 1
 
+TAGGIT_CASE_INSENSITIVE = True

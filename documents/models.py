@@ -143,8 +143,8 @@ class Document(models.Model):
     )
 
     key = models.CharField(db_index=True, unique=True, max_length=10, default=key_generator, editable=False)
-    title = models.CharField(_('Title'), db_index=True, max_length=200, blank=True, null=True)
-    slug = models.SlugField(_('Slug'),unique=True ,blank=True, null=True)
+    title = models.CharField(_('Title'), db_index=True, max_length=200)
+    slug = models.SlugField(_('Slug'),unique=True )
     type = models.IntegerField(choices=TYPE_OF_DOCUMENT, default=SOLUTION)
     subject = models.ForeignKey(Subject,db_index=True, on_delete='SET_NULL',blank=True, null=True, related_name='subject_document')
     college = models.ForeignKey(College, db_index=True, on_delete='SET_NULL',blank=True, null=True,  related_name='college_document')
