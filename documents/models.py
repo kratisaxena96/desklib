@@ -238,7 +238,16 @@ class Document(models.Model):
         self.pdf_converted_file = myfile
         self.pdf_converted_file.name = file_with_pdf_ext
 
-        images = convert_from_path(pdf_converted_loc, output_folder='/tmp', fmt='jpg')
+        os.system('mkdir /tmp/'+file_without_ext)
+        pdf_images = convert_from_path(pdf_converted_loc, output_folder='/tmp/'+file_without_ext, fmt='jpg')
+
+        for pdf_img in pdf_images:
+            print(pdf_img)
+            image = Image()
+            image.image_file = pdf_img.filename
+            image.document = self
+            image.author = self.author
+            image.save()
 
 
         return super(Document, self).save(*args, **kwargs)
