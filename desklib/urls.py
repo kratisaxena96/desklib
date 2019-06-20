@@ -15,8 +15,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import url
+
+# from documents.views import HomePageView
+from django.conf.urls.i18n import i18n_patterns
+from desklib.views import HomePageView, AboutPageView, PricingPageView, ContactPageView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # path('accounts/', include('accounts.urls')),  # new
     path('accounts/', include('allauth.urls')),
+    path('', HomePageView.as_view(), name='home'),
+    path('about/', AboutPageView.as_view(), name='about'),
+    path('contact/', ContactPageView.as_view(), name='contact'),
+    path('pricing/', PricingPageView.as_view(), name='pricing'),
+
 ]
+
+urlpatterns += i18n_patterns(
+    url(r'^$', HomePageView.as_view(), name='home'),
+    # url(r'^admin/', include(admin.site.urls)),
+)

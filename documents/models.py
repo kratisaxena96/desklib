@@ -7,8 +7,26 @@ from django.utils.translation import ugettext_lazy as _
 from ckeditor.fields import RichTextField
 from django.conf import settings
 from django.utils import timezone
+from meta.models import ModelMeta
 
 
+#
+#
+# class CustomModelMeta(ModelMeta):
+#     def as_meta(self, request=None):
+#         """
+#         Method that generates the Meta object (from django-meta)
+#         """
+#         metadata = self.get_meta(request)
+#         # from samples.views import CustomMeta
+#         # meta = CustomMeta(request=request)
+#         for field, data in self._retrieve_data(request, metadata):
+#             setattr(meta, field, data)
+#         for field in ('og_description', 'twitter_description', 'gplus_description'):
+#             generaldesc = getattr(meta, 'description', False)
+#             if not getattr(meta, field, False) and generaldesc:
+#                 setattr(meta, field, generaldesc)
+#         return meta
 
 # Create your models here.
 
@@ -69,7 +87,7 @@ class Course(models.Model):
         return self.title
 
 
-class Document(models.Model):
+class Document(ModelMeta, models.Model):
     NOTES = 1
     STUDY_MATERIAL = 2
     ASSIGNMENT_BRIEF = 3
@@ -114,6 +132,13 @@ class Document(models.Model):
     published_date = models.DateTimeField(_('Published Date'))
     created = models.DateTimeField(editable=False)
     updated = models.DateTimeField()
+    seo_title = models.CharField(max_length=70,
+                                 help_text='Tip: Start every main word in the title with a capital letter, Keep title brief and descriptive that is relevant to the content of your pages.')
+    seo_description = models.TextField(max_length=160,
+                                       help_text='Tip: Create concise and high-quality descriptions that accurately describe your page, Make sure each page on our website has a different description.')
+    seo_keywords = models.CharField(max_length=140,
+                                    help_text='Recommended max.length of relevant seo keyword is 140 characters')
+
 
     class Meta:
         verbose_name = _('document')
@@ -143,3 +168,31 @@ class Document(models.Model):
             self.created = timezone.now()
         self.updated = timezone.now()
         return super(Document, self).save(*args, **kwargs)
+    _metadata = {
+            'use_og': 'True',
+            'use_facebook': 'True',
+            'use_twitter': 'True',
+            'use_title_tag': 'True',
+            'use_googleplus': 'True',
+            'use_sites': 'True',
+            'keywords': 'seo_keywords',
+            'title': 'seo_title',
+            'description': 'seo_description',
+            'canonical_url': 'canonical_url',
+            # 'image': settings.DEFAULT_IMAGE,
+            # 'object_type': 'settings.DEFAULT_TYPE',
+            # 'og_type': 'settings.FB_TYPE',
+            # 'og_app_id': 'settings.FB_APPID',
+            # 'og_profile_id': 'settings.FB_PROFILE_ID',
+            # 'og_publisher': 'settings.FB_PUBLISHER',
+            # 'og_author_url': 'settings.FB_AUTHOR_URL',
+            # 'fb_pages': 'settings.FB_PAGES',
+            # 'twitter_type': 'settings.TWITTER_TYPE',
+            # 'twitter_site': 'settings.TWITTER_SITE',
+            # 'twitter_author': 'settings.TWITTER_AUTHOR',
+            # 'gplus_type': 'settings.GPLUS_TYPE',
+            # 'gplus_author': 'settings.GPLUS_AUTHOR',
+            # 'gplus_publisher': 'settings.GPLUS_PUBLISHER',
+        }
+
+    # @classmethod
