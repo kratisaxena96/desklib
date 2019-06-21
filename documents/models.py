@@ -16,6 +16,8 @@ from django.core.files import File as DjangoFile
 from pdf2image.exceptions import (PDFInfoNotInstalledError,PDFPageCountError,PDFSyntaxError)
 from pdf2image import convert_from_path, convert_from_bytes
 from meta.models import ModelMeta
+from django.urls import reverse
+
 
 
 
@@ -235,7 +237,7 @@ class Document(ModelMeta, models.Model):
         self.updated = timezone.now()
 
         # convert the uploaded file to pdf file and save it
-        os.system('libreoffice --headless --convert-to pdf --outdir /tmp '+ temp.name)
+        os.system('libreoffice --headless --invisible --convert-to pdf --outdir /tmp '+ '"'+  temp.name + '"')
         file_without_ext = os.path.splitext(filename)[0]
         file_with_pdf_ext = file_without_ext +".pdf"
 
@@ -254,7 +256,7 @@ class Document(ModelMeta, models.Model):
             print(pdf_img)
             image = Image()
             image.image_file = pdf_img.filename
-            image.document = self
+            # image.document = self
             image.author = self.author
             image.save()
 
@@ -287,6 +289,8 @@ class Document(ModelMeta, models.Model):
             # 'gplus_publisher': 'settings.GPLUS_PUBLISHER',
         }
 
+    def get_absolute_url(self):
+        return reverse('post', args=[str(self.id)])
 
 class File(models.Model):
     """Unit of work to be done."""

@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'django_json_ld',
     'subjects',
 ]
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
