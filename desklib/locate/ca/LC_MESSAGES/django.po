@@ -1,0 +1,154 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-06-20 09:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: accounts/templates/account/signup.html:5
+msgid "Signup"
+msgstr ""
+
+#: accounts/templates/account/signup.html:8
+#: accounts/templates/account/signup.html:18
+msgid "Sign Up"
+msgstr ""
+
+#: accounts/templates/account/signup.html:10
+#, python-format
+msgid ""
+"Already have an account? yes boss you are righst Then please <a href="
+"\"%(login_url)s\">sign in</a>."
+msgstr ""
+
+#: desklib/templates/desklib/home.html:16
+msgid "Welcome to TaskBuster!"
+msgstr "Benvingut a TaskBuster!"
+
+#: desklib/templates/desklib/home.html:17
+msgid ""
+"TaskBuster is a simple Task manager that helps you organize your daylife. </"
+"br> You can create todo lists, periodic tasks and more! </br></br> If you "
+"want to learn how it was created, or create it yourself!, check www.django-"
+"tutorial.com"
+msgstr ""
+"TaskBuster és un gestor de tasques senzill que us ajuda a organitzar la vostra vida diària. </"
+"Podeu crear llistes de tasques, tasques periòdiques i molt més! </br> </br> Si"
+"voleu saber com es va crear, o creeu-lo vosaltres mateixos, comproveu www.django-"
+"tutorial.com" ""
+
+#: desklib/views.py:21
+msgid "A great company."
+msgstr ""
+
+#: desklib/views.py:38
+msgid "ABOUT company."
+msgstr ""
+
+#: desklib/views.py:54
+msgid "Pricing company."
+msgstr ""
+
+#: desklib/views.py:70
+msgid "A Contact company."
+msgstr ""
+
+#: documents/models.py:52
+msgid "subject"
+msgstr ""
+
+#: documents/models.py:53
+msgid "subjects"
+msgstr ""
+
+#: documents/models.py:65
+msgid "college"
+msgstr ""
+
+#: documents/models.py:66
+msgid "colleges"
+msgstr ""
+
+#: documents/models.py:83
+msgid "course"
+msgstr ""
+
+#: documents/models.py:84
+msgid "courses"
+msgstr ""
+
+#: documents/models.py:114
+msgid "Title"
+msgstr ""
+
+#: documents/models.py:115
+msgid "Slug"
+msgstr ""
+
+#: documents/models.py:120
+msgid "Keywords"
+msgstr ""
+
+#: documents/models.py:121
+msgid "Description"
+msgstr ""
+
+#: documents/models.py:122
+msgid "Content"
+msgstr ""
+
+#: documents/models.py:124
+msgid "Summary"
+msgstr ""
+
+#: documents/models.py:125
+msgid "Initial Text"
+msgstr ""
+
+#: documents/models.py:126
+msgid "First Sentence"
+msgstr ""
+
+#: documents/models.py:127
+msgid "File"
+msgstr ""
+
+#: documents/models.py:129
+msgid "Is Published"
+msgstr ""
+
+#: documents/models.py:130
+msgid "Is Visible"
+msgstr ""
+
+#: documents/models.py:132
+msgid "Published Date"
+msgstr ""
+
+#: documents/models.py:144
+msgid "document"
+msgstr ""
+
+#: documents/models.py:145
+msgid "documents"
+msgstr ""
+
+#: user_sessions/models.py:22
+msgid "user session"
+msgstr ""
+
+#: user_sessions/models.py:23
+msgid "user sessions"
+msgstr ""
