@@ -289,8 +289,8 @@ class Document(ModelMeta, models.Model):
             # 'gplus_publisher': 'settings.GPLUS_PUBLISHER',
         }
 
-    def get_absolute_url(self):
-        return reverse('post', args=[str(self.id)])
+    # def get_absolute_url(self):
+    #     return reverse('post', args=[str(self.id)])
 
 class File(models.Model):
     """Unit of work to be done."""
