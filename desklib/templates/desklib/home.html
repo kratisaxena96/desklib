@@ -1,0 +1,22 @@
+{% extends "desklib/base.html" %}
+{% load meta %}
+{% load i18n %}
+
+{% block content %}
+<h1>Home</h1>
+{% if user.is_authenticated %}
+  Hi {{ user.username }}!
+{% else %}
+  <p>You are not logged in</p>
+{% endif %}
+
+
+<div class="jumbotron">
+    <div class="container">
+        <h1>{% trans "Welcome to TaskBuster!"%}</h1>
+        <p>{% blocktrans %}TaskBuster is a simple Task manager that helps you organize your daylife. </br> You can create todo lists, periodic tasks and more! </br></br> If you want to learn how it was created, or create it yourself!, check www.django-tutorial.com{% endblocktrans %}</p>
+        <p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
+      </div>
+    </div>
+</div>
+{% endblock %}

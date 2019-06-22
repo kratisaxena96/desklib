@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.sitemaps',
+    'accounts.apps.AccountsConfig',
     'desklib',
     'allauth',
     'allauth.account',
@@ -49,12 +51,16 @@ INSTALLED_APPS = [
     'user_sessions',
     'ckeditor',
     'documents',
+    'meta',
+    'django_json_ld',
     'subjects',
 ]
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -67,12 +73,13 @@ ROOT_URLCONF = 'desklib.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.i18n',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -89,6 +96,13 @@ AUTHENTICATION_BACKENDS = (
 )
 
 WSGI_APPLICATION = 'desklib.wsgi.application'
+#Djano Meta Browse more properties on https://django-meta.readthedocs.io/en/latest/settings.html
+META_SITE_PROTOCOL = '.'
+META_SITE_DOMAIN = '.'
+META_USE_TWITTER_PROPERTIES = True
+
+JSON_LD_INVALID_SD = 'throw'
+
 
 
 # Database
@@ -135,11 +149,16 @@ USE_L10N = True
 
 USE_TZ = True
 
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'desklib/locate'),
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 
 # Allauth settings
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
@@ -153,5 +172,7 @@ ACCOUNT_USERNAME_MIN_LENGTH = 2
 
 
 SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 TAGGIT_CASE_INSENSITIVE = True
