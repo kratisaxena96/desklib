@@ -18,6 +18,9 @@ from pdf2image import convert_from_path, convert_from_bytes
 
 
 # Create your models here.
+from subjects.models import Subject
+from subjects.utils import get_subjects
+
 
 def upload_to(instance, filename):
     now = timezone.now()
@@ -78,20 +81,6 @@ def images(instance, filename):
 
 
 
-
-class Subject(models.Model):
-    name = models.CharField(max_length=100)
-    # timestamps
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        verbose_name = _('subject')
-        verbose_name_plural = _('subjects')
-
-    def __str__(self):
-        return self.name
-
 class College(models.Model):
     name = models.CharField(max_length=250)
 
@@ -110,7 +99,7 @@ class Course(models.Model):
     code = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
     college = models.ForeignKey(College, on_delete='PROTECT', related_name="college_course")
-    subject = models.ForeignKey(Subject, on_delete='PROTECT', related_name="subject_course")
+    # subject = models.ForeignKey(Subject, on_delete='PROTECT', related_name="subject_course")
     semester = models.IntegerField(null=True, blank=True)
 
     created = models.DateTimeField(auto_now_add=True)
@@ -150,10 +139,10 @@ class Document(models.Model):
     key = models.CharField(db_index=True, unique=True, max_length=10, default=key_generator, editable=False)
     title = models.CharField(_('Title'), db_index=True, max_length=200)
     slug = models.SlugField(_('Slug'),unique=True )
-    type = models.IntegerField(choices=TYPE_OF_DOCUMENT, default=SOLUTION)
-    subject = models.ForeignKey(Subject,db_index=True, on_delete='SET_NULL',blank=True, null=True, related_name='subject_document')
-    college = models.ForeignKey(College, db_index=True, on_delete='SET_NULL',blank=True, null=True,  related_name='college_document')
-    course = models.ForeignKey(Course, db_index=True, on_delete='SET_NULL', blank=True, null=True, related_name='course_code_document')
+    type = models.IntegerField(choices=TYPE_OF_DOCUMENT, default=SOLUTION, db_index=True)
+    subjects = models.ManyToManyField(Subject, db_index=True, blank=True, null=True, related_name='subject_documents')
+    college = models.ForeignKey(College, db_index=True, on_delete='SET_NULL',blank=True, null=True,  related_name='college_documents')
+    course = models.ForeignKey(Course, db_index=True, on_delete='SET_NULL', blank=True, null=True, related_name='course_code_documents')
     keywords = models.CharField(_('Keywords'), max_length=1000, blank=True, null=True,)
     description = RichTextField(_('Description'), blank=True, null=True)
     content = models.TextField(_('Content'), blank=True, null=True)
@@ -198,6 +187,7 @@ class Document(models.Model):
             f2.write(f1.read())
 
         f2.close()
+
         # Extracting text
         text = get_text(temp.name)
         self.content = text
@@ -221,12 +211,11 @@ class Document(models.Model):
             self.created = timezone.now()
 
         self.author = User.objects.first()
-
-
         self.updated = timezone.now()
+        # self.subjects.set(get_subjects(text))
 
         # convert the uploaded file to pdf file and save it
-        os.system('libreoffice --headless --convert-to pdf --outdir /tmp '+ temp.name)
+        os.system('soffice --headless --convert-to pdf --outdir /tmp '+ temp.name)
         file_without_ext = os.path.splitext(filename)[0]
         file_with_pdf_ext = file_without_ext +".pdf"
 
@@ -241,6 +230,11 @@ class Document(models.Model):
         os.system('mkdir /tmp/'+file_without_ext)
         pdf_images = convert_from_path(pdf_converted_loc, output_folder='/tmp/'+file_without_ext, fmt='jpg')
 
+        for subject in get_subjects(text):
+            self.subjects.add(subject)
+
+        super(Document, self).save(*args, **kwargs)
+
         for pdf_img in pdf_images:
             print(pdf_img)
             image = Image()
@@ -249,8 +243,6 @@ class Document(models.Model):
             image.author = self.author
             image.save()
 
-
-        return super(Document, self).save(*args, **kwargs)
 
 
 class File(models.Model):

@@ -8,6 +8,7 @@ from nltk.stem import WordNetLemmatizer, PorterStemmer
 from nltk.corpus import stopwords
 from nltk.util import ngrams
 
+from subjects.models import Subject
 
 SCORE_THRESHOLD = 4
 
@@ -42,10 +43,10 @@ def remove_stop_words(words):
 	return wordsFiltered
 
 
-def get_subject(file_loc):
+def get_subjects(text):
 	# text = get_text('files/2666673_1936048055_americanhistory.811822.docx')
-	text = get_text(file_loc)
-	print(text)
+	# text = get_text(file_loc)
+
 	text = get_clean_text(text).lower()
 	
 
@@ -73,24 +74,19 @@ def get_subject(file_loc):
 
 	# print(words_collection)
 
-	filename = 'subjects.json'  # https://github.com/classcentral/online-course-taxonomy
-	with open(filename, 'r') as f:
-		subjects_data = json.load(f)
-
-	# print (subjects_data)
-
-	
 	subjects_data_modified = {}
 	subjects_score = {}
 	subjects_factor = {}
-	for subject, data in subjects_data.items():
-		slug = data.get("slug")
+
+	subject_qs = Subject.objects.filter(is_visible=True)
+	for subject in subject_qs:
+		subject_name = subject.name
+		slug = subject.slug
 		# subjects_score[slug] = 0
-		keywords = data.get("keywords")
+		keywords = subject.keywords.names()
 		# print("subject={}\nslug={}\nkeywords={}".format(subject, slug, keywords))
 		keyword_tuple = ()
 		subjects_factor[slug] = 1
-
 
 		for keyword in keywords:
 			keyword = strip_punctuation(keyword)
@@ -131,7 +127,8 @@ def get_subject(file_loc):
 	if not predicted_subjects:
 		predicted_subjects['uncategorized'] = 0
 
-	return predicted_subjects
+	return Subject.objects.filter(is_visible=True, slug__in=predicted_subjects.keys())
+	# return predicted_subjects
 
 
 # import os
