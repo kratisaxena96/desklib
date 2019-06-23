@@ -21,7 +21,7 @@ from django.conf.urls import url
 
 # from documents.views import HomePageView
 from django.conf.urls.i18n import i18n_patterns
-from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView
+from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView, TestPageView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,7 +32,7 @@ urlpatterns = [
     path('about/', AboutPageView.as_view(), name='about'),
     path('contact/', ContactPageView.as_view(), name='contact'),
     path('pricing/', PricingPageView.as_view(), name='pricing'),
-
+    path('test/', TestPageView.as_view(), name='test'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -12,7 +12,6 @@ class HomePageView(MetadataMixin,JsonLdContextMixin, TemplateView):
     keywords = ['Our','best','homepage']
     twitter_title = 'Hello Twitter'
 
-
     template_name = "desklib/home.html"
 
     structured_data = {
@@ -42,6 +41,7 @@ class AboutPageView(MetadataMixin,JsonLdContextMixin,TemplateView):
         sd = super(AboutPageView, self).get_structured_data()
         return sd
 
+
 class PricingPageView(MetadataMixin,JsonLdContextMixin,TemplateView):
     title = 'Pricing page'
     description = 'This is a Pricing page'
@@ -58,6 +58,7 @@ class PricingPageView(MetadataMixin,JsonLdContextMixin,TemplateView):
         sd = super(PricingPageView, self).get_structured_data()
         return sd
 
+
 class ContactPageView(MetadataMixin,JsonLdContextMixin, TemplateView):
     title = 'Contact page'
     description = 'This is a contact page'
@@ -73,3 +74,7 @@ class ContactPageView(MetadataMixin,JsonLdContextMixin, TemplateView):
     def get_structured_data(self):
         sd = super(ContactPageView, self).get_structured_data()
         return sd
+
+
+class TestPageView(TemplateView):
+    template_name = "desklib/test.html"
