@@ -14,7 +14,7 @@ class Subject(models.Model):
     # keywords = models.CharField(_('Keywords'), max_length=1000, blank=True, null=True,)
     description = RichTextField(_('Description'), blank=True, null=True)
     # author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete='PROTECT', related_name='author_document')
-    tags = TaggableManager()
+    keywords = TaggableManager(blank=True)
 
     is_visible = models.BooleanField(_('Is visible'), default=True)
 
@@ -27,12 +27,3 @@ class Subject(models.Model):
 
     def __str__(self):
         return self.name
-
-    def save(self, *args, **kwargs):
-        ''' On save, update timestamps '''
-        # Get the complete file path to obtain filename
-
-        if not self.id:
-            self.created = timezone.now()
-        self.updated = timezone.now()
-        return super(Subject, self).save(*args, **kwargs)
