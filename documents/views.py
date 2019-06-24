@@ -7,6 +7,6 @@ class DcoumentView(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         ctx = super(DcoumentView, self).get_context_data(*args, **kwargs)
-        ctx['slug'] = Document.objects.filter(sul=self.kwargs['slug'])
+        ctx['slug'] = Document.objects.filter(slug=self.kwargs['slug'])
         return ctx
 

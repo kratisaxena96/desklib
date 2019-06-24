@@ -28,7 +28,7 @@ urlpatterns = [
     # path('accounts/', include('accounts.urls')),  # new
     path('accounts/', include('allauth.urls')),
     path('', HomePageView.as_view(), name='home'),
-    path('document/', include('documents.urls')),
+    path('document/', include(('documents.urls','documents'),namespace="documents")),
     path('about/', AboutPageView.as_view(), name='about'),
     path('contact/', ContactPageView.as_view(), name='contact'),
     path('pricing/', PricingPageView.as_view(), name='pricing'),
