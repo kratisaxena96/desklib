@@ -255,7 +255,6 @@ class Document(ModelMeta, models.Model):
             image.save()
 
 
-        return super(Document, self).save(*args, **kwargs)
     _metadata = {
             'use_og': 'True',
             'use_facebook': 'True',
@@ -286,6 +285,7 @@ class Document(ModelMeta, models.Model):
     # def get_absolute_url(self):
     #     return reverse('post', args=[str(self.id)])
 
+
 class File(models.Model):
     """Unit of work to be done."""
     key = models.CharField(unique=True, max_length=10, default=key_generator, editable=False)
@@ -295,6 +295,7 @@ class File(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
 
 class Image(models.Model):
     image_file = models.ImageField(verbose_name=_('Image'), upload_to=images, max_length=1000 )
