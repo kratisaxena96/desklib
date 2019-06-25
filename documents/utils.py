@@ -13,6 +13,8 @@ import string
 
 # FILES_DIR = 'files'
 # files_list = os.listdir(FILES_DIR)
+
+
 tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 REPLACE_BY_SPACE_RE = re.compile('[/(){}\[\]\|@,;]')
 BAD_SYMBOLS_RE = re.compile('[^0-9a-zA-Z .#+_]')
@@ -209,3 +211,54 @@ def to_lowercase(words):
 #                     print("-------------------------------------------------------------------------")
 #             else:
 #                 print('Ignoring document.')
+
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+from pyquery import PyQuery as pq
+from django.conf import settings
+
+def get_html_from_pdf_url(url):
+    data = {}
+    options = webdriver.FirefoxOptions()
+    options.headless = True
+    geckodriver = settings.GECKO_DRIVER_URL
+    driver = webdriver.Firefox(executable_path=geckodriver, options=options)
+    # url = 'file:///home/siddharth/Downloads/itc-brands-brochure.pdf'
+    # url = 'http://www.pdf995.com/samples/pdf.pdf'
+    driver.get(url)
+    try:
+        element = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "page"))
+        )
+        # html = driver.execute_script("return document.getElementsByTagName('html')[0].innerHTML")
+        numpages = driver.execute_script("return PDFViewerApplication.pdfViewer.pagesCount")
+
+        for i in range(1, numpages + 1):
+            print(i)
+            driver.execute_script("return PDFViewerApplication.page = " + str(i))
+            xpath = "//div[@data-page-number='" + str(i) + "' and @data-loaded='true']//div[@class='endOfContent']"
+            WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, xpath))
+            )
+
+        driver.execute_script(
+            "var elements = document.getElementsByClassName('canvasWrapper');while (elements.length > 0) elements[0].remove();")
+
+        html = driver.execute_script("return document.getElementById('viewer').innerHTML")
+        # print(html)
+        d = pq(html)
+        page_index = 1
+        for page in d(".page"):
+            data[page_index] = pq(page).outer_html()
+            page_index += 1
+
+    finally:
+        driver.quit()
+
+    return data
+
+
