@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'meta',
     'django_json_ld',
     'subjects',
+    'writing_tools'
 ]
 SITE_ID = 1
 
