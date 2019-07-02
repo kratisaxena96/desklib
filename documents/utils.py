@@ -241,28 +241,53 @@ def get_html_from_pdf_url(url):
         for i in range(1, numpages + 1):
             # print(i)
             driver.execute_script("PDFViewerApplication.page = " + str(i))
+            # try:
+            #     xpath_loading = "//div[@class='page' and @data-page-number='" + str(i) + "']//div[@class='loadingIcon']"
+            #     WebDriverWait(driver, 10).until(
+            #         EC.presence_of_element_located((By.XPATH, xpath_loading))
+            #     )
+            # except:
+            #     pass
 
-            xpath_loading = "//*[@data-page-number='" + str(i) + "']//[@class='loadingIcon']"
-            WebDriverWait(driver, 10).until(
-                EC.invisibility_of_element((By.XPATH, xpath_loading))
-            )
+            # xpath_loading = "//*[@id='viewer']//div[@class='page' and @data-page-number='" + str(i) + "']//div[@class='loadingIcon']"
+            # WebDriverWait(driver, 10).until_not(
+            #     EC.presence_of_element_located((By.XPATH, xpath_loading))
+            # )
 
-            xpath = "//div[@data-page-number='" + str(i) + "'][@data-loaded='true']//div[@class='endOfContent']"
+            xpath = "//*[@id='viewer']//div[@class='page' and @data-page-number='" + str(i) + "' and @data-loaded='true']//div[@class='endOfContent']"
+            # xpath = "/html/body/div[1]/div[2]/div[4]/div/div[" + str(i) + "]/div[2]/*[@class='endOfContent']"
             print(xpath)
+            # css_selector = 'div.endOfContent'
             WebDriverWait(driver, 20).until(
                 EC.presence_of_element_located((By.XPATH, xpath))
             )
 
-        driver.execute_script(
-            "var elements = document.getElementsByClassName('canvasWrapper');while (elements.length > 0) elements[0].remove();")
+            # Removing canvas
+            canvas_xpath = "//*[@id='viewer']//div[@class='page' and @data-page-number='" + str(i) + "' and @data-loaded='true']//div[@class='canvasWrapper']"
+            element = driver.find_element_by_xpath(canvas_xpath)
+            driver.execute_script("""
+            var element = arguments[0];
+            element.parentNode.removeChild(element);
+            """, element)
 
-        html = driver.execute_script("return document.getElementById('viewer').innerHTML")
+
+            # driver.execute_script("var elements = document.getElementsByClassName('canvasWrapper');while (elements.length > 0) elements[0].remove();")
+            element_xpath = "//*[@id='viewer']//div[@class='page' and @data-page-number='" + str(i) + "' and @data-loaded='true']"
+            element = driver.find_element_by_xpath(element_xpath);
+            html = element.get_attribute('outerHTML')
+
+            data[i] = html
+
+        # driver.execute_script(
+        #     "var elements = document.getElementsByClassName('canvasWrapper');while (elements.length > 0) elements[0].remove();")
+
+        # html = driver.execute_script("return document.getElementById('viewer').innerHTML")
         # print(html)
-        d = pq(html)
-        page_index = 1
-        for page in d(".page"):
-            data[page_index] = pq(page).outer_html()
-            page_index += 1
+        # d = pq(html)
+        # page_index = 1
+        # for page in d(".page"):
+        #     data[page_index] = pq(page).outer_html()
+        #     page_index += 1
 
     finally:
         driver.quit()
