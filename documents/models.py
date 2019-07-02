@@ -2,13 +2,12 @@ import os
 import re
 import tempfile
 import datetime
-import tempfile
 from io import BytesIO
 
 from django.core.files.base import ContentFile
 from django.db import models
 from documents.utils import key_generator, get_text, get_title, get_summary, get_sentences_from_text, \
-    get_first_sentence, get_html_from_pdf_url, get_filename_from_path, get_keywords_from_text
+    get_first_sentence, get_html_from_pdf_url, get_filename_from_path, get_keywords_from_text, get_words_from_text
 from django.utils.translation import ugettext_lazy as _
 from ckeditor.fields import RichTextField
 from django.conf import settings
@@ -160,7 +159,7 @@ class Document(ModelMeta, models.Model):
     pdf_converted_file = models.FileField(verbose_name=_(' Pdf converted file'), upload_to=pdf_converted_files, max_length=1000,blank=True, null=True)
     words = models.IntegerField(_('Total Words'), blank=True, null=True)
     page = models.IntegerField(_('Total pages'), blank=True, null=True)
-    filename = models.CharField(_('Title'), max_length=200, blank=True, null=True)
+    filename = models.CharField(_('filename'), max_length=200, blank=True, null=True)
 
     is_published = models.BooleanField(_('Is Published'), default=False)
     is_visible = models.BooleanField(_('Is Visible'), default=False)
@@ -240,6 +239,9 @@ class Document(ModelMeta, models.Model):
             self.title = title
             self.slug = slugify(self.title)
 
+            self.words = get_words_from_text(text).__len__()
+
+
             # self.summary = get_summary
             sentences = get_sentences_from_text(text)
             summary_list = get_summary(sentences)
@@ -258,15 +260,21 @@ class Document(ModelMeta, models.Model):
             self.author = User.objects.first()
             # self.subjects.set(get_subjects(text))
 
-            # convert the uploaded file to pdf file and save it
-            os.system('soffice --headless --convert-to pdf --outdir /tmp '+ temp.name)
             pre, ext = os.path.splitext(filename)
             file_with_pdf_ext = pre + ".pdf"
+
+            temp_dir = tempfile.TemporaryDirectory(prefix=pre)
+
+
+            # convert the uploaded file to pdf file and save it
+            os.system('soffice --headless --convert-to pdf --outdir ' + temp_dir.name + ' ' + temp.name)
+
+
 
             # https://stackoverflow.com/questions/2900035/changing-file-extension-in-python
             head, tail = os.path.split(temp.name)
             pre, ext = os.path.splitext(tail)
-            pdf_converted_loc = os.path.join(head, pre + ".pdf")
+            pdf_converted_loc = os.path.join(temp_dir.name, pre + ".pdf")
 
             f = open(pdf_converted_loc, 'rb')
             myfile = DjangoFile(f)
@@ -277,6 +285,7 @@ class Document(ModelMeta, models.Model):
             # os.system('mkdir /tmp/'+pre)
             pdf_images = convert_from_path(pdf_converted_loc, output_folder=images_tmpdir.name, fmt='jpg')
 
+            self.page = pdf_images.__len__()
 
             super(Document, self).save(*args, **kwargs)
 
@@ -292,6 +301,7 @@ class Document(ModelMeta, models.Model):
                 page_obj.author = self.author
                 page_obj.save()
                 page_count += 1
+
 
             for subject in get_subjects(text):
                 self.subjects.add(subject)
