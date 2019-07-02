@@ -8,7 +8,8 @@ from io import BytesIO
 from django.core.files.base import ContentFile
 from django.db import models
 from documents.utils import key_generator, get_text, get_title, get_summary, get_sentences_from_text, \
-    get_first_sentence, get_html_from_pdf_url, get_filename_from_path, get_keywords_from_text
+    get_first_sentence, get_html_from_pdf_url, get_filename_from_path, get_keywords_from_text, \
+    get_directory_path_from_path
 from django.utils.translation import ugettext_lazy as _
 from ckeditor.fields import RichTextField
 from django.conf import settings
@@ -202,7 +203,6 @@ class Document(ModelMeta, models.Model):
             # 'gplus_publisher': 'settings.GPLUS_PUBLISHER',
         }
 
-
     class Meta:
         verbose_name = _('document')
         verbose_name_plural = _('documents')
@@ -218,70 +218,84 @@ class Document(ModelMeta, models.Model):
 
         self.updated = timezone.now()
 
+        # We only autogenerate data at time of creation.
         if not self.id:
+            # Populating created timestamp
             self.created = timezone.now()
+            # Generating filename without spaces. Replacing them with underscore.
             filename = self.upload_file.name
             filename = os.path.basename(filename)
             filename = filename.replace(' ', '_')
 
             f1 = self.upload_file.file  # File to copy from
-            temp = tempfile.NamedTemporaryFile(suffix=filename)  # File to copy to
+            temp = tempfile.NamedTemporaryFile(suffix=filename)  # Temporary File to copy to
             # Copying file contents
             with open(temp.name, 'wb') as f2:
                 f2.write(f1.read())
 
             f2.close()
 
-            # Extracting text
+            # Extracting text from file
             text = get_text(temp.name)
             self.content = text
             self.description = text
             title = get_title(text)
             self.title = title
+            # Generating slug. This will check for existing slugs and generate unique slug.
             self.slug = slugify(self.title)
 
             # self.summary = get_summary
+            # Get sentences as list
             sentences = get_sentences_from_text(text)
+            # Get summary
             summary_list = get_summary(sentences)
             if not self.summary:
                 for summary in summary_list:
                     self.summary += summary
                     self.initial_text += summary
 
+            # Get first sentence.
             self.first_sentence = get_first_sentence(sentences)
+            # Set publishing date of the document
             self.published_date = datetime.datetime.now() + datetime.timedelta(+30)
 
+            # Populating seo related data
             self.seo_title = self.title
             self.seo_description = self.first_sentence
             self.seo_keywords = ",".join(get_keywords_from_text(text, count=3))
 
+            # Assigning author
             self.author = User.objects.first()
             # self.subjects.set(get_subjects(text))
 
             # convert the uploaded file to pdf file and save it
-            os.system('soffice --headless --convert-to pdf --outdir /tmp '+ temp.name)
+            os.system('soffice --headless --convert-to pdf --outdir ' + get_directory_path_from_path(temp.name) + ' '+ temp.name)
             pre, ext = os.path.splitext(filename)
             file_with_pdf_ext = pre + ".pdf"
 
+            # Changing file extension
             # https://stackoverflow.com/questions/2900035/changing-file-extension-in-python
             head, tail = os.path.split(temp.name)
             pre, ext = os.path.splitext(tail)
             pdf_converted_loc = os.path.join(head, pre + ".pdf")
 
+            # Reading generated pdf document from soffice and adding it to our model field
             f = open(pdf_converted_loc, 'rb')
-            myfile = DjangoFile(f)
+            myfile = DjangoFile(f)  # Converting to django's File model object
             self.pdf_converted_file = myfile
             self.pdf_converted_file.name = file_with_pdf_ext
 
+            # Creating a temp directory where images of pages will be populated.
             images_tmpdir = tempfile.TemporaryDirectory()
-            # os.system('mkdir /tmp/'+pre)
+            # Converting each page of pdf to images
             pdf_images = convert_from_path(pdf_converted_loc, output_folder=images_tmpdir.name, fmt='jpg')
-
 
             super(Document, self).save(*args, **kwargs)
 
+            # Extracting html of individual pages from pdf file
             page_html_data = get_html_from_pdf_url('file://' + pdf_converted_loc)
 
+            # Creating pages data for document
             page_count = 1
             for pdf_img in pdf_images:
                 page_obj = Page()
@@ -293,6 +307,7 @@ class Document(ModelMeta, models.Model):
                 page_obj.save()
                 page_count += 1
 
+            # Adding predicted subjects to document
             for subject in get_subjects(text):
                 self.subjects.add(subject)
 
