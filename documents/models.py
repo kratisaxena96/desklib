@@ -8,7 +8,6 @@ from django.core.files.base import ContentFile
 from django.db import models
 from documents.utils import key_generator, get_text, get_title, get_summary, get_sentences_from_text, \
     get_first_sentence, get_html_from_pdf_url, get_filename_from_path, get_keywords_from_text, get_words_from_text
-    get_directory_path_from_path
 from django.utils.translation import ugettext_lazy as _
 from ckeditor.fields import RichTextField
 from django.conf import settings
