@@ -1,0 +1,27 @@
+{
+  "name": "desklib",
+  "version": "1.0.0",
+  "description": "desklib frontend.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://kushagra94@bitbucket.org/locusrepo/desklib.git"
+  },
+  "author": "coininr",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/locusrepo/desklib/",
+  "devDependencies": {
+    "browser-sync": "^2.23.6",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-jshint": "^2.1.0",
+    "gulp-sass": "^3.2.1",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.0",
+    "gulp-util": "^3.0.8",
+    "jshint": "^2.9.5"
+  }
+}

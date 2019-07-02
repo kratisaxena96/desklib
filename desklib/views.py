@@ -1,8 +1,11 @@
 from django.views.generic.base import TemplateView
+from django.views.generic.edit import CreateView
 
 from meta.views import MetadataMixin
 from django_json_ld.views import JsonLdContextMixin
 from django.utils.translation import gettext as _
+from desklib.forms import CompareForm, SpellCheckForm
+from desklib.models import Compare, Spell
 
 
 
@@ -110,4 +113,42 @@ class WritingPageView(MetadataMixin,JsonLdContextMixin, TemplateView):
 
     def get_structured_data(self):
         sd = super(WritingPageView, self).get_structured_data()
+        return sd
+
+
+class ComparePageView(MetadataMixin,JsonLdContextMixin, CreateView):
+    form_class = CompareForm
+    model = Compare
+    title = 'Writing page'
+    description = 'This is a compare page'
+
+    template_name = "desklib/compare.html"
+
+    structured_data = {
+        "@type": "Organization",
+        "name": "This is writing Company home",
+        "description": _("A writing company."),
+    }
+
+    def get_structured_data(self):
+        sd = super(ComparePageView, self).get_structured_data()
+        return sd
+
+
+class SpellCheckPageView(MetadataMixin,JsonLdContextMixin, CreateView):
+    form_class = SpellCheckForm
+    model = Spell
+    title = 'Writing page'
+    description = 'This is a compare page'
+
+    template_name = "desklib/spell_check.html"
+
+    structured_data = {
+        "@type": "Organization",
+        "name": "This is writing Company home",
+        "description": _("A writing company."),
+    }
+
+    def get_structured_data(self):
+        sd = super(SpellCheckPageView, self).get_structured_data()
         return sd

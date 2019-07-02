@@ -21,7 +21,7 @@ from django.conf.urls import url
 
 # from documents.views import HomePageView
 from django.conf.urls.i18n import i18n_patterns
-from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView, TestPageView, StudyPageView, WritingPageView
+from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView, TestPageView, StudyPageView, WritingPageView, ComparePageView, SpellCheckPageView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,6 +29,8 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('study/', StudyPageView.as_view(), name="study"),
     path('writing/', WritingPageView.as_view(), name="writing"),
+    path('compare/', ComparePageView.as_view(), name="compare"),
+    path('spell/', SpellCheckPageView.as_view(), name="spell"),
     path('', HomePageView.as_view(), name='home'),
     path('document/', include(('documents.urls','documents'),namespace="documents")),
     path('about/', AboutPageView.as_view(), name='about'),
