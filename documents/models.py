@@ -1,11 +1,14 @@
 import os
+import re
 import tempfile
 import datetime
 import tempfile
+from io import BytesIO
 
-
+from django.core.files.base import ContentFile
 from django.db import models
-from documents.utils import key_generator, get_text, get_title, get_summary, get_sentences_from_text, get_first_sentence
+from documents.utils import key_generator, get_text, get_title, get_summary, get_sentences_from_text, \
+    get_first_sentence, get_html_from_pdf_url, get_filename_from_path, get_keywords_from_text
 from django.utils.translation import ugettext_lazy as _
 from ckeditor.fields import RichTextField
 from django.conf import settings
@@ -72,17 +75,15 @@ def pdf_converted_files(instance, filename):
 
 def images(instance, filename):
     now = timezone.now()
+    file_name = get_filename_from_path(filename)
     # now = timezone.localtime(timezone.now())
     # filename_base, filename_ext = os.path.splitext(filename)
     # uid = instance.content_object.uuid
 
     return 'images/{}/{}'.format(
         now.strftime("%Y/%m/%d/"),
-        filename,
+        file_name,
     )
-
-
-
 
 
 class College(models.Model):
@@ -145,12 +146,12 @@ class Document(ModelMeta, models.Model):
     slug = models.SlugField(_('Slug'),unique=True )
     type = models.IntegerField(choices=TYPE_OF_DOCUMENT, default=SOLUTION, db_index=True)
     subjects = models.ManyToManyField(Subject, db_index=True, blank=True, null=True, related_name='subject_documents')
-    college = models.ForeignKey(College, db_index=True, on_delete='SET_NULL',blank=True, null=True,  related_name='college_documents')
-    course = models.ForeignKey(Course, db_index=True, on_delete='SET_NULL', blank=True, null=True, related_name='course_code_documents')
+    college = models.ForeignKey(College, db_index=True, on_delete=models.SET_NULL ,blank=True, null=True,  related_name='college_documents')
+    course = models.ForeignKey(Course, db_index=True, on_delete=models.SET_NULL, blank=True, null=True, related_name='course_code_documents')
     keywords = models.CharField(_('Keywords'), max_length=1000, blank=True, null=True,)
     description = RichTextField(_('Description'), blank=True, null=True)
     content = models.TextField(_('Content'), blank=True, null=True)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete='PROTECT', related_name='author_document' ,blank=True, null=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='author_document' ,blank=True, null=True)
     summary = models.TextField(_('Summary'), blank=True, null=True)
     initial_text = models.TextField(_('Initial Text'), blank=True, null=True)
     first_sentence = models.CharField(_('First Sentence'), max_length=1000 ,blank=True, null=True)
@@ -160,7 +161,6 @@ class Document(ModelMeta, models.Model):
     words = models.IntegerField(_('Total Words'), blank=True, null=True)
     page = models.IntegerField(_('Total pages'), blank=True, null=True)
     filename = models.CharField(_('Title'), max_length=200, blank=True, null=True)
-
 
     is_published = models.BooleanField(_('Is Published'), default=False)
     is_visible = models.BooleanField(_('Is Visible'), default=False)
@@ -174,86 +174,6 @@ class Document(ModelMeta, models.Model):
                                        help_text='Tip: Create concise and high-quality descriptions that accurately describe your page, Make sure each page on our website has a different description.')
     seo_keywords = models.CharField(max_length=140,
                                     help_text='Recommended max.length of relevant seo keyword is 140 characters')
-
-
-    class Meta:
-        verbose_name = _('document')
-        verbose_name_plural = _('documents')
-
-    def __str__(self):
-        return self.title
-
-    def save(self, *args, **kwargs):
-        ''' On save, update timestamps '''
-        # Get the complete file path to obtain filename
-
-        # First time save
-        filename = self.upload_file.name
-        filename = os.path.basename(filename)
-
-        f1 = self.upload_file.file  # File to copy from
-        temp = tempfile.NamedTemporaryFile(suffix=filename)  # File to copy to
-        # Copying file contents
-        with open(temp.name, 'wb') as f2:
-            f2.write(f1.read())
-
-        f2.close()
-
-        # Extracting text
-        text = get_text(temp.name)
-        self.content = text
-        self.description = text
-        title = get_title(text)
-        self.title = title
-        self.slug = slugify(self.title)
-
-        # self.summary = get_summary
-        sentences = get_sentences_from_text(text)
-        summary_list = get_summary(sentences)
-        if not self.summary:
-            for summary in summary_list:
-                self.summary += summary
-                self.initial_text += summary
-
-        self.first_sentence = get_first_sentence(sentences)
-        self.published_date = datetime.datetime.now() + datetime.timedelta(+30)
-
-        if not self.id:
-            self.created = timezone.now()
-
-        self.author = User.objects.first()
-        self.updated = timezone.now()
-        # self.subjects.set(get_subjects(text))
-
-        # convert the uploaded file to pdf file and save it
-        os.system('soffice --headless --convert-to pdf --outdir /tmp '+ temp.name)
-        file_without_ext = os.path.splitext(filename)[0]
-        file_with_pdf_ext = file_without_ext +".pdf"
-
-        pdf_converted_loc = os.path.splitext(temp.name)
-        pdf_converted_loc = pdf_converted_loc[0] + ".pdf"
-
-        f = open(pdf_converted_loc, 'rb')
-        myfile = DjangoFile(f)
-        self.pdf_converted_file = myfile
-        self.pdf_converted_file.name = file_with_pdf_ext
-
-        os.system('mkdir /tmp/'+file_without_ext)
-        pdf_images = convert_from_path(pdf_converted_loc, output_folder='/tmp/'+file_without_ext, fmt='jpg')
-
-        for subject in get_subjects(text):
-            self.subjects.add(subject)
-
-        super(Document, self).save(*args, **kwargs)
-
-        for pdf_img in pdf_images:
-            print(pdf_img)
-            image = Image()
-            image.image_file = pdf_img.filename
-            image.document = self
-            image.author = self.author
-            image.save()
-
 
     _metadata = {
             'use_og': 'True',
@@ -282,6 +202,103 @@ class Document(ModelMeta, models.Model):
             # 'gplus_publisher': 'settings.GPLUS_PUBLISHER',
         }
 
+
+    class Meta:
+        verbose_name = _('document')
+        verbose_name_plural = _('documents')
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        ''' On save, update timestamps '''
+        # Get the complete file path to obtain filename
+
+        # First time save
+
+        self.updated = timezone.now()
+
+        if not self.id:
+            self.created = timezone.now()
+            filename = self.upload_file.name
+            filename = os.path.basename(filename)
+            filename = filename.replace(' ', '_')
+
+            f1 = self.upload_file.file  # File to copy from
+            temp = tempfile.NamedTemporaryFile(suffix=filename)  # File to copy to
+            # Copying file contents
+            with open(temp.name, 'wb') as f2:
+                f2.write(f1.read())
+
+            f2.close()
+
+            # Extracting text
+            text = get_text(temp.name)
+            self.content = text
+            self.description = text
+            title = get_title(text)
+            self.title = title
+            self.slug = slugify(self.title)
+
+            # self.summary = get_summary
+            sentences = get_sentences_from_text(text)
+            summary_list = get_summary(sentences)
+            if not self.summary:
+                for summary in summary_list:
+                    self.summary += summary
+                    self.initial_text += summary
+
+            self.first_sentence = get_first_sentence(sentences)
+            self.published_date = datetime.datetime.now() + datetime.timedelta(+30)
+
+            self.seo_title = self.title
+            self.seo_description = self.first_sentence
+            self.seo_keywords = ",".join(get_keywords_from_text(text, count=3))
+
+            self.author = User.objects.first()
+            # self.subjects.set(get_subjects(text))
+
+            # convert the uploaded file to pdf file and save it
+            os.system('soffice --headless --convert-to pdf --outdir /tmp '+ temp.name)
+            pre, ext = os.path.splitext(filename)
+            file_with_pdf_ext = pre + ".pdf"
+
+            # https://stackoverflow.com/questions/2900035/changing-file-extension-in-python
+            head, tail = os.path.split(temp.name)
+            pre, ext = os.path.splitext(tail)
+            pdf_converted_loc = os.path.join(head, pre + ".pdf")
+
+            f = open(pdf_converted_loc, 'rb')
+            myfile = DjangoFile(f)
+            self.pdf_converted_file = myfile
+            self.pdf_converted_file.name = file_with_pdf_ext
+
+            images_tmpdir = tempfile.TemporaryDirectory()
+            # os.system('mkdir /tmp/'+pre)
+            pdf_images = convert_from_path(pdf_converted_loc, output_folder=images_tmpdir.name, fmt='jpg')
+
+
+            super(Document, self).save(*args, **kwargs)
+
+            page_html_data = get_html_from_pdf_url('file://' + pdf_converted_loc)
+
+            page_count = 1
+            for pdf_img in pdf_images:
+                page_obj = Page()
+                page_obj.no = page_count
+                page_obj.image_file = DjangoFile(open(pdf_img.filename, 'rb'))
+                page_obj.html = page_html_data[page_count]
+                page_obj.document = self
+                page_obj.author = self.author
+                page_obj.save()
+                page_count += 1
+
+            for subject in get_subjects(text):
+                self.subjects.add(subject)
+
+        else:
+            super(Document, self).save(*args, **kwargs)
+
     def get_absolute_url(self):
         return reverse('documents:document-view', args=[str(self.slug)])
 
@@ -290,17 +307,25 @@ class File(models.Model):
     """Unit of work to be done."""
     key = models.CharField(unique=True, max_length=10, default=key_generator, editable=False)
     file = models.FileField(verbose_name=_('File'), upload_to=all_files, max_length=1000 )
-    document = models.ForeignKey(Document, blank=True, null=True, on_delete='SET_NULL', related_name='document_file')
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete='SET_NULL', blank=True, null=True)
+    document = models.ForeignKey(Document, blank=True, null=True, on_delete=models.CASCADE, related_name='document_file')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    # def __str__(self):
+    #     return self.key
 
-class Image(models.Model):
-    image_file = models.ImageField(verbose_name=_('Image'), upload_to=images, max_length=1000 )
-    document = models.ForeignKey(Document, blank=True, null=True, on_delete='SET_NULL', related_name='document_image')
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete='SET_NULL', blank=True, null=True)
+
+class Page(models.Model):
+    no = models.PositiveIntegerField()
+    image_file = models.ImageField(verbose_name=_('Image'), upload_to=images, max_length=1000)
+    html = models.TextField(verbose_name=_('Page html'))
+    document = models.ForeignKey(Document, blank=True, null=True, on_delete=models.CASCADE, related_name='pages')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    # def __str__(self):
+    #     return self.document.id

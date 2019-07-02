@@ -226,6 +226,7 @@ def get_html_from_pdf_url(url):
     options = webdriver.FirefoxOptions()
     options.headless = True
     geckodriver = settings.GECKO_DRIVER_URL
+    print(geckodriver)
     driver = webdriver.Firefox(executable_path=geckodriver, options=options)
     # url = 'file:///home/siddharth/Downloads/itc-brands-brochure.pdf'
     # url = 'http://www.pdf995.com/samples/pdf.pdf'
@@ -238,10 +239,17 @@ def get_html_from_pdf_url(url):
         numpages = driver.execute_script("return PDFViewerApplication.pdfViewer.pagesCount")
 
         for i in range(1, numpages + 1):
-            print(i)
-            driver.execute_script("return PDFViewerApplication.page = " + str(i))
-            xpath = "//div[@data-page-number='" + str(i) + "' and @data-loaded='true']//div[@class='endOfContent']"
+            # print(i)
+            driver.execute_script("PDFViewerApplication.page = " + str(i))
+
+            xpath_loading = "//*[@data-page-number='" + str(i) + "']//[@class='loadingIcon']"
             WebDriverWait(driver, 10).until(
+                EC.invisibility_of_element((By.XPATH, xpath_loading))
+            )
+
+            xpath = "//div[@data-page-number='" + str(i) + "'][@data-loaded='true']//div[@class='endOfContent']"
+            print(xpath)
+            WebDriverWait(driver, 20).until(
                 EC.presence_of_element_located((By.XPATH, xpath))
             )
 
@@ -262,3 +270,5 @@ def get_html_from_pdf_url(url):
     return data
 
 
+def get_filename_from_path(path):
+    return os.path.basename(path)

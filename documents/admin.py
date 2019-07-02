@@ -1,26 +1,30 @@
 from django.contrib import admin
-from documents.models import Document, File, Image
+from documents.models import Document, File, Page
 
-
-
-# Register your models here.
 
 class FileInline(admin.TabularInline):
     model = File
 
-class ImageInline(admin.TabularInline):
-    model = Image
+
+class PageInline(admin.TabularInline):
+    model = Page
+
 
 class DocumentAdmin(admin.ModelAdmin):
     readonly_fields = ('created', 'updated', 'key')
-    prepopulated_fields = {'slug': ('title',)}
+    # prepopulated_fields = {'slug': ('title',)}
     inlines = [
         FileInline,
-        ImageInline
+        PageInline
     ]
 
+    def get_form(self, request, obj=None, **kwargs):
+        # Proper kwargs are form, fields, exclude, formfield_callback
+        if obj:  # obj is not None, so this is a change page
+            pass
+        else:  # obj is None, so this is an add page
+            kwargs['exclude'] = ('title', 'slug', 'subjects', 'key', 'created', 'updated', 'seo_title', 'seo_description', 'seo_keywords',)
 
-
-
+        return super(DocumentAdmin, self).get_form(request, obj, **kwargs)
 
 admin.site.register(Document, DocumentAdmin)

@@ -1,12 +1,8 @@
 # some_app/views.py
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView
 from .models import Document
 
-class DcoumentView(TemplateView):
-    template_name = "document_template.html"
-
-    def get_context_data(self, *args, **kwargs):
-        ctx = super(DcoumentView, self).get_context_data(*args, **kwargs)
-        ctx['slug'] = Document.objects.filter(slug=self.kwargs['slug'])
-        return ctx
+class DocumentView(DetailView):
+    # template_name = "document_template.html"
+    model = Document
 

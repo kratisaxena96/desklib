@@ -177,5 +177,5 @@ LOGOUT_REDIRECT_URL = '/'
 
 TAGGIT_CASE_INSENSITIVE = True
 
-GECKO_DRIVER_URL = BASE_DIR
-GEOIP_PATH = BASE_DIR+'/geoip/'
+GECKO_DRIVER_URL = os.path.join(BASE_DIR, 'geckodriver')
+GEOIP_PATH = os.path.join(BASE_DIR, 'geoip')
