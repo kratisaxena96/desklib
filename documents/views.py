@@ -1,20 +1,16 @@
-# some_app/views.py
 from django.views.generic import TemplateView
 from .models import Document
-
-class DcoumentView(TemplateView):
-    template_name = "documents/document_template.html"
-
-    def get_context_data(self, *args, **kwargs):
-        ctx = super(DcoumentView, self).get_context_data(*args, **kwargs)
-        ctx['slug'] = Document.objects.filter(slug=self.kwargs['slug'])
-        return ctx
-
-# views.py
 import simplejson as json
 from django.http import HttpResponse
 from haystack.query import SearchQuerySet
 
+class DocumentView(TemplateView):
+    template_name = "documents/document_template.html"
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(DocumentView, self).get_context_data(*args, **kwargs)
+        ctx['slug'] = Document.objects.filter(slug=self.kwargs['slug'])
+        return ctx
 
 def autocomplete(request):
     sqs = SearchQuerySet().autocomplete(content_auto=request.GET.get('q', ''))[:5]
