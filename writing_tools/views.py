@@ -23,7 +23,8 @@ from termcolor import colored
 
 class ComparePageView(MetadataMixin,JsonLdContextMixin, FormView):
     form_class = CompareForm
-    title = 'Writing page'
+    use_title_tag = True
+    title = 'compare page'
     description = 'This is a compare page'
 
     template_name = "writing_tools/compare.html"
@@ -93,8 +94,9 @@ class ComparePageView(MetadataMixin,JsonLdContextMixin, FormView):
 
 class SpellCheckPageView(MetadataMixin,JsonLdContextMixin, FormView):
     form_class = SpellCheckForm
-    title = 'Writing page'
-    description = 'This is a compare page'
+    title = 'spell check page'
+    use_title_tag = True
+    description = 'This is a spell check page'
 
     template_name = "writing_tools/spell_check.html"
 

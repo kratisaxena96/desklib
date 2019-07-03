@@ -5,14 +5,14 @@
                     <table class="table table-bordered text-center">
                         <tr>
                             <td>
-                                {{total_word_s1}}
-                                <p>{{similarity_s1 | stringformat:'d' }}%</p>
+                                <p>{{total_word_s1}} words</p>
+                                <p>{{similarity_s1 | stringformat:'d' }}% matched</p>
                             </td>
                             <td>
                             </td>
                             <td>
-                                {{total_word_s2}}
-                                <p>{{similarity_s2 | stringformat:'d' }}%</p>
+                                <p>{{total_word_s2}} words</p>
+                                <p>{{similarity_s2 | stringformat:'d' }}% matched</p>
                             </td>
                         </tr>
             {% for m in matches %}

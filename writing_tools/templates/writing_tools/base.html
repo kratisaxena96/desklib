@@ -9,9 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% include "meta/meta.html" %}
     <link rel="stylesheet" href='{% static "desklib/css/bootstrap.min.css" %}'>
-    {% comment %}
+    {% if sd %}
     {% render_json_ld sd %}
-    {% endcomment %}
+    {% endif %}
 
 </head>
 <body>
