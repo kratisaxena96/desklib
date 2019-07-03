@@ -5,6 +5,7 @@ from django_json_ld.views import JsonLdContextMixin
 from django.utils.translation import gettext as _
 
 from django.views.generic.edit import CreateView, FormView
+from django.views.generic.base import TemplateView
 
 from .models import Compare, Spell
 from .forms import CompareForm, SpellCheckForm
@@ -20,6 +21,25 @@ from termcolor import colored
 
 
 # Create your views here.
+
+
+
+class WritingPageView(MetadataMixin,JsonLdContextMixin, TemplateView):
+    title = 'Writing page'
+    description = 'This is a Writing page'
+
+    template_name = "writing_tools/writing.html"
+
+    structured_data = {
+        "@type": "Organization",
+        "name": "This is writing Company home",
+        "description": _("A writing company."),
+    }
+
+    def get_structured_data(self):
+        sd = super(WritingPageView, self).get_structured_data()
+        return sd
+
 
 class ComparePageView(MetadataMixin,JsonLdContextMixin, FormView):
     form_class = CompareForm
