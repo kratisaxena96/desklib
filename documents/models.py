@@ -226,34 +226,37 @@ class Document(ModelMeta, models.Model):
         # self.subjects.set(get_subjects(text))
 
         # convert the uploaded file to pdf file and save it
-        os.system('soffice --headless --convert-to pdf --outdir /tmp '+ temp.name)
-        file_without_ext = os.path.splitext(filename)[0]
-        file_with_pdf_ext = file_without_ext +".pdf"
+        try:
+            os.system('libreoffice --headless --convert-to pdf --outdir /tmp '+ temp.name)
+            file_without_ext = os.path.splitext(filename)[0]
+            file_with_pdf_ext = file_without_ext +".pdf"
 
-        pdf_converted_loc = os.path.splitext(temp.name)
-        pdf_converted_loc = pdf_converted_loc[0] + ".pdf"
+            pdf_converted_loc = os.path.splitext(temp.name)
+            pdf_converted_loc = pdf_converted_loc[0] + ".pdf"
 
-        f = open(pdf_converted_loc, 'rb')
-        myfile = DjangoFile(f)
-        self.pdf_converted_file = myfile
-        self.pdf_converted_file.name = file_with_pdf_ext
+            f = open(pdf_converted_loc, 'rb')
+            myfile = DjangoFile(f)
+            self.pdf_converted_file = myfile
+            self.pdf_converted_file.name = file_with_pdf_ext
 
-        os.system('mkdir /tmp/'+file_without_ext)
-        pdf_images = convert_from_path(pdf_converted_loc, output_folder='/tmp/'+file_without_ext, fmt='jpg')
+            os.system('mkdir /tmp/'+file_without_ext)
+            pdf_images = convert_from_path(pdf_converted_loc, output_folder='/tmp/'+file_without_ext, fmt='jpg')
 
-        for subject in get_subjects(text):
-            self.subjects.add(subject)
+            for subject in get_subjects(text):
+                self.subjects.add(subject)
 
-        super(Document, self).save(*args, **kwargs)
+            super(Document, self).save(*args, **kwargs)
 
-        for pdf_img in pdf_images:
-            print(pdf_img)
-            image = Image()
-            image.image_file = pdf_img.filename
-            image.document = self
-            image.author = self.author
-            image.save()
-
+            for pdf_img in pdf_images:
+                print(pdf_img)
+                image = Image()
+                image.image_file = pdf_img.filename
+                image.document = self
+                image.author = self.author
+                image.save()
+        except:
+            super(Document, self).save(*args, **kwargs)
+            print("An exception >>>>>>>>>>>>>>>>>>>>>>>>> occurred")
 
     _metadata = {
             'use_og': 'True',

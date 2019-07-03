@@ -1,0 +1,101 @@
+<html lang="en" >
+<head >
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+    <script src="//jqueryui.com/jquery-wp-content/themes/jquery/js/plugins.js"></script>
+
+    <script src="//jqueryui.com/jquery-wp-content/themes/jquery/js/main.js"></script>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<!--  <link rel="stylesheet" href="/resources/demos/style.css">  -->
+</head>
+<body>
+{% block navbar %}
+ <nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">HOME</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><input type="submit" class="btn btn-primary" value="Add Customer">  </li>
+    </ul>
+    </div>
+  </div>
+</nav>
+{% endblock %}
+{% block content %}
+<div class="container-fluid bg-3 text-center">
+<form method="get" action="." class="form" role="form">
+        {{ form.non_field_errors }}
+        <div class="form-group">
+                {{ form.as_p }}
+        </div>
+        <div class="form-group">
+            <input id="1232" type="submit" class="btn btn-primary" value="Search">
+        </div>
+
+        {% if query %}
+            <h3>Results</h3>
+
+        <div class="container-fluid bg-4 text-left">
+                <div class="row">
+                    {% for result in page.object_list %}
+                <div class="col-sm-4">
+                  <div class="thumbnail"><a href="{% url 'documents:document-view' result.slug %}">
+                    <div class="form-group">
+                        <p>Title : {{result.title}} </p>
+                    </div>
+
+                    <div class="form-group">
+                        <p>Summary : {{result.summary}} </p>
+
+                    </div>
+                </a>
+                  </div>
+                </div>
+                {% empty %}
+
+                   <p style="text-center">No results found.</p>
+                    {% endfor%}
+                </div>
+        </div>
+
+        {% endif %}
+</form>
+</div>
+{% endblock %}
+    <script>
+   $('#id_q').autocomplete({
+ source: function (request, response) {
+     $.getJSON("/autocomplete/?q=" + request.term, function (data) {
+         response($.map(data, function (value, key) {
+             return {
+                label: value,
+                value: key
+             };
+         }));
+     });
+ },
+ minLength: 1
+});
+</script>
+</body>
+</html>
+
