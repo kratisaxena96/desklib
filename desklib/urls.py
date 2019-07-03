@@ -35,7 +35,7 @@ urlpatterns = [
     path('contact/', ContactPageView.as_view(), name='contact'),
     path('pricing/', PricingPageView.as_view(), name='pricing'),
     path('test/', TestPageView.as_view(), name='test'),
-    path('writing_tools/', include(('writing_tools.urls', 'writing_tools'), namespace="writing_tools")),
+    path('writing-tools/', include(('writing_tools.urls', 'writing_tools'), namespace="writing_tools")),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

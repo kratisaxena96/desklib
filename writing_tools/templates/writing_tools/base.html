@@ -1,0 +1,28 @@
+{% load staticfiles %}
+{% load meta %}
+{% load render_json_ld from json_ld %}
+
+<html lang="en" >
+<head  {% meta_namespaces %}>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% include "meta/meta.html" %}
+    <link rel="stylesheet" href='{% static "desklib/css/bootstrap.min.css" %}'>
+    {% comment %}
+    {% render_json_ld sd %}
+    {% endcomment %}
+
+</head>
+<body>
+    {% block header %}
+    {% endblock %}
+    {% block content %}
+    {% endblock %}
+    <script src='{% static "desklib/js/bootstrap.min.js" %}'></script>
+    <script src='{% static "desklib/js/jquery.min.js" %}'></script>
+    <script src='{% static "desklib/js/popper.min.js" %}'></script>
+    {% block extra_js %}
+    {% endblock %}
+</body>
+</html>
