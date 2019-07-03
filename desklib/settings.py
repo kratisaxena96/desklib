@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.sitemaps',
     # 'accounts.apps.AccountsConfig',
+    'haystack',
     'desklib',
     'allauth',
     'allauth.account',
@@ -159,7 +160,14 @@ LOCALE_PATHS = (
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': '127.0.0.1:9200',
+        'INDEX_NAME': 'haystack',
+    }
+}
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 # Allauth settings
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
@@ -180,3 +188,4 @@ TAGGIT_CASE_INSENSITIVE = True
 
 GECKO_DRIVER_URL = os.path.join(BASE_DIR, 'geckodriver')
 GEOIP_PATH = os.path.join(BASE_DIR, 'geoip')
+
