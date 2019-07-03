@@ -37,7 +37,8 @@ urlpatterns = [
     path('pricing/', PricingPageView.as_view(), name='pricing'),
     path('test/', TestPageView.as_view(), name='test'),
     url(r'^search/', include('haystack.urls')),
-    url(r'^autocomplete/', autocomplete, name='autocomplete')
+    url(r'^autocomplete/', autocomplete, name='autocomplete'),
+    path('writing_tools/', include(('writing_tools.urls', 'writing_tools'), namespace="writing_tools")),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

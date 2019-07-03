@@ -106,3 +106,7 @@ venv/
 db.sqlite3
 
 # prod settings
+
+
+#node
+node_modules/

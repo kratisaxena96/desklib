@@ -188,73 +188,82 @@ def to_lowercase(words):
     return new_words
 
 
-# def main():
-#     for filename in files_list:
-#         # print("Processing: ", filename, " ...")
-#         if is_format_allowed(filename):
-#             print('## Filename: ', filename)
-#             filepath = os.path.join(FILES_DIR, filename)
-#             text = get_text(filepath)
-#
-#             if len(text) > 4:
-#                 # print('## Text: ', text)
-#                 if text and not is_redundant_text(text):
-#                     clean_text = get_clean_text(text)
-#                     sentences = get_sentences_from_text(text)
-#
-#                     # print("## Total Sentences: ", len(sentences))
-#                     # print("## First Sentence: ", get_first_sentence(sentences))
-#                     # print("## Summary: ", get_summary(sentences))
-#                     # print("## Keywords from text: ", get_keywords_from_text(text))
-#                     # print("## Keywords from sentences: ", get_keywords_from_sentences(sentences))
-#                     print("## Title: ", get_title(text))
-#                     print("-------------------------------------------------------------------------")
-#             else:
-#                 print('Ignoring document.')
-
-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
-from pyquery import PyQuery as pq
 from django.conf import settings
 
 def get_html_from_pdf_url(url):
+    """
+    This function returns html of given pdf url. We use converted html from pdf.js library which is used by mozilla
+    firefox to render pdf. A headless mozilla browser with selenium is used to render pdf and extract html.
+
+    :param url: A browser friendly url.
+    :return: A dictionary with page numbers as keys and page as values.
+    """
     data = {}
     options = webdriver.FirefoxOptions()
+    # We need a headless firefox browser
     options.headless = True
     geckodriver = settings.GECKO_DRIVER_URL
+
+    # print(geckodriver)
     driver = webdriver.Firefox(executable_path=geckodriver, options=options)
     # url = 'file:///home/siddharth/Downloads/itc-brands-brochure.pdf'
     # url = 'http://www.pdf995.com/samples/pdf.pdf'
     driver.get(url)
     try:
+        # Waiting for page to be rendered
         element = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.CLASS_NAME, "page"))
         )
-        # html = driver.execute_script("return document.getElementsByTagName('html')[0].innerHTML")
+
+        # Getting total pages in pdf
         numpages = driver.execute_script("return PDFViewerApplication.pdfViewer.pagesCount")
 
+        # looping through pages and extracting html
         for i in range(1, numpages + 1):
-            print(i)
-            driver.execute_script("return PDFViewerApplication.page = " + str(i))
-            xpath = "//div[@data-page-number='" + str(i) + "' and @data-loaded='true']//div[@class='endOfContent']"
-            WebDriverWait(driver, 10).until(
+            # Going through each page
+            driver.execute_script("PDFViewerApplication.page = " + str(i))
+
+            # try:
+            #     xpath_loading = "//div[@class='page' and @data-page-number='" + str(i) + "']//div[@class='loadingIcon']"
+            #     WebDriverWait(driver, 10).until(
+            #         EC.presence_of_element_located((By.XPATH, xpath_loading))
+            #     )
+            # except:
+            #     pass
+
+            # xpath_loading = "//*[@id='viewer']//div[@class='page' and @data-page-number='" + str(i) + "']//div[@class='loadingIcon']"
+            # WebDriverWait(driver, 10).until_not(
+            #     EC.presence_of_element_located((By.XPATH, xpath_loading))
+            # )
+
+            # Waiting till content of the page is rendered in DOM
+            xpath = "//*[@id='viewer']//div[@class='page' and @data-page-number='" + str(i) + "' and @data-loaded='true']//div[@class='endOfContent']"
+            # xpath = "/html/body/div[1]/div[2]/div[4]/div/div[" + str(i) + "]/div[2]/*[@class='endOfContent']"
+            print(xpath)
+            # css_selector = 'div.endOfContent'
+            WebDriverWait(driver, 20).until(
                 EC.presence_of_element_located((By.XPATH, xpath))
             )
 
-        driver.execute_script(
-            "var elements = document.getElementsByClassName('canvasWrapper');while (elements.length > 0) elements[0].remove();")
+            # Removing canvas from rendered html
+            canvas_xpath = "//*[@id='viewer']//div[@class='page' and @data-page-number='" + str(i) + "' and @data-loaded='true']//div[@class='canvasWrapper']"
+            element = driver.find_element_by_xpath(canvas_xpath)
+            driver.execute_script("""
+            var element = arguments[0];
+            element.parentNode.removeChild(element);
+            """, element)
 
-        html = driver.execute_script("return document.getElementById('viewer').innerHTML")
-        # print(html)
-        d = pq(html)
-        page_index = 1
-        for page in d(".page"):
-            data[page_index] = pq(page).outer_html()
-            page_index += 1
+            # Extracting html data for particular page
+            element_xpath = "//*[@id='viewer']//div[@class='page' and @data-page-number='" + str(i) + "' and @data-loaded='true']"
+            element = driver.find_element_by_xpath(element_xpath);
+            html = element.get_attribute('outerHTML')
+            # adding data to our dictionary
+            data[i] = html
 
     finally:
         driver.quit()
@@ -262,3 +271,8 @@ def get_html_from_pdf_url(url):
     return data
 
 
+def get_filename_from_path(path):
+    return os.path.basename(path)
+
+def get_directory_path_from_path(path):
+    return os.path.dirname(path)

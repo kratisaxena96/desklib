@@ -44,9 +44,14 @@ def remove_stop_words(words):
 
 
 def get_subjects(text):
-	# text = get_text('files/2666673_1936048055_americanhistory.811822.docx')
-	# text = get_text(file_loc)
-
+	"""
+	Logic to predict subject from text contents
+	:param text: Text to be processed
+	:return: QuerySet of predicted subjects
+	"""
+	# Preprocessing text data
+	# - Removing spaces, bad symbols abd converting to lower cases
+	# - Removing punctuations
 	text = get_clean_text(text).lower()
 	
 
@@ -55,16 +60,22 @@ def get_subjects(text):
 	# print(keywords(text).split('\n'))
 	words_collection = {}
 	text = strip_punctuation(text)
+	# Stemming text
 	text = stem_text(text)
+
+	# Tokenizing text
 	# https://stackoverflow.com/questions/32441605/generating-ngrams-unigrams-bigrams-etc-from-a-large-corpus-of-txt-files-and-t
 	tokens = word_tokenize(text)
+	# Removing stop words
 	tokens = remove_stop_words(tokens)
+
+	# Generating uni, bi and trigrams
 	ugs = ngrams(tokens, 1)
 	bgs = bigrams(tokens)
 	tgs = trigrams(tokens)
+	# Dictionary to populate frequencies of all uni, bi and trigram words.
 	words_collection = {}
 	fdist_ugs = FreqDist(ugs)
-	
 	fdist_bgs = FreqDist(bgs)
 	fdist_tgs = FreqDist(tgs)
 
@@ -72,31 +83,30 @@ def get_subjects(text):
 	words_collection.update(fdist_bgs.items())
 	words_collection.update(fdist_tgs.items())
 
-	# print(words_collection)
-
-	subjects_data_modified = {}
+	# maintaining scores of each subject
 	subjects_score = {}
 	subjects_factor = {}
 
 	subject_qs = Subject.objects.filter(is_visible=True)
+	# looping through subjects
 	for subject in subject_qs:
-		subject_name = subject.name
 		slug = subject.slug
-		# subjects_score[slug] = 0
+		# Getting all keywords related to particular subject
 		keywords = subject.keywords.names()
-		# print("subject={}\nslug={}\nkeywords={}".format(subject, slug, keywords))
-		keyword_tuple = ()
 		subjects_factor[slug] = 1
-
+		# looping through each keyword
 		for keyword in keywords:
+			# Preprocessing: cleaning, stemming, tokenizing and removing stop words
 			keyword = strip_punctuation(keyword)
 			keyword = stem_text(keyword)
 			tokens = word_tokenize(keyword)
 			tokens = remove_stop_words(tokens)
 			keyword_tuple = tuple(tokens)
 
+			# Checking if keyword occurs in our document
 			if keyword_tuple in words_collection:
 				# print('##Keyword Matched: ', keyword_tuple)
+				# Calculating score and normalizing
 				if subjects_score.get(slug):
 					subjects_factor[slug] += 0.5
 					subjects_score[slug] += words_collection[keyword_tuple]*len(keyword_tuple)*len(keyword_tuple)*subjects_factor[slug]
@@ -104,8 +114,7 @@ def get_subjects(text):
 					subjects_score[slug] = words_collection[keyword_tuple]*len(keyword_tuple)*len(keyword_tuple)
 					
 
-
-	# print(subjects_score)
+	# Predicting two subjects with top score. If score difference between two subjects is more than 50%, predicting one.
 	predicted_subjects = {}
 	predicted_subjects_sorted = sorted(subjects_score, key=subjects_score.get, reverse=True)
 	total_predictions = len(predicted_subjects_sorted)
@@ -123,41 +132,12 @@ def get_subjects(text):
 						predicted_subjects[w] = subjects_score[w]
 	else:
 		predicted_subjects['uncategorized'] = 0
-
+	# If no subject is found, adding it to uncategorized
 	if not predicted_subjects:
 		predicted_subjects['uncategorized'] = 0
 
 	return Subject.objects.filter(is_visible=True, slug__in=predicted_subjects.keys())
 	# return predicted_subjects
-
-
-# import os
-# import random
-#
-# path ='files'
-# files = os.listdir(path)
-# index = random.randrange(0, len(files))
-# print(files[index])
-#
-# file_loc = os.path.join('files', files[index])
-# # file_loc = 'files/2669342_1070405960_2665540496057639FinancialAccou.docx'
-# # file_loc = 'files/2670386_663385549_HigherEducationandHealthPromot.docx'
-# # file_loc = 'files/2672096_982360195_2016MGMT310-Assignment1doc3-Jo.doc'
-# # file_loc = 'files/2671825_1105177032_26699781230768885articlereview.docx'
-# # file_loc = 'files/2675673_390392621_ASSIGNMENTONSOILMECHANIC.docx'
-#
-#
-# # file_loc = 'files/2678457_1916787519_Multipleregressions2.docx'
-#
-# # file_loc = 'files/BZ-NR-MITS4402_Assignment_2018_25%.docx'
-# # file_loc = 'files/2698806_1286029317_5cd98742-e31c-4eac-9539-01b1b7.jpg'
-#
-# # file_loc = 'files/2674212_1224967721_ITC556Week-9SQLPracticalsUsing.pdf'
-#
-#
-# print(get_subject(file_loc))
-#
-
 
 
 # https://towardsdatascience.com/machine-learning-nlp-text-classification-using-scikit-learn-python-and-nltk-c52b92a7c73a

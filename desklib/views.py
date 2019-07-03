@@ -111,3 +111,4 @@ class WritingPageView(MetadataMixin,JsonLdContextMixin, TemplateView):
     def get_structured_data(self):
         sd = super(WritingPageView, self).get_structured_data()
         return sd
+
