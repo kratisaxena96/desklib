@@ -12,7 +12,8 @@ class HomePageView(MetadataMixin,JsonLdContextMixin, TemplateView):
     keywords = ['Our','best','homepage']
     twitter_title = 'Hello Twitter'
 
-    template_name = "desklib/home.html"
+    # template_name = "desklib/home.html"
+    template_name = "desklib/coming_soon.html"
 
     structured_data = {
         "@type": "Organization",

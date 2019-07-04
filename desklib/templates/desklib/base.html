@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% include "meta/meta.html" %}
-    <link rel="stylesheet" href='{% static "dest/css/bootstrap.css" %}'>
+    <link rel="stylesheet" href='{% static "dist/css/bootstrap.css" %}'>
     {% if sd %}
     {% render_json_ld sd %}
     {% endif %}
@@ -19,9 +19,7 @@
     {% endblock %}
     {% block content %}
     {% endblock %}
-    <script src='{% static "desklib/js/bootstrap.min.js" %}'></script>
-    <script src='{% static "desklib/js/jquery.min.js" %}'></script>
-    <script src='{% static "desklib/js/popper.min.js" %}'></script>
+    <script src='{% static "dist/js/bundle.js" %}'></script>
     {% block extra_js %}
     {% endblock %}
 </body>

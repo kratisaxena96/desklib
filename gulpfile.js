@@ -19,7 +19,7 @@ gulp.task('build-css', () => {
     .pipe(sourcemaps.init())  // Process the original sources
     .pipe(sass())
     .pipe(sourcemaps.write()) // Add the map to modified source.
-    .pipe(gulp.dest('desklib/static/dest/css'))
+    .pipe(gulp.dest('desklib/static/dist/css'))
 });
 
 gulp.task('reload-css', function() {
@@ -41,7 +41,7 @@ gulp.task('jshint', function() {
        .pipe(concat('bundle.js'))
        .pipe(uglify())
      .pipe(sourcemaps.write())
-     .pipe(gulp.dest('desklib/static/dest/js'))
+     .pipe(gulp.dest('desklib/static/dist/js'))
      .pipe(browserSync.reload({stream: true}));
  });
 
