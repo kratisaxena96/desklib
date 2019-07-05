@@ -1,12 +1,19 @@
+{% load meta %}
+{% load render_json_ld from json_ld %}
+
 <html lang="en" >
+
 <head >
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        {% include "meta/meta.html" %}
+
+        {% if sd %}
+        {% render_json_ld sd %}
+        {% endif %}
 
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
@@ -57,6 +64,8 @@
         <div class="container-fluid bg-4 text-left">
                 <div class="row">
                     {% for result in page.object_list %}
+                                            <h1></h1>
+
                 <div class="col-sm-4">
                   <div class="thumbnail"><a href="{% url 'documents:document-view' result.slug %}">
                     <div class="form-group">

@@ -178,7 +178,7 @@ class Document(ModelMeta, models.Model):
             'use_og': 'True',
             'use_facebook': 'True',
             'use_twitter': 'True',
-            'use_title_tag': 'True',
+            'use_title_tag': 'False',
             'use_googleplus': 'True',
             'use_sites': 'True',
             'keywords': 'seo_keywords',

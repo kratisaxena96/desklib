@@ -55,7 +55,9 @@ INSTALLED_APPS = [
     'meta',
     'django_json_ld',
     'subjects',
-    'writing_tools'
+    'writing_tools',
+    'captcha',
+
 ]
 SITE_ID = 1
 
@@ -189,3 +191,13 @@ TAGGIT_CASE_INSENSITIVE = True
 GECKO_DRIVER_URL = os.path.join(BASE_DIR, 'geckodriver')
 GEOIP_PATH = os.path.join(BASE_DIR, 'geoip')
 
+ACCOUNT_FORMS = {
+'signup': 'account.forms.CustomSignupForm',
+}
+
+#Commented out in production envirment
+SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
+
+# Actual Parameter to be filled as provided by google for your domain
+# RECAPTCHA_PUBLIC_KEY = 'MyRecaptchaKey123'
+# RECAPTCHA_PRIVATE_KEY = 'MyRecaptchaPrivateKey456'
