@@ -15,11 +15,11 @@ var gulp   = require('gulp'),
 gulp.task('default', ['watch']);
 
 gulp.task('build-css', () => {
-  return gulp.src(['./**/*.scss','!node_modules/**/*.scss'])
+  return gulp.src(['desklib/static/src/scss/**/*.scss','!node_modules/**/*.scss'])
     .pipe(sourcemaps.init())  // Process the original sources
     .pipe(sass())
     .pipe(sourcemaps.write()) // Add the map to modified source.
-    .pipe(gulp.dest('static'))
+    .pipe(gulp.dest('desklib/static/dist/css'))
 });
 
 gulp.task('reload-css', function() {
@@ -30,18 +30,18 @@ gulp.task('reload-css', function() {
 
 // configure the jshint task
 gulp.task('jshint', function() {
-  return gulp.src('desklib/static/desklib/js/**/*.js')
+  return gulp.src('desklib/static/src/js/**/*.js')
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'));
 });
 
  gulp.task('build-js', function() {
-   return gulp.src('javascript/**/*.js')
+   return gulp.src(['desklib/static/src/js/jquery.min.js','desklib/static/src/js/bootstrap.min.js','desklib/static/src/js/popper.min.js'])
      .pipe(sourcemaps.init())
        .pipe(concat('bundle.js'))
        .pipe(uglify())
      .pipe(sourcemaps.write())
-     .pipe(gulp.dest('static/desklib/js'))
+     .pipe(gulp.dest('desklib/static/dist/js'))
      .pipe(browserSync.reload({stream: true}));
  });
 
@@ -58,7 +58,7 @@ gulp.task('copy', function(){
 });
 
 // Static Server + watching scss/html files
-gulp.task('serve', function() {
+gulp.task('serve', ['build-css', 'build-js'], function() {
 
     browserSync.init({
       	injectChanges: true,
@@ -70,7 +70,7 @@ gulp.task('serve', function() {
         // xip: true,
     });
 
-    // gulp.watch('desklib/static/desklib/js/**/*.js', ['jshint']);
+    gulp.watch('./**/*.js', ['jshint','build-js']);
     gulp.watch('./**/*.scss', ['build-css']);
     // gulp.watch('desklib/static/desklib/css/**/*.css', browserSync.reload({stream: true}));
     // gulp.watch("desklib/static/desklib/css/**/*.css").on('change', browserSync.reload),
