@@ -5,7 +5,7 @@ from meta.views import MetadataMixin
 from django_json_ld.views import JsonLdContextMixin
 from django.views.generic.base import TemplateView
 
-class BookIndex(MetadataMixin, indexes.SearchIndex, indexes.Indexable):
+class DocumentIndex(MetadataMixin, indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True, template_name="search/book_text.txt")
     title = indexes.CharField(model_attr='title')
     description = indexes.CharField(model_attr='description')

@@ -9,11 +9,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-        {% include "meta/meta.html" %}
-
-        {% if sd %}
-        {% render_json_ld sd %}
-        {% endif %}
 
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
@@ -25,6 +20,11 @@
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+          {% include "meta/meta.html" %}
+
+        {% if sd %}
+            {% render_json_ld sd %}
+        {% endif %}
 <!--  <link rel="stylesheet" href="/resources/demos/style.css">  -->
 </head>
 <body>

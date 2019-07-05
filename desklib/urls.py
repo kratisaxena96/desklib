@@ -22,7 +22,7 @@ from django.conf.urls import url
 # from documents.views import HomePageView
 from django.conf.urls.i18n import i18n_patterns
 from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView, TestPageView, StudyPageView
-from documents.views import autocomplete
+from documents.views import autocomplete,CustomSearchView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,7 +35,7 @@ urlpatterns = [
     path('contact/', ContactPageView.as_view(), name='contact'),
     path('pricing/', PricingPageView.as_view(), name='pricing'),
     path('test/', TestPageView.as_view(), name='test'),
-    url(r'^search/', include('haystack.urls')),
+    path('search/', CustomSearchView.as_view(),),
     url(r'^autocomplete/', autocomplete, name='autocomplete'),
     path('writing/', include(('writing_tools.urls', 'writing_tools'), namespace="writing_tools")),
 

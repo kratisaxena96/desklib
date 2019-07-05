@@ -10,6 +10,7 @@ from haystack.generic_views import SearchMixin, SearchView
 from meta.views import MetadataMixin
 from django.views.generic.list import ListView
 
+
 class DocumentView(TemplateView):
     template_name = "documents/document_template.html"
 
@@ -31,18 +32,18 @@ def autocomplete(request):
     return HttpResponse(the_data, content_type='application/json')
 
 
-class CustomSearchView(JsonLdContextMixin, MetadataMixin, SearchView):
+class CustomSearchView(JsonLdContextMixin, MetadataMixin,SearchView):
     template_name = 'search/search.html'
+    model = Document
 
-    title = 'Home page'
-    description = 'This is an awesome page hey'
+    title = 'pashehi page'
+    description = 'This is an sasassasaawesome page hey'
     keywords = ['Our', 'best', 'homepage']
-    twitter_title = 'Hello Twitter'
 
     structured_data = {
-        "@type": "Organization",
-        "name": "The Company home",
-        "description": _("A great company."),
+        "@type": "Organizasaation",
+        "name": "The Compasany home",
+        "description": _("A greatesast hd company."),
     }
 
     def get_structured_data(self):
