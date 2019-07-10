@@ -63,9 +63,7 @@
 
         <div class="container-fluid bg-4 text-left">
                 <div class="row">
-                    {% for result in page.object_list %}
-                                            <h1></h1>
-
+                    {% for result in page_obj.object_list %}
                 <div class="col-sm-4">
                   <div class="thumbnail"><a href="{% url 'documents:document-view' result.slug %}">
                     <div class="form-group">

@@ -32,7 +32,7 @@ def autocomplete(request):
     return HttpResponse(the_data, content_type='application/json')
 
 
-class CustomSearchView(JsonLdContextMixin, MetadataMixin,SearchView):
+class CustomSearchView(JsonLdContextMixin, MetadataMixin, SearchView):
     template_name = 'search/search.html'
     model = Document
 
