@@ -21,7 +21,9 @@ from django.conf.urls import url
 
 # from documents.views import HomePageView
 from django.conf.urls.i18n import i18n_patterns
-from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView, TestPageView, StudyPageView
+from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView, TestPageView, StudyPageView, WritingPageView
+if settings.DEBUG:
+    import debug_toolbar
 from documents.views import autocomplete,CustomSearchView
 
 urlpatterns = [
@@ -35,6 +37,8 @@ urlpatterns = [
     path('contact/', ContactPageView.as_view(), name='contact'),
     path('pricing/', PricingPageView.as_view(), name='pricing'),
     path('test/', TestPageView.as_view(), name='test'),
+    path('writing_tools/', include(('writing_tools.urls', 'writing_tools'), namespace="writing_tools")),
+    path('__debug__/', include(debug_toolbar.urls)),
     path('search/', CustomSearchView.as_view(),),
     url(r'^autocomplete/', autocomplete, name='autocomplete'),
     path('writing/', include(('writing_tools.urls', 'writing_tools'), namespace="writing_tools")),

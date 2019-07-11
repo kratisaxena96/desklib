@@ -1,5 +1,11 @@
-from django.views.generic import TemplateView, FormView
+# some_app/views.py
+from django.views.generic import TemplateView, DetailView
 from .models import Document
+from django_json_ld.views import JsonLdContextMixin
+from django.utils.translation import gettext as _
+from django_json_ld.views import JsonLdDetailView
+from django.views import View
+from django.shortcuts import render
 import simplejson as json
 from django.http import HttpResponse
 from haystack.query import SearchQuerySet
@@ -10,16 +16,14 @@ from haystack.generic_views import SearchMixin, SearchView
 from meta.views import MetadataMixin
 from django.views.generic.list import ListView
 
+class DocumentView(JsonLdDetailView):
+    model = Document
 
-class DocumentView(TemplateView):
-    template_name = "documents/document_template.html"
+    def get_context_data(self, **kwargs):
+        context = super(DocumentView, self).get_context_data(**kwargs)
+        context['meta'] = self.get_object().as_meta(self.request)
+        return context
 
-    def get_context_data(self, *args, **kwargs):
-        ctx = super(DocumentView, self).get_context_data(*args, **kwargs)
-        ctx['document'] = meta = Document.objects.filter(slug=self.kwargs['slug'])[0]
-        ctx['meta'] = meta.as_meta(self.request)
-
-        return ctx
 
 def autocomplete(request):
     sqs = SearchQuerySet().autocomplete(content_auto=request.GET.get('q', ''))[:5]
@@ -35,7 +39,6 @@ def autocomplete(request):
 class CustomSearchView(JsonLdContextMixin, MetadataMixin, SearchView):
     template_name = 'search/search.html'
     model = Document
-
     title = 'pashehi page'
     description = 'This is an sasassasaawesome page hey'
     keywords = ['Our', 'best', 'homepage']
@@ -49,3 +52,13 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, SearchView):
     def get_structured_data(self):
         sd = super(CustomSearchView, self).get_structured_data()
         return sd
+
+    def get_context_data(self, **kwargs):
+        context = super(DocumentView, self).get_context_data(**kwargs)
+        context['meta'] = self.get_object().as_meta(self.request)
+        return context
+
+class DocumentMailView(View):
+        def get(self, request):
+
+            return render(request, 'documents/document_detail.html')

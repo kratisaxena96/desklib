@@ -1,17 +1,15 @@
-<!DOCTYPE html>
+{% extends 'desklib/base.html' %}
 {% load meta %}
 
-<html lang="en">
-<head>
-  <title>Bootstrap Example</title>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-        {% include "meta/meta.html" %}
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <!--    <link rel="stylesheet" href="https://rawgit.com/mozilla/pdf.js/master/web/viewer.css">-->
 <!--    <link rel="stylesheet" href="https://rawgit.com/mozilla/pdf.js/master/examples/mobile-viewer/viewer.css">-->
+
+    {% block extra_css %}
+
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">-->
+
     <style>
     .textLayer > span {
         color: black;
@@ -106,12 +104,11 @@ background: rgba(0,0,255,0.3);
             width: 100%;
         }
     </style>
+<!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
+<!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>-->
+    {% endblock %}
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-</head>
-<body>
-
+{% block content %}
 <div class="container">
   <div class="row">
     <div class="col-sm-4">
@@ -333,6 +330,7 @@ background: rgba(0,0,255,0.3);
                     </div>
                 </div>
                 {% endcomment %}
+                <a href="{% url 'documents:document_mail' %}">Download</a>
             </div>
         <p>
             {% lorem %}
@@ -360,6 +358,8 @@ background: rgba(0,0,255,0.3);
         </div>
   </div>
 </div>
+{% endblock %}
+{% block extra_js %}
 
 <script>
 
@@ -398,9 +398,7 @@ background: rgba(0,0,255,0.3);
 
 
 </script>
-
-</body>
-</html>
+{% endblock %}
 
 
 <!--<div id="viewerContainer" tabindex="0">-->

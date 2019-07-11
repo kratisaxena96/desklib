@@ -7,7 +7,8 @@ from io import BytesIO
 from django.core.files.base import ContentFile
 from django.db import models
 from documents.utils import key_generator, get_text, get_title, get_summary, get_sentences_from_text, \
-    get_first_sentence, get_html_from_pdf_url, get_filename_from_path, get_keywords_from_text, get_words_from_text
+    get_first_sentence, get_html_from_pdf_url, get_filename_from_path, get_keywords_from_text, get_words_from_text,\
+    random_string_generator
 from django.utils.translation import ugettext_lazy as _
 from ckeditor.fields import RichTextField
 from django.conf import settings
@@ -116,7 +117,6 @@ class Course(models.Model):
     def __str__(self):
         return self.title
 
-
 class Document(ModelMeta, models.Model):
     NOTES = 1
     STUDY_MATERIAL = 2
@@ -201,6 +201,14 @@ class Document(ModelMeta, models.Model):
             # 'gplus_publisher': 'settings.GPLUS_PUBLISHER',
         }
 
+    @property
+    def sd(self):
+        return {
+            "@type": 'Document',
+            "description": self.title,
+            "name": self.title,
+        }
+
     class Meta:
         verbose_name = _('document')
         verbose_name_plural = _('documents')
@@ -240,7 +248,12 @@ class Document(ModelMeta, models.Model):
             title = get_title(text)
             self.title = title
             # Generating slug. This will check for existing slugs and generate unique slug.
-            self.slug = slugify(self.title)
+            # self.slug = slugify(self.title)
+            rand_str = random_string_generator()
+            # strtime = "".join(str(time()).split("."))
+            string = "%s-%s" % (rand_str, self.title[20 ])
+            self.slug = slugify(string)
+
 
             self.words = get_words_from_text(text).__len__()
 
@@ -250,7 +263,10 @@ class Document(ModelMeta, models.Model):
             sentences = get_sentences_from_text(text)
             # Get summary
             summary_list = get_summary(sentences)
+
             if not self.summary:
+                self.summary = ""
+                self.initial_text = ""
                 for summary in summary_list:
                     self.summary += summary
                     self.initial_text += summary

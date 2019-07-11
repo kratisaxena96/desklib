@@ -57,7 +57,8 @@ INSTALLED_APPS = [
     'subjects',
     'writing_tools',
     'captcha',
-
+    'debug_toolbar',
+    'subscription'
 ]
 SITE_ID = 1
 
@@ -70,6 +71,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'desklib.urls'
@@ -193,6 +195,9 @@ TAGGIT_CASE_INSENSITIVE = True
 GECKO_DRIVER_URL = os.path.join(BASE_DIR, 'geckodriver')
 GEOIP_PATH = os.path.join(BASE_DIR, 'geoip')
 
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
 ACCOUNT_FORMS = {
 'signup': 'account.forms.CustomSignupForm',
 }

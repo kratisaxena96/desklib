@@ -26,6 +26,10 @@ os.environ['TESSDATA_PREFIX'] = '/usr/local/share/tessdata/'
 def key_generator(size=10, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.SystemRandom().choice(chars) for _ in range(size))
 
+def random_string_generator(size=5, chars=string.ascii_lowercase + string.digits):
+    return ''.join(random.choice(chars) for _ in range(size))
+
+
 def get_text(loc):
     try:
         return textract.process(loc).decode("utf-8")
