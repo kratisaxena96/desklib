@@ -4,6 +4,8 @@ from haystack.query import SearchQuerySet
 from meta.views import MetadataMixin
 from django_json_ld.views import JsonLdContextMixin
 from django.views.generic.base import TemplateView
+from django.utils import timezone
+import pytz
 
 class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True, template_name="search/book_text.txt")
@@ -13,6 +15,7 @@ class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
     summary = indexes.CharField(model_attr='summary')
     content_auto = indexes.EdgeNgramField(model_attr='description')
     slug = indexes.CharField(model_attr='slug')
+    pub_date = indexes.DateTimeField(model_attr='published_date')
 
 
     keywords = ['Our', 'best', 'homepage']
@@ -24,7 +27,6 @@ class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
     # def prepare_authors(self, obj):
     #     return [ a.name for a in obj.author.all()]
     def index_queryset(self, using=None):
-        print(self.get_model().objects.all().count())
-        return self.get_model().objects.all()
+        return self.get_model().objects.filter(published_date__lte=timezone.now())
 
 
