@@ -4,17 +4,18 @@ from django.conf import settings
 from documents.models import Document
 # Create your models here.
 
+
 class Plan(models.Model):
     package_name = models.CharField(_('Package Name'), db_index=True, max_length=200)
     download_limit = models.IntegerField(_('Download Limit'), blank=True, null=True)
     view_limit = models.IntegerField(_('View Limit'), blank=True, null=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='plans', null=True, blank=True)
 
-    created = models.DateTimeField(editable=False)
-    updated = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.package_names
+        return self.package_name
 
 class Subscription(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, blank=True, null=True)
@@ -23,11 +24,12 @@ class Subscription(models.Model):
     expire_on = models.DateTimeField()
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='subscriptions')
 
-    created = models.DateTimeField(editable=False)
-    updated = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.plan.package_name
+
 
 class Download(models.Model):
     document = models.ForeignKey(Document,on_delete=models.CASCADE, related_name='downloads')
@@ -36,8 +38,8 @@ class Download(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-
-
+    def __str__(self):
+        return self.document.title
 
 
 

@@ -3,20 +3,34 @@ from documents.models import Document, File, Page
 
 
 class FileInline(admin.TabularInline):
+    raw_id_fields = ('document',)
+    # readonly_fields = ('author',)
+    exclude = ['author']
     model = File
 
 
+
 class PageInline(admin.TabularInline):
+    raw_id_fields = ('document',)
+    # readonly_fields = ('author',)
+    exclude = ['author']
     model = Page
 
 
 class DocumentAdmin(admin.ModelAdmin):
     readonly_fields = ('created', 'updated', 'key')
     # prepopulated_fields = {'slug': ('title',)}
+    raw_id_fields = ('author',)
+
     inlines = [
         FileInline,
         PageInline
     ]
+
+    def get_queryset(self, request):
+        queryset = super(DocumentAdmin, self).get_queryset(request)
+        queryset = queryset.prefetch_related('pages').prefetch_related('document_file').prefetch_related('pages__author').prefetch_related('document_file__author')
+        return queryset
 
     def get_form(self, request, obj=None, **kwargs):
         # Proper kwargs are form, fields, exclude, formfield_callback
