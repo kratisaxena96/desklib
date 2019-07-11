@@ -11,12 +11,11 @@ class Plan(models.Model):
     view_limit = models.IntegerField(_('View Limit'), blank=True, null=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='plans', null=True, blank=True)
 
-    created = models.DateTimeField(editable=False)
-    updated = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.package_name
-
 
 class Subscription(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, blank=True, null=True)
@@ -25,8 +24,8 @@ class Subscription(models.Model):
     expire_on = models.DateTimeField()
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='subscriptions')
 
-    created = models.DateTimeField(editable=False)
-    updated = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.plan.package_name
@@ -38,5 +37,10 @@ class Download(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.document.title
+
+
 
 
