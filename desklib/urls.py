@@ -40,7 +40,7 @@ urlpatterns = [
     path('writing_tools/', include(('writing_tools.urls', 'writing_tools'), namespace="writing_tools")),
     path('__debug__/', include(debug_toolbar.urls)),
     path('search/', CustomSearchView.as_view(),),
-    path(r'^autocomplete/', autocomplete, name='autocomplete'),
+    path(r'autocomplete/', autocomplete, name='autocomplete'),
     path('writing/', include(('writing_tools.urls', 'writing_tools'), namespace="writing_tools")),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

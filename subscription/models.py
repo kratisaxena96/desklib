@@ -8,7 +8,7 @@ class Plan(models.Model):
     package_name = models.CharField(_('Package Name'), db_index=True, max_length=200)
     download_limit = models.IntegerField(_('Download Limit'), blank=True, null=True)
     view_limit = models.IntegerField(_('View Limit'), blank=True, null=True)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='plans')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='plans', null=True, blank=True)
 
     created = models.DateTimeField(editable=False)
     updated = models.DateTimeField()
@@ -35,6 +35,8 @@ class Download(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
 
 
 
