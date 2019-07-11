@@ -56,8 +56,4 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, SearchView):
         sd = super(CustomSearchView, self).get_structured_data()
         return sd
 
-    def get_context_data(self, **kwargs):
-        context = super(DocumentView, self).get_context_data(**kwargs)
-        context['meta'] = self.get_object().as_meta(self.request)
-        return context
 
