@@ -19,6 +19,9 @@ from django.views.generic.list import ListView
 class DocumentView(JsonLdDetailView):
     model = Document
 
+
+
+
     def get_context_data(self, **kwargs):
         context = super(DocumentView, self).get_context_data(**kwargs)
         context['meta'] = self.get_object().as_meta(self.request)
@@ -58,7 +61,3 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, SearchView):
         context['meta'] = self.get_object().as_meta(self.request)
         return context
 
-class DocumentMailView(View):
-        def get(self, request):
-
-            return render(request, 'documents/document_detail.html')
