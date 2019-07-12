@@ -121,7 +121,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'desklib_dev_db',
         'USER': 'root',
-        'PASSWORD': 'password',
+        'PASSWORD': 'locus123',
     }
 }
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
@@ -229,3 +229,7 @@ CACHES = {
         'LOCATION': 'my_cache_table',
     }
 }
+
+
+# DATA_UPLOAD_MAX_MEMORY_SIZE = 2621440*4
+# DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000*2
