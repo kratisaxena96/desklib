@@ -58,7 +58,9 @@ INSTALLED_APPS = [
     'writing_tools',
     'captcha',
     'debug_toolbar',
-    'subscription'
+    'subscription',
+    'robots',
+    'sorl.thumbnail'
 ]
 SITE_ID = 1
 
@@ -119,7 +121,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'desklib_dev_db',
         'USER': 'root',
-        'PASSWORD': 'locus123',
+        'PASSWORD': 'password',
     }
 }
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
@@ -212,3 +214,18 @@ SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
 # RECAPTCHA_PRIVATE_KEY = 'MyRecaptchaPrivateKey456'
 
 HAYSTACK_DEFAULT_OPERATOR = 'OR'
+
+#Setr
+# ROBOTS_USE_SITEMAP = False
+ROBOTS_USE_SCHEME_IN_HOST = True
+ROBOTS_SITEMAP_URLS = [
+    'http://www.example.com/sitemap.xml',
+]
+ROBOTS_CACHE_TIMEOUT = 60*60*24
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'my_cache_table',
+    }
+}

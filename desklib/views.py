@@ -80,19 +80,3 @@ class ContactPageView(MetadataMixin,JsonLdContextMixin, TemplateView):
 class TestPageView(TemplateView):
     template_name = "desklib/test.html"
 
-
-class StudyPageView(MetadataMixin,JsonLdContextMixin, TemplateView):
-    title = 'Study page'
-    description = 'This is a Study page'
-
-    template_name = "desklib/study.html"
-
-    structured_data = {
-        "@type": "Organization",
-        "name": "The Company home",
-        "description": _("A Contact company."),
-    }
-
-    def get_structured_data(self):
-        sd = super(StudyPageView, self).get_structured_data()
-        return sd
