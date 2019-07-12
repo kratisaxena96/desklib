@@ -121,7 +121,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'desklib_dev_db',
         'USER': 'root',
-        'PASSWORD': 'locus123',
+        'PASSWORD': 'password',
     }
 }
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')

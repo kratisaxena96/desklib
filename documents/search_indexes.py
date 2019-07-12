@@ -27,6 +27,6 @@ class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
     # def prepare_authors(self, obj):
     #     return [ a.name for a in obj.author.all()]
     def index_queryset(self, using=None):
-        return self.get_model().objects.all()
+        return self.get_model().objects.filter(published_date__lte=timezone.now())
 
 
