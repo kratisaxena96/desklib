@@ -222,7 +222,7 @@ ROBOTS_SITEMAP_URLS = [
     'http://www.example.com/sitemap.xml',
 ]
 ROBOTS_CACHE_TIMEOUT = 60*60*24
-
+# for chaced db run command "python manage.py createcachetable" for first time sorl-thumbnail required it
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
@@ -233,3 +233,4 @@ CACHES = {
 
 # DATA_UPLOAD_MAX_MEMORY_SIZE = 2621440*4
 # DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000*2
+#https://sorl-thumbnail.readthedocs.io/en/latest/requirements.html kindly satisfy requirements for sorl-thumbnail.
