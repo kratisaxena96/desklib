@@ -3,6 +3,8 @@ from django.views.generic.base import TemplateView
 from meta.views import MetadataMixin
 from django_json_ld.views import JsonLdContextMixin
 from django.utils.translation import gettext as _
+from django.shortcuts import render
+from django.conf import settings
 
 
 
@@ -12,8 +14,8 @@ class HomePageView(MetadataMixin,JsonLdContextMixin, TemplateView):
     keywords = ['Our','best','homepage']
     twitter_title = 'Hello Twitter'
 
-    # template_name = "desklib/home.html"
-    template_name = "desklib/coming_soon.html"
+    template_name = "desklib/home.html"
+    # template_name = "desklib/coming_soon.html"
 
     structured_data = {
         "@type": "Organization",
@@ -80,3 +82,16 @@ class ContactPageView(MetadataMixin,JsonLdContextMixin, TemplateView):
 class TestPageView(TemplateView):
     template_name = "desklib/test.html"
 
+
+def handler404(request, *args, **kwargs):
+    if settings.DEBUG:
+        return render(request,'desklib/error_404.html', status=404)
+    else:
+        return render(request, 'desklib/error_404.html', status=404)
+
+
+def handler500(request, *args, **kwargs):
+    if settings.DEBUG:
+        return render(request,'desklib/error_500.html', status=500)
+    else:
+        return render(request, 'desklib/error_500.html', status=500)

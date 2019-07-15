@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # 'accounts.apps.AccountsConfig',
     'haystack',
     'desklib',
+    'accounts',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -60,6 +61,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'subscription',
     'post_office',
+    'phonenumber_field',
     'robots',
     'sorl.thumbnail',
     'study'
@@ -125,7 +127,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'desklib_dev_db',
         'USER': 'root',
-        'PASSWORD': 'locus123',
+        'PASSWORD': 'password',
     }
 }
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
@@ -191,8 +193,11 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300
 # ACCOUNT_USER_DISPLAY = ''
+ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_USERNAME_MIN_LENGTH = 2
+ACCOUNT_LOGOUT_ON_GET = True
 
+AUTH_USER_MODEL = 'accounts.UserAccount'
 
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
@@ -207,7 +212,7 @@ INTERNAL_IPS = [
     '127.0.0.1',
 ]
 ACCOUNT_FORMS = {
-'signup': 'account.forms.CustomSignupForm',
+'signup': 'accounts.forms.CustomSignupForm',
 }
 
 #Commented out in production envirment
@@ -248,3 +253,22 @@ CACHES = {
 # DATA_UPLOAD_MAX_MEMORY_SIZE = 2621440*4
 # DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000*2
 #https://sorl-thumbnail.readthedocs.io/en/latest/requirements.html kindly satisfy requirements for sorl-thumbnail.
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'logs/debug.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
