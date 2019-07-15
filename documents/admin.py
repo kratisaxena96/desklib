@@ -21,6 +21,7 @@ class DocumentAdmin(admin.ModelAdmin):
     readonly_fields = ('created', 'updated', 'key')
     # prepopulated_fields = {'slug': ('title',)}
     raw_id_fields = ('author',)
+    search_fields = ['user__email']
 
     inlines = [
         FileInline,
