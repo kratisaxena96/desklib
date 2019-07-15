@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # 'accounts.apps.AccountsConfig',
     'haystack',
     'desklib',
+    'accounts',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -58,7 +59,8 @@ INSTALLED_APPS = [
     'writing_tools',
     'captcha',
     'debug_toolbar',
-    'subscription'
+    'subscription',
+    'phonenumber_field',
 ]
 SITE_ID = 1
 
@@ -185,8 +187,11 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300
 # ACCOUNT_USER_DISPLAY = ''
+ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_USERNAME_MIN_LENGTH = 2
+ACCOUNT_LOGOUT_ON_GET = True
 
+AUTH_USER_MODEL = 'accounts.UserAccount'
 
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
@@ -201,7 +206,7 @@ INTERNAL_IPS = [
     '127.0.0.1',
 ]
 ACCOUNT_FORMS = {
-'signup': 'account.forms.CustomSignupForm',
+'signup': 'accounts.forms.CustomSignupForm',
 }
 
 #Commented out in production envirment
@@ -212,3 +217,22 @@ SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
 # RECAPTCHA_PRIVATE_KEY = 'MyRecaptchaPrivateKey456'
 
 HAYSTACK_DEFAULT_OPERATOR = 'OR'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'logs/debug.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
