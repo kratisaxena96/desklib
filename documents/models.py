@@ -161,10 +161,10 @@ class Document(ModelMeta, models.Model):
     page = models.IntegerField(_('Total pages'), blank=True, null=True)
     filename = models.CharField(_('filename'), max_length=200, blank=True, null=True)
 
-    is_published = models.BooleanField(_('Is Published'), default=False)
-    is_visible = models.BooleanField(_('Is Visible'), default=False)
+    is_published = models.BooleanField(_('Is Published'), default=True)
+    is_visible = models.BooleanField(_('Is Visible'), default=True)
 
-    published_date = models.DateTimeField(_('Published Date'),blank=True, null=True)
+    published_date = models.DateTimeField(_('Published Date'), default=timezone.now)
     created = models.DateTimeField(editable=False)
     updated = models.DateTimeField()
     seo_title = models.CharField(max_length=70,
@@ -274,7 +274,7 @@ class Document(ModelMeta, models.Model):
             # Get first sentence.
             self.first_sentence = get_first_sentence(sentences)
             # Set publishing date of the document
-            self.published_date = datetime.datetime.now() + datetime.timedelta(+30)
+            self.published_date = timezone.now() + datetime.timedelta(+0)
 
             # Populating seo related data
             self.seo_title = self.title

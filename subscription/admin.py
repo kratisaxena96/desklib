@@ -2,7 +2,21 @@ from django.contrib import admin
 from subscription.models import Plan, Subscription, Download
 # Register your models here.
 
-admin.site.register(Plan)
-admin.site.register(Subscription)
-admin.site.register(Download)
+class DownloadAdmin(admin.ModelAdmin):
+    search_fields = ['document__title',]
+    list_display = ('document','user','created_at','updated_at')
+
+
+class PlanAdmin(admin.ModelAdmin):
+    search_fields = ['package_name']
+    list_display = ('package_name', 'download_limit', 'view_limit', 'author','created_at','updated_at')
+
+
+class SubscriptionAdmin(admin.ModelAdmin):
+    search_fields = ['plan__package_name']
+    list_display = ('user', 'plan', 'is_current', 'expire_on','author','created_at','updated_at')
+
+admin.site.register(Plan,PlanAdmin)
+admin.site.register(Subscription,SubscriptionAdmin)
+admin.site.register(Download,DownloadAdmin)
 

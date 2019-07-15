@@ -61,6 +61,9 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'subscription',
     'phonenumber_field',
+    'robots',
+    'sorl.thumbnail',
+    'study'
 ]
 SITE_ID = 1
 
@@ -217,6 +220,26 @@ SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
 # RECAPTCHA_PRIVATE_KEY = 'MyRecaptchaPrivateKey456'
 
 HAYSTACK_DEFAULT_OPERATOR = 'OR'
+
+#Setr
+# ROBOTS_USE_SITEMAP = False
+ROBOTS_USE_SCHEME_IN_HOST = True
+ROBOTS_SITEMAP_URLS = [
+    'http://www.example.com/sitemap.xml',
+]
+ROBOTS_CACHE_TIMEOUT = 60*60*24
+# for chaced db run command "python manage.py createcachetable" for first time sorl-thumbnail required it
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'my_cache_table',
+    }
+}
+
+
+# DATA_UPLOAD_MAX_MEMORY_SIZE = 2621440*4
+# DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000*2
+#https://sorl-thumbnail.readthedocs.io/en/latest/requirements.html kindly satisfy requirements for sorl-thumbnail.
 
 LOGGING = {
     'version': 1,

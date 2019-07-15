@@ -1,0 +1,25 @@
+{% extends "desklib/base.html" %}
+{% load meta %}
+{% block content %}
+<h1>Study Page</h1>
+
+<form action="/search" method="get">
+        <input name="q" type="text" />
+        <input type="submit" />
+    </form>
+{% if recent %}
+<h1><<<<<<<<<<<<< RECENT<>>>>>>>>>>>>>>>>>></h1>
+        {% for result in recent %}
+        <div class="col-sm-4">
+                  <div class="thumbnail"><a href="{% url 'documents:document-view' result.slug %}">
+                    <div class="form-group">
+                        <p>Title : {{result.title}} </p>
+                    </div>
+                  </a>
+                  </div>
+        </div>
+            {% endfor %}
+<h1><<<<<<<<< END RECENT >>>>>>>>>>>>>>></h1>
+
+            {% endif %}
+{% endblock %}

@@ -23,7 +23,7 @@ from django.conf.urls import url
 from django.conf.urls.i18n import i18n_patterns
 
 import desklib
-from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView, TestPageView, StudyPageView
+from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView, TestPageView
 if settings.DEBUG:
     import debug_toolbar
 from documents.views import autocomplete,CustomSearchView
@@ -32,17 +32,19 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('accounts/', include('accounts.urls')),  # new
     path('accounts/', include('allauth.urls')),
-    path('study/', StudyPageView.as_view(), name="study"),
+    path('study/',include(('study.urls','study'),namespace="study")),
     path('', HomePageView.as_view(), name='home'),
     path('document/', include(('documents.urls','documents'),namespace="documents")),
     path('about/', AboutPageView.as_view(), name='about'),
     path('contact/', ContactPageView.as_view(), name='contact'),
     path('pricing/', PricingPageView.as_view(), name='pricing'),
     path('test/', TestPageView.as_view(), name='test'),
-    # path('__debug__/', include(debug_toolbar.urls)),
+    path('__debug__/', include(debug_toolbar.urls)),
     path('search/', CustomSearchView.as_view(),),
     path(r'autocomplete/', autocomplete, name='autocomplete'),
     path('writing/', include(('writing_tools.urls', 'writing_tools'), namespace="writing_tools")),
+    path('robots.txt/', include('robots.urls')),
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
