@@ -6,12 +6,13 @@ from django.core.files import File
 # exec(open("./upload_files.py").read())
 
 path = input("Folder Path: ")
+ALLOWED_EXTENSIONS = ['zip','jpg','ppt','xlsx']
 
 for root, dirs, files in os.walk(path, topdown=False):
     for filename in files:
         try:
             ext = filename.split(".")[-1]
-            if not (ext=="zip" or ext=="jpg" or ext=="ppt" or ext=="xlsx"):
+            if not ext in ALLOWED_EXTENSIONS:
                 print("Processing file: "+ filename )
                 filepath = os.path.join(root, filename)
                 with open(filepath, 'rb') as f:
@@ -19,6 +20,9 @@ for root, dirs, files in os.walk(path, topdown=False):
                     doc = Document()
                     doc.upload_file.save(filename ,djangofile)
                 print("Closing file: "+ filename)
+            else:
+                print("Ignoring file: "+ filename )
+
         except Exception as e:
             print(e)
 

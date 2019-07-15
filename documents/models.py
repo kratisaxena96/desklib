@@ -338,6 +338,7 @@ class Document(ModelMeta, models.Model):
                 self.subjects.add(subject)
 
         else:
+            print("qwertyuioiuytyuiu")
             super(Document, self).save(*args, **kwargs)
 
     def get_absolute_url(self):

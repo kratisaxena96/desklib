@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'captcha',
     'debug_toolbar',
     'subscription',
+    'post_office',
     'robots',
     'sorl.thumbnail',
     'study'
@@ -95,6 +96,8 @@ TEMPLATES = [
         },
     },
 ]
+
+EMAIL_BACKEND = 'post_office.EmailBackend'
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of 'allauth'
@@ -215,6 +218,16 @@ SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
 # RECAPTCHA_PRIVATE_KEY = 'MyRecaptchaPrivateKey456'
 
 HAYSTACK_DEFAULT_OPERATOR = 'OR'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+
+
+EMAIL_HOST_USER = 'vishakha.sharma@locusrags.com'
+EMAIL_HOST_PASSWORD = 'vishakhalocus7@4'
+
+DEFAULT_FROM_EMAIL = 'vishakha.sharma@locusrags.com'
 
 #Setr
 # ROBOTS_USE_SITEMAP = False

@@ -1,6 +1,7 @@
 # some_app/views.py
-from django.views.generic import TemplateView, DetailView
+from django.views.generic import TemplateView, DetailView,CreateView
 from .models import Document
+from subscription.models import Download
 from django_json_ld.views import JsonLdContextMixin
 from django.utils.translation import gettext as _
 from django_json_ld.views import JsonLdDetailView
@@ -15,12 +16,38 @@ from django.utils.translation import gettext as _
 from haystack.generic_views import SearchMixin, SearchView
 from meta.views import MetadataMixin
 from django.views.generic.list import ListView
+from post_office import mail
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.conf import settings
 
-class DocumentView(JsonLdDetailView):
+
+class DocumentView(LoginRequiredMixin, JsonLdDetailView):
     model = Document
 
+    def post(self, request, *args, **kwargs):
+        slug = kwargs.get('slug')
+        try:
+            document_obj = Document.objects.get(slug=slug)
+            download_obj = Download.objects.create(user=request.user, document=document_obj)
+            # to-do
+            mail.send(
+                settings.DEFAULT_FROM_EMAIL,  # List of email addresses also accepted
+                settings.DEFAULT_FROM_EMAIL,
+                subject='My email',
+                message='Hi there!',
+                html_message='Hi <strong>there</strong>!',
+            )
+        except Exception as e:
+            print(e)
+
+        return render(request, 'documents/document_detail.html')
 
 
+
+
+        # download_add = Download.objects.create(document , user)
+
+        # return render(request, 'documents/document_detail.html')
 
     def get_context_data(self, **kwargs):
         context = super(DocumentView, self).get_context_data(**kwargs)
