@@ -60,7 +60,8 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'subscription',
     'robots',
-    'sorl.thumbnail'
+    'sorl.thumbnail',
+    'study'
 ]
 SITE_ID = 1
 
