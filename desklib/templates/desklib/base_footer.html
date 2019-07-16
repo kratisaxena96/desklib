@@ -1,0 +1,29 @@
+{% load staticfiles %}
+        <footer>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-2">
+                        <h2>About</h2>                        
+                    </div>
+                    <div class="col-md-2">
+                        <h2>Support</h2>
+                    </div>
+                    <div class="col-md-2">
+                        <h2>Help</h2>                        
+                    </div>
+                    <div class="col-md-2">
+                        <h2>Contact Us</h2>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div id="copyright">
+                            <a  class="footer-icon-img"  href="https://www.linkedin.com/in/kaustubh-bornare-8b713054/"><img src="{% static '/desklib/images/linkdin.png' %}"></a>
+                            <a  class="footer-icon-img" href="https://www.instagram.com/desklib/"><img src="{% static '/desklib/images/instagram.png' %}"></a>
+                            <a  class="footer-icon-img" href="https://www.facebook.com/desklib/"><img src="{% static '/desklib/images/facebook.png' %}"></a>
+                            <a  class="footer-icon-img" href="https://www.twitter.com"><img src="{% static '/desklib/images/twitter.png' %}"></a>
+                            <p class="copyright-c">© 2017-{% now 'y' %} Desklib. All rights reserved</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>

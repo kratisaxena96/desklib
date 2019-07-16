@@ -2,6 +2,10 @@
 {% load meta %}
 {% load i18n %}
 
+
+{% block navbar %}
+    {% include 'desklib/base_header.html' %}
+{% endblock %}
 {% block content %}
 <h1>Home</h1>
 {% if user.is_authenticated %}
