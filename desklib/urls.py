@@ -21,6 +21,8 @@ from django.conf.urls import url
 
 # from documents.views import HomePageView
 from django.conf.urls.i18n import i18n_patterns
+
+import desklib
 from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView, TestPageView
 if settings.DEBUG:
     import debug_toolbar
@@ -37,7 +39,6 @@ urlpatterns = [
     path('contact/', ContactPageView.as_view(), name='contact'),
     path('pricing/', PricingPageView.as_view(), name='pricing'),
     path('test/', TestPageView.as_view(), name='test'),
-    path('writing_tools/', include(('writing_tools.urls', 'writing_tools'), namespace="writing_tools")),
     path('__debug__/', include(debug_toolbar.urls)),
     path('search/', CustomSearchView.as_view(),),
     path(r'autocomplete/', autocomplete, name='autocomplete'),
@@ -51,3 +52,7 @@ urlpatterns += i18n_patterns(
     url(r'^$', HomePageView.as_view(), name='home'),
     # url(r'^admin/', include(admin.site.urls)),
 )
+
+
+handler404 = 'desklib.views.handler404'
+handler500 = 'desklib.views.handler500'

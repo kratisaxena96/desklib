@@ -330,8 +330,9 @@ background: rgba(0,0,255,0.3);
                     </div>
                 </div>
                 {% endcomment %}
-                <form>
-
+                <form  method="post">
+                {% csrf_token %}
+                <input type="submit" value="Download">
 
                 </form>
                 {% comment %}

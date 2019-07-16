@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # 'accounts.apps.AccountsConfig',
     'haystack',
     'desklib',
+    'accounts',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -59,6 +60,8 @@ INSTALLED_APPS = [
     'captcha',
     'debug_toolbar',
     'subscription',
+    'post_office',
+    'phonenumber_field',
     'robots',
     'sorl.thumbnail',
     'study'
@@ -95,6 +98,8 @@ TEMPLATES = [
         },
     },
 ]
+
+EMAIL_BACKEND = 'post_office.EmailBackend'
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of 'allauth'
@@ -188,8 +193,11 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300
 # ACCOUNT_USER_DISPLAY = ''
+ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_USERNAME_MIN_LENGTH = 2
+ACCOUNT_LOGOUT_ON_GET = True
 
+AUTH_USER_MODEL = 'accounts.UserAccount'
 
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
@@ -204,7 +212,7 @@ INTERNAL_IPS = [
     '127.0.0.1',
 ]
 ACCOUNT_FORMS = {
-'signup': 'account.forms.CustomSignupForm',
+'signup': 'accounts.forms.CustomSignupForm',
 }
 
 #Commented out in production envirment
@@ -215,6 +223,16 @@ SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
 # RECAPTCHA_PRIVATE_KEY = 'MyRecaptchaPrivateKey456'
 
 HAYSTACK_DEFAULT_OPERATOR = 'OR'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+
+
+EMAIL_HOST_USER = 'vishakha.sharma@locusrags.com'
+EMAIL_HOST_PASSWORD = 'vishakhalocus7@4'
+
+DEFAULT_FROM_EMAIL = 'vishakha.sharma@locusrags.com'
 
 #Setr
 # ROBOTS_USE_SITEMAP = False
@@ -235,3 +253,22 @@ CACHES = {
 # DATA_UPLOAD_MAX_MEMORY_SIZE = 2621440*4
 # DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000*2
 #https://sorl-thumbnail.readthedocs.io/en/latest/requirements.html kindly satisfy requirements for sorl-thumbnail.
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'logs/debug.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
