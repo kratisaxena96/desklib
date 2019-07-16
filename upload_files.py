@@ -7,9 +7,9 @@ from documents.utils import get_text
 # exec(open("./upload_files.py").read())
 
 path = input("Folder Path: ")
-ALLOWED_EXTENSIONS = ['zip','jpg','ppt','xlsx']
-IGNORE_FILENAME_KEYWORDS = ['kush','requirement','A1BD-4D83','0A6D692A','a']
-IGNORE_FILECONTENT_KEYWORDS = ['the']
+ALLOWED_EXTENSIONS = ['pdf','docx','doc', 'pptx', 'ppt', 'odt', 'odf']
+IGNORE_FILENAME_KEYWORDS = ['lecture','rubics','assignment_brief','criteria']
+IGNORE_FILECONTENT_KEYWORDS = ['similarity report']
 filename_valid = False
 filecontent_valid = False
 
@@ -18,7 +18,7 @@ for root, dirs, files in os.walk(path, topdown=False):
     for filename in files:
         try:
             ext = filename.split(".")[-1]
-            if not ext in ALLOWED_EXTENSIONS:
+            if ext in ALLOWED_EXTENSIONS:
                 filename_lower = filename.lower()
                 for ignore_filename_keyword in IGNORE_FILENAME_KEYWORDS:
                     if not ignore_filename_keyword in filename_lower:
