@@ -7,14 +7,15 @@ from io import BytesIO
 from django.core.files.base import ContentFile
 from django.db import models
 from documents.utils import key_generator, get_text, get_title, get_summary, get_sentences_from_text, \
-    get_first_sentence, get_html_from_pdf_url, get_filename_from_path, get_keywords_from_text, get_words_from_text,\
-    random_string_generator
+    get_first_sentence, get_html_from_pdf_url, get_filename_from_path, get_keywords_from_text, get_words_from_text, \
+    random_string_generator, unique_slug_generator
 from django.utils.translation import ugettext_lazy as _
 from ckeditor.fields import RichTextField
 from django.conf import settings
 from django.utils import timezone
 from django.template.defaultfilters import slugify
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.core.files import File as DjangoFile
 from pdf2image.exceptions import (PDFInfoNotInstalledError,PDFPageCountError,PDFSyntaxError)
 from pdf2image import convert_from_path, convert_from_bytes
@@ -249,11 +250,10 @@ class Document(ModelMeta, models.Model):
             self.title = title
             # Generating slug. This will check for existing slugs and generate unique slug.
             # self.slug = slugify(self.title)
-            rand_str = random_string_generator()
+            # rand_str = random_string_generator()
             # strtime = "".join(str(time()).split("."))
-            string = "%s-%s" % (rand_str, self.title[20 ])
-            self.slug = slugify(string)
-
+            # string = "%s-%s" % (self.title[:20], rand_str)
+            self.slug = unique_slug_generator(self, new_slug=slugify(self.title[:40]))
 
             self.words = get_words_from_text(text).__len__()
 
@@ -282,7 +282,7 @@ class Document(ModelMeta, models.Model):
             self.seo_keywords = ",".join(get_keywords_from_text(text, count=3))
 
             # Assigning author
-            self.author = User.objects.first()
+            self.author = get_user_model().objects.first()
             # self.subjects.set(get_subjects(text))
 
             pre, ext = os.path.splitext(filename)
