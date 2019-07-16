@@ -27,7 +27,6 @@ docutils==0.14
 docx2txt==0.6
 EbookLib==0.15
 elasticsearch==2.4.1
-elasticsearch-dsl==6.4.0
 elasticsearch2-haystack==0.1
 future==0.17.1
 gensim==3.7.3
