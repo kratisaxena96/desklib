@@ -14,7 +14,8 @@ from ckeditor.fields import RichTextField
 from django.conf import settings
 from django.utils import timezone
 from django.template.defaultfilters import slugify
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.core.files import File as DjangoFile
 from pdf2image.exceptions import (PDFInfoNotInstalledError,PDFPageCountError,PDFSyntaxError)
 from pdf2image import convert_from_path, convert_from_bytes
@@ -282,7 +283,7 @@ class Document(ModelMeta, models.Model):
             self.seo_keywords = ",".join(get_keywords_from_text(text, count=3))
 
             # Assigning author
-            self.author = User.objects.first()
+            self.author = get_user_model().objects.first()
             # self.subjects.set(get_subjects(text))
 
             pre, ext = os.path.splitext(filename)
