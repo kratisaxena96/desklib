@@ -2,14 +2,15 @@
 
 // grab our packages
 var gulp   = require('gulp'),
-  jshint = require('gulp-jshint');
-	sass   = require('gulp-sass');
-	sourcemaps = require('gulp-sourcemaps');
-	concat   = require('gulp-concat');
-	gutil = require('gulp-util');
-	uglify = require('gulp-uglify');
-	browserSync = require('browser-sync').create();
-	reload = browserSync.reload;
+    jshint = require('gulp-jshint'),
+	sass   = require('gulp-sass'),
+	sourcemaps = require('gulp-sourcemaps'),
+	concat   = require('gulp-concat'),
+	gutil = require('gulp-util'),
+	uglify = require('gulp-uglify'),
+	browserSync = require('browser-sync').create(),
+	reload = browserSync.reload,
+	cleanCSS = require('gulp-clean-css');
 
 // define the default task and add the watch task to it
 gulp.task('default', ['watch']);
@@ -19,7 +20,16 @@ gulp.task('build-css', () => {
     .pipe(sourcemaps.init())  // Process the original sources
     .pipe(sass())
     .pipe(sourcemaps.write()) // Add the map to modified source.
-    .pipe(gulp.dest('desklib/static/dist/css'))
+    .pipe(gulp.dest('desklib/static/src/css'))
+});
+
+gulp.task('minify-css', ['build-css'], () => {
+  return gulp.src('desklib/static/src/css/*.css')
+    .pipe(sourcemaps.init())
+    .pipe(concat('bundle.css'))
+    .pipe(cleanCSS())
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest('desklib/static/dist/css'));
 });
 
 gulp.task('reload-css', function() {
@@ -58,20 +68,20 @@ gulp.task('copy', function(){
 });
 
 // Static Server + watching scss/html files
-gulp.task('serve', ['build-css', 'build-js'], function() {
+gulp.task('serve', ['minify-css', 'build-js'], function() {
 
     browserSync.init({
       	injectChanges: true,
         files: ['desklib/static/desklib/css/**/*.css', 'desklib/static/desklib/js/*.js'],
         // server: "./",
-        proxy: "localhost:8000",
+        proxy: "localhost:8004",
         logConnections: true,
         // tunnel: true,
         // xip: true,
     });
 
     gulp.watch('./**/*.js', ['jshint','build-js']);
-    gulp.watch('./**/*.scss', ['build-css']);
+    gulp.watch('./**/*.scss', ['minify-css']);
     // gulp.watch('desklib/static/desklib/css/**/*.css', browserSync.reload({stream: true}));
     // gulp.watch("desklib/static/desklib/css/**/*.css").on('change', browserSync.reload),
     gulp.watch("./**/*.html").on('change', browserSync.reload);

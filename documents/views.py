@@ -37,10 +37,11 @@ class DocumentView(LoginRequiredMixin, JsonLdDetailView):
                 message='Hi there!',
                 html_message='Hi <strong>there</strong>!',
             )
+            return render(request, 'documents/document_detail.html')
+
         except Exception as e:
             print(e)
 
-        return render(request, 'documents/document_detail.html')
 
 
 

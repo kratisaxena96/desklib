@@ -1,6 +1,7 @@
 import textract
 import os
 import nltk.data
+from django.utils.text import slugify
 from rake_nltk import Rake
 import re
 from nltk import sent_tokenize
@@ -143,7 +144,7 @@ def get_first_sentence(sentences):
     if sentences:
         return sentences[0]
 
-    return
+    return ''
 
 
 def get_title(text):
@@ -280,3 +281,24 @@ def get_filename_from_path(path):
 
 def get_directory_path_from_path(path):
     return os.path.dirname(path)
+
+# https://www.codingforentrepreneurs.com/blog/a-unique-slug-generator-for-django/
+def unique_slug_generator(instance, new_slug=None):
+    """
+    This is for a Django project and it assumes your instance
+    has a model with a slug field and a title character (char) field.
+    """
+    if new_slug is not None:
+        slug = new_slug
+    else:
+        slug = slugify(instance.title)
+
+    Klass = instance.__class__
+    qs_exists = Klass.objects.filter(slug=slug).exists()
+    if qs_exists:
+        new_slug = "{slug}-{randstr}".format(
+                    slug=slug,
+                    randstr=random_string_generator(size=4)
+                )
+        return unique_slug_generator(instance, new_slug=new_slug)
+    return slug
