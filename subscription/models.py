@@ -10,7 +10,6 @@ class Plan(models.Model):
     download_limit = models.IntegerField(_('Download Limit'), blank=True, null=True)
     view_limit = models.IntegerField(_('View Limit'), blank=True, null=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='plans', null=True, blank=True)
-
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -40,6 +39,19 @@ class Download(models.Model):
 
     def __str__(self):
         return self.document.title
+
+class PageView(models.Model):
+    document = models.ForeignKey(Document, on_delete=models.CASCADE, related_name='pageviews')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True,
+                             related_name='pageviews_users')
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.document.title
+
+
 
 
 

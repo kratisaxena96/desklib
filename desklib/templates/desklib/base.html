@@ -8,24 +8,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% include "meta/meta.html" %}
-        <link rel="stylesheet" href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css'>
+<!--        <link rel="stylesheet" href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css'>-->
     {% if sd %}
     {% render_json_ld sd %}
     {% endif %}
+
     {% block extra_css %}
-    {% endblock %}
+    {% endblock extra_css %}
 
 </head>
 <body>
     {% block navbar %}
     {% endblock %}
     {% block content %}
+        This  page is under progress.
     {% endblock %}
-    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
-    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js'></script>
+    {% block footer %}
+        {% include 'desklib/base_footer.html' %}
+    {% endblock %}
+<!--    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>-->
+<!--    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js'></script>-->
 <!--    <script src='{% static "desklib/js/popper.min.js" %}'></script>-->
-    <script src='{% static "dist/js/bundle.js" %}'></script>
+<!--    <script src='{% static "dist/js/bundle.js" %}'></script>-->
     {% block extra_js %}
-    {% endblock %}
+    {% endblock extra_js %}
 </body>
 </html>
