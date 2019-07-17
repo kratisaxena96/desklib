@@ -1,7 +1,7 @@
 # some_app/views.py
 from django.views.generic import TemplateView, DetailView,CreateView
 from .models import Document
-from subscription.models import Download
+from subscription.models import Download, PageView
 from django_json_ld.views import JsonLdContextMixin
 from django.utils.translation import gettext as _
 from django_json_ld.views import JsonLdDetailView
@@ -19,10 +19,35 @@ from django.views.generic.list import ListView
 from post_office import mail
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
+from django.core.files.base import ContentFile
 
 
-class DocumentView(LoginRequiredMixin, JsonLdDetailView):
+class DocumentView(JsonLdDetailView):
     model = Document
+
+    def get(self, request, *args, **kwargs):
+        slug = self.kwargs['slug']
+        self.object = self.get_object()
+
+        if request.user.is_anonymous:
+            page_views = request.session.get('page_views')
+            if page_views:
+                if slug not in page_views:
+                    page_views.append(slug)
+                    request.session['page_views'] = page_views
+                    # page_views.append(slug)
+                    # print(page_views)
+                else:
+                    pass
+            else:
+                request.session['page_views']= [slug]
+
+        else:
+            PageView.objects.create(user=request.user, document=self.object)
+
+
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
         slug = kwargs.get('slug')
@@ -30,15 +55,20 @@ class DocumentView(LoginRequiredMixin, JsonLdDetailView):
             document_obj = Document.objects.get(slug=slug)
             download_obj = Download.objects.create(user=request.user, document=document_obj)
             # to-do
+            attachments = {}
+            pdf_doc_name = document_obj.pdf_converted_file.name.split('/')[-1]
+            attachments[pdf_doc_name] = ContentFile(document_obj.pdf_converted_file.file.read())
+
             mail.send(
-                settings.DEFAULT_FROM_EMAIL,  # List of email addresses also accepted
+                request.user.email,  # List of email addresses also accepted
                 settings.DEFAULT_FROM_EMAIL,
-                subject='My email',
+                subject='Your Download',
                 message='Hi there!',
-                html_message='Hi <strong>there</strong>!',
+                html_message='Hi <strong>Here is your download</strong>!',
+                attachments= attachments,
+                priority= 'now'
             )
             return render(request, 'documents/document_detail.html')
-
         except Exception as e:
             print(e)
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from subscription.models import Plan, Subscription, Download
+from subscription.models import Plan, Subscription, Download, PageView
 # Register your models here.
 
 class DownloadAdmin(admin.ModelAdmin):
@@ -16,7 +16,13 @@ class SubscriptionAdmin(admin.ModelAdmin):
     search_fields = ['plan__package_name']
     list_display = ('user', 'plan', 'is_current', 'expire_on','author','created_at','updated_at')
 
+class PageViewsAdmin(admin.ModelAdmin):
+    search_fields = ['document__title',]
+    list_display = ('document','user','created_at','updated_at')
+
 admin.site.register(Plan,PlanAdmin)
 admin.site.register(Subscription,SubscriptionAdmin)
 admin.site.register(Download,DownloadAdmin)
+admin.site.register(PageView,PageViewsAdmin)
+
 
