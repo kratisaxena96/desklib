@@ -37,11 +37,10 @@ class DocumentView(LoginRequiredMixin, JsonLdDetailView):
                 message='Hi there!',
                 html_message='Hi <strong>there</strong>!',
             )
-            return render(request, 'documents/document_detail.html')
-
         except Exception as e:
             print(e)
 
+        return render(request, 'documents/document_detail.html')
 
 
 
@@ -85,3 +84,12 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, SearchView):
         return sd
 
 
+    # def get_context_data(self, **kwargs):
+    #     context = super(JsonLdContextMixin, self).get_context_data(**kwargs)
+    #     context[settings.CONTEXT_ATTRIBUTE] = self.get_structured_data()
+    #     context['xyz'] = "rishis"
+    #     # return context
+    #     """Insert the form into the context dict."""
+    #     if 'form' not in kwargs:
+    #         kwargs['form'] = self.get_form()
+    #     return context

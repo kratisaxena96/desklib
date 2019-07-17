@@ -1,5 +1,6 @@
 {% load meta %}
 {% load render_json_ld from json_ld %}
+{% load thumbnail %}
 
 <html lang="en" >
 
@@ -21,7 +22,6 @@
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
           {% include "meta/meta.html" %}
-
         {% if sd %}
             {% render_json_ld sd %}
         {% endif %}
@@ -65,18 +65,18 @@
                 <div class="row">
                     {% for result in page_obj.object_list %}
                 <div class="col-sm-4">
-                  <div class="thumbnail"><a href="{% url 'documents:document-view' result.slug %}">
+                  <a href="{% url 'documents:document-view' result.slug %}">
                     <div class="form-group">
+                        <h2>{{result.slug }}</h2>
+                            {% thumbnail "{{ result.authors}}" "40x40" crop="80% top" as im %}
+                                <img src="{{ im.url }}">
+                            {% empty %}
+                                <h1>No image</h1>
+                            {% endthumbnail %}
                         <p>Title : {{result.title}} </p>
                     </div>
-
-
-<!--                    <div class="form-group">-->
-<!--                        <p>Summary : {{result.summary}} </p>-->
-
-<!--                    </div>-->
-                </a>
-                  </div>
+                  </a>
+                </div>
                 </div>
                 {% empty %}
 

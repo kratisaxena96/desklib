@@ -245,7 +245,7 @@ ROBOTS_CACHE_TIMEOUT = 60*60*24
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'my_cache_table',
+        'LOCATION': 'my_table',
     }
 }
 
