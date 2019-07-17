@@ -27,6 +27,8 @@ class DocumentView(JsonLdDetailView):
 
     def get(self, request, *args, **kwargs):
         slug = self.kwargs['slug']
+        self.object = self.get_object()
+
         if request.user.is_anonymous:
             page_views = request.session.get('page_views')
             if page_views:
@@ -41,7 +43,6 @@ class DocumentView(JsonLdDetailView):
                 request.session['page_views']= [slug]
 
         else:
-            self.object = self.get_object()
             PageView.objects.create(user=request.user, document=self.object)
 
 
