@@ -67,11 +67,10 @@
                 <div class="col-sm-4">
                   <a href="{% url 'documents:document-view' result.slug %}">
                     <div class="form-group">
-                        <h2>{{result.slug }}</h2>
-                            {% thumbnail "{{ result.authors}}" "40x40" crop="80% top" as im %}
+                            {% thumbnail result.cover_image "40x40" crop="80% top" as im %}
                                 <img src="{{ im.url }}">
                             {% empty %}
-                                <h1>No image</h1>
+                                <h4>No image</h4>
                             {% endthumbnail %}
                         <p>Title : {{result.title}} </p>
                     </div>

@@ -18,15 +18,18 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
-
-# from documents.views import HomePageView
 from django.conf.urls.i18n import i18n_patterns
-
-import desklib
+from .sitemaps import DocumentSitemap,StaticViewSitemap
+from django.contrib.sitemaps import views
 from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView, TestPageView
 if settings.DEBUG:
     import debug_toolbar
 from documents.views import autocomplete,CustomSearchView
+
+sitemaps = {
+    'documents': DocumentSitemap,
+    'static':StaticViewSitemap
+}
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -44,13 +47,15 @@ urlpatterns = [
     path(r'autocomplete/', autocomplete, name='autocomplete'),
     path('writing/', include(('writing_tools.urls', 'writing_tools'), namespace="writing_tools")),
     path('robots.txt/', include('robots.urls')),
+    path('sitemap.xml/', views.index, {'sitemaps': sitemaps}),
+    path('sitemap-<section>.xml', views.sitemap, {'sitemaps': sitemaps},
+                       name='django.contrib.sitemaps.views.sitemap'),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += i18n_patterns(
     url(r'^$', HomePageView.as_view(), name='home'),
-    # url(r'^admin/', include(admin.site.urls)),
 )
 
 
