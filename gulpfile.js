@@ -24,7 +24,7 @@ gulp.task('build-css', () => {
 });
 
 gulp.task('minify-css', ['build-css'], () => {
-  return gulp.src('desklib/static/src/css/*.css')
+  return gulp.src('desklib/static/src/css/**/*.css')
     .pipe(sourcemaps.init())
     .pipe(concat('bundle.css'))
     .pipe(cleanCSS())
@@ -46,7 +46,7 @@ gulp.task('jshint', function() {
 });
 
  gulp.task('build-js', function() {
-   return gulp.src(['desklib/static/src/js/jquery.min.js','desklib/static/src/js/bootstrap.min.js','desklib/static/src/js/popper.min.js'])
+   return gulp.src(['desklib/static/src/js/jquery.min.js','desklib/static/src/js/bootstrap.min.js','desklib/static/src/js/popper.min.js','desklib/static/src/js/custom.js'])
      .pipe(sourcemaps.init())
        .pipe(concat('bundle.js'))
        .pipe(uglify())
@@ -57,7 +57,7 @@ gulp.task('jshint', function() {
 
 // configure which files to watch and what tasks to use on file changes
 gulp.task('watch', function() {
-  gulp.watch('desklib/static/desklib/js/**/*.js', ['jshint']);
+  gulp.watch('desklib/static/src/js/**/*.js', ['jshint']);
   // gulp.watch('scss/**/*.scss', ['build-css']);
   // gulp.watch('javascript/**/*.js', ['build-js']);
 });
@@ -72,15 +72,15 @@ gulp.task('serve', ['minify-css', 'build-js'], function() {
 
     browserSync.init({
       	injectChanges: true,
-        files: ['desklib/static/desklib/css/**/*.css', 'desklib/static/desklib/js/*.js'],
+        files: ['desklib/static/dist/css/**/*.css', 'desklib/static/dist/js/*.js'],
         // server: "./",
-        proxy: "localhost:8004",
+        proxy: "localhost:8000",
         logConnections: true,
         // tunnel: true,
         // xip: true,
     });
 
-    gulp.watch('./**/*.js', ['jshint','build-js']);
+    gulp.watch('desklib/static/src/js/**/*.js', ['build-js']);
     gulp.watch('./**/*.scss', ['minify-css']);
     // gulp.watch('desklib/static/desklib/css/**/*.css', browserSync.reload({stream: true}));
     // gulp.watch("desklib/static/desklib/css/**/*.css").on('change', browserSync.reload),
