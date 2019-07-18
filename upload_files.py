@@ -13,7 +13,7 @@ from documents.utils import get_text
 path = input("Folder Path: ")
 last_file = input("Enter last filename to restart program: ")
 ALLOWED_EXTENSIONS = ['pdf','docx','doc', 'pptx', 'ppt', 'odt', 'odf']
-IGNORE_FILENAME_KEYWORDS = ['lecture','rubics','assignment_brief','criteria']
+IGNORE_FILENAME_KEYWORDS = ['lecture','rubics','assignmentbrief','criteria', 'requirements']
 IGNORE_FILECONTENT_KEYWORDS = ['ORIGINALITY REPORT']
 
 for root, dirs, files in os.walk(path, topdown=False):

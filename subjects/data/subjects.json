@@ -93,7 +93,7 @@
 	},
 	"Mechanical Engineering": {
 		"slug": "mechanical-engineering",
-		"keywords": ["aeronautical engineering", "aerodynamics", "cad", "computer aided Design", "dynamics", "dynamics", "engineering mechanics", "equilibrium", "fluid dynamics", "fluid power", "fluids", "force", "kinematics", "kinetics", "manufacturing", "mechanics", "mechatronics", "nanomanufacturing", "nonlinear dynamics", "propulsion", "robotics", "solids", "statistical thermodynamics", "statics", "structural mechanics", "thermodynamics", "vehicle dynamics", "velocity"]
+		"keywords": ["mechanical engineering", ,"aeronautical engineering", "aerodynamics", "cad", "computer aided Design", "dynamics", "dynamics", "engineering mechanics", "equilibrium", "fluid dynamics", "fluid power", "fluids", "force", "kinematics", "kinetics", "manufacturing", "mechanics", "mechatronics", "nanomanufacturing", "nonlinear dynamics", "propulsion", "robotics", "solids", "statistical thermodynamics", "statics", "structural mechanics", "thermodynamics", "vehicle dynamics", "velocity"]
 	},
 	"Materials Science & Engineering": {
 		"slug": "materials-science-and-engineering",
@@ -137,11 +137,11 @@
 	},
 	"Philosophy": {
 		"slug": "philosophy",
-		"keywords": ["altruism", "anarchy", "bioethics", "calvin", "confucian philosophy", "consequentialism", "deontology", "epicirus", "epicureanism", "epistemology", "ethics", "existence", "hedonism", "human will", "infinities", "isocrates", "kierkegaard", "logic", "mathematical philosophy", "meaning", "metaphysics", "moral philosophy", "moral psychology", "moralities", "morals", "natural philosophy", "neuroethics", "occasionalism", "ontology", "paradoxes", "philosophy", "plato", "pragmatist", "reasoning", "skepticism", "socrates", "stoicism", "theorems", "thinking", "thought", "truth values", "value theory", "values", "virtue ethics", "wisdom"]
+		"keywords": ["altruism", "anarchy", "bioethics", "calvin", "confucian philosophy", "consequentialism", "deontology", "epicirus", "epicureanism", "epistemology", "ethics", "existence", "hedonism", "human will", "infinities", "isocrates", "kierkegaard", "logic", "mathematical philosophy", "meaning", "metaphysics", "moral philosophy", "moral psychology", "moralities", "morals", "natural philosophy", "neuroethics", "occasionalism", "ontology", "paradoxes", "philosophy", "plato", "pragmatist", "reasoning", "skepticism", "socrates", "stoicism", "theorems", "truth values", "value theory", "virtue ethics", "wisdom"]
 	},
 	"Religion": {
 		"slug": "religion",
-		"keywords": ["bible", "book of matthew", "buddhism", "christianity", "islam", "hinduism", "jesus", "letters of paul", "mohammed", "religion", "revalations", "scripture", "spirituality", "theology"]
+		"keywords": ["bible", "book of matthew", "buddhism", "christianity", "islam", "hinduism", "jesus", "letters of paul", "mohammed", "religion", "revalations", "scripture", "spirituality", "theology", "quran"]
 	},
 	"Foundations of Mathematics": {
 		"slug": "foundations-of-mathematics",
@@ -165,15 +165,15 @@
 	},
 	"Mobile Development": {
 		"slug": "mobile-development",
-		"keywords": ["android", "firefoxos", "google play", "ipad", "iphone", "mobile", "mobile apps", "mobile computing", "mobile game development", "mobile html5 applications", "mobile services", "mobile web development", "smartphone", "swift", "ukit", "windows 8 applications"]
+		"keywords": ["android", "firefox os", "google play", "ipad", "iphone", "mobile", "mobile apps", "mobile computing", "mobile game development", "mobile html5 applications", "mobile services", "mobile web development", "smartphone", "swift", "ukit", "windows 8 applications"]
 	},
 	"Web Development": {
 		"slug": "web-development",
-		"keywords": ["ajax", "azure", "bootstrap", "cloud", "cloud development", "cloud engineering", "css", "foundation", "front end web development", "full stack", "html", "html5", "html5 canvas", "javascript", "jquery", "metadata", "microsoft azure", "node.js", "responsive web design", "saas", "salesforce", "sap fiori", "sap hana", "semantic web", "software as a service", "twitter bootstrap", "typescript", "web applications", "web design", "web development"]
+		"keywords": ["ajax", "azure", "bootstrap", "cloud", "cloud development", "cloud engineering", "css", "foundation", "front end web development", "full stack", "html", "html5", "html5 canvas", "javascript", "jquery", "metadata", "microsoft azure", "node.js", "responsive web design", "saas", "salesforce", "sap fiori", "sap hana", "semantic web", "software as a service", "twitter bootstrap", "typescript", "web applications", "web design", "web development", "web server"]
 	},
 	"Databases": {
 		"slug": "databases",
-		"keywords": ["databases", "db", "dba", "in memory data management", "in memory databases", "mongodb", "nosql", "relational databases", "sql", "t-sql", "transact-sql"]
+		"keywords": ["databases", "db", "dba", "in memory data management", "in memory databases", "mongodb", "nosql", "relational databases", "sql", "t-sql", "transact-sql", "select * from", "nosql", "redis"]
 	},
 	"Physics": {
 		"slug": "physics",
@@ -181,7 +181,7 @@
 	},
 	"Chemistry": {
 		"slug": "chemistry",
-		"keywords": ["analytical chemistry", "chemistry", "organic chemistry", "physical chemistry", "solid state chemistry"]
+		"keywords": ["analytical chemistry", "chemistry", "organic chemistry", "physical chemistry", "solid state chemistry", "chemical reaction"]
 	},
 	"Astronomy": {
 		"slug": "astronomy",
@@ -197,7 +197,7 @@
 	},
 	"Anthropology": {
 		"slug": "anthropology",
-		"keywords": ["anthropology", "archaeology", "artifacts", "culutural preservation", "demography", "folklore", "genealogy", "human origins", "indigenous studies", "linguistic anthropology", "rituals"]
+		"keywords": ["anthropology", "archaeology", "artifacts", "cultural preservation", "demography", "folklore", "genealogy", "human origins", "indigenous studies", "linguistic anthropology", "rituals"]
 	},
 	"Psychology": {
 		"slug": "psychology",
@@ -217,6 +217,6 @@
 	},
 	"Law": {
 		"slug": "law",
-		"keywords": ["business law", "citizenship", "civil liberties", "civil rights", "common low", "constitution", "contracts", "copyrights", "criminal law", "human rights", "immigration", "international law", "law", "legal ethical governance", "liability", "patent law", "privacy", "property law", "surveillance law", "tax law", "terrorism law"]
+		"keywords": ["business law", "citizenship", "civil liberties", "civil rights", "common law", "constitution", "contracts", "copyrights", "criminal law", "human rights", "immigration", "international law", "law", "legal ethical governance", "liability", "patent law", "privacy", "property law", "surveillance law", "tax law", "terrorism law"]
 	}
 }
