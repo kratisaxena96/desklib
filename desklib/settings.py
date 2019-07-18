@@ -244,8 +244,8 @@ ROBOTS_CACHE_TIMEOUT = 60*60*24
 # for chaced db run command "python manage.py createcachetable" for first time sorl-thumbnail required it
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'my_cache_table',
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'my_table',
     }
 }
 
@@ -272,3 +272,6 @@ LOGGING = {
         },
     },
 }
+
+
+THUMBNAIL_DEBUG = True

@@ -66,7 +66,7 @@ class ContactPageView(MetadataMixin,JsonLdContextMixin, TemplateView):
     title = 'Contact page'
     description = 'This is a contact page'
 
-    template_name = "desklib/home.html"
+    template_name = "desklib/contact.html"
 
     structured_data = {
         "@type": "Organization",
