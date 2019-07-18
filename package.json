@@ -10,10 +10,11 @@
     "type": "git",
     "url": "git+https://kushagra94@bitbucket.org/locusrepo/desklib.git"
   },
-  "author": "coininr",
+  "author": "desklib",
   "license": "ISC",
   "homepage": "https://bitbucket.org/locusrepo/desklib/",
   "devDependencies": {
+    "bower": "^1.8.8",
     "browser-sync": "^2.23.6",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^4.2.0",
