@@ -28,7 +28,7 @@ class WritingPageView(MetadataMixin,JsonLdContextMixin, TemplateView):
     title = 'Writing page'
     description = 'This is a Writing page'
 
-    template_name = "writing_tools/writing.html"
+    template_name = "writing/writing.html"
 
     structured_data = {
         "@type": "Organization",
@@ -47,7 +47,7 @@ class ComparePageView(MetadataMixin,JsonLdContextMixin, FormView):
     title = 'compare page'
     description = 'This is a compare page'
 
-    template_name = "writing_tools/compare.html"
+    template_name = "writing/compare.html"
 
     context = {}
 
@@ -102,7 +102,7 @@ class ComparePageView(MetadataMixin,JsonLdContextMixin, FormView):
             data['similarity_s1'] = total_match*100/len(n1)
             data['similarity_s2'] = total_match*100/len(n2)
 
-            return render(request, template_name='writing_tools/result.html',context=data)
+            return render(request, template_name='writing/result.html',context=data)
 
         else:
             return render(request, self.template_name, {
@@ -118,7 +118,7 @@ class SpellCheckPageView(MetadataMixin,JsonLdContextMixin, FormView):
     use_title_tag = True
     description = 'This is a spell check page'
 
-    template_name = "writing_tools/spell_check.html"
+    template_name = "writing/spell_check.html"
 
     structured_data = {
         "@type": "Organization",

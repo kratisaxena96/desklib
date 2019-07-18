@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'meta',
     'django_json_ld',
     'subjects',
-    'writing_tools',
+    'writing',
     'captcha',
     'debug_toolbar',
     'subscription',
@@ -226,7 +226,7 @@ HAYSTACK_DEFAULT_OPERATOR = 'OR'
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
+EMAIL_PORT = 587
 
 
 EMAIL_HOST_USER = 'vishakha.sharma@locusrags.com'
