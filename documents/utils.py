@@ -10,6 +10,7 @@ from nltk.corpus import stopwords
 from bs4 import BeautifulSoup
 import random
 import string
+from haystack.utils import Highlighter
 
 
 # FILES_DIR = 'files'
@@ -302,3 +303,4 @@ def unique_slug_generator(instance, new_slug=None):
                 )
         return unique_slug_generator(instance, new_slug=new_slug)
     return slug
+

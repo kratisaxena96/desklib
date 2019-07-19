@@ -1,7 +1,6 @@
 {% load meta %}
 {% load render_json_ld from json_ld %}
 {% load thumbnail %}
-
 <html lang="en" >
 
 <head >
@@ -66,6 +65,7 @@
                     {% for result in page_obj.object_list %}
                 <div class="col-sm-4">
                   <a href="{% url 'documents:document-view' result.slug %}">
+
                     <div class="form-group">
                             {% thumbnail result.cover_image "40x40" crop="80% top" as im %}
                                 <img src="{{ im.url }}">
@@ -73,14 +73,20 @@
                                 <h4>No image</h4>
                             {% endthumbnail %}
                         <p>Title : {{result.title}} </p>
+                        <p>Total No of pages:{{result.no_of_pages}}  </p>
                     </div>
                   </a>
                 </div>
                 </div>
                 {% empty %}
-
-                   <p style="text-center">No results found.</p>
-                    {% endfor%}
+             {% endfor%}
+             {% if page.has_previous or page.has_next %}
+                <div>
+                    {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+                    |
+                    {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+                </div>
+            {% endif %}
                 </div>
         </div>
 

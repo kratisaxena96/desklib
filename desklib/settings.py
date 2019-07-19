@@ -64,7 +64,8 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'robots',
     'sorl.thumbnail',
-    'study'
+    'study',
+
 ]
 SITE_ID = 1
 
@@ -127,7 +128,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'desklib_dev_db',
         'USER': 'root',
-        'PASSWORD': 'locus123',
+        'PASSWORD': 'password',
     }
 }
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
@@ -199,7 +200,7 @@ ACCOUNT_LOGOUT_ON_GET = True
 
 AUTH_USER_MODEL = 'accounts.UserAccount'
 
-SITE_ID = 1
+SITE_ID = 6
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 

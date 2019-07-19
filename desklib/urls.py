@@ -56,6 +56,7 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(
     url(r'^$', HomePageView.as_view(), name='home'),
+    # url(r'^admin/', include(admin.site.urls)),
 )
 
 

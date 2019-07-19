@@ -18,7 +18,34 @@
     <li><a href="{% url 'writing_tools:compare' %}">Compare</a> </li>
     <li><a href="{% url 'writing_tools:spell' %}">Grammar Checker</a> </li>
 </ul>
+<form method="get" action="." class="form" role="form">
+        {{ form.non_field_errors }}
+        <div class="form-group">
+                {{ form.as_p }}
+        </div>
+      {% if query %}
+            <h3>Results</h3>
 
+        <div class="container-fluid bg-4 text-left">
+                <div class="row">
+                    {% for result in page_obj.object_list %}
+                <div class="col-sm-4">
+                  <a href="{% url 'documents:document-view' result.slug %}">
+
+                    <div class="form-group">
+
+                        <p>Title : {{result.title}} </p>
+                    </div>
+                  </a>
+                </div>
+                </div>
+                {% empty %}
+             {% endfor%}
+                </div>
+        </div>
+
+        {% endif %}
+</form>
 <div class="jumbotron">
     <div class="container">
         <h1>{% trans "Welcome to TaskBuster!"%}</h1>

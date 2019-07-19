@@ -1,14 +1,16 @@
 from django.views.generic.base import TemplateView
+from django.views.generic.edit import FormView
 
 from meta.views import MetadataMixin
 from django_json_ld.views import JsonLdContextMixin
 from django.utils.translation import gettext as _
 from django.shortcuts import render
 from django.conf import settings
+from haystack.forms import HighlightedSearchForm
 
 
-
-class HomePageView(MetadataMixin,JsonLdContextMixin, TemplateView):
+class HomePageView(MetadataMixin,JsonLdContextMixin,FormView):
+    form_class = HighlightedSearchForm
     title = 'Home page'
     description = 'This is an awesome page hey'
     keywords = ['Our','best','homepage']

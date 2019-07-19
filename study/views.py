@@ -13,7 +13,7 @@ class StudyPageView(MetadataMixin,JsonLdContextMixin, TemplateView):
     title = 'Study page'
     description = 'This is a Study page'
 
-    template_name = "study/study.html"
+    template_name = "study/study_list.html"
 
     structured_data = {
         "@type": "Organization",
