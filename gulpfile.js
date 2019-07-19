@@ -40,7 +40,7 @@ gulp.task('reload-css', function() {
 
 // configure the jshint task
 gulp.task('jshint', function() {
-  return gulp.src('desklib/static/src/js/**/*.js')
+  return gulp.src(['desklib/static/src/js/custom.js'])
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'));
 });
@@ -62,14 +62,17 @@ gulp.task('watch', function() {
   // gulp.watch('javascript/**/*.js', ['build-js']);
 });
 
-gulp.task('copy', function(){
+gulp.task('copy-css', function(){
   gulp.src('bower_components/bootstrap/dist/css/bootstrap.css').pipe(gulp.dest('desklib/static/src/css/'));
+});
+
+gulp.task('copy-js', function(){
   gulp.src('bower_components/jquery/dist/jquery.js').pipe(gulp.dest('desklib/static/src/js/'));
   gulp.src('bower_components/bootstrap/dist/js/bootstrap.js').pipe(gulp.dest('desklib/static/src/js/'));
 });
 
 // Static Server + watching scss/html files
-gulp.task('serve', ['copy', 'minify-css', 'build-js'], function() {
+gulp.task('serve', ['copy-css', 'copy-js', 'minify-css', 'jshint', 'build-js'], function() {
 
     browserSync.init({
       	injectChanges: true,
@@ -81,7 +84,7 @@ gulp.task('serve', ['copy', 'minify-css', 'build-js'], function() {
         // xip: true,
     });
 
-    gulp.watch('desklib/static/src/js/**/*.js', ['build-js']);
+    gulp.watch('desklib/static/src/js/**/*.js', ['jshint', 'build-js']);
     gulp.watch('./**/*.scss', ['minify-css']);
     // gulp.watch('desklib/static/desklib/css/**/*.css', browserSync.reload({stream: true}));
     // gulp.watch("desklib/static/desklib/css/**/*.css").on('change', browserSync.reload),
