@@ -20,6 +20,9 @@ from post_office import mail
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 from django.core.files.base import ContentFile
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class DocumentView(JsonLdDetailView):
@@ -68,6 +71,8 @@ class DocumentView(JsonLdDetailView):
                 attachments= attachments,
                 priority= 'now'
             )
+
+            logger.info("mail send")
             return render(request, 'documents/document_detail.html')
         except Exception as e:
             print(e)

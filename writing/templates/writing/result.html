@@ -1,0 +1,34 @@
+{% extends "writing/base.html" %}
+{% load meta %}
+{% block content %}
+
+                    <table class="table table-bordered text-center">
+                        <tr>
+                            <td>
+                                <p>{{total_word_s1}} words</p>
+                                <p>{{similarity_s1 | stringformat:'d' }}% matched</p>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                                <p>{{total_word_s2}} words</p>
+                                <p>{{similarity_s2 | stringformat:'d' }}% matched</p>
+                            </td>
+                        </tr>
+            {% for m in matches %}
+                        <tr>
+                            <td>
+                                {{m.left_string}}
+                            </td>
+                            <td>
+                                {{m.no_of_matches}}
+                            </td>
+                            <td>
+                                {{m.right_string}}
+                            </td>
+                        </tr>
+
+            {% endfor %}
+                    </table>
+
+{% endblock %}

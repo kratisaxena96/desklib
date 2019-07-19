@@ -45,7 +45,7 @@ urlpatterns = [
     path('__debug__/', include(debug_toolbar.urls)),
     path('search/', CustomSearchView.as_view(),),
     path(r'autocomplete/', autocomplete, name='autocomplete'),
-    path('writing/', include(('writing_tools.urls', 'writing_tools'), namespace="writing_tools")),
+    path('writing/', include(('writing.urls', 'writing'), namespace="writing")),
     path('robots.txt/', include('robots.urls')),
     path('sitemap.xml/', views.index, {'sitemaps': sitemaps}),
     path('sitemap-<section>.xml', views.sitemap, {'sitemaps': sitemaps},

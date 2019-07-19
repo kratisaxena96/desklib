@@ -110,3 +110,6 @@ db.sqlite3
 
 #node
 node_modules/
+
+#bower
+bower_components/
