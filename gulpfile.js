@@ -72,7 +72,7 @@ gulp.task('copy-js', function(){
 });
 
 // Static Server + watching scss/html files
-gulp.task('serve', ['copy-css', 'copy-js', 'minify-css', 'jshint', 'build-js'], function() {
+gulp.task('serve', ['copy-css', 'copy-js', 'minify-css', 'build-js'], function() {
 
     browserSync.init({
       	injectChanges: true,

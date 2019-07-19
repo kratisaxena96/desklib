@@ -5,8 +5,9 @@ from django_json_ld.views import JsonLdContextMixin
 from django.utils.translation import gettext as _
 from django.shortcuts import render
 from django.conf import settings
+import logging
 
-
+logger = logging.getLogger(__name__)
 
 class HomePageView(MetadataMixin,JsonLdContextMixin, TemplateView):
     title = 'Home page'
