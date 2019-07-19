@@ -46,7 +46,7 @@ gulp.task('jshint', function() {
 });
 
  gulp.task('build-js', function() {
-   return gulp.src(['desklib/static/src/js/jquery.min.js','desklib/static/src/js/bootstrap.min.js','desklib/static/src/js/popper.min.js','desklib/static/src/js/custom.js'])
+   return gulp.src(['desklib/static/src/js/jquery.js','desklib/static/src/js/bootstrap.js','desklib/static/src/js/popper.min.js','desklib/static/src/js/custom.js'])
      .pipe(sourcemaps.init())
        .pipe(concat('bundle.js'))
        .pipe(uglify())

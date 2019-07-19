@@ -5,8 +5,10 @@
 <html lang="en" >
 <head  {% meta_namespaces %}>
     <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">-->
     {% include "meta/meta.html" %}
         <link rel="stylesheet" href='{% static "dist/css/bundle.css" %}'>
     {% if sd %}
@@ -29,6 +31,8 @@
 <!--    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>-->
 <!--    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js'></script>-->
 <!--    <script src='{% static "desklib/js/popper.min.js" %}'></script>-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
+<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>-->
     <script src='{% static "dist/js/bundle.js" %}'></script>
     {% block extra_js %}
     {% endblock extra_js %}
