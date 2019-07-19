@@ -63,18 +63,19 @@ gulp.task('watch', function() {
 });
 
 gulp.task('copy', function(){
-  gulp.src('desklib/static/desklib/css/**/*.css').pipe(gulp.dest('static/desklib/css/**/*.css'));
-  gulp.src('desklib/static/desklib/js/**/*.js').pipe(gulp.dest('static/desklib/js/**/*.js'));
+  gulp.src('bower_components/bootstrap/dist/css/bootstrap.css').pipe(gulp.dest('desklib/static/src/css/'));
+  gulp.src('bower_components/jquery/dist/jquery.js').pipe(gulp.dest('desklib/static/src/js/'));
+  gulp.src('bower_components/bootstrap/dist/js/bootstrap.js').pipe(gulp.dest('desklib/static/src/js/'));
 });
 
 // Static Server + watching scss/html files
-gulp.task('serve', ['minify-css', 'build-js'], function() {
+gulp.task('serve', ['copy', 'minify-css', 'build-js'], function() {
 
     browserSync.init({
       	injectChanges: true,
         files: ['desklib/static/dist/css/**/*.css', 'desklib/static/dist/js/*.js'],
         // server: "./",
-        proxy: "localhost:8000",
+        proxy: "localhost:8004",
         logConnections: true,
         // tunnel: true,
         // xip: true,
