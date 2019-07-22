@@ -6,10 +6,13 @@ from django.utils.translation import gettext as _
 from django.shortcuts import render
 from django.conf import settings
 import logging
-
+from django.views.generic.edit import FormView
+from haystack.generic_views import SearchView
+from.forms import HomeSearchForm
 logger = logging.getLogger(__name__)
 
-class HomePageView(MetadataMixin,JsonLdContextMixin, TemplateView):
+class HomePageView(MetadataMixin,JsonLdContextMixin,SearchView):
+    form_class = HomeSearchForm
     title = 'Home page'
     description = 'This is an awesome page hey'
     keywords = ['Our','best','homepage']
@@ -96,3 +99,4 @@ def handler500(request, *args, **kwargs):
         return render(request,'desklib/error_500.html', status=500)
     else:
         return render(request, 'desklib/error_500.html', status=500)
+

@@ -1,6 +1,9 @@
 {% extends "desklib/base.html" %}
 {% load meta %}
 {% load i18n %}
+{% load thumbnail %}
+{% load highlight %}
+
 
 
 {% block navbar %}
@@ -24,7 +27,7 @@
         <div class="form-group">
                 {{ form.as_p }}
         </div>
-      {% if query %}
+       {% if query %}
             <h3>Results</h3>
 
         <div class="container-fluid bg-4 text-left">
@@ -32,16 +35,27 @@
                     {% for result in page_obj.object_list %}
                 <div class="col-sm-4">
                   <a href="{% url 'documents:document-view' result.slug %}">
-
                     <div class="form-group">
-
-                        <p>Title : {{result.title}} </p>
+                            {% thumbnail result.cover_image "80x80" crop="80% top" as im %}
+                                <img src="{{ im.url }}">
+                            {% empty %}
+                                <h4>No image</h4>
+                            {% endthumbnail %}
+                        {% highlight result.summary with query html_tag "span" css_class "highlight" max_length 120 %}
+                        <p>Total No of pages:{{result.no_of_pages}}  </p>
                     </div>
                   </a>
                 </div>
                 </div>
                 {% empty %}
              {% endfor%}
+             {% if page.has_previous or page.has_next %}
+                <div>
+                    {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+                    |
+                    {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+                </div>
+            {% endif %}
                 </div>
         </div>
 

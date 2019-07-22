@@ -2,7 +2,6 @@
 {% load render_json_ld from json_ld %}
 {% load thumbnail %}
 {% load highlight %}
-{% load more_like_this %}
 
 
 <html lang="en" >
@@ -67,17 +66,8 @@
         </div>
 
         {% if query %}
-    <h1> More like this</h1>
-    <p>
-        <<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    </p>
-    <h1>{% for m in more %}</h1>
-        <a href="{% url 'documents:document-view' m.slug %}">
-            <p>{{m.title}}</p>
-        </a>
-        {% endfor %}
-    <p>........................................</p>
-    <h1>Results</h1>
+            <h3>Results</h3>
+
         <div class="container-fluid bg-4 text-left">
                 <div class="row">
                     {% for result in page_obj.object_list %}
@@ -90,8 +80,6 @@
                                 <h4>No image</h4>
                             {% endthumbnail %}
                         {% highlight result.summary with query html_tag "span" css_class "highlight" max_length 120 %}
-                        <h1>{% more_like_this dss as related_content %}</h1>
-
                         <p>Total No of pages:{{result.no_of_pages}}  </p>
                     </div>
                   </a>
