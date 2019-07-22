@@ -7,9 +7,8 @@
         <input type="submit" />
     </form>
 <p><>>>>>>>>recent>>>>>>>>>>>>>>>>>>></p>
-{% for rec in recent %}{% comment %}
-<!--<a href="{% url 'document:document-view' rec.slug %}">-->
-    {%endcomment %}
+{% for rec in recent %}
+<a href="{% url 'documents:document-view' rec.slug %}">
     <p>{{rec.title}}slug:{{rec.slug}}</p>
 </a>
 {% endfor %}
