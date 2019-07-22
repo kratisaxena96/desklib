@@ -115,19 +115,22 @@ background: rgba(0,0,255,0.3);
         <p>
             {% lorem %}
         </p>
+
     </div>
-      <h1> More like this Document</h1>
+
+      <!--<h3>Column 1</h3>-->
+    <div class="col-sm-8">
+        <h3> More like this Document</h3>
     <p>
         <<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>
     </p>
-    <h1>{% for m in more %}</h1>
+      {% for m in more %}
         <a href="{% url 'documents:document-view' m.slug %}">
             <p>{{m.title}}</p>
         </a>
-        {% endfor %}
+      {% endfor %}
     <p>........................................</p>
-      <!--<h3>Column 1</h3>-->
-    <div class="col-sm-8">
+
         <h3>Your Document below</h3>
         <p>{% lorem %}</p>
             <div id="viewer" class="documentViewer">

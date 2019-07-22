@@ -278,8 +278,8 @@ class Document(ModelMeta, models.Model):
 
             # Populating seo related data
             self.seo_title = self.title
-            self.seo_description = self.first_sentence
-            self.seo_keywords = ",".join(get_keywords_from_text(text, count=3))
+            self.seo_description = self.title
+            # self.seo_keywords = ",".join(get_keywords_from_text(text, count=3))
 
             # Assigning author
             self.author = get_user_model().objects.first()
