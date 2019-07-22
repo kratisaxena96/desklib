@@ -1,0 +1,18 @@
+{% extends "desklib/base.html" %}
+{% load meta %}
+{% block content %}
+<h1>Study Page</h1>
+<form action="/search" method="get">
+        <input name="q" type="text" />
+        <input type="submit" />
+    </form>
+<p><>>>>>>>>recent>>>>>>>>>>>>>>>>>>></p>
+{% for rec in recent %}{% comment %}
+<a href="{% url 'document:document-view' rec.slug %}">
+    {%endcomment %}
+    <p>{{rec.title}}slug:{{rec.slug}}</p>
+</a>
+{% endfor %}
+<p><>>>>>>>>end recent>>>>>>>>>>>>>>>>>>></p>
+
+{% endblock %}
