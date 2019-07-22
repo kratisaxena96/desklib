@@ -5,41 +5,33 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <img src="{% static '/src/assets/images/menu.png' %}">
   </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/">Home</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbardrop1" data-toggle="dropdown">
-          Study Resources
-        </a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Link 1</a>
-          <a class="dropdown-item" href="#">Link 2</a>
-          <a class="dropdown-item" href="#">Link 3</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbardrop2" data-toggle="dropdown">
-         Writing
-        </a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Link 1</a>
-          <a class="dropdown-item" href="#">Link 2</a>
-          <a class="dropdown-item" href="#">Link 3</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Sign in/up</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"><button class="btn-lg btn-primary btn-bg-theme">
+  <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/">Home</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown">Study Resources</a>
+          <ul class="dropdown-menu">
+            <li><a href="{%url 'study:study-search'%}">Explore Resources</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Writing</a>  <!-- <span class="caret"></span> -->
+          <ul class="dropdown-menu">
+            <li><a href="{%url 'writing:writing'%}">Check Paper</a></li>
+            <li><a href="{%url 'writing:spell'%}">Grammer Check</a></li>
+            <li><a href="{%url 'writing:compare'%}">Compare Documents</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign In/Up</a></li>
+        <li><a href="#"><!-- <span class="glyphicon glyphicon-log-in"></span> -->
+            <button class="btn-lg btn-primary">
                 Subscribe
-            </button></a>
-      </li>
-    </ul>
-  </div>
+            </button>
+         </a></li>
+      </ul>
+    </div>
 </nav>
 
 <!--</body>-->

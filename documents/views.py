@@ -21,7 +21,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 from django.core.files.base import ContentFile
 import logging
-
+from django_json_ld import settings
 logger = logging.getLogger(__name__)
 
 
@@ -118,5 +118,18 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, SearchView):
     def get_structured_data(self):
         sd = super(CustomSearchView, self).get_structured_data()
         return sd
+
+    def get_context_data(self, **kwargs):
+        context = super(JsonLdContextMixin, self).get_context_data(**kwargs)
+        context[settings.CONTEXT_ATTRIBUTE] = self.get_structured_data()
+        if context.get('object_list'):
+            entry = Document.objects.get(slug=context.get('object_list')[0].slug)
+            mlt = SearchQuerySet().more_like_this(entry)
+            context['more'] = mlt
+        """Insert the form into the context dict."""
+        if 'form' not in kwargs:
+            kwargs['form'] = self.get_form()
+        return context
+
 
 

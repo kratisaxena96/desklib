@@ -1,6 +1,10 @@
 {% load meta %}
 {% load render_json_ld from json_ld %}
 {% load thumbnail %}
+{% load highlight %}
+{% load more_like_this %}
+
+
 <html lang="en" >
 
 <head >
@@ -25,6 +29,11 @@
             {% render_json_ld sd %}
         {% endif %}
 <!--  <link rel="stylesheet" href="/resources/demos/style.css">  -->
+    <style>
+        .highlight{
+            background-color: #FFFF00
+            }
+    </style>
 </head>
 <body>
 {% block navbar %}
@@ -58,21 +67,31 @@
         </div>
 
         {% if query %}
-            <h3>Results</h3>
-
+    <h1> More like this</h1>
+    <p>
+        <<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    </p>
+    <h1>{% for m in more %}</h1>
+        <a href="{% url 'documents:document-view' m.slug %}">
+            <p>{{m.title}}</p>
+        </a>
+        {% endfor %}
+    <p>........................................</p>
+    <h1>Results</h1>
         <div class="container-fluid bg-4 text-left">
                 <div class="row">
                     {% for result in page_obj.object_list %}
                 <div class="col-sm-4">
                   <a href="{% url 'documents:document-view' result.slug %}">
-
                     <div class="form-group">
-                            {% thumbnail result.cover_image "40x40" crop="80% top" as im %}
+                            {% thumbnail result.cover_image "80x80" crop="80% top" as im %}
                                 <img src="{{ im.url }}">
                             {% empty %}
                                 <h4>No image</h4>
                             {% endthumbnail %}
-                        <p>Title : {{result.title}} </p>
+                        {% highlight result.summary with query html_tag "span" css_class "highlight" max_length 120 %}
+                        <h1>{% more_like_this dss as related_content %}</h1>
+
                         <p>Total No of pages:{{result.no_of_pages}}  </p>
                     </div>
                   </a>

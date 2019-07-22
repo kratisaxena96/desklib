@@ -6,7 +6,7 @@
         <input name="q" type="text" />
         <input type="submit" />
     </form>
-<p><>>>>>>>>recent>>>>>>>>>>>>>>>>>>></p>
+<p><>>>>>>>>recent added>>>>>>>>>>>>>>>>>>></p>
 {% for rec in recent %}
 <a href="{% url 'documents:document-view' rec.slug %}">
     <p>{{rec.title}}slug:{{rec.slug}}</p>
