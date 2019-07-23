@@ -1,5 +1,156 @@
+#header {
+  height: 110px;
+  transition: all 0.5s;
+  z-index: 997;
+  transition: all 0.5s;
+  padding: 20px 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  transition: all 0.5s;
+  z-index: 997;
+}
+#header.header-scrolled,
+#header.header-pages {
+  height: 70px;
+  padding: 15px 0;
+  background-color: #fff;
+  box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.3);
+}
+
+#header.header-scrolled #topbar,
+#header.header-pages #topbar {
+  display: none;
+}
+
+#header .logo h1 {
+  font-size: 36px;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+#header .logo h1 a,
+#header .logo h1 a:hover {
+  color: #413e66;
+  text-decoration: none;
+}
+
+#header .logo img {
+  padding: 0;
+  margin: 7px 0;
+  max-height: 26px;
+}
+
+-------------------------------------------------------
+
+html , body {
+    width:100%;
+}
+
+.masthead {
+  height: 100vh;
+  min-height: 500px;
+  background-image: url("static/src/assets/images/Desklib banner4.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.navbar{
+    position:relative;
+}
 .btn-bg-theme{
     background-color: $btn-blue-theme;
     border-radius: 20px;
     width: 200px;
+}
+
+.img-top-text{
+    position: absolute;
+    z-index: 30;
+    text-align: left;
+    padding-left: 10%;
+    top: 40%;
+    /* text-shadow: 1px 1px 0 rgba(0, 0, 0, .75); */
+}
+
+.nav-fixed-top {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+}
+.top-image{
+    position:relative;
+    height: 100%;
+}
+.navbar-brand{
+    padding-left: 5%;
+}
+
+.yellow{
+    height: 60vh;
+    min-height: 100px;
+    background-size: cover;
+    background-image: url("/static/src/assets/images/explore_resources_img.png");
+    padding: 5%;
+}
+
+.green{
+    height: 60vh;
+    min-height: 100px;
+    background-size: cover;
+    background-image: url("/static/src/assets/images/check_paper_img.png");
+    padding: 5%;
+}
+.space{
+    padding: 4%;;
+}
+.space-col{
+    padding-right: 4%;
+}
+.font-40{
+    width: 60%;
+    font-weight: 400;
+}
+.top-30{
+    top: 30%;
+}
+.top-20{
+    top: 20%;
+}
+card{
+    width: 150px;
+    margin-right: 20px;
+}
+.card-height{
+    height: 150px;
+}
+.top-study{
+    padding-top: 4%;
+    background-color: #DCDCDC;
+}
+.centre-text{
+    text-align: center;
+    padding-bottom: 2%;
+}
+
+.owl-first > .owl-nav > .owl-prev, .owl-next {
+    position: absolute;
+    top: 50%;
+    font-size: 100px !important;
+    color: black !important;
+    transform: translateY(-50%);
+}
+
+.owl-first > .owl-nav > .owl-next{
+    margin-left: 50%;
+}
+.owl-first > .owl-nav > .owl-prev{
+    margin-left: -54%;
 }

@@ -1,13 +1,54 @@
 {% load staticfiles %}
 
-<nav class="navbar navbar-expand-md bg-transparent">
-  <a class="navbar-brand" href="/"><img src="{% static '/src/assets/images/Desklib.png' %}"></a>
+<header id="header" class="header-scrolled">
+
+    <div class="container">
+
+      <div class="logo float-left">
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <h1 class="text-light"><a href="/" class="scrollto"><img src="{% static '/src/assets/images/Desklib.png' %}" alt="logo"></a></h1>
+        <!-- <a href="#header" class="scrollto"><img src="img/logo.png" alt="" class="img-fluid"></a> -->
+      </div>
+
+      <nav class="main-nav float-right d-none d-lg-block">
+        <ul>
+          <li class="active"><a href="/">Home</a></li>
+          <li class="drop-down"><a href="{% url 'writing:writing' %}">Writing</a>
+          <ul>
+              <li><a href="{% url 'writing:compare' %}">Compare</a></li>
+              <li><a href="{% url 'writing:spell' %}">Grammar Checker</a></li>
+          </ul>
+          </li>
+          <li class="drop-down"><a href="">Drop Down</a>
+            <ul>
+              <li><a href="#">Deep Drop Down 1</a></li>
+              <li><a href="#">Deep Drop Down 2</a></li>
+              <li><a href="#">Deep Drop Down 3</a></li>
+              <li><a href="#">Deep Drop Down 4</a></li>
+              <li><a href="#">Deep Drop Down 5</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><button class="btn-lg btn-primary btn-bg-theme">
+                    Subscribe
+                </button></a>
+          </li>
+        </ul>
+      </nav><!-- .main-nav -->
+
+    </div>
+  </header>
+
+
+<!--
+<nav class="navbar navbar-expand-md bg-transparent nav-fixed-top">
+  <a class="navbar-brand" href="/"><img src="{% static '/src/assets/images/Desklib.png' %}" alt="logo"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <img src="{% static '/src/assets/images/menu.png' %}">
+    <img src="{% static '/src/assets/images/menu.png' %}" alt="menu-icon">
   </button>
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
+      <li class="nav-item black-font">
         <a class="nav-link" href="/">Home</a>
       </li>
       <li class="nav-item dropdown">
@@ -30,7 +71,7 @@
           <a class="dropdown-item" href="#">Link 3</a>
         </div>
       </li>
-      <li class="nav-item">
+      <li class="nav-item blue-font">
         <a class="nav-link" href="#">Sign in/up</a>
       </li>
       <li class="nav-item">
@@ -42,6 +83,6 @@
   </div>
 </nav>
 
-<!--</body>-->
+</body>-->
 <!--</html>-->
 
