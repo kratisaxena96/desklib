@@ -162,6 +162,13 @@ class Document(ModelMeta, models.Model):
     page = models.IntegerField(_('Total pages'), blank=True, null=True)
     filename = models.CharField(_('filename'), max_length=200, blank=True, null=True)
 
+    preview_from = models.PositiveIntegerField(default=1)
+    preview_to = models.PositiveIntegerField(default=2)
+    total_downloads = models.PositiveIntegerField(default=0)
+    views = models.PositiveIntegerField(default=0)
+    search_clicks = models.PositiveIntegerField(default=0)
+    google_clicks = models.PositiveIntegerField(default=0)
+
     is_published = models.BooleanField(_('Is Published'), default=True)
     is_visible = models.BooleanField(_('Is Visible'), default=True)
 
@@ -278,8 +285,8 @@ class Document(ModelMeta, models.Model):
 
             # Populating seo related data
             self.seo_title = self.title
-            self.seo_description = self.first_sentence
-            self.seo_keywords = ",".join(get_keywords_from_text(text, count=3))
+            self.seo_description = self.title
+            # self.seo_keywords = ",".join(get_keywords_from_text(text, count=3))
 
             # Assigning author
             self.author = get_user_model().objects.first()
@@ -332,13 +339,24 @@ class Document(ModelMeta, models.Model):
                 page_obj.save()
                 page_count += 1
 
+            if page_count <= 5:
+                self.preview_to = 2
+            elif page_count <=10:
+                self.preview_to = 2
+            elif page_count <= 20:
+                self.preview_to = 3
+            elif page_count <=30:
+                self.preview_to = 4
+            elif page_count > 30:
+                self.preview_to = 5
+
             # Adding predicted subjects to document
 
             for subject in get_subjects(text):
                 self.subjects.add(subject)
 
         else:
-            print("qwertyuioiuytyuiu")
+            # print("qwertyuioiuytyuiu")
             super(Document, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
