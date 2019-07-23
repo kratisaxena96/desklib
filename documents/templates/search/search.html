@@ -1,114 +1,167 @@
 {% load meta %}
 {% load render_json_ld from json_ld %}
 {% load thumbnail %}
+{% load highlight %}
 <html lang="en" >
-
-<head >
-
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
-    <script src="//jqueryui.com/jquery-wp-content/themes/jquery/js/plugins.js"></script>
-
-    <script src="//jqueryui.com/jquery-wp-content/themes/jquery/js/main.js"></script>
-
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-          {% include "meta/meta.html" %}
-        {% if sd %}
-            {% render_json_ld sd %}
-        {% endif %}
-<!--  <link rel="stylesheet" href="/resources/demos/style.css">  -->
-</head>
-<body>
-{% block navbar %}
- <nav class="navbar navbar-default">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">HOME</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right">
-        <li><input type="submit" class="btn btn-primary" value="Add Customer">  </li>
-    </ul>
-    </div>
-  </div>
-</nav>
-{% endblock %}
-{% block content %}
-<div class="container-fluid bg-3 text-center">
-<form method="get" action="." class="form" role="form">
-        {{ form.non_field_errors }}
-        <div class="form-group">
-                {{ form.as_p }}
-        </div>
-        <div class="form-group">
-            <input id="1232" type="submit" class="btn btn-primary" value="Search">
-        </div>
-
-        {% if query %}
-            <h3>Results</h3>
-
-        <div class="container-fluid bg-4 text-left">
-                <div class="row">
-                    {% for result in page_obj.object_list %}
-                <div class="col-sm-4">
-                  <a href="{% url 'documents:document-view' result.slug %}">
-
-                    <div class="form-group">
-                            {% thumbnail result.cover_image "40x40" crop="80% top" as im %}
-                                <img src="{{ im.url }}">
-                            {% empty %}
-                                <h4>No image</h4>
-                            {% endthumbnail %}
-                        <p>Title : {{result.title}} </p>
-                        <p>Total No of pages:{{result.no_of_pages}}  </p>
-                    </div>
-                  </a>
-                </div>
-                </div>
-                {% empty %}
-             {% endfor%}
-             {% if page.has_previous or page.has_next %}
-                <div>
-                    {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
-                    |
-                    {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
-                </div>
+   <head >
+      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+      <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+      <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+      <script src="//jqueryui.com/jquery-wp-content/themes/jquery/js/plugins.js"></script>
+      <script src="//jqueryui.com/jquery-wp-content/themes/jquery/js/main.js"></script>
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+      <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+      <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+      {% include "meta/meta.html" %}
+      {% if sd %}
+      {% render_json_ld sd %}
+      {% endif %}
+      <!--  <link rel="stylesheet" href="/resources/demos/style.css">  -->
+      <style>
+         .highlight{
+         background-color: #FFFF00
+         }
+      </style>
+   </head>
+   <body>
+      {% block navbar %}
+      <nav class="navbar navbar-default">
+         <div class="container">
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               </button>
+               <a class="navbar-brand" href="{% url 'home'%}">HOME</a>
+            </div>
+         </div>
+      </nav>
+      {% endblock %}
+      {% block content %}
+      <div class="container-fluid bg-3 text-center">
+         <form method="get" action="." class="form" role="form">
+            {{ form.non_field_errors }}
+            <div class="form-group">
+               {{ form.as_p }}
+            </div>
+            <div class="form-group">
+               <input id="1232" type="submit" class="btn btn-primary" value="Search">
+            </div>
+            {% if suggestion %}
+            <span>
+               <p>Did You Mean: <a href="#" data-index="{{suggestion}}" id="suggest">{{suggestion}}</a></p>
+            </span>
             {% endif %}
-                </div>
-        </div>
-
-        {% endif %}
-</form>
+            {% if query %}
+            <h3>Results</h3>
+             <div>
+                 {{facets}}
+<div>
+<dl>
+{% if facets.fields.subajects %}
+<dt>subjects</dt>
+{# Provide only the top 5 authors #}
+{% for author in facets.fields.subjects|slice:":5" %}
+<dd><a href="{{ request.get_full_path }}&amp;selected_facets=author_exact:{{ author.0|urlencode }}">{{ author.0 }}</a> ({{ author.1 }})</dd>
+{% endfor %}
+{% else %}
+<p>No author facets.</p>
+{% endif %}
+</dl>
 </div>
-{% endblock %}
-    <script>
-   $('#id_q').autocomplete({
- source: function (request, response) {
-     $.getJSON("/autocomplete/?q=" + request.term, function (data) {
-         response($.map(data, function (value, key) {
-             return {
-                label: value,
-                value: key
-             };
-         }));
-     });
- },
- minLength: 1
-});
-</script>
-</body>
+            <div class="container-fluid bg-4 text-left">
+               <div class="row">
+                  {% for result in page_obj.object_list %}
+                  <div class="col-sm-4">
+                     <a href="{% url 'documents:document-view' result.slug %}">
+                        <div class="form-group">
+                           {% thumbnail result.cover_image "80x80" crop="80% top" as im %}
+                           <img src="{{ im.url }}">
+                           {% empty %}
+                           <h4>No image</h4>
+                           {% endthumbnail %}
+                           {% highlight result.summary with query html_tag "span" css_class "highlight" max_length 120 %}
+                           <p>Total No of pages:{{result.no_of_pages}}  </p>
+                        </div>
+                     </a>
+                  </div>
+                   {% endfor%}
+               </div>
+                <h3>{{page_obj}}</h3>
+               {% if page_obj.has_previous or page_obj.has_next %}
+               <div>
+                  {% if page_obj.has_previous %}<a href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}">{% endif %}&laquo; Previous{% if page_obj.has_previous %}</a>{% endif %}
+                  |
+                  {% if page_obj.has_next %}<a href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}">{% endif %}Next &raquo;{% if page_obj.has_next %}</a>{% endif %}
+               </div>
+            </div>
+               {% endif %}
+               {% if is_paginated %}
+                <ul class="pagination">
+               {% if page_obj.has_previous %}
+                    <li>
+                        <a href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}">&laquo;</a>
+                    </li>
+               {% else %}
+                    <li class="disabled">
+                        <a href="#">&laquo;</a>
+                    </li>
+               {% endif %}
+               {% for num in page_obj.paginator.page_range %}
+                    {% ifequal num page_obj.number %}
+                        <li class="active">
+                            <a href="#">{{ num }}<span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                    {% else %}
+                         <li>
+                             <a href="?q={{ query }}&amp;page={{ num }}">{{ num }}</a>
+                         </li>
+                    {% endifequal %}
+               {% endfor %}
+                {% if page_obj.has_next %}
+                    <li>
+                        <a href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}">&raquo;
+                        </a>
+                    </li>
+               {% else %}
+                    <li class="disabled">
+                        <a href="#">&raquo;</a>
+                    </li>
+               {% endif %}
+               <ul>
+               {% endif %}
+            </div>
+      </div>
+      {% endif %}
+      </form>
+      </div>
+      {% endblock %}
+      <script>
+         $("#suggest").on("click", function () {
+         $a = $(this).data("index");
+         $('#id_q').val($a)
+         $(".form").submit();
+         });
+         
+         
+         $('#id_q').autocomplete({
+         source: function (request, response) {
+          $.getJSON("study/autocomplete/?q=" + request.term, function (data) {
+              response($.map(data, function (value, key) {
+                  return {
+                     label: value,
+                     value: key
+                  };
+              }));
+          });
+         },
+         minLength: 1
+         });
+      </script>
+   </body>
 </html>
-

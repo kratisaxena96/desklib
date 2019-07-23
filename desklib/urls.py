@@ -24,7 +24,6 @@ from django.contrib.sitemaps import views
 from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView, TestPageView
 if settings.DEBUG:
     import debug_toolbar
-from documents.views import autocomplete,CustomSearchView
 
 sitemaps = {
     'documents': DocumentSitemap,
@@ -43,11 +42,9 @@ urlpatterns = [
     path('pricing/', PricingPageView.as_view(), name='pricing'),
     path('test/', TestPageView.as_view(), name='test'),
     path('__debug__/', include(debug_toolbar.urls)),
-    path('search/', CustomSearchView.as_view(),),
-    path(r'autocomplete/', autocomplete, name='autocomplete'),
     path('writing/', include(('writing.urls', 'writing'), namespace="writing")),
-    path('robots.txt/', include('robots.urls')),
-    path('sitemap.xml/', views.index, {'sitemaps': sitemaps}),
+    path('robots.txt', include('robots.urls')),
+    path('sitemap.xml', views.index, {'sitemaps': sitemaps}),
     path('sitemap-<section>.xml', views.sitemap, {'sitemaps': sitemaps},
                        name='django.contrib.sitemaps.views.sitemap'),
 

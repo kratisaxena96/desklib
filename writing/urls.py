@@ -21,10 +21,12 @@ from django.conf.urls import url
 
 # from documents.views import HomePageView
 from django.conf.urls.i18n import i18n_patterns
-from .views import WritingPageView, ComparePageView, SpellCheckPageView
+from .views import WritingPageView, ComparePageView, SpellCheckPageView, GrammarCorrectPageView
 
 urlpatterns = [
     path('', WritingPageView.as_view(), name="writing"),
     path('compare/', ComparePageView.as_view(), name="compare"),
-    path('grammar-checker/', SpellCheckPageView.as_view(), name="spell"),
+    # path('grammar-checker/', SpellCheckPageView.as_view(), name="spell"),
+    path('grammar-checker/', GrammarCorrectPageView.as_view(), name="grammar"),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

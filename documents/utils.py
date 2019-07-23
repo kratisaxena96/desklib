@@ -177,9 +177,9 @@ def get_title(text):
     first_sentence = get_first_sentence(sentences)
     if len(first_sentence) > 65:
         # https://stackoverflow.com/questions/6266727/python-cut-off-the-last-word-of-a-sentence
-        return first_sentence[:65].rsplit(' ', 1)[0] + '...'
+        return first_sentence[:65].rsplit(' ', 1)[0]
     elif len(first_sentence) < 15:
-        return text[:55] + '...'
+        return text[:55]
     else:
         return first_sentence
 

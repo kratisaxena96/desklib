@@ -21,7 +21,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 from django.core.files.base import ContentFile
 import logging
-
+from django_json_ld import settings
 logger = logging.getLogger(__name__)
 
 
@@ -31,7 +31,8 @@ class DocumentView(JsonLdDetailView):
     def get(self, request, *args, **kwargs):
         slug = self.kwargs['slug']
         self.object = self.get_object()
-
+        entry = Document.objects.get(slug=slug)
+        mlt = SearchQuerySet().more_like_this(entry)
         if request.user.is_anonymous:
             page_views = request.session.get('page_views')
             if page_views:
@@ -50,6 +51,7 @@ class DocumentView(JsonLdDetailView):
 
 
         context = self.get_context_data(object=self.object)
+        context['more'] = mlt
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
@@ -91,32 +93,5 @@ class DocumentView(JsonLdDetailView):
         return context
 
 
-def autocomplete(request):
-    sqs = SearchQuerySet().autocomplete(content_auto=request.GET.get('q', ''))[:5]
-    suggestions = [result.title for result in sqs]
-    # Make sure you return a JSON object, not a bare list.
-    # Otherwise, you could be vulnerable to an XSS attack.
-    the_data = json.dumps({
-        'results': suggestions
-    })
-    return HttpResponse(the_data, content_type='application/json')
-
-
-class CustomSearchView(JsonLdContextMixin, MetadataMixin, SearchView):
-    template_name = 'search/search.html'
-    model = Document
-    title = 'pashehi page'
-    description = 'This is an sasassasaawesome page hey'
-    keywords = ['Our', 'best', 'homepage']
-
-    structured_data = {
-        "@type": "Organizasaation",
-        "name": "The Compasany home",
-        "description": _("A greatesast hd company."),
-    }
-
-    def get_structured_data(self):
-        sd = super(CustomSearchView, self).get_structured_data()
-        return sd
 
 

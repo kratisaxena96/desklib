@@ -6,22 +6,43 @@ from django.utils.translation import gettext as _
 from django.shortcuts import render
 from django.conf import settings
 import logging
-
+from django.views.generic.edit import FormView
+from haystack.generic_views import SearchView
+from.forms import HomeSearchForm
 logger = logging.getLogger(__name__)
 
-class HomePageView(MetadataMixin,JsonLdContextMixin, TemplateView):
-    title = 'Home page'
-    description = 'This is an awesome page hey'
-    keywords = ['Our','best','homepage']
-    twitter_title = 'Hello Twitter'
+class HomePageView(MetadataMixin,JsonLdContextMixin,SearchView):
+    form_class = HomeSearchForm
+    title = 'Library at your desk | desklib.com'
+    description = 'Desklib is your home for best study resources and educational documents. We have a large collection of homework answers, assignment solutions, reports and presentations. Our automated tools help you improve your writing skills and grammar.'
+    keywords = ['Study resources','study material','homework solution', 'study tools', 'educational documents']
+    twitter_title = 'All study resources you will need to secure best grades.'
 
     template_name = "desklib/home.html"
     # template_name = "desklib/coming_soon.html"
 
     structured_data = {
         "@type": "Organization",
-        "name": "The Company home",
-        "description": _("A great company."),
+        "name": "DeskLib",
+        "description": _("All study resources you will need to secure best grade."),
+        "url": "https://desklib.com/",
+        "logo": "https://www.desklib.com/assets/img/desklib_logo.png",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://www.desklib.com/study/search/?q={search_term}",
+            "query-input": "required name=search_term"
+        },
+        "sameAs": [
+            "https://www.facebook.com/desklib",
+            "https://twitter.com/desklib",
+            "https://www.linkedin.com/company/desklib",
+            "https://www.youtube.com/desklib",
+            "https://www.pinterest.com/desklib/",
+            "https://www.instagram.com/desklib/",
+            "https://plus.google.com/+desklib",
+            "https://en.wikipedia.org/wiki/desklib",
+            "https://github.com/desklib"
+        ]
     }
 
     def get_structured_data(self):
@@ -30,15 +51,33 @@ class HomePageView(MetadataMixin,JsonLdContextMixin, TemplateView):
 
 
 class AboutPageView(MetadataMixin,JsonLdContextMixin,TemplateView):
-    title = 'About page'
-    description = 'This is an About page'
+    title = 'About | desklib.com'
+    description = 'DeskLib is a single stop solution for all your academic needs. We provide millions of study documents which can be used for by students to obtain better grades.'
 
     template_name = "desklib/about.html"
 
     structured_data = {
         "@type": "Organization",
-        "name": "The Company home",
-        "description": _("ABOUT company."),
+        "name": "DeskLib",
+        "description": _("DeskLib is a single stop solution for all your academic needs. We provide millions of study documents which can be used for by students to obtain better grades."),
+        "url": "https://desklib.com/",
+        "logo": "https://www.desklib.com/assets/img/desklib_logo.png",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://www.desklib.com/study/search/?q={search_term}",
+            "query-input": "required name=search_term"
+        },
+        "sameAs": [
+            "https://www.facebook.com/desklib",
+            "https://twitter.com/desklib",
+            "https://www.linkedin.com/company/desklib",
+            "https://www.youtube.com/desklib",
+            "https://www.pinterest.com/desklib/",
+            "https://www.instagram.com/desklib/",
+            "https://plus.google.com/+desklib",
+            "https://en.wikipedia.org/wiki/desklib",
+            "https://github.com/desklib"
+        ]
     }
 
     def get_structured_data(self):
@@ -47,15 +86,33 @@ class AboutPageView(MetadataMixin,JsonLdContextMixin,TemplateView):
 
 
 class PricingPageView(MetadataMixin,JsonLdContextMixin,TemplateView):
-    title = 'Pricing page'
-    description = 'This is a Pricing page'
-
+    title = 'Pricing | desklib.com'
+    description = 'DeskLib provides a subscription based access to its resources at affordable price.'
     template_name = "desklib/pricing.html"
 
     structured_data = {
         "@type": "Organization",
-        "name": "The Company home",
-        "description": _("Pricing company."),
+        "name": "DeskLib",
+        "description": _(
+            'DeskLib provides a subscription based access to its resources at affordable price.'),
+        "url": "https://desklib.com/",
+        "logo": "https://www.desklib.com/assets/img/desklib_logo.png",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://www.desklib.com/study/search/?q={search_term}",
+            "query-input": "required name=search_term"
+        },
+        "sameAs": [
+            "https://www.facebook.com/desklib",
+            "https://twitter.com/desklib",
+            "https://www.linkedin.com/company/desklib",
+            "https://www.youtube.com/desklib",
+            "https://www.pinterest.com/desklib/",
+            "https://www.instagram.com/desklib/",
+            "https://plus.google.com/+desklib",
+            "https://en.wikipedia.org/wiki/desklib",
+            "https://github.com/desklib"
+        ]
     }
 
     def get_structured_data(self):
@@ -64,15 +121,34 @@ class PricingPageView(MetadataMixin,JsonLdContextMixin,TemplateView):
 
 
 class ContactPageView(MetadataMixin,JsonLdContextMixin, TemplateView):
-    title = 'Contact page'
-    description = 'This is a contact page'
+    title = 'Contact | desklib.com'
+    description = '24X7 online support for our customers. Reach our customer support and get your queries answered instantly.'
 
     template_name = "desklib/contact.html"
 
     structured_data = {
         "@type": "Organization",
-        "name": "The Company home",
-        "description": _("A Contact company."),
+        "name": "DeskLib",
+        "description": _(
+            '24X7 online support for our customers. Reach our customer support and get your queries answered instantly.'),
+        "url": "https://desklib.com/",
+        "logo": "https://www.desklib.com/assets/img/desklib_logo.png",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://www.desklib.com/study/search/?q={search_term}",
+            "query-input": "required name=search_term"
+        },
+        "sameAs": [
+            "https://www.facebook.com/desklib",
+            "https://twitter.com/desklib",
+            "https://www.linkedin.com/company/desklib",
+            "https://www.youtube.com/desklib",
+            "https://www.pinterest.com/desklib/",
+            "https://www.instagram.com/desklib/",
+            "https://plus.google.com/+desklib",
+            "https://en.wikipedia.org/wiki/desklib",
+            "https://github.com/desklib"
+        ]
     }
 
     def get_structured_data(self):
@@ -96,3 +172,4 @@ def handler500(request, *args, **kwargs):
         return render(request,'desklib/error_500.html', status=500)
     else:
         return render(request, 'desklib/error_500.html', status=500)
+

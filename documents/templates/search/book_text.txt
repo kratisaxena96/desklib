@@ -2,3 +2,4 @@
 {{object.description}}
 {{object.content}}
 {{object.summary}}
+{{object.subjects}}

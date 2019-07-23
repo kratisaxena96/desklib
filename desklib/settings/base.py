@@ -13,7 +13,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.realpath(os.path.dirname(__file__) + "/.."))
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 print(BASE_DIR)
 print(PROJECT_ROOT)
@@ -58,7 +59,6 @@ INSTALLED_APPS = [
     'subjects',
     'writing',
     'captcha',
-    'debug_toolbar',
     'subscription',
     'post_office',
     'phonenumber_field',
@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'study',
 
 ]
+
 SITE_ID = 1
 
 MIDDLEWARE = [
@@ -79,6 +80,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+]
+
+INTERNAL_IPS = [
+    '127.0.0.1',
 ]
 
 ROOT_URLCONF = 'desklib.urls'
@@ -123,15 +128,7 @@ JSON_LD_INVALID_SD = 'throw'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'desklib_dev_db',
-        'USER': 'root',
-        'PASSWORD': 'password',
-    }
-}
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 # Password validation
@@ -181,6 +178,7 @@ HAYSTACK_CONNECTIONS = {
         'ENGINE': 'haystack.backends.elasticsearch2_backend.Elasticsearch2SearchEngine',
         'URL': 'localhost:9200',
         'INDEX_NAME': 'haystack_new',
+        'INCLUDE_SPELLING': True,
     },
 }
 
@@ -209,19 +207,11 @@ TAGGIT_CASE_INSENSITIVE = True
 GECKO_DRIVER_URL = os.path.join(BASE_DIR, 'geckodriver')
 GEOIP_PATH = os.path.join(BASE_DIR, 'geoip')
 
-INTERNAL_IPS = [
-    '127.0.0.1',
-]
 ACCOUNT_FORMS = {
 'signup': 'accounts.forms.CustomSignupForm',
 }
 
-#Commented out in production envirment
-SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
 
-# Actual Parameter to be filled as provided by google for your domain
-# RECAPTCHA_PUBLIC_KEY = 'MyRecaptchaKey123'
-# RECAPTCHA_PRIVATE_KEY = 'MyRecaptchaPrivateKey456'
 
 HAYSTACK_DEFAULT_OPERATOR = 'OR'
 
@@ -230,10 +220,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 
 
-EMAIL_HOST_USER = 'vishakha.sharma@locusrags.com'
-EMAIL_HOST_PASSWORD = 'vishakhalocus7@4'
-
-DEFAULT_FROM_EMAIL = 'vishakha.sharma@locusrags.com'
 
 #Setr
 # ROBOTS_USE_SITEMAP = False
@@ -255,34 +241,5 @@ CACHES = {
 # DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000*2
 #https://sorl-thumbnail.readthedocs.io/en/latest/requirements.html kindly satisfy requirements for sorl-thumbnail.
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
-            'style': '{',
-        },
-        'simple': {
-            'format': '{levelname} {message}',
-            'style': '{',
-        },
-    },
-    'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': 'logs/debug.log',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-    },
-}
 
 
-THUMBNAIL_DEBUG = True
