@@ -26,7 +26,7 @@ from .views import WritingPageView, ComparePageView, SpellCheckPageView, Grammar
 urlpatterns = [
     path('', WritingPageView.as_view(), name="writing"),
     path('compare/', ComparePageView.as_view(), name="compare"),
-    path('grammar-checker/', SpellCheckPageView.as_view(), name="spell"),
-    path('demo-check/', GrammarCorrectPageView.as_view(), name="grammar"),
+    # path('grammar-checker/', SpellCheckPageView.as_view(), name="spell"),
+    path('grammar-checker/', GrammarCorrectPageView.as_view(), name="grammar"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
