@@ -43,8 +43,8 @@ urlpatterns = [
     path('test/', TestPageView.as_view(), name='test'),
     path('__debug__/', include(debug_toolbar.urls)),
     path('writing/', include(('writing.urls', 'writing'), namespace="writing")),
-    path('robots.txt/', include('robots.urls')),
-    path('sitemap.xml/', views.index, {'sitemaps': sitemaps}),
+    path('robots.txt', include('robots.urls')),
+    path('sitemap.xml', views.index, {'sitemaps': sitemaps}),
     path('sitemap-<section>.xml', views.sitemap, {'sitemaps': sitemaps},
                        name='django.contrib.sitemaps.views.sitemap'),
 

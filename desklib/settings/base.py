@@ -128,7 +128,7 @@ JSON_LD_INVALID_SD = 'throw'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 # Password validation

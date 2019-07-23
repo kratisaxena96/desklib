@@ -322,6 +322,17 @@ class Document(ModelMeta, models.Model):
 
             self.page = pdf_images.__len__()
 
+            if self.page <= 5:
+                self.preview_to = 2
+            elif self.page <=10:
+                self.preview_to = 2
+            elif self.page <= 20:
+                self.preview_to = 3
+            elif self.page <=30:
+                self.preview_to = 4
+            elif self.page > 30:
+                self.preview_to = 5
+
             super(Document, self).save(*args, **kwargs)
 
             # Extracting html of individual pages from pdf file
@@ -339,16 +350,7 @@ class Document(ModelMeta, models.Model):
                 page_obj.save()
                 page_count += 1
 
-            if page_count <= 5:
-                self.preview_to = 2
-            elif page_count <=10:
-                self.preview_to = 2
-            elif page_count <= 20:
-                self.preview_to = 3
-            elif page_count <=30:
-                self.preview_to = 4
-            elif page_count > 30:
-                self.preview_to = 5
+
 
             # Adding predicted subjects to document
 
