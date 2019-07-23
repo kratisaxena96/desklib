@@ -3,9 +3,6 @@
 {% load i18n %}
 {% load thumbnail %}
 {% load highlight %}
-
-
-
 {% block navbar %}
     {% include 'desklib/base_header.html' %}
 {% endblock %}
@@ -22,45 +19,10 @@
     <li><a href="{% url 'writing:compare' %}">Compare</a> </li>
     <li><a href="{% url 'writing:spell' %}">Grammar Checker</a> </li>
 </ul>
-<form method="get" action="." class="form" role="form">
-        {{ form.non_field_errors }}
-        <div class="form-group">
-                {{ form.as_p }}
-        </div>
-       {% if query %}
-            <h3>Results</h3>
-
-        <div class="container-fluid bg-4 text-left">
-                <div class="row">
-                    {% for result in page_obj.object_list %}
-                <div class="col-sm-4">
-                  <a href="{% url 'documents:document-view' result.slug %}">
-                    <div class="form-group">
-                            {% thumbnail result.cover_image "80x80" crop="80% top" as im %}
-                                <img src="{{ im.url }}">
-                            {% empty %}
-                                <h4>No image</h4>
-                            {% endthumbnail %}
-                        {% highlight result.summary with query html_tag "span" css_class "highlight" max_length 120 %}
-                        <p>Total No of pages:{{result.no_of_pages}}  </p>
-                    </div>
-                  </a>
-                </div>
-                </div>
-                {% empty %}
-             {% endfor%}
-             {% if page.has_previous or page.has_next %}
-                <div>
-                    {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
-                    |
-                    {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
-                </div>
-            {% endif %}
-                </div>
-        </div>
-
-        {% endif %}
-</form>
+<form action="/study/search" method="get">
+        <input id ="id_q" name="q" type="text" />
+        <input type="submit"/>
+    </form>
 <div class="jumbotron">
     <div class="container">
         <h1>{% trans "Welcome to TaskBuster!"%}</h1>

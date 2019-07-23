@@ -44,12 +44,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">HOME</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right">
-        <li><input type="submit" class="btn btn-primary" value="Add Customer">  </li>
-    </ul>
+      <a class="navbar-brand" href="{% url 'home'%}">HOME</a>
     </div>
   </div>
 </nav>
@@ -64,6 +59,9 @@
         <div class="form-group">
             <input id="1232" type="submit" class="btn btn-primary" value="Search">
         </div>
+    {% if suggestion %}
+        <span><p>Did You Mean: <a href="#" data-index="{{suggestion}}" id="suggest">{{suggestion}}</a></p></span>
+    {% endif %}
 
         {% if query %}
             <h3>Results</h3>
@@ -102,9 +100,16 @@
 </div>
 {% endblock %}
     <script>
+    $("#suggest").on("click", function () {
+    $a = $(this).data("index");
+    $('#id_q').val($a)
+    $(".form").submit();
+    });
+
+
    $('#id_q').autocomplete({
  source: function (request, response) {
-     $.getJSON("/autocomplete/?q=" + request.term, function (data) {
+     $.getJSON("study/autocomplete/?q=" + request.term, function (data) {
          response($.map(data, function (value, key) {
              return {
                 label: value,

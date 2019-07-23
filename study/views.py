@@ -33,7 +33,7 @@ from haystack.forms import SearchForm
 
 # Create your views here.
 
-class StudyPageView(MetadataMixin,JsonLdContextMixin, TemplateView):
+class StudyPageView(MetadataMixin,JsonLdContextMixin, SearchView):
     title = 'Study page'
     description = 'This is a Study page'
 
@@ -54,15 +54,16 @@ class StudyPageView(MetadataMixin,JsonLdContextMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(StudyPageView, self).get_context_data(**kwargs)
         recent = SearchQuerySet().order_by('-pub_date')[:5]
-        # spellings = SearchQuerySet().spelling_suggestion('predident is goood')
+        spellings = SearchQuerySet().spelling_suggestion('djago id not goodd to see')
         context['recent'] = recent
-        # context['spellings'] = spellings
+        context['spellings'] = spellings
 
         return context
 
     def get_structured_data(self):
         sd = super(StudyPageView, self).get_structured_data()
         return sd
+
 
 def autocomplete(request):
     sqs = SearchQuerySet().autocomplete(content_auto=request.GET.get('q', ''))[:5]
@@ -78,9 +79,12 @@ def autocomplete(request):
 class CustomSearchView(JsonLdContextMixin, MetadataMixin, SearchView):
     template_name = 'search/search.html'
     model = Document
+    form_class = SearchForm
+
     title = 'pashehi page'
     description = 'This is an sasassasaawesome page hey'
     keywords = ['Our', 'best', 'homepage']
+    suggestions = {}
 
     structured_data = {
         "@type": "Organizasaation",
@@ -88,9 +92,29 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, SearchView):
         "description": _("A greatesast hd company."),
     }
 
+    def get_context_data(self, **kwargs):
+        context = super(JsonLdContextMixin, self).get_context_data(**kwargs)
+        context[settings.CONTEXT_ATTRIBUTE] = self.get_structured_data()
+        if self.suggestions:
+            context['suggestion'] = self.suggestions
+        """Insert the form into the context dict."""
+        if 'form' not in kwargs:
+            kwargs['form'] = self.get_form()
+        return context
+
+    def get_queryset(self):
+        queryset = super(CustomSearchView, self).get_queryset()
+        # further filter queryset based on some set of criteria
+        return queryset.filter_or()
+
     def get_structured_data(self):
         sd = super(CustomSearchView, self).get_structured_data()
         return sd
 
-
+    def get(self, request, *args, **kwargs):
+        self.query = SearchQuerySet().filter_or(**kwargs)
+        suggest_string = SearchQuerySet().spelling_suggestion(request.GET.get('q', ''))
+        if request.GET.get('q', '') != suggest_string:
+            self.suggestions = suggest_string
+        return super(CustomSearchView, self).get(request, *args, **kwargs)
 

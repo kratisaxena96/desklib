@@ -181,6 +181,7 @@ HAYSTACK_CONNECTIONS = {
         'ENGINE': 'haystack.backends.elasticsearch2_backend.Elasticsearch2SearchEngine',
         'URL': 'localhost:9200',
         'INDEX_NAME': 'haystack_new',
+        'INCLUDE_SPELLING': True,
     },
 }
 
@@ -286,4 +287,3 @@ LOGGING = {
 
 
 THUMBNAIL_DEBUG = True
-INCLUDE_SPELLING = True
