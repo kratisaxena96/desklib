@@ -7,7 +7,6 @@ from django.utils.translation import gettext as _
 from django.views.generic.edit import CreateView, FormView
 from django.views.generic.base import TemplateView
 
-from .models import Compare, Spell
 from .forms import CompareForm, SpellCheckForm
 
 from nltk.tokenize import word_tokenize
@@ -74,10 +73,9 @@ class ComparePageView(MetadataMixin,JsonLdContextMixin, FormView):
         form = CompareForm(self.request.POST)
 
         if form.is_valid():
-            compare_obj = form.save(commit=False)
             threshold_count = 4
-            s1 = compare_obj.textarea1
-            s2 = compare_obj.textarea2
+            s1 = form.cleaned_data['textarea1']
+            s2 = form.cleaned_data['textarea2']
 
             n1 = list(ngrams(word_tokenize(s1), 1))
             n2 = list(ngrams(word_tokenize(s2), 1))
