@@ -16,8 +16,11 @@ ALLOWED_EXTENSIONS = ['pdf','docx','doc', 'pptx', 'ppt', 'odt', 'odf']
 IGNORE_FILENAME_KEYWORDS = ['lecture','rubics','assignmentbrief','criteria', 'requirements']
 IGNORE_FILECONTENT_KEYWORDS = ['ORIGINALITY REPORT']
 
+i = 0
 for root, dirs, files in os.walk(path, topdown=False):
     for filename in files:
+        i = i+1
+        print("Processing file no: ", i)
         if last_file:
             if filename == last_file:
                 last_file = None

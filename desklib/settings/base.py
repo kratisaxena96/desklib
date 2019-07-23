@@ -17,7 +17,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.realpath(os.path.dirname(__file__) + "/.."))
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 print(BASE_DIR)
-# print(PROJECT_ROOT)
+print(PROJECT_ROOT)
 
 
 # Quick-start development settings - unsuitable for production
@@ -205,7 +205,6 @@ TAGGIT_CASE_INSENSITIVE = True
 
 GECKO_DRIVER_URL = os.path.join(BASE_DIR, 'geckodriver')
 GEOIP_PATH = os.path.join(BASE_DIR, 'geoip')
-print(GEOIP_PATH)
 
 ACCOUNT_FORMS = {
 'signup': 'accounts.forms.CustomSignupForm',
@@ -242,32 +241,3 @@ CACHES = {
 #https://sorl-thumbnail.readthedocs.io/en/latest/requirements.html kindly satisfy requirements for sorl-thumbnail.
 
 
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'formatters': {
-#         'verbose': {
-#             'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
-#             'style': '{',
-#         },
-#         'simple': {
-#             'format': '{levelname} {message}',
-#             'style': '{',
-#         },
-#     },
-#     'handlers': {
-#         'file': {
-#             'level': 'DEBUG',
-#             'class': 'logging.FileHandler',
-#             'filename': 'logs/debug.log',
-#         },
-#     },
-#     'loggers': {
-#         'django': {
-#             'handlers': ['file'],
-#             'level': 'DEBUG',
-#             'propagate': True,
-#         },
-#     },
-# }
-#
