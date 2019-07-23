@@ -28,9 +28,14 @@ class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
     cover_image = indexes.CharField()
     no_of_pages = indexes.CharField(model_attr='page')
     suggestions = indexes.FacetCharField()
+    subjects = indexes.MultiValueField(faceted=True)
+
 
     def get_model(self):
         return Document
+
+    def prepare_subjects(self, obj):
+        return [(t.name) for t in obj.subjects.all()]
 
     def prepare_cover_image(self, obj):
         if  obj.pages.first():

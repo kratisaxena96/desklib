@@ -54,10 +54,7 @@ class StudyPageView(MetadataMixin,JsonLdContextMixin, SearchView):
     def get_context_data(self, **kwargs):
         context = super(StudyPageView, self).get_context_data(**kwargs)
         recent = SearchQuerySet().order_by('-pub_date')[:5]
-        spellings = SearchQuerySet().spelling_suggestion('djago id not goodd to see')
         context['recent'] = recent
-        context['spellings'] = spellings
-
         return context
 
     def get_structured_data(self):
@@ -105,7 +102,7 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, SearchView):
     def get_queryset(self):
         queryset = super(CustomSearchView, self).get_queryset()
         # further filter queryset based on some set of criteria
-        return queryset.filter_or()
+        return queryset
 
     def get_structured_data(self):
         sd = super(CustomSearchView, self).get_structured_data()

@@ -78,7 +78,7 @@ gulp.task('serve', ['copy-css', 'copy-js', 'minify-css', 'build-js'], function()
       	injectChanges: true,
         files: ['desklib/static/dist/css/**/*.css', 'desklib/static/dist/js/*.js'],
         // server: "./",
-        proxy: "localhost:8004",
+        proxy: "localhost:8000",
         logConnections: true,
         // tunnel: true,
         // xip: true,
