@@ -26,10 +26,25 @@
             }
     </style>
 </head>
-<form action="/study/search" method="get">
+<form action="/study/search" method="get" id="form">
         <input id ="id_q" name="q" type="text" />
         <input type="submit" />
     </form>
+<p><>>>>>>>>><><> filters >>>>>>>>>>></p>
+{%for subject in subjects %}
+    <input id="check" type="checkbox" name="subjects" value="{{subject.name}}">{{subject.name}}<br>
+    <input type="hidden" name="q" value="123">
+
+{% endfor %}
+
+<p>.....................End Filters.............</p>
+<p><>>>>>>>>recent added>>>>>>>>>>>>>>>>>>></p>
+{% for rec in recent %}
+<a href="{% url 'documents:document-view' rec.slug %}">
+    <p>{{rec.title}}slug:{{rec.slug}}</p>
+</a>
+{% endfor %}
+<p><>>>>>>>>end recent>>>>>>>>>>>>>>>>>>></p>
 <p><>>>>>>>>recent added>>>>>>>>>>>>>>>>>>></p>
 {% for rec in recent %}
 <a href="{% url 'documents:document-view' rec.slug %}">
@@ -38,6 +53,16 @@
 {% endfor %}
 <p><>>>>>>>>end recent>>>>>>>>>>>>>>>>>>></p>
  <script>
+$('#form').submit(function () {
+  var tempArray = [];
+  $('input:checked[name="subjects"]').each(function() {
+  tempArray.push('selected_facets=subjects_exact:'+$(this).val());
+});
+
+  console.log('example.com?'+tempArray.toString());
+
+  });
+
    $('#id_q').autocomplete({
  source: function (request, response) {
      $.getJSON("/study/autocomplete/?q=" + request.term, function (data) {
