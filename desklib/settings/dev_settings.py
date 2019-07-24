@@ -42,6 +42,4 @@ DEFAULT_FROM_EMAIL = 'vishakha.sharma@locusrags.com'
 # DATA_UPLOAD_MAX_MEMORY_SIZE = 2621440*4
 # DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000*2
 #https://sorl-thumbnail.readthedocs.io/en/latest/requirements.html kindly satisfy requirements for sorl-thumbnail.
-
-
-THUMBNAIL_DEBUG = True
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10

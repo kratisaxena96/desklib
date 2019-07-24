@@ -17,9 +17,10 @@
                 Find Study resources
             </p>
             <p>Search from 2 million attributes</p>
-            <form class="frm-responsive">
-                <input type="text" placeholder="Search a topic or subject"><img class="img-fluid" src="{% static '/src/assets/images/search icon.png' %}" alt="search">
-            </form>
+           <form action="/study/search" method="get">
+                <input id ="id_q" name="q" type="text" />
+                     <input type="submit"/>
+             </form>
             <p>Eg: Starbucks case study, presentation.</p>
         </div>
     </div>
@@ -30,9 +31,11 @@
         <div class="row">
             <div class="col-md-6 yellow space-col">
                 <h2 class="font-40">Having a heard time compliting your work.</h2>
+                <a href="{%url 'study:study-search'%}">
                 <button class="btn-lg btn-primary btn-bg-theme top-30">
                     Explore Resources
                 </button>
+                </a>
             </div>
             <div class="col-md-6 green">
                 <h2 class="font-40">Not sure if your written document is error-free.</h2>

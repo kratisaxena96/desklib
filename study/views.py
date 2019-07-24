@@ -109,7 +109,6 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, SearchView):
         return sd
 
     def get(self, request, *args, **kwargs):
-        self.query = SearchQuerySet().filter_or(**kwargs)
         suggest_string = SearchQuerySet().spelling_suggestion(request.GET.get('q', ''))
         if request.GET.get('q', '') != suggest_string:
             self.suggestions = suggest_string
