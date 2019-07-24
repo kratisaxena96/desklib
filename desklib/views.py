@@ -5,6 +5,9 @@ from django_json_ld.views import JsonLdContextMixin
 from django.utils.translation import gettext as _
 from django.shortcuts import render
 from django.conf import settings
+from django.urls import reverse
+from paypal.standard.forms import PayPalPaymentsForm
+
 import logging
 from django.views.generic.edit import FormView
 from haystack.generic_views import SearchView
@@ -186,4 +189,40 @@ def handler500(request, *args, **kwargs):
         return render(request,'desklib/error_500.html', status=500)
     else:
         return render(request, 'desklib/error_500.html', status=500)
+
+
+
+class PaypalPaymentView(TemplateView):
+    template_name = "desklib/payment.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(PaypalPaymentView, self).get_context_data(**kwargs)
+        if settings.PAYPAL_TEST:
+            receiver_email = "info-facilitator@a2zservices.net"
+            # action="https://www.sandbox.paypal.com/cgi-bin/webscr"
+
+        paypal_dict = {
+            "cmd": "_xclick-subscriptions",
+            "a3": "9.99",  # monthly price
+            "p3": 1,  # duration of each unit (depends on unit)
+            "t3": "M",  # duration unit ("M for Month")
+            "src": "1",  # make payments recur
+            "sra": "1",  # reattempt payment on payment error
+            "no_note": "1",  # remove extra notes (optional)
+            "business": receiver_email,
+            "amount": "10.00",
+            "item_name": "name of the item",
+            "invoice": "28gis-9",
+            "notify_url": self.request.build_absolute_uri(reverse('paypal-ipn')),
+            "return": self.request.build_absolute_uri(reverse('about')),
+            "cancel_return": self.request.build_absolute_uri(reverse('contact')),
+            "custom": "premium_plan",  # Custom command to correlate to some function later (optional)
+        }
+
+        form = PayPalPaymentsForm(initial=paypal_dict, button_type="subscribe")
+        context = {"form": form}
+        return context
+
+
+
 

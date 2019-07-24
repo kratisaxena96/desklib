@@ -23,7 +23,8 @@ from django.views.decorators.cache import cache_page
 
 from .sitemaps import DocumentSitemap,StaticViewSitemap
 from django.contrib.sitemaps import views
-from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView, TestPageView
+import desklib
+from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView, TestPageView, PaypalPaymentView
 if settings.DEBUG:
     import debug_toolbar
 
@@ -31,6 +32,7 @@ sitemaps = {
     'documents': DocumentSitemap,
     'static':StaticViewSitemap
 }
+from documents.views import autocomplete,CustomSearchView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -50,6 +52,11 @@ urlpatterns = [
     path('sitemap-<section>.xml', views.sitemap, {'sitemaps': sitemaps},
                        name='django.contrib.sitemaps.views.sitemap'),
 
+    path('search/', CustomSearchView.as_view(),),
+    path(r'autocomplete/', autocomplete, name='autocomplete'),
+    path('payment/doc', PaypalPaymentView.as_view() ),
+    path('paypal/', include('paypal.standard.ipn.urls'), name='paypal-ipn'),
+    # path('payment/document',)
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
