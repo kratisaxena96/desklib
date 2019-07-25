@@ -3,8 +3,8 @@ from django.views.generic.base import TemplateView
 from meta.views import MetadataMixin
 from django_json_ld.views import JsonLdContextMixin
 from django.utils.translation import gettext as _
-from haystack.query import SearchQuerySet
-from haystack.inputs import AutoQuery, Exact, Clean
+# from haystack.query import SearchQuerySet
+# from haystack.inputs import AutoQuery, Exact, Clean
 from haystack.utils.highlighting import Highlighter
 from django.views.generic import TemplateView, DetailView,CreateView
 from documents.models import Document
@@ -20,7 +20,7 @@ from haystack.query import SearchQuerySet
 from meta.views import Meta
 from django_json_ld.views import JsonLdContextMixin,settings,JsonLdSingleObjectMixin
 from django.utils.translation import gettext as _
-from haystack.generic_views import SearchMixin, SearchView
+from haystack.generic_views import SearchMixin, SearchView, FacetedSearchView
 from meta.views import MetadataMixin
 from django.views.generic.list import ListView
 from post_office import mail
@@ -29,8 +29,8 @@ from django.conf import settings
 from django.core.files.base import ContentFile
 import logging
 from django_json_ld import settings
-from haystack.forms import SearchForm
-
+from haystack.forms import FacetedSearchForm
+from subjects.models import Subject
 # Create your views here.
 
 class StudyPageView(MetadataMixin,JsonLdContextMixin, SearchView):
@@ -54,7 +54,9 @@ class StudyPageView(MetadataMixin,JsonLdContextMixin, SearchView):
     def get_context_data(self, **kwargs):
         context = super(StudyPageView, self).get_context_data(**kwargs)
         recent = SearchQuerySet().order_by('-pub_date')[:5]
+        subjects = Subject.objects.filter(is_visible=True,)
         context['recent'] = recent
+        context['subjects'] = subjects
         return context
 
     def get_structured_data(self):
@@ -73,11 +75,11 @@ def autocomplete(request):
     return HttpResponse(the_data, content_type='application/json')
 
 
-class CustomSearchView(JsonLdContextMixin, MetadataMixin, SearchView):
+class CustomSearchView(JsonLdContextMixin, MetadataMixin, FacetedSearchView):
     template_name = 'search/search.html'
     model = Document
-    form_class = SearchForm
-
+    form_class = FacetedSearchForm
+    facet_fields = ['subjects']
     title = 'pashehi page'
     description = 'This is an sasassasaawesome page hey'
     keywords = ['Our', 'best', 'homepage']
@@ -109,7 +111,6 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, SearchView):
         return sd
 
     def get(self, request, *args, **kwargs):
-        self.query = SearchQuerySet().filter_or(**kwargs)
         suggest_string = SearchQuerySet().spelling_suggestion(request.GET.get('q', ''))
         if request.GET.get('q', '') != suggest_string:
             self.suggestions = suggest_string

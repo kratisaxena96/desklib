@@ -21,7 +21,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 from django.core.files.base import ContentFile
 import logging
-from django_json_ld import settings
 logger = logging.getLogger(__name__)
 
 
@@ -63,6 +62,8 @@ class DocumentView(JsonLdDetailView):
             attachments = {}
             pdf_doc_name = document_obj.pdf_converted_file.name.split('/')[-1]
             attachments[pdf_doc_name] = ContentFile(document_obj.pdf_converted_file.file.read())
+            self.object = self.get_object()
+            mlt = SearchQuerySet().more_like_this(download_obj)
 
             mail.send(
                 request.user.email,  # List of email addresses also accepted
@@ -75,7 +76,10 @@ class DocumentView(JsonLdDetailView):
             )
 
             logger.info("mail send")
-            return render(request, 'documents/document_detail.html')
+            context = self.get_context_data(object=self.object)
+            context['more'] = mlt
+
+            return render(request, 'documents/document_detail.html',context)
         except Exception as e:
             print(e)
 
