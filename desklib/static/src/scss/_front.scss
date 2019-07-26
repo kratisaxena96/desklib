@@ -133,7 +133,7 @@ card{
 }
 .top-study{
     padding-top: 4%;
-    background-color: #DCDCDC;
+    background: #f5f8fd;
 }
 .centre-text{
     text-align: center;
@@ -153,4 +153,17 @@ card{
 }
 .owl-first > .owl-nav > .owl-prev{
     margin-left: -54%;
+}
+#team {
+  padding: 60px 0;
+}
+
+#team .member {
+  text-align: center;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.section-bg {
+  background: #f5f8fd;
 }

@@ -56,23 +56,28 @@
                <p>Did You Mean: <a href="#" data-index="{{suggestion}}" id="suggest">{{suggestion}}</a></p>
             </span>
             {% endif %}
-            {% if query %}
-            <h3>Results</h3>
              <div>
-                 {{facets}}
-<div>
-<dl>
-{% if facets.fields.subajects %}
-<dt>subjects</dt>
-{# Provide only the top 5 authors #}
-{% for author in facets.fields.subjects|slice:":5" %}
-<dd><a href="{{ request.get_full_path }}&amp;selected_facets=author_exact:{{ author.0|urlencode }}">{{ author.0 }}</a> ({{ author.1 }})</dd>
-{% endfor %}
-{% else %}
-<p>No author facets.</p>
-{% endif %}
-</dl>
-</div>
+            <!-- Begin faceting. -->
+                <h2>By Subjects</h2>
+            
+                <div>
+                    <dl>
+                        {% if facets.fields.subjects %}
+                            <dt>Subject</dt>
+                            {# Provide only the top 5 authors #}
+                            {% for sub in facets.fields.subjects|slice:":5" %}
+                                <dd><a href="{{ request.get_full_path }}&amp;selected_facets=subjects_exact:{{ sub.0|urlencode }}">{{ sub.0 }}</a> ({{ sub.1 }})</dd>
+                            {% endfor %}
+                        {% else %}
+                            <p>No subject filters.</p>
+                        {% endif %}
+                    </dl>
+                </div>
+                <!-- End faceting -->
+            </div>
+             {% if query %}
+            <h3>Results</h3>
+
             <div class="container-fluid bg-4 text-left">
                <div class="row">
                   {% for result in page_obj.object_list %}

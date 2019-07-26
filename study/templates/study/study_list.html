@@ -26,10 +26,22 @@
             }
     </style>
 </head>
-<form action="/study/search" method="get">
+<form action="/study/search" method="get" id="form">
         <input id ="id_q" name="q" type="text" />
         <input type="submit" />
+    {% comment %}<!--    {%for subject in facets.fields.subjects|slice:":5" %}-->
+<!--    <input id="check" type="checkbox" name="selected_facets" value="subjects_exact:{{ subject.0|urlencode }}">{{subject.0}}<br>-->
+<!--    <input type="hidden" name="q" value="123">-->
+
+<!--{% endfor %}-->
+{% endcomment %}
     </form>
+<p><>>>>>>>>><><> filters >>>>>>>>>>></p>
+{% for subject in subjects %}
+<a href="{% url 'study:search' %}?selected_facets=subjects_exact:{{ subject.slug }}">{{ subject.name }}</a>
+{% endfor %}
+<p>.....................End Filters.............</p>
+
 <p><>>>>>>>>recent added>>>>>>>>>>>>>>>>>>></p>
 {% for rec in recent %}
 <a href="{% url 'documents:document-view' rec.slug %}">
@@ -38,6 +50,8 @@
 {% endfor %}
 <p><>>>>>>>>end recent>>>>>>>>>>>>>>>>>>></p>
  <script>
+
+
    $('#id_q').autocomplete({
  source: function (request, response) {
      $.getJSON("/study/autocomplete/?q=" + request.term, function (data) {
