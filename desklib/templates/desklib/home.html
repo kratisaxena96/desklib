@@ -49,80 +49,22 @@
 <h1>
 </h1>
 <section class="top-study">
-                <h1>{% for results in top_results%}</h1>
-                 <a href="{% url 'documents:document-view' results.slug %}">
-<!--                        <div class="form-group">-->
-<!--                            {% comment %}-->
-<!--                            {% thumbnail result.cover_image "80x80" crop="80% top" as im %}-->
-<!--                           <img src="{{ im.url }}">-->
-<!--                           {% empty %}-->
-<!--                           <h4>No image</h4>-->
-<!--                           {% endthumbnail %}-->
-<!--                            {% endcomment %}-->
-<!--                        </div>-->
-                     </a>
-    {% endfor %}
     <h2 class="centre-text">Top study documents</h2>
     <div class="container">
         <div class="row">
             <div class="owl-carousel owl-theme owl-first">
-                <div>
-                    <div class="card">
-                        <img class="card-img-top card-height" src="{% static '/src/assets/images/Option 1.png' %}" alt="Card image">
-                        <div class="card-body">
-                                <p class="card-text">I recommend Kaustubh for people very motivated.</p>
+                    {% for results in top_results%}
+                        <a href="{% url 'documents:document-view' results.slug %}">
+                            <div>
+                        <div class="card">
+                            <img class="card-img-top card-height" src="{{results.cover_image}}" alt="Card image">
+                            <div class="card-body">
+                                    <p class="card-text">{{results.title}}</p>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="card">
-                        <img class="card-img-top card-height" src="{% static '/src/assets/images/Option 2.png' %}" alt="Card image">
-                        <div class="card-body">
-                                <p class="card-text">I recommend Kaustubh for people very motivated.</p>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="card">
-                        <img class="card-img-top card-height" src="{% static '/src/assets/images/Option 1.png' %}" alt="Card image">
-                        <div class="card-body">
-                                <p class="card-text">I recommend Kaustubh for people very motivated.</p>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="card">
-                        <img class="card-img-top card-height" src="{% static '/src/assets/images/Option 2.png' %}" alt="Card image">
-                        <div class="card-body">
-                                <p class="card-text">I recommend Kaustubh for people very motivated.</p>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="card">
-                        <img class="card-img-top card-height" src="{% static '/src/assets/images/Option 1.png' %}" alt="Card image">
-                        <div class="card-body">
-                                <p class="card-text">I recommend Kaustubh for people very motivated.</p>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="card">
-                        <img class="card-img-top card-height" src="{% static '/src/assets/images/Option 2.png' %}" alt="Card image">
-                        <div class="card-body">
-                                <p class="card-text">I recommend Kaustubh for people very motivated.</p>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="card">
-                        <img class="card-img-top card-height" src="{% static '/src/assets/images/Option 1.png' %}" alt="Card image">
-                        <div class="card-body">
-                                <p class="card-text">I recommend Kaustubh for people very motivated.</p>
-                        </div>
-                    </div>
-                </div>
-
+                            </div>
+                    </a>
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -300,7 +242,7 @@
             $(".owl-first").owlCarousel({
                 items: 5,
                 loop: true,
-                nav: true,
+                nav: false,
                 stagePadding: 10,
                 dots: false,
                 autoplay: true,

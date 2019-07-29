@@ -3,7 +3,6 @@ from django.views.generic.base import TemplateView
 from meta.views import MetadataMixin
 from django_json_ld.views import JsonLdContextMixin
 from django.utils.translation import gettext as _
-# from haystack.query import SearchQuerySet
 # from haystack.inputs import AutoQuery, Exact, Clean
 from haystack.utils.highlighting import Highlighter
 from django.views.generic import TemplateView, DetailView,CreateView
@@ -29,8 +28,10 @@ from django.conf import settings
 from django.core.files.base import ContentFile
 import logging
 from django_json_ld import settings
-from haystack.forms import FacetedSearchForm
 from subjects.models import Subject
+from haystack.inputs import AutoQuery, Exact, Clean
+from .forms import CustomFacetedSearchForm
+
 # Create your views here.
 
 class StudyPageView(MetadataMixin,JsonLdContextMixin, SearchView):
@@ -52,11 +53,13 @@ class StudyPageView(MetadataMixin,JsonLdContextMixin, SearchView):
 
 
     def get_context_data(self, **kwargs):
+        sqs = SearchQuerySet().facet('subjects')
+        subjects = sqs.facet_counts()
         context = super(StudyPageView, self).get_context_data(**kwargs)
         recent = SearchQuerySet().order_by('-pub_date')[:5]
-        subjects = Subject.objects.filter(is_visible=True,)
+        # subjects = Subject.objects.filter(is_visible=True,)
         context['recent'] = recent
-        context['subjects'] = subjects
+        context['abc'] = subjects
         return context
 
     def get_structured_data(self):
@@ -78,12 +81,15 @@ def autocomplete(request):
 class CustomSearchView(JsonLdContextMixin, MetadataMixin, FacetedSearchView):
     template_name = 'search/search.html'
     model = Document
-    form_class = FacetedSearchForm
+    form_class = CustomFacetedSearchForm
     facet_fields = ['subjects']
     title = 'pashehi page'
     description = 'This is an sasassasaawesome page hey'
     keywords = ['Our', 'best', 'homepage']
     suggestions = {}
+    selected_facets = ['subjects']
+    # query_set =  None
+
 
     structured_data = {
         "@type": "Organizasaation",
@@ -92,27 +98,46 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, FacetedSearchView):
     }
 
     def get_context_data(self, **kwargs):
-        context = super(JsonLdContextMixin, self).get_context_data(**kwargs)
-        context[settings.CONTEXT_ATTRIBUTE] = self.get_structured_data()
-        if self.suggestions:
-            context['suggestion'] = self.suggestions
-        """Insert the form into the context dict."""
-        if 'form' not in kwargs:
-            kwargs['form'] = self.get_form()
+        sqs = SearchQuerySet().facet('subjects')
+        sqs_count = sqs.facet_counts()
+        context = super(CustomSearchView, self).get_context_data(**kwargs)
+        # context[settings.CONTEXT_ATTRIBUTE] = self.get_structured_data()
+        context['sqs'] = sqs_count
+        # s =  SearchQuerySet().filter().facet('subjects')
+        # context['qry_st'] = self.query_set
+
+        suggest_string = SearchQuerySet().spelling_suggestion(self.request.GET.get('q', ''))
+        if self.request.GET.get('q', '') != suggest_string:
+            context['suggestion'] = suggest_string
+
+        # if self.suggestions:
+        #     context['suggestion'] = self.suggestions
+        # """Insert the form into the context dict."""
+        # if 'form' not in kwargs:
+        #     kwargs['form'] = self.get_form()
         return context
 
-    def get_queryset(self):
-        queryset = super(CustomSearchView, self).get_queryset()
-        # further filter queryset based on some set of criteria
-        return queryset
+    # def get_queryset(self):
+    #     queryset = super(CustomSearchView, self).get_queryset()
+    #     # further filter queryset based on some set of criteria
+    #     self.query_set = queryset
+    #     return queryset
 
     def get_structured_data(self):
         sd = super(CustomSearchView, self).get_structured_data()
         return sd
 
-    def get(self, request, *args, **kwargs):
-        suggest_string = SearchQuerySet().spelling_suggestion(request.GET.get('q', ''))
-        if request.GET.get('q', '') != suggest_string:
-            self.suggestions = suggest_string
-        return super(CustomSearchView, self).get(request, *args, **kwargs)
+    # def get(self, request, *args, **kwargs):
+    #     # sqs = SearchQuerySet().filter(content=AutoQuery(request.GET['q']), subjects=Exact('sanskrit'))
+    #     return super(CustomSearchView, self).get(request, *args, **kwargs)
 
+# class FacetedSearchView(SearchView):
+#     def extra_context(self):
+#         extra = super(FacetedSearchView, self).extra_context()
+#
+#         if self.results == []:
+#             extra['facets'] = self.form.search().facet_counts()
+#         else:
+#             extra['facets'] = self.results.facet_counts()
+#
+#         return extra

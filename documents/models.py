@@ -3,6 +3,7 @@ import re
 import tempfile
 import datetime
 from io import BytesIO
+from sorl.thumbnail import ImageField, get_thumbnail
 
 from django.core.files.base import ContentFile
 from django.db import models
@@ -83,6 +84,13 @@ def images(instance, filename):
 
     return 'images/{}/{}'.format(
         now.strftime("%Y/%m/%d/"),
+        file_name,
+    )
+
+def cover_images(instance, filename):
+    now = timezone.now()
+    file_name = get_filename_from_path(filename)
+    return 'images/{}'.format(
         file_name,
     )
 
@@ -181,6 +189,8 @@ class Document(ModelMeta, models.Model):
                                        help_text='Tip: Create concise and high-quality descriptions that accurately describe your page, Make sure each page on our website has a different description.')
     seo_keywords = models.CharField(max_length=140,
                                     help_text='Recommended max.length of relevant seo keyword is 140 characters')
+
+    cover_image = models.ImageField(verbose_name=_('Image'), upload_to=cover_images, max_length=1000, blank = True, null = True, help_text='Dimensions Should be 80x112 as per document ration')
 
     _metadata = {
             'use_og': 'True',
@@ -286,7 +296,8 @@ class Document(ModelMeta, models.Model):
             # Populating seo related data
             self.seo_title = self.title
             self.seo_description = self.title
-            # self.seo_keywords = ",".join(get_keywords_from_text(text, count=3))
+            self.seo_description = self.first_sentence
+            self.seo_keywords = ",".join(get_keywords_from_text(text, count=3))
 
             # Assigning author
             self.author = get_user_model().objects.first()
@@ -350,8 +361,8 @@ class Document(ModelMeta, models.Model):
                 page_obj.save()
                 page_count += 1
 
-
-
+            self.cover_image = get_thumbnail(self.pages.first().image_file, '80x112', quality=60, format='PNG',crop='center',).url
+            super(Document, self).save(update_fields=["cover_image"])
             # Adding predicted subjects to document
 
             for subject in get_subjects(text):
