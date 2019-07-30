@@ -13,8 +13,7 @@ class CustomFacetedSearchForm(FacetedSearchForm):
         if not self.cleaned_data.get('q') and not self.selected_facets:
             return self.no_query_found()
 
-        # sqs = self.searchqueryset.auto_query(self.cleaned_data.get('q'))
-        sqs = self.searchqueryset.all()
+        sqs = self.searchqueryset.auto_query(self.cleaned_data.get('q'))
 
         if self.load_all:
             sqs = sqs.load_all()
