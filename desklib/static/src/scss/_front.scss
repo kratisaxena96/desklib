@@ -51,7 +51,7 @@ h1, h2, h3, h4, h5, h6{
   max-height: 26px;
 }
 .navbar{
-    padding-left: 20%;
+    padding-left: 18%;
 }
 #id_q{
     float: left;
@@ -90,7 +90,7 @@ h1, h2, h3, h4, h5, h6{
 .btn-bg-theme-nav{
     background-color: $blue-theme;
     border-radius: 20px;
-    width: 110%;
+    width: 180px;
     margin-top: -10px;
 }
 
@@ -210,6 +210,12 @@ card{
         text-align: left;
         padding-left: 7%;
         top: 20%;
+    }
+    .navbar{
+        background-color: white;
+    }
+    .header .container{
+        background-color: white !important;
     }
 }
 

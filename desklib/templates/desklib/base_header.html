@@ -1,16 +1,18 @@
 {% load staticfiles %}
 
-<header class="header" class=""> <!---    header-scrolled  -->
+<header class="header"> <!---    header-scrolled  -->
 
     <div class="container">
-
+        <div class="float-left padding-top-20">
+            <img class="img-responsive" src="{% static '/src/assets/images/Desklib.png' %}" alt="logo">
+        </div>
       <nav class="navbar navbar-expand-md navbar-light">
-          <a class="navbar-brand float-left" href="/"><img src="{% static '/src/assets/images/Desklib.png' %}" alt="logo"></a>
+<!--          <a class="navbar-brand" href="/"><img src="{% static '/src/assets/images/Desklib.png' %}" alt="logo"></a>-->
           <button class="navbar-toggler float-right" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="collapsibleNavbar">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item active padding-right-20 font-size-20 font-weight-400"><a class="nav-link" href="/">Home</a></li>
                 <li class="nav-item drop-down padding-right-20 font-size-20 font-weight-400">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown1" data-toggle="dropdown" href="javascript:void(0);">Study Resorce</a>
@@ -27,7 +29,7 @@
                 </li>
                 <li class="nav-item drop-down padding-right-20 font-size-20 font-weight-400 blue-font"><a class="nav-link blue-font" href="javascript:void(0);">Sign in/up</a>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><button class="btn-lg btn-primary btn-bg-theme-nav">
+                    <a class="nav-link" href="javascript:void(0);"><button class="btn-lg btn-primary btn-bg-theme-nav">
                     Subscribe
                 </button></a>
                 </li>
