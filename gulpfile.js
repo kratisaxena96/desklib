@@ -81,14 +81,14 @@ gulp.task('serve', ['copy-css', 'copy-js', 'minify-css', 'build-js'], function()
       	injectChanges: true,
         files: ['desklib/static/dist/css/**/*.css', 'desklib/static/dist/js/*.js'],
         // server: "./",
-        proxy: "localhost:8000",
+        proxy: "localhost:8004",
         logConnections: true,
         // tunnel: true,
         // xip: true,
     });
 
     gulp.watch('desklib/static/src/js/**/*.js', ['jshint', 'build-js']);
-    gulp.watch('./**/*.scss', ['minify-css']);
+    gulp.watch('desklib/static/src/scss/**/*.scss', ['minify-css']);
     // gulp.watch('desklib/static/desklib/css/**/*.css', browserSync.reload({stream: true}));
     // gulp.watch("desklib/static/desklib/css/**/*.css").on('change', browserSync.reload),
     gulp.watch("./**/*.html").on('change', browserSync.reload);

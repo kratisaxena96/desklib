@@ -1,3 +1,9 @@
+*{
+    font-family: 'Roboto', sans-serif !important;
+}
+h1, h2, h3, h4, h5, h6{
+    font-family: 'Roboto', sans-serif !important;
+}
 #header {
   height: 110px;
   transition: all 0.5s;
@@ -46,11 +52,7 @@
   max-height: 26px;
 }
 
--------------------------------------------------------
-
-html , body {
-    width:100%;
-}
+//-------------------------------------------------------
 
 .masthead {
   height: 100vh;
@@ -64,9 +66,9 @@ html , body {
     position:relative;
 }
 .btn-bg-theme{
-    background-color: $btn-blue-theme;
+    background-color: $blue-theme;
     border-radius: 20px;
-    width: 200px;
+    width: auto;
 }
 
 .img-top-text{
@@ -74,7 +76,7 @@ html , body {
     z-index: 30;
     text-align: left;
     padding-left: 10%;
-    top: 40%;
+    top: 25%;
     /* text-shadow: 1px 1px 0 rgba(0, 0, 0, .75); */
 }
 
@@ -135,10 +137,6 @@ card{
     padding-top: 4%;
     background: #f5f8fd;
 }
-.centre-text{
-    text-align: center;
-    padding-bottom: 2%;
-}
 
 .owl-first > .owl-nav > .owl-prev, .owl-next {
     position: absolute;
@@ -166,4 +164,30 @@ card{
 }
 .section-bg {
   background: #f5f8fd;
+}
+.text-center{
+    text-align: center !important;
+}
+
+@media only screen and (max-width : 768px) {
+
+        .owl-first .owl-nav .owl-prev{
+            left: 0;
+        }
+        .owl-first .owl-nav .owl-next{
+            right: 0;
+        }
+
+        .owl-first .owl-nav .owl-prev{
+            visibility: hidden;
+        }
+        .owl-first .owl-nav .owl-next{
+            visibility: hidden;
+        }
+
+    }
+
+.owl-first .owl-nav [class*=owl-]:hover {
+    background: transparent;
+    boder-radius: 0;
 }

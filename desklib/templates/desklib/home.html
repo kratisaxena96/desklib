@@ -13,15 +13,15 @@
             <img class="img-fluid" src="{% static '/src/assets/images/Desklib banner4.png' %}" alt="top-banner">
         </div>
         <div class="img-top-text">
-            <p>
+            <h1 class="blue-theme">
                 Find Study resources
-            </p>
-            <p>Search from 2 million attributes</p>
-           <form action="/study/search" method="get">
-                <input id ="id_q" name="q" type="text" />
-                     <input type="submit"/>
+            </h1>
+            <p class="font-size-25">Search from 2 million attributes</p>
+            <form class="frm-responsive" action="/study/search" method="get">
+                <input id ="id_q" name="q" type="text" placeholder="Search a topic or subject"/><img class="img-fluid" src="{% static '/src/assets/images/search icon.png' %}" alt="search">
+                <input type="submit"/>
              </form>
-            <p>Eg: Starbucks case study, presentation.</p>
+            <p class="font-size-15">Eg: Starbucks case study, presentation.</p>
         </div>
     </div>
 </section>
@@ -46,8 +46,7 @@
         </div>
     </div>
 </section>
-<h1>
-</h1>
+
 <section class="top-study">
     <h2 class="centre-text">Top study documents</h2>
     <div class="container">
@@ -67,94 +66,43 @@
                 {% endfor %}
             </div>
         </div>
+        <div><p class="text-center font-size-20 font-weight-400 padding-bottom-30"><a href="#">View all</a></p></div>
     </div>
 </section>
 
-<section id="team" class="section-bg">
-      <div class="container">
-        <div class="section-header">
-          <h3>Team</h3>
-          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
-        </div>
-
+<section class="padding-top-30">
+    <div class="container-fluid">
         <div class="row">
-
-          <div class="col-lg-3 col-md-6 wow fadeInUp">
-            <div class="member">
-              <img src="img/team-1.jpg" class="img-fluid" alt="">
-              <div class="member-info">
-                <div class="member-info-content">
-                  <h4>Walter White</h4>
-                  <span>Chief Executive Officer</span>
-                  <div class="social">
-                    <a href=""><i class="fa fa-twitter"></i></a>
-                    <a href=""><i class="fa fa-facebook"></i></a>
-                    <a href=""><i class="fa fa-google-plus"></i></a>
-                    <a href=""><i class="fa fa-linkedin"></i></a>
-                  </div>
-                </div>
-              </div>
+            <div class="col-md-12">
+                <h2 class="font-size-40 font-weight-600 text-center">Subscription details</h2>
+                <p class="font-size-25 font-weight-400 text-center">Access unlimited resources anytime - anywhere</p>
             </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
-            <div class="member">
-              <img src="img/team-2.jpg" class="img-fluid" alt="">
-              <div class="member-info">
-                <div class="member-info-content">
-                  <h4>Sarah Jhonson</h4>
-                  <span>Product Manager</span>
-                  <div class="social">
-                    <a href=""><i class="fa fa-twitter"></i></a>
-                    <a href=""><i class="fa fa-facebook"></i></a>
-                    <a href=""><i class="fa fa-google-plus"></i></a>
-                    <a href=""><i class="fa fa-linkedin"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-            <div class="member">
-              <img src="img/team-3.jpg" class="img-fluid" alt="">
-              <div class="member-info">
-                <div class="member-info-content">
-                  <h4>William Anderson</h4>
-                  <span>CTO</span>
-                  <div class="social">
-                    <a href=""><i class="fa fa-twitter"></i></a>
-                    <a href=""><i class="fa fa-facebook"></i></a>
-                    <a href=""><i class="fa fa-google-plus"></i></a>
-                    <a href=""><i class="fa fa-linkedin"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
-            <div class="member">
-              <img src="img/team-4.jpg" class="img-fluid" alt="">
-              <div class="member-info">
-                <div class="member-info-content">
-                  <h4>Amanda Jepson</h4>
-                  <span>Accountant</span>
-                  <div class="social">
-                    <a href=""><i class="fa fa-twitter"></i></a>
-                    <a href=""><i class="fa fa-facebook"></i></a>
-                    <a href=""><i class="fa fa-google-plus"></i></a>
-                    <a href=""><i class="fa fa-linkedin"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
+        <div class="row">
+            <div class="col-md-3 text-center">
+                <img src="{% static '/src/assets/images/Documents icon.png' %}" alt="doc-img">
+                <p class="font-size-25 font-weight-600 padding-top-20">Documents</p>
+                <p class="font-size-20 font-weight-400">Explore, run and improve</p>
+            </div>
+            <div class="col-md-3 text-center">
+                <img class="text-center" src="{% static '/src/assets/images/Downloads icon.png' %}" alt="download-img">
+                <p class="font-size-25 font-weight-600 padding-top-20">Downloads</p>
+                <p class="font-size-20 font-weight-400">Download upto 60 resources a month</p>
+            </div>
+            <div class="col-md-3 text-center">
+                <img class="text-center" src="{% static '/src/assets/images/writing tools icon.png' %}" alt="write-img">
+                <p class="font-size-25 font-weight-600 padding-top-20">Writing Tools</p>
+                <p class="font-size-20 font-weight-400">Free tools to improve writing</p>
+            </div>
+            <div class="col-md-3 text-center">
+                <img class="text-center" src="{% static '/src/assets/images/upload icon.png' %}" alt="upload-img">
+                <p class="font-size-25 font-weight-600 padding-top-20">Upload</p>
+                <p class="font-size-20 font-weight-400">Upload resources and earn credits</p>
+            </div>
+        </div>
+    </div>
+</section>
 
-      </div>
-    </section>
 <!--<section id="intro" class="clearfix">-->
 <!--    <div class="container d-flex h-100">-->
 <!--      <div class="row justify-content-center align-self-center">-->
@@ -219,7 +167,6 @@
                 {% empty %}
              {% endfor%}
                 </div>
-        </div>
 
         {% endif %}
 </form>
@@ -230,7 +177,6 @@
         <p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
       </div>
     </div>
-</div>
 {% endcomment %}
 {% endblock %}
 {% block extra_js %}
@@ -242,7 +188,7 @@
             $(".owl-first").owlCarousel({
                 items: 5,
                 loop: true,
-                nav: false,
+                nav: true,
                 stagePadding: 10,
                 dots: false,
                 autoplay: true,
@@ -252,8 +198,11 @@
                     0: {
                         items: 1,
                     },
-                    768: {
+                    400: {
                         items: 2,
+                    },
+                    768: {
+                        items: 4,
                     },
                     992: {
                         items: 5,
