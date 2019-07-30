@@ -90,10 +90,10 @@ def images(instance, filename):
 def cover_images(instance, filename):
     now = timezone.now()
     file_name = get_filename_from_path(filename)
-    return 'images/{}'.format(
+    return 'images/{}/{}'.format(
+        now.strftime("%Y/%m/%d/"),
         file_name,
     )
-
 
 class College(models.Model):
     name = models.CharField(max_length=250)
