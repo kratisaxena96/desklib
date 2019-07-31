@@ -8,20 +8,26 @@
 <!--<h1>Home</h1>-->
 
 <section class="top-banner">
-    <div class="container-fluid">
+    <div class="">
         <div class="top-image">
-            <img class="img-fluid" src="{% static '/src/assets/images/Desklib banner4.png' %}" alt="top-banner">
+            <!-- <img class="img-fluid" src="{% static '/src/assets/images/Desklib banner4.png' %}" alt="top-banner"> -->
         </div>
         <div class="img-top-text">
             <h1 class="blue-theme">
                 Find Study resources
             </h1>
-            <p class="font-size-25">Search from 2 million attributes</p>
+            <p class="font-size-25 font-weight-400">Search from 2 million attributes</p>
+            <div>
             <form class="frm-responsive" action="/study/search" method="get">
-                <input id ="id_q" name="q" type="text" placeholder="Search a topic or subject"/><img class="img-fluid" src="{% static '/src/assets/images/search icon.png' %}" alt="search">
-                <input type="submit"/>
+                <input class="form-control py-2 rounded-pill mr-1 pr-3" type="search" id ="id_q" name="q" placeholder="Search a topic or subject"/>
+                <span>
+                        <input class="img-search" type="image" src="{% static '/src/assets/images/search icon.png' %}" />
+<!--                    <img class="img-responsive" src="{% static '/src/assets/images/search icon.png' %}" alt="search" height="70px" style="margin-top: -11px; margin-left: -50px;">-->
+                </span>
+<!--                <input type="submit"/>-->
              </form>
-            <p class="font-size-15">Eg: Starbucks case study, presentation.</p>
+            </div>
+            <p class="font-size-20 font-weight-400">Eg: Starbucks case study, presentation.</p>
         </div>
     </div>
 </section>
@@ -29,30 +35,35 @@
 <section>
     <div class="container space">
         <div class="row">
-            <div class="col-md-6 yellow space-col">
-                <h2 class="font-40">Having a heard time compliting your work.</h2>
-                <a href="{%url 'study:study-search'%}">
-                <button class="btn-lg btn-primary btn-bg-theme top-30">
-                    Explore Resources
-                </button>
-                </a>
+            <div class="col-md-6">
+                <div class="yellow">
+                    <h2 class="font-40 padding-top-50">Having a heard time compliting your work.</h2>
+                    <a href="{%url 'study:study-search'%}">
+                    <button class="btn-lg btn-primary btn-bg-theme top-30 margin-top-40">
+                        Explore Resources
+                    </button>
+                    </a>
+                </div>
             </div>
-            <div class="col-md-6 green">
-                <h2 class="font-40">Not sure if your written document is error-free.</h2>
-                <button class="btn-lg btn-primary btn-bg-theme top-20">
-                    Check Paper
-                </button>
+            <div class="col-md-6">
+                <div class="green">
+                    <h2 class="font-40 padding-top-50">Not sure if your written document is error-free.</h2>
+                    <button class="btn-lg btn-primary btn-bg-theme top-20 margin-top-40">
+                        Check Paper
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
+{% if top_results %}
 <section class="top-study">
-    <h2 class="centre-text">Top study documents</h2>
+    <h2 class="text-center font-size-40">Top study documents</h2>
     <div class="container">
         <div class="row">
             <div class="owl-carousel owl-theme owl-first">
-                    {% for results in top_results%}
+                    {% for results in top_results %}
                         <a href="{% url 'documents:document-view' results.slug %}">
                             <div>
                         <div class="card">
@@ -69,6 +80,7 @@
         <div><p class="text-center font-size-20 font-weight-400 padding-bottom-30"><a href="#">View all</a></p></div>
     </div>
 </section>
+{% endif %}
 
 <section class="padding-top-30">
     <div class="container-fluid">
