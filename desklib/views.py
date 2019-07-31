@@ -8,6 +8,8 @@ from django.conf import settings
 import logging
 from django.views.generic.edit import FormView
 from haystack.generic_views import SearchView
+from django_json_ld import settings as setting
+from documents.models import Document
 from.forms import HomeSearchForm
 logger = logging.getLogger(__name__)
 
@@ -48,6 +50,18 @@ class HomePageView(MetadataMixin,JsonLdContextMixin,SearchView):
     def get_structured_data(self):
         sd = super(HomePageView, self).get_structured_data()
         return sd
+
+    def get_context_data(self, **kwargs):
+        context = super(JsonLdContextMixin, self).get_context_data(**kwargs)
+        context[self.context_meta_name] = self.get_meta(context=context)
+        context[setting.CONTEXT_ATTRIBUTE] = self.get_structured_data()
+        top_results = list(Document.objects.all().order_by('views')[:5])
+        # cover_image = top_results.pages.first().image_file.name
+        context['top_results'] = top_results
+        # context['cover_image'] = cover_image
+        if 'form' not in kwargs:
+            kwargs['form'] = self.get_form()
+        return context
 
 
 class AboutPageView(MetadataMixin,JsonLdContextMixin,TemplateView):

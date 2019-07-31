@@ -26,10 +26,34 @@
             }
     </style>
 </head>
-<form action="/study/search" method="get">
+<form action="/study/search" method="get" id="form">
         <input id ="id_q" name="q" type="text" />
         <input type="submit" />
+    {% if abc.fields.subjects %}
+                    <dt>Subject</dt>
+             {% for sub in abc.fields.subjects|slice:":5" %}
+                <ul>
+                    <li><input class="facet" id="{{sub.0|cut:' '}}" type="checkbox" name="selected_facets" value="subjects_exact:{{ sub.0|urlencode }}"
+                        data-toggle="toggle" /> {{ sub.0}} ({{ sub.1 }})
+                    </li>
+                </ul>
+             {% endfor %}
+                {% else %}
+                    <p>No subject filters.</p>
+                {% endif %}
+    {% comment %}<!--    {%for subject in facets.fields.subjects|slice:":5" %}-->
+<!--    <input id="check" type="checkbox" name="selected_facets" value="subjects_exact:{{ subject.0|urlencode }}">{{subject.0}}<br>-->
+<!--    <input type="hidden" name="q" value="123">-->
+
+<!--{% endfor %}-->
+{% endcomment %}
     </form>
+<p><>>>>>>>>><><> filters >>>>>>>>>>></p>
+{% for subject in subjects %}
+<a href="{% url 'study:search' %}?selected_facets=subjects_exact:{{ subject.slug }}">{{ subject.name }}</a>
+{% endfor %}
+<p>.....................End Filters.............</p>
+
 <p><>>>>>>>>recent added>>>>>>>>>>>>>>>>>>></p>
 {% for rec in recent %}
 <a href="{% url 'documents:document-view' rec.slug %}">
@@ -38,6 +62,19 @@
 {% endfor %}
 <p><>>>>>>>>end recent>>>>>>>>>>>>>>>>>>></p>
  <script>
+$('#form').submit(function (event) {
+  var tempArray = [];
+  var count = 1
+      $('input:checked[name="selected_facets"]').each(function(e) {
+         var el = '<input type="hidden" name="selected_facets" value=""></input>';
+          $('.selected_facets').val($(this).val());
+          $('#form').append(el);
+         
+      tempArray.push('selected_facets=subjects_exact:'+$(this).val());
+            });
+
+  });
+
    $('#id_q').autocomplete({
  source: function (request, response) {
      $.getJSON("/study/autocomplete/?q=" + request.term, function (data) {

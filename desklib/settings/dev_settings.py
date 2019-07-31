@@ -27,7 +27,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'desklib_dev_db',
         'USER': 'root',
-        'PASSWORD': 'locus123',
+        'PASSWORD': 'password',
     }
 }
 
@@ -42,6 +42,5 @@ DEFAULT_FROM_EMAIL = 'siddharthjhanwar7@gmail.com'
 # DATA_UPLOAD_MAX_MEMORY_SIZE = 2621440*4
 # DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000*2
 #https://sorl-thumbnail.readthedocs.io/en/latest/requirements.html kindly satisfy requirements for sorl-thumbnail.
-
-
-THUMBNAIL_DEBUG = True
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
+META_USE_TITLE_TAG = True

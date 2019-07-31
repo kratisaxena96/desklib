@@ -25,5 +25,8 @@
     "gulp-uglify": "^3.0.0",
     "gulp-util": "^3.0.8",
     "jshint": "^2.9.5"
+  },
+  "dependencies": {
+    "owl.carousel": "^2.3.4"
   }
 }

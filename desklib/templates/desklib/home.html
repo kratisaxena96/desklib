@@ -1,29 +1,187 @@
 {% extends "desklib/base.html" %}
+{% load staticfiles %}
 {% load meta %}
 {% load i18n %}
-{% load thumbnail %}
-{% load highlight %}
-{% block navbar %}
-    {% include 'desklib/base_header.html' %}
-{% endblock %}
+
+
 {% block content %}
-<h1>Home</h1>
+<!--<h1>Home</h1>-->
+
+<section class="top-banner">
+    <div class="">
+        <div class="top-image">
+            <!-- <img class="img-fluid" src="{% static '/src/assets/images/Desklib banner4.png' %}" alt="top-banner"> -->
+        </div>
+        <div class="img-top-text">
+            <h1 class="blue-theme">
+                Find Study resources
+            </h1>
+            <p class="font-size-25 font-weight-400">Search from 2 million attributes</p>
+            <div>
+            <form class="frm-responsive" action="/study/search" method="get">
+                <input class="form-control py-2 rounded-pill mr-1 pr-3" type="search" id ="id_q" name="q" placeholder="Search a topic or subject"/>
+                <span>
+                        <input class="img-search" type="image" src="{% static '/src/assets/images/search icon.png' %}" />
+<!--                    <img class="img-responsive" src="{% static '/src/assets/images/search icon.png' %}" alt="search" height="70px" style="margin-top: -11px; margin-left: -50px;">-->
+                </span>
+<!--                <input type="submit"/>-->
+             </form>
+            </div>
+            <p class="font-size-20 font-weight-400">Eg: Starbucks case study, presentation.</p>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container space">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="yellow">
+                    <h2 class="font-40 padding-top-50">Having a heard time compliting your work.</h2>
+                    <a href="{%url 'study:study-search'%}">
+                    <button class="btn-lg btn-primary btn-bg-theme top-30 margin-top-40">
+                        Explore Resources
+                    </button>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="green">
+                    <h2 class="font-40 padding-top-50">Not sure if your written document is error-free.</h2>
+                    <button class="btn-lg btn-primary btn-bg-theme top-20 margin-top-40">
+                        Check Paper
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if top_results %}
+<section class="top-study">
+    <h2 class="text-center font-size-40">Top study documents</h2>
+    <div class="container">
+        <div class="row">
+            <div class="owl-carousel owl-theme owl-first">
+                    {% for results in top_results %}
+                        <a href="{% url 'documents:document-view' results.slug %}">
+                            <div>
+                        <div class="card">
+                            <img class="card-img-top card-height" src="{{results.cover_image}}" alt="Card image">
+                            <div class="card-body">
+                                    <p class="card-text">{{results.title}}</p>
+                            </div>
+                        </div>
+                            </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+        <div><p class="text-center font-size-20 font-weight-400 padding-bottom-30"><a href="#">View all</a></p></div>
+    </div>
+</section>
+{% endif %}
+
+<section class="padding-top-30">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="font-size-40 font-weight-600 text-center">Subscription details</h2>
+                <p class="font-size-25 font-weight-400 text-center">Access unlimited resources anytime - anywhere</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 text-center">
+                <img src="{% static '/src/assets/images/Documents icon.png' %}" alt="doc-img">
+                <p class="font-size-25 font-weight-600 padding-top-20">Documents</p>
+                <p class="font-size-20 font-weight-400">Explore, run and improve</p>
+            </div>
+            <div class="col-md-3 text-center">
+                <img class="text-center" src="{% static '/src/assets/images/Downloads icon.png' %}" alt="download-img">
+                <p class="font-size-25 font-weight-600 padding-top-20">Downloads</p>
+                <p class="font-size-20 font-weight-400">Download upto 60 resources a month</p>
+            </div>
+            <div class="col-md-3 text-center">
+                <img class="text-center" src="{% static '/src/assets/images/writing tools icon.png' %}" alt="write-img">
+                <p class="font-size-25 font-weight-600 padding-top-20">Writing Tools</p>
+                <p class="font-size-20 font-weight-400">Free tools to improve writing</p>
+            </div>
+            <div class="col-md-3 text-center">
+                <img class="text-center" src="{% static '/src/assets/images/upload icon.png' %}" alt="upload-img">
+                <p class="font-size-25 font-weight-600 padding-top-20">Upload</p>
+                <p class="font-size-20 font-weight-400">Upload resources and earn credits</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--<section id="intro" class="clearfix">-->
+<!--    <div class="container d-flex h-100">-->
+<!--      <div class="row justify-content-center align-self-center">-->
+<!--        <div class="col-md-6 intro-info order-md-first order-last">-->
+<!--          <h2>Rapid Solutions<br>for Your <span>Business!</span></h2>-->
+<!--          <div>-->
+<!--            <a href="#about" class="btn-get-started scrollto">Get Started</a>-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        <div class="col-md-6 intro-img order-md-last order-first">-->
+<!--          <img class="img-fluid" src="{% static '/src/assets/images/Desklib banner4.png' %}" alt="top-banners"    >-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--    </div>-->
+<!--</section>-->
+
+<!-- Page Content -->
+<!--<section class="py-5">-->
+<!--  <div class="container">-->
+<!--    <h2 class="font-weight-light">Page Content</h2>-->
+<!--    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus ab nulla dolorum autem nisi officiis blanditiis voluptatem hic, assumenda aspernatur facere ipsam nemo ratione cumque magnam enim fugiat reprehenderit expedita.</p>-->
+<!--  </div>-->
+<!--</section>-->
+
+
 {% if user.is_authenticated %}
   Hi {{ user.username }}!
 {% else %}
   <p>You are not logged in</p>
 {% endif %}
 
+{% comment %}
 <ul>
-    <li><a href="{%url 'study:study-search'%}">Explore Resources</a></li>
     <li><a href="{% url 'writing:writing' %}">writing</a> </li>
     <li><a href="{% url 'writing:compare' %}">Compare</a> </li>
-    <li><a href="{% url 'writing:grammar' %}">Grammar Checker</a> </li>
+    <li><a href="{% url 'writing:spell' %}">Grammar Checker</a> </li>
 </ul>
-<form action="/study/search" method="get">
-        <input id ="id_q" name="q" type="text" />
-        <input type="submit"/>
-    </form>
+
+<form method="get" action="." class="form" role="form">
+        {{ form.non_field_errors }}
+        <div class="form-group">
+                {{ form.as_p }}
+        </div>
+      {% if query %}
+            <h3>Results</h3>
+
+        <div class="container-fluid bg-4 text-left">
+                <div class="row">
+                    {% for result in page_obj.object_list %}
+                <div class="col-sm-4">
+                  <a href="{% url 'documents:document-view' result.slug %}">
+
+                    <div class="form-group">
+
+                        <p>Title : {{result.title}} </p>
+                    </div>
+                  </a>
+                </div>
+                </div>
+                {% empty %}
+             {% endfor%}
+                </div>
+
+        {% endif %}
+</form>
 <div class="jumbotron">
     <div class="container">
         <h1>{% trans "Welcome to TaskBuster!"%}</h1>
@@ -31,5 +189,39 @@
         <p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
       </div>
     </div>
-</div>
+{% endcomment %}
+{% endblock %}
+{% block extra_js %}
+<script>
+
+</script>
+<script>
+    $(document).ready(function () {
+            $(".owl-first").owlCarousel({
+                items: 5,
+                loop: true,
+                nav: true,
+                stagePadding: 10,
+                dots: false,
+                autoplay: true,
+                margin: 50,
+                responsiveClass: true,
+                responsive: {
+                    0: {
+                        items: 1,
+                    },
+                    400: {
+                        items: 2,
+                    },
+                    768: {
+                        items: 4,
+                    },
+                    992: {
+                        items: 5,
+                    }
+                }
+            });
+
+        });
+</script>
 {% endblock %}

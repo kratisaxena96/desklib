@@ -51,28 +51,49 @@
             <div class="form-group">
                <input id="1232" type="submit" class="btn btn-primary" value="Search">
             </div>
+             <h1>{{qry_st}}</h1>
+            {% if sqs.fields.subjects %}
+                    <dt>Subject</dt>
+             {% for sub in sqs.fields.subjects|slice:":5" %}
+                <ul>
+                    <li><input class="facet" id="{{sub.0|cut:' '}}" type="checkbox" name="selected_facets" value="subjects_exact:{{ sub.0|urlencode }}"
+                        data-toggle="toggle" /> {{ sub.0}} ({{ sub.1 }})
+                    </li>
+                </ul>
+             {% endfor %}
+                {% else %}
+                    <p>No subject filters.</p>
+                {% endif %}
             {% if suggestion %}
             <span>
                <p>Did You Mean: <a href="#" data-index="{{suggestion}}" id="suggest">{{suggestion}}</a></p>
             </span>
             {% endif %}
-            {% if query %}
-            <h3>Results</h3>
              <div>
-                 {{facets}}
-<div>
-<dl>
-{% if facets.fields.subajects %}
-<dt>subjects</dt>
-{# Provide only the top 5 authors #}
-{% for author in facets.fields.subjects|slice:":5" %}
-<dd><a href="{{ request.get_full_path }}&amp;selected_facets=author_exact:{{ author.0|urlencode }}">{{ author.0 }}</a> ({{ author.1 }})</dd>
-{% endfor %}
-{% else %}
-<p>No author facets.</p>
-{% endif %}
-</dl>
-</div>
+            <!-- Begin faceting. -->
+                <h2>By Subjects</h2>
+            
+                <div>
+                    <dl>
+                        {% if facets.fields.subjects %}
+                            <dt>Subject</dt>
+                            {# Provide only the top 5 authors #}
+                            {% for sub in facets.fields.subjects|slice:":5" %}
+                                <dd><a href="{{ request.get_full_path }}&amp;selected_facets=subjects_exact:{{ sub.0|urlencode }}">{{ sub.0 }}</a> ({{ sub.1 }})</dd>
+                            {% endfor %}
+                        {% else %}
+                            <p>No subject filters.</p>
+                        {% endif %}
+                    </dl>
+                </div>
+                <!-- End faceting -->
+            </div>
+             <h1>{% for data in abbb %}</h1>
+             <h1>{{ data }}</h1>
+             {% endfor %}
+             {% if query or facets %}
+            <h3>Results</h3>
+
             <div class="container-fluid bg-4 text-left">
                <div class="row">
                   {% for result in page_obj.object_list %}

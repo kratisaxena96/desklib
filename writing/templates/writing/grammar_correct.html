@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang=en>
   <head>
@@ -21,6 +22,21 @@
     <link href="https://languagetool.org/css/style.css?20190516" rel="stylesheet">
     <link href="https://languagetool.org/css/media.css?20190426" rel="stylesheet">
     <link href="https://languagetool.org/css/tooltip.css?20180419" rel="stylesheet">
+
+      <style>
+          body #stage .inner #editor .inner {
+            -webkit-box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.30);
+            -moz-box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.30);
+            box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.30);
+          }
+          .editorHeader {
+            background: rgba(188, 192, 207, 0.34);
+          }
+          body #editor_controls {
+                background-color: rgba(188, 192, 207, 0.34);
+            }
+
+      </style>
 
 <!--    <link rel="stylesheet" href="https://languagetool.org/vendors/glide3/dist/css/glide.core.min.css">-->
 <!--    <link rel="stylesheet" href="https://languagetool.org/vendors/glide3/dist/css/glide.theme.min.css">-->
@@ -700,16 +716,14 @@
             <div class="inner">
                 <noscript class="warning">Please turn on Javascript to use this website</noscript>
                 <form id="checkform" class="" name="checkform" action="#" method="post">
-                    <div class="editorHeader">
-                        <div class="editorHeaderLeft">
-                            <h3>Grammar, Style and Spell Checker</h3>
+                    <div class="editorHeader ">
+                        <div class="editorHeaderLeft text-body">
+                            <h3>Grammar and Spell Checker</h3>
                             <p>LanguageTool checks your writing in more than 20 languages</p>
                         </div>
                         <div class="editorHeaderRight">
-                                                            <a class="ff-chrome firefox jump_menu" type="button" href="https://addons.mozilla.org/firefox/addon/languagetool/?src=external-lt-homepage" target="_blank">
-                                    Install the Firefox add-on                                </a>
-                                <a class="ff-chrome googleDocs jump_menu googleDocs--hidden" type="button" href="https://chrome.google.com/webstore/detail/grammar-and-spell-checker/kjcoklfhicmkbfifghaecedbohbmofkm" target="_blank">
-                                    Install Google Docs add-on                                </a>
+                                                            <a class="ff-chrome jump_menu" type="button" href="https://addons.mozilla.org/firefox/addon/languagetool/?src=external-lt-homepage" target="_blank">
+                                    Hire Professionals </a>
                                                     </div>
                     </div>
                     <div id="feedbackMessage"></div>
@@ -728,37 +742,50 @@
                             <div id="sentenceContributionMessage"></div>
 
                             <div class="editor_controls_items">
+
+
+                                <div class="submit editor_controls_group">
+                                                                        <button class="editor_controls_group_item" type="submit" name="_action_checkText"
+                                            onClick="doit(true);return false;"
+                                            title="Check Text - or use Ctrl+Return">
+                                        Check Text                                    </button>
+                                    <button class="btn-tb editor_controls_group_item btn btn-warning" type="submit"
+                                            onClick="tinyMCE.activeEditor.setContent('');tinyMCE.get('checktext').focus();return false;"
+                                            title="Delete text">
+                                        Clear
+                                    </button>
+                                </div>
                                 <div class="dropdown editor_controls_group">
                                     <select class="dropkick editor_controls_group_item" style="width: 100%" name="lang"
                                             id="lang">
                                         <option value="auto" >auto-detect</option>
-<option value="ast" >Asturian</option>
-<option value="be" >Belarusian</option>
-<option value="br" >Breton</option>
-<option value="ca" >Catalan</option>
-<option value="nl" >Dutch</option>
-<option value="en-US"  selected='selected'>English</option>
-<option value="eo" >Esperanto</option>
-<option value="fr" >French</option>
-<option value="gl" >Galician</option>
-<option value="de-DE" >German</option>
-<option value="el" >Greek</option>
-<option value="it" >Italian</option>
-<option value="ja" >Japanese</option>
-<option value="km" >Khmer</option>
-<option value="fa" >Persian</option>
-<option value="pl" >Polish</option>
-<option value="pt" >Portuguese</option>
-<option value="ro" >Romanian</option>
-<option value="ru" >Russian</option>
-<option value="zh" >Simplified Chinese</option>
-<option value="sk" >Slovak</option>
-<option value="sl" >Slovenian</option>
-<option value="es" >Spanish</option>
-<option value="sv" >Swedish</option>
-<option value="tl" >Tagalog</option>
-<option value="ta" >Tamil</option>
-<option value="uk" >Ukrainian</option>
+                                        <option value="ast" >Asturian</option>
+                                        <option value="be" >Belarusian</option>
+                                        <option value="br" >Breton</option>
+                                        <option value="ca" >Catalan</option>
+                                        <option value="nl" >Dutch</option>
+                                        <option value="en-US"  selected='selected'>English</option>
+                                        <option value="eo" >Esperanto</option>
+                                        <option value="fr" >French</option>
+                                        <option value="gl" >Galician</option>
+                                        <option value="de-DE" >German</option>
+                                        <option value="el" >Greek</option>
+                                        <option value="it" >Italian</option>
+                                        <option value="ja" >Japanese</option>
+                                        <option value="km" >Khmer</option>
+                                        <option value="fa" >Persian</option>
+                                        <option value="pl" >Polish</option>
+                                        <option value="pt" >Portuguese</option>
+                                        <option value="ro" >Romanian</option>
+                                        <option value="ru" >Russian</option>
+                                        <option value="zh" >Simplified Chinese</option>
+                                        <option value="sk" >Slovak</option>
+                                        <option value="sl" >Slovenian</option>
+                                        <option value="es" >Spanish</option>
+                                        <option value="sv" >Swedish</option>
+                                        <option value="tl" >Tagalog</option>
+                                        <option value="ta" >Tamil</option>
+                                        <option value="uk" >Ukrainian</option>
                                     </select>
 
                                                                         <div id="subLangDropDown" class="editor_controls_group_item"
@@ -775,29 +802,6 @@
                                                                                     </select>
                                     </div>
 
-                                </div>
-
-
-                                <div class="submit editor_controls_group">
-                                    <button class="btn-tb editor_controls_group_item" type="submit"
-                                            onClick="tinyMCE.activeEditor.setContent('');tinyMCE.get('checktext').focus();return false;"
-                                            title="Delete text">
-                                        <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
-                                    </button>
-                                    <!--
-                                    <button class="btn-tb" style="margin-right: 15px" type="button"
-                                            id="suggestionsCount"
-                                            title="Synonyms Count">
-                                        0
-                                    </button>
-                                    -->
-                                                                        <button id="upgradeButton" class="btn-lt editor_controls_group_item editor_controls_premium" type="submit"
-                                            onClick="if (typeof(_paq) !== 'undefined') { _paq.push(['trackEvent', 'UpgradeClick', '/']); } window.location = window.location.origin + window.location.pathname + '#premium';return false;">
-                                        Premium Upgrade                                    </button>
-                                                                        <button class="editor_controls_group_item" type="submit" name="_action_checkText"
-                                            onClick="doit(true);return false;"
-                                            title="Check Text - or use Ctrl+Return">
-                                        Check Text                                    </button>
                                 </div>
                             </div>
                         </div>

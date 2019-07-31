@@ -27,7 +27,6 @@ class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
     pub_date = indexes.DateTimeField(model_attr='published_date')
     cover_image = indexes.CharField()
     no_of_pages = indexes.CharField(model_attr='page')
-    suggestions = indexes.FacetCharField()
     subjects = indexes.MultiValueField(faceted=True)
 
 
