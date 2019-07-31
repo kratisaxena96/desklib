@@ -7,7 +7,7 @@ from django.utils import timezone
 class DocumentSitemap(Sitemap):
     priority = 0.5
     changefreq = 'daily'
-
+    # limit = 50000
 
     def items(self):
         return Document.objects.filter(is_published=True, published_date__lte=timezone.now()).order_by('id')

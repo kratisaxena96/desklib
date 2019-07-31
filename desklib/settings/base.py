@@ -198,7 +198,6 @@ ACCOUNT_LOGOUT_ON_GET = True
 
 AUTH_USER_MODEL = 'accounts.UserAccount'
 
-SITE_ID = 6
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
@@ -225,9 +224,14 @@ EMAIL_PORT = 587
 # ROBOTS_USE_SITEMAP = False
 ROBOTS_USE_SCHEME_IN_HOST = True
 ROBOTS_SITEMAP_URLS = [
-    'http://www.example.com/sitemap.xml',
+    'http://desklib.com/sitemap.xml',
 ]
 ROBOTS_CACHE_TIMEOUT = 60*60*24
+ROBOTS_SITEMAP_VIEW_NAME = 'cached-sitemap'
+ROBOTS_USE_SCHEME_IN_HOST = True
+
+
+
 # for chaced db run command "python manage.py createcachetable" for first time sorl-thumbnail required it
 CACHES = {
     'default': {

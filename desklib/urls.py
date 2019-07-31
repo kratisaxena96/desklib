@@ -19,6 +19,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
 from django.conf.urls.i18n import i18n_patterns
+from django.views.decorators.cache import cache_page
+
 from .sitemaps import DocumentSitemap,StaticViewSitemap
 from django.contrib.sitemaps import views
 from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView, TestPageView
@@ -44,7 +46,7 @@ urlpatterns = [
     path('__debug__/', include(debug_toolbar.urls)),
     path('writing/', include(('writing.urls', 'writing'), namespace="writing")),
     path('robots.txt', include('robots.urls')),
-    path('sitemap.xml', views.index, {'sitemaps': sitemaps}),
+    path('sitemap.xml', cache_page(60)(views.index), {'sitemaps': sitemaps}, name='cached-sitemap'),
     path('sitemap-<section>.xml', views.sitemap, {'sitemaps': sitemaps},
                        name='django.contrib.sitemaps.views.sitemap'),
 

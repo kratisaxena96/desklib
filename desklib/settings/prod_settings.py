@@ -32,10 +32,10 @@ DATABASES = {
 # RECAPTCHA_PUBLIC_KEY = 'MyRecaptchaKey123'
 # RECAPTCHA_PRIVATE_KEY = 'MyRecaptchaPrivateKey456'
 
-EMAIL_HOST_USER = 'vishakha.sharma@locusrags.com'
-EMAIL_HOST_PASSWORD = 'vishakhalocus7@4'
+EMAIL_HOST_USER = 'siddharthjhanwar7@gmail.com'
+EMAIL_HOST_PASSWORD = 'fwwffwwffw'
 
-DEFAULT_FROM_EMAIL = 'vishakha.sharma@locusrags.com'
+DEFAULT_FROM_EMAIL = 'siddharthjhanwar7@gmail.com'
 
 
 # DATA_UPLOAD_MAX_MEMORY_SIZE = 2621440*4

@@ -173,6 +173,9 @@ def get_title(text):
     text = insensitive.sub('', text)
     text = re.sub(r'\s{2,}', ". ", text.strip())
     # print(text)
+
+    text = text.lstrip("~:!.|()-").strip()
+
     sentences = get_sentences_from_text(text)
     first_sentence = get_first_sentence(sentences)
     if len(first_sentence) > 65:
