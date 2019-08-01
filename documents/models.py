@@ -151,7 +151,7 @@ class Document(ModelMeta, models.Model):
 
     key = models.CharField(db_index=True, unique=True, max_length=10, default=key_generator, editable=False)
     title = models.CharField(_('Title'), db_index=True, max_length=200)
-    slug = models.SlugField(_('Slug'),unique=True )
+    slug = models.SlugField(_('Slug'), unique=True)
     type = models.IntegerField(choices=TYPE_OF_DOCUMENT, default=SOLUTION, db_index=True)
     subjects = models.ManyToManyField(Subject, db_index=True, blank=True, null=True, related_name='subject_documents')
     college = models.ForeignKey(College, db_index=True, on_delete=models.SET_NULL ,blank=True, null=True,  related_name='college_documents')
@@ -270,9 +270,10 @@ class Document(ModelMeta, models.Model):
             # rand_str = random_string_generator()
             # strtime = "".join(str(time()).split("."))
             # string = "%s-%s" % (self.title[:20], rand_str)
-            self.slug = unique_slug_generator(self, new_slug=slugify(self.title[:40]))
 
-            self.words = get_words_from_text(text).__len__()
+            self.slug = unique_slug_generator(self, new_slug=slugify(self.title[:40]) if self.title else random_string_generator(size=4))
+
+            self.words = len(get_words_from_text(text))
 
 
             # self.summary = get_summary
@@ -308,6 +309,9 @@ class Document(ModelMeta, models.Model):
 
             temp_dir = tempfile.TemporaryDirectory(prefix=pre)
 
+            # If extension is ppt change document type to presentation
+            if ext in ['.ppt', 'pptx']:
+                self.type = Document.PRESENTATION
 
             # convert the uploaded file to pdf file and save it
             os.system('soffice --headless --convert-to pdf --outdir ' + temp_dir.name + ' ' + temp.name)
@@ -373,7 +377,7 @@ class Document(ModelMeta, models.Model):
             super(Document, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('documents:document-view', args=[str(self.slug)])
+        return reverse('documents:document-view', kwargs={'slug': self.slug})
 
 
 class File(models.Model):
