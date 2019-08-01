@@ -4,7 +4,7 @@
 
 <!DOCTYPE html>
 <html lang="en" >
-<head  {% meta_namespaces %}>
+<head {% meta_namespaces %}>
     <meta charset="utf-8">
     <title>{% block title %}{% endblock %}</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,9 +24,13 @@
     {% block navbar %}
         {% include 'desklib/base_header.html' %}
     {% endblock %}
-    {% block content %}
-        This  page is under progress.
-    {% endblock %}
+
+    <main role="main">
+        {% block content %}
+        This page is under progress.
+        {% endblock %}
+    </main>
+
     {% block footer %}
         {% include 'desklib/base_footer.html' %}
     {% endblock %}

@@ -1,8 +1,8 @@
 $(window).on("scroll", function() {
     if($(window).scrollTop() > 100) {
-        $("header").addClass("bg-white");
+        $(".navbar").addClass("navbar-light bg-light");
     } else {
         //remove the background property so it comes transparent again (defined in your css)
-       $("header").removeClass("bg-white");
+       $(".navbar").removeClass("navbar-light bg-light");
     }
 });

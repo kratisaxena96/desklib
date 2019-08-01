@@ -7,32 +7,65 @@
 {% block content %}
 <!--<h1>Home</h1>-->
 
-<section class="top-banner">
-    <div class="">
-        <div class="top-image">
-            <!-- <img class="img-fluid" src="{% static '/src/assets/images/Desklib banner4.png' %}" alt="top-banner"> -->
-        </div>
-        <div class="img-top-text">
-            <h1 class="blue-theme">
-                Find Study resources
-            </h1>
-            <p class="font-size-25 font-weight-400">Search from 2 million attributes</p>
-            <div>
-            <form class="frm-responsive" action="/study/search" method="get">
-                <input class="form-control py-2 rounded-pill mr-1 pr-3" type="search" id ="id_q" name="q" placeholder="Search a topic or subject"/>
-                <span>
-                        <input class="img-search" type="image" src="{% static '/src/assets/images/search icon.png' %}" />
-<!--                    <img class="img-responsive" src="{% static '/src/assets/images/search icon.png' %}" alt="search" height="70px" style="margin-top: -11px; margin-left: -50px;">-->
-                </span>
-<!--                <input type="submit"/>-->
-             </form>
+<section class="container-fluid banner-image">
+    <div class="pt-10"></div>
+    <div class="row pl-5">
+        <div class="col-md-6 mt-8">
+            <h1 class="blue-theme py-2">One of three columns</h1>
+            <h3 class="pb-2">Search from 2 million attributes</h3>
+            <div class="input-group mb-3">
+            <form class="form-inline my-2 my-lg-0" action="{% url 'study:search-results' %}" method="get">
+                <div class="input-group mb-3">
+  <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+  <div class="input-group-append">
+                <button class="btn btn-outline-secondary rounded-circle" type="button"><i class="fa fa-search"></i></button>
+              </div>
+</div>
+
+<!--              <input type="text" class="form-control form-rounded" placeholder="Search a topic or subject" aria-label="Recipient's username" aria-describedby="basic-addon2">-->
+<!--              <div class="input-group-append">-->
+<!--                <button class="btn btn-outline-secondary rounded-circle" type="button"><i class="fa fa-search"></i></button>-->
+<!--              </div>-->
+            </form>
+<!--              <div class="input-group-append">-->
+<!--                <i class="fa fa-search"></i>-->
+<!--              </div>-->
             </div>
-            <p class="font-size-20 font-weight-400">Eg: Starbucks case study, presentation.</p>
+            <h5 class="pt-2">Eg: Starbucks case study, presentation.</h5>
+
+        </div>
+        <div class="col-md-6">
         </div>
     </div>
 </section>
 
-<section>
+
+<!--<section class="top-banner">-->
+<!--    <div class="">-->
+<!--        <div class="top-image">-->
+<!--            &lt;!&ndash; <img class="img-fluid" src="{% static '/src/assets/images/Desklib banner4.png' %}" alt="top-banner"> &ndash;&gt;-->
+<!--        </div>-->
+<!--        <div class="img-top-text">-->
+<!--            <h1 class="blue-theme">-->
+<!--                Find Study resources-->
+<!--            </h1>-->
+<!--            <p class="font-size-25 font-weight-400">Search from 2 million attributes</p>-->
+<!--            <div>-->
+<!--            <form class="frm-responsive" action="{% url 'study:search-results' %}" method="get">-->
+<!--                <input class="form-control py-2 rounded-pill mr-1 pr-3" type="search" id ="id_q" name="q" placeholder="Search a topic or subject"/>-->
+<!--                <span>-->
+<!--                        <input class="img-search" type="image" src="{% static '/src/assets/images/search icon.png' %}" />-->
+<!--&lt;!&ndash;                    <img class="img-responsive" src="{% static '/src/assets/images/search icon.png' %}" alt="search" height="70px" style="margin-top: -11px; margin-left: -50px;">&ndash;&gt;-->
+<!--                </span>-->
+<!--&lt;!&ndash;                <input type="submit"/>&ndash;&gt;-->
+<!--             </form>-->
+<!--            </div>-->
+<!--            <p class="font-size-20 font-weight-400">Eg: Starbucks case study, presentation.</p>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+
+<section class="container mt-5">
     <div class="container space">
         <div class="row">
             <div class="col-md-6">
@@ -57,7 +90,7 @@
     </div>
 </section>
 
-{% if top_results %}
+{% comment %}{% if top_results %}{% endcomment %}
 <section class="top-study">
     <h2 class="text-center font-size-40">Top study documents</h2>
     <div class="container">
@@ -80,7 +113,7 @@
         <div><p class="text-center font-size-20 font-weight-400 padding-bottom-30"><a href="#">View all</a></p></div>
     </div>
 </section>
-{% endif %}
+{% comment %}{% endif %}{% endcomment %}
 
 <section class="padding-top-30">
     <div class="container-fluid">
@@ -141,14 +174,14 @@
 <!--  </div>-->
 <!--</section>-->
 
-
+{% comment %}
 {% if user.is_authenticated %}
   Hi {{ user.username }}!
 {% else %}
   <p>You are not logged in</p>
 {% endif %}
 
-{% comment %}
+
 <ul>
     <li><a href="{% url 'writing:writing' %}">writing</a> </li>
     <li><a href="{% url 'writing:compare' %}">Compare</a> </li>
@@ -192,9 +225,6 @@
 {% endcomment %}
 {% endblock %}
 {% block extra_js %}
-<script>
-
-</script>
 <script>
     $(document).ready(function () {
             $(".owl-first").owlCarousel({

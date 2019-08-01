@@ -22,6 +22,25 @@
 .float-right{
     float: right !important;
 }
+.pt-10,
+.py-10 {
+  padding-top: 9rem !important;
+}
+
+.pr-10,
+.px-10 {
+  padding-right: 9rem !important;
+}
+
+.pb-10,
+.py-10 {
+  padding-bottom: 9rem !important;
+}
+
+.pl-10,
+.px-10 {
+  padding-left: 9rem !important;
+}
         //------------------------------------ Padding Top -------------------------//
 .padding-top-10{
     padding-top: 10px !important;
