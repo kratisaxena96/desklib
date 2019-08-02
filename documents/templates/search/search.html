@@ -1,5 +1,5 @@
 {% extends "desklib/base.html" %}
-
+{% load staticfiles %}
 {% load meta %}
 {% load render_json_ld from json_ld %}
 {% load thumbnail %}
@@ -7,9 +7,10 @@
 
    
       {% block content %}
-      <div class="container-fluid bg-3 text-center" style="margin-top:15%">
+      <div class="container-fluid bg-3 text-center" style="margin-top:10%">
          <form method="get" action="." class="form" role="form">
             {{ form.non_field_errors }}
+             {% comment %}
             <div class="form-group">
                {{ form.as_p }}
             </div>
@@ -56,26 +57,24 @@
              <h1>{% for data in abbb %}</h1>
              <h1>{{ data }}</h1>
              {% endfor %}
+             {% endcomment %}
              {% if query or facets %}
-            <h3>Results</h3>
              <div class="d-flex">
                 <div class="mr-auto p-2 ml-5">All Latest top presentation solution most download type </div>
                 <div class="p-4 mb-5 mr-5">{% if page_obj.has_previous or page_obj.has_next %}
                         <div>
-                            {% if page_obj.has_previous %}<a href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}">{% endif %}&laquo; Previous{% if page_obj.has_previous %}</a>{% endif %}
-                                |
-                            {% if page_obj.has_next %}<a href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}">{% endif %}Next &raquo;{% if page_obj.has_next %}</a>{% endif %}
+                            {% if page_obj.has_previous %}<a href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}">{% endif %}<img class=img-fluid" src="{% static 'src/assets/images/chevron_left copy.png'%}"/>{% if page_obj.has_previous %}</a>{% endif %}
+                                 &nbsp; &nbsp; &nbsp; &nbsp;
+                            {% if page_obj.has_next %}<a href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}">{% endif %}<img class=img-fluid" src="{% static 'src/assets/images/ic_chevron_right_24px copy.png'%}"/>{% if page_obj.has_next %}{% endif %}
                         </div>
                     {% endif %}
                 </div>
              </div>
-
-
             
             <div class="container">
                <div class="row">
                   {% for result in page_obj.object_list %}
-                  <div class="col-sm-2  justify-content-center">
+                  <div class="col-sm-4 col-12 col-md-2 justify-content-center">
                      <a href="{% url 'documents:document-view' result.slug %}">
                          <div class="card shadow mr-1 mb-5 bg-white rounded" style="margin:auto; height:216px;">
                              {% thumbnail result.cover_image "200x200" crop="80% top" as im %}
@@ -101,10 +100,11 @@
                  <nav aria-label="...">
                                      {% if is_paginated %}
                        <ul class="pagination">
+                           <!--                    <img class="img-responsive" src="{% static '/src/assets/images/search icon.png' %}" alt="search" height="70px" style="margin-top: -11px; margin-left: -50px;">-->
 
                       {% if page_obj.has_previous %}
                         <li class="page-item p-3">
-                          <span class="page-link" href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}">#</span>
+                            <span class="page-link"><a href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}">Prev</a></span>
                         </li>
                            {% else %}
                            <li class="page-item disabled p-3">
@@ -113,7 +113,7 @@
                             {% endif %}
                               {% for num in page_obj.paginator.page_range %}
                                 {% ifequal num page_obj.number %}
-                                    <li class="rounded-circle page-item active p-3 ">
+                                    <li class="custom-rounded-circle page-item active p-3 ">
                                         <a class="page-link" href="#">{{ num }}<span class="sr-only">(current)</span></a>
                                     </li>
                                 {% else %}
@@ -136,7 +136,6 @@
                     </nav>
             {% endif %}
              </div>
-        </form>
       </div>
       {% endblock %}
     {% block extra_js %}
