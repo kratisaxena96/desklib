@@ -1,9 +1,9 @@
-*{
+body{
     font-family: 'Roboto', sans-serif !important;
 }
-h1, h2, h3, h4, h5, h6{
-    font-family: 'Roboto', sans-serif !important;
-}
+// h1, h2, h3, h4, h5, h6{
+//     font-family: 'Roboto', sans-serif !important;
+// }
 
 .header {
   height: 110px;
@@ -50,9 +50,6 @@ h1, h2, h3, h4, h5, h6{
   margin: 7px 0;
   max-height: 26px;
 }
-.navbar{
-    padding-left: 18%;
-}
 #id_q{
     float: left;
     width: 80%;
@@ -90,8 +87,9 @@ h1, h2, h3, h4, h5, h6{
 .btn-bg-theme-nav{
     background-color: $blue-theme;
     border-radius: 20px;
-    width: 180px;
+    //width: 180px;
     margin-top: -10px;
+    width: auto;
 }
 
 .img-top-text{
@@ -213,6 +211,9 @@ card{
     }
     .navbar{
         background-color: white;
+        .navbar-toggler{
+            margin-left: 80%;
+        }
     }
     .header .container{
         background-color: white !important;
@@ -232,4 +233,44 @@ card{
 .owl-first .owl-nav [class*=owl-]:hover {
     background: transparent;
     boder-radius: 0;
+}
+
+.banner-image {
+  //height: 100vh;
+  min-height: 500px;
+  background-image: url("/static/src/assets/images/Desklib banner4.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+}
+.navbar-brand{
+    margin-right: 50px;
+}
+.btn-outline-secondary{
+    margin-left: -21px;
+    background-color: #405FBD;
+    color: white;
+}
+.form-inline input{
+    border-radius: 15px;
+}
+.yellow-img{
+    min-height: 300px;
+    //background-image: url("/static/src/assets/images/explore resources img.png");
+    background-color: #FFDA45;
+    background-size: cover;
+    background-repeat: no-repeat;
+    //height: 100%;
+    width: 135px;
+    //float: right;
+}
+.green-img{
+    min-height: 300px;
+    //background-image: url("/static/src/assets/images/check paper img.png");
+    background-color: #B2FFFF;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 135px;
+    //float: right;
 }

@@ -24,7 +24,7 @@ gulp.task('build-css', () => {
 });
 
 gulp.task('minify-css', ['build-css'], () => {
-  return gulp.src('desklib/static/src/css/**/*.css')
+  return gulp.src(['desklib/static/src/css/*.css',   '!desklib/static/src/css/coming-soon/coming-soon.css'])
     .pipe(sourcemaps.init())
     .pipe(concat('bundle.css'))
     .pipe(cleanCSS())
@@ -46,7 +46,7 @@ gulp.task('jshint', function() {
 });
 
  gulp.task('build-js', function() {
-   return gulp.src(['desklib/static/src/js/jquery.js','desklib/static/src/js/bootstrap.js','desklib/static/src/js/popper.min.js','desklib/static/src/js/owl.carousel.min.js','desklib/static/src/js/custom.js'])
+   return gulp.src(['desklib/static/src/js/jquery.js','desklib/static/src/js/popper.min.js','desklib/static/src/js/bootstrap.js','desklib/static/src/js/owl.carousel.min.js','desklib/static/src/js/custom.js'])
      .pipe(sourcemaps.init())
        .pipe(concat('bundle.js'))
        .pipe(uglify())
@@ -66,6 +66,11 @@ gulp.task('copy-css', function(){
   gulp.src('bower_components/bootstrap/dist/css/bootstrap.css').pipe(gulp.dest('desklib/static/src/css/'));
   gulp.src('bower_components/owl.carousel/dist/assets/owl.carousel.min.css').pipe(gulp.dest('desklib/static/src/css/'));
   gulp.src('bower_components/owl.carousel/dist/assets/owl.theme.default.min.css').pipe(gulp.dest('desklib/static/src/css/'));
+  gulp.src('bower_components/components-font-awesome/css/fontawesome.min.css').pipe(gulp.dest('desklib/static/src/css/'));
+});
+
+gulp.task('copy-font', function(){
+    gulp.src('bower_components/components-font-awesome/webfonts/*.*').pipe(gulp.dest('desklib/static/dist/webfonts/'));
 });
 
 gulp.task('copy-js', function(){
@@ -75,7 +80,7 @@ gulp.task('copy-js', function(){
 });
 
 // Static Server + watching scss/html files
-gulp.task('serve', ['copy-css', 'copy-js', 'minify-css', 'build-js'], function() {
+gulp.task('serve', ['copy-css', 'copy-font', 'copy-js', 'minify-css', 'build-js'], function() {
 
     browserSync.init({
       	injectChanges: true,
