@@ -1,5 +1,6 @@
-from django.views.generic.base import TemplateView
+import logging
 
+from django.views.generic.base import TemplateView
 from meta.views import MetadataMixin
 from django_json_ld.views import JsonLdContextMixin
 from django.utils.translation import gettext as _
@@ -7,13 +8,14 @@ from django.shortcuts import render
 from django.conf import settings
 from django.urls import reverse
 from paypal.standard.forms import PayPalPaymentsForm
-
-import logging
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import FormView
 from haystack.generic_views import SearchView
 from django_json_ld import settings as setting
 from documents.models import Document
 from.forms import HomeSearchForm
+from subscription.models import Plan
+
 logger = logging.getLogger(__name__)
 
 class HomePageView(MetadataMixin,JsonLdContextMixin,SearchView):
@@ -212,11 +214,46 @@ class PaypalPaymentView(TemplateView):
             "business": receiver_email,
             "amount": "10.00",
             "item_name": "name of the item",
-            "invoice": "28gis-9",
+            "invoice": "wko7u-",
             "notify_url": self.request.build_absolute_uri(reverse('paypal-ipn')),
             "return": self.request.build_absolute_uri(reverse('about')),
             "cancel_return": self.request.build_absolute_uri(reverse('contact')),
             "custom": "premium_plan",  # Custom command to correlate to some function later (optional)
+        }
+
+        form = PayPalPaymentsForm(initial=paypal_dict, button_type="subscribe")
+        context = {"form": form}
+        return context
+
+class SubscriptionView(TemplateView):
+    template_name = 'desklib/subscription.html'
+
+class PayNowView(LoginRequiredMixin,TemplateView):
+    template_name = 'desklib/paynow.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(PayNowView, self).get_context_data(**kwargs)
+        plan_monthly = Plan.objects.first()
+
+
+        if settings.PAYPAL_TEST:
+            receiver_email = "info-facilitator@a2zservices.net"
+            # action="https://www.sandbox.paypal.com/cgi-bin/webscr"
+        paypal_dict = {
+            "cmd": "_xclick-subscriptions",
+            "a3": "9.99",  # monthly price
+            "p3": 1,  # duration of each unit (depends on unit)
+            "t3": "D",  # duration unit ("M for Month")
+            "src": "1",  # make payments recur
+            "sra": "1",  # reattempt payment on payment error
+            "no_note": "1",  # remove extra notes (optional)
+            "business": receiver_email,
+            "item_name": "desklib subscription",
+            # "invoice": 876876,
+            "notify_url": self.request.build_absolute_uri(reverse('paypal-ipn')),
+            "return": self.request.build_absolute_uri(reverse('about')),
+            "cancel_return": self.request.build_absolute_uri(reverse('contact')),
+            "custom": self.request.user.username + "_" + plan_monthly.key ,  # Custom command to correlate to some function later (optional)
         }
 
         form = PayPalPaymentsForm(initial=paypal_dict, button_type="subscribe")

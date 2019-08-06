@@ -1,0 +1,12 @@
+{% extends 'desklib/base.html' %}
+
+{% block content %}
+{{object.name}}
+
+{% for sample in object.samples.all %}
+    <img src="{{ sample.image_file.url }}">
+{% endfor %}
+{% endblock %}
+
+
+
