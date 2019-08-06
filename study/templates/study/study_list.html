@@ -1,54 +1,103 @@
 {% extends "desklib/base.html" %}
+{% load staticfiles %}
 {% load meta %}
+{% load render_json_ld from json_ld %}
+{% load thumbnail %}
+{% load highlight %}
 {% block content %}
-<h1>Study Page</h1>
+<section class="container-fluid banner-image-study">
+    <div class="pt-10"></div>
+    <div class="row pl-5">
+        <div class="col-md-6 mt-8">
+        </div>
+        <div class="col-md-5 mt-4 text-right">
+            <h3 class="pb-2 mt-4">Search from 10 million attributes</h3>
+            <div class="input-group mb-3 ml-4">
+            <form class="form-inline my-2 my-lg-0" action="{% url 'study:search-results' %}" method="get">
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                  <div class="input-group-append">
+                <button class="btn btn-outline-secondary rounded-circle" type="button"><i class="fa fa-search"></i></button>
+              </div>
+            </form>
+            </div>
+
+<!--              <input type="text" class="form-control form-rounded" placeholder="Search a topic or subject" aria-label="Recipient's username" aria-describedby="basic-addon2">-->
+<!--              <div class="input-group-append">-->
+<!--                <button class="btn btn-outline-secondary rounded-circle" type="button"><i class="fa fa-search"></i></button>-->
+<!--              </div>-->
+<!--              <div class="input-group-append">-->
+<!--                <i class="fa fa-search"></i>-->
+<!--              </div>-->
+            </div>
+            <h5 class="pt-2">Eg: Starbucks case study, presentation.</h5>
+
+        </div>
+        <div class="col-md-6">
+        </div>
+    </div>
+</section>
+<section class="container mt-4">
+    <div class="d-flex justify-content-center">
+        <h2>Explore By Subjects</h2>
+        <form action="/study/search" method="get" id="form">
+        <input id ="id_q" name="q" type="text" />
+        <input type="submit" />
+    </div>
+    <div class="row justify-content-between mt-4">
+         {% if abc.fields.subjects %}
+             {% for sub in abc.fields.subjects|slice:":5" %}
+                <ul>
+                    <li class="mr-4 ml-4"><input class="facet" id="{{sub.0|cut:' '}}" type="checkbox" name="selected_facets" value="subjects_exact:{{ sub.0|urlencode }}"
+                        data-toggle="toggle" /> {{ sub.0}} ({{ sub.1 }})
+                    </li>
+                </ul>
+                    {% endfor %}
+                {% else %}
+                    <p>No subject filters.</p>
+                {% endif %}
+    </div>
+</section>
+
+<h2></h2>
 <head >
 
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
-    <script src="//jqueryui.com/jquery-wp-content/themes/jquery/js/plugins.js"></script>
-
-    <script src="//jqueryui.com/jquery-wp-content/themes/jquery/js/main.js"></script>
-
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <!--  <link rel="stylesheet" href="/resources/demos/style.css">  -->
     <style>
         .highlight{
             background-color: #FFFF00
             }
     </style>
-</head>
-<form action="/study/search" method="get" id="form">
-        <input id ="id_q" name="q" type="text" />
-        <input type="submit" />
-    {% if abc.fields.subjects %}
-                    <dt>Subject</dt>
-             {% for sub in abc.fields.subjects|slice:":5" %}
-                <ul>
-                    <li><input class="facet" id="{{sub.0|cut:' '}}" type="checkbox" name="selected_facets" value="subjects_exact:{{ sub.0|urlencode }}"
-                        data-toggle="toggle" /> {{ sub.0}} ({{ sub.1 }})
-                    </li>
-                </ul>
-             {% endfor %}
-                {% else %}
-                    <p>No subject filters.</p>
-                {% endif %}
+
     {% comment %}<!--    {%for subject in facets.fields.subjects|slice:":5" %}-->
 <!--    <input id="check" type="checkbox" name="selected_facets" value="subjects_exact:{{ subject.0|urlencode }}">{{subject.0}}<br>-->
 <!--    <input type="hidden" name="q" value="123">-->
 
 <!--{% endfor %}-->
-{% endcomment %}
-    </form>
-<p><>>>>>>>>><><> filters >>>>>>>>>>></p>
+{% endcomment %}<p><>>>>>>>>><><> filters >>>>>>>>>>></p>
+    <section class="top-study">
+    <h2 class="text-center font-size-40">Top study documents</h2>
+    <div class="container">
+        <div class="row">
+            <div class="owl-carousel owl-theme owl-first">
+                    {% for rec in recent %}
+                        <a href="{% url 'documents:document-view' rec.slug %}">
+                            <div>
+                        <div class="card">
+                            {{rec}}
+                            <img class="card-img-top card-height" src="media/{{rec.cover_image}}" alt="Card image">
+                            <div class="card-body">
+                                    <p class="card-text">{{rec.title}}</p>
+                            </div>
+                        </div>
+                            </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+        <div><p class="text-center font-size-20 font-weight-400 padding-bottom-30"><a href="#">View all</a></p></div>
+    </div>
+</section>
 {% for subject in subjects %}
 <a href="{% url 'study:search' %}?selected_facets=subjects_exact:{{ subject.slug }}">{{ subject.name }}</a>
 {% endfor %}
@@ -57,6 +106,7 @@
 <p><>>>>>>>>recent added>>>>>>>>>>>>>>>>>>></p>
 {% for rec in recent %}
 <a href="{% url 'documents:document-view' rec.slug %}">
+    <h1>{{rec.cover_image}}</h1>
     <p>{{rec.title}}slug:{{rec.slug}}</p>
 </a>
 {% endfor %}

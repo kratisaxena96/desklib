@@ -50,9 +50,9 @@
 <!--        <a class="nav-link disabled" href="#">Disabled</a>-->
 <!--      </li>-->
         <li class="nav-item float-right mr-4">
-            <form class="form-inline my-2 my-lg-0" action="{% url 'study:search-results' %}">
+            <form id="form" class="form-inline my-2 my-lg-0" action="{% url 'study:search-results' %}">
                 <div class="input-group mb-3">
-                  <input type="text" name="q" class="form-control" placeholder="Search a topic or subject" aria-label="Search here" aria-describedby="basic-addon2">
+                  <input type="text" id="id_q" name="q" class="form-control" placeholder="Search a topic or subject" aria-label="Search here" aria-describedby="basic-addon2">
                   <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button"><i class="fa fa-search rounded-circle"></i></button>
                   </div>

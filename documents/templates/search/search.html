@@ -59,12 +59,57 @@
              {% endfor %}
              {% endcomment %}
              {% if query or facets %}
+         {% if page_obj.object_list %}
 			 <div class="container ">
+                  <div role="tabpanel">
+                     <ul class="nav nav-tabs ">
+                <li class="nav-item">
+                    <a class="nav-link active " href="#All" data-toggle="tab">All</a>
+                </li>
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link " href="#Latest" data-toggle="tab">Latest</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link " href="#Top" data-toggle="tab">Top</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="#Presentation" data-toggle="tab">Presentation</a>-->
+<!--                </li>-->
+<!--                         <li class="nav-item">-->
+<!--                    <a class="nav-link" href="#solution" data-toggle="tab">solution</a>-->
+<!--                </li>-->
+<!--                           <li class="nav-item">-->
+<!--                    <a class="nav-link" href="#most_d_type" data-toggle="tab">Most Download Type</a>-->
+<!--                </li>-->
+                    </ul>
+                    <div class='tab-content'>
+                        <div class='tab-pane active' id='All'>
+                            <p></p>
+                        </div>
+                         <div class='tab-pane' id='Latest'>
+                            <p></p>
+                        </div>
+                        <div class='tab-pane active' id='Top'>
+                            <p></p>
+                        </div>
+                        <div class='tab-pane active' id='Presentation'>
+                            <p></p>
+                        </div>
+                         <div class='tab-pane' id='solution'>
+                        </div>
+                         <div class='tab-pane' id='most_d_type'>
+                            <p> Always learn something new and improve existing knowledge.</p>
+                        </div>
+                    </div>
+                </div>
 				 <div class="row mb-3">
 					 <div class="col-md-8">
 						 <div class="float-left text-left">
-							 <H5><span style="color:#405FBD;">All</span> Latest top presentation solution most download type</H5>
-							 <br/>
+							  {% if suggestion %}
+                                <span class="mt-4">
+                                   <p>Did You Mean: <a href="#" data-index="{{suggestion}}" id="suggest">{{suggestion}}</a></p>
+                                </span>
+                                {% endif %}
 							 <H6>Showing {{ page_obj.end_index }} of<span style="color:#405FBD;"> {{ page_obj.paginator.count }} </span>resouces</H6>
 						 </div>
 					 </div>
@@ -119,8 +164,12 @@
                      </a>
                   </div>
                    {% endfor%}
+                      {% if not page_obj.object_list %}
+                 <h1>heeloo</h1>
+                 {% endif %}
                </div>
             </div>
+             
              <div class="d-flex justify-content-center mb-2">
                  <nav>
                      {% if is_paginated %}
@@ -158,19 +207,42 @@
                         {% endif %}
                     </ul>
                     </nav>
+                 {% else %}
             {% endif %}
+             
              </div>
-      </div>
-      {% endblock %}
+            </div>
+             {% endif %}
+             {% if not page_obj.object_list %}
+             <div class="container mt-5 mb-5">
+                 <div class="row">
+                     <div class="col-md-5 col-sm-5">
+                          <div class="float-left text-left">
+							  {% if suggestion %}
+                                <span class="mt-4">
+                                   <p>Did You Mean: <a href="#" data-index="{{suggestion}}" id="suggest">{{suggestion}}</a></p>
+                                </span>
+                                {% endif %}
+						 </div>
+                     </div>
+                       <div class="col-md-2 col-sm-2 mx-auto text-center mt-5">
+                           <img src="{% static 'src/assets/images/not-found.svg'%}" width="160px" height="160px" class="img-fluid"/>
+                       
+                           <h5 class="mt-3">No Results found kindly search with another query</h5>
+                     </div>
+                          <div class="col-md-5 col-sm-5">
+                     </div>
+                    </div>
+             </div>
+             {% endif %}
+            {% endblock %}
     {% block extra_js %}
       <script>
          $("#suggest").on("click", function () {
          $a = $(this).data("index");
          $('#id_q').val($a)
-         $(".form").submit();
+         $("#form").submit();
          });
-         
-         
          $('#id_q').autocomplete({
          source: function (request, response) {
           $.getJSON("study/autocomplete/?q=" + request.term, function (data) {

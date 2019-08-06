@@ -78,6 +78,14 @@ body{
   background-repeat: no-repeat;
   height: 100%;
 }
+.study-top-image {
+  //height: 100vh;
+  min-height: 500px;
+  background-image: url("/static/src/assets/images/Desklib banner4.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+}
 
 .btn-bg-theme{
     background-color: $blue-theme;
@@ -239,6 +247,14 @@ card{
   //height: 100vh;
   min-height: 500px;
   background-image: url("/static/src/assets/images/Desklib banner4.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+}
+.banner-image-study {
+  //height: 100vh;
+  min-height: 500px;
+  background-image: url("/static/src/assets/images/banner_study_detail.png");
   background-size: cover;
   background-repeat: no-repeat;
   height: 100%;
