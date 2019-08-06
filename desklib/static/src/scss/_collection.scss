@@ -210,7 +210,7 @@ card{
         top: 20%;
     }
     .navbar{
-        background-color: white;
+        background-color: navbar-light bg-light;
         .navbar-toggler{
             margin-left: 80%;
         }
@@ -218,6 +218,9 @@ card{
     .header .container{
         background-color: white !important;
     }
+//     .owl-second .owl-stage-outer .owl-stage .owl-item{
+//         width: 400px !important;
+//     }
 }
 
 @media only screen and (max-width : $breakpoint-mobile) {
