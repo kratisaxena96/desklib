@@ -16,7 +16,7 @@
             <div class="input-group mb-3">
             <form class="form-inline my-2 my-lg-0" action="{% url 'study:search-results' %}" method="get">
                 <div class="input-group mb-3">
-  <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+  <input type="text" class="form-control" placeholder="Search a topic or subject" aria-label="Search here" aria-describedby="basic-addon2">
   <div class="input-group-append">
                 <button class="btn btn-outline-secondary rounded-circle" type="button"><i class="fa fa-search"></i></button>
               </div>
@@ -90,10 +90,10 @@
     </div>
 </section>
 
-{% comment %}{% if top_results %}{% endcomment %}
+{% if top_results %}
 <section class="top-study">
     <h2 class="text-center font-size-40">Top study documents</h2>
-    <div class="container">
+    <div class="container py-4">
         <div class="row">
             <div class="owl-carousel owl-theme owl-first">
                     {% for results in top_results %}
@@ -110,12 +110,12 @@
                 {% endfor %}
             </div>
         </div>
-        <div><p class="text-center font-size-20 font-weight-400 padding-bottom-30"><a href="#">View all</a></p></div>
+        <div><p class="text-center font-size-20 font-weight-400 pt-3"><a href="javascript:void(0);">View all</a></p></div>
     </div>
 </section>
-{% comment %}{% endif %}{% endcomment %}
+{% endif %}
 
-<section class="padding-top-30">
+<section class="padding-top-30 py-5">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -182,11 +182,11 @@
 {% endif %}
 
 
-<ul>
-    <li><a href="{% url 'writing:writing' %}">writing</a> </li>
-    <li><a href="{% url 'writing:compare' %}">Compare</a> </li>
-    <li><a href="{% url 'writing:spell' %}">Grammar Checker</a> </li>
-</ul>
+<!--<ul>-->
+<!--    <li><a href="{% url 'writing:writing' %}">writing</a> </li>-->
+<!--    <li><a href="{% url 'writing:compare' %}">Compare</a> </li>-->
+<!--    <li><a href="{% url 'writing:spell' %}">Grammar Checker</a> </li>-->
+<!--</ul>-->
 
 <form method="get" action="." class="form" role="form">
         {{ form.non_field_errors }}

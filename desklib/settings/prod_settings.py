@@ -73,3 +73,7 @@ LOGGING = {
 
 
 THUMBNAIL_DEBUG = False
+
+
+# Paypal settings
+PAYPAL_TEST = False

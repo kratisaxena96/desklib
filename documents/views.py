@@ -83,13 +83,9 @@ class DocumentView(JsonLdDetailView):
         except Exception as e:
             print(e)
 
-
-
-
-
         # download_add = Download.objects.create(document , user)
 
-        # return render(request, 'documents/document_detail.html')
+        return render(request, 'documents/document_detail.html')
 
     def get_context_data(self, **kwargs):
         context = super(DocumentView, self).get_context_data(**kwargs)
@@ -114,5 +110,8 @@ class DocumentView(JsonLdDetailView):
             self.template_name = 'documents/document_detail_logged_in.html'
 
         return [self.template_name]
+
+class DocumentDownloadView(TemplateView):
+    template_name = 'documents/document_success_page.html'
 
 

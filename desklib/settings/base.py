@@ -64,8 +64,9 @@ INSTALLED_APPS = [
     'robots',
     'sorl.thumbnail',
     'study',
+    'paypal.standard.ipn',
     'rest_framework',
-
+    'samples'
 ]
 
 SITE_ID = 1

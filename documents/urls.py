@@ -7,7 +7,7 @@ from django.views.generic import TemplateView
 
 
 urlpatterns = [
-
     path('<slug:slug>/', DocumentView.as_view(), name='document-view'),
+    path('sitemap-index.xml/',TemplateView.as_view(template_name='documents/sitemap-index.xml',content_type='text/xml'), name='sitemap_index'),
 
 ]
