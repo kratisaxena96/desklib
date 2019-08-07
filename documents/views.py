@@ -94,8 +94,25 @@ class DocumentView(JsonLdDetailView):
     def get_context_data(self, **kwargs):
         context = super(DocumentView, self).get_context_data(**kwargs)
         context['meta'] = self.get_object().as_meta(self.request)
+        # start_page = self.object.preview_from
+        # end_page = self.object.preview_to
+
+        context['controlled_pages'] = self.object.pages.filter(document=self.object,no__gte=self.object.preview_from,no__lte=self.object.preview_to)
+
         return context
 
+    def get_template_names(self):
+        """
+        Returns a list of template names to be used for the request. Must return
+        a list. May not be called if render_to_response is overridden.
+        """
+        if self.request.user.is_anonymous:
+            self.template_name = 'documents/document_detail.html'
+        elif hasattr(self.request.user, 'subscription'):
+            self.template_name = 'documents/document_detail_subscribed.html'
+        else:
+            self.template_name = 'documents/document_detail_logged_in.html'
 
+        return [self.template_name]
 
 

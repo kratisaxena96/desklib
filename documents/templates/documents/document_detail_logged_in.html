@@ -141,11 +141,10 @@ background: rgba(0,0,255,0.3);
 
                 </form>
                 {% for page in controlled_pages %}
-                    {{ page.html|safe }}
+                    <img src="{{ page.image_file.url }}" alt="" class="img-responsive">
                 {% endfor %}
 
             </div>
-        
         </div>
   </div>
 </div>

@@ -140,12 +140,34 @@ background: rgba(0,0,255,0.3);
                 <input type="submit" value="Download">
 
                 </form>
-                {% for page in controlled_pages %}
-                    {{ page.html|safe }}
+                {% for page in object.pages.all %}
+                    <img src="{{ page.image_file.url }}" alt="" class="img-responsive">
                 {% endfor %}
 
             </div>
-        
+        <p>
+            {% lorem %}
+        </p><p>
+            {% lorem %}
+        </p><p>
+            {% lorem %}
+        </p><p>
+            {% lorem %}
+        </p><p>
+            {% lorem %}
+        </p><p>
+            {% lorem %}
+        </p><p>
+            {% lorem %}
+        </p><p>
+            {% lorem %}
+        </p><p>
+            {% lorem %}
+        </p><p>
+            {% lorem %}
+        </p><p>
+            {% lorem %}
+        </p>
         </div>
   </div>
 </div>
