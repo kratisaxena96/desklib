@@ -53,13 +53,17 @@ class StudyPageView(MetadataMixin,JsonLdContextMixin, SearchView):
 
 
     def get_context_data(self, **kwargs):
-        sqs = SearchQuerySet().facet('subjects')
-        subjects = sqs.facet_counts()
+        # sqs = SearchQuerySet().facet('subjects')
+        # subjects = sqs.facet_counts()
         context = super(StudyPageView, self).get_context_data(**kwargs)
         recent = SearchQuerySet().order_by('-pub_date')[:5]
         # subjects = Subject.objects.filter(is_visible=True,)
+        top_results = list(Document.objects.all().order_by('views')[:5])
+        # cover_image = top_results.pages.first().image_file.name
+        context['top_results'] = top_results
         context['recent'] = recent
-        context['abc'] = subjects
+        # context['subject_facet'] = subjects
+        context['subject_facet'] = Subject.objects.all()
         return context
 
     def get_structured_data(self):
