@@ -15,7 +15,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="collapse navbar-collapse pt-2" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item active mr-4">
         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
@@ -36,9 +36,12 @@
 <!--        </div>-->
 <!--      </li>-->
       <li class="nav-item dropdown mr-4">
-        <a class="nav-link dropdown-toggle" href="{% url 'writing:writing' %}" id="navbarDropdownWriting" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Writing
-        </a>
+        <a class="nav-link padding-top-10 d-inline-block" href="{% url 'writing:writing' %}"> Writing </a>
+        <span class="nav-link dropdown-toggle d-inline-block" id="navbarDropdownWriting" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        </span>
+<!--        <a class="nav-link dropdown-toggle" href="{% url 'writing:writing' %}" id="navbarDropdownWriting" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--          Writing-->
+<!--        </a>-->
         <div class="dropdown-menu" aria-labelledby="navbarDropdownWriting">
           <a class="dropdown-item" href="{% url 'writing:grammar' %}">Grammar Check</a>
           <a class="dropdown-item" href="{% url 'writing:compare' %}">Compare Documents</a>
@@ -49,12 +52,12 @@
 <!--      <li class="nav-item">-->
 <!--        <a class="nav-link disabled" href="#">Disabled</a>-->
 <!--      </li>-->
-        <li class="nav-item float-right mr-4">
+        <li class="nav-item float-right mr-4 mt-2">
             <form class="form-inline my-2 my-lg-0" action="{% url 'study:search-results' %}">
                 <div class="input-group mb-3">
                   <input type="text" name="q" class="form-control" placeholder="Search a topic or subject" aria-label="Search here" aria-describedby="basic-addon2">
                   <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button"><i class="fa fa-search rounded-circle"></i></button>
+                    <button class="btn btn-outline-secondary rounded-circle" type="button"><i class="fa fa-search rounded-circle"></i></button>
                   </div>
                 </div>
         <!--      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
@@ -67,8 +70,8 @@
           <a class="nav-link" href="{% url 'account_login'%}">Sign in / up</a>
         </li>
         <li class="nav-item float-right">
-          <button class="btn btn-primary">Subscribe</button>
-        <a class="nav-link" href="{% url 'paynow' %}"><button class="btn-lg btn-primary btn-bg-theme">
+<!--          <button class="btn btn-primary">Subscribe</button>-->
+        <a class="nav-link" href="javascript:void(0);"><button class="btn btn-primary btn-bg-theme py-1">
                     Subscribe
                 </button></a>
         </li>

@@ -211,9 +211,9 @@ card{
     }
     .navbar{
         background-color: navbar-light bg-light;
-        .navbar-toggler{
-            margin-left: 80%;
-        }
+//         .navbar-toggler{
+//             margin-left: 80%;
+//         }
     }
     .header .container{
         background-color: white !important;
@@ -276,4 +276,14 @@ card{
     height: 100%;
     width: 135px;
     //float: right;
+}
+#home_nav > .owl-nav > .owl-prev, .owl-next {
+                position: absolute;
+                top: 50%;
+                font-size: 100px !important;
+                color: black !important;
+                transform: translateY(-50%);
+}
+.search-input{
+    width: 80% !important;
 }
