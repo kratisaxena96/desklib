@@ -13,14 +13,14 @@
         <div class="col-md-6 mt-8">
             <h1 class="blue-theme py-2">One of three columns</h1>
             <h3 class="pb-2">Search from 2 million attributes</h3>
-            <div class="input-group mb-3">
-            <form class="form-inline my-2 my-lg-0" action="{% url 'study:search-results' %}" method="get">
-                <div class="input-group mb-3">
-  <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-  <div class="input-group-append">
-                <button class="btn btn-outline-secondary rounded-circle" type="button"><i class="fa fa-search"></i></button>
-              </div>
-</div>
+            <div class="mb-3">
+            <form class="form-inline my-2 my-lg-0" action="{% url 'study:search-results' %}">
+                <div class="form-group w-75 mb-3">
+                      <input type="text" name="q" class="form-control search-input box-shadow-3-3-5-5" placeholder="Search a topic or subject" aria-label="Search here" aria-describedby="basic-addon2">
+                      <div class="input-group-append">
+                          <button class="btn btn-outline-secondary rounded-circle" type="button"><i class="fa fa-search"></i></button>
+                      </div>
+                </div>
 
 <!--              <input type="text" class="form-control form-rounded" placeholder="Search a topic or subject" aria-label="Recipient's username" aria-describedby="basic-addon2">-->
 <!--              <div class="input-group-append">-->
@@ -72,7 +72,7 @@
                 <div class="yellow">
                     <h2 class="font-40 padding-top-50">Having a heard time compliting your work.</h2>
                     <a href="{%url 'study:study-search'%}">
-                    <button class="btn-lg btn-primary btn-bg-theme top-30 margin-top-40">
+                    <button class="btn btn-primary btn-bg-theme top-30 margin-top-40">
                         Explore Resources
                     </button>
                     </a>
@@ -81,21 +81,23 @@
             <div class="col-md-6">
                 <div class="green">
                     <h2 class="font-40 padding-top-50">Not sure if your written document is error-free.</h2>
-                    <button class="btn-lg btn-primary btn-bg-theme top-20 margin-top-40">
+                    <a href="{% url 'writing:grammar' %}">
+                    <button class="btn btn-primary btn-bg-theme top-20 margin-top-40">
                         Check Paper
                     </button>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-{% comment %}{% if top_results %}{% endcomment %}
+{% if top_results %}
 <section class="top-study">
     <h2 class="text-center font-size-40">Top study documents</h2>
-    <div class="container">
+    <div class="container py-4">
         <div class="row">
-            <div class="owl-carousel owl-theme owl-first">
+            <div class="owl-carousel owl-theme author-carousel owl-first" id="home_nav">
                     {% for results in top_results %}
                         <a href="{% url 'documents:document-view' results.slug %}">
                             <div>
@@ -110,12 +112,12 @@
                 {% endfor %}
             </div>
         </div>
-        <div><p class="text-center font-size-20 font-weight-400 padding-bottom-30"><a href="#">View all</a></p></div>
+        <div><p class="text-center font-size-20 font-weight-400 pt-3"><a href="javascript:void(0);">View all</a></p></div>
     </div>
 </section>
-{% comment %}{% endif %}{% endcomment %}
+{% endif %}
 
-<section class="padding-top-30">
+<section class="padding-top-30 py-5">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -148,6 +150,15 @@
     </div>
 </section>
 
+<section class="container py-3">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <a class="btn btn-primary btn-bg-theme py-3 px-4 border-radius-40" href="{% url 'subscription' %}">Subscribe us for $30 a month</a>
+            <p class="font-size-20 pt-5">*View access unlimited with limits on daily usage.</p>
+            <p class="font-size-20 blue-font"> <a href="javascript:void(0);">Learn more</a></p>
+        </div>
+    </div>
+</section>
 <!--<section id="intro" class="clearfix">-->
 <!--    <div class="container d-flex h-100">-->
 <!--      <div class="row justify-content-center align-self-center">-->
@@ -182,59 +193,24 @@
 {% endif %}
 
 
-<ul>
-    <li><a href="{% url 'writing:writing' %}">writing</a> </li>
-    <li><a href="{% url 'writing:compare' %}">Compare</a> </li>
-    <li><a href="{% url 'writing:spell' %}">Grammar Checker</a> </li>
-</ul>
+<!--<ul>-->
+<!--    <li><a href="{% url 'writing:writing' %}">writing</a> </li>-->
+<!--    <li><a href="{% url 'writing:compare' %}">Compare</a> </li>-->
+<!--    <li><a href="{% url 'writing:spell' %}">Grammar Checker</a> </li>-->
+<!--</ul>-->
 
-<form method="get" action="." class="form" role="form">
-        {{ form.non_field_errors }}
-        <div class="form-group">
-                {{ form.as_p }}
-        </div>
-      {% if query %}
-            <h3>Results</h3>
 
-        <div class="container-fluid bg-4 text-left">
-                <div class="row">
-                    {% for result in page_obj.object_list %}
-                <div class="col-sm-4">
-                  <a href="{% url 'documents:document-view' result.slug %}">
-
-                    <div class="form-group">
-
-                        <p>Title : {{result.title}} </p>
-                    </div>
-                  </a>
-                </div>
-                </div>
-                {% empty %}
-             {% endfor%}
-                </div>
-
-        {% endif %}
-</form>
-<div class="jumbotron">
-    <div class="container">
-        <h1>{% trans "Welcome to TaskBuster!"%}</h1>
-        <p>{% blocktrans %}TaskBuster is a simple Task manager that helps you organize your daylife. </br> You can create todo lists, periodic tasks and more! </br></br> If you want to learn how it was created, or create it yourself!, check www.django-tutorial.com{% endblocktrans %}</p>
-        <p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
-      </div>
-    </div>
+<p>{% blocktrans %}TaskBuster is a simple Task manager that helps you organize your daylife. </br> You can create todo lists, periodic tasks and more! </br></br> If you want to learn how it was created, or create it yourself!, check www.django-tutorial.com{% endblocktrans %}</p>
 {% endcomment %}
 {% endblock %}
 {% block extra_js %}
 <script>
     $(document).ready(function () {
             $(".owl-first").owlCarousel({
-                items: 5,
-                loop: true,
-                nav: true,
-                stagePadding: 10,
-                dots: false,
-                autoplay: true,
                 margin: 50,
+                nav: true,
+                dots: false,
+                loop: true,
                 responsiveClass: true,
                 responsive: {
                     0: {

@@ -111,51 +111,63 @@ background: rgba(0,0,255,0.3);
 {% block content %}
 <div class="container">
   <div class="row">
-<!--    <div class="col-sm-4">-->
-<!--        <p>-->
-<!--            {% lorem %}-->
-<!--        </p>-->
+    <div class="col-sm-4">
+        <p>
+            {% lorem %}
+        </p>
 
-<!--    </div>-->
+    </div>
 
       <!--<h3>Column 1</h3>-->
-    <div class="col">
-
-
-        {% if more_like_this %}
-<section class="top-study">
-    <h3> More like this Document</h3>
-    <div class="py-4">
-        <div class="row">
-            <div class="owl-carousel owl-theme author-carousel owl-first" id="home_nav">
-                    {% for results in more_like_this %}
-                        <a href="{% url 'documents:document-view' results.slug %}">
-                            <div>
-                        <div class="card">
-                            <img class="card-img-top card-height" src="{{ results.cover_image }}" alt="Card image">
-                            <div class="card-body">
-                                    <p class="card-text">{{results.title}}</p>
-                            </div>
-                        </div>
-                            </div>
-                    </a>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-</section>
-{% endif %}
+    <div class="col-sm-8">
+        <h3> More like this Document</h3>
+    <p>
+        <<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    </p>
+      {% for m in more %}
+        <a href="{% url 'documents:document-view' m.slug %}">
+            <p>{{m.title}}</p>
+        </a>
+      {% endfor %}
+    <p>........................................</p>
 
         <h3>Your Document below</h3>
         <p>{% lorem %}</p>
             <div id="viewer" class="documentViewer">
-                <a href='{% url "documents:document-download-view" slug=object.slug%}'>Download</a>
+
+                <form  method="post">
+                {% csrf_token %}
+                <input type="submit" value="Download">
+
+                </form>
                 {% for page in object.pages.all %}
-                    {{ page.html|safe }}
+                    <img src="{{ page.image_file.url }}" alt="" class="img-responsive">
                 {% endfor %}
 
             </div>
-
+        <p>
+            {% lorem %}
+        </p><p>
+            {% lorem %}
+        </p><p>
+            {% lorem %}
+        </p><p>
+            {% lorem %}
+        </p><p>
+            {% lorem %}
+        </p><p>
+            {% lorem %}
+        </p><p>
+            {% lorem %}
+        </p><p>
+            {% lorem %}
+        </p><p>
+            {% lorem %}
+        </p><p>
+            {% lorem %}
+        </p><p>
+            {% lorem %}
+        </p>
         </div>
   </div>
 </div>
@@ -198,33 +210,6 @@ background: rgba(0,0,255,0.3);
     });
 
 
-</script>
-
-<script>
-    $(document).ready(function () {
-            $(".owl-first").owlCarousel({
-                margin: 50,
-                nav: true,
-                dots: false,
-                loop: true,
-                responsiveClass: true,
-                responsive: {
-                    0: {
-                        items: 1,
-                    },
-                    400: {
-                        items: 2,
-                    },
-                    768: {
-                        items: 4,
-                    },
-                    992: {
-                        items: 5,
-                    }
-                }
-            });
-
-        });
 </script>
 {% endblock %}
 

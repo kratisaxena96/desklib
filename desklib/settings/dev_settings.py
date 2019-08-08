@@ -27,20 +27,27 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'desklib_dev_db',
         'USER': 'root',
-        'PASSWORD': 'password',
+        'PASSWORD': 'locus123',
     }
 }
 
 #Commented out in production envirment
 SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
 
-EMAIL_HOST_USER = 'siddharthjhanwar7@gmail.com'
-EMAIL_HOST_PASSWORD = 'fwwffwwffw'
+EMAIL_HOST_USER = 'vishakha.sharma@locusrags.com'
+EMAIL_HOST_PASSWORD = 'vishakhalocus7@4'
 
-DEFAULT_FROM_EMAIL = 'siddharthjhanwar7@gmail.com'
+DEFAULT_FROM_EMAIL = 'vishakha.sharma@locusrags.com'
 
 # DATA_UPLOAD_MAX_MEMORY_SIZE = 2621440*4
 # DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000*2
 #https://sorl-thumbnail.readthedocs.io/en/latest/requirements.html kindly satisfy requirements for sorl-thumbnail.
+
+
+THUMBNAIL_DEBUG = True
+
+
+# Paypal settings
+PAYPAL_TEST = True
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 6
 META_USE_TITLE_TAG = True

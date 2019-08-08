@@ -2,13 +2,16 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from documents.models import Document
+from documents.utils import key_generator
 # Create your models here.
 
 
 class Plan(models.Model):
+    key = models.CharField(db_index=True, unique=True, max_length=10, default=key_generator, editable=False)
     package_name = models.CharField(_('Package Name'), db_index=True, max_length=200)
     download_limit = models.IntegerField(_('Download Limit'), blank=True, null=True)
     view_limit = models.IntegerField(_('View Limit'), blank=True, null=True)
+    days = models.IntegerField(_('Plan Days'))
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='plans', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -17,11 +20,12 @@ class Plan(models.Model):
         return self.package_name
 
 class Subscription(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, blank=True, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, blank=True, null=True, related_name = 'subscriptions')
     plan = models.ForeignKey(Plan, on_delete=models.PROTECT)
     is_current = models.BooleanField(default=True)
     expire_on = models.DateTimeField()
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='subscriptions')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='subscription_author')
+
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -50,6 +54,8 @@ class PageView(models.Model):
 
     def __str__(self):
         return self.document.title
+
+
 
 
 

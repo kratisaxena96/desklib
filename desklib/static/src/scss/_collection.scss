@@ -218,14 +218,17 @@ card{
         top: 20%;
     }
     .navbar{
-        background-color: white;
-        .navbar-toggler{
-            margin-left: 80%;
-        }
+        background-color: navbar-light bg-light;
+//         .navbar-toggler{
+//             margin-left: 80%;
+//         }
     }
     .header .container{
         background-color: white !important;
     }
+//     .owl-second .owl-stage-outer .owl-stage .owl-item{
+//         width: 400px !important;
+//     }
 }
 
 @media only screen and (max-width : $breakpoint-mobile) {
@@ -289,4 +292,14 @@ card{
     height: 100%;
     width: 135px;
     //float: right;
+}
+#home_nav > .owl-nav > .owl-prev, .owl-next {
+                position: absolute;
+                top: 50%;
+                font-size: 100px !important;
+                color: black !important;
+                transform: translateY(-50%);
+}
+.search-input{
+    width: 80% !important;
 }

@@ -64,7 +64,9 @@ INSTALLED_APPS = [
     'robots',
     'sorl.thumbnail',
     'study',
-
+    'paypal.standard.ipn',
+    'rest_framework',
+    'samples'
 ]
 
 SITE_ID = 6
@@ -187,7 +189,7 @@ HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300
 # ACCOUNT_USER_DISPLAY = ''

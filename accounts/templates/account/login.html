@@ -45,6 +45,8 @@
   
   <button  class="btn btn-outline-primary " type="submit">{% trans "Sign In" %}</button>
   <a  class="btn btn-outline-dark" href="{% url 'account_reset_password' %}">{% trans "Forgot Password ?" %}</a>  
+<a href="{% url 'account_signup' %}{% if redirect_field_value %}?{{ redirect_field_name }}={{ redirect_field_value }}{% endif %}">signup</a>
+
 
 </form>
     {% load account socialaccount %}
