@@ -123,6 +123,7 @@ background: rgba(0,0,255,0.3);
         <h3> More like this Document</h3>
     <p>
         <<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        {{user}}
     </p>
       {% for m in more %}
         <a href="{% url 'documents:document-view' m.slug %}">
@@ -134,18 +135,13 @@ background: rgba(0,0,255,0.3);
         <h3>Your Document below</h3>
         <p>{% lorem %}</p>
             <div id="viewer" class="documentViewer">
-
-                <form  method="post">
-                {% csrf_token %}
-                <input type="submit" value="Download">
-
-                </form>
-                {% for page in controlled_pages %}
+                <a href='{% url "documents:document-download-view" slug=object.slug%}'>Download</a>
+                {% for page in object.pages.all %}
                     {{ page.html|safe }}
                 {% endfor %}
 
             </div>
-        
+
         </div>
   </div>
 </div>

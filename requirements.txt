@@ -20,6 +20,7 @@ django-haystack==2.8.1
 django-js-asset==1.2.2
 django-json-ld==0.0.4
 django-meta==1.5.1
+django-paypal==1.0.0
 django-phonenumber-field==3.0.1
 django-post-office==3.2.1
 django-recaptcha==2.0.4

@@ -228,6 +228,8 @@ class PaypalPaymentView(TemplateView):
 class SubscriptionView(TemplateView):
     template_name = 'desklib/subscription.html'
 
+
+
 class PayNowView(LoginRequiredMixin,TemplateView):
     template_name = 'desklib/paynow.html'
 

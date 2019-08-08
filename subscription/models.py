@@ -20,11 +20,11 @@ class Plan(models.Model):
         return self.package_name
 
 class Subscription(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, blank=True, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, blank=True, null=True, related_name = 'subscriptions')
     plan = models.ForeignKey(Plan, on_delete=models.PROTECT)
     is_current = models.BooleanField(default=True)
     expire_on = models.DateTimeField()
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='subscriptions')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='subscription_author')
 
 
     created_at = models.DateTimeField(auto_now_add=True)
