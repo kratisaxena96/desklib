@@ -54,7 +54,7 @@ urlpatterns = [
     path('sitemap-<section>.xml', views.sitemap, {'sitemaps': sitemaps},
                        name='django.contrib.sitemaps.views.sitemap'),
     # path('payment/doc', PaypalPaymentView.as_view(), name='paypal_view'),
-    path('subscription/', SubscriptionView.as_view(), name='payment'),
+    path('subscription/', SubscriptionView.as_view(), name='subscription'),
     path('paynow/', PayNowView.as_view(), name='paynow'),
     path('paypal/', include('paypal.standard.ipn.urls'), name='paypal-ipn'),
     path('api-auth/', include('rest_framework.urls')),
