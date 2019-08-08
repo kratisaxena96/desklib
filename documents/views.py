@@ -55,42 +55,42 @@ class DocumentView(JsonLdDetailView):
 
 
         context = self.get_context_data(object=self.object)
-        context['more'] = mlt
+        context['more_like_this'] = mlt
         return self.render_to_response(context)
 
-    def post(self, request, *args, **kwargs):
-        slug = kwargs.get('slug')
-        try:
-            document_obj = Document.objects.get(slug=slug)
-            download_obj = Download.objects.create(user=request.user, document=document_obj)
-            # to-do
-            attachments = {}
-            pdf_doc_name = document_obj.pdf_converted_file.name.split('/')[-1]
-            attachments[pdf_doc_name] = ContentFile(document_obj.pdf_converted_file.file.read())
-            self.object = self.get_object()
-            mlt = SearchQuerySet().more_like_this(download_obj)
-
-            mail.send(
-                request.user.email,  # List of email addresses also accepted
-                settings.DEFAULT_FROM_EMAIL,
-                subject='Your Download',
-                message='Hi there!',
-                html_message='Hi <strong>Here is your download</strong>!',
-                attachments= attachments,
-                priority= 'now'
-            )
-
-            logger.info("mail send")
-            context = self.get_context_data(object=self.object)
-            context['more'] = mlt
-
-            return render(request, 'documents/document_detail.html',context)
-        except Exception as e:
-            print(e)
-
-        # download_add = Download.objects.create(document , user)
-
-        return render(request, 'documents/document_detail.html')
+    # def post(self, request, *args, **kwargs):
+    #     slug = kwargs.get('slug')
+    #     try:
+    #         document_obj = Document.objects.get(slug=slug)
+    #         download_obj = Download.objects.create(user=request.user, document=document_obj)
+    #         # to-do
+    #         attachments = {}
+    #         pdf_doc_name = document_obj.pdf_converted_file.name.split('/')[-1]
+    #         attachments[pdf_doc_name] = ContentFile(document_obj.pdf_converted_file.file.read())
+    #         self.object = self.get_object()
+    #         mlt = SearchQuerySet().more_like_this(download_obj)
+    #
+    #         mail.send(
+    #             request.user.email,  # List of email addresses also accepted
+    #             settings.DEFAULT_FROM_EMAIL,
+    #             subject='Your Download',
+    #             message='Hi there!',
+    #             html_message='Hi <strong>Here is your download</strong>!',
+    #             attachments= attachments,
+    #             priority= 'now'
+    #         )
+    #
+    #         logger.info("mail send")
+    #         context = self.get_context_data(object=self.object)
+    #         context['more'] = mlt
+    #
+    #         return render(request, 'documents/document_detail.html',context)
+    #     except Exception as e:
+    #         print(e)
+    #
+    #     # download_add = Download.objects.create(document , user)
+    #
+    #     return render(request, 'documents/document_detail.html')
 
     def get_context_data(self, **kwargs):
         context = super(DocumentView, self).get_context_data(**kwargs)
@@ -128,7 +128,6 @@ class DocumentDownloadView(LoginRequiredMixin, TemplateView):
                 attachments = {}
                 pdf_doc_name = document_obj.pdf_converted_file.name.split('/')[-1]
                 attachments[pdf_doc_name] = ContentFile(document_obj.pdf_converted_file.file.read())
-                mlt = SearchQuerySet().more_like_this(download_obj)
 
                 mail.send(
                     request.user.email,  # List of email addresses also accepted
