@@ -1,5 +1,6 @@
 from haystack.forms import SearchForm
 
+
 class HomeSearchForm(SearchForm):
     def __init__(self, *args, **kwargs):
         super(HomeSearchForm, self).__init__(*args, **kwargs)
@@ -17,3 +18,5 @@ class HomeSearchForm(SearchForm):
             sqs = sqs.load_all()
 
         return sqs
+
+

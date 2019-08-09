@@ -1,4 +1,20 @@
+{% extends 'desklib/base.html' %}
+{% block content %}
 Pay Now Page
 {{user}}
 {{user.username}}
-{{ form.render }}
+<div class="loader">
+</div>
+    {{ form.render }}
+
+
+{% endblock %}
+    {% block extra_js %}
+<script>
+    $(document).ready(function(){
+  $("form").submit();
+});
+
+</script>
+
+    {% endblock extra_js %}

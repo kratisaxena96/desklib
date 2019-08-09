@@ -170,6 +170,9 @@ class Document(ModelMeta, models.Model):
     page = models.IntegerField(_('Total pages'), blank=True, null=True)
     filename = models.CharField(_('filename'), max_length=200, blank=True, null=True)
 
+    was_heplful = models.IntegerField(_('Helpful'), null=True, blank=True, default=0)
+    not_heplful = models.IntegerField(_('Not Helpful'), null=True, blank=True, default=0)
+
     preview_from = models.PositiveIntegerField(default=1)
     preview_to = models.PositiveIntegerField(default=2)
     total_downloads = models.PositiveIntegerField(default=0)
@@ -406,3 +409,26 @@ class Page(models.Model):
 
     # def __str__(self):
     #     return self.document.id
+
+class Issue(models.Model):
+    title = models.CharField(_('Title'), max_length=200)
+    slug = models.SlugField(_('Slug'), max_length=200)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+
+class Report(models.Model):
+    document = models.ForeignKey(Document, on_delete=models.CASCADE, related_name='report')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
+    issue = models.ManyToManyField(Issue, related_name='issue', blank=True, null=True)
+    other_issue = models.CharField(_('Other Issues'), max_length=2000, blank=True, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.document

@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.sitemaps',
     # 'accounts.apps.AccountsConfig',
-    'haystack',
+    # 'haystack',
     'desklib',
     'accounts',
     'allauth',
@@ -66,7 +66,8 @@ INSTALLED_APPS = [
     'study',
     'paypal.standard.ipn',
     'rest_framework',
-    'samples'
+    'samples',
+    'channels',
 ]
 
 SITE_ID = 6
@@ -245,6 +246,8 @@ CACHES = {
 # DATA_UPLOAD_MAX_MEMORY_SIZE = 2621440*4
 # DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000*2
 #https://sorl-thumbnail.readthedocs.io/en/latest/requirements.html kindly satisfy requirements for sorl-thumbnail.
+
+ASGI_APPLICATION = 'desklib.routing.application'
 
 
 
