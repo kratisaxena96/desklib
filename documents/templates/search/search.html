@@ -149,7 +149,7 @@
                   <div class="col-sm-6 col-12 col-md-2 justify-content-center">
                      <a href="{% url 'documents:document-view' result.slug %}">
                          <div class="card shadow mr-1 mb-5 bg-white rounded" style="margin:auto; height:80%">
-                             {% thumbnail result.cover_image "200x200" crop="80% top" as im %}
+                             {% thumbnail result.cover_image_name "200x200" crop="80% top" as im %}
                                 <img class="card-img-top rounded img-fluid img-thumbnail" src="{{ im.url }}" alt="Card image cap">
                              {% empty %}
                                 <h4>No image</h4>

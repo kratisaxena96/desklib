@@ -58,7 +58,7 @@ class StudyPageView(MetadataMixin,JsonLdContextMixin, SearchView):
         context = super(StudyPageView, self).get_context_data(**kwargs)
         recent = SearchQuerySet().order_by('-pub_date')[:5]
         # subjects = Subject.objects.filter(is_visible=True,)
-        top_results = list(Document.objects.all().order_by('views')[:5])
+        top_results = SearchQuerySet().order_by('-views')[:5]
         # cover_image = top_results.pages.first().image_file.name
         context['top_results'] = top_results
         context['recent'] = recent

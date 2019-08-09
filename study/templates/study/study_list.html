@@ -115,7 +115,7 @@
                         <a href="{% url 'documents:document-view' rec.slug %}">
                             <div class="item shadow mr-1 mb-5 bg-white rounded">
                                 <div class="card" style="height:228px">
-                                    <img class="card-img-top card-height" src="/media/{{rec.cover_image}}" alt="Card image">
+                                    <img class="card-img-top card-height" src="{{rec.cover_image}}" alt="Card image">
                                     <div class="card-body">
                                             <p style="font-size:12px" class="card-text">{{rec.title|truncatechars:25}}</p>
                                     </div>
