@@ -41,27 +41,27 @@
 	},
 	"Film & Theatre": {
 		"slug": "film-and-theatre",
-		"parent_slug": "Art & Design",
+		"parent_slug": "art-and-design",
 		"keywords": ["acting", "cinema", "cinematography", "cubism", "dadaism", "documentaries", "film", "film noir", "filmmaking", "futurism", "hollywood", "physical theatre", "scripts", "shakespeare", "surrealism", "television", "theatre"]
 	},
 	"Digital Media & Video Games": {
 		"slug": "digital-media-and-video-games",
-		"parent_slug": "Art & Design",
+		"parent_slug": "art-and-design",
 		"keywords": ["3D", "abelton live", "animation", "animators", "computational arts", "digital", "digital imaging", "digital media", "FinalCut", "game design", "graphic design", "moviemaker", "multimedia", "music engineering", "music production", "music recording", "phoneography", "SLR camera", "studio production", "video games", "visual arts", "vocal recording"]
 	},
 	"Music": {
 		"slug": "music",
-		"parent_slug": "Art & Design",
+		"parent_slug": "art-and-design",
 		"keywords": ["beatles", "beethoven", "blues", "brahms", "carnatic music", "classical music", "ensembles", "guitar", "improvization", "jazz", "mozart", "music", "music appreciation", "music ensembles", "music history", "music theory", "musical notation", "musicianship", "opera", "percussion", "rock", "rolling stones", "songwriting", "string quartet", "viola", "violin", "western music", "world music"]
 	},
 	"Visual Arts": {
 		"slug": "visual-arts",
-		"parent_slug": "Art & Design",
+		"parent_slug": "art-and-design",
 		"keywords": ["alberti", "bramanti", "architecture", "art", "avant-garde", "art history", "baroque period", "comic books", "contemporary architecture", "contemporary art", "da vinci", "drawing", "fashion", "frank lloyd wright", "goya", "graphic novels", "modern period", "modernism", "museum", "painting", "photography", "rembrandt", "the renaissance", "textiles", "warhol"]
 	},
 	"Design & Creativity": {
 		"slug": "design-and-creativity",
-		"parent_slug": "Art & Design",
+		"parent_slug": "art-and-design",
 		"keywords": ["biomimicry", "conceptual models", "creativity", "design", "design principles", "design thinking", "feedback", "fitt's law", "geodesign", "HCI", "human-centered design", "human computer interaction", "ideation", "innovation", "interaction", "interior design", "needfinding", "product design", "prototyping", "user experience", "ux", "visual analysis", "visual design", "visual representation"]
 	},
 	"Computer Science" : {
@@ -71,22 +71,22 @@
 	},
 	"Theoretical Computer Science": {
 		"slug": "theoretical-computer-science",
-		"parent_slug": "Computer Science",
+		"parent_slug": "computer-science",
 		"keywords": ["abstraction", "algorithmic thinking", "algorithms", "automata", "complexity", "computability", "computer paradigms", "computing", "concurrency", "cryptocurrency", "cryptography", "data structures", "discrete optimization", "parallel programming", "text retrieval", "theoretical computer science"]
 	},
 	"Data Science & Big Data": {
 		"slug": "data-science-and-big-data",
-		"parent_slug": "Computer Science",
+		"parent_slug": "computer-science",
 		"keywords": ["analytics", "apache spark", "apache storm", "BI systems", "big data", "business intelligence", "data analysis", "data analytics", "data cleaning", "data collection", "data mining", "data science", "data sets", "data visualization", "data warehousing", "d3.js", "hadoop", "informatics", "mapreduce", "model building", "qualitative methods", "R", "R programming", "statistical inference", "visualization", "weka"]
 	},
 	"Artificial Intelligence": {
 		"slug": "artificial-intelligence",
-		"parent_slug": "Computer Science",
+		"parent_slug": "computer-science",
 		"keywords": ["AI", "artificial intelligence", "artificial vision", "autonomous", "classification systems", "clustering", "cognitive systems", "computer aided translation", "computer vision", "discrete inference", "machine learning", "natural language processing", "neural networks", "NLP", "pattern recognition", "prediction systems", "predictive analytics", "recommender systems", "regression modeling", "reinforcement learning", "robotic vision", "robotics", "supervised learning", "translation systems", "unsupervised learning"]
 	},
 	"Bioinformatics": {
 		"slug": "bioinformatics",
-		"parent_slug": "Computer Science",
+		"parent_slug": "computer-science",
 		"keywords": ["bioinformatics", "biological data", "biostatistics", "dna methylation", "dna sequencing", "genetic algorithms", "genomic data science", "genomics", "genotyping", "sequencing"]
 	},
 	"Education & Teaching" : {

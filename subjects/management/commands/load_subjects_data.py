@@ -15,22 +15,34 @@ class Command(BaseCommand):
 
         for subject, data in subjects_data.items():
             try:
-                slug = data.get("slug")
-                keywords = data.get("keywords")
-                parent_subject = data.get("parent_slug")
-                subject_obj = Subject()
-                subject_obj.name = subject
-                subject_obj.slug = slug
-                subject_obj.save()
-                parent_obj = Subject.objects.filter(slug=parent_subject)
-                if parent_obj:
-                    subject_obj.parent_subject = parent_obj[0]
+                if not data.get("parent_slug"):
+                    subject_obj = Subject()
+                    subject_obj.name = subject
+                    subject_obj.slug = data.get("slug")
                     subject_obj.save()
-                # subject_obj.keywords.add(keywords)
-                for keyword in keywords:
-                    subject_obj.keywords.add(keyword)
 
-                self.stdout.write('Successfully added subject: ' + subject)
+            except Exception as e:
+                self.stdout.write(self.style.ERROR(e))
+
+        for subject, data in subjects_data.items():
+            try:
+                if data.get("parent_slug"):
+                    slug = data.get("slug")
+                    keywords = data.get("keywords")
+                    parent_subject = data.get("parent_slug")
+                    subject_obj = Subject()
+                    subject_obj.name = subject
+                    subject_obj.slug = slug
+                    subject_obj.save()
+                    if parent_subject != 'null':
+                        parent_obj = Subject.objects.filter(slug=parent_subject)
+                        subject_obj.parent_subject = parent_obj[0]
+                        subject_obj.save()
+                    # subject_obj.keywords.add(keywords)
+                    for keyword in keywords:
+                        subject_obj.keywords.add(keyword)
+
+                    self.stdout.write('Successfully added subject: ' + subject)
 
             except Exception as e:
                 self.stdout.write(self.style.ERROR(e))
