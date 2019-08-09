@@ -26,8 +26,10 @@ class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
     slug = indexes.CharField(model_attr='slug')
     pub_date = indexes.DateTimeField(model_attr='published_date')
     cover_image = indexes.CharField()
+    cover_image_name = indexes.CharField()
     no_of_pages = indexes.CharField(model_attr='page')
     subjects = indexes.MultiValueField(faceted=True)
+    views = indexes.CharField(model_attr='views')
 
 
     def get_model(self):
@@ -37,9 +39,19 @@ class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
         return [(t.name) for t in obj.subjects.all()]
 
     def prepare_cover_image(self, obj):
-        if  obj.pages.first():
+        if obj.pages.first():
             # full_url = ''.join(['http://', get_current_site(obj).domain, obj.pages.first().image_file.url])
-            return  "%s" % (obj.pages.first().image_file.name)
+            url = obj.pages.first().image_file.url
+            # print(url)
+            return url
+
+    def prepare_cover_image_name(self, obj):
+        if obj.pages.first():
+            # full_url = ''.join(['http://', get_current_site(obj).domain, obj.pages.first().image_file.url])
+            name = obj.pages.first().image_file.name
+            # print(url)
+            return name
+
 
     def index_queryset(self, using=None):
         return self.get_model().objects.filter(published_date__lte=timezone.now())

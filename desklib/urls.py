@@ -24,8 +24,8 @@ from django.views.decorators.cache import cache_page
 
 from .sitemaps import DocumentSitemap,StaticViewSitemap
 from django.contrib.sitemaps import views
-import desklib
-from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView, TestPageView, PaypalPaymentView,\
+
+from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView, TestPageView, \
 SubscriptionView, PayNowView
 if settings.DEBUG:
     import debug_toolbar
@@ -54,10 +54,10 @@ urlpatterns = [
     path('sitemap-<section>.xml', views.sitemap, {'sitemaps': sitemaps},
                        name='django.contrib.sitemaps.views.sitemap'),
     # path('payment/doc', PaypalPaymentView.as_view(), name='paypal_view'),
+    path('subscription/', SubscriptionView.as_view(), name='subscription'),
     path('paynow/', PayNowView.as_view(), name='paynow'),
     path('paypal/', include('paypal.standard.ipn.urls'), name='paypal-ipn'),
     path('api-auth/', include('rest_framework.urls')),
-    path('subscription/',SubscriptionView.as_view(), name='payment'),
     # path('payment/document',)
     # path('sample/', include(('samples.urls','samples'), namespace="samples")),
 

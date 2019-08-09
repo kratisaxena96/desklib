@@ -17,10 +17,15 @@ class Command(BaseCommand):
             try:
                 slug = data.get("slug")
                 keywords = data.get("keywords")
+                parent_subject = data.get("parent_slug")
                 subject_obj = Subject()
                 subject_obj.name = subject
                 subject_obj.slug = slug
                 subject_obj.save()
+                parent_obj = Subject.objects.filter(slug=parent_subject)
+                if parent_obj:
+                    subject_obj.parent_subject = parent_obj[0]
+                    subject_obj.save()
                 # subject_obj.keywords.add(keywords)
                 for keyword in keywords:
                     subject_obj.keywords.add(keyword)

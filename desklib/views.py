@@ -1,6 +1,7 @@
 import logging
 
 from django.views.generic.base import TemplateView
+from haystack.query import SearchQuerySet
 from meta.views import MetadataMixin
 from django_json_ld.views import JsonLdContextMixin
 from django.utils.translation import gettext as _
@@ -9,11 +10,10 @@ from django.conf import settings
 from django.urls import reverse
 from paypal.standard.forms import PayPalPaymentsForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import FormView
 from haystack.generic_views import SearchView
 from django_json_ld import settings as setting
 from documents.models import Document
-from.forms import HomeSearchForm
+from .forms import HomeSearchForm
 from subscription.models import Plan
 
 logger = logging.getLogger(__name__)
@@ -60,7 +60,7 @@ class HomePageView(MetadataMixin,JsonLdContextMixin,SearchView):
         context = super(JsonLdContextMixin, self).get_context_data(**kwargs)
         context[self.context_meta_name] = self.get_meta(context=context)
         context[setting.CONTEXT_ATTRIBUTE] = self.get_structured_data()
-        top_results = list(Document.objects.all().order_by('views')[:5])
+        top_results = SearchQuerySet().order_by('-views')[:5]
         # cover_image = top_results.pages.first().image_file.name
         context['top_results'] = top_results
         # context['cover_image'] = cover_image
@@ -227,6 +227,8 @@ class PaypalPaymentView(TemplateView):
 
 class SubscriptionView(TemplateView):
     template_name = 'desklib/subscription.html'
+
+
 
 class PayNowView(LoginRequiredMixin,TemplateView):
     template_name = 'desklib/paynow.html'

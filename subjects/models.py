@@ -12,6 +12,7 @@ class Subject(models.Model):
     name = models.CharField(_('Title'), db_index=True, max_length=200)
     slug = models.SlugField(_('Slug'), unique=True)
     # keywords = models.CharField(_('Keywords'), max_length=1000, blank=True, null=True,)
+    parent_subject = models.ForeignKey("self",_('Parent Subject'), blank=True, null=True)
     description = RichTextField(_('Description'), blank=True, null=True)
     # author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete='PROTECT', related_name='author_document')
     keywords = TaggableManager(blank=True)

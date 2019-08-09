@@ -78,6 +78,14 @@ body{
   background-repeat: no-repeat;
   height: 100%;
 }
+.study-top-image {
+  //height: 100vh;
+  min-height: 500px;
+  background-image: url("/static/src/assets/images/Desklib banner4.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+}
 
 .btn-bg-theme{
     background-color: $blue-theme;
@@ -211,9 +219,9 @@ card{
     }
     .navbar{
         background-color: navbar-light bg-light;
-        .navbar-toggler{
-            margin-left: 80%;
-        }
+//         .navbar-toggler{
+//             margin-left: 80%;
+//         }
     }
     .header .container{
         background-color: white !important;
@@ -242,6 +250,14 @@ card{
   //height: 100vh;
   min-height: 500px;
   background-image: url("/static/src/assets/images/Desklib banner4.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+}
+.banner-image-study {
+  //height: 100vh;
+  min-height: 500px;
+  background-image: url("/static/src/assets/images/banner_study_detail.png");
   background-size: cover;
   background-repeat: no-repeat;
   height: 100%;
@@ -276,4 +292,14 @@ card{
     height: 100%;
     width: 135px;
     //float: right;
+}
+#home_nav > .owl-nav > .owl-prev, .owl-next {
+                position: absolute;
+                top: 50%;
+                font-size: 100px !important;
+                color: black !important;
+                transform: translateY(-50%);
+}
+.search-input{
+    width: 80% !important;
 }

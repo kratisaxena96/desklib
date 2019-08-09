@@ -1,222 +1,332 @@
 {
+	"Business & Management" : {
+		"slug": "business-and-management",
+		"parent_slug": null,
+		"keywords": []
+	},
 	"Business Development": {
 		"slug": "business-development",
+		"parent_slug": "business-and-management",
 		"keywords": ["additive manufacturing", "biz dev", "business analysis", "business development", "business models", "business strategy", "competitive strategy", "e-commerce", "global business", "global trends", "it management", "lean", "lean operations", "lean six sigma", "life cycles", "logistics", "process improvement", "product development", "sap", "service logic", "six sigma", "substinance marketplaces", "supply chain", "supply chain management", "sustainable product development"]
 	},
 	"Finance": {
 		"slug": "finance",
+		"parent_slug": "business-and-management",
 		"keywords": ["accounting", "accounting", "cycle", "asset pricing", "bonds", "budgeting", "business finance", "computational investing", "corporate finance", "cost behaviour", "credit risk", "finance", "financial accounting", "financial engineering", "financial literacy", "financial markets", "financial planning", "global capital markets", "investing", "money", "monetary system", "personal finance", "risk management", "stock markets", "stocks", "wall street", "tax"]
 	},
 	"Management & Leadership": {
 		"slug": "management-and-leadership",
+		"parent_slug": "business-and-management",
 		"keywords": ["adaptive leadership", "corporate culture", "culture", "human resources management", "leadership", "management", "operations management", "project management", "project planning", "strategic management"]
 	},
 	"Entrepreneurship": {
 		"slug": "entreprenuership",
+		"parent_slug": "business-and-management",
 		"keywords": ["entrepreneur", "entreprenuership", "futurism", "growth hacking", "innovation", "scaling", "social entrepreunership", "startups", "venture capital", "ventures"]
 	},
 	"Professional Development": {
 		"slug": "professional-development",
+		"parent_slug": "business-and-management",
 		"keywords": ["business communication", "business ethics", "business writing", "career counseling", "coaching", "communication", "conflict resolution", "decision making", "employability", "negotiations", "networking", "numeracy skills", "onboarding", "personal branding", "presentations", "problem solving", "public speaking", "skills", "storytelling", "strategic thinking", "success", "time management"]
 	},
 	"Marketing": {
 		"slug": "marketing",
+		"parent_slug": "business-and-management",
 		"keywords": ["branding", "content strategy", "digital analytics", "digital brand engagement", "digital marketing", "growth hacker marketing", "market analysis", "marketing", "online advertising", "services marketing", "social media marketing"]
+	},
+	"Art & Design" : {
+		"slug": "art-and-design",
+		"parent_slug": null,
+		"keywords": []
 	},
 	"Film & Theatre": {
 		"slug": "film-and-theatre",
+		"parent_slug": "Art & Design",
 		"keywords": ["acting", "cinema", "cinematography", "cubism", "dadaism", "documentaries", "film", "film noir", "filmmaking", "futurism", "hollywood", "physical theatre", "scripts", "shakespeare", "surrealism", "television", "theatre"]
 	},
 	"Digital Media & Video Games": {
 		"slug": "digital-media-and-video-games",
+		"parent_slug": "Art & Design",
 		"keywords": ["3D", "abelton live", "animation", "animators", "computational arts", "digital", "digital imaging", "digital media", "FinalCut", "game design", "graphic design", "moviemaker", "multimedia", "music engineering", "music production", "music recording", "phoneography", "SLR camera", "studio production", "video games", "visual arts", "vocal recording"]
 	},
 	"Music": {
 		"slug": "music",
+		"parent_slug": "Art & Design",
 		"keywords": ["beatles", "beethoven", "blues", "brahms", "carnatic music", "classical music", "ensembles", "guitar", "improvization", "jazz", "mozart", "music", "music appreciation", "music ensembles", "music history", "music theory", "musical notation", "musicianship", "opera", "percussion", "rock", "rolling stones", "songwriting", "string quartet", "viola", "violin", "western music", "world music"]
 	},
 	"Visual Arts": {
 		"slug": "visual-arts",
+		"parent_slug": "Art & Design",
 		"keywords": ["alberti", "bramanti", "architecture", "art", "avant-garde", "art history", "baroque period", "comic books", "contemporary architecture", "contemporary art", "da vinci", "drawing", "fashion", "frank lloyd wright", "goya", "graphic novels", "modern period", "modernism", "museum", "painting", "photography", "rembrandt", "the renaissance", "textiles", "warhol"]
 	},
 	"Design & Creativity": {
 		"slug": "design-and-creativity",
+		"parent_slug": "Art & Design",
 		"keywords": ["biomimicry", "conceptual models", "creativity", "design", "design principles", "design thinking", "feedback", "fitt's law", "geodesign", "HCI", "human-centered design", "human computer interaction", "ideation", "innovation", "interaction", "interior design", "needfinding", "product design", "prototyping", "user experience", "ux", "visual analysis", "visual design", "visual representation"]
+	},
+	"Computer Science" : {
+		"slug": "computer-science",
+		"parent_slug": null,
+		"keywords": []
 	},
 	"Theoretical Computer Science": {
 		"slug": "theoretical-computer-science",
+		"parent_slug": "Computer Science",
 		"keywords": ["abstraction", "algorithmic thinking", "algorithms", "automata", "complexity", "computability", "computer paradigms", "computing", "concurrency", "cryptocurrency", "cryptography", "data structures", "discrete optimization", "parallel programming", "text retrieval", "theoretical computer science"]
 	},
 	"Data Science & Big Data": {
 		"slug": "data-science-and-big-data",
+		"parent_slug": "Computer Science",
 		"keywords": ["analytics", "apache spark", "apache storm", "BI systems", "big data", "business intelligence", "data analysis", "data analytics", "data cleaning", "data collection", "data mining", "data science", "data sets", "data visualization", "data warehousing", "d3.js", "hadoop", "informatics", "mapreduce", "model building", "qualitative methods", "R", "R programming", "statistical inference", "visualization", "weka"]
 	},
 	"Artificial Intelligence": {
 		"slug": "artificial-intelligence",
+		"parent_slug": "Computer Science",
 		"keywords": ["AI", "artificial intelligence", "artificial vision", "autonomous", "classification systems", "clustering", "cognitive systems", "computer aided translation", "computer vision", "discrete inference", "machine learning", "natural language processing", "neural networks", "NLP", "pattern recognition", "prediction systems", "predictive analytics", "recommender systems", "regression modeling", "reinforcement learning", "robotic vision", "robotics", "supervised learning", "translation systems", "unsupervised learning"]
 	},
 	"Bioinformatics": {
 		"slug": "bioinformatics",
+		"parent_slug": "Computer Science",
 		"keywords": ["bioinformatics", "biological data", "biostatistics", "dna methylation", "dna sequencing", "genetic algorithms", "genomic data science", "genomics", "genotyping", "sequencing"]
+	},
+	"Education & Teaching" : {
+		"slug": "education-and-teaching",
+		"parent_slug": null,
+		"keywords": []
 	},
 	"K12": {
 		"slug": "k12",
+		"parent_slug": "education-and-teaching",
 		"keywords": ["common core", "early childhood education", "first year teaching", "k12", "primary", "primary education", "secondary", "secondary education", "youth education,"]
 	},
 	"STEM": {
 		"slug": "stem",
+		"parent_slug": "education-and-teaching",
 		"keywords": ["digital literacy", "gaming literacy", "hacker spaces", "maker spaces", "STEAM", "STEM", "tinkering"]
 	},
 	"Higher Education": {
 		"slug": "higher-education",
+		"parent_slug": "education-and-teaching",
 		"keywords": ["academic success", "adult", "adult learners", "college", "college admissions", "college applications", "college prep", "dissertations", "higher education", "research", "research projects", "student success", "study skills", "universities"]
 	},
 	"Teacher Development": {
 		"slug": "teacher-development",
+		"parent_slug": "education-and-teaching",
 		"keywords": ["coaching", "educator", "foundations of teaching", "instructional methods", "student centered inquiry", "student centered learning", "teaching", "training"]
 	},
 	"Classroom Development": {
 		"slug": "classroom-development",
+		"parent_slug": "education-and-teaching",
 		"keywords": ["blended learning", "collaborative tools", "cooperative learning", "course design", "creative classrooms", "differentiation", "digital curation", "digital learning tools", "educational technology", "flipped classrooms", "flipped teaching", "inquiry science learning", "mobile learning", "OER", "open educational resources,curriculum design"]
 	},
 	"Online Education": {
 		"slug": "online-education",
+		"parent_slug": "education-and-teaching",
 		"keywords": ["badges", "digital badges", "e-learning", "gamification", "mooc", "moodle", "oer", "online education", "online learning", "online pedagogy", "open educational resources", "virtual classroom", "virtual instruction,"]
 	},
 	"Test Prep": {
 		"slug": "test-prep",
+		"parent_slug": "education-and-teaching",
 		"keywords": ["AB", "AP", "BC", "college readiness", "exams", "GMAT", "prep", "preparation", "refresher", "review", "SAT", "STAT"]
+	},
+	"Engineering" : {
+		"slug": "engineering",
+		"parent_slug": null,
+		"keywords": []
 	},
 	"Electrical Engineering": {
 		"slug": "electrical-engineering",
+		"parent_slug": "engineering",
 		"keywords": ["arduino", "asic", "beaglebone", "cellular Spectrums", "data networks", "development boards", "digital signal processing", "diodes", "dsp", "electrical engineering", "embedded systems", "fiber optics", "haptic", "haptic systems", "information theory", "integrated circuits", "linear circuits", "microcontrollers", "mos transistors", "nano-sensors", "nonlinear optics", "optical fiber networks", "photonics", "photovoltaic systems", "pv", "radio frequencies", "raspberry pi", "registers", "sensors", "signal processing", "signals", "transistors", "solar cells", "vhdl"]
 	},
 	"Mechanical Engineering": {
 		"slug": "mechanical-engineering",
-		"keywords": ["mechanical engineering", ,"aeronautical engineering", "aerodynamics", "cad", "computer aided Design", "dynamics", "dynamics", "engineering mechanics", "equilibrium", "fluid dynamics", "fluid power", "fluids", "force", "kinematics", "kinetics", "manufacturing", "mechanics", "mechatronics", "nanomanufacturing", "nonlinear dynamics", "propulsion", "robotics", "solids", "statistical thermodynamics", "statics", "structural mechanics", "thermodynamics", "vehicle dynamics", "velocity"]
+		"parent_slug": "engineering",
+		"keywords": ["mechanical engineering","aeronautical engineering", "aerodynamics", "cad", "computer aided Design", "dynamics", "dynamics", "engineering mechanics", "equilibrium", "fluid dynamics", "fluid power", "fluids", "force", "kinematics", "kinetics", "manufacturing", "mechanics", "mechatronics", "nanomanufacturing", "nonlinear dynamics", "propulsion", "robotics", "solids", "statistical thermodynamics", "statics", "structural mechanics", "thermodynamics", "vehicle dynamics", "velocity"]
 	},
 	"Materials Science & Engineering": {
 		"slug": "materials-science-and-engineering",
-		"keywords": ["blacksmithing", "fatigue", "fracture", "magnetic materials", "materials engineering", "materials processing", "materials science", "metallurgy", "physical metallurgy", "polymer engineering", "polymer physics", "solar cells", "structure properties", "structures", "symmetry", "tensor properties"]
+		"parent_slug": "engineering",
+		"keywords": ["blacksmithing", "fatigue", "f\"parent_slug\": \"engineering\",racture", "magnetic materials", "materials engineering", "materials processing", "materials science", "metallurgy", "physical metallurgy", "polymer engineering", "polymer physics", "solar cells", "structure properties", "structures", "symmetry", "tensor properties"]
 	},
 	"Civil Engineering": {
 		"slug": "civil-engineering",
+		"parent_slug": "engineering",
 		"keywords": ["bim", "cartography", "civil engineering", "durable development", "energy in buildings", "geographic information systems", "geomatic engineering", "geometric", "geospatial", "gis", "material behaviour", "public transportation systems", "sanitation systems", "structures", "transit management", "transportation flow systems", "urban planning", "wastewater treatment"]
 	},
 	"Environmental Engineering": {
 		"slug": "environmental-engineering",
+		"parent_slug": "engineering",
 		"keywords": ["environmental engineering", "environmental microbiology", "groundwater hydrology", "soil behaviour", "sustainability", "water resource systems"]
+	},
+	"Health & Medicine" : {
+		"slug": "health-and-medicine",
+		"parent_slug": null,
+		"keywords": []
 	},
 	"Disease & Disorders": {
 		"slug": "disease-and-disorders",
+		"parent_slug": "health-and-medicine",
 		"keywords": ["addiction", "adhd", "aids", "antibiotic resistance", "aphasia", "autism", "bacteria", "cancer", "cardiac arrest", "cardiovascular disease", "caries", "dementia", "depression", "diabetes", "disabilities", "disease", "drug abuse", "dysphagia", "ebola", "epidemics", "heart disease", "hiv", "hypothermia", "immune system", "infections", "infectious desieases", "liver disease", "neurology", "outbreaks", "pandemics", "parasites", "parkinson’s", "virology", "viruses"]
 	},
 	"Nutrition & Wellness": {
 		"slug": "nutrition-and-wellness",
+		"parent_slug": "health-and-medicine",
 		"keywords": ["ageing", "child nutrition", "diet", "exercise", "excercise physiology", "food safety", "health foods", "holistic", "malnutrition", "micronutrients", "nutrition", "obesity", "physical activity", "pilates", "stress management", "traditional healing", "training", "wellness", "yoga"]
 	},
 	"Public & Global Health": {
 		"slug": "public-and-global-health",
+		"parent_slug": "health-and-medicine",
 		"keywords": ["aca", "affordable care act", "epidemiology", "global health", "health care reform", "health systems", "humanitarianism", "mobile health", "population health", "primary health care", "public health"]
 	},
 	"Healthcare & Research": {
 		"slug": "healthcare-and-research",
+		"parent_slug": "health-and-medicine",
 		"keywords": ["aed", "behavioral medicine", "biomedical imaging", "clinical problem solving", "clinical skills", "clinical trials", "contraception", "controlled trials", "cpr", "dental practice", "dentistry", "drug discovery", "drugs", "first aid", "first responders", "health care", "health literacy", "hippocrates", "immunology", "life support", "medication", "mental health", "nursing", "patient engagement", "patient safety", "pediatric", "pharmacology", "practice", "precision medicine", "surgery", "urology", "vaccines"]
+	},
+	"Humanities" : {
+		"slug": "humanities",
+		"parent_slug": null,
+		"keywords": []
 	},
 	"Grammar & Writing": {
 		"slug": "grammar-and-writing",
+		"parent_slug": "humanities",
 		"keywords": ["business writing", "community journalism", "composition", "digital journalism", "documentation", "english", "english composition", "essays", "grammar", "journalism", "rhetorical composition", "technical documentation", "writing"]
 	},
 	"Languages & Culture": {
 		"slug": "languages-and-culture",
+		"parent_slug": "humanities",
 		"keywords": ["china", "chinese", "culture", "dutch", "language", "english", "german", "korea", "latin american", "mandarin", "pop culture", "spanish", "western culture"]
 	},
 	"History": {
 		"slug": "history",
+		"parent_slug": "humanities",
 		"keywords": ["ancient egypt", "ancient greece", "battle of waterloo", "civil war", "colonialism", "emancipation proclamation", "french revolution", "gilded age", "global history", "great depression", "history", "holocaust", "magna carta", "middle ages", "reconstruction", "roaring twenties", "western civiliation", "u.s. history", "vietnam war", "world war one", "world war two", "world war I", "world war II"]
 	},
 	"Philosophy": {
 		"slug": "philosophy",
+		"parent_slug": "humanities",
 		"keywords": ["altruism", "anarchy", "bioethics", "calvin", "confucian philosophy", "consequentialism", "deontology", "epicirus", "epicureanism", "epistemology", "ethics", "existence", "hedonism", "human will", "infinities", "isocrates", "kierkegaard", "logic", "mathematical philosophy", "meaning", "metaphysics", "moral philosophy", "moral psychology", "moralities", "morals", "natural philosophy", "neuroethics", "occasionalism", "ontology", "paradoxes", "philosophy", "plato", "pragmatist", "reasoning", "skepticism", "socrates", "stoicism", "theorems", "truth values", "value theory", "virtue ethics", "wisdom"]
 	},
 	"Religion": {
 		"slug": "religion",
+		"parent_slug": "humanities",
 		"keywords": ["bible", "book of matthew", "buddhism", "christianity", "islam", "hinduism", "jesus", "letters of paul", "mohammed", "religion", "revalations", "scripture", "spirituality", "theology", "quran"]
+	},
+	"Mathematics" : {
+		"slug": "mathematics",
+		"parent_slug": null,
+		"keywords": []
 	},
 	"Foundations of Mathematics": {
 		"slug": "foundations-of-mathematics",
+		"parent_slug": "mathematics",
 		"keywords": ["language of mathematics", "logic", "mathematical symbolism", "model theory", "set theory"]
 	},
 	"Algebra": {
 		"slug": "algebra",
+		"parent_slug": "mathematics",
 		"keywords": ["algebra", "algebra+", "algebraic systems", "college algebra", "combinatorics", "discrete mathematics", "field theory", "graph theory", "group theory", "k theory", "linear algebra", "pre-algebra", "number theory"]
 	},
 	"Geometry": {
 		"slug": "geometry",
+		"parent_slug": "mathematics",
 		"keywords": ["convex optimization", "geometry", "manifolds", "topology"]
 	},
 	"Calculus & Analysis": {
 		"slug": "calculus-and-analysis",
+		"parent_slug": "mathematics",
 		"keywords": ["analysis", "analytic combinatorics", "calculus", "chaos theory", "complex variables", "derivatives", "differential equations", "dynamical systems", "fourier analysis", "functional analysis", "integral equations", "integrals", "multivariable calculus", "nonlinear dynamics", "numerical analysis", "pre-calculus", "quantitative finance,"]
 	},
 	"Statistics & Probability": {
 		"slug": "statistics-and-probability",
+		"parent_slug": "mathematics",
 		"keywords": ["Linear Regression", "Probability", "Regression", "Statistics"]
+	},
+	"Programming" : {
+		"slug": "programming",
+		"parent_slug": null,
+		"keywords": []
 	},
 	"Mobile Development": {
 		"slug": "mobile-development",
+		"parent_slug": "programming",
 		"keywords": ["android", "firefox os", "google play", "ipad", "iphone", "mobile", "mobile apps", "mobile computing", "mobile game development", "mobile html5 applications", "mobile services", "mobile web development", "smartphone", "swift", "ukit", "windows 8 applications"]
 	},
 	"Web Development": {
 		"slug": "web-development",
+		"parent_slug": "programming",
 		"keywords": ["ajax", "azure", "bootstrap", "cloud", "cloud development", "cloud engineering", "css", "foundation", "front end web development", "full stack", "html", "html5", "html5 canvas", "javascript", "jquery", "metadata", "microsoft azure", "node.js", "responsive web design", "saas", "salesforce", "sap fiori", "sap hana", "semantic web", "software as a service", "twitter bootstrap", "typescript", "web applications", "web design", "web development", "web server"]
 	},
 	"Databases": {
 		"slug": "databases",
+		"parent_slug": "programming",
 		"keywords": ["databases", "db", "dba", "in memory data management", "in memory databases", "mongodb", "nosql", "relational databases", "sql", "t-sql", "transact-sql", "select * from", "nosql", "redis"]
+	},
+	"Science" : {
+		"slug": "science",
+		"parent_slug": null,
+		"keywords": []
 	},
 	"Physics": {
 		"slug": "physics",
+		"parent_slug": "science",
 		"keywords": ["acoustics", "astrophysics", "classical mechanics", "einstein", "electricity", "field theory", "friction", "graphene", "gravity", "higgs boson", "linear motion", "light", "magnetic resonance", "magnetism", "mechanics", "molecular structures", "motion", "newtonian physics", "nuclear physics", "nuclear science", "nuclear physics", "optics", "physics", "plasma physics", "quantum mechanics", "quantum physics", "relativity", "solar energy", "string theory", "theoretical physics", "thermodynamics", "transport phenomena", "unification", "wave motion", "waves"]
 	},
 	"Chemistry": {
 		"slug": "chemistry",
+		"parent_slug": "science",
 		"keywords": ["analytical chemistry", "chemistry", "organic chemistry", "physical chemistry", "solid state chemistry", "chemical reaction"]
 	},
 	"Astronomy": {
 		"slug": "astronomy",
+		"parent_slug": "science",
 		"keywords": ["astrobiology", "astronomy", "astrophysics", "big bang theory", "cosmology", "dark energy", "dark matter", "exoplanets", "extraterrestrial", "galaxies", "moons", "multiverse", "planetary boundries", "solar system", "universe"]
 	},
 	"Biology": {
 		"slug": "biology",
+		"parent_slug": "science",
 		"keywords": ["anatomy", "animal behaviour", "animal biology", "bioelectricity", "bioinformatics", "biomolecular modeling", "biotechnology", "brian", "cell culture", "cell death", "cells", "DNA", "epigenetic control", "evolution", "gene expression", "genetics", "genome science", "genomes", "human anatomy", "human biology", "microbiology", "microbiome", "molecular biology", "neurons", "neuroscience", "paleobiology", "physiology", "synapses", "systems biology", "tissue engineering", "tissues"]
 	},
 	"Environmental Science": {
 		"slug": "environmental-science",
+		"parent_slug": "science",
 		"keywords": ["agriculture", "climate", "climate science", "earth science", "ecosystems", "energy", "environmental science", "fracking", "geology", "geomechanics", "global food crisis", "global warming", "forest monitoring", "global warming", "green", "hydraulic fracturing", "mining", "natural disaesters", "nature", "oceanography", "oceans", "renewable energy", "resilience", "resources", "shale gas", "sustainability", "sustainable development", "sustainable food", "symmetry", "urban agriculture", "volcanoes", "water"]
+	},
+	"Social Sciences" : {
+		"slug": "social-sciences",
+		"parent_slug": null,
+		"keywords": []
 	},
 	"Anthropology": {
 		"slug": "anthropology",
+		"parent_slug": "social-sciences",
 		"keywords": ["anthropology", "archaeology", "artifacts", "cultural preservation", "demography", "folklore", "genealogy", "human origins", "indigenous studies", "linguistic anthropology", "rituals"]
 	},
 	"Psychology": {
 		"slug": "psychology",
+		"parent_slug": "social-sciences",
 		"keywords": ["affective science", "bullying", "child development", "cognitive science", "emotional intelligence", "happiness", "human psychology", "neuroscience", "popularity", "relationships", "positive psychology", "social psychology"]
 	},
 	"Sociology": {
 		"slug": "sociology",
+		"parent_slug": "social-sciences",
 		"keywords": ["behaviour", "communication science", "conflict theory", "criminology", "cultural studies", "environment", "family", "feminism", "gender studies", "linguistics", "metaliteracy", "semantics", "sexuality in society", "social change", "social classes", "sociolinguistics", "structural equation model", "women's rights"]
 	},
 	"Economics": {
 		"slug": "economics",
+		"parent_slug": "social-sciences",
 		"keywords": ["behaviour economics", "classical economics", "derivatives", "econometrics", "economic policymaking", "economics", "federal reserve", "financial markets", "game theory", "globalization", "international trade", "macroeconomics", "microeconomics", "stock markets", "trade"]
 	},
 	"Political Science": {
 		"slug": "political-science",
+		"parent_slug": "social-sciences",
 		"keywords": ["counterterrorism", "decentralization", "democracy", "elections", "european union", "federalism", "foreign policy", "foreign relations", "global community", "global order", "global politics", "governance", "government", "international development", "international politics", "international relations", "mao zedong", "national security", "political philosophy", "propaganda", "public policy", "referendums", "terrorism"]
 	},
 	"Law": {
 		"slug": "law",
+		"parent_slug": "social-sciences",
 		"keywords": ["business law", "citizenship", "civil liberties", "civil rights", "common law", "constitution", "contracts", "copyrights", "criminal law", "human rights", "immigration", "international law", "law", "legal ethical governance", "liability", "patent law", "privacy", "property law", "surveillance law", "tax law", "terrorism law"]
 	}
 }

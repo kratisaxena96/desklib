@@ -193,7 +193,7 @@ class Document(ModelMeta, models.Model):
     seo_keywords = models.CharField(max_length=140,
                                     help_text='Recommended max.length of relevant seo keyword is 140 characters')
 
-    cover_image = models.ImageField(verbose_name=_('Image'), upload_to=cover_images, max_length=1000, blank = True, null = True, help_text='Dimensions Should be 80x112 as per document ration')
+    # cover_image = models.ImageField(verbose_name=_('Image'), upload_to=cover_images, max_length=1000, blank = True, null = True, help_text='Dimensions Should be 80x112 as per document ration')
 
     _metadata = {
             'use_og': 'True',
@@ -368,8 +368,8 @@ class Document(ModelMeta, models.Model):
                 page_obj.save()
                 page_count += 1
 
-            self.cover_image = get_thumbnail(self.pages.first().image_file, '80x112', quality=60, format='PNG',crop='center',).url
-            super(Document, self).save(update_fields=["cover_image"])
+            # self.cover_image = get_thumbnail(self.pages.first().image_file, '80x112', quality=60, format='PNG',crop='center',).url
+            # super(Document, self).save(update_fields=["cover_image"])
             # Adding predicted subjects to document
 
             for subject in get_subjects(text):
