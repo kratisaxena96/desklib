@@ -1,5 +1,5 @@
 from django.contrib import admin
-from documents.models import Document, File, Page
+from documents.models import Document, File, Page, Report, Issue
 from subjects.models import Subject
 from django.db.models import F
 
@@ -87,4 +87,13 @@ class DocumentAdmin(admin.ModelAdmin):
 
         return super(DocumentAdmin, self).get_form(request, obj, **kwargs)
 
+
+
+class IssueAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('title',)}
+
+
 admin.site.register(Document, DocumentAdmin)
+
+admin.site.register(Issue, IssueAdmin)
+admin.site.register(Report)

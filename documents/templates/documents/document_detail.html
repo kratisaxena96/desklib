@@ -149,6 +149,13 @@ background: rgba(0,0,255,0.3);
         </div>
   </div>
 </div>
+<div class="feedback">
+    <form class="feedback-form" action="." method="post" data-url="{% url 'documents:document-feedback-api' %}" data-document="{{ object.title }}">
+        <p>was this helpful?</p>
+        <button data-value="helpful" type="submit">Yes</button>
+        <button data-value="not-helpful" type="submit">No</button>
+    </form>
+</div>
 {% endblock %}
 {% block extra_js %}
 
@@ -187,6 +194,43 @@ background: rgba(0,0,255,0.3);
         newimg.prependTo($(ele));
     });
 
+$(document).ready(function(){
+
+
+        jQuery('.feedback-form').submit( function(e) {
+            e.preventDefault();
+            alert();
+            url = $(this).data("url");
+            jQuery('span.has-error').empty();
+            jQuery('.form-group').removeClass('has-error');
+            // var values = {};
+            var data = jQuery(".schedule-call-form").serializeArray();
+            jQuery('div.error_file').text('');
+
+                jQuery.ajax({
+                    type : "POST",
+                    url : url,
+                    data: data,
+                    success: function(data){
+//                        jQuery(".schedule-call-form-popup").hide();
+//                        jQuery(".thank-you").show();
+                        console.log("success")
+                        document.getElementById("schedule-call-form").reset();
+                      },
+                    error: function(data){
+                        var response = data.responseJSON;
+
+                        // Begin for loop here
+                            for (var key in response) {
+                              console.log("error")
+//                                console.log(key, response[key][0]);
+                              jQuery('.schedule-call-form .'+key).addClass('has-error');
+                              jQuery('.schedule-call-form span.' + key).text(response[key][0]);
+                                }
+                      }
+                });
+              });
+});
 
 </script>
 {% endblock %}
