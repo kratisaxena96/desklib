@@ -10,11 +10,10 @@ from django.conf import settings
 from django.urls import reverse
 from paypal.standard.forms import PayPalPaymentsForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import FormView
 from haystack.generic_views import SearchView
 from django_json_ld import settings as setting
 from documents.models import Document
-from.forms import HomeSearchForm
+from .forms import HomeSearchForm
 from subscription.models import Plan
 
 logger = logging.getLogger(__name__)

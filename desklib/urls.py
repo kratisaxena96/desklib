@@ -24,8 +24,8 @@ from django.views.decorators.cache import cache_page
 
 from .sitemaps import DocumentSitemap,StaticViewSitemap
 from django.contrib.sitemaps import views
-import desklib
-from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView, TestPageView, PaypalPaymentView,\
+
+from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView, TestPageView, \
 SubscriptionView, PayNowView
 if settings.DEBUG:
     import debug_toolbar
