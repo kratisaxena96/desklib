@@ -8,7 +8,7 @@
 
     {% endblock extra_css %}
 {% block content %}
-
+<div class="conatiner-fluid">
 <section class="container-fluid banner-image-study">
     <div class="pt-10"></div>
     <div class="row pl-5">
@@ -56,8 +56,8 @@
       <!--        <input id ="id_q" name="q" type="text" />-->
       <!--        <input type="submit" />-->
    </div>
+	{% comment %}
    <div class="row mt-4 mb-4" style="min-height: 125px;">
-       {{subject_facet}}
       {% if subject_facet.fields.subjects %}
       {% for sub in subject_facet.fields.subjects %}
        <div class="col-3 text-center">
@@ -72,6 +72,7 @@
       <p>No subject filters.</p>
       {% endif %}
    </div>
+	{% endcomment %}
 </section>
 
 <h2></h2>
@@ -90,7 +91,26 @@
 
 <!--{% endfor %}-->
 {% endcomment %}
-
+	<div class="container">
+		<div class="row">
+		<div class="d-flex justify-content-around align-content-sm-center">
+		{% for p in parent %}
+			<div>
+				<div class="mb-4">
+					<span style="color:#405FBD">{{p}}</span>
+				</div>
+				{% for child in p.subject_set.all %}
+					<div class="mt-2">
+						<a href="/study/search/?q=&amp;selected_facets=subjects_exact:{{child}}">
+						{{child}}
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+		{% endfor %}
+		</div>
+		</div>
+	</div>
   <section class="top-study">
     <h2 class="text-center font-size-40">Top Resources</h2>
     <div class="container">
@@ -162,6 +182,7 @@
                 </div>
            </section>
     </div>
+	
 {% for subject in subjects %}
 <a href="{% url 'study:search' %}?selected_facets=subjects_exact:{{ subject.slug }}">{{ subject.name }}</a>
 {% endfor %}

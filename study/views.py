@@ -68,18 +68,7 @@ class StudyPageView(MetadataMixin,JsonLdContextMixin, SearchView):
         for sub in Subject.objects.all():
             if not sub.parent_subject:
                 parent.append(sub)
-            else:
-                child.append(sub)
-        dic = {key: None for key in parent}
-        temp = []
-        for key in dic:
-            for ch in child:
-                if ch.parent_subject == key:
-                    temp.append(ch)
-            dic[key] = temp
-            temp = []
-        context = {'servcies': dic}
-
+        context['parent'] = parent
         context['subject_facet'] = Subject.objects.all()
         return context
 
