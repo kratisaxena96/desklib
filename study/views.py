@@ -63,6 +63,23 @@ class StudyPageView(MetadataMixin,JsonLdContextMixin, SearchView):
         context['top_results'] = top_results
         context['recent'] = recent
         # context['subject_facet'] = subjects
+        parent = []
+        child = []
+        for sub in Subject.objects.all():
+            if not sub.parent_subject:
+                parent.append(sub)
+            else:
+                child.append(sub)
+        dic = {key: None for key in parent}
+        temp = []
+        for key in dic:
+            for ch in child:
+                if ch.parent_subject == key:
+                    temp.append(ch)
+            dic[key] = temp
+            temp = []
+        context = {'servcies': dic}
+
         context['subject_facet'] = Subject.objects.all()
         return context
 
@@ -113,6 +130,9 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, FacetedSearchView):
         suggest_string = SearchQuerySet().spelling_suggestion(self.request.GET.get('q', ''))
         if self.request.GET.get('q', '') != suggest_string:
             context['suggestion'] = suggest_string
+
+        if not self.request.GET.get('q') and not self.request.GET.get('selected_facets') :
+            context['is_empty'] = True
         # self.searchqueryset = SearchQuerySet().order_by('-pub_date')[:5]
 
         # if self.suggestions:
@@ -131,6 +151,8 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, FacetedSearchView):
     def get_structured_data(self):
         sd = super(CustomSearchView, self).get_structured_data()
         return sd
+
+
 
     # def get(self, request, *args, **kwargs):
     #     # sqs = SearchQuerySet().filter(content=AutoQuery(request.GET['q']), subjects=Exact('sanskrit'))

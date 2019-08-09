@@ -213,7 +213,7 @@
              </div>
             </div>
              {% endif %}
-             {% if not page_obj.object_list %}
+             {% if not page_obj.object_list and not is_empty %}
              <div class="container mt-5 mb-5">
                  <div class="row">
                      <div class="col-md-5 col-sm-5">
@@ -234,6 +234,25 @@
                      </div>
                     </div>
              </div>
+             {% elif is_empty %}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6 text-center mx-auto">
+                             <div class="mb-3">
+                                <form class="form-inline my-2 my-lg-0" action="{% url 'study:search-results' %}">
+                                    <div class="form-group input-group w-75 mb-3">
+                                          <input type="text" name="q" class="form-control search-input box-shadow-3-3-5-5" placeholder="Search a topic or subject" aria-label="Search here" aria-describedby="basic-addon2">
+                                          <div class="input-group-append">
+                                              <button class="btn btn-outline-secondary rounded-circle" type="button"><i class="fa fa-search"></i></button>
+                                          </div>
+                                    </div>
+                                </form>
+                             </div>
+                        </div>
+                        <div class="col-md-3"></div>
+                    </div>
+                </div>
              {% endif %}
             {% endblock %}
     {% block extra_js %}
