@@ -8,45 +8,81 @@
 
     {% endblock extra_css %}
 {% block content %}
-<div class="conatiner-fluid">
 <section class="container-fluid banner-image-study">
     <div class="pt-10"></div>
     <div class="row pl-5">
-          <div class="col-md-7 mt-8">
+          <div class="col-md-6 mt-8">
       </div>
-        <div class="col-md-5 mt-8 float-right" style="margin-top: 8%;">
-            <h6>Search from 10 million study resources</h6>
-            <div class="mb-3">
-            <form class="form-inline my-2 pt-3  my-lg-0" action="{% url 'study:search-results' %}">
-                <div class="form-group w-75 mb-1">
-                      <input type="text" name="q" class="form-control search-input box-shadow-3-3-5-5" placeholder="Search a topic or subject" aria-label="Search here" aria-describedby="basic-addon2">
-                      <div class="input-group-append">
-                          <button class="btn btn-outline-secondary rounded-circle" type="button"><i class="fa fa-search"></i></button>
-                      </div>
-                </div>
+        <div class="col-md-6 mt-8">
+            <h1 class="blue-theme py-2">One of three columns</h1>
+            <h3 class="pb-2">Search from 2 million attributes</h3>
+<!--            <div class="mb-3">-->
+                <form class="form-inline my-2 my-lg-0" action="{% url 'study:search-results' %}">
+<!--          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
+<!--          <button class="btn btn-outline-secondary rounded-circle" type="submit"><i class="fa fa-search rounded-circle"></i></button>-->
+                    <div class="input-group w-75 mb-3 flex-fill">
+                        <input type="text" name="q" class="form-control form-control-lg search-input box-shadow-3-3-5-5" placeholder="Search here...">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-secondary" type="submit"><i class="fa fa-search rounded-circle"></i></button>
+                        </div>
+                    </div>
+                </form>
 
-<!--              <input type="text" class="form-control form-rounded" placeholder="Search a topic or subject" aria-label="Recipient's username" aria-describedby="basic-addon2">-->
-<!--              <div class="input-group-append">-->
-<!--                <button class="btn btn-outline-secondary rounded-circle" type="button"><i class="fa fa-search"></i></button>-->
-<!--              </div>-->
-            </form>
+<!--            <form class="form-inline my-2 my-lg-0" action="{% url 'study:search-results' %}">-->
+<!--                <div class="form-group w-75 mb-3">-->
+<!--                      <input type="text" name="q" class="form-control search-input box-shadow-3-3-5-5" placeholder="Search a topic or subject" aria-label="Search here" aria-describedby="basic-addon2">-->
+<!--                      <div class="input-group-append">-->
+<!--                          <button class="btn btn-outline-secondary rounded-circle" type="button"><i class="fa fa-search"></i></button>-->
+<!--                      </div>-->
+<!--                </div>-->
+
+<!--&lt;!&ndash;              <input type="text" class="form-control form-rounded" placeholder="Search a topic or subject" aria-label="Recipient's username" aria-describedby="basic-addon2">&ndash;&gt;-->
+<!--&lt;!&ndash;              <div class="input-group-append">&ndash;&gt;-->
+<!--&lt;!&ndash;                <button class="btn btn-outline-secondary rounded-circle" type="button"><i class="fa fa-search"></i></button>&ndash;&gt;-->
+<!--&lt;!&ndash;              </div>&ndash;&gt;-->
+<!--            </form>-->
 <!--              <div class="input-group-append">-->
 <!--                <i class="fa fa-search"></i>-->
 <!--              </div>-->
-            </div>
-            <div class="row mt-0">
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
-                    <p class="pt">or <span style="color:#405FBD">Upload a document</span></p>
-                </div>
-            </div>
+<!--            </div>-->
+            <p class="pt-1 pb-5">Eg: Starbucks case study, presentation.</p>
+<!--            <p class="text-center">or</p>-->
+<!--            <p class="text-center"><a href="#">Upload a document</a></p>-->
+
         </div>
-        <div class="col-md-6">
-        </div>
+<!--        <div class="col-md-5 mt-8 float-right" style="margin-top: 8%;">-->
+<!--            <h6>Search from 10 million study resources</h6>-->
+<!--            <div class="mb-3">-->
+<!--            <form class="form-inline my-2 pt-3  my-lg-0" action="{% url 'study:search-results' %}">-->
+<!--                <div class="form-group w-75 mb-1">-->
+<!--                      <input type="text" name="q" class="form-control search-input box-shadow-3-3-5-5" placeholder="Search a topic or subject" aria-label="Search here" aria-describedby="basic-addon2">-->
+<!--                      <div class="input-group-append">-->
+<!--                          <button class="btn btn-outline-secondary rounded-circle" type="button"><i class="fa fa-search"></i></button>-->
+<!--                      </div>-->
+<!--                </div>-->
+
+<!--&lt;!&ndash;              <input type="text" class="form-control form-rounded" placeholder="Search a topic or subject" aria-label="Recipient's username" aria-describedby="basic-addon2">&ndash;&gt;-->
+<!--&lt;!&ndash;              <div class="input-group-append">&ndash;&gt;-->
+<!--&lt;!&ndash;                <button class="btn btn-outline-secondary rounded-circle" type="button"><i class="fa fa-search"></i></button>&ndash;&gt;-->
+<!--&lt;!&ndash;              </div>&ndash;&gt;-->
+<!--            </form>-->
+<!--&lt;!&ndash;              <div class="input-group-append">&ndash;&gt;-->
+<!--&lt;!&ndash;                <i class="fa fa-search"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;              </div>&ndash;&gt;-->
+<!--            </div>-->
+<!--            <div class="row mt-0">-->
+<!--                <div class="col-md-3"></div>-->
+<!--                <div class="col-md-6">-->
+<!--                    <p class="pt">or <span style="color:#405FBD">Upload a document</span></p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-md-6">-->
+<!--        </div>-->
     </div>
 </section>
 
-<section class="container mt-4 pt-4">
+<section class="container mt-4 pt-5">
    
    <div class="d-flex justify-content-center pb-3">
       <h2>Explore By Subjects</h2>
@@ -91,7 +127,7 @@
 
 <!--{% endfor %}-->
 {% endcomment %}
-	<div class="container">
+	<div class="container pt-5">
 		<div class="row">
 		<div class="d-flex justify-content-around align-content-sm-center">
 		{% for p in parent %}
@@ -101,7 +137,7 @@
 				</div>
 				{% for child in p.subject_set.all %}
 					<div class="mt-2">
-						<a href="/study/search/?q=&amp;selected_facets=subjects_exact:{{child}}">
+						<a href="{% url 'search-results' %}}?q=&amp;selected_facets=subjects_exact:{{child}}">
 						{{child}}
 						</a>
 					</div>
@@ -111,9 +147,8 @@
 		</div>
 		</div>
 	</div>
-  <section class="top-study">
+  <section class="container pt-5">
     <h2 class="text-center font-size-40">Top Resources</h2>
-    <div class="container">
         <div class="row">
             <div  class="owl-carousel owl-theme mt-4">
               {% for top in top_results %}
@@ -131,11 +166,9 @@
             </div>
     </div>
                 <div><p style="font-size:12px; margin-bottom: 0;" class="text-center font-size-20 font-weight-400 padding-bottom-30"><a href="#">View all</a></p></div>
-    </div>
 </section>
-     <section class="top-study mt-0  bg-white">
+     <section class="container mt-0 pt-5 bg-white">
     <h2 class="text-center font-size-40">Recent Uploads</h2>
-    <div class="container">
         <div class="row">
             <div class="owl-carousel owl-theme mt-4">
               {% for rec in recent %}
@@ -158,11 +191,9 @@
             </div>
     </div>
                 <div><p class="text-center font-size-20 font-weight-400 padding-bottom-30"><a href="#">View all</a></p></div>
-    </div>
 </section>
-    <div class="top-study conatiner-fluid bg-light padding-bot">
+    <section class="container-fluid pt-5 bg-light padding-bot">
          <h2 class="text-center font-size-40">Our Subscription Includes</h2>
-           <section class="container">
                 <div class="row text-center mt-4">
                     <div class="col-md-4 col-sm-12">
                         <img class="mb-4" src="{% static 'src/assets/images/unlimited views.png' %}"/>
@@ -178,10 +209,9 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center mt-4">
-                    <button class="btn btn-primary btn-lg" style="border-radius: 10rem; width:12rem; margin-top:2%">Try Now</button>
+                    <a class="btn btn-primary btn-lg" href="{% url 'subscription' %}">Try Now</a>
                 </div>
-           </section>
-    </div>
+    </section>
 	
 {% for subject in subjects %}
 <a href="{% url 'study:search' %}?selected_facets=subjects_exact:{{ subject.slug }}">{{ subject.name }}</a>

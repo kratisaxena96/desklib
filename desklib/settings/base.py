@@ -67,7 +67,7 @@ INSTALLED_APPS = [
     'paypal.standard.ipn',
     'rest_framework',
     'samples',
-    'channels',
+    # 'channels',
 ]
 
 SITE_ID = 6
