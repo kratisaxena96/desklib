@@ -63,12 +63,7 @@ class StudyPageView(MetadataMixin,JsonLdContextMixin, SearchView):
         context['top_results'] = top_results
         context['recent'] = recent
         # context['subject_facet'] = subjects
-        parent = []
-        child = []
-        for sub in Subject.objects.all():
-            if not sub.parent_subject:
-                parent.append(sub)
-        context['parent'] = parent
+        context['parent'] = Subject.objects.filter(parent_subject__isnull=True).prefetch_related('subject_set')
         context['subject_facet'] = Subject.objects.all()
         return context
 

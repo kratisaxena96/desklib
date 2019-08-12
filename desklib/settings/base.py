@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.sitemaps',
     # 'accounts.apps.AccountsConfig',
-    # 'haystack',
+    'haystack',
     'desklib',
     'accounts',
     'allauth',

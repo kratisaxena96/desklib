@@ -8,22 +8,20 @@
 <!--    <li><a href="{% url 'writing:compare' %}">Compare</a> </li>-->
 <!--    <li><a href="{% url 'writing:grammar' %}">Grammar Checker</a> </li>-->
 <!--</ul>-->
-<section>
-    <div class="container-fluid bg-light-grey pt-10">
+<section class="container-fluid bg-light-grey">
         <div class="row pl-5 pb-5">
-            <div class="col-md-6 mt-8">
+            <div class="col-md-6 mt-8  pt-10">
                 <h1 class="blue-theme py-1">Error - free writing</h1>
-                <h3 class="pb-1">Complete your emails, documents, <br>
+                <h3 class="pb-2">Complete your emails, documents, <br>
                     updates, blogs without errors</h3>
-                <button class="btn btn-primary bg-blue-theme margin-top-40 border-radius-30 px-4 py-2">
+                <a href="{% url 'writing:grammar' %}" class="btn btn-primary bg-blue-theme margin-top-40 border-radius-30 px-4 py-2">
                         Check Grammar
-                    </button>
+                    </a>
             </div>
             <div class="col-md-6">
                 <img class="img-responsive pt-3" src="{% static '/src/assets/images/check_paper_img_plain.png' %}" alt="plain-img" style="width:85%;">
             </div>
         </div>
-    </div>
 </section>
 <section class="container">
     <h2 class="text-center py-4">Be a better Writer in few minutes</h2>
@@ -33,7 +31,7 @@
             <div class="card">
                 <img class="card-img-top" src="{% static '/src/assets/images/check_paper_img_plain.png' %}" alt="random1">
                 <div class="card-body">
-                    <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                    <p class="text-center"> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
                     <div class="col text-center">
                           <a href="{% url 'writing:grammar' %}"><button class="btn btn-primary bg-blue-theme border-radius-20">Check grammar</button></a>
                     </div>
@@ -44,7 +42,7 @@
             <div class="card">
                 <img class="card-img-top" src="{% static '/src/assets/images/check_paper_img_plain.png' %}" alt="random2">
                 <div class="card-body">
-                    <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                    <p class="text-center"> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
                     <div class="col text-center">
                           <a href="{% url 'writing:compare' %}"><button class="btn btn-primary bg-blue-theme border-radius-20">Compare now</button></a>
                     </div>
@@ -55,7 +53,7 @@
             <div class="card">
                 <img class="card-img-top" src="{% static '/src/assets/images/check_paper_img_plain.png' %}" alt="random3">
                 <div class="card-body">
-                    <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                    <p class="text-center"> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
                     <div class="col text-center">
                           <button class="btn btn-primary bg-blue-theme border-radius-20">Get now</button>
                     </div>
@@ -69,7 +67,7 @@
         <h2 class="text-center py-2">Access our sample formats</h2>
         <p class="text-center py-2 font-size-20">Use our free samples and create a perfect resume, presentation, etc.</p>
         <div class="col text-center py-2">
-              <button class="btn btn-primary bg-blue-theme border-radius-30 px-4 py-2">Download now</button>
+              <a href="{% url 'writing:sample-list-view' %}" class="btn btn-primary bg-blue-theme border-radius-30 px-4 py-2">Download now</a>
         </div>
     </div>
 </section>

@@ -82,44 +82,12 @@
     </div>
 </section>
 
-<section class="container mt-4 pt-5">
-   
-   <div class="d-flex justify-content-center pb-3">
-      <h2>Explore By Subjects</h2>
-      <!--		<br/>-->
-      <!--        -->
-      <!--        <form action="/study/search" method="get" id="form">-->
-      <!--        <input id ="id_q" name="q" type="text" />-->
-      <!--        <input type="submit" />-->
-   </div>
-	{% comment %}
-   <div class="row mt-4 mb-4" style="min-height: 125px;">
-      {% if subject_facet.fields.subjects %}
-      {% for sub in subject_facet.fields.subjects %}
-       <div class="col-3 text-center">
-      <ul class="list-unstyled">
-         <li class="mr-4 ml-4">
-            <a href="/study/search/?q=&amp;selected_facets=subjects_exact:{{ sub.0|urlencode }}">{{ sub.0}}</a>
-         </li>
-      </ul>
-       </div>
-      {% endfor %}
-      {% else %}
-      <p>No subject filters.</p>
-      {% endif %}
-   </div>
-	{% endcomment %}
-</section>
-
-<h2></h2>
-<head >
-
 <!--  <link rel="stylesheet" href="/resources/demos/style.css">  -->
-    <style>
-        .highlight{
-            background-color: #FFFF00
-            }
-    </style>
+<!--    <style>-->
+<!--        .highlight{-->
+<!--            background-color: #FFFF00-->
+<!--            }-->
+<!--    </style>-->
 
     {% comment %}<!--    {%for subject in facets.fields.subjects|slice:":5" %}-->
 <!--    <input id="check" type="checkbox" name="selected_facets" value="subjects_exact:{{ subject.0|urlencode }}">{{subject.0}}<br>-->
@@ -127,37 +95,38 @@
 
 <!--{% endfor %}-->
 {% endcomment %}
-	<div class="container pt-5">
-		<div class="row">
-		<div class="d-flex justify-content-around align-content-sm-center">
+	<section class="container pt-5">
+        <h2 class="text-center">Explore By Subjects</h2>
+        <div class="card-columns">
 		{% for p in parent %}
-			<div>
-				<div class="mb-4">
-					<span style="color:#405FBD">{{p}}</span>
-				</div>
-				{% for child in p.subject_set.all %}
-					<div class="mt-2">
-						<a href="{% url 'search-results' %}}?q=&amp;selected_facets=subjects_exact:{{child}}">
+
+            <div class="card border-0">
+              <div class="card-body">
+                <h5 class="card-title">{{ p }}</h5>
+                    {% for child in p.subject_set.all %}
+                    <a class="card-link" href="{% url 'study:search-results' %}?q=&amp;selected_facets=subjects_exact:{{child}}">
 						{{child}}
 						</a>
-					</div>
-				{% endfor %}
-			</div>
+                    {% endfor %}
+
+              </div>
+            </div>
+
 		{% endfor %}
-		</div>
-		</div>
-	</div>
+            </div>
+	</section>
+    {% if top_results %}
   <section class="container pt-5">
-    <h2 class="text-center font-size-40">Top Resources</h2>
+    <h2 class="text-center">Top Resources</h2>
         <div class="row">
             <div  class="owl-carousel owl-theme mt-4">
               {% for top in top_results %}
                         <a href="{% url 'documents:document-view' top.slug %}">
                             <div class="item shadow mr-1 mb-5 bg-white rounded">
-                        <div class="card" style="height:228px">
+                        <div class="card">
                             <img class="card-img-top card-height" src="{{top.cover_image}}" alt="Card image">
                             <div class="card-body">
-                                    <p style="font-size:12px;" class="card-text">{{top.title|truncatechars:25}}</p>
+                                    <p class="card-text">{{top.title|truncatechars:25}}</p>
                             </div>
                         </div>
                             </div>
@@ -165,19 +134,21 @@
                 {% endfor %}
             </div>
     </div>
-                <div><p style="font-size:12px; margin-bottom: 0;" class="text-center font-size-20 font-weight-400 padding-bottom-30"><a href="#">View all</a></p></div>
+                <div><p class="text-center font-size-20 font-weight-400 padding-bottom-30"><a href="#">View all</a></p></div>
 </section>
+    {% endif %}
+    {% if recent %}
      <section class="container mt-0 pt-5 bg-white">
-    <h2 class="text-center font-size-40">Recent Uploads</h2>
+    <h2 class="text-center">Recent Uploads</h2>
         <div class="row">
             <div class="owl-carousel owl-theme mt-4">
               {% for rec in recent %}
                         <a href="{% url 'documents:document-view' rec.slug %}">
                             <div class="item shadow mr-1 mb-5 bg-white rounded">
-                                <div class="card" style="height:228px">
+                                <div class="card">
                                     <img class="card-img-top card-height" src="{{rec.cover_image}}" alt="Card image">
                                     <div class="card-body">
-                                            <p style="font-size:12px" class="card-text">{{rec.title|truncatechars:25}}</p>
+                                            <p class="card-text">{{rec.title|truncatechars:25}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -192,8 +163,9 @@
     </div>
                 <div><p class="text-center font-size-20 font-weight-400 padding-bottom-30"><a href="#">View all</a></p></div>
 </section>
+    {% endif %}
     <section class="container-fluid pt-5 bg-light padding-bot">
-         <h2 class="text-center font-size-40">Our Subscription Includes</h2>
+         <h2 class="text-center">Our Subscription Includes</h2>
                 <div class="row text-center mt-4">
                     <div class="col-md-4 col-sm-12">
                         <img class="mb-4" src="{% static 'src/assets/images/unlimited views.png' %}"/>

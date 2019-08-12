@@ -7,7 +7,7 @@
 
    
       {% block content %}
-      <div class="container-fluid bg-3 text-center" style="margin-top:10%">
+      <div class="container-fluid bg-3 text-center mt-2">
          <form method="get" action="." class="form" role="form">
             {{ form.non_field_errors }}
              {% comment %}
@@ -110,7 +110,7 @@
                                    <p>Did You Mean: <a href="#" data-index="{{suggestion}}" id="suggest">{{suggestion}}</a></p>
                                 </span>
                                 {% endif %}
-							 <H6>Showing {{ page_obj.end_index }} of<span style="color:#405FBD;"> {{ page_obj.paginator.count }} </span>resouces</H6>
+							 <p>Showing {{ page_obj.end_index }} of {{ page_obj.paginator.count }} resouces</p>
 						 </div>
 					 </div>
 					 <div class="col-md-4 mt-3">
@@ -148,16 +148,15 @@
                   {% for result in page_obj.object_list %}
                   <div class="col-sm-6 col-12 col-md-2 justify-content-center">
                      <a href="{% url 'documents:document-view' result.slug %}">
-                         <div class="card shadow mr-1 mb-5 bg-white rounded" style="margin:auto; height:80%">
+                         <div class="card shadow mr-1 mb-5 bg-white rounded">
                              {% thumbnail result.cover_image_name "200x200" crop="80% top" as im %}
                                 <img class="card-img-top rounded img-fluid img-thumbnail" src="{{ im.url }}" alt="Card image cap">
                              {% empty %}
-                                <h4>No image</h4>
+                                <p>No image</p>
                              {% endthumbnail %}
                              <div>
-								
-                               <div style="padding:5px; text-align:left" class="card-text">
-                                   <div style="font-size:12px">{% highlight result.title with query html_tag "span" css_class "highlight" max_length 27 %}</div>
+                               <div class="card-text">
+                                   <p>{% highlight result.title with query html_tag "span" css_class "highlight" max_length 27 %}</p>
                                </div>
                              </div>
                          </div>
