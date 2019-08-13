@@ -20,7 +20,7 @@
                     <div class="input-group w-75 mb-3">
                         <input type="text" name="q" class="form-control form-control-lg search-input box-shadow-3-3-5-5" placeholder="Search here...">
                         <div class="input-group-append">
-                          <button class="btn btn-outline-secondary" type="submit"><i class="fa fa-search rounded-circle"></i></button>
+                          <button class="btn btn-lg rounded-circle btn-outline-secondary" type="submit"><i class="fa fa-search rounded-circle"></i></button>
                         </div>
                     </div>
                 </form>
@@ -77,7 +77,6 @@
 <!--</section>-->
 
 <section class="container mt-5">
-    <div class="container space">
         <div class="row">
             <div class="col-md-6">
                 <div class="yellow p-5">
@@ -99,33 +98,39 @@
                     </a>
                 </div>
             </div>
-        </div>
     </div>
 </section>
 
 {% if top_results %}
-<section class="container top-study">
+
+<section class="container-fluid mt-5 bg-light pt-2">
     <h2 class="text-center">Top study documents</h2>
-    <div class="container py-4">
+        <div class="container">
         <div class="row">
-            <div class="owl-carousel owl-theme author-carousel owl-first" id="home_nav">
-                    {% for results in top_results %}
+            <div class="owl-carousel owl-theme mt-4">
+              {% for results in top_results %}
                         <a href="{% url 'documents:document-view' results.slug %}">
-                            <div>
-                        <div class="card">
-                            <img class="card-img-top card-height" src="{{results.cover_image}}" alt="Card image">
-                            <div class="card-body">
-                                    <p class="card-text">{{results.title}}</p>
+                            <div class="item shadow mr-1 mb-5 bg-white rounded">
+                                <div class="card">
+                                    <img class="card-img-top card-height" src="{{results.cover_image}}" alt="Card image">
+                                    <div class="card-body">
+                                            <p class="card-text">{{results.title|truncatechars:25}}</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            <div class="owl-theme">
+                                <div class="owl-controls">
+                                    <div class="custom-nav owl-nav"></div>
+                                </div>
                             </div>
                     </a>
                 {% endfor %}
             </div>
-        </div>
-        <div><p class="text-center font-size-20 font-weight-400 pt-3"><a href="javascript:void(0);">View all</a></p></div>
     </div>
+        </div>
+                <div><p class="text-center font-size-20 font-weight-400 padding-bottom-30"><a href="#">View all</a></p></div>
 </section>
+
 {% endif %}
 
 <section class="container-fluid">
@@ -197,11 +202,12 @@
 {% block extra_js %}
 <script>
     $(document).ready(function () {
-            $(".owl-first").owlCarousel({
-                margin: 50,
-                nav: true,
+            $(".owl-carousel").owlCarousel({
+                //margin: 50,
+                //nav: true,
                 dots: false,
                 loop: true,
+                autoplay: true,
                 responsiveClass: true,
                 responsive: {
                     0: {
@@ -214,7 +220,7 @@
                         items: 4,
                     },
                     992: {
-                        items: 5,
+                        items: 6,
                     }
                 }
             });

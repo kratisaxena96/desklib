@@ -26,7 +26,9 @@ from .sitemaps import DocumentSitemap,StaticViewSitemap
 from django.contrib.sitemaps import views
 
 from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView, TestPageView, \
-SubscriptionView, PayNowView
+    SubscriptionView, PayNowView, PrivacyPolicyView, HonorCodeView, CopyrightPolicyView, TermsOfUseView, \
+    AcademicIntegrityView
+
 if settings.DEBUG:
     import debug_toolbar
 
@@ -44,6 +46,11 @@ urlpatterns = [
     path('', HomePageView.as_view(), name='home'),
     path('document/', include(('documents.urls','documents'),namespace="documents")),
     path('about/', AboutPageView.as_view(), name='about'),
+    path('privacy-policy/', PrivacyPolicyView.as_view(), name='privacypolicy'),
+    path('copyright/', CopyrightPolicyView.as_view(), name='copyright'),
+    path('honor-code/', HonorCodeView.as_view(), name='honorcode'),
+    path('terms-of-use/', TermsOfUseView.as_view(), name='termsofuse'),
+    path('academic-integrity/', AcademicIntegrityView.as_view(), name='academicintegrity'),
     path('contact/', ContactPageView.as_view(), name='contact'),
     path('pricing/', PricingPageView.as_view(), name='pricing'),
     path('test/', TestPageView.as_view(), name='test'),
