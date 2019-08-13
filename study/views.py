@@ -88,6 +88,7 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, FacetedSearchView):
     model = Document
     form_class = CustomFacetedSearchForm
     facet_fields = ['subjects']
+    paginate_by = 18
     title = 'pashehi page'
     description = 'This is an sasassasaawesome page hey'
     keywords = ['Our', 'best', 'homepage']
