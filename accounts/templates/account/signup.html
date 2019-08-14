@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block content %}
+{% comment %}
 <div class="container-fluid">
 
  {% block messages %}
@@ -28,7 +29,6 @@
     </div>
     {% endif %}
   {% endblock %}
-  
 
 <h3 class="h3" id="head_banner">{% trans "Sign Up" %}</h3>
 
@@ -51,4 +51,59 @@
 </form>
 
 </div>
+{% endcomment %}
+
+<div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-xl-9 mx-auto">
+        <div class="card card-signin flex-row my-5">
+          <div class="card-img-left d-none d-md-flex">
+             <!-- Background image for card set in CSS! -->
+          </div>
+          <div class="card-body">
+            <h4 class="card-title text-center">Register</h4>
+            <form class="container-fluid text-center" id="signup_form1" method="post" action="{% url 'account_signup' %}">
+                {% csrf_token %}
+
+                <div class="form-label-group">
+                    {{ form.email }}
+<!--                    <input type="text" id="inputEmail" class="form-control" placeholder="Email address" required>-->
+<!--                    <label for="inputEmail">Email address</label>-->
+                </div>
+                <div class="form-label-group">
+                    {{ form.first_name }}
+<!--                    <input type="text" id="inputUserame" class="form-control" placeholder="Username" required autofocus>-->
+<!--                    <label for="inputUserame">Username</label>-->
+                </div>
+                <div class="form-label-group">
+                    {{ form.last_name }}
+<!--                    <input type="email" id="" class="form-control" placeholder="Email address" required>-->
+<!--                    <label for="inputEmail"></label>-->
+                </div>
+                <hr>
+                <div class="form-label-group">
+                    {{ form.contact_no }}
+<!--                    <input type="email" id="" class="form-control" placeholder="Email address" required>-->
+<!--                    <label for="inputContact"></label>-->
+                </div>
+                <p><label for="id_password1">Password:</label> <input type="password" name="password1" placeholder="Password" id="id_password1" required=""></p>
+                <p><label for="id_password2">Password (again):</label> <input type="password" name="password2" placeholder="Password (again)" id="id_password2" required=""></p>
+                {% if redirect_field_value %}
+
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+
+                {% endif %}
+
+
+              <button class="btn btn-lg btn-primary btn-block text-uppercase form-btn-group" type="submit">Register</button>
+              <a class="d-block text-center mt-2 small form-btn-group" href="#">Sign In</a>
+              <hr class="my-4">
+              <button class="btn btn-lg btn-google btn-block text-uppercase form-btn-group" type="submit"><i class="fab fa-google mr-2"></i> Sign up with Google</button>
+              <button class="btn btn-lg btn-facebook btn-block text-uppercase form-btn-group" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign up with Facebook</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

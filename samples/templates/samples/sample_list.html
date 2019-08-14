@@ -2,9 +2,30 @@
 
 
 {% block content %}
-
+<section class="margin-top-40 mb-5">
+    <div class="container">
+        <h1 class="text-center pt-5">Resumes Example</h1>
+        <p class="py-2">Resume samples by resume experts. Each example offers great advice—no more worrying if your resume for the job of your
+            dreams is good enough. Just follow our step-by-step instructions!</p>
+        <div class="row">
+            {% for resume_sample in resume_sample %}
+                <div class="col-md-4">
+                    <div class="row sample_card my-2 border-1 bg-light-grey">
+                        <div class="col-2 py-2 px-2"><i class="fa fa-file-alt fa-w-12 fa-3x" aria-hidden="true"></i></div>
+                        <div class="col-10 p-2 pl-3">
+                            <a href="{% url 'writing:sample-view' resume_sample.slug %}"><p>{{resume_sample.name}}</p></a>
+                            <p>{{resume_sample.type}}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% comment %}
 {% for resume_sample in resume_sample %}
 {{resume_sample.name}}
 {% endfor %}
+{% endcomment %}
 
 {% endblock %}
