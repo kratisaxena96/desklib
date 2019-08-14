@@ -120,8 +120,6 @@ background: rgba(0,0,255,0.3);
 
       <!--<h3>Column 1</h3>-->
     <div class="col">
-
-
         {% if more_like_this %}
 <section class="top-study">
     <h3> More like this Document</h3>
@@ -159,6 +157,7 @@ background: rgba(0,0,255,0.3);
         </div>
   </div>
 </div>
+{% comment %}
 <div class="feedback">
     <form class="feedback-form" action="." method="post" data-url="{% url 'documents:document-feedback-api' %}" data-document="{{ object.title }}">
         <p>was this helpful?</p>
@@ -166,6 +165,7 @@ background: rgba(0,0,255,0.3);
         <button data-value="not-helpful" type="submit">No</button>
     </form>
 </div>
+{% endcomment %}
 {% endblock %}
 {% block extra_js %}
 

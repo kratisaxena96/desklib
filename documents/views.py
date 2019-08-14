@@ -31,7 +31,7 @@ from django.shortcuts import redirect
 
 import logging
 logger = logging.getLogger(__name__)
-
+from django.db.models import F
 
 class DocumentView(JsonLdDetailView):
     model = Document
@@ -40,7 +40,7 @@ class DocumentView(JsonLdDetailView):
         slug = self.kwargs['slug']
         self.object = self.get_object()
         entry = Document.objects.get(slug=slug)
-        mlt = SearchQuerySet().more_like_this(entry)
+        Document.objects.filter(pk=entry.pk).update(views=F('views') + 1)
         if request.user.is_anonymous:
             page_views = request.session.get('page_views')
             if page_views:
@@ -59,7 +59,6 @@ class DocumentView(JsonLdDetailView):
 
 
         context = self.get_context_data(object=self.object)
-        context['more_like_this'] = mlt
         return self.render_to_response(context)
 
     # def post(self, request, *args, **kwargs):
@@ -99,6 +98,11 @@ class DocumentView(JsonLdDetailView):
     def get_context_data(self, **kwargs):
         context = super(DocumentView, self).get_context_data(**kwargs)
         context['meta'] = self.get_object().as_meta(self.request)
+        slug = self.kwargs['slug']
+        entry = Document.objects.get(slug=slug)
+        mlt = SearchQuerySet().more_like_this(entry)
+        context['more_like_this'] = mlt
+        context['views'] = entry.views
         # start_page = self.object.preview_from
         # end_page = self.object.preview_to
 

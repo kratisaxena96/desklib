@@ -198,6 +198,58 @@
 <!--  </div>-->
 <!--</section>-->
 
+{% comment %}
+{% if user.is_authenticated %}
+  Hi {{ user.username }}!
+{% else %}
+  <p>You are not logged in</p>
+{% endif %}
+{% endcomment %}
+
+{% comment %}
+<ul>
+    <li><a href="{% url 'writing:writing' %}">writing</a> </li>
+    <li><a href="{% url 'writing:compare' %}">Compare</a> </li>
+    <li><a href="{% url 'writing:spell' %}">Grammar Checker</a> </li>
+</ul>
+
+<form method="get" action="." class="form" role="form">
+        {{ form.non_field_errors }}
+        <div class="form-group">
+                {{ form.as_p }}
+        </div>
+      {% if query %}
+            <h3>Results</h3>
+
+        <div class="container-fluid bg-4 text-left">
+                <div class="row">
+                    {% for result in page_obj.object_list %}
+                <div class="col-sm-4">
+                  <a href="{% url 'documents:document-view' result.slug %}">
+
+                    <div class="form-group">
+
+                        <p>Title : {{result.title}} </p>
+                    </div>
+                  </a>
+                </div>
+                </div>
+                {% empty %}
+             {% endfor%}
+                </div>
+        </div>
+
+        {% endif %}
+</form>
+<div class="jumbotron">
+    <div class="container">
+        <h1>{% trans "Welcome to TaskBuster!"%}</h1>
+        <p>{% blocktrans %}TaskBuster is a simple Task manager that helps you organize your daylife. </br> You can create todo lists, periodic tasks and more! </br></br> If you want to learn how it was created, or create it yourself!, check www.django-tutorial.com{% endblocktrans %}</p>
+        <p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
+      </div>
+    </div>
+</div>
+{% endcomment %}
 {% endblock %}
 {% block extra_js %}
 <script>
