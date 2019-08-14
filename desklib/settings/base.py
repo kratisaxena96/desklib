@@ -67,10 +67,11 @@ INSTALLED_APPS = [
     'paypal.standard.ipn',
     'rest_framework',
     'samples',
+    'api'
     # 'channels',
 ]
 
-SITE_ID = 6
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

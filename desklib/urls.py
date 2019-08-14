@@ -66,7 +66,7 @@ urlpatterns = [
     path('paypal/', include('paypal.standard.ipn.urls'), name='paypal-ipn'),
     path('api-auth/', include('rest_framework.urls')),
     # path('payment/document',)
-    # path('sample/', include(('samples.urls','samples'), namespace="samples")),
+    path('api/', include(('api.urls', 'api'), namespace="api")),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
