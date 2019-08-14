@@ -18,6 +18,12 @@ from desklib.settings.base import *
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+MIDDLEWARE += [
+    'django.middleware.gzip.GZipMiddleware',
+    'htmlmin.middleware.HtmlMinifyMiddleware',
+    'htmlmin.middleware.MarkRequestMiddleware',
+
+]
 
 DATABASES = {
     'default': {
@@ -27,6 +33,8 @@ DATABASES = {
         'PASSWORD': 'locus123',
     }
 }
+HTML_MINIFY = True
+KEEP_COMMENTS_ON_MINIFYING = False
 
 # Actual Parameter to be filled as provided by google for your domain
 # RECAPTCHA_PUBLIC_KEY = 'MyRecaptchaKey123'

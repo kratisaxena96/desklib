@@ -62,6 +62,7 @@ class HomePageView(MetadataMixin,JsonLdContextMixin,SearchView):
         context[setting.CONTEXT_ATTRIBUTE] = self.get_structured_data()
         top_results = SearchQuerySet().order_by('-views')[:6]
         # cover_image = top_results.pages.first().image_file.name
+        # top_results = Document.objects.all().order_by('-views')[:6]
         context['top_results'] = top_results
         # context['cover_image'] = cover_image
         if 'form' not in kwargs:
