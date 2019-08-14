@@ -160,10 +160,13 @@ background: rgba(0,0,255,0.3);
   </div>
 </div>
 <div class="feedback">
-    <form class="feedback-form" action="." method="post" data-url="{% url 'documents:document-feedback-api' %}" data-document="{{ object.title }}">
+    <form class="feedback-form" action="." method="post" data-url="{% url 'documents:document-feedback-api' slug=object.slug %}">
+    {% csrf_token %}
         <p>was this helpful?</p>
-        <button data-value="helpful" type="submit">Yes</button>
-        <button data-value="not-helpful" type="submit">No</button>
+        <button data-value="helpful" class="submit-feedback">Yes</button>
+    <button data-value="not-helpful" class="submit-feedback">No</button>
+    <!--<input type="submit" name="was_heplful" value="Yes">-->
+    <!--<input type="submit" name="not_heplful" value="No">-->
     </form>
 </div>
 {% endblock %}
@@ -206,40 +209,49 @@ background: rgba(0,0,255,0.3);
 
 $(document).ready(function(){
 
-
-        jQuery('.feedback-form').submit( function(e) {
+    $( ".submit-feedback" ).on( "click", function(e) {
+        // jQuery('.feedback-form').submit( function(e) {
             e.preventDefault();
             alert();
-            url = $(this).data("url");
+            url = $(this).closest("form").data("url");
             jQuery('span.has-error').empty();
             jQuery('.form-group').removeClass('has-error');
             // var values = {};
-            var data = jQuery(".schedule-call-form").serializeArray();
+            data = $(this).closest("form").serializeArray();
+            if ($(this).data("value") == "helpful"){
+                data.push({name: "helpful", value: "True"})
+            }
+            else{
+                data.push({name: "helpful", value: "False"})
+            }
+        //    var data = jQuery(".feedback-form").serializeArray();
+            console.log(data);
             jQuery('div.error_file').text('');
 
                 jQuery.ajax({
-                    type : "POST",
+                    type : "PUT",
                     url : url,
                     data: data,
                     success: function(data){
 //                        jQuery(".schedule-call-form-popup").hide();
 //                        jQuery(".thank-you").show();
                         console.log("success")
-                        document.getElementById("schedule-call-form").reset();
+                 //       document.getElementById("schedule-call-form").reset();
                       },
                     error: function(data){
-                        var response = data.responseJSON;
+                    //    var response = data.responseJSON;
 
                         // Begin for loop here
-                            for (var key in response) {
+                      //      for (var key in response) {
                               console.log("error")
 //                                console.log(key, response[key][0]);
-                              jQuery('.schedule-call-form .'+key).addClass('has-error');
-                              jQuery('.schedule-call-form span.' + key).text(response[key][0]);
-                                }
+                        //      jQuery('.schedule-call-form .'+key).addClass('has-error');
+                         //     jQuery('.schedule-call-form span.' + key).text(response[key][0]);
+                         //       }
                       }
                 });
-              });
+             // });
+    });
 });
 
 </script>
