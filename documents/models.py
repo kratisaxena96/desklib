@@ -170,8 +170,8 @@ class Document(ModelMeta, models.Model):
     page = models.IntegerField(_('Total pages'), blank=True, null=True)
     filename = models.CharField(_('filename'), max_length=200, blank=True, null=True)
 
-    was_heplful = models.IntegerField(_('Helpful'), null=True, blank=True, default=0)
-    not_heplful = models.IntegerField(_('Not Helpful'), null=True, blank=True, default=0)
+    was_helpful = models.IntegerField(_('Helpful'), null=True, blank=True, default=0)
+    not_helpful = models.IntegerField(_('Not Helpful'), null=True, blank=True, default=0)
 
     preview_from = models.PositiveIntegerField(default=1)
     preview_to = models.PositiveIntegerField(default=2)

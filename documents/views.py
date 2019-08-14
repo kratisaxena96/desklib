@@ -1,4 +1,6 @@
 # some_app/views.py
+from rest_framework.views import APIView
+
 from django.views.generic import TemplateView, DetailView,CreateView
 from .models import Document
 from subscription.models import Download, PageView
@@ -22,12 +24,17 @@ from django.http import HttpResponseRedirect
 from post_office import mail
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
-from rest_framework.generics import CreateAPIView, UpdateAPIView
+from rest_framework.generics import CreateAPIView, UpdateAPIView, GenericAPIView
 from django.core.files.base import ContentFile
 from documents.serializers import ReportDocumentSerializer, DocumentFeedbackSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import redirect
+from rest_framework.renderers import (
+    HTMLFormRenderer,
+    JSONRenderer,
+    BrowsableAPIRenderer,
+)
 
 import logging
 logger = logging.getLogger(__name__)
@@ -160,8 +167,6 @@ class ReportDocumentApi(CreateAPIView):
     serializer_class = ReportDocumentSerializer
 
     def create(self, request, *args, **kwargs):
-        # profile = get_object_or_404(ScheduleCall, pk=pk)
-        # serializer = ScheduleCallSerializer(data=request.data)
         serializer = self.get_serializer(data=request.data)
         if not serializer.is_valid(raise_exception=True):
             return Response({'serializer': serializer})
@@ -174,7 +179,6 @@ class ReportDocumentApi(CreateAPIView):
             reported_issue = serializer.validated_data['other_issue']
 
         locus_email = "kushagra.goel@locusrags.com"
-        #             inquirer_ph_no = serializer.validated_data['inquirer_ph_no']
         if not settings.DEBUG:
             locus_email = "locus@locus.com"
 
@@ -192,5 +196,21 @@ class ReportDocumentApi(CreateAPIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
+class DocumentFeedbackApi(GenericAPIView):
+    serializer_class = DocumentFeedbackSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if not serializer.is_valid(raise_exception=True):
+            return Response({'serializer': serializer})
+        # document = Document.objects.get(title=serializer.validated_data['title']).was_helpful
+        document = Document.objects.get(slug=kwargs['slug'])
+        helpful = serializer.validated_data['helpful']
+        if helpful == True:
+            serializer.validated_data['was_helpful'] = document.was_helpful + 1
+        else:
+            serializer.validated_data['not_helpful'] = document.not_helpful + 1
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 

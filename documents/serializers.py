@@ -2,10 +2,12 @@ from documents.models import Document, Report
 from rest_framework import serializers
 
 
-class DocumentFeedbackSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Document
-        fields = ['was_heplful', 'not_heplful', 'title']
+class DocumentFeedbackSerializer(serializers.Serializer):
+    helpful = serializers.BooleanField(required=False)
+
+    # class Meta:
+    #     model = Document
+    #     fields = ['helpful']
 
 
 class ReportDocumentSerializer(serializers.ModelSerializer):
