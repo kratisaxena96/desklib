@@ -27,7 +27,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'desklib_dev_db',
         'USER': 'root',
-        'PASSWORD': 'password',
+        'PASSWORD': 'locus123',
     }
 }
 

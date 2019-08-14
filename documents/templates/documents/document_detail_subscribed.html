@@ -111,65 +111,64 @@ background: rgba(0,0,255,0.3);
 {% block content %}
 <div class="container">
   <div class="row">
-    <div class="col-sm-4">
-        <p>
-            {% lorem %}
-        </p>
+<!--    <div class="col-sm-4">-->
+<!--        <p>-->
+<!--            {% lorem %}-->
+<!--        </p>-->
 
-    </div>
+<!--    </div>-->
 
       <!--<h3>Column 1</h3>-->
-    <div class="col-sm-8">
-        <h3> More like this Document</h3>
-    <p>
-        <<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    </p>
-      {% for m in more %}
-        <a href="{% url 'documents:document-view' m.slug %}">
-            <p>{{m.title}}</p>
-        </a>
-      {% endfor %}
-    <p>........................................</p>
+    <div class="col">
+        {% if more_like_this %}
+<section class="top-study">
+    <h3> More like this Document</h3>
+    <div class="py-4">
+        <div class="row">
+            <div class="owl-carousel owl-theme author-carousel owl-first" id="home_nav">
+                    {% for results in more_like_this %}
+                        <a href="{% url 'documents:document-view' results.slug %}">
+                            <div>
+                        <div class="card">
+                            <img class="card-img-top card-height" src="{{ results.cover_image }}" alt="Card image">
+                            <div class="card-body">
+                                    <p class="card-text">{{results.title}}</p>
+                            </div>
+                        </div>
+                            </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
 
         <h3>Your Document below</h3>
+        {% comment %}
         <p>{% lorem %}</p>
+        {% endcomment %}
             <div id="viewer" class="documentViewer">
+                <a href='{% url "documents:document-download-view" slug=object.slug%}'>Download</a>
 
-                <form  method="post">
-                {% csrf_token %}
-                <input type="submit" value="Download">
-
-                </form>
-                {% for page in object.pages.all %}
-                    <img src="{{ page.image_file.url }}" alt="" class="img-responsive">
+                {% for page in controlled_pages %}
+                    <img src="{{ page.image_file.url }}" alt="" class="img-fluid">
                 {% endfor %}
 
             </div>
-        <p>
-            {% lorem %}
-        </p><p>
-            {% lorem %}
-        </p><p>
-            {% lorem %}
-        </p><p>
-            {% lorem %}
-        </p><p>
-            {% lorem %}
-        </p><p>
-            {% lorem %}
-        </p><p>
-            {% lorem %}
-        </p><p>
-            {% lorem %}
-        </p><p>
-            {% lorem %}
-        </p><p>
-            {% lorem %}
-        </p><p>
-            {% lorem %}
-        </p>
+
         </div>
   </div>
+</div>
+<div class="feedback">
+    <form class="feedback-form" action="." method="post" data-url="{% url 'api:document-feedback-api' slug=object.slug %}">
+    {% csrf_token %}
+        <p>was this helpful?</p>
+        <button data-value="helpful" class="submit-feedback">Yes</button>
+    <button data-value="not-helpful" class="submit-feedback">No</button>
+    <!--<input type="submit" name="was_heplful" value="Yes">-->
+    <!--<input type="submit" name="not_heplful" value="No">-->
+    </form>
 </div>
 {% endblock %}
 {% block extra_js %}
@@ -209,7 +208,79 @@ background: rgba(0,0,255,0.3);
         newimg.prependTo($(ele));
     });
 
+$(document).ready(function(){
 
+    $( ".submit-feedback" ).on( "click", function(e) {
+        // jQuery('.feedback-form').submit( function(e) {
+            e.preventDefault();
+            url = $(this).closest("form").data("url");
+            jQuery('span.has-error').empty();
+            jQuery('.form-group').removeClass('has-error');
+            // var values = {};
+            data = $(this).closest("form").serializeArray();
+            if ($(this).data("value") == "helpful"){
+                data.push({name: "helpful", value: "True"})
+            }
+            else{
+                data.push({name: "helpful", value: "False"})
+            }
+        //    var data = jQuery(".feedback-form").serializeArray();
+            console.log(data);
+            jQuery('div.error_file').text('');
+
+                jQuery.ajax({
+                    type : "POST",
+                    url : url,
+                    data: data,
+                    success: function(data){
+//                        jQuery(".schedule-call-form-popup").hide();
+//                        jQuery(".thank-you").show();
+                        console.log("success")
+                 //       document.getElementById("schedule-call-form").reset();
+                      },
+                    error: function(data){
+                    //    var response = data.responseJSON;
+
+                        // Begin for loop here
+                      //      for (var key in response) {
+                              console.log("error")
+//                                console.log(key, response[key][0]);
+                        //      jQuery('.schedule-call-form .'+key).addClass('has-error');
+                         //     jQuery('.schedule-call-form span.' + key).text(response[key][0]);
+                         //       }
+                      }
+                });
+             // });
+    });
+});
+
+</script>
+
+<script>
+    $(document).ready(function () {
+            $(".owl-first").owlCarousel({
+                margin: 50,
+                nav: true,
+                dots: false,
+                loop: true,
+                responsiveClass: true,
+                responsive: {
+                    0: {
+                        items: 1,
+                    },
+                    400: {
+                        items: 2,
+                    },
+                    768: {
+                        items: 4,
+                    },
+                    992: {
+                        items: 5,
+                    }
+                }
+            });
+
+        });
 </script>
 {% endblock %}
 

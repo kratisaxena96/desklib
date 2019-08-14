@@ -148,7 +148,10 @@ background: rgba(0,0,255,0.3);
         <p>{% lorem %}</p>
             <div id="viewer" class="documentViewer">
                 <a href='{% url "documents:document-download-view" slug=object.slug%}'>Download</a>
+                {% comment %}
                 {% for page in object.pages.all %}
+                {% endcomment %}
+                {% for page in controlled_pages %}
                     {{ page.html|safe }}
                 {% endfor %}
 
@@ -157,9 +160,8 @@ background: rgba(0,0,255,0.3);
         </div>
   </div>
 </div>
-{% comment %}
 <div class="feedback">
-    <form class="feedback-form" action="." method="post" data-url="{% url 'documents:document-feedback-api' slug=object.slug %}">
+    <form class="feedback-form" action="." method="post" data-url="{% url 'api:document-feedback-api' slug=object.slug %}">
     {% csrf_token %}
         <p>was this helpful?</p>
         <button data-value="helpful" class="submit-feedback">Yes</button>
@@ -168,7 +170,6 @@ background: rgba(0,0,255,0.3);
     <!--<input type="submit" name="not_heplful" value="No">-->
     </form>
 </div>
-{% endcomment %}
 {% endblock %}
 {% block extra_js %}
 
@@ -212,7 +213,6 @@ $(document).ready(function(){
     $( ".submit-feedback" ).on( "click", function(e) {
         // jQuery('.feedback-form').submit( function(e) {
             e.preventDefault();
-            alert();
             url = $(this).closest("form").data("url");
             jQuery('span.has-error').empty();
             jQuery('.form-group').removeClass('has-error');
@@ -229,7 +229,7 @@ $(document).ready(function(){
             jQuery('div.error_file').text('');
 
                 jQuery.ajax({
-                    type : "PUT",
+                    type : "POST",
                     url : url,
                     data: data,
                     success: function(data){
