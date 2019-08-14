@@ -60,7 +60,7 @@ class HomePageView(MetadataMixin,JsonLdContextMixin,SearchView):
         context = super(JsonLdContextMixin, self).get_context_data(**kwargs)
         context[self.context_meta_name] = self.get_meta(context=context)
         context[setting.CONTEXT_ATTRIBUTE] = self.get_structured_data()
-        top_results = SearchQuerySet().order_by('-views')[:5]
+        top_results = SearchQuerySet().order_by('-views')[:6]
         # cover_image = top_results.pages.first().image_file.name
         context['top_results'] = top_results
         # context['cover_image'] = cover_image
@@ -263,5 +263,33 @@ class PayNowView(LoginRequiredMixin,TemplateView):
         return context
 
 
+class TermsOfUseView(MetadataMixin, TemplateView):
+    title = 'Terms of use | desklib.com'
+    description = 'DeskLib is a single stop solution for all your academic needs. We provide millions of study documents which can be used for by students to obtain better grades.'
+    template_name = "desklib/termsofuse.html"
+
+
+class PrivacyPolicyView(MetadataMixin, TemplateView):
+    title = 'Privacy Policy | desklib.com'
+    description = 'DeskLib is a single stop solution for all your academic needs. We provide millions of study documents which can be used for by students to obtain better grades.'
+    template_name = "desklib/privacypolicy.html"
+
+
+class CopyrightPolicyView(MetadataMixin, TemplateView):
+    title = 'Copyright Policy | desklib.com'
+    description = 'DeskLib is a single stop solution for all your academic needs. We provide millions of study documents which can be used for by students to obtain better grades.'
+    template_name = "desklib/copyrightpolicy.html"
+
+
+class AcademicIntegrityView(MetadataMixin, TemplateView):
+    title = 'Academic Integrity | desklib.com'
+    description = 'DeskLib is a single stop solution for all your academic needs. We provide millions of study documents which can be used for by students to obtain better grades.'
+    template_name = "desklib/academicintegrity.html"
+
+
+class HonorCodeView(MetadataMixin, TemplateView):
+    title = 'Honor Code | desklib.com'
+    description = 'DeskLib is a single stop solution for all your academic needs. We provide millions of study documents which can be used for by students to obtain better grades.'
+    template_name = "desklib/honorcode.html"
 
 

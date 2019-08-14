@@ -2,8 +2,15 @@
 {% load meta %}
 {% block content %}
 
+<section class="container mt-5 mb-5">
+    <h2 class="text-center">Compare documents</h2>
+    <h6 class="text-center">{{ matching_length }} matches were found</h6>
+    <br>
+    <div class="row">
+        <div class="col">
+
                     <table class="table table-bordered text-center">
-                        <tr>
+                        <thead class="thead-light">
                             <td>
                                 <p>{{total_word_s1}} words</p>
                                 <p>{{similarity_s1 | stringformat:'d' }}% matched</p>
@@ -14,21 +21,35 @@
                                 <p>{{total_word_s2}} words</p>
                                 <p>{{similarity_s2 | stringformat:'d' }}% matched</p>
                             </td>
-                        </tr>
+                        </thead>
+                        <tbody>
             {% for m in matches %}
                         <tr>
-                            <td>
+                            <td class="table-info">
                                 {{m.left_string}}
                             </td>
                             <td>
                                 {{m.no_of_matches}}
                             </td>
-                            <td>
+                            <td class="table-info">
                                 {{m.right_string}}
                             </td>
                         </tr>
+            <tr>
+                <td colspan="3"></td>
+            </tr>
 
             {% endfor %}
+                        </tbody>
                     </table>
 
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col text-center">
+            <a class="btn btn-primary btn-bg-theme" href="{% url 'writing:compare' %}">Perform another comparision</a>
+        </div>
+    </div>
+    </section>
 {% endblock %}

@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.sitemaps',
     # 'accounts.apps.AccountsConfig',
-    # 'haystack',
+    'haystack',
     'desklib',
     'accounts',
     'allauth',
@@ -67,7 +67,7 @@ INSTALLED_APPS = [
     'paypal.standard.ipn',
     'rest_framework',
     'samples',
-    'channels',
+    # 'channels',
 ]
 
 SITE_ID = 6

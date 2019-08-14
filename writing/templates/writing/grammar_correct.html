@@ -1,13 +1,8 @@
+{% extends 'desklib/base.html' %}
+{% load staticfiles %}
 
-<!doctype html>
-<html lang=en>
-  <head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-      <title>Grammar Checker</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-
-
-    <link rel="stylesheet" href="https://languagetool.org/css/bootstrap.min.css">
+{% block extra_css %}
+<!--    <link rel="stylesheet" href="https://languagetool.org/css/bootstrap.min.css">-->
     <link rel="stylesheet" href="https://languagetool.org/vendors/glide3/dist/css/glide.core.min.css">
     <link rel="stylesheet" href="https://languagetool.org/vendors/glide3/dist/css/glide.theme.min.css">
     <link href="https://languagetool.org/vendors/dropkick/dropkick.css" rel="stylesheet">
@@ -62,10 +57,14 @@
 
 <!--      <script type="text/javascript" src="https://languagetool.org/js/zebra_dialog.js"></script>-->
 
+
+{% endblock %}
+
+{% block extra_js %}
       <script type="text/javascript" src="https://languagetool.org/online-check/tiny_mce/tiny_mce.js"></script>
       <script type="text/javascript" src="https://languagetool.org/online-check/tiny_mce/plugins/atd-tinymce/editor_plugin2.js?v20171221"></script>
 
-      <script type="text/javascript" src="https://languagetool.org/js/jquery-1.7.0.min.js"></script>
+<!--      <script type="text/javascript" src="https://languagetool.org/js/jquery-1.7.0.min.js"></script>-->
       <script type="text/javascript">
    // translation of language variant names:
    var lt_i18n = {
@@ -700,20 +699,52 @@
     </script>
 
 
+<script>
+    $(document).ready(function () {
+            $(".owl-second").owlCarousel({
+                items: 1,
+                loop: true,
+                nav: false,
+                stagePadding: 10,
+                dots: true,
+                autoplay: true,
+                margin: 10,
+                responsiveClass: true,
+                responsive: {
+                    0: {
+                        items: 1,
+                    },
+                    400: {
+                        items: 1,
+                    },
+                    768: {
+                        items: 1,
+                    },
+                    992: {
+                        items: 1,
+                    }
+                }
+            });
+
+        });
+</script>
+
+
+{% endblock %}
+
 
   </head>
   <body>
 <!--    <div id="detectedLanguage"></div>-->
 
 
+{% block content %}
+
+
+<section class="container-fluid bg-light-grey pt-5">
     <div id="stage" class="start">
-
-    <!--
-        -->
-
-    <div class="inner">
+    <div class="container">
         <div id="editor">
-            <div class="inner">
                 <noscript class="warning">Please turn on Javascript to use this website</noscript>
                 <form id="checkform" class="" name="checkform" action="#" method="post">
                     <div class="editorHeader ">
@@ -745,11 +776,11 @@
 
 
                                 <div class="submit editor_controls_group">
-                                                                        <button class="editor_controls_group_item" type="submit" name="_action_checkText"
+                                                                        <button class="btn btn-primary btn-bg-theme editor_controls_group_item" type="submit" name="_action_checkText"
                                             onClick="doit(true);return false;"
                                             title="Check Text - or use Ctrl+Return">
                                         Check Text                                    </button>
-                                    <button class="btn-tb editor_controls_group_item btn btn-warning" type="submit"
+                                    <button class="btn-tb editor_controls_group_item btn btn-warning btn-bg-theme" type="submit"
                                             onClick="tinyMCE.activeEditor.setContent('');tinyMCE.get('checktext').focus();return false;"
                                             title="Delete text">
                                         Clear
@@ -808,7 +839,6 @@
                     </div>
                 </form>
             </div>
-        </div>
 
 <!--<div id="stage" class="start">-->
 <!--  <div class="inner">-->
@@ -925,8 +955,97 @@
 <!--  </div>-->
 <!--</div>-->
 
-    <div id="content">
+<!--    <div id="content">-->
+<!--    </div>-->
+
+        </section>
+
+<section class="container mt-5">
+    <div class="row">
+        <div class="col-sm">
+            <img class="img-fluid" src="{% static '/src/assets/images/check_paper_img_plain.png' %}" alt="proofread">
+        </div>
+        <div class="col-sm pt-5">
+            <h2 class="">Hire the best editors</h2>
+            <p class="text-left">
+                If you are looking to hire a professional content writer/editor, this is the right place
+            </p>
+            <br>
+            <a href="#" class="btn btn-primary btn-bg-theme">Hire Now</a>
+
+        </div>
     </div>
+
+</section>
+
+<section class="container-fluid bg-light-grey py-5 h-100 mt-5">
+    <h2 class="text-center py-2">Testimonials</h2>
+    <div class="row pb-4 pt-4">
+        <span><img class="img-responsive" src="{% static '/src/assets/images/quote.png' %}" alt="quote" style="left:48%; position: absolute; z-index: 2"></span>
+    </div>
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <div class="owl-carousel owl-theme owl-second bg-white border-radius-20 box-shadow-3-3-5-5">
+
+                <div class="row pt-5" style="border: 0px;">
+                    <div class="col-md-4">
+                            <!-- <p class="card-text"></p>-->
+                        <img class="img-responsive mx-auto d-block" src="{% static '/src/assets/images/Reviews.png' %}" alt="testimonial" style="width:50%;">
+                    </div>
+                    <div class="col-md-8 pt-2">
+                        <p class="pt-4 px-2 pr-4 font-size-15">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                            standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
+                            a type specimen book.</p>
+                        <p class="font-weight-500 font-size-20 px-3">Ema Swan</p>
+                    </div>
+                </div>
+
+                <div class="row pt-5" style="border: 0px;">
+                    <div class="col-md-4">
+                            <!-- <p class="card-text"></p>-->
+                        <img class="img-responsive mx-auto d-block" src="{% static '/src/assets/images/Reviews.png' %}" alt="testimonial" style="width:50%;">
+                    </div>
+                    <div class="col-md-8 pt-2">
+                        <p class="pt-4 px-2 pr-4 font-size-15">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                            standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
+                            a type specimen book.</p>
+                        <p class="font-weight-500 font-size-20 px-3">Ema Swan</p>
+                    </div>
+                </div>
+
+                <div class="row pt-5" style="border: 0px;">
+                    <div class="col-md-4">
+                            <!-- <p class="card-text"></p>-->
+                        <img class="img-responsive mx-auto d-block" src="{% static '/src/assets/images/Reviews.png' %}" alt="testimonial" style="width:50%;">
+                    </div>
+                    <div class="col-md-8 pt-2">
+                        <p class="pt-4 px-2 pr-4 font-size-15">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                            standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
+                            a type specimen book.</p>
+                        <p class="font-weight-500 font-size-20 px-3">Ema Swan</p>
+                    </div>
+                </div>
+
+                <div class="row pt-5" style="border: 0px;">
+                    <div class="col-md-4">
+                            <!-- <p class="card-text"></p>-->
+                        <img class="img-responsive mx-auto d-block" src="{% static '/src/assets/images/Reviews.png' %}" alt="testimonial" style="width:50%;">
+                    </div>
+                    <div class="col-md-8 pt-2">
+                        <p class="pt-4 px-2 pr-4 font-size-15">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                            standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
+                            a type specimen book.</p>
+                        <p class="font-weight-500 font-size-20 px-3">Ema Swan</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+        {% endblock %}
   </body>
 </html>
 

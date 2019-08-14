@@ -66,7 +66,7 @@ gulp.task('copy-css', function(){
   gulp.src('bower_components/bootstrap/dist/css/bootstrap.css').pipe(gulp.dest('desklib/static/src/css/'));
   gulp.src('bower_components/owl.carousel/dist/assets/owl.carousel.min.css').pipe(gulp.dest('desklib/static/src/css/'));
   gulp.src('bower_components/owl.carousel/dist/assets/owl.theme.default.min.css').pipe(gulp.dest('desklib/static/src/css/'));
-  gulp.src('bower_components/components-font-awesome/css/fontawesome.min.css').pipe(gulp.dest('desklib/static/src/css/'));
+  gulp.src('bower_components/components-font-awesome/css/all.css').pipe(gulp.dest('desklib/static/src/css/'));
 });
 
 gulp.task('copy-font', function(){
@@ -86,7 +86,8 @@ gulp.task('serve', ['copy-css', 'copy-font', 'copy-js', 'minify-css', 'build-js'
       	injectChanges: true,
         files: ['desklib/static/dist/css/**/*.css', 'desklib/static/dist/js/*.js'],
         // server: "./",
-        proxy: "localhost:8000",
+        proxy: "localhost:8080",
+        port: 3001,
         logConnections: true,
         // tunnel: true,
         // xip: true,

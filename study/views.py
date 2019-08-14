@@ -63,12 +63,7 @@ class StudyPageView(MetadataMixin,JsonLdContextMixin, SearchView):
         context['top_results'] = top_results
         context['recent'] = recent
         # context['subject_facet'] = subjects
-        parent = []
-        child = []
-        for sub in Subject.objects.all():
-            if not sub.parent_subject:
-                parent.append(sub)
-        context['parent'] = parent
+        context['parent'] = Subject.objects.filter(parent_subject__isnull=True).prefetch_related('subject_set')
         context['subject_facet'] = Subject.objects.all()
         return context
 
@@ -93,6 +88,7 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, FacetedSearchView):
     model = Document
     form_class = CustomFacetedSearchForm
     facet_fields = ['subjects']
+    paginate_by = 18
     title = 'pashehi page'
     description = 'This is an sasassasaawesome page hey'
     keywords = ['Our', 'best', 'homepage']
@@ -115,7 +111,8 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, FacetedSearchView):
         context['sqs'] = sqs_count
         # s =  SearchQuerySet().filter().facet('subjects')
         # context['qry_st'] = self.query_set
-
+        context['parent'] = Subject.objects.filter(parent_subject__isnull=True).prefetch_related('subject_set')
+        context['subject_facet'] = Subject.objects.all()
         suggest_string = SearchQuerySet().spelling_suggestion(self.request.GET.get('q', ''))
         if self.request.GET.get('q', '') != suggest_string:
             context['suggestion'] = suggest_string

@@ -7,7 +7,7 @@
 
    
       {% block content %}
-      <div class="container-fluid bg-3 text-center" style="margin-top:10%">
+      <div class="container-fluid bg-3 text-center mt-2">
          <form method="get" action="." class="form" role="form">
             {{ form.non_field_errors }}
              {% comment %}
@@ -32,7 +32,7 @@
                 {% endif %}
             {% if suggestion %}
             <span>
-               <p>Did You Mean: <a href="#" data-index="{{suggestion}}" id="suggest">{{suggestion}}</a></p>
+               <p>Did You Mean: <a href="{{ request.get_absolute_path }}?q={{suggestion}}" id="suggest">{{suggestion}}</a></p>
             </span>
             {% endif %}
              <div>
@@ -107,18 +107,18 @@
 						 <div class="float-left text-left">
 							  {% if suggestion %}
                                 <span class="mt-4">
-                                   <p>Did You Mean: <a href="#" data-index="{{suggestion}}" id="suggest">{{suggestion}}</a></p>
+                                   <p>Did You Mean: <a href="{{ request.get_absolute_path }}?q={{suggestion}}" id="suggest">{{suggestion}}</a></p>
                                 </span>
                                 {% endif %}
-							 <H6>Showing {{ page_obj.end_index }} of<span style="color:#405FBD;"> {{ page_obj.paginator.count }} </span>resouces</H6>
+							 <p>Showing {{ page_obj.end_index }} of {{ page_obj.paginator.count }} resouces</p>
 						 </div>
 					 </div>
 					 <div class="col-md-4 mt-3">
 						 {% if page_obj.has_previous or page_obj.has_next %}
                         <div class="float-right">
-                            {% if page_obj.has_previous %}<a href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}"/> <img class="img-fluid img-nav-pagination" src="{% static 'src/assets/images/ic_chevron_left_24px.png'%}"/></a>{% endif %}{% if not page_obj.has_previous %} <img class="img-nav-pagination img-fluid" src="{% static 'src/assets/images/chevron_left copy.png'%}"/>{% endif %}
+                            {% if page_obj.has_previous %}<a href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}"/> <i class='fas fa-angle-left fafa-nav-active'></i></a>{% endif %}{% if not page_obj.has_previous %} <i class='fas fa-angle-left fafa-nav-in-active'></i>{% endif %}
                                  &nbsp; &nbsp; &nbsp;
-                            {% if page_obj.has_next %}<a href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}"><img class="img-fluid img-nav-pagination" src="{% static 'src/assets/images/ic_chevron_right_24px.png'%}"/></a>{% endif %}{% if not page_obj.has_next %}<img class="img-nav-pagination img-fluid" src="{% static 'src/assets/images/ic_chevron_right_24px copy.png'%}"/>{% endif %}
+                            {% if page_obj.has_next %}<a href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}"><i class='fas fa-angle-right fafa-nav-active' ></i></a>{% endif %}{% if not page_obj.has_next %}<i class='fas fa-angle-right fafa-nav-in-active' ></i>{% endif %}
 						 {% endif %}
 					 </div>
 				 </div>
@@ -148,16 +148,15 @@
                   {% for result in page_obj.object_list %}
                   <div class="col-sm-6 col-12 col-md-2 justify-content-center">
                      <a href="{% url 'documents:document-view' result.slug %}">
-                         <div class="card shadow mr-1 mb-5 bg-white rounded" style="margin:auto; height:80%">
+                         <div class="card shadow mr-1 mb-5 bg-white rounded">
                              {% thumbnail result.cover_image_name "200x200" crop="80% top" as im %}
                                 <img class="card-img-top rounded img-fluid img-thumbnail" src="{{ im.url }}" alt="Card image cap">
                              {% empty %}
-                                <h4>No image</h4>
+                                <p>No image</p>
                              {% endthumbnail %}
                              <div>
-								
-                               <div style="padding:5px; text-align:left" class="card-text">
-                                   <div style="font-size:12px">{% highlight result.title with query html_tag "span" css_class "highlight" max_length 27 %}</div>
+                               <div class="card-text">
+                                   <p>{% highlight result.title with query html_tag "span" css_class "highlight" max_length 27 %}</p>
                                </div>
                              </div>
                          </div>
@@ -177,11 +176,12 @@
                            <!--                    <img class="img-responsive" src="{% static '/src/assets/images/search icon.png' %}" alt="search" height="70px" style="margin-top: -11px; margin-left: -50px;">-->
                       {% if page_obj.has_previous %}
                         <li class="page-item p-3">
-                            <span class=""><a href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}"><img class="img-fluid img-nav-pagination" src="{% static 'src/assets/images/ic_chevron_left_24px.png'%}"/></a></span>
+                            <span class=""><a href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}"><i class='fas fa-angle-left fafa-nav-active'></i>
+                            </a></span>
                         </li>
                            {% else %}
                            <li class="page-item disabled p-3">
-                               <span><img class="img-fluid img-nav-pagination" src="{% static 'src/assets/images/chevron_left copy.png'%}"/></span>
+                               <span><i class='fas fa-angle-left fafa-nav-in-active'></i></span>
                            </li>
                             {% endif %}
                               {% for num in page_obj.paginator.page_range %}
@@ -197,11 +197,11 @@
                             {% endfor %}
                               {% if page_obj.has_next %}
                             <li class="page-item p-3">
-                                <a href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}"><img class="img-fluid img-nav-pagination" src="{% static 'src/assets/images/ic_chevron_right_24px.png'%}"/></a>
+                                <a href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}"><i class='fas fa-angle-right fafa-nav-active'></i></a>
                             </li>
                             {% else %}
                                 <li class="page-item disabled p-3">
-                                        <span class=""><img class="img-fluid img-nav-pagination" src="{% static 'src/assets/images/ic_chevron_right_24px copy.png'%}"/></span>
+                                        <span class=""><i class='fas fa-angle-right fafa-nav-in-active'></i></span>
                                 </li>
                             {% endif %}
                         {% endif %}
@@ -220,7 +220,7 @@
                           <div class="float-left text-left">
 							  {% if suggestion %}
                                 <span class="mt-4">
-                                   <p>Did You Mean: <a href="#" data-index="{{suggestion}}" id="suggest">{{suggestion}}</a></p>
+                                   <p>Did You Mean: <a href="{{ request.get_absolute_path }}?q={{suggestion}}" id="suggest">{{suggestion}}</a></p>
                                 </span>
                                 {% endif %}
 						 </div>
@@ -257,11 +257,7 @@
             {% endblock %}
     {% block extra_js %}
       <script>
-         $("#suggest").on("click", function () {
-         $a = $(this).data("index");
-         $('#id_q').val($a)
-         $("#form").submit();
-         });
+
          $('#id_q').autocomplete({
          source: function (request, response) {
           $.getJSON("study/autocomplete/?q=" + request.term, function (data) {

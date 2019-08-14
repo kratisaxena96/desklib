@@ -95,6 +95,7 @@ class ComparePageView(MetadataMixin,JsonLdContextMixin, FormView):
                     total_match = total_match + m.size
 
             data['matches'] = matches_data_list
+            data['matching_length'] = len(matches_data_list)
             data['total_word_s1'] = len(n1)
             data['total_word_s2'] = len(n2)
             data['similarity_s1'] = total_match*100/len(n1)
