@@ -111,7 +111,8 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, FacetedSearchView):
         context['sqs'] = sqs_count
         # s =  SearchQuerySet().filter().facet('subjects')
         # context['qry_st'] = self.query_set
-
+        context['parent'] = Subject.objects.filter(parent_subject__isnull=True).prefetch_related('subject_set')
+        context['subject_facet'] = Subject.objects.all()
         suggest_string = SearchQuerySet().spelling_suggestion(self.request.GET.get('q', ''))
         if self.request.GET.get('q', '') != suggest_string:
             context['suggestion'] = suggest_string
