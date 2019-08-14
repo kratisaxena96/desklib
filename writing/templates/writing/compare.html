@@ -1,10 +1,27 @@
 {% extends "writing/base.html" %}
 {% load meta %}
 {% block content %}
-<form action="" method="POST">
-					{% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="Compare">
-</form>
+<section class="container mt-5 mb-5">
+    <h1 class="text-center">Compare documents</h1>
+    <h4 class="text-center">Compare two texts and see how similar they are.</h4>
+    <br>
+    <form action="." method="POST">
+        {% csrf_token %}
+    <div class="row">
+        <div class="col-md">
+            {{form.textarea1}}
+        </div>
+        <div class="col-md">
+            {{form.textarea2}}
+        </div>
+    </div>
+        <div class="row mt-5">
+            <div class="col text-center">
+              <button type="submit" class="btn btn-primary btn-bg-theme">Compare Now</button>
+            </div>
+          </div>
+        </form>
+
+</section>
 
 {% endblock %}

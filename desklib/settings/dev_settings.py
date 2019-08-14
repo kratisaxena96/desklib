@@ -27,7 +27,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'desklib_dev_db',
         'USER': 'root',
-        'PASSWORD': 'locus123',
+        'PASSWORD': 'password',
     }
 }
 
@@ -45,7 +45,15 @@ DEFAULT_FROM_EMAIL = 'vishakha.sharma@locusrags.com'
 
 
 THUMBNAIL_DEBUG = True
+MIDDLEWARE += [
+    'django.middleware.gzip.GZipMiddleware',
+    'htmlmin.middleware.HtmlMinifyMiddleware',
+    'htmlmin.middleware.MarkRequestMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 
+]
+HTML_MINIFY = True
+KEEP_COMMENTS_ON_MINIFYING = False
 
 # Paypal settings
 PAYPAL_TEST = True

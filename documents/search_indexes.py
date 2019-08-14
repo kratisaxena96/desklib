@@ -36,7 +36,7 @@ class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
         return Document
 
     def prepare_subjects(self, obj):
-        return [(t.name) for t in obj.subjects.all()]
+        return [(t.slug) for t in obj.subjects.all()]
 
     def prepare_cover_image(self, obj):
         if obj.pages.first():

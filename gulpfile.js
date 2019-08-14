@@ -66,7 +66,7 @@ gulp.task('copy-css', function(){
   gulp.src('bower_components/bootstrap/dist/css/bootstrap.css').pipe(gulp.dest('desklib/static/src/css/'));
   gulp.src('bower_components/owl.carousel/dist/assets/owl.carousel.min.css').pipe(gulp.dest('desklib/static/src/css/'));
   gulp.src('bower_components/owl.carousel/dist/assets/owl.theme.default.min.css').pipe(gulp.dest('desklib/static/src/css/'));
-  gulp.src('bower_components/components-font-awesome/css/fontawesome.min.css').pipe(gulp.dest('desklib/static/src/css/'));
+  gulp.src('bower_components/components-font-awesome/css/all.css').pipe(gulp.dest('desklib/static/src/css/'));
 });
 
 gulp.task('copy-font', function(){
