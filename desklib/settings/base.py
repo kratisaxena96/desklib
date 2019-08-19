@@ -211,6 +211,7 @@ GEOIP_PATH = os.path.join(BASE_DIR, 'geoip')
 
 ACCOUNT_FORMS = {
 'signup': 'accounts.forms.CustomSignupForm',
+'login': 'accounts.forms.CustomLoginForm',
 }
 
 
