@@ -146,6 +146,7 @@ background: rgba(0,0,255,0.3);
 
         <h3>Your Document below</h3>
         <p>{% lorem %}</p>
+
             <div id="viewer" class="documentViewer">
                 <a href='{% url "documents:document-download-view" slug=object.slug%}'>Download</a>
                 {% comment %}

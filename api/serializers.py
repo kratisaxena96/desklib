@@ -3,7 +3,7 @@ from documents.models import Document
 from samples.models import Sample
 from documents.models import  Report
 
-class DocumentCreateSerializer(serializers.Serializer):
+class DocumentCreateSerializer(serializers.ModelSerializer):
     upload_file = serializers.FileField()
 
     class Meta:

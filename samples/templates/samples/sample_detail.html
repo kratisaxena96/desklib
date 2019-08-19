@@ -1,11 +1,25 @@
 {% extends 'desklib/base.html' %}
 
 {% block content %}
-{{object.name}}
+<section class="margin-top-40">
+    <div class="container">
+        <div class="row">
+            <div class="col-11">
+                <h1 class="text-center">{{object.name}}</h1>
+                <div class="owl-carousel owl-theme author-carousel">
 
-{% for sample in object.samples.all %}
-    <img src="{{ sample.image_file.url }}">
-{% endfor %}
+                </div>
+                <p>{{object.description|safe}}</p>
+<!--                <img src="{{ object.image_file.url }}" alt="{{object.name}}">-->
+
+                {% for sample in object.samples.all %}
+                    <img class="img-fluid resume-img" src="{{ sample.image_file.url }}" alt="{{object.name}}">
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
 {% endblock %}
 
 

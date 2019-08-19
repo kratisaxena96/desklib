@@ -78,9 +78,6 @@ class Sample(models.Model):
             "name": self.name,
         }
 
-    def get_absolute_url(self):
-        return reverse('samples:sample-view', args=[str(self.slug)])
-
 
 
     def get_absolute_url(self):
