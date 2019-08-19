@@ -14,7 +14,7 @@
                         <div class="col-2 py-2 px-2"><i class="fa fa-file-alt fa-w-12 fa-3x" aria-hidden="true"></i></div>
                         <div class="col-10 p-2 pl-3">
                             <a href="{% url 'writing:sample-view' resume_sample.slug %}"><p>{{resume_sample.name}}</p></a>
-                            <p>{{resume_sample.type}}</p>
+                            <p>{{resume_sample.get_type_display}}</p>
                         </div>
                     </div>
                 </div>
