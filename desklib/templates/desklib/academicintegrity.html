@@ -1,5 +1,59 @@
 {% extends "desklib/base.html" %}
 {% load meta %}
 {% block content %}
-<h1>About</h1>
+<div class="container py-5">
+    <h1>Academic Integrity Policies</h1>
+
+    <p class="policies_content_intro">
+        In today’s world of group projects and web searches, students have
+        unprecedented access to information. This is
+        especially true when you’re using a resource like Course Hero,
+        an online learning platform where you can access over
+        25 million
+        course-specific study resources contributed by a community of students and educators.
+    </p>
+    <p>
+        Given this wealth of available resources, how do you make sure
+        you’re using these tools in a way that’s consistent with your
+        school’s expectations?
+    </p>
+    <p>
+        Start by making sure you have a solid understanding of
+        academic integrity. Generally speaking, as a student, you’re
+        responsible for completing your own work, and your work should
+        be original. If you’re referring to someone else’s original
+        work, you should correctly cite it. Your school, your
+        professors, and your peers are trusting you to be honest and
+        authentic in your academic career.
+    </p>
+    <p>
+        More specifically, <strong>you must follow your school’s academic
+        integrity policy</strong>. Each college and university spells out what
+        is expected of you. Below you’ll see a list of academic
+        integrity policies from a variety of colleges and
+        universities. (If your school’s policy is not listed, search
+        your school’s website to find it.) Read through your school’s
+        policy in detail. You may also find it helpful to read other
+        schools’ policies—some do an especially great job of showing
+        examples of academic do’s and don’ts.
+    </p>
+    <p>
+        And remember, when you’re using Course Hero, <strong>you’re also bound
+        by our
+        <a href="{% url 'termsofuse' %}" target="_blank">Terms of Use</a>,
+        <a href="{% url 'copyright' %}" target="_blank">Copyright Policy</a>,
+        and <a href="{% url 'honorcode' %}" target="_blank">Honor Code</a></strong>.
+        Be sure to know and follow all our guidelines as you share and
+        learn from others in our community. We’re excited to have you
+        here.
+    </p>
+    {% comment %}
+    <p class="panel">
+        If you don’t see your school’s policy listed, or if you see a
+        link that needs to be updated, send the correct information to
+        <a href="/cdn-cgi/l/email-protection#4b383e3b3b24393f0b28243e39382e232e392465282426"><span class="__cf_email__" data-cfemail="90e3e5e0e0ffe2e4d0f3ffe5e2e3f5f8f5e2ffbef3fffd">[email&#160;protected]</span></a>
+        and we’ll send you a special thank-you.
+    </p>
+    {% endcomment %}
+</div>
 {% endblock %}
