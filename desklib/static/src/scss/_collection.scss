@@ -359,8 +359,6 @@ img.img-responsive.mx-auto.d-block {
 
 .card-signin .card-title {
   margin-bottom: 2rem;
-  font-weight: 300;
-  font-size: 1.5rem;
 }
 
 .card-signin .card-img-left {
@@ -484,8 +482,6 @@ img.img-responsive.mx-auto.d-block {
 
 .card-signin .card-title {
   margin-bottom: 2rem;
-  font-weight: 300;
-  font-size: 1.5rem;
 }
 
 .card-signin .card-body {
@@ -552,19 +548,13 @@ img.img-responsive.mx-auto.d-block {
 }
 
 .form-label-group input::placeholder {
-  color: transparent;
+  color: black;
 }
-
-.form-label-group input:not(:placeholder-shown) {
-  padding-top: calc(var(--input-padding-y) + var(--input-padding-y) * (2 / 3));
-  padding-bottom: calc(var(--input-padding-y) / 3);
+.form-label-group > input{
+    width: 100%;
 }
-
-.form-label-group input:not(:placeholder-shown)~label {
-  padding-top: calc(var(--input-padding-y) / 3);
-  padding-bottom: calc(var(--input-padding-y) / 3);
-  font-size: 12px;
-  color: #777;
+.form-label-group > #id_remember{
+    width: 10%;
 }
 
 .btn-google {
@@ -575,6 +565,22 @@ img.img-responsive.mx-auto.d-block {
 .btn-facebook {
   color: white;
   background-color: #3b5998;
+}
+.container-fluid > div > ul{
+    position: absolute;
+    right: 0;
+    margin-top: 10px;
+    width: 35%;
+    z-index: 1;
+}
+@media only screen and (max-width : $breakpoint-tablet) {
+    .container-fluid > div > ul{
+        margin: 0px;
+        width: 100%;
+    }
+    .card{
+        top: 10%;
+    }
 }
 
 /* Fallback for Edge
