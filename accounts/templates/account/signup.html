@@ -1,9 +1,10 @@
-{% extends "account/base.html" %}
+{% extends "desklib/base.html" %}
 
 {% load i18n %}
 
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 {% block head_links %} 
+{% load socialaccount %}
 
 <title>Signup</title>
 
@@ -16,7 +17,7 @@
  {% block messages %}
     {% if messages %}
     <div>
-        <ul>
+        <ul >
         {% for message in messages %}
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
                 <strong>{{message}}</strong>
@@ -34,7 +35,7 @@
 
 <p class="exist_account_info">{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
 
-<form class="container-fluid text-center" id="signup_form" method="post" action="{% url 'account_signup' %}">
+<form class="container-fluid text-center" id="signup_form1" method="post" action="{% url 'account_signup' %}">
   {% csrf_token %}
 
   {{ form.as_p }}
@@ -62,7 +63,7 @@
           </div>
           <div class="card-body">
             <h4 class="card-title text-center">Register</h4>
-            <form class="container-fluid text-center" id="signup_form1" method="post" action="{% url 'account_signup' %}">
+            <a class="container-fluid text-center" id="signup_form" method="POST" action="{% url 'account_signup' %}">
                 {% csrf_token %}
 
                 <div class="form-label-group">
@@ -86,8 +87,16 @@
 <!--                    <input type="email" id="" class="form-control" placeholder="Email address" required>-->
 <!--                    <label for="inputContact"></label>-->
                 </div>
-                <p><label for="id_password1">Password:</label> <input type="password" name="password1" placeholder="Password" id="id_password1" required=""></p>
-                <p><label for="id_password2">Password (again):</label> <input type="password" name="password2" placeholder="Password (again)" id="id_password2" required=""></p>
+                <div class="form-label-group">
+                    {{ form.password1 }}
+                </div>
+                <div class="form-label-group">
+                    {{ form.password2 }}
+                </div>
+<!--                <p><label for="id_password1">Password:</label>-->
+<!--                    <input class="form-control" type="password" name="password1" placeholder="Password" id="id_password1" required=""></p>-->
+<!--                <p><label for="id_password2">Password (again):</label>-->
+<!--                    <input class="form-control" type="password" name="password2" placeholder="Password (again)" id="id_password2" required=""></p>-->
                 {% if redirect_field_value %}
 
                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
@@ -95,12 +104,14 @@
                 {% endif %}
 
 
-              <button class="btn btn-lg btn-primary btn-block text-uppercase form-btn-group" type="submit">Register</button>
-              <a class="d-block text-center mt-2 small form-btn-group" href="#">Sign In</a>
+              <button class="btn btn-lg btn-primary btn-block text-uppercase form-btn-group custom-rounded-circle" type="submit">Register</button>
+              <a class="d-block text-center mt-2 small form-btn-group" href="{% url 'account_login' %}">Sign In</a>
               <hr class="my-4">
-              <button class="btn btn-lg btn-google btn-block text-uppercase form-btn-group" type="submit"><i class="fab fa-google mr-2"></i> Sign up with Google</button>
-              <button class="btn btn-lg btn-facebook btn-block text-uppercase form-btn-group" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign up with Facebook</button>
-            </form>
+                <a href="{% provider_login_url "google" method="oauth2"%}"><button class="btn btn-lg btn-google btn-block custom-rounded-circle form-btn-group" type="submit"><i class="fab fa-google mr-2"></i>Google Sign up</button></a>
+              &nbsp
+              <a id="facebook_login" href="{% provider_login_url "facebook" method="oauth2" %}"><button class="btn btn-lg btn-facebook btn-block form-btn-group custom-rounded-circle" type="submit"><i class="fab fa-facebook-f mr-2"></i>Facebook Sign up</button>
+              
+              </form>
           </div>
         </div>
       </div>

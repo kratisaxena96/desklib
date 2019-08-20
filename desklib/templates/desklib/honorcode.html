@@ -1,5 +1,58 @@
 {% extends "desklib/base.html" %}
 {% load meta %}
 {% block content %}
-<h1>About</h1>
+<div class="container py-5">
+    <h1>Our Honor Code</h1>
+
+    <section aria-label="Academic integrity">
+        <h2>ACADEMIC INTEGRITY</h2>
+        <i>
+            <p>
+                Desklib is designed to support learning, not replace it. We expect our users to follow our Honor Code. We take misuse of our products and services very seriously and users and/or tutors who do not follow this code will be censured, including potentially being banned from our platform.
+            </p>
+        </i>
+    </section>
+    <section aria-label="For Students & Users">
+        <h3>For Students & Users:</h3>
+        <p>
+            Use of any Desklib service to complete assignments without gaining comprehension of subject matter is something we don't support. You may not use any of the solutions, answers, materials or information available on or through our Websites and Services to cheat. Examples include:
+        </p>
+        <ul class="examples-list">
+            <li>1. Submitting any textbook solutions or other content from our services to any class as your own work.</li>
+            <li>2. Using our questions and answers service to complete tests, exams, or homework when instructed by your professor or institution not to use outside help.</li>
+            <li>3. Any other violation of your instructor’s or school’s academic honor code.
+        </ul>
+        <i>If Desklib is presented with evidence that its services have been used in a manner contrary to this code, Desklib may, in its sole discretion, remove the materials and terminate the account of the involved users.</i>
+    </section>
+    <section aria-label="For Professors">
+        <h3>For Professors:</h3>
+        <p>
+            If you have concerns that students may be using our products inappropriately, Desklib is here to work with you and address your concerns. We will cooperate with any official investigation by an academic instruction.
+            To open an official Honor Code investigation in conjunction with an academic investigation, the request must come directly from the office of the dean or the body in charge of handling matters of academic investigation at the university.
+            The written request must be made on university letterhead and indicate that the information is needed as part of an official school investigation into academic integrity. The letter should be dated, signed and please include URLs or any other information that is relevant to the investigation.
+            You can scan and email the letter back to <a href="mailto:info@desklib.com">info@desklib.com</a>.
+        </p>
+    </section>
+    <section class="copyrighted-area" aria-label="Copyrighted material">
+        <h2>COPYRIGHTED MATERIAL</h2>
+        <p>
+            Desklib respects intellectual property rights. Like many other websites on the internet, content on Desklib is uploaded by users of the site and to protect intellectual property we strictly adhere to the Digital Millennium Copyright Act (DMCA).
+        </p>
+        <p>
+            Under this process, known as "notice and takedown", the owner of any intellectual property first provides notice to a website operator and must identify by URL where the content resides.
+            After such content is identified by URL, the requirement then shifts to the website operator to promptly remove the content, which we are typically able to do within 2-3 business days.
+        </p>
+        <p>
+            If you are a copyright owner and have a good faith belief that your copyrighted material has been uploaded to our website, we will remove the material upon submission of the information and sworn statements set out in the DMCA. If you would like to use our form for that purpose, it can be found here:
+            <ul>
+                <li>Our DMCA policy: <a href="{% url 'copyright' %}" target="_blank">https://www.desklib.com/copyright</a></li>
+<!--                <li>Our DMCA form: https://www.Desklib.com/a/p/copyright/chipro-form.pdf</li>-->
+            </ul>
+        </p>
+        <p>
+            Once this form is completed, please email it to <a href="mailto:info@desklib.com">info@desklib.com</a> and we can remove the content from our site.
+        </p>
+    </section>
+
+</div>
 {% endblock %}
