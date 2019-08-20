@@ -34,7 +34,7 @@
 {% comment %}
 <h3 class="h3" id="head_banner">{% trans "Sign In" %}</h3>
 
-<form class="container-fluid text-center" id="login_form" method="POST" action="{% url 'account_login' %}">
+<form class="container-fluid text-center" id="login_form1" method="POST" action="{% url 'account_login' %}">
   {% csrf_token %}
   
   {{ form.as_p }}
@@ -60,25 +60,42 @@
       <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
         <div class="card card-signin my-5">
           <div class="card-body">
-            <h5 class="card-title text-center">Sign In</h5>
-            <form class="form-signin">
+            <h4 class="card-title text-center">Sign In</h4>
+            <form class="form-signin" id="login_form" method="POST" action="{% url 'account_login' %}">
+                {% csrf_token %}
               <div class="form-label-group">
-                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-                <label for="inputEmail">Email address</label>
+                  {{ form.login }}
+<!--                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>-->
+<!--                <label for="inputEmail">Email address</label>-->
               </div>
 
               <div class="form-label-group">
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-                <label for="inputPassword">Password</label>
+                  {{ form.password }}
+<!--                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>-->
+<!--                <label for="inputPassword">Password</label>-->
               </div>
+              <div class="form-label-group">
+                  {{ form.remember }} Remember me
+              </div>
+              {% if redirect_field_value %}
 
-              <div class="custom-control custom-checkbox mb-3">
-                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                <a href="{% url 'account_reset_password' %}">
-                <label class="custom-control-label" for="customCheck1">{% trans "Forgot Password ?" %}</label></a>
-              </div>
+                <input class="custom-alert" type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+
+              {% endif %}
+
+<!--              <div class="custom-control custom-checkbox mb-3">-->
+<!--                <input type="checkbox" class="custom-control-input" id="customCheck1">-->
+<!--                <a href="{% url 'account_reset_password' %}">-->
+<!--                <label class="custom-control-label" for="customCheck1">{% trans "Forgot Password ?" %}</label></a>-->
+<!--              </div>-->
               <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">{% trans "Sign In" %}</button>
-              <hr class="my-4">
+              <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit">
+                  <a class="white" href="{% url 'account_reset_password' %}">{% trans "Forgot Password ?" %}</a>
+              </button>
+              <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit">
+                  <a class="white" href="{% url 'account_signup' %}{% if redirect_field_value %}?{{ redirect_field_name }}={{ redirect_field_value }}{% endif %}">
+                      Sign up</a>
+              </button>
 				 {% load account socialaccount %}
 				{% get_providers as socialaccount_providers %}
 				{% for provider in socialaccount_providers %}
