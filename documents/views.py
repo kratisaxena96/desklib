@@ -1,4 +1,7 @@
 # some_app/views.py
+import logging
+logger = logging.getLogger(__name__)
+
 from rest_framework.views import APIView
 
 from django.views.generic import TemplateView, DetailView,CreateView
@@ -34,10 +37,10 @@ from rest_framework.renderers import (
     JSONRenderer,
     BrowsableAPIRenderer,
 )
-
-import logging
-logger = logging.getLogger(__name__)
 from django.db.models import F
+
+
+
 
 class DocumentView(JsonLdDetailView):
     model = Document
@@ -134,31 +137,34 @@ class DocumentDownloadView(LoginRequiredMixin, TemplateView):
     template_name = 'documents/download_success_page.html'
 
     def get(self, request, *args, **kwargs):
+        print(request.user)
         if request.user.subscriptions.all().exists():
-            slug = kwargs.get('slug')
-            try:
-                document_obj = Document.objects.get(slug=slug)
-                download_obj = Download.objects.create(user=request.user, document=document_obj)
-                attachments = {}
-                pdf_doc_name = document_obj.pdf_converted_file.name.split('/')[-1]
-                attachments[pdf_doc_name] = ContentFile(document_obj.pdf_converted_file.file.read())
+            if request.user.subscriptions.all().get(is_current = True):
+                slug = kwargs.get('slug')
+                try:
+                    document_obj = Document.objects.get(slug=slug)
+                    download_obj = Download.objects.create(user=request.user, document=document_obj)
+                    attachments = {}
+                    pdf_doc_name = document_obj.pdf_converted_file.name.split('/')[-1]
+                    attachments[pdf_doc_name] = ContentFile(document_obj.pdf_converted_file.file.read())
 
-                mail.send(
-                    request.user.email,  # List of email addresses also accepted
-                    settings.DEFAULT_FROM_EMAIL,
-                    subject='Your Download',
-                    message='Hi there!',
-                    html_message='Hi <strong>Here is your download</strong>!',
-                    attachments=attachments,
-                    priority='now'
-                )
+                    mail.send(
+                        request.user.email,  # List of email addresses also accepted
+                        settings.DEFAULT_FROM_EMAIL,
+                        subject='Your Download',
+                        message='Hi there!',
+                        html_message='Hi <strong>Here is your download</strong>!',
+                        attachments=attachments,
+                        priority='now'
+                    )
 
-                logger.info("mail send")
+                    logger.info("mail send")
 
-            except Exception as e:
-                print(e)
+                except Exception as e:
+                    print(e)
+
             return render(request, 'documents/download_success_page.html')
         else:
-            return HttpResponseRedirect(reverse('payment'))
+            return redirect('subscription')
 
 
