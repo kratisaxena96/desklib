@@ -2,7 +2,10 @@
 {% load i18n %}
 
 {% block head_links %} 
-
+{% load socialaccount %}
+{% comment %}
+<!--<a href="{% provider_login_url "facebook" method="oauth2" %}">Facebook OAuth2</a>-->
+{% endcomment %}
 <title>Sign In</title>
 
 {% endblock %}
@@ -49,15 +52,6 @@
 
 </form>
 {% endcomment %}
-    {% load account socialaccount %}
-
-    {% get_providers as socialaccount_providers %}
-    <ul class="social_providers_list">
-    {% for provider in socialaccount_providers %}
-        <a title="{{provider.name}}" class="btn btn-outline-dark" 
-         href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><i class="fa fa-{{provider.name}}" id="social_icon"></i>{{provider.name}}</a>
-    {% endfor %}
-    </ul>
 </div>
 
 <section class="login-page">
@@ -85,8 +79,15 @@
               </div>
               <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">{% trans "Sign In" %}</button>
               <hr class="my-4">
-              <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button>
-              <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>
+				 {% load account socialaccount %}
+				{% get_providers as socialaccount_providers %}
+				{% for provider in socialaccount_providers %}
+					<a title="{{provider.name}}" class="btn btn-{{provider.name}} btn-lg btn-block text-uppercase"
+					 href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><i class="fa fa-{{provider.name}}" ></i>{{provider.name}}</a>
+				{% endfor %}
+				</ul>
+<!--              <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button>-->
+<!--              <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>-->
             </form>
           </div>
         </div>

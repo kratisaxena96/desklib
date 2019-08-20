@@ -8,7 +8,7 @@
    
       {% block content %}
       <div class="container-fluid bg-3 text-center mt-2">
-         <form method="get" action="." class="form" role="form">
+         <form method="get" action="." class="form">
             {{ form.non_field_errors }}
              {% comment %}
             <div class="form-group">
@@ -32,7 +32,7 @@
                 {% endif %}
             {% if suggestion %}
             <span>
-               <p>Did You Mean: <a href="{{ request.get_absolute_path }}?q={{suggestion}}" id="suggest">{{suggestion}}</a></p>
+               Did You Mean: <a href="{{ request.get_absolute_path }}?q={{suggestion}}" id="suggest">{{suggestion}}</a>
             </span>
             {% endif %}
              <div>
@@ -107,7 +107,7 @@
 						 <div class="float-left text-left">
 							  {% if suggestion %}
                                 <span class="mt-4">
-                                   <p>Did You Mean: <a href="{{ request.get_absolute_path }}?q={{suggestion}}" id="suggest">{{suggestion}}</a></p>
+                                    Did You Mean: <a href="{{ request.get_absolute_path }}?q={{suggestion}}" id="suggest">{{suggestion}}</a>
                                 </span>
                                 {% endif %}
 							 <p>Showing {{ page_obj.end_index }} of {{ page_obj.paginator.count }} resouces</p>
@@ -239,7 +239,7 @@
                               <div class="col-md-6">
                                  <form class="form-inline my-2 my-lg-0" action="{% url 'study:search-results' %}">
                                     <div class="form-group input-group w-75 mb-3">
-                                          <input type="text" name="q" class="form-control search-input box-shadow-3-3-5-5" placeholder="Search a topic or subject" aria-label="Search here" aria-describedby="basic-addon2">
+                                          <input type="text" name="q" class="form-control search-input box-shadow-3-3-5-5" placeholder="Search a topic or subject">
                                           <div class="input-group-append">
                                               <button class="btn btn-outline-secondary rounded-circle" type="button"><i class="fa fa-search"></i></button>
                                           </div>

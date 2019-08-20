@@ -6,7 +6,7 @@
 <html lang="en" >
 <head {% meta_namespaces %}>
     <meta charset="utf-8">
-    <title>{% block title %}{% endblock %}</title>
+<!--  {%comment %}  <title>{% block title %}{% endblock %}{% endcomment %}</title>-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% include "meta/meta.html" %}
@@ -25,11 +25,9 @@
         {% include 'desklib/base_header.html' %}
     {% endblock %}
 
-    <main role="main">
         {% block content %}
         This page is under progress.
         {% endblock %}
-    </main>
 
     {% block footer %}
         {% include 'desklib/base_footer.html' %}
