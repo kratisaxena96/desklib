@@ -34,6 +34,7 @@ from rest_framework.renderers import (
     JSONRenderer,
     BrowsableAPIRenderer,
 )
+from .forms import reportForm
 
 import logging
 logger = logging.getLogger(__name__)
@@ -41,6 +42,7 @@ from django.db.models import F
 
 class DocumentView(JsonLdDetailView):
     model = Document
+    form = reportForm
 
     def get(self, request, *args, **kwargs):
         slug = self.kwargs['slug']
@@ -109,6 +111,7 @@ class DocumentView(JsonLdDetailView):
         mlt = SearchQuerySet().more_like_this(entry)
         context['more_like_this'] = mlt
         context['views'] = entry.views
+        context['form'] = self.form
         # start_page = self.object.preview_from
         # end_page = self.object.preview_to
 
