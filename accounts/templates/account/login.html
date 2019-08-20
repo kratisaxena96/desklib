@@ -99,8 +99,8 @@
 				 {% load account socialaccount %}
 				{% get_providers as socialaccount_providers %}
 				{% for provider in socialaccount_providers %}
-					<a title="{{provider.name}}" class="btn btn-{{provider.name}} btn-lg btn-block text-uppercase"
-					 href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><i class="fa fa-{{provider.name}}" ></i>{{provider.name}}</a>
+					<a title="{{provider.name}}" class="btn btn-{{provider.name}} btn-lg btn-block"
+					 href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><i class="fa fa-{{provider.name}}" ></i>&nbsp{{provider.name}}</a>
 				{% endfor %}
 				</ul>
 <!--              <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button>-->
