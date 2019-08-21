@@ -8,6 +8,7 @@ from documents.utils import key_generator
 
 class Plan(models.Model):
     key = models.CharField(db_index=True, unique=True, max_length=10, default=key_generator, editable=False)
+    slug = models.SlugField(_('Slug'), unique=True)
     package_name = models.CharField(_('Package Name'), db_index=True, max_length=200)
     download_limit = models.IntegerField(_('Download Limit'), blank=True, null=True)
     view_limit = models.IntegerField(_('View Limit'), blank=True, null=True)

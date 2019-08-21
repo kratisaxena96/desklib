@@ -38,6 +38,7 @@ from rest_framework.renderers import (
     BrowsableAPIRenderer,
 )
 from django.db.models import F
+from datetime import timedelta
 
 
 
@@ -134,13 +135,13 @@ class DocumentView(JsonLdDetailView):
         return [self.template_name]
 
 class DocumentDownloadView(LoginRequiredMixin, TemplateView):
-    template_name = 'documents/download_success_page.html'
 
     def get(self, request, *args, **kwargs):
         print(request.user)
         if request.user.subscriptions.all().exists():
-            if request.user.subscriptions.all().get(is_current = True):
+            if request.user.subscriptions.all().get(is_current=True):
                 slug = kwargs.get('slug')
+
                 try:
                     document_obj = Document.objects.get(slug=slug)
                     download_obj = Download.objects.create(user=request.user, document=document_obj)
@@ -163,8 +164,34 @@ class DocumentDownloadView(LoginRequiredMixin, TemplateView):
                 except Exception as e:
                     print(e)
 
-            return render(request, 'documents/download_success_page.html')
+            return redirect('documents:download-success-view')
         else:
             return redirect('subscription')
+
+class DownloadSuccessView(LoginRequiredMixin, TemplateView):
+    template_name = 'documents/download_success_page.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(DownloadSuccessView, self).get_context_data(**kwargs)
+        try:
+            subscription_obj = self.request.user.subscriptions.all().get(is_current=True)
+            expiry_date_subscription = subscription_obj.expire_on
+            plan = subscription_obj.plan
+            plan_days = plan.days
+            plan_download_limit = plan.download_limit
+            startdate_subscription = expiry_date_subscription - timedelta(days=plan_days)
+            download_count = Download.objects.filter(user=self.request.user, created_at__gte=startdate_subscription,
+                                                     created_at__lte=expiry_date_subscription).count()
+            remaining_downloads = plan_download_limit - download_count
+            context['remaining_downloads'] = remaining_downloads
+        except Exception as e:
+            print(e)
+
+        return context
+
+
+
+
+
 
 
