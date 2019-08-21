@@ -1,5 +1,25 @@
-download success page
+{% extends "desklib/base.html" %}
 
-{{user}}
-{{remaining_downloads}}
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block head_links %}
+{% load socialaccount %}
+
+<title>Download Successful</title>
+
+{% endblock %}
+
+{% block content %}
+    <section class="py-2 height-100 box doc-img">
+        <div class="download-box card box-shadow-3-3-5-5 border-radius-20 bg-light-grey">
+            <div class="card-body">
+                <h3 class="card-title text-center">Document Sent</h3>
+                <hr>
+                <p>Document sent to your email: <strong>{{user.email}}</strong></p>
+                <p>Remaining downloads: <strong>{{remaining_downloads}}</strong></p>
+            </div>
+        </div>
+    </section>
+{% endblock %}
 

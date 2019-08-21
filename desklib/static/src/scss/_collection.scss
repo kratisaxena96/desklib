@@ -719,3 +719,19 @@ section.pricing {
 		opacity: 1;
 	}
 }
+
+.height-100{
+    height : calc(100vh - 107px - 58px);
+}
+.doc-img{
+    position: relative;
+    background-image: url("/static/src/assets/images/document.jpg");
+	background-size: cover;
+	//background-repeat: no-repeat;
+}
+.download-box{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
