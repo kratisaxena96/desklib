@@ -1,4 +1,4 @@
-{% extends "account/base.html" %}
+{% extends "desklib/base.html" %}
 {% load i18n %}
 
 {% block head_links %} 
@@ -99,7 +99,7 @@
 				 {% load account socialaccount %}
 				{% get_providers as socialaccount_providers %}
 				{% for provider in socialaccount_providers %}
-					<a title="{{provider.name}}" class="btn btn-{{provider.name}} btn-lg btn-block"
+					<a title="{{provider.name}}" class="btn btn-{{provider.name|lower}} btn-lg btn-block"
 					 href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><i class="fa fa-{{provider.name}}" ></i>&nbsp{{provider.name}}</a>
 				{% endfor %}
 				</ul>
