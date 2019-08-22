@@ -42,9 +42,6 @@ from .forms import reportForm
 from django.db.models import F
 from datetime import timedelta
 
-
-
-
 class DocumentView(JsonLdDetailView):
     model = Document
     form = reportForm
@@ -57,56 +54,43 @@ class DocumentView(JsonLdDetailView):
         if request.user.is_anonymous:
             page_views = request.session.get('page_views')
             if page_views:
-                if slug not in page_views:
-                    page_views.append(slug)
-                    request.session['page_views'] = page_views
-                    # page_views.append(slug)
-                    # print(page_views)
+                if len(page_views) < 5:
+                    print(page_views)
+                    if slug not in page_views:
+                        page_views.append(slug)
+                        request.session['page_views'] = page_views
+                        # page_views.append(slug)
+                        # print(page_views)
+                    else:
+                        pass
                 else:
-                    pass
+                    return redirect('documents:pageviews-finish-view')
             else:
-                request.session['page_views']= [slug]
-
+                request.session['page_views'] = [slug]
         else:
-            PageView.objects.create(user=request.user, document=self.object)
+            subscription_obj = self.request.user.subscriptions.all().get(is_current=True)
+            if subscription_obj:
+                expiry_date_subscription = subscription_obj.expire_on
+                plan = subscription_obj.plan
+                plan_days = plan.days
+                plan_view_limit = plan.view_limit
+                startdate_subscription = expiry_date_subscription - timedelta(days=plan_days)
+                view_limit_count = PageView.objects.filter(user=self.request.user,
+                                                         created_at__gte=startdate_subscription,
+                                                         created_at__lte=expiry_date_subscription).count()
+                # remaining_page_view = plan_view_limit - view_limit_count
+                # print(remaining_page_view)
+
+                if view_limit_count <= plan_view_limit:
+                    PageView.objects.create(user=request.user, document=self.object)
+                    context = self.get_context_data(object=self.object)
+                    return self.render_to_response(context)
+                else:
+                    return redirect('documents:pageviews-finish-view')
 
 
-        context = self.get_context_data(object=self.object)
-        return self.render_to_response(context)
 
-    # def post(self, request, *args, **kwargs):
-    #     slug = kwargs.get('slug')
-    #     try:
-    #         document_obj = Document.objects.get(slug=slug)
-    #         download_obj = Download.objects.create(user=request.user, document=document_obj)
-    #         # to-do
-    #         attachments = {}
-    #         pdf_doc_name = document_obj.pdf_converted_file.name.split('/')[-1]
-    #         attachments[pdf_doc_name] = ContentFile(document_obj.pdf_converted_file.file.read())
-    #         self.object = self.get_object()
-    #         mlt = SearchQuerySet().more_like_this(download_obj)
-    #
-    #         mail.send(
-    #             request.user.email,  # List of email addresses also accepted
-    #             settings.DEFAULT_FROM_EMAIL,
-    #             subject='Your Download',
-    #             message='Hi there!',
-    #             html_message='Hi <strong>Here is your download</strong>!',
-    #             attachments= attachments,
-    #             priority= 'now'
-    #         )
-    #
-    #         logger.info("mail send")
-    #         context = self.get_context_data(object=self.object)
-    #         context['more'] = mlt
-    #
-    #         return render(request, 'documents/document_detail.html',context)
-    #     except Exception as e:
-    #         print(e)
-    #
-    #     # download_add = Download.objects.create(document , user)
-    #
-    #     return render(request, 'documents/document_detail.html')
+
 
     def get_context_data(self, **kwargs):
         context = super(DocumentView, self).get_context_data(**kwargs)
@@ -143,30 +127,41 @@ class DocumentDownloadView(LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         print(request.user)
         if request.user.subscriptions.all().exists():
-            if request.user.subscriptions.all().get(is_current=True):
-                slug = kwargs.get('slug')
+            subscription_obj = self.request.user.subscriptions.all().get(is_current=True)
+            if subscription_obj:
+                expiry_date_subscription = subscription_obj.expire_on
+                plan = subscription_obj.plan
+                plan_days = plan.days
+                plan_download_limit = plan.download_limit
+                startdate_subscription = expiry_date_subscription - timedelta(days=plan_days)
+                download_count = Download.objects.filter(user=self.request.user, created_at__gte=startdate_subscription,
+                                                         created_at__lte=expiry_date_subscription).count()
+                remaining_downloads = plan_download_limit - download_count
 
-                try:
-                    document_obj = Document.objects.get(slug=slug)
-                    download_obj = Download.objects.create(user=request.user, document=document_obj)
-                    attachments = {}
-                    pdf_doc_name = document_obj.pdf_converted_file.name.split('/')[-1]
-                    attachments[pdf_doc_name] = ContentFile(document_obj.pdf_converted_file.file.read())
+                if remaining_downloads > 0 :
+                    slug = kwargs.get('slug')
+                    try:
+                        document_obj = Document.objects.get(slug=slug)
+                        download_obj = Download.objects.create(user=request.user, document=document_obj)
+                        attachments = {}
+                        pdf_doc_name = document_obj.pdf_converted_file.name.split('/')[-1]
+                        attachments[pdf_doc_name] = ContentFile(document_obj.pdf_converted_file.file.read())
 
-                    mail.send(
-                        request.user.email,  # List of email addresses also accepted
-                        settings.DEFAULT_FROM_EMAIL,
-                        subject='Your Download',
-                        message='Hi there!',
-                        html_message='Hi <strong>Here is your download</strong>!',
-                        attachments=attachments,
-                        priority='now'
-                    )
+                        mail.send(
+                            request.user.email,  # List of email addresses also accepted
+                            settings.DEFAULT_FROM_EMAIL,
+                            subject='Your Download',
+                            message='Hi there!',
+                            html_message='Hi <strong>Here is your download</strong>!',
+                            attachments=attachments,
+                            priority='now'
+                        )
 
-                    logger.info("mail send")
+                        logger.info("mail send")
 
-                except Exception as e:
-                    print(e)
+                    except Exception as e:
+                        print(e)
+
 
             return redirect('documents:download-success-view')
         else:
@@ -178,6 +173,7 @@ class DownloadSuccessView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(DownloadSuccessView, self).get_context_data(**kwargs)
         try:
+            remaining_downloads_flag = False
             subscription_obj = self.request.user.subscriptions.all().get(is_current=True)
             expiry_date_subscription = subscription_obj.expire_on
             plan = subscription_obj.plan
@@ -188,11 +184,23 @@ class DownloadSuccessView(LoginRequiredMixin, TemplateView):
                                                      created_at__lte=expiry_date_subscription).count()
             remaining_downloads = plan_download_limit - download_count
             context['remaining_downloads'] = remaining_downloads
+
+
+            if remaining_downloads < 0:
+                remaining_downloads_flag = False
+            else:
+                remaining_downloads_flag = True
+
+            context['remaining_downloads_flag'] = remaining_downloads_flag
+
+
         except Exception as e:
             print(e)
 
         return context
 
+class PageViewsFinishView(LoginRequiredMixin, TemplateView):
+    template_name = 'documents/page_views_finish.html'
 
 
 
