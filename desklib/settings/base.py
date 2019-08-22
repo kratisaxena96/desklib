@@ -79,6 +79,7 @@ ACCOUNT_EMAIL_REQUIRED = True,
 SOCIALACCOUNT_QUERY_EMAIL=ACCOUNT_EMAIL_REQUIRED,
 SOCIALACCOUNT_EMAIL_REQUIRED=ACCOUNT_EMAIL_REQUIRED,
 SOCIALACCOUNT_STORE_TOKENS=False
+EXPECTED_IP_API = ['192.168.1.1','127.0.0.1']
 
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
@@ -125,7 +126,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 INTERNAL_IPS = [
@@ -168,6 +169,7 @@ WSGI_APPLICATION = 'desklib.wsgi.application'
 META_SITE_PROTOCOL = '.'
 META_SITE_DOMAIN = '.'
 META_USE_TWITTER_PROPERTIES = True
+
 
 JSON_LD_INVALID_SD = 'throw'
 
