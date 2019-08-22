@@ -97,7 +97,7 @@ class DocumentView(JsonLdDetailView):
         context['meta'] = self.get_object().as_meta(self.request)
         slug = self.kwargs['slug']
         entry = Document.objects.get(slug=slug)
-        mlt = SearchQuerySet().more_like_this(entry)
+        mlt = SearchQuerySet().more_like_this(entry)[:6]
         context['more_like_this'] = mlt
         context['views'] = entry.views
         context['form'] = self.form
