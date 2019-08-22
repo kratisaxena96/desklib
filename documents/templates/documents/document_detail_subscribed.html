@@ -118,6 +118,20 @@ background: rgba(0,0,255,0.3);
         .document-pages .owl-nav > .owl-next{
             right: 0;
         }
+        .loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
     </style>
 <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
 <!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>-->
@@ -177,32 +191,48 @@ background: rgba(0,0,255,0.3);
                 <div class="modal" id="myModal">
                   <div class="modal-dialog">
                     <div class="modal-content">
+                        <div class="report-form-popup">
+                            <!-- Modal Header -->
+                          <div class="modal-header">
+                            <h4 class="modal-title">Report</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          </div>
 
-                      <!-- Modal Header -->
-                      <div class="modal-header">
-                        <h4 class="modal-title">Report</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      </div>
+                          <!-- Modal body -->
+                          <div class="modal-body">
 
-                      <!-- Modal body -->
-                      <div class="modal-body">
+                            <div class="report">
+                                <form id="report-form" action="." method="post" data-url="{% url 'api:report-document-api' %}" data-title="{{object.pk  }}">
+                                {% csrf_token %}
 
-                        <div class="report">
-                            <form id="report-form" action="." method="post" data-url="{% url 'api:report-document-api' %}" data-title="{{object.pk  }}">
-                            {% csrf_token %}
-                                <p class="non_field_errors text-danger"></p>
-                                {{form.issue}}
-                                {{form.other_issue}}
-                                <input type="submit" value="report">
-                            </form>
+
+                                  <div class="form-group text-left">
+                                    <label for="id_issue">{{form.issue.label}}</label>
+                                      {{form.issue}}
+                                    <span class="issue text-danger"></span>
+                                  </div>
+                                  <div class="form-group text-left">
+                                    <label for="id_other_issue">{{form.other_issue.label}}</label>
+                                      {{form.other_issue}}
+                                  </div>
+
+                                    <input type="submit" value="report">
+                                </form>
+                            </div>
+
+                          </div>
+                        </div>
+                        <div class="loader-container jumbotron bg-white m-auto" style="display:none;">
+                            <div class="loader"></div>
+                        </div>
+                        <div class="thank-you jumbotron bg-white mb-0" style="display:none;">
+                            <p class="mb-0">Thank you for your feedback.</p>
                         </div>
 
-                      </div>
-
-                      <!-- Modal footer -->
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                      </div>
+                          <!-- Modal footer -->
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                          </div>
 
                     </div>
                   </div>
@@ -245,17 +275,18 @@ background: rgba(0,0,255,0.3);
             {% endcomment %}
 
             {% for page in object.pages.all %}
-                <img src="{{ page.image_file.url }}" alt="" class="img-fluid">
+                    <img src="{{ page.image_file.url }}" alt="" class="img-fluid">
             {% endfor %}
 
         </div>
-
+{% comment %}
         <div class="subscribe mt-3">
             <div class="jumbotron">
                 <h4>You’re reading a preview. Unlock the full document with a Free Trial!</h4>
                 <a href="{% url 'subscription' %}" class="btn btn-bg-theme text-white">Continue Reading</a>
             </div>
         </div>
+{% endcomment %}
 
     </article>
       <aside class="col-sm-4">
@@ -390,6 +421,8 @@ $(document).ready(function(){
         e.preventDefault();
         url = $("#report-form").data("url");
         title = $("#report-form").data("title");
+                      jQuery(".report-form-popup").hide();
+                      jQuery(".loader-container").show();
         //alert(url)
             jQuery('span.has-error').empty();
             jQuery('.form-group').removeClass('has-error');
@@ -397,7 +430,7 @@ $(document).ready(function(){
             data = $("#report-form").serializeArray();
                 data.push({name: "document", value: title })
         //    var data = jQuery(".feedback-form").serializeArray();
-            console.log(data);
+        //    console.log(data);
             jQuery('div.error_file').text('');
 
                 jQuery.ajax({
@@ -405,10 +438,10 @@ $(document).ready(function(){
                     url : url,
                     data: data,
                     success: function(data){
-//                      jQuery(".schedule-call-form-popup").hide();
-//                      jQuery(".thank-you").show();
+                      jQuery(".loader-container").hide();
+                      jQuery(".thank-you").show();
                         console.log("success")
-                 //     document.getElementById("report-form").reset();
+                      document.getElementById("report-form").reset();
                     },
                     error: function(data){
                         var response = data.responseJSON;
@@ -417,8 +450,10 @@ $(document).ready(function(){
                         for (var key in response) {
                             console.log(key, response[key][0]);
                             jQuery('#report-form .'+key).addClass('has-error');
-                            jQuery('#report-form p.' + key).text(response[key][0]);
+                            jQuery('#report-form span.' + key).text(response[key][0]);
                         }
+                      jQuery(".report-form-popup").show();
+                      jQuery(".loader-container").hide();
                     }
                 });
 
