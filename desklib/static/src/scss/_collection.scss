@@ -310,9 +310,10 @@ card {
 }
 
 .btn-outline-secondary {
-	margin-left: -21px;
+	margin-left: -35px;
 	background-color: #405FBD;
 	color: white;
+	z-index: 3 !important;
 }
 
 .form-inline input {
@@ -721,7 +722,7 @@ section.pricing {
 }
 
 .height-100{
-    height : calc(100vh - 107px - 58px);
+    min-height : calc(100vh - 107px - 58px);
 }
 .doc-img{
     position: relative;
@@ -729,7 +730,7 @@ section.pricing {
 	background-size: cover;
 	//background-repeat: no-repeat;
 }
-.download-box{
+.center-align-box{
     position: absolute;
     left: 50%;
     top: 50%;
