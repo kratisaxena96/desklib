@@ -131,7 +131,7 @@ class DocumentView(JsonLdDetailView):
         """
         if self.request.user.is_anonymous:
             self.template_name = 'documents/document_detail.html'
-        elif hasattr(self.request.user, 'subscription'):
+        elif self.request.user.subscriptions.all().filter(is_current = True):
             self.template_name = 'documents/document_detail_subscribed.html'
         else:
             self.template_name = 'documents/document_detail_logged_in.html'

@@ -23,6 +23,8 @@ class DocumentFeedbackSerializer(serializers.Serializer):
     helpful = serializers.BooleanField(required=False)
 
 class ReportDocumentSerializer(serializers.ModelSerializer):
+    author = serializers.CharField(required=False)
+
     class Meta:
         model = Report
         fields = ['issue', 'other_issue', 'document', 'author']

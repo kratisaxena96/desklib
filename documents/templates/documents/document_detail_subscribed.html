@@ -95,13 +95,28 @@ background: rgba(0,0,255,0.3);
     </style>
     <style>
         .page{
-            // margin: 1px auto -1px auto;
-            // border: 1px solid;
+            margin: 15px auto 0px auto;
+            border: 1px solid #c5c5c5;
             position: relative;
         }
 
         .page-image{
             width: 100%;
+        }
+    </style>
+    <style>
+        .document-pages .owl-nav > .owl-prev, .document-pages .owl-nav > .owl-next {
+            position: absolute;
+            top: 50%;
+            font-size: 100px !important;
+            color: #000 !important;
+            transform: translateY(-50%);
+        }
+        .document-pages .owl-nav > .owl-prev{
+            left: 0;
+        }
+        .document-pages .owl-nav > .owl-next{
+            right: 0;
         }
     </style>
 <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
@@ -110,7 +125,7 @@ background: rgba(0,0,255,0.3);
 
 {% block content %}
 <div class="container">
-  <div class="row">
+  <div class="row pt-5">
 <!--    <div class="col-sm-4">-->
 <!--        <p>-->
 <!--            {% lorem %}-->
@@ -119,57 +134,168 @@ background: rgba(0,0,255,0.3);
 <!--    </div>-->
 
       <!--<h3>Column 1</h3>-->
-    <div class="col">
-        {% if more_like_this %}
-<section class="top-study">
-    <h3> More like this Document</h3>
-    <div class="py-4">
-        <div class="row">
-            <div class="owl-carousel owl-theme author-carousel owl-first" id="home_nav">
-                    {% for results in more_like_this %}
-                        <a href="{% url 'documents:document-view' results.slug %}">
-                            <div>
-                        <div class="card">
-                            <img class="card-img-top card-height" src="{{ results.cover_image }}" alt="Card image">
-                            <div class="card-body">
-                                    <p class="card-text">{{results.title}}</p>
-                            </div>
+    <article class="col-sm-8 border-right">
+
+        <h3>{{object.title}}</h3>
+        <p>Added on - {{object.created}}</p>
+        <ul class="p-0 d-inline-block">
+            <li class="d-inline-block p-2 text-center border-right">
+                <p class="mb-1">{{object.views}}</p>
+                <p class="mb-0">views</p>
+            </li>
+            <li class="d-inline-block text-center p-2">
+                <p class="mb-1">{{object.total_downloads}}</p>
+                <p class="mb-0">downloads</p>
+            </li>
+        </ul>
+        <ul class="p-0 d-inline-block float-right">
+            <li class="d-inline-block text-center p-2 border-right">
+              <div class="dropdown">
+                <a class="" data-toggle="dropdown">
+                  <i class="fas fa-share-alt mb-1"></i>
+                  <p class="mb-0">Share</p>
+                </a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="https://facebook.com/sharer.php?u=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank">Share on Facebook</a>
+                  <a class="dropdown-item" href="https://twitter.com/intent/tweet?url=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank" >Share on Twitter</a>
+                    {% comment %}
+                  <a class="dropdown-item" href="https://facebook.com/sharer.php?u=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank">Share on LinkedIn</a>
+                    {% endcomment %}
+                  <a class="dropdown-item" href="mailto:?subject=Read {{object.title}}  on Scribd&body=I am reading {{object.title}}  on Desklib: https://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank">Share on Mail</a>
+                  <a class="dropdown-item copy_text" href="https://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank">Copy Link</a>
+                </div>
+              </div>
+            </li>
+
+            <li class="d-inline-block text-center p-2">
+                <a class="" data-toggle="modal" data-target="#myModal">
+                  <i class="fas fa-exclamation-circle mb-1"></i>
+                      <p class="mb-0">Report</p>
+                </a>
+
+                <!-- The Modal -->
+                <div class="modal" id="myModal">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+
+                      <!-- Modal Header -->
+                      <div class="modal-header">
+                        <h4 class="modal-title">Report</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+
+                      <!-- Modal body -->
+                      <div class="modal-body">
+
+                        <div class="report">
+                            <form id="report-form" action="." method="post" data-url="{% url 'api:report-document-api' %}" data-title="{{object.pk  }}">
+                            {% csrf_token %}
+                                <p class="non_field_errors text-danger"></p>
+                                {{form.issue}}
+                                {{form.other_issue}}
+                                <input type="submit" value="report">
+                            </form>
                         </div>
+
+                      </div>
+
+                      <!-- Modal footer -->
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+            </li>
+
+        </ul>
+
+
+        <div class="alert alert-light border">
+
+            <div class="feedback">
+                <form class="feedback-form" action="." method="post" data-url="{% url 'api:document-feedback-api' slug=object.slug %}">
+                {% csrf_token %}
+                    <label class="mr-2">{{object.was_helpful}} people found it useful. Did you find it </label>
+                    <button data-value="helpful" class="btn btn-success submit-feedback mr-2">Useful</button>
+                <button data-value="not-helpful" class="btn btn-danger submit-feedback">Not Useful</button>
+                <!--<input type="submit" name="was_heplful" value="Yes">-->
+                <!--<input type="submit" name="not_heplful" value="No">-->
+                </form>
+            </div>
+            <div class="helpful" style="display:none;">
+                Thank you for your feedback.
+            </div>
+            <div class="not-helpful" style="display:none;">
+                Thank you for your feedback. if you want to report <a class="" data-toggle="modal" data-target="#myModal">Click Here!</a>
+            </div>
+        </div>
+
+
+        <div class="">
+            <a href='{% url "documents:document-download-view" slug=object.slug%}' class="btn btn-bg-theme btn-lg text-white">Download</a>
+            <span>Showing pages {{object.pages.all.count}} of {{object.pages.all.count}} </span>
+        </div>
+
+
+        <div id="viewer" class="documentViewer">
+            {% comment %}
+            {% for page in object.pages.all %}
+            {% endcomment %}
+
+            {% for page in object.pages.all %}
+                <img src="{{ page.image_file.url }}" alt="" class="img-fluid">
+            {% endfor %}
+
+        </div>
+
+        <div class="subscribe mt-3">
+            <div class="jumbotron">
+                <h4>You’re reading a preview. Unlock the full document with a Free Trial!</h4>
+                <a href="{% url 'subscription' %}" class="btn btn-bg-theme text-white">Continue Reading</a>
+            </div>
+        </div>
+
+    </article>
+      <aside class="col-sm-4">
+          {% comment %}
+        {% if more_like_this %}
+          {% endcomment %}
+            <section class="similar-resource">
+                <h3>Similar Resources</h3>
+                <div class="py-4">
+                    <div class="row">
+                        {% comment %}
+                        {% for results in more_like_this %}
+                            <article class="col-6">
+                                <a href="{% url 'documents:document-view' results.slug %}">
+                                    <div>
+                                        <div class="card">
+                                            <img class="card-img-top card-height" src="{{ results.cover_image }}" alt="{{ results.title }}">
+                                            <div class="card-body">
+                                                <p class="card-text">{{results.title|truncatechars:25}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </article>
+                        {% if forloop.counter|divisibleby:2 %}
                             </div>
-                    </a>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-</section>
-{% endif %}
-
-        <h3>Your Document below</h3>
-        {% comment %}
-        <p>{% lorem %}</p>
-        {% endcomment %}
-            <div id="viewer" class="documentViewer">
-                <a href='{% url "documents:document-download-view" slug=object.slug%}'>Download</a>
-
-                {% for page in controlled_pages %}
-                    <img src="{{ page.image_file.url }}" alt="" class="img-fluid">
-                {% endfor %}
-
-            </div>
-
-        </div>
+                            <div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endcomment %}
+                    </div>
+                </div>
+            </section>
+          {% comment %}
+        {% endif %}
+          {% endcomment %}
+      </aside>
   </div>
 </div>
-<div class="feedback">
-    <form class="feedback-form" action="." method="post" data-url="{% url 'api:document-feedback-api' slug=object.slug %}">
-    {% csrf_token %}
-        <p>was this helpful?</p>
-        <button data-value="helpful" class="submit-feedback">Yes</button>
-    <button data-value="not-helpful" class="submit-feedback">No</button>
-    <!--<input type="submit" name="was_heplful" value="Yes">-->
-    <!--<input type="submit" name="not_heplful" value="No">-->
-    </form>
-</div>
+
 {% endblock %}
 {% block extra_js %}
 
@@ -235,7 +361,14 @@ $(document).ready(function(){
                     success: function(data){
 //                        jQuery(".schedule-call-form-popup").hide();
 //                        jQuery(".thank-you").show();
-                        console.log("success")
+                        if(data.helpful == true){
+                            $(".helpful").show();
+                            $(".feedback").hide();
+                        }
+                        else{
+                            $(".not-helpful").show();
+                            $(".feedback").hide();
+                        }
                  //       document.getElementById("schedule-call-form").reset();
                       },
                     error: function(data){
@@ -252,6 +385,66 @@ $(document).ready(function(){
                 });
              // });
     });
+
+    $("#report-form").submit(function(e){
+        e.preventDefault();
+        url = $("#report-form").data("url");
+        title = $("#report-form").data("title");
+        //alert(url)
+            jQuery('span.has-error').empty();
+            jQuery('.form-group').removeClass('has-error');
+            // var values = {};
+            data = $("#report-form").serializeArray();
+                data.push({name: "document", value: title })
+        //    var data = jQuery(".feedback-form").serializeArray();
+            console.log(data);
+            jQuery('div.error_file').text('');
+
+                jQuery.ajax({
+                    type : "POST",
+                    url : url,
+                    data: data,
+                    success: function(data){
+//                      jQuery(".schedule-call-form-popup").hide();
+//                      jQuery(".thank-you").show();
+                        console.log("success")
+                 //     document.getElementById("report-form").reset();
+                    },
+                    error: function(data){
+                        var response = data.responseJSON;
+
+                        // Begin for loop here
+                        for (var key in response) {
+                            console.log(key, response[key][0]);
+                            jQuery('#report-form .'+key).addClass('has-error');
+                            jQuery('#report-form p.' + key).text(response[key][0]);
+                        }
+                    }
+                });
+
+    });
+
+    $('.copy_text').click(function (e) {
+       e.preventDefault();
+       var copyText = $(this).attr('href');
+
+       document.addEventListener('copy', function(e) {
+          e.clipboardData.setData('text/plain', copyText);
+          e.preventDefault();
+       }, true);
+
+       document.execCommand('copy');
+    //   console.log('copied text : ', copyText);
+    //   alert('copied text: ' + copyText);
+     });
+
+    $('.document-pages').owlCarousel({
+        loop:true,
+        margin:10,
+        nav:true,
+        items:1
+    });
+
 });
 
 </script>
