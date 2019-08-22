@@ -138,15 +138,17 @@ background: rgba(0,0,255,0.3);
 
         <h3>{{object.title}}</h3>
         <p>Added on - {{object.created}}</p>
-        <ul class="p-0">
+        <ul class="p-0 d-inline-block">
             <li class="d-inline-block p-2 text-center border-right">
                 <p class="mb-1">{{object.views}}</p>
                 <p class="mb-0">views</p>
             </li>
-            <li class="d-inline-block text-center p-2 border-right">
+            <li class="d-inline-block text-center p-2">
                 <p class="mb-1">{{object.total_downloads}}</p>
                 <p class="mb-0">downloads</p>
             </li>
+        </ul>
+        <ul class="p-0 d-inline-block float-right">
             <li class="d-inline-block text-center p-2 border-right">
               <div class="dropdown">
                 <a class="" data-toggle="dropdown">
@@ -171,7 +173,7 @@ background: rgba(0,0,255,0.3);
                       <p class="mb-0">Report</p>
                 </a>
 
-<!-- The Modal -->
+                <!-- The Modal -->
                 <div class="modal" id="myModal">
                   <div class="modal-dialog">
                     <div class="modal-content">
@@ -221,6 +223,12 @@ background: rgba(0,0,255,0.3);
                 <!--<input type="submit" name="was_heplful" value="Yes">-->
                 <!--<input type="submit" name="not_heplful" value="No">-->
                 </form>
+            </div>
+            <div class="helpful" style="display:none;">
+                Thank you for your feedback.
+            </div>
+            <div class="not-helpful" style="display:none;">
+                Thank you for your feedback. if you want to report <a class="" data-toggle="modal" data-target="#myModal">Click Here!</a>
             </div>
         </div>
 
@@ -353,7 +361,14 @@ $(document).ready(function(){
                     success: function(data){
 //                        jQuery(".schedule-call-form-popup").hide();
 //                        jQuery(".thank-you").show();
-                        console.log("success")
+                        if(data.helpful == true){
+                            $(".helpful").show();
+                            $(".feedback").hide();
+                        }
+                        else{
+                            $(".not-helpful").show();
+                            $(".feedback").hide();
+                        }
                  //       document.getElementById("schedule-call-form").reset();
                       },
                     error: function(data){
