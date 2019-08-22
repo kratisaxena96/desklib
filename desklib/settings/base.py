@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.sitemaps',
     # 'accounts.apps.AccountsConfig',
-    # 'haystack',
+    'haystack',
     'desklib',
     'accounts',
     'allauth',
@@ -79,6 +79,7 @@ ACCOUNT_EMAIL_REQUIRED = True,
 SOCIALACCOUNT_QUERY_EMAIL=ACCOUNT_EMAIL_REQUIRED,
 SOCIALACCOUNT_EMAIL_REQUIRED=ACCOUNT_EMAIL_REQUIRED,
 SOCIALACCOUNT_STORE_TOKENS=False
+EXPECTED_IP_API = ['192.168.1.1','127.0.0.1']
 
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
