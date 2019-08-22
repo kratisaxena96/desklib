@@ -182,7 +182,7 @@ background: rgba(0,0,255,0.3);
             </li>
 
             <li class="d-inline-block text-center p-2">
-                <a class="" data-toggle="modal" data-target="#myModal">
+                <a class="report-button" data-toggle="modal" data-target="#myModal">
                   <i class="fas fa-exclamation-circle mb-1"></i>
                       <p class="mb-0">Report</p>
                 </a>
@@ -216,7 +216,7 @@ background: rgba(0,0,255,0.3);
                                       {{form.other_issue}}
                                   </div>
 
-                                    <input type="submit" value="report">
+                                    <input type="submit" value="report" class="btn btn-bg-theme text-white">
                                 </form>
                             </div>
 
@@ -415,6 +415,13 @@ $(document).ready(function(){
                 });
              // });
     });
+    {% comment %}
+    $(".report-button").click(function(){
+                      jQuery(".report-form-popup").show();
+                      jQuery(".loader-container").hide();
+                      jQuery(".thank-you").hide();
+    });
+    {% endcomment %}
 
     $("#report-form").submit(function(e){
         e.preventDefault();
