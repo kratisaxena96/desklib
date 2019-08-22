@@ -30,7 +30,7 @@ DATABASES = {
         'PASSWORD': 'locus123',
     }
 }
-
+EXPECTED_IP_API = ['192.168.1.1','127.0.0.1']
 #Commented out in production envirment
 SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
 
