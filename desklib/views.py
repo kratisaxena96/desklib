@@ -15,10 +15,12 @@ from django_json_ld import settings as setting
 from documents.models import Document
 from .forms import HomeSearchForm
 from subscription.models import Plan
+from django.utils import timezone
+import pytz
 
 logger = logging.getLogger(__name__)
 
-class HomePageView(MetadataMixin,JsonLdContextMixin,SearchView):
+class HomePageView(MetadataMixin, JsonLdContextMixin, SearchView):
     form_class = HomeSearchForm
     title = 'Library at your desk | desklib.com'
     description = 'Desklib is your home for best study resources and educational documents. We have a large collection of homework answers, assignment solutions, reports and presentations. Our automated tools help you improve your writing skills and grammar.'
@@ -242,25 +244,23 @@ class PayNowView(LoginRequiredMixin,TemplateView):
         if settings.PAYPAL_TEST:
             receiver_email = "info-facilitator@a2zservices.net"
             # action="https://www.sandbox.paypal.com/cgi-bin/webscr"
-        paypal_dict = {
-            "cmd": "_xclick-subscriptions",
-            "a3": "9.99",  # monthly price
-            "p3": 1,  # duration of each unit (depends on unit)
-            "t3": "D",  # duration unit ("M for Month")
-            "src": "1",  # make payments recur
-            "sra": "1",  # reattempt payment on payment error
-            "no_note": "1",  # remove extra notes (optional)
-            "business": receiver_email,
-            "item_name": "desklib subscription",
-            # "invoice": 876876,
-            "notify_url": self.request.build_absolute_uri(reverse('paypal-ipn')),
-            "return": self.request.build_absolute_uri(reverse('about')),
-            "cancel_return": self.request.build_absolute_uri(reverse('contact')),
-            "custom": self.request.user.username + "_" + plan_monthly.key ,  # Custom command to correlate to some function later (optional)
-        }
+            
+        now = timezone.now()
 
-        form = PayPalPaymentsForm(initial=paypal_dict, button_type="subscribe")
-        context = {"form": form}
+        if not self.request.user.subscriptions.all().filter(expire_on__gt = now):
+            paypal_dict = {
+                "business": receiver_email,
+                "amount": "9.00",
+                "item_name": "desklib subscription",
+                # "invoice": "unique-invoice-id",
+                "notify_url": self.request.build_absolute_uri(reverse('paypal-ipn')),
+                "return": self.request.build_absolute_uri(reverse('about')),
+                "cancel_return": self.request.build_absolute_uri(reverse('contact')),
+                "custom": self.request.user.username + "_" + plan_monthly.key,  # Custom command to correlate to some function later (optional)
+            }
+
+            form = PayPalPaymentsForm(initial=paypal_dict, button_type="subscribe")
+            context = {"form": form}
         return context
 
 

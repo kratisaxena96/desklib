@@ -35,9 +35,9 @@ class ReportDocumentApi(CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         if not serializer.is_valid(raise_exception=True):
             return Response({'serializer': serializer})
-
-        serializer.validated_data['author'] = self.request.user
-        reported_by = serializer.validated_data['author']
+        if not self.request.user.is_anonymous:
+            serializer.validated_data['author'] = self.request.user
+        reported_by = self.request.user
         reported_document = serializer.validated_data['document']
         reported_issue = serializer.validated_data['issue']
         if not reported_issue:

@@ -126,7 +126,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 INTERNAL_IPS = [
@@ -169,7 +168,6 @@ WSGI_APPLICATION = 'desklib.wsgi.application'
 META_SITE_PROTOCOL = '.'
 META_SITE_DOMAIN = '.'
 META_USE_TWITTER_PROPERTIES = True
-
 
 JSON_LD_INVALID_SD = 'throw'
 
