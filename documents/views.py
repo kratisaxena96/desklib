@@ -1,9 +1,7 @@
 # some_app/views.py
 import logging
 logger = logging.getLogger(__name__)
-
 from rest_framework.views import APIView
-
 from django.views.generic import TemplateView, DetailView,CreateView
 from .models import Document
 from subscription.models import Download, PageView
@@ -41,6 +39,7 @@ from .forms import reportForm
 
 from django.db.models import F
 from datetime import timedelta
+from subscription.utils import is_subscribed, get_current_subscription
 
 class DocumentView(JsonLdDetailView):
     model = Document
@@ -68,8 +67,11 @@ class DocumentView(JsonLdDetailView):
             else:
                 request.session['page_views'] = [slug]
         else:
-            subscription_obj = self.request.user.subscriptions.all().get(is_current=True)
-            if subscription_obj:
+            subscribed_user = is_subscribed(self.request.user)
+
+            if subscribed_user:
+                subscription_obj = get_current_subscription(self.request.user)
+
                 expiry_date_subscription = subscription_obj.expire_on
                 plan = subscription_obj.plan
                 plan_days = plan.days
@@ -87,10 +89,6 @@ class DocumentView(JsonLdDetailView):
                     return self.render_to_response(context)
                 else:
                     return redirect('documents:pageviews-finish-view')
-
-
-
-
 
     def get_context_data(self, **kwargs):
         context = super(DocumentView, self).get_context_data(**kwargs)
@@ -115,7 +113,7 @@ class DocumentView(JsonLdDetailView):
         """
         if self.request.user.is_anonymous:
             self.template_name = 'documents/document_detail.html'
-        elif self.request.user.subscriptions.all().filter(is_current = True):
+        elif is_subscribed(self.request.user):
             self.template_name = 'documents/document_detail_subscribed.html'
         else:
             self.template_name = 'documents/document_detail_logged_in.html'
@@ -127,8 +125,10 @@ class DocumentDownloadView(LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         print(request.user)
         if request.user.subscriptions.all().exists():
-            subscription_obj = self.request.user.subscriptions.all().get(is_current=True)
-            if subscription_obj:
+            check_subscribed_status = is_subscribed(self.request.user)
+
+            if check_subscribed_status:
+                subscription_obj = get_current_subscription(self.request.user)
                 expiry_date_subscription = subscription_obj.expire_on
                 plan = subscription_obj.plan
                 plan_days = plan.days
@@ -174,7 +174,7 @@ class DownloadSuccessView(LoginRequiredMixin, TemplateView):
         context = super(DownloadSuccessView, self).get_context_data(**kwargs)
         try:
             remaining_downloads_flag = False
-            subscription_obj = self.request.user.subscriptions.all().get(is_current=True)
+            subscription_obj = get_current_subscription(self.request.user)
             expiry_date_subscription = subscription_obj.expire_on
             plan = subscription_obj.plan
             plan_days = plan.days
