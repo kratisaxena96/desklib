@@ -114,8 +114,18 @@ class DocumentView(JsonLdDetailView):
         context['meta'] = self.get_object().as_meta(self.request)
         slug = self.kwargs['slug']
         entry = Document.objects.get(slug=slug)
-        mlt = SearchQuerySet().more_like_this(entry)[:6]
-        context['more_like_this'] = mlt
+        subjects = entry.subjects.all()
+        # mlt = SearchQuerySet().more_like_this(entry)[:6]
+        if subjects:
+            s = "context['more_like_this'] = SearchQuerySet()"
+            for sub in subjects:
+              s += ".filter_or(subjects='"+str(sub)+"',)"
+            s +="[:6]"
+            exec(s)
+        # else:
+        #     context['more_like_this'] = SearchQuerySet().more_like_this(entry)[:6]
+
+        # context['more_like_this'] = SearchQuerySet().filter_or(subjects='artificial-intelligence',).filter_or(subjects='engineering')
         context['views'] = entry.views
         context['form'] = self.form
         # start_page = self.object.preview_from

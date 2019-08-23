@@ -291,42 +291,38 @@ opacity:0.9 !important;
             </div>
         </div>
 {% endcomment %}
-
     </article>
       <aside class="col-sm-4">
-          {% comment %}
         {% if more_like_this %}
-          {% endcomment %}
             <section class="similar-resource">
                 <h3>Similar Resources</h3>
                 <div class="py-4">
                     <div class="row">
-                        {% comment %}
                         {% for results in more_like_this %}
-                            <article class="col-6">
-                                <a href="{% url 'documents:document-view' results.slug %}">
-                                    <div>
-                                        <div class="card">
-                                            <img class="card-img-top card-height" src="{{ results.cover_image }}" alt="{{ results.title }}">
-                                            <div class="card-body">
-                                                <p class="card-text">{{results.title|truncatechars:25}}</p>
+                            {% if not results.slug == object.slug %}
+                                <article class="col-6 mb-3">
+                                    <a href="{% url 'documents:document-view' results.slug %}">
+                                        <div>
+                                            <div class="card min-height-smilar-pages-card">
+                                                <img class="card-img-top card-height" src="{{ results.cover_image }}" alt="{{ results.title }}">
+                                                <div class="card-body">
+                                                    <p class="card-text">{{results.title|truncatechars:25|title}}</p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
-                            </article>
-                        {% if forloop.counter|divisibleby:2 %}
-                            </div>
-                            <div>
-                        {% endif %}
+                                    </a>
+                                </article>
+                             {% if forloop.counter0|divisibleby:2 %}
+                                </div>
+                                <div class="row">
+                            {% endif %}
+                            {% endif %}
+                       
                         {% endfor %}
-                        {% endcomment %}
                     </div>
                 </div>
             </section>
-          {% comment %}
         {% endif %}
-          {% endcomment %}
       </aside>
   </div>
 </div>
@@ -346,8 +342,8 @@ opacity:0.9 !important;
 <div class="modal-body">
     <div class="text-center">
         <p>Subscribe or upgrade to access study resources for your class.</p>
-        <a href="" class="btn btn-bg-theme text-white">Subscribe</a>
-        <p>Already on Desklib? <a href="">Log in</a> </p>
+        <a href="{% url 'subscription' %}" class="btn btn-bg-theme text-white">Subscribe</a>
+        <p>Already on Desklib? <a href="{% url 'account_login' %}">Log in</a> </p>
     </div>
 </div>
 

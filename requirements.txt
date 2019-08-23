@@ -54,7 +54,7 @@ jsonfield==2.0.2
 lxml==4.3.3
 Markdown==3.1.1
 maxminddb==1.4.1
-mysqlclient==1.4.2.post1
+#mysqlclient==1.4.2.post1
 nltk==3.4.3
 numpy==1.16.4
 oauthlib==3.0.1
