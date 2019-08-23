@@ -50,7 +50,11 @@ class DocumentView(JsonLdDetailView):
         self.object = self.get_object()
         entry = Document.objects.get(slug=slug)
         Document.objects.filter(pk=entry.pk).update(views=F('views') + 1)
-        check_subscribed_status = is_subscribed(self.request.user)
+        if not self.request.user.is_anonymous:
+            check_subscribed_status = is_subscribed(self.request.user)
+        else:
+            check_subscribed_status = False
+
         pageviews_left = True
 
         if check_subscribed_status:
