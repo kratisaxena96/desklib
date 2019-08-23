@@ -127,6 +127,10 @@ background: rgba(0,0,255,0.3);
   animation: spin 2s linear infinite;
 }
 
+.opacity-1{
+opacity:0.9 !important;
+}
+
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -216,7 +220,7 @@ background: rgba(0,0,255,0.3);
                                       {{form.other_issue}}
                                   </div>
 
-                                    <input type="submit" value="report">
+                                    <input type="submit" value="report" class="btn btn-bg-theme text-white">
                                 </form>
                             </div>
 
@@ -323,6 +327,32 @@ background: rgba(0,0,255,0.3);
   </div>
 </div>
 
+{% if not pageviews_flag %}
+<!-- The Modal -->
+<div class="modal show" id="myModal" style="display: block;" aria-modal="true">
+<div class="modal-dialog">
+<div class="modal-content">
+
+<!-- Modal Header -->
+
+<!-- Modal body -->
+    <div class="bg-dark  pt-5 pb-5">
+        <h4 class="text-white mb-0 text-center">You have reached the preview limit.</h4>
+    </div>
+<div class="modal-body">
+    <div class="text-center">
+        <p>Subscribe or upgrade to access study resources for your class.</p>
+        <a href="" class="btn btn-bg-theme text-white">Subscribe</a>
+        <p>Already on Desklib? <a href="">Log in</a> </p>
+    </div>
+</div>
+
+
+</div>
+</div>
+</div>
+<div class="modal-backdrop opacity-1 show"></div>
+{% endif %}
 {% endblock %}
 {% block extra_js %}
 

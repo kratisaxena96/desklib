@@ -1,9 +1,7 @@
 # some_app/views.py
 import logging
 logger = logging.getLogger(__name__)
-
 from rest_framework.views import APIView
-
 from django.views.generic import TemplateView, DetailView,CreateView
 from .models import Document
 from subscription.models import Download, PageView
@@ -41,6 +39,7 @@ from .forms import reportForm
 
 from django.db.models import F
 from datetime import timedelta
+from subscription.utils import is_subscribed, get_current_subscription
 
 class DocumentView(JsonLdDetailView):
     model = Document
@@ -51,46 +50,60 @@ class DocumentView(JsonLdDetailView):
         self.object = self.get_object()
         entry = Document.objects.get(slug=slug)
         Document.objects.filter(pk=entry.pk).update(views=F('views') + 1)
-        if request.user.is_anonymous:
+        check_subscribed_status = is_subscribed(self.request.user)
+        pageviews_left = True
+
+        if check_subscribed_status:
+            subscription_obj = get_current_subscription(self.request.user)
+            expiry_date_subscription = subscription_obj.expire_on
+            plan = subscription_obj.plan
+            plan_days = plan.days
+            plan_view_limit = plan.view_limit
+            startdate_subscription = expiry_date_subscription - timedelta(days=plan_days)
+            view_limit_count = PageView.objects.filter(user=self.request.user,
+                                                       created_at__gte=startdate_subscription,
+                                                       created_at__lte=expiry_date_subscription).count()
+            # remaining_page_view = plan_view_limit - view_limit_count
+            # print(remaining_page_view)
+
+            if view_limit_count < plan_view_limit:
+                PageView.objects.create(user=request.user, document=self.object)
+                pageviews_left = True
+                # context = self.get_context_data(object=self.object)
+                # return self.render_to_response(context)
+            else:
+                pageviews_left = False
+
+        else:
             page_views = request.session.get('page_views')
             if page_views:
                 if len(page_views) < 5:
-                    print(page_views)
+                    pageviews_left = True
                     if slug not in page_views:
                         page_views.append(slug)
                         request.session['page_views'] = page_views
                         # page_views.append(slug)
                         # print(page_views)
                     else:
-                        pass
+                        pageviews_left = True
+
+                        # context = self.get_context_data(object=self.object)
+                        # return self.render_to_response(context)
                 else:
-                    return redirect('documents:pageviews-finish-view')
+                    pageviews_left = False
+                    # context = ''
+                    # return self.render_to_response(context)
+
             else:
+                pageviews_left = True
                 request.session['page_views'] = [slug]
-        else:
-            subscription_obj = self.request.user.subscriptions.all().get(is_current=True)
-            if subscription_obj:
-                expiry_date_subscription = subscription_obj.expire_on
-                plan = subscription_obj.plan
-                plan_days = plan.days
-                plan_view_limit = plan.view_limit
-                startdate_subscription = expiry_date_subscription - timedelta(days=plan_days)
-                view_limit_count = PageView.objects.filter(user=self.request.user,
-                                                         created_at__gte=startdate_subscription,
-                                                         created_at__lte=expiry_date_subscription).count()
-                # remaining_page_view = plan_view_limit - view_limit_count
-                # print(remaining_page_view)
+                # context = self.get_context_data(object=self.object)
+                # return self.render_to_response(context)
 
-                if view_limit_count <= plan_view_limit:
-                    PageView.objects.create(user=request.user, document=self.object)
-                    context = self.get_context_data(object=self.object)
-                    return self.render_to_response(context)
-                else:
-                    return redirect('documents:pageviews-finish-view')
+        context = self.get_context_data(object=self.object)
+        context['pageviews_flag'] = pageviews_left
 
-
-
-
+        return self.render_to_response(context)
 
     def get_context_data(self, **kwargs):
         context = super(DocumentView, self).get_context_data(**kwargs)
@@ -125,7 +138,7 @@ class DocumentView(JsonLdDetailView):
         """
         if self.request.user.is_anonymous:
             self.template_name = 'documents/document_detail.html'
-        elif self.request.user.subscriptions.all().filter(is_current = True):
+        elif is_subscribed(self.request.user):
             self.template_name = 'documents/document_detail_subscribed.html'
         else:
             self.template_name = 'documents/document_detail_logged_in.html'
@@ -137,8 +150,10 @@ class DocumentDownloadView(LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         print(request.user)
         if request.user.subscriptions.all().exists():
-            subscription_obj = self.request.user.subscriptions.all().get(is_current=True)
-            if subscription_obj:
+            check_subscribed_status = is_subscribed(self.request.user)
+
+            if check_subscribed_status:
+                subscription_obj = get_current_subscription(self.request.user)
                 expiry_date_subscription = subscription_obj.expire_on
                 plan = subscription_obj.plan
                 plan_days = plan.days
@@ -184,7 +199,7 @@ class DownloadSuccessView(LoginRequiredMixin, TemplateView):
         context = super(DownloadSuccessView, self).get_context_data(**kwargs)
         try:
             remaining_downloads_flag = False
-            subscription_obj = self.request.user.subscriptions.all().get(is_current=True)
+            subscription_obj = get_current_subscription(self.request.user)
             expiry_date_subscription = subscription_obj.expire_on
             plan = subscription_obj.plan
             plan_days = plan.days

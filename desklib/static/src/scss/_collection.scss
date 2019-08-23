@@ -310,9 +310,10 @@ card {
 }
 
 .btn-outline-secondary {
-	margin-left: -21px;
+	margin-left: -35px;
 	background-color: #405FBD;
 	color: white;
+	z-index: 3 !important;
 }
 
 .form-inline input {
@@ -718,4 +719,20 @@ section.pricing {
 	.pricing .card:hover .btn {
 		opacity: 1;
 	}
+}
+
+.height-100{
+    min-height : calc(100vh - 196px - 58px);
+}
+.doc-img{
+    position: relative;
+    background-image: url("/static/src/assets/images/document.jpg");
+	background-size: cover;
+	//background-repeat: no-repeat;
+}
+.center-align-box{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
 }
