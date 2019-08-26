@@ -50,53 +50,82 @@ class DocumentView(JsonLdDetailView):
         self.object = self.get_object()
         entry = Document.objects.get(slug=slug)
         Document.objects.filter(pk=entry.pk).update(views=F('views') + 1)
-        if request.user.is_anonymous:
+        if not self.request.user.is_anonymous:
+            check_subscribed_status = is_subscribed(self.request.user)
+        else:
+            check_subscribed_status = False
+
+        pageviews_left = True
+
+        if check_subscribed_status:
+            subscription_obj = get_current_subscription(self.request.user)
+            expiry_date_subscription = subscription_obj.expire_on
+            plan = subscription_obj.plan
+            plan_days = plan.days
+            plan_view_limit = plan.view_limit
+            startdate_subscription = expiry_date_subscription - timedelta(days=plan_days)
+            view_limit_count = PageView.objects.filter(user=self.request.user,
+                                                       created_at__gte=startdate_subscription,
+                                                       created_at__lte=expiry_date_subscription).count()
+            # remaining_page_view = plan_view_limit - view_limit_count
+            # print(remaining_page_view)
+
+            if view_limit_count < plan_view_limit:
+                PageView.objects.create(user=request.user, document=self.object)
+                pageviews_left = True
+                # context = self.get_context_data(object=self.object)
+                # return self.render_to_response(context)
+            else:
+                pageviews_left = False
+
+        else:
             page_views = request.session.get('page_views')
             if page_views:
                 if len(page_views) < 5:
-                    print(page_views)
+                    pageviews_left = True
                     if slug not in page_views:
                         page_views.append(slug)
                         request.session['page_views'] = page_views
                         # page_views.append(slug)
                         # print(page_views)
                     else:
-                        pass
+                        pageviews_left = True
+
+                        # context = self.get_context_data(object=self.object)
+                        # return self.render_to_response(context)
                 else:
-                    return redirect('documents:pageviews-finish-view')
+                    pageviews_left = False
+                    # context = ''
+                    # return self.render_to_response(context)
+
             else:
+                pageviews_left = True
                 request.session['page_views'] = [slug]
-        else:
-            subscribed_user = is_subscribed(self.request.user)
+                # context = self.get_context_data(object=self.object)
+                # return self.render_to_response(context)
 
-            if subscribed_user:
-                subscription_obj = get_current_subscription(self.request.user)
+        context = self.get_context_data(object=self.object)
+        context['pageviews_flag'] = pageviews_left
 
-                expiry_date_subscription = subscription_obj.expire_on
-                plan = subscription_obj.plan
-                plan_days = plan.days
-                plan_view_limit = plan.view_limit
-                startdate_subscription = expiry_date_subscription - timedelta(days=plan_days)
-                view_limit_count = PageView.objects.filter(user=self.request.user,
-                                                         created_at__gte=startdate_subscription,
-                                                         created_at__lte=expiry_date_subscription).count()
-                # remaining_page_view = plan_view_limit - view_limit_count
-                # print(remaining_page_view)
-
-                if view_limit_count <= plan_view_limit:
-                    PageView.objects.create(user=request.user, document=self.object)
-                    context = self.get_context_data(object=self.object)
-                    return self.render_to_response(context)
-                else:
-                    return redirect('documents:pageviews-finish-view')
+        return self.render_to_response(context)
 
     def get_context_data(self, **kwargs):
         context = super(DocumentView, self).get_context_data(**kwargs)
         context['meta'] = self.get_object().as_meta(self.request)
         slug = self.kwargs['slug']
         entry = Document.objects.get(slug=slug)
-        mlt = SearchQuerySet().more_like_this(entry)[:6]
-        context['more_like_this'] = mlt
+        subjects = entry.subjects.all()
+        # mlt = SearchQuerySet().more_like_this(entry)[:6]
+        if subjects:
+            s = "context['more_like_this'] = SearchQuerySet()"
+            for sub in subjects:
+              s += ".filter_or(subjects='"+str(sub)+"',)"
+            s +="[:6]"
+            exec(s)
+        # else:
+        #     context['more_like_this'] = SearchQuerySet().more_like_this(entry)[:6]
+
+        # context['more_like_this'] = SearchQuerySet().filter_or(subjects='artificial-intelligence',).filter_or(subjects='engineering')
         context['views'] = entry.views
         context['form'] = self.form
         # start_page = self.object.preview_from

@@ -127,6 +127,10 @@ background: rgba(0,0,255,0.3);
   animation: spin 2s linear infinite;
 }
 
+.opacity-1{
+opacity:0.9 !important;
+}
+
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -288,46 +292,68 @@ background: rgba(0,0,255,0.3);
             </div>
         </div>
 {% endcomment %}
-
     </article>
       <aside class="col-sm-4">
-          {% comment %}
         {% if more_like_this %}
-          {% endcomment %}
             <section class="similar-resource">
                 <h3>Similar Resources</h3>
                 <div class="py-4">
                     <div class="row">
-                        {% comment %}
                         {% for results in more_like_this %}
-                            <article class="col-6">
-                                <a href="{% url 'documents:document-view' results.slug %}">
-                                    <div>
-                                        <div class="card">
-                                            <img class="card-img-top card-height" src="{{ results.cover_image }}" alt="{{ results.title }}">
-                                            <div class="card-body">
-                                                <p class="card-text">{{results.title|truncatechars:25}}</p>
+                            {% if not results.slug == object.slug %}
+                                <article class="col-6 mb-3">
+                                    <a href="{% url 'documents:document-view' results.slug %}">
+                                        <div>
+                                            <div class="card min-height-smilar-pages-card">
+                                                <img class="card-img-top card-height" src="{{ results.cover_image }}" alt="{{ results.title }}">
+                                                <div class="card-body">
+                                                    <p class="card-text">{{results.title|truncatechars:25|title}}</p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
-                            </article>
-                        {% if forloop.counter|divisibleby:2 %}
-                            </div>
-                            <div>
-                        {% endif %}
+                                    </a>
+                                </article>
+                             {% if forloop.counter0|divisibleby:2 %}
+                                </div>
+                                <div class="row">
+                            {% endif %}
+                            {% endif %}
+                       
                         {% endfor %}
-                        {% endcomment %}
                     </div>
                 </div>
             </section>
-          {% comment %}
         {% endif %}
-          {% endcomment %}
       </aside>
   </div>
 </div>
 
+{% if not pageviews_flag %}
+<!-- The Modal -->
+<div class="modal show" id="myModal" style="display: block;" aria-modal="true">
+<div class="modal-dialog">
+<div class="modal-content">
+
+<!-- Modal Header -->
+
+<!-- Modal body -->
+    <div class="bg-dark  pt-5 pb-5">
+        <h4 class="text-white mb-0 text-center">You have reached the preview limit.</h4>
+    </div>
+<div class="modal-body">
+    <div class="text-center">
+        <p>Subscribe or upgrade to access study resources for your class.</p>
+        <a href="{% url 'subscription' %}" class="btn btn-bg-theme text-white">Subscribe</a>
+        <p>Already on Desklib? <a href="{% url 'account_login' %}">Log in</a> </p>
+    </div>
+</div>
+
+
+</div>
+</div>
+</div>
+<div class="modal-backdrop opacity-1 show"></div>
+{% endif %}
 {% endblock %}
 {% block extra_js %}
 
