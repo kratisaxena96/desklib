@@ -254,8 +254,8 @@ opacity:0.9 !important;
                 <form class="feedback-form" action="." method="post" data-url="{% url 'api:document-feedback-api' slug=object.slug %}">
                 {% csrf_token %}
                     <label class="mr-2">{{object.was_helpful}} people found it useful. Did you find it </label>
-                    <button data-value="helpful" class="btn btn-success submit-feedback mr-2">Useful</button>
-                <button data-value="not-helpful" class="btn btn-danger submit-feedback">Not Useful</button>
+                    <button data-value="helpful" class="btn border-1 submit-feedback mr-2">Useful</button>
+                <button data-value="not-helpful" class="btn border-1 submit-feedback">Not Useful</button>
                 <!--<input type="submit" name="was_heplful" value="Yes">-->
                 <!--<input type="submit" name="not_heplful" value="No">-->
                 </form>
