@@ -8,6 +8,9 @@ from documents.models import Document
 from api.serializers import DocumentCreateSerializer, CreateSampleSerializer, ReportDocumentSerializer, DocumentFeedbackSerializer
 from desklib.settings.base import EXPECTED_IP_API
 from django.http import HttpResponse
+from desklib.mixins import RestrictIpMixin
+
+
 class DocumentCreateApiView(CreateAPIView):
     serializer_class = DocumentCreateSerializer
 
@@ -24,7 +27,7 @@ class DocumentCreateApiView(CreateAPIView):
 
 
 
-class CreateSampleApiView(CreateAPIView):
+class CreateSampleApiView(RestrictIpMixin, CreateAPIView):
     serializer_class = CreateSampleSerializer
 
 
