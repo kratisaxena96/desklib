@@ -54,7 +54,7 @@
 {% endcomment %}
 </div>
 
-<section class="login-page">
+<main class="login-page height-100">
 <div class="container">
     <div class="row">
       <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
@@ -88,20 +88,19 @@
 <!--                <a href="{% url 'account_reset_password' %}">-->
 <!--                <label class="custom-control-label" for="customCheck1">{% trans "Forgot Password ?" %}</label></a>-->
 <!--              </div>-->
-              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">{% trans "Sign In" %}</button>
-              <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit">
-                  <a class="white" href="{% url 'account_reset_password' %}">{% trans "Forgot Password ?" %}</a>
-              </button>
-              <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit">
-                  <a class="white" href="{% url 'account_signup' %}{% if redirect_field_value %}?{{ redirect_field_name }}={{ redirect_field_value }}{% endif %}">
-                      Sign up</a>
-              </button>
+              <button class="btn btn-lg btn-primary btn-block text-uppercase mt-4" type="submit">{% trans "Sign In" %}</button>
+              <hr>
 				 {% load account socialaccount %}
 				{% get_providers as socialaccount_providers %}
 				{% for provider in socialaccount_providers %}
 					<a title="{{provider.name}}" class="btn btn-{{provider.name|lower}} btn-lg btn-block"
-					 href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><i class="fa fa-{{provider.name}}" ></i>&nbsp{{provider.name}}</a>
+					 href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><i class="fa fa-{{provider.name}}" ></i>&nbsp Sign In {{provider.name}}</a>
 				{% endfor %}
+
+                <div class="text-center pt-4"><p class="m-0 p-0">Don't have an account? <a href="{% url 'account_signup' %}{% if redirect_field_value %}?{{ redirect_field_name }}={{ redirect_field_value }}{% endif %}">Sign Up</a></p>
+                    <p><a href="{% url 'account_reset_password' %}">Forget Password?</a></p>
+                </div>
+
 				</ul>
 <!--              <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button>-->
 <!--              <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>-->
@@ -111,5 +110,14 @@
       </div>
     </div>
   </div>
-</section>
+</main>
 {% endblock %}
+{% comment %}
+    <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit">
+                  <a class="white" href="{% url 'account_reset_password' %}">{% trans "Forgot Password ?" %}</a>
+              </button>
+              <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit">
+                  <a class="white" href="{% url 'account_signup' %}{% if redirect_field_value %}?{{ redirect_field_name }}={{ redirect_field_value }}{% endif %}">
+                      Sign up</a>
+              </button>
+{% endcomment %}

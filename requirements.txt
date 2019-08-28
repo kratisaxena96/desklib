@@ -24,9 +24,9 @@ Django==2.2.2
 django-allauth==0.39.1
 django-ckeditor==5.7.1
 django-debug-toolbar==2.0
-django-elasticsearch-dsl==6.4.1
 django-filter==2.2.0
 django-haystack==2.8.1
+django-htmlmin==0.11.0
 django-js-asset==1.2.2
 django-json-ld==0.0.4
 django-meta==1.5.1
@@ -41,11 +41,11 @@ docutils==0.14
 docx2txt==0.6
 EbookLib==0.15
 elasticsearch==2.4.1
-elasticsearch-dsl==6.4.0
 elasticsearch2-haystack==0.1
 future==0.17.1
 gensim==3.7.3
 geoip2==2.9.0
+html5lib==1.0.1
 hyperlink==19.0.0
 idna==2.8
 incremental==17.5.0
@@ -90,7 +90,7 @@ Twisted==19.7.0
 txaio==18.8.1
 urllib3==1.25.3
 Wand==0.5.5
+webencodings==0.5.1
 xlrd==1.0.0
 XlsxWriter==1.1.8
 zope.interface==4.6.0
-django-htmlmin== 0.11.0

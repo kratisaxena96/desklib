@@ -18,20 +18,6 @@
     <link href="https://languagetool.org/css/media.css?20190426" rel="stylesheet">
     <link href="https://languagetool.org/css/tooltip.css?20180419" rel="stylesheet">
 
-      <style>
-          body #stage .inner #editor .inner {
-            -webkit-box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.30);
-            -moz-box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.30);
-            box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.30);
-          }
-          .editorHeader {
-            background: rgba(188, 192, 207, 0.34);
-          }
-          body #editor_controls {
-                background-color: rgba(188, 192, 207, 0.34);
-            }
-
-      </style>
 
 <!--    <link rel="stylesheet" href="https://languagetool.org/vendors/glide3/dist/css/glide.core.min.css">-->
 <!--    <link rel="stylesheet" href="https://languagetool.org/vendors/glide3/dist/css/glide.theme.min.css">-->
@@ -730,6 +716,29 @@
 </script>
 
 
+      <style>
+          body #stage .inner #editor .inner {
+            -webkit-box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.30);
+            -moz-box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.30);
+            box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.30);
+          }
+          .editorHeader {
+            background: rgba(188, 192, 207, 0.34);
+          }
+          body #editor_controls {
+                background-color: rgba(188, 192, 207, 0.34);
+            }
+
+            .hiddenGrammarError{
+                background-color: #FFD4B0;
+            }
+            .hiddenSpellError{
+                background-color: #BCCDFF;
+            }
+
+      </style>
+
+
 {% endblock %}
 
 
@@ -765,7 +774,7 @@
                         </div>
                         <p id="checktextpara" style="margin: 0">
                                                         <textarea id="checktext" name="text" style="width: 100%"
-                                      rows="10">LanguageTool offers spell and grammar checking. Just paste your text here and click the 'Check Text' button. Click the colored phrases for details on potential errors. or use this text too see an few of of the problems that LanguageTool can detecd. What do you thinks of grammar checkers? Please not that they are not perfect. Style issues get a blue marker: It's 5 P.M. in the afternoon. The weather was nice on Thursday, 27 June 2017.</textarea>
+                                      rows="10">At some point,I realized that I strated to use the bike more often, not only to get to work but also to catch up with friends and to head out for coffee on weekends.</textarea>
                                                     </p>
                         <div id="feedbackErrorMessage"></div>
                         <div id="feedbackPremiumMessage"></div>
@@ -971,7 +980,7 @@
                 If you are looking to hire a professional content writer/editor, this is the right place
             </p>
             <br>
-            <a href="#" class="btn btn-primary btn-bg-theme">Hire Now</a>
+            <a class="btn btn-primary btn-bg-theme" href="https://tawk.to/chat/5d52a62677aa790be32eb23b/default" target="_blank">Hire Now</a>
 
         </div>
     </div>

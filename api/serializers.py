@@ -23,15 +23,10 @@ class DocumentFeedbackSerializer(serializers.Serializer):
     helpful = serializers.BooleanField(required=False)
 
 class ReportDocumentSerializer(serializers.ModelSerializer):
+    author = serializers.CharField(required=False)
+    issue = serializers.CharField(required=True)
+    other_issue = serializers.CharField(required=False)
+
     class Meta:
         model = Report
         fields = ['issue', 'other_issue', 'document', 'author']
-
-    def validate(self, data):
-        issue = data.get('issue')
-        other_issue = data.get('other_issue')
-
-        if not issue and not other_issue:
-            raise serializers.ValidationError("Issue can not be blank")
-
-        return data
