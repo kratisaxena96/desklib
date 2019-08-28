@@ -2,6 +2,8 @@ import os
 import re
 import tempfile
 import datetime
+import uuid
+
 from io import BytesIO
 from sorl.thumbnail import ImageField, get_thumbnail
 
@@ -360,8 +362,9 @@ class Document(ModelMeta, models.Model):
             page_count = 1
             for pdf_img in pdf_images:
                 page_obj = Page()
+                # page_obj.name = pdf_img.filename
                 page_obj.no = page_count
-                page_obj.image_file = DjangoFile(open(pdf_img.filename, 'rb'))
+                page_obj.image_file = DjangoFile(open(pdf_img.filename, 'rb'), name=uuid.uuid1().hex+'.jpg')
                 page_obj.html = page_html_data[page_count]
                 page_obj.document = self
                 page_obj.author = self.author

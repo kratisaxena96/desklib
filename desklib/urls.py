@@ -29,8 +29,8 @@ from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView
     SubscriptionView, PayNowView, PrivacyPolicyView, HonorCodeView, CopyrightPolicyView, TermsOfUseView, \
     AcademicIntegrityView
 
-if settings.DEBUG:
-    import debug_toolbar
+# if settings.DEBUG:
+#     import debug_toolbar
 
 sitemaps = {
     'documents': DocumentSitemap,
@@ -54,7 +54,6 @@ urlpatterns = [
     path('contact/', ContactPageView.as_view(), name='contact'),
     path('pricing/', PricingPageView.as_view(), name='pricing'),
     path('test/', TestPageView.as_view(), name='test'),
-    path('__debug__/', include(debug_toolbar.urls)),
     path('writing/', include(('writing.urls', 'writing'), namespace="writing")),
     path('robots.txt', include('robots.urls')),
     path('sitemap.xml', cache_page(60)(views.index), {'sitemaps': sitemaps}, name='cached-sitemap'),
@@ -75,6 +74,11 @@ urlpatterns += i18n_patterns(
     # url(r'^admin/', include(admin.site.urls)),
 )
 
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ]
 
 handler404 = 'desklib.views.handler404'
 handler500 = 'desklib.views.handler500'
