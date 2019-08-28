@@ -176,9 +176,11 @@ opacity:0.9 !important;
                 <div class="dropdown-menu">
                   <a class="dropdown-item" href="https://facebook.com/sharer.php?u=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank">Share on Facebook</a>
                   <a class="dropdown-item" href="https://twitter.com/intent/tweet?url=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank" >Share on Twitter</a>
-                   <a class="dropdown-item" href="https://www.linkedin.com/shareArticle?mini=true&url=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank">Share on LinkedIn</a>
+
+                   <a class="dropdown-item" href="https://www.linkedin.com/shareArticle?mini=true&url=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}&title=LinkedIn%20Developer%20Network &summary=My%20favorite%20developer%20program&source=LinkedIn" target="_blank">Share on LinkedIn</a>
+
                     {% comment %}
-                  <a class="dropdown-item" href="https://facebook.com/sharer.php?u=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank">Share on LinkedIn</a>
+                  <a class="dropdown-item" href="http://www.linkedin.com/shareArticle?mini=true&data-url=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank">Share on LinkedIn</a>
                     {% endcomment %}
                   <a class="dropdown-item" href="mailto:?subject=Read {{object.title}}  on Scribd&body=I am reading {{object.title}}  on Desklib: https://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank">Share on Mail</a>
                   <a class="dropdown-item copy_text" href="https://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank">Copy Link</a>
@@ -252,9 +254,12 @@ opacity:0.9 !important;
             <div class="feedback">
                 <form class="feedback-form" action="." method="post" data-url="{% url 'api:document-feedback-api' slug=object.slug %}">
                 {% csrf_token %}
-                    <label class="mr-2">{{object.was_helpful}} people found it useful. Did you find it </label>
-                    <button data-value="helpful" class="btn btn-success submit-feedback mr-2">Useful</button>
-                <button data-value="not-helpful" class="btn btn-danger submit-feedback">Not Useful</button>
+
+                <label class="mr-2">{% if object.was_helpful %}
+                  {{object.was_helpful}} people found this Helpful.
+                  {% else %} Did you find it helpful?{% endif %}</label>
+                <button data-value="helpful" class="btn border-1 submit-feedback mr-2">Useful</button>
+                <button data-value="not-helpful" class="btn border-1 submit-feedback">Not Useful</button>
                 <!--<input type="submit" name="was_heplful" value="Yes">-->
                 <!--<input type="submit" name="not_heplful" value="No">-->
                 </form>
@@ -270,7 +275,7 @@ opacity:0.9 !important;
 
         <div class="">
             <a href='{% url "documents:document-download-view" slug=object.slug%}' class="btn btn-bg-theme btn-lg text-white">Download</a>
-            <span>Showing pages {{object.pages.all.count}} of {{object.pages.all.count}} </span>
+            <span class="w-75 d-inline-block text-center">Showing pages {{object.pages.all.count}} of {{object.pages.all.count}} </span>
         </div>
 
 
@@ -356,6 +361,14 @@ opacity:0.9 !important;
 {% endif %}
 {% endblock %}
 {% block extra_js %}
+
+<!-- <script>
+$(document).ready(function(){
+  $(".visible").click(function(){
+    $(".show-label").show();
+  });
+});
+</script> -->
 
 <script>
 
