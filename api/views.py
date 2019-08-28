@@ -11,7 +11,7 @@ from django.http import HttpResponse
 from desklib.mixins import RestrictIpMixin
 
 
-class DocumentCreateApiView(CreateAPIView):
+class DocumentCreateApiView(RestrictIpMixin, CreateAPIView):
     serializer_class = DocumentCreateSerializer
 
     def post(self, request, *args, **kwargs):
@@ -27,7 +27,7 @@ class DocumentCreateApiView(CreateAPIView):
 
 
 
-class CreateSampleApiView(RestrictIpMixin, CreateAPIView):
+class CreateSampleApiView(CreateAPIView):
     serializer_class = CreateSampleSerializer
 
 
