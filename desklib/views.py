@@ -244,7 +244,8 @@ class PayNowView(LoginRequiredMixin,TemplateView):
         if settings.PAYPAL_TEST:
             receiver_email = "info-facilitator@a2zservices.net"
             # action="https://www.sandbox.paypal.com/cgi-bin/webscr"
-            
+        else:
+            receiver_email = "info@desklib.com"
         now = timezone.now()
 
         if not self.request.user.subscriptions.all().filter(expire_on__gt = now):

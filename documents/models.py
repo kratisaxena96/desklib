@@ -364,7 +364,7 @@ class Document(ModelMeta, models.Model):
                 page_obj = Page()
                 # page_obj.name = pdf_img.filename
                 page_obj.no = page_count
-                page_obj.image_file = DjangoFile(open(pdf_img.filename, 'rb'), name=uuid.uuid1().hex)
+                page_obj.image_file = DjangoFile(open(pdf_img.filename, 'rb'), name=uuid.uuid1().hex+'.jpg')
                 page_obj.html = page_html_data[page_count]
                 page_obj.document = self
                 page_obj.author = self.author
