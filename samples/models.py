@@ -1,5 +1,7 @@
 import os
 import tempfile
+
+from django.contrib.auth import get_user_model
 from django.db import models
 from ckeditor.fields import RichTextField
 from django.utils.translation import ugettext_lazy as _
@@ -39,7 +41,7 @@ class Sample(models.Model):
     type = models.IntegerField(choices=TYPE_OF_SAMPLE, default=RESUME, db_index=True)
     description = RichTextField(_('Description'), blank=True, null=True)
 
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='author_samples' )
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='author_samples', null=True, blank=True)
     upload_sample = models.FileField(verbose_name=_('Upload Sample'), upload_to=upload_to, max_length=1000)
     pdf_converted_file = models.FileField(verbose_name=_(' Pdf converted file'), upload_to=pdf_converted_files, max_length=1000,blank=True, null=True)
 
@@ -99,6 +101,9 @@ class Sample(models.Model):
             sample_filename = self.upload_sample.name
             sample_filename = os.path.basename(sample_filename)
             sample_filename = sample_filename.replace(' ', '_')
+
+            # Assigning author
+            self.author = get_user_model().objects.first()
 
             f1 = self.upload_sample.file  # File to copy from
             temp = tempfile.NamedTemporaryFile(suffix=sample_filename)  # Temporary File to copy to

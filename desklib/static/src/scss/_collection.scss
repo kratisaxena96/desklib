@@ -5,6 +5,74 @@ body {
 // h1, h2, h3, h4, h5, h6{
 //     font-family: 'Roboto', sans-serif !important;
 // }
+.main-content {
+    position: relative;
+
+    .owl-theme {
+        .custom-nav {
+            position: absolute;
+            top: 20%;
+            left: 0;
+            right: 0;
+
+            .owl-prev, .owl-next {
+                position: absolute;
+                height: 100px;
+                color: inherit;
+                background: none;
+                border: none;
+                z-index: 100;
+
+                i {
+                    font-size: 2.5rem;
+                    color: #cecece;
+                }
+            }
+
+            .owl-prev {
+                left: 0;
+            }
+
+            .owl-next {
+                right: 0;
+            }
+        }
+    }
+}
+#main {
+    position: relative;
+
+    #main.owl-theme {
+        #main.custom-nav {
+            position: absolute;
+            top: 20%;
+            left: 0;
+            right: 0;
+
+            #main.owl-prev, #main.owl-next {
+                position: absolute;
+                height: 100px;
+                color: inherit;
+                background: none;
+                border: none;
+                z-index: 100;
+
+                i {
+                    font-size: 2.5rem;
+                    color: #cecece;
+                }
+            }
+
+            #main.owl-prev {
+                left: 0;
+            }
+
+           #main .owl-next {
+                right: 0;
+            }
+        }
+    }
+}
 .header {
 	height: 110px;
 	transition: all 0.5s;
@@ -179,23 +247,6 @@ card {
 	background: #f5f8fd;
 }
 
-.owl-first>.owl-nav>.owl-prev,
-.owl-next {
-	position: absolute;
-	top: 50%;
-	font-size: 100px !important;
-	color: black !important;
-	transform: translateY(-50%);
-}
-
-.owl-first>.owl-nav>.owl-next {
-	margin-left: 50%;
-}
-
-.owl-first>.owl-nav>.owl-prev {
-	margin-left: -54%;
-}
-
 #team {
 	padding: 60px 0;
 }
@@ -216,18 +267,6 @@ card {
 }
 
 @media only screen and (max-width: $breakpoint-tablet) {
-	.owl-first .owl-nav .owl-prev {
-		left: 0;
-	}
-	.owl-first .owl-nav .owl-next {
-		right: 0;
-	}
-	.owl-first .owl-nav .owl-prev {
-		visibility: hidden;
-	}
-	.owl-first .owl-nav .owl-next {
-		visibility: hidden;
-	}
 	.img-top-text {
 		position: absolute;
 		z-index: 30;
@@ -288,10 +327,6 @@ card {
 	
 }
 
-.owl-first .owl-nav [class*=owl-]:hover {
-	background: transparent;
-	boder-radius: 0;
-}
 
 .banner-image {
 	background-image: url("/static/src/assets/images/Desklib banner4.png");
@@ -346,14 +381,6 @@ card {
 	//float: right;
 }
 
-#home_nav>.owl-nav>.owl-prev,
-.owl-next {
-	position: absolute;
-	top: 50%;
-	font-size: 100px !important;
-	color: black !important;
-	transform: translateY(-50%);
-}
 
 .search-input {
 	width: 80% !important;
