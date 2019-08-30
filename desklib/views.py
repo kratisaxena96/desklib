@@ -20,37 +20,35 @@ import pytz
 
 logger = logging.getLogger(__name__)
 
+
 class HomePageView(MetadataMixin, JsonLdContextMixin, SearchView):
     form_class = HomeSearchForm
-    title = 'Library at your desk | desklib.com'
-    description = 'Desklib is your home for best study resources and educational documents. We have a large collection of homework answers, assignment solutions, reports and presentations. Our automated tools help you improve your writing skills and grammar.'
-    keywords = ['Study resources','study material','homework solution', 'study tools', 'educational documents']
-    twitter_title = 'All study resources you will need to secure best grades.'
+    title = 'Best study and educational resources | desklib.com'
+    description = 'Desklib is your home for best study resources and educational documents. We have a large collection of homework answers, assignment solutions, reports, sample resume and presentations. Our study tools help you improve your writing skills and grammar.'
+    keywords = ['study resources', 'study material', 'homework solution', 'study tools', 'online tutoring', 'educational documents', 'sample resume']
+    twitter_title = 'All study resources you will need to secure best grades in your assignments'
+    og_title = 'All study resources you will need to secure best grades in your assignments'
+    gplus_title = 'All study resources you will need to secure best grades in your assignments'
 
     template_name = "desklib/home.html"
     # template_name = "desklib/coming_soon.html"
 
     structured_data = {
         "@type": "Organization",
-        "name": "DeskLib",
+        "name": "Desklib",
         "description": _("All study resources you will need to secure best grade."),
         "url": "https://desklib.com/",
-        "logo": "https://www.desklib.com/assets/img/desklib_logo.png",
+        "logo": "https://desklib.com/assets/img/desklib_logo.png",
         "potentialAction": {
             "@type": "SearchAction",
-            "target": "https://www.desklib.com/study/search/?q={search_term}",
+            "target": "https://desklib.com/study/search/?q={search_term}",
             "query-input": "required name=search_term"
         },
         "sameAs": [
             "https://www.facebook.com/desklib",
             "https://twitter.com/desklib",
             "https://www.linkedin.com/company/desklib",
-            "https://www.youtube.com/desklib",
-            "https://www.pinterest.com/desklib/",
-            "https://www.instagram.com/desklib/",
-            "https://plus.google.com/+desklib",
-            "https://en.wikipedia.org/wiki/desklib",
-            "https://github.com/desklib"
+            "https://www.instagram.com/desklib/"
         ]
     }
 
@@ -74,14 +72,14 @@ class HomePageView(MetadataMixin, JsonLdContextMixin, SearchView):
 
 class AboutPageView(MetadataMixin,JsonLdContextMixin,TemplateView):
     title = 'About | desklib.com'
-    description = 'DeskLib is a single stop solution for all your academic needs. We provide millions of study documents which can be used for by students to obtain better grades.'
+    description = 'Desklib is a single stop solution for all your academic needs. We provide millions of study documents including assignment solutions which can help students achieve better grades.'
 
     template_name = "desklib/about.html"
 
     structured_data = {
         "@type": "Organization",
-        "name": "DeskLib",
-        "description": _("DeskLib is a single stop solution for all your academic needs. We provide millions of study documents which can be used for by students to obtain better grades."),
+        "name": "Desklib",
+        "description": _("Desklib is a single stop solution for all your academic needs. We provide millions of study documents which can be used for by students to obtain better grades."),
         "url": "https://desklib.com/",
         "logo": "https://www.desklib.com/assets/img/desklib_logo.png",
         "potentialAction": {
@@ -93,12 +91,7 @@ class AboutPageView(MetadataMixin,JsonLdContextMixin,TemplateView):
             "https://www.facebook.com/desklib",
             "https://twitter.com/desklib",
             "https://www.linkedin.com/company/desklib",
-            "https://www.youtube.com/desklib",
-            "https://www.pinterest.com/desklib/",
-            "https://www.instagram.com/desklib/",
-            "https://plus.google.com/+desklib",
-            "https://en.wikipedia.org/wiki/desklib",
-            "https://github.com/desklib"
+            "https://www.instagram.com/desklib/"
         ]
     }
 
@@ -109,14 +102,14 @@ class AboutPageView(MetadataMixin,JsonLdContextMixin,TemplateView):
 
 class PricingPageView(MetadataMixin,JsonLdContextMixin,TemplateView):
     title = 'Pricing | desklib.com'
-    description = 'DeskLib provides a subscription based access to its resources at affordable price.'
+    description = 'Desklib provides a subscription based access to its resources at affordable price.'
     template_name = "desklib/pricing.html"
 
     structured_data = {
         "@type": "Organization",
-        "name": "DeskLib",
+        "name": "Desklib",
         "description": _(
-            'DeskLib provides a subscription based access to its resources at affordable price.'),
+            'Desklib provides a subscription based access to its resources at affordable price.'),
         "url": "https://desklib.com/",
         "logo": "https://www.desklib.com/assets/img/desklib_logo.png",
         "potentialAction": {
@@ -128,12 +121,7 @@ class PricingPageView(MetadataMixin,JsonLdContextMixin,TemplateView):
             "https://www.facebook.com/desklib",
             "https://twitter.com/desklib",
             "https://www.linkedin.com/company/desklib",
-            "https://www.youtube.com/desklib",
-            "https://www.pinterest.com/desklib/",
-            "https://www.instagram.com/desklib/",
-            "https://plus.google.com/+desklib",
-            "https://en.wikipedia.org/wiki/desklib",
-            "https://github.com/desklib"
+            "https://www.instagram.com/desklib/"
         ]
     }
 
@@ -150,7 +138,7 @@ class ContactPageView(MetadataMixin,JsonLdContextMixin, TemplateView):
 
     structured_data = {
         "@type": "Organization",
-        "name": "DeskLib",
+        "name": "Desklib",
         "description": _(
             '24X7 online support for our customers. Reach our customer support and get your queries answered instantly.'),
         "url": "https://desklib.com/",
@@ -164,12 +152,7 @@ class ContactPageView(MetadataMixin,JsonLdContextMixin, TemplateView):
             "https://www.facebook.com/desklib",
             "https://twitter.com/desklib",
             "https://www.linkedin.com/company/desklib",
-            "https://www.youtube.com/desklib",
-            "https://www.pinterest.com/desklib/",
-            "https://www.instagram.com/desklib/",
-            "https://plus.google.com/+desklib",
-            "https://en.wikipedia.org/wiki/desklib",
-            "https://github.com/desklib"
+            "https://www.instagram.com/desklib/"
         ]
     }
 
@@ -267,31 +250,31 @@ class PayNowView(LoginRequiredMixin,TemplateView):
 
 class TermsOfUseView(MetadataMixin, TemplateView):
     title = 'Terms of use | desklib.com'
-    description = 'DeskLib is a single stop solution for all your academic needs. We provide millions of study documents which can be used for by students to obtain better grades.'
+    description = 'Desklib is a single stop solution for all your academic needs. We provide millions of study documents which can be used for by students to obtain better grades.'
     template_name = "desklib/termsofuse.html"
 
 
 class PrivacyPolicyView(MetadataMixin, TemplateView):
     title = 'Privacy Policy | desklib.com'
-    description = 'DeskLib is a single stop solution for all your academic needs. We provide millions of study documents which can be used for by students to obtain better grades.'
+    description = 'Desklib is a single stop solution for all your academic needs. We provide millions of study documents which can be used for by students to obtain better grades.'
     template_name = "desklib/privacypolicy.html"
 
 
 class CopyrightPolicyView(MetadataMixin, TemplateView):
     title = 'Copyright Policy | desklib.com'
-    description = 'DeskLib is a single stop solution for all your academic needs. We provide millions of study documents which can be used for by students to obtain better grades.'
+    description = 'Desklib is a single stop solution for all your academic needs. We provide millions of study documents which can be used for by students to obtain better grades.'
     template_name = "desklib/copyrightpolicy.html"
 
 
 class AcademicIntegrityView(MetadataMixin, TemplateView):
     title = 'Academic Integrity | desklib.com'
-    description = 'DeskLib is a single stop solution for all your academic needs. We provide millions of study documents which can be used for by students to obtain better grades.'
+    description = 'Desklib is a single stop solution for all your academic needs. We provide millions of study documents which can be used for by students to obtain better grades.'
     template_name = "desklib/academicintegrity.html"
 
 
 class HonorCodeView(MetadataMixin, TemplateView):
     title = 'Honor Code | desklib.com'
-    description = 'DeskLib is a single stop solution for all your academic needs. We provide millions of study documents which can be used for by students to obtain better grades.'
+    description = 'Desklib is a single stop solution for all your academic needs. We provide millions of study documents which can be used for by students to obtain better grades.'
     template_name = "desklib/honorcode.html"
 
 

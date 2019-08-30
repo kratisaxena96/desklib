@@ -244,8 +244,8 @@ class Document(ModelMeta, models.Model):
         # Get the complete file path to obtain filename
 
         # First time save
-
-        self.updated = timezone.now()
+        if not kwargs.get('ignore_timestamps'):
+            self.updated = timezone.now()
 
         # We only autogenerate data at time of creation.
         if not self.id:
@@ -305,8 +305,8 @@ class Document(ModelMeta, models.Model):
             self.seo_description = self.first_sentence
             # self.seo_keywords = ",".join(get_keywords_from_text(text, count=3))
 
-            # Assigning author
-            self.author = get_user_model().objects.first()
+            # Assigning author, sould be 1st superuser
+            self.author = get_user_model().objects.filter(is_superuser=True).first()
             # self.subjects.set(get_subjects(text))
 
             pre, ext = os.path.splitext(filename)
