@@ -18,6 +18,7 @@ INSTALLED_APPS += [
     'debug_toolbar',
 ]
 
+ALLOWED_IPS = ['192.168.0.86']
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -30,7 +31,7 @@ DATABASES = {
         'PASSWORD': 'locus123',
     }
 }
-EXPECTED_IP_API = ['192.168.1.1','127.0.0.1']
+# EXPECTED_IP_API = ['192.168.1.1','127.0.0.1']
 #Commented out in production envirment
 SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
 
@@ -59,3 +60,17 @@ KEEP_COMMENTS_ON_MINIFYING = False
 PAYPAL_TEST = True
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 6
 META_USE_TITLE_TAG = True
+
+
+# DEFAULT_FILE_STORAGE = 'desklib.storages.CustomUploadsRootS3BotoStorage'
+# STATICFILES_STORAGE = 'desklib.storages.CustomStaticRootS3BotoStorage'
+# # storage
+# AWS_SECRET_ACCESS_KEY = '3Paf2XjrwAbe1uP0ZeveOdnba5mnNHpFTpdmfL4K2O8'
+# AWS_ACCESS_KEY_ID = 'ABQTHDBUNP7FWZLKRYQG'
+# AWS_S3_REGION_NAME = 'sgp1'
+# AWS_STORAGE_BUCKET_NAME = 'desklib'
+# AWS_S3_ENDPOINT_URL = 'https://%s.digitaloceanspaces.com' % AWS_S3_REGION_NAME
+# AWS_LOCATION = 'uploads'
+#
+# STATIC_URL = 'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION)
+

@@ -263,8 +263,8 @@ opacity:0.9 !important;
                 {% csrf_token %}
                 
                    <label class="mr-2">{% if object.was_helpful %}
-                  {{object.was_helpful}} people found this Helpful. Did you find it helpful?
-                  {% else %} Did you find it helpful?{% endif %}</label>
+                  {{object.was_helpful}} people found this Helpful.
+                  {% endif %} Did you find it helpful?</label>
 
                 <button data-value="helpful" class="btn btn-light border submit-feedback mr-2">Useful</button>
                 <button data-value="not-helpful" class="btn btn-light border submit-feedback">Not Useful</button>
