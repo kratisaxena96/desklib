@@ -119,3 +119,10 @@
   </div>
 </main>
 {% endblock %}
+{% block extra_js %}
+<script>
+    $(document).ready(function (){
+        $(".register").addClass("active");
+    });
+</script>
+{% endblock extra_js %}

@@ -9,7 +9,7 @@
 
 <section class="container-fluid banner-image img-responsive">
 <!--    <div class=""></div>-->
-    <div class="row pl-5 pt-10 pb-10">
+    <div class="row pl-5 pt-10 pb-10 pltb-0">
         <div class="col-md-6 mt-8">
             <h1 class="blue-theme py-2">Best resources for your studies</h1>
             <h3 class="pb-2">Search from over 2 million study documents</h3>
@@ -79,7 +79,7 @@
 <section class="container mt-5">
         <div class="row">
             <div class="col-md-6">
-                <div class="yellow p-5">
+                <div class="yellow p-5 p-15">
                     <h2 class="font-40">Discover resources similar to your homework problems</h2>
                     <a href="{%url 'study:study-search'%}">
                     <button class="btn btn-primary btn-bg-theme top-30 margin-top-40">
@@ -89,7 +89,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="green p-5">
+                <div class="green p-5 p-15">
                     <h2 class="font-40">Free tools to improve your writing skills instantly</h2>
                     <a href="{% url 'writing:grammar' %}">
                     <button class="btn btn-primary btn-bg-theme top-20 margin-top-40">
@@ -101,14 +101,11 @@
     </div>
 </section>
 
-{% if top_results %}
-
-<section class="container-fluid mt-5 bg-light pt-2">
+{% if top_results %} <section class="container-fluid mt-5 bg-light pt-2">
     <h2 class="text-center">Top study documents</h2>
-        <div class="container">
-        <div class="row">
+        <div class="main-content" id="main0">
             <div class="owl-carousel owl-theme mt-4">
-              {% for results in top_results %}
+               {% for results in top_results %}
                         <a href="{% url 'documents:document-view' results.slug %}">
                             <div class="item shadow mr-1 mb-5 bg-white rounded">
                                 <div class="card">
@@ -118,18 +115,17 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="owl-theme">
-                                <div class="owl-controls">
-                                    <div class="custom-nav owl-nav"></div>
-                                </div>
-                            </div>
-                    </a>
+                        </a>
                 {% endfor %}
             </div>
-    </div>
+            <div class="owl-theme">
+                <div class="owl-controls">
+                    <div class="custom-nav owl-nav"></div>
+                </div>
+            </div>
         </div>
-<!--                <div><p class="text-center font-size-20 font-weight-400 padding-bottom-30"><a href="#">View all</a></p></div>-->
-</section>
+  </section>
+
 
 {% endif %}
 
@@ -255,30 +251,29 @@
 {% endblock %}
 {% block extra_js %}
 <script>
-    $(document).ready(function () {
-            $(".owl-carousel").owlCarousel({
-                //margin: 50,
-                //nav: true,
-                dots: false,
-                loop: true,
-                autoplay: true,
-                responsiveClass: true,
-                responsive: {
-                    0: {
-                        items: 1,
-                    },
-                    400: {
-                        items: 2,
-                    },
-                    768: {
-                        items: 4,
-                    },
-                    992: {
-                        items: 6,
-                    }
-                }
-            });
+$('#main0 .owl-carousel').owlCarousel({
+    autoplay:true,
+    stagePadding: 50,
+    loop: true,
+    margin: 10,
+    nav: true,
+    navText: [
+        '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+        '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+    ],
+    navContainer: '#main0 .custom-nav',
+    responsive:{
+        0:{
+            items: 1
+        },
+        600:{
+            items: 3
+        },
+        1000:{
+            items: 5
+        }
+    }
+});
 
-        });
 </script>
 {% endblock %}
