@@ -112,6 +112,13 @@
   </div>
 </main>
 {% endblock %}
+{% block extra_js %}
+    <script>
+        $(document).ready(function (){
+        $(".login").addClass("active");
+    });
+    </script>
+{% endblock extra_js %}
 {% comment %}
     <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit">
                   <a class="white" href="{% url 'account_reset_password' %}">{% trans "Forgot Password ?" %}</a>
