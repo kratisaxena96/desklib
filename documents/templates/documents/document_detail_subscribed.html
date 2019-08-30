@@ -214,8 +214,20 @@ opacity:0.9 !important;
 
 
                                   <div class="form-group text-left">
-                                    <label for="id_issue">{{form.issue.label}}</label>
+                                    <p>{{form.issue.label}}</p>
+
+
+                                        {% for x in form.fields.issue.choices %}
+                                          <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" class="custom-control-input" id="{{x.1}}" name="issue" value="{{x.0}}" checked>
+                                            <label class="custom-control-label" for="{{x.1}}">{{x.1}}</label>
+                                          </div>
+                                        {% endfor %}
+
+
+            {% comment %}
                                       {{form.issue}}
+            {% endcomment %}
                                     <span class="issue text-danger"></span>
                                   </div>
                                   <div class="form-group text-left">
@@ -255,9 +267,10 @@ opacity:0.9 !important;
                 <form class="feedback-form" action="." method="post" data-url="{% url 'api:document-feedback-api' slug=object.slug %}">
                 {% csrf_token %}
 
-                <label class="mr-2">{% if object.was_helpful %}
+                   <label class="mr-2">{% if object.was_helpful %}
                   {{object.was_helpful}} people found this Helpful.
-                  {% else %} Did you find it helpful?{% endif %}</label>
+                  {% endif %} Did you find it helpful?</label>
+
                 <button data-value="helpful" class="btn border-1 submit-feedback mr-2">Useful</button>
                 <button data-value="not-helpful" class="btn border-1 submit-feedback">Not Useful</button>
                 <!--<input type="submit" name="was_heplful" value="Yes">-->

@@ -6,7 +6,7 @@ from django.conf import settings
 from post_office import mail
 from documents.models import Document
 from api.serializers import DocumentCreateSerializer, CreateSampleSerializer, ReportDocumentSerializer, DocumentFeedbackSerializer
-from desklib.settings.base import EXPECTED_IP_API
+# from desklib.settings.base import EXPECTED_IP_API
 from django.http import HttpResponse
 from desklib.mixins import RestrictIpMixin
 
@@ -14,20 +14,20 @@ from desklib.mixins import RestrictIpMixin
 class DocumentCreateApiView(RestrictIpMixin, CreateAPIView):
     serializer_class = DocumentCreateSerializer
 
-    def post(self, request, *args, **kwargs):
-        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-        if x_forwarded_for:
-            ip = x_forwarded_for.split(',')[0]
-        else:
-            ip = request.META.get('REMOTE_ADDR')
+    # def post(self, request, *args, **kwargs):
+    #     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    #     if x_forwarded_for:
+    #         ip = x_forwarded_for.split(',')[0]
+    #     else:
+    #         ip = request.META.get('REMOTE_ADDR')
+    #
+    #     if ip not in EXPECTED_IP_API:
+    #         return HttpResponse('Unauthorized', status=401)
+    #     return self.create(request, *args, **kwargs)
 
-        if ip not in EXPECTED_IP_API:
-            return HttpResponse('Unauthorized', status=401)
-        return self.create(request, *args, **kwargs)
 
 
-
-class CreateSampleApiView(CreateAPIView):
+class CreateSampleApiView(RestrictIpMixin, CreateAPIView):
     serializer_class = CreateSampleSerializer
 
 
