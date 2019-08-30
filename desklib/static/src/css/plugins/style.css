@@ -1,26 +1,3 @@
-html, body {
-    font-family: 'Source Sans Pro', sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    overflow-x: hidden;
-}
-
-body {
-    overflow-x: hidden;
-    color: #372747;
-    background-color: #fff;
-    /* standard content page without many images etc: */
-    /* language-specific page: */
-}
-
-body a {
-    text-decoration: none;
-    color: #0a69d8;
-}
-
 body .contentHead {
     font-size: 40px;
     font-weight: 700;
