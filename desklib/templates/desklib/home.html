@@ -9,10 +9,10 @@
 
 <section class="container-fluid banner-image img-responsive">
 <!--    <div class=""></div>-->
-    <div class="row pl-5 pt-10 pb-10">
+    <div class="row pl-5 pt-10 pb-10 pltb-0">
         <div class="col-md-6 mt-8">
-            <h1 class="blue-theme py-2">One of three columns</h1>
-            <h3 class="pb-2">Search from 2 million attributes</h3>
+            <h1 class="blue-theme py-2">Best resources for your studies</h1>
+            <h3 class="pb-2">Search from over 2 million study documents</h3>
 <!--            <div class="mb-3">-->
                 <form class="form-inline my-2 my-lg-0" action="{% url 'study:search-results' %}">
 <!--          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
@@ -42,7 +42,7 @@
 <!--                <i class="fa fa-search"></i>-->
 <!--              </div>-->
 <!--            </div>-->
-            <p class="pt-1 pb-5">Eg: Starbucks case study, presentation.</p>
+            <p class="pt-1 pb-5">Eg: marketing plan, database design</p>
 
         </div>
         <div class="col-md-6">
@@ -79,8 +79,8 @@
 <section class="container mt-5">
         <div class="row">
             <div class="col-md-6">
-                <div class="yellow p-5">
-                    <h2 class="font-40">Having a hard time completing your work.</h2>
+                <div class="yellow p-5 p-15">
+                    <h2 class="font-40">Discover resources similar to your homework problems</h2>
                     <a href="{%url 'study:study-search'%}">
                     <button class="btn btn-primary btn-bg-theme top-30 margin-top-40">
                         Explore Resources
@@ -89,11 +89,11 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="green p-5">
-                    <h2 class="font-40">Not sure if your written document is error-free.</h2>
+                <div class="green p-5 p-15">
+                    <h2 class="font-40">Free tools to improve your writing skills instantly</h2>
                     <a href="{% url 'writing:grammar' %}">
                     <button class="btn btn-primary btn-bg-theme top-20 margin-top-40">
-                        Check Paper
+                        Check my paper
                     </button>
                     </a>
                 </div>
@@ -101,14 +101,11 @@
     </div>
 </section>
 
-{% if top_results %}
-
-<section class="container-fluid mt-5 bg-light pt-2">
+{% if top_results %} <section class="container-fluid mt-5 bg-light pt-2">
     <h2 class="text-center">Top study documents</h2>
-        <div class="container">
-        <div class="row">
+        <div class="main-content" id="main0">
             <div class="owl-carousel owl-theme mt-4">
-              {% for results in top_results %}
+               {% for results in top_results %}
                         <a href="{% url 'documents:document-view' results.slug %}">
                             <div class="item shadow mr-1 mb-5 bg-white rounded">
                                 <div class="card">
@@ -118,18 +115,17 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="owl-theme">
-                                <div class="owl-controls">
-                                    <div class="custom-nav owl-nav"></div>
-                                </div>
-                            </div>
-                    </a>
+                        </a>
                 {% endfor %}
             </div>
-    </div>
+            <div class="owl-theme">
+                <div class="owl-controls">
+                    <div class="custom-nav owl-nav"></div>
+                </div>
+            </div>
         </div>
-<!--                <div><p class="text-center font-size-20 font-weight-400 padding-bottom-30"><a href="#">View all</a></p></div>-->
-</section>
+  </section>
+
 
 {% endif %}
 
@@ -137,38 +133,40 @@
     <div class="padding-top-30 py-5">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="text-center">Subscription details</h2>
-                <p class="text-center">Access unlimited resources anytime - anywhere</p>
+                <h2 class="text-center">Subscription Details</h2>
+                <p class="text-center">Access complete resources anytime - anywhere with complete document downloads</p>
             </div>
         </div>
         <div class="row mt-5">
             <div class="col-md-3 text-center">
                 <img src="{% static 'src/assets/images/Documents icon.png' %}" alt="doc-img">
-                <p class="font-size-25 font-weight-600 padding-top-20">Documents</p>
-                <p class="font-size-20 font-weight-400">Explore, run and improve</p>
+                <p class="font-size-25 font-weight-600 padding-top-20">Explore Documents</p>
+                <p class="font-size-20 font-weight-400">Access complete document content from anywhere. Search easily related resources based on your needs</p>
             </div>
             <div class="col-md-3 text-center">
                 <img class="text-center" src="{% static 'src/assets/images/Downloads icon.png' %}" alt="download-img">
-                <p class="font-size-25 font-weight-600 padding-top-20">Downloads</p>
-                <p class="font-size-20 font-weight-400">Download upto 60 resources a month</p>
+                <p class="font-size-25 font-weight-600 padding-top-20">Download Resources</p>
+                <p class="font-size-20 font-weight-400">Download resources directly and use them offline. Receive documents on your email address</p>
             </div>
             <div class="col-md-3 text-center">
                 <img class="text-center" src="{% static 'src/assets/images/writing tools icon.png' %}" alt="write-img">
-                <p class="font-size-25 font-weight-600 padding-top-20">Writing Tools</p>
-                <p class="font-size-20 font-weight-400">Free tools to improve writing</p>
+                <p class="font-size-25 font-weight-600 padding-top-20">Improve Writing</p>
+                <p class="font-size-20 font-weight-400">Free tools to improve your writing and grammar. Get your content edited by our experienced writers</p>
             </div>
             <div class="col-md-3 text-center">
                 <img class="text-center" src="{% static 'src/assets/images/upload icon.png' %}" alt="upload-img">
-                <p class="font-size-25 font-weight-600 padding-top-20">Upload</p>
-                <p class="font-size-20 font-weight-400">Upload resources and earn credits</p>
+                <p class="font-size-25 font-weight-600 padding-top-20">Upload Resources</p>
+                <p class="font-size-20 font-weight-400">Upload your resources and earn credits. Spread your knowledge and help many other students in need</p>
             </div>
         </div>
     </div>
     <div class="row mt-3">
         <div class="col-md-12 text-center">
-            <a class="btn btn-primary btn-bg-theme py-3 px-4 border-radius-40" href="{% url 'subscription' %}">Subscribe us for $30 a month</a>
-            <p class="pt-3">*View access unlimited with limits on daily usage.</p>
+            <a class="btn btn-primary btn-bg-theme py-3 px-4 border-radius-40" href="{% url 'subscription' %}">Subscribe us for an low as $30 a month</a>
+            <p class="pt-3">* Please read details about our subscription by clicking on the link above</p>
+            {% comment %}
             <p class="font-size-20 blue-font"> <a href="{% url 'subscription' %}">Learn more</a></p>
+            {% endcomment %}
         </div>
     </div>
 </section>
@@ -253,31 +251,30 @@
 {% endblock %}
 {% block extra_js %}
 <script>
-    $(document).ready(function () {
-            $(".owl-carousel").owlCarousel({
-                //margin: 50,
-                nav: true,
-                dots: false,
-                loop: true,
-                autoplay: true,
-                //responsiveClass: true,
-                responsive: {
-                    0: {
-                        items: 1,
-                    },
-                    400: {
-                        items: 2,
-                    },
-                    768: {
-                        items: 4,
-                    },
-                    992: {
-                        items: 6,
-                    }
-                }
-            });
+$('#main0 .owl-carousel').owlCarousel({
+    autoplay:true,
+    stagePadding: 50,
+    loop: true,
+    margin: 10,
+    nav: true,
+    navText: [
+        '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+        '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+    ],
+    navContainer: '#main0 .custom-nav',
+    responsive:{
+        0:{
+            items: 1
+        },
+        600:{
+            items: 3
+        },
+        1000:{
+            items: 5
+        }
+    }
+});
 
-        });
 </script>
 <script>
     $(document).ready(function (){

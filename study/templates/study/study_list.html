@@ -9,13 +9,12 @@
     {% endblock extra_css %}
 {% block content %}
 <section class="container-fluid banner-image-study">
-    <div class="pt-10"></div>
-    <div class="row pl-5">
+    <div class="row pl-5 pt-10 pltb-0">
           <div class="col-md-6 mt-8">
       </div>
         <div class="col-md-6 mt-8">
-            <h1 class="blue-theme py-2">One of three columns</h1>
-            <h3 class="pb-2">Search from 2 million attributes</h3>
+            <h1 class="blue-theme py-2">Best resources for your studies</h1>
+            <h3 class="pb-2">Search from over 2 million study documents</h3>
 <!--            <div class="mb-3">-->
                 <form class="form-inline my-2 my-lg-0" action="{% url 'study:search-results' %}">
 <!--          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
@@ -45,7 +44,7 @@
 <!--                <i class="fa fa-search"></i>-->
 <!--              </div>-->
 <!--            </div>-->
-            <p class="pt-1 pb-5">Eg: Starbucks case study, presentation.</p>
+            <p class="pt-1 pb-5">Eg: marketing plan, database design</p>
 <!--            <p class="text-center">or</p>-->
 <!--            <p class="text-center"><a href="#">Upload a document</a></p>-->
 
@@ -111,37 +110,41 @@
 
               </div>
             </div>
-
 		{% endfor %}
             </div>
 	</section>
     {% if top_results %}
-  <section class="container pt-5">
-    <h2 class="text-center">Top Resources</h2>
-        <div class="row">
-            <div  class="owl-carousel owl-theme mt-4">
-              {% for top in top_results %}
-                        <a href="{% url 'documents:document-view' top.slug %}">
-                            <div class="item shadow mr-1 mb-5 bg-white rounded">
+  <section class="container-fluid pt-5 bg-light">
+    <h2 class="text-center">Top Study Documents</h2>
+        <div class="main-content" id="main0">
+            <div class="owl-carousel owl-theme mt-4">
+                {% for top in top_results %}
+                <a href="{% url 'documents:document-view' top.slug %}">
+                    <div class="item shadow mr-1 mb-5 bg-white rounded">
                         <div class="card">
                             <img class="card-img-top card-height" src="{{top.cover_image}}" alt="Card image">
                             <div class="card-body">
-                                    <p class="card-text">{{top.title|truncatechars:25}}</p>
+                                <p class="card-text">{{top.title|truncatechars:25}}</p>
                             </div>
                         </div>
-                            </div>
-                    </a>
+                    </div>
+                </a>
                 {% endfor %}
             </div>
-    </div>
-<!--                <div><p class="text-center font-size-20 font-weight-400 padding-bottom-30"><a href="#">View all</a></p></div>-->
-</section>
+            <div class="owl-theme">
+                <div class="owl-controls">
+                    <div class="custom-nav owl-nav"></div>
+                </div>
+            </div>
+        </div>
+  </section>
+
     {% endif %}
     {% if recent %}
-     <section class="container mt-0 pt-5 bg-white">
-    <h2 class="text-center">Recent Uploads</h2>
-        <div class="row">
-            <div class="owl-carousel owl-theme mt-4">
+     <section class="container-fluid mt-0 pt-5 bg-white">
+         <h2 class="text-center">Recently uploaded documents</h2>
+        <div class="main-content" id="main" >
+            <div class="owl-carousel owl-theme mt-4 owl-carousel1 ">
               {% for rec in recent %}
                         <a href="{% url 'documents:document-view' rec.slug %}">
                             <div class="item shadow mr-1 mb-5 bg-white rounded">
@@ -160,24 +163,31 @@
                     </a>
                 {% endfor %}
             </div>
-    </div>
-<!--                <div><p class="text-center font-size-20 font-weight-400 padding-bottom-30"><a href="#">View all</a></p></div>-->
+            <div class="owl-theme">
+                <div class="owl-controls">
+                    <div class="custom-nav owl-nav"></div>
+                </div>
+            </div>
+        </div>
+
+<!--           <div><p class="text-center font-size-20 font-weight-400 padding-bottom-30"><a href="#">View all</a></p></div>-->
 </section>
-    {% endif %}
+{% endif %}
+
     <section class="container-fluid pt-5 bg-light padding-bot">
          <h2 class="text-center">Our Subscription Includes</h2>
                 <div class="row text-center mt-4">
                     <div class="col-md-4 col-sm-12">
                         <img class="mb-4" src="{% static 'src/assets/images/unlimited views.png' %}" alt="unlimited views icon"/>
-                        <p>Unlimited Views</p>
+                        <p>Complete document content accessible from anywhere anytime</p>
                     </div>
                     <div class="col-md-4 col-sm-12">
                         <img class="mb-4" src="{% static 'src/assets/images/Downloads icon.png' %}" alt="no of downloads icons"/>
-                        <p>60 Download Per month</p>
+                        <p>Document downloads by sending it directly to your email</p>
                     </div>
                     <div class="col-md-4 col-sm-12">
                         <img class="mb-4" src="{% static 'src/assets/images/Documents icon.png' %}" alt="Total no of documents icon"/>
-                        <p>Over 10,000 Free documents </p>
+                        <p>Access to complete library with over 2 million documents</p>
                     </div>
                 </div>
                 <div class="d-flex justify-content-center mt-4">
@@ -191,35 +201,54 @@
 {% endblock %}
           {% block extra_js %}
  <script>
+$('#main0 .owl-carousel').owlCarousel({
+    autoplay:true,
+    stagePadding: 50,
+    loop: true,
+    margin: 10,
+    nav: true,
+    navText: [
+        '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+        '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+    ],
+    navContainer: '#main0 .custom-nav',
+    responsive:{
+        0:{
+            items: 1
+        },
+        600:{
+            items: 3
+        },
+        1000:{
+            items: 5
+        }
+    }
+});
 
- $(document).ready(function () {
-            $(".owl-carousel").owlCarousel({
-                  autoWidth:false,
-                  //nav:true,
-                items: 4,
-                loop: true,
-                stagePadding: 10,
-                dots: false,
-                autoplay: true,
-                //margin: 50,
-                responsiveClass: true,
-                responsive: {
-                    0: {
-                        items: 1,
-                    },
-                    400: {
-                        items: 2,
-                    },
-                    768: {
-                        items: 4,
-                    },
-                    992: {
-                        items: 6,
-                    }
-                }
-            });
+$('#main .owl-carousel1').owlCarousel({
+    autoplay:true,
+    stagePadding: 50,
+    loop: true,
+    margin: 10,
+    nav: true,
+    navText: [
+        '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+        '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+    ],
+    navContainer: '#main .custom-nav',
+    responsive:{
+        0:{
+            items: 1
+        },
+        600:{
+            items: 3
+        },
+        1000:{
+            items: 5
+        }
+    }
+});
 
-        });
 
 $('#form').submit(function (event) {
   var tempArray = [];
@@ -247,33 +276,6 @@ $('#form').submit(function (event) {
  },
  minLength: 1
 });
-  $(document).ready(function () {
-            $(".owl-first").owlCarousel({
-                items: 5,
-                loop: true,
-                nav: true,
-                stagePadding: 10,
-                dots: false,
-                autoplay: true,
-                //margin: 50,
-                responsiveClass: true,
-                responsive: {
-                    0: {
-                        items: 1,
-                    },
-                    400: {
-                        items: 2,
-                    },
-                    768: {
-                        items: 4,
-                    },
-                    992: {
-                        items: 6,
-                    }
-                }
-            });
-
-        });
 
 </script>
 <script>

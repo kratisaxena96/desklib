@@ -14,10 +14,10 @@
     <link href="https://languagetool.org/css/jquery-ui/jquery-ui.theme.min.css" rel="stylesheet">
     <link href="https://languagetool.org/css/vex.css" rel="stylesheet">
     <link href="https://languagetool.org/css/vex-theme-default.css" rel="stylesheet">
-    <link href="https://languagetool.org/css/style.css?20190516" rel="stylesheet">
+<!--    <link href="https://languagetool.org/css/style.css?20190516" rel="stylesheet">-->
     <link href="https://languagetool.org/css/media.css?20190426" rel="stylesheet">
     <link href="https://languagetool.org/css/tooltip.css?20180419" rel="stylesheet">
-
+    <link href="{% static 'src/css/plugins/style.css' %}" rel="stylesheet">
 
 <!--    <link rel="stylesheet" href="https://languagetool.org/vendors/glide3/dist/css/glide.core.min.css">-->
 <!--    <link rel="stylesheet" href="https://languagetool.org/vendors/glide3/dist/css/glide.theme.min.css">-->
@@ -789,7 +789,7 @@
                                             onClick="doit(true);return false;"
                                             title="Check Text - or use Ctrl+Return">
                                         Check Text                                    </button>
-                                    <button class="btn-tb editor_controls_group_item btn btn-warning btn-bg-theme" type="submit"
+                                    <button class="btn-tb btn-100 editor_controls_group_item btn btn-warning btn-bg-theme" type="submit"
                                             onClick="tinyMCE.activeEditor.setContent('');tinyMCE.get('checktext').focus();return false;"
                                             title="Delete text">
                                         Clear
