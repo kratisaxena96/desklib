@@ -316,6 +316,10 @@ card {
     .p-15{
         padding: 15px !important;
     }
+    .editorHeader{
+    display: block !important;
+    }
+    
 }
 @media only screen and (max-width: $breakpoint-mobile) {
 	.top-image {
