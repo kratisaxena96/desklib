@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     'api',
     'django.contrib.admindocs',
     # 'channels',
+    'storages',
 ]
 
 SITE_ID = 1
@@ -295,6 +296,5 @@ CACHES = {
 #https://sorl-thumbnail.readthedocs.io/en/latest/requirements.html kindly satisfy requirements for sorl-thumbnail.
 
 ASGI_APPLICATION = 'desklib.routing.application'
-
 
 

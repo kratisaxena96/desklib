@@ -221,7 +221,7 @@ body {
 }
 
 .font-40 {
-	width: 60%;
+	width: 65%;
 	font-weight: 400;
 }
 
@@ -303,6 +303,26 @@ card {
 	}
 }
 
+@media only screen and (min-width: $breakpoint-mob) and (max-width: $breakpoint-mobile){
+	.pltb-0{
+		padding-left: 0px !important;
+		padding-top: 10px !important;
+		padding-bottom: 0px !important;
+	}
+	.font-40{
+        width: 80% !important;
+        font-weight: 380;
+    }
+    .p-15{
+        padding: 15px !important;
+    }
+    .editorHeader{
+    display: block !important;
+    }
+    .btn-100{
+    max-width: 100% !important;
+    }
+}
 @media only screen and (max-width: $breakpoint-mobile) {
 	.top-image {
 		height: 80vh;
