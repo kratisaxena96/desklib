@@ -95,7 +95,7 @@ background: rgba(0,0,255,0.3);
     </style>
     <style>
         .page{
-            margin: 15px auto 0px auto;
+            margin: 15px auto 20px auto;
             border: 1px solid #c5c5c5;
             position: relative;
         }
@@ -256,10 +256,10 @@ opacity:0.9 !important;
                 {% csrf_token %}
 
                 <label class="mr-2">{% if object.was_helpful %}
-                  {{object.was_helpful}} people found this Helpful.
+                  {{object.was_helpful}} people found this Helpful. Did you find it helpful?
                   {% else %} Did you find it helpful?{% endif %}</label>
-                <button data-value="helpful" class="btn border-1 submit-feedback mr-2">Useful</button>
-                <button data-value="not-helpful" class="btn border-1 submit-feedback">Not Useful</button>
+                <button data-value="helpful" class="btn btn-light border submit-feedback mr-2">Useful</button>
+                <button data-value="not-helpful" class="btn btn-light border submit-feedback">Not Useful</button>
                 <!--<input type="submit" name="was_heplful" value="Yes">-->
                 <!--<input type="submit" name="not_heplful" value="No">-->
                 </form>
@@ -278,25 +278,28 @@ opacity:0.9 !important;
             <span class="w-75 d-inline-block text-center">Showing pages {{object.pages.all.count}} of {{object.pages.all.count}} </span>
         </div>
 
-
+       
         <div id="viewer" class="documentViewer">
+         
             {% comment %}
             {% for page in object.pages.all %}
             {% endcomment %}
 
             {% for page in object.pages.all %}
-                    <img src="{{ page.image_file.url }}" alt="" class="img-fluid">
+                 {{ page.html|safe }} {% comment %} <img src="{{ page.image_file.url }}" alt="" class="img-fluid">{% endcomment %}
             {% endfor %}
-
+           
         </div>
-{% comment %}
+     
+       {% comment %}
         <div class="subscribe mt-3">
             <div class="jumbotron">
                 <h4>You’re reading a preview. Unlock the full document with a Free Trial!</h4>
                 <a href="{% url 'subscription' %}" class="btn btn-bg-theme text-white">Continue Reading</a>
             </div>
         </div>
-{% endcomment %}
+         {% endcomment %}
+
     </article>
       <aside class="col-sm-4">
         {% if more_like_this %}

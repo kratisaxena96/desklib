@@ -255,11 +255,11 @@ opacity:0.9 !important;
                 {% csrf_token %}
                 
                   <label class="mr-2">{% if object.was_helpful %}
-                  {{object.was_helpful}} people found this Helpful.
+                  {{object.was_helpful}} people found this Helpful. Did you find it helpful?
                   {% else %} Did you find it helpful?{% endif %}</label>
 
-                <button data-value="helpful" class="btn border-1 submit-feedback mr-2">Useful</button>
-                <button data-value="not-helpful" class="btn border-1 submit-feedback">Not Useful</button>
+                <button data-value="helpful" class="btn btn-light border submit-feedback mr-2">Useful</button>
+                <button data-value="not-helpful" class="btn btn-light border submit-feedback">Not Useful</button>
                 <!--<input type="submit" name="was_heplful" value="Yes">-->
                 <!--<input type="submit" name="not_heplful" value="No">-->
                 </form>

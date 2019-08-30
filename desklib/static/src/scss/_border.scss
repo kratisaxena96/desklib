@@ -1,3 +1,6 @@
+.border-radius-5{
+    border-radius: 5px;
+}
 .border-radius-20{
     border-radius: 20px !important;
 }
@@ -12,6 +15,15 @@
 }
 .border-1{
     border: 1px solid #DCDCDC;
+}
+.border-bottom{
+    border-bottom: 1px solid #d4f7ff !important;
+}
+.border-top{
+  border-top: 1px dotted #d4f7ff !important;  
+}
+.border-8{
+    border: 8px solid #ffffff !important;
 }
 .circle-icon{
     background: #ffc0c0;
