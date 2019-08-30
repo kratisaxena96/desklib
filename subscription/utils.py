@@ -25,7 +25,7 @@ def is_subscribed(user):
 def get_current_subscription(user):
     subscribed_status = is_subscribed(user)
 
-    if subscribed_status == True:
+    if subscribed_status:
         subscription_qs = user.subscriptions.all()
         for subscription_obj in subscription_qs:
             expiry_subscription_date = subscription_obj.expire_on
