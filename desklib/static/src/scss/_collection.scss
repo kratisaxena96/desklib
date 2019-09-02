@@ -303,7 +303,7 @@ card {
 		background-size: cover;
 		background-image: url("/static/src/assets/images/explore_resources_img.png");
 		padding: 5%;
-		height: 95%;
+		height: 100%;
 		margin-bottom: 4%;
 	}
 	.resume-img {
@@ -349,7 +349,7 @@ card {
     .no-padding{
     padding:10px !important;
     }
-    .mt-10{
+    .m-top-10{
     margin-top:10px !important;
     }
 }
@@ -368,7 +368,6 @@ card {
 		margin: 0 auto;
 		display: block;
 	}
-	
 }
 
 
@@ -691,6 +690,9 @@ img.img-responsive.mx-auto.d-block {
 	}
 	.login-card {
 		margin-top: 22% !important;
+	}
+	.m-top-10{
+	margin-top: 10px !important;
 	}
 }
 
