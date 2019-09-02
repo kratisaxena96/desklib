@@ -343,7 +343,17 @@ card {
     padding-left: 0px !important;
     padding-right: 0px !important;
     }
+    .dk_toggle{
+    padding:10px 20px 9px 10px !important;
+    }
+    .no-padding{
+    padding:10px !important;
+    }
+    .mt-10{
+    margin-top:10px !important;
+    }
 }
+
 @media only screen and (max-width: $breakpoint-mobile) {
 	.top-image {
 		height: 80vh;
