@@ -74,7 +74,7 @@ def pdf_converted_files(instance, filename):
 
     return 'pdf_converted_file/{}/{}'.format(
         now.strftime("%Y/%m/%d/"),
-        filename,
+        uuid.uuid4().hex+'.pdf',
     )
 
 def images(instance, filename):
@@ -361,10 +361,11 @@ class Document(ModelMeta, models.Model):
             # Creating pages data for document
             page_count = 1
             for pdf_img in pdf_images:
+                pdf_images_pre, pdf_images_ext = os.path.splitext(pdf_img.filename)
                 page_obj = Page()
                 # page_obj.name = pdf_img.filename
                 page_obj.no = page_count
-                page_obj.image_file = DjangoFile(open(pdf_img.filename, 'rb'), name=uuid.uuid4().hex+'.jpg')
+                page_obj.image_file = DjangoFile(open(pdf_img.filename, 'rb'), name=uuid.uuid4().hex+pdf_images_ext)
                 page_obj.html = page_html_data[page_count]
                 page_obj.document = self
                 page_obj.author = self.author
