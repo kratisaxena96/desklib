@@ -784,11 +784,9 @@ section.pricing {
     list-style-type: none;
     padding: 0 !important;
 }
-.span-bg {
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    margin: 5px;
-    background-color: white;
-    //background-color: #555;
+::placeholder { /* Firefox, Chrome, Opera */
+    color: #B8B8B8 !important;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #B8B8B8 !important;
 }
