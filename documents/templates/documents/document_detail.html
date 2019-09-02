@@ -208,7 +208,7 @@ opacity:0.9 !important;
                           <div class="modal-body">
 
                             <div class="report">
-                                <form id="report-form" action="." method="post" data-url="{% url 'api:report-document-api' %}" data-slug="{{object.slug }}">
+                                <form id="report-form" action="." method="post" data-url="{% url 'api:report-document-api' %}" data-title="{{object.pk  }}">
                                 {% csrf_token %}
 
 
@@ -259,9 +259,9 @@ opacity:0.9 !important;
         <div class="alert alert-light border">
 
             <div class="feedback">
-                <form class="feedback-form" action="." method="post" data-url="{% url 'api:document-feedback-api' slug=object.slug %}"> 
+                <form class="feedback-form" action="." method="post" data-url="{% url 'api:document-feedback-api' slug=object.slug %}">
                 {% csrf_token %}
-                
+
                    <label class="mr-2">{% if object.was_helpful %}
                   {{object.was_helpful}} people found this document helpful.
                   {% endif %} Did you find it helpful?</label>
@@ -331,7 +331,7 @@ opacity:0.9 !important;
                                 <div class="row">
                             {% endif %}
                             {% endif %}
-                       
+
                         {% endfor %}
                     </div>
                 </div>
@@ -476,7 +476,7 @@ $(document).ready(function(){
     $("#report-form").submit(function(e){
         e.preventDefault();
         url = $("#report-form").data("url");
-        slug = $("#report-form").data("slug");
+        title = $("#report-form").data("title");
                       jQuery(".report-form-popup").hide();
                       jQuery(".loader-container").show();
         //alert(url)
