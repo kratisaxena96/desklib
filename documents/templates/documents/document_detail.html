@@ -208,7 +208,7 @@ opacity:0.9 !important;
                           <div class="modal-body">
 
                             <div class="report">
-                                <form id="report-form" action="." method="post" data-url="{% url 'api:report-document-api' %}" data-title="{{object.pk  }}">
+                                <form id="report-form" action="." method="post" data-url="{% url 'api:report-document-api' %}" data-slug="{{object.slug }}">
                                 {% csrf_token %}
 
 
@@ -476,7 +476,7 @@ $(document).ready(function(){
     $("#report-form").submit(function(e){
         e.preventDefault();
         url = $("#report-form").data("url");
-        title = $("#report-form").data("title");
+        slug = $("#report-form").data("slug");
                       jQuery(".report-form-popup").hide();
                       jQuery(".loader-container").show();
         //alert(url)
