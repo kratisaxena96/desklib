@@ -40,7 +40,7 @@ class CustomSignupForm(SignupForm):
 
 
 class CustomLoginForm(LoginForm):
-    password = forms.CharField(max_length=30, label='Password', widget=forms.PasswordInput(attrs={'class':"form-control"}))
+    password = forms.CharField(max_length=30, label='Password', widget=forms.PasswordInput(attrs={'placeholder': "Password", 'class':"form-control placeholder"}))
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)

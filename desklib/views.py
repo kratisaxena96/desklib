@@ -21,6 +21,41 @@ import pytz
 logger = logging.getLogger(__name__)
 
 
+class ComingSoonPageView(MetadataMixin, JsonLdContextMixin, TemplateView):
+    form_class = HomeSearchForm
+    title = 'Best study and educational resources | desklib.com'
+    description = 'Desklib is your home for best study resources and educational documents. We have a large collection of homework answers, assignment solutions, reports, sample resume and presentations. Our study tools help you improve your writing skills and grammar.'
+    keywords = ['study resources', 'study material', 'homework solution', 'study tools', 'online tutoring', 'educational documents', 'sample resume']
+    twitter_title = 'All study resources you will need to secure best grades in your assignments'
+    og_title = 'All study resources you will need to secure best grades in your assignments'
+    gplus_title = 'All study resources you will need to secure best grades in your assignments'
+
+    template_name = "desklib/coming_soon.html"
+
+    structured_data = {
+        "@type": "Organization",
+        "name": "Desklib",
+        "description": _("All study resources you will need to secure best grade."),
+        "url": "https://desklib.com/",
+        "logo": "https://desklib.com/assets/img/desklib_logo.png",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://desklib.com/study/search/?q={search_term}",
+            "query-input": "required name=search_term"
+        },
+        "sameAs": [
+            "https://www.facebook.com/desklib",
+            "https://twitter.com/desklib",
+            "https://www.linkedin.com/company/desklib",
+            "https://www.instagram.com/desklib/"
+        ]
+    }
+
+    def get_structured_data(self):
+        sd = super(ComingSoonPageView, self).get_structured_data()
+        return sd
+
+
 class HomePageView(MetadataMixin, JsonLdContextMixin, SearchView):
     form_class = HomeSearchForm
     title = 'Best study and educational resources | desklib.com'
@@ -214,7 +249,10 @@ class PaypalPaymentView(TemplateView):
 class SubscriptionView(TemplateView):
     template_name = 'desklib/subscription.html'
 
-
+    def get_context_data(self, **kwargs):
+        context = super(SubscriptionView, self).get_context_data(**kwargs)
+        context['plan_qs'] = Plan.objects.all()
+        return context
 
 class PayNowView(LoginRequiredMixin,TemplateView):
     template_name = 'desklib/paynow.html'
