@@ -279,8 +279,8 @@ class PayNowView(LoginRequiredMixin,TemplateView):
                 "item_name": "desklib subscription",
                 # "invoice": "unique-invoice-id",
                 "notify_url": self.request.build_absolute_uri(reverse('paypal-ipn')),
-                "return": self.request.build_absolute_uri(reverse('about')),
-                "cancel_return": self.request.build_absolute_uri(reverse('contact')),
+                "return": self.request.build_absolute_uri(reverse('home')),
+                "cancel_return": self.request.build_absolute_uri(reverse('payment_cancelled')),
                 "custom": self.request.user.username + "_" + plan_key,  # Custom command to correlate to some function later (optional)
             }
 
@@ -319,3 +319,5 @@ class HonorCodeView(MetadataMixin, TemplateView):
     template_name = "desklib/honorcode.html"
 
 
+class PaymentCancelledView(LoginRequiredMixin, TemplateView):
+    template_name = 'desklib/payment_cancelled.html'
