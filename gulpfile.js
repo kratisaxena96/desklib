@@ -24,7 +24,7 @@ gulp.task('build-css', () => {
 });
 
 gulp.task('minify-css', ['build-css'], () => {
-  return gulp.src(['desklib/static/src/css/**/*.css',   '!desklib/static/src/css/coming-soon/coming-soon.css'])
+  return gulp.src(['desklib/static/src/css/*.css',   '!desklib/static/src/css/coming-soon/coming-soon.css'])
     .pipe(sourcemaps.init())
     .pipe(concat('bundle.css'))
     .pipe(cleanCSS())
