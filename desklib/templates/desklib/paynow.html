@@ -1,14 +1,13 @@
 {% extends 'desklib/base.html' %}
 {% block content %}
 Pay Now Page
-{{user}}
-{{user.username}}
 <div class="loader">
 </div>
     {{ form.render }}
 
 
 {% endblock %}
+{% comment %}
 {% block extra_js %}
 <script>
     $(document).ready(function(){
@@ -17,3 +16,4 @@ Pay Now Page
 
 </script>
     {% endblock extra_js %}
+{% endcomment %}

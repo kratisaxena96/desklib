@@ -1,10 +1,7 @@
 {% extends "desklib/base.html" %}
-
 {% load i18n %}
 {% load account %}
-
 {% block head_title %}{% trans "Subscription Page" %}{% endblock %}
-
 {% block content %}
 <section class="pricing py-5">
   <div class="container">
@@ -23,14 +20,13 @@
               <li><span class="fa-li"><i class="fas fa-check"></i></span>{{plan.view_limit}} View limit</li>
 
             </ul>
-            <a href="{% url 'paynow' %}" class="btn btn-block btn-primary text-uppercase">Subscribe Now</a>
+            <a href="{% url 'paynow' key=plan.key%}" class="btn btn-block btn-primary text-uppercase">Subscribe Now</a>
           </div>
         </div>
       </div>
       {% endfor %}
       <!-- Plus Tier -->
       <!-- Pro Tier -->
-
     </div>
   </div>
 </section>
