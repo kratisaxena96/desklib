@@ -257,9 +257,12 @@ class SubscriptionView(TemplateView):
 class PayNowView(LoginRequiredMixin,TemplateView):
     template_name = 'desklib/paynow.html'
 
+
+
     def get_context_data(self, **kwargs):
         context = super(PayNowView, self).get_context_data(**kwargs)
-        plan_monthly = Plan.objects.first()
+        plan_key = kwargs.get('key')
+        plan= Plan.objects.get(key=plan_key)
 
 
         if settings.PAYPAL_TEST:
@@ -272,13 +275,13 @@ class PayNowView(LoginRequiredMixin,TemplateView):
         if not self.request.user.subscriptions.all().filter(expire_on__gt = now):
             paypal_dict = {
                 "business": receiver_email,
-                "amount": "9.00",
+                "amount": plan.price,
                 "item_name": "desklib subscription",
                 # "invoice": "unique-invoice-id",
                 "notify_url": self.request.build_absolute_uri(reverse('paypal-ipn')),
                 "return": self.request.build_absolute_uri(reverse('about')),
                 "cancel_return": self.request.build_absolute_uri(reverse('contact')),
-                "custom": self.request.user.username + "_" + plan_monthly.key,  # Custom command to correlate to some function later (optional)
+                "custom": self.request.user.username + "_" + plan_key,  # Custom command to correlate to some function later (optional)
             }
 
             form = PayPalPaymentsForm(initial=paypal_dict, button_type="subscribe")
