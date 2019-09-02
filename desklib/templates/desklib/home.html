@@ -79,7 +79,7 @@
 <section class="container mt-5">
         <div class="row">
             <div class="col-md-6">
-                <div class="yellow p-5 p-15">
+                <div class="yellow p-5 p-15 rounded">
                     <h2 class="font-40">Discover resources similar to your homework problems</h2>
                     <a href="{%url 'study:study-search'%}">
                     <button class="btn btn-primary btn-bg-theme top-30 margin-top-40">
@@ -89,8 +89,8 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="green p-5 p-15">
-                    <h2 class="font-40">Free tools to improve your writing skills instantly</h2>
+                <div class="green p-5 p-15 rounded">
+                    <h2 class="font-40">Remove errors and improve your writing skills instantly</h2>
                     <a href="{% url 'writing:grammar' %}">
                     <button class="btn btn-primary btn-bg-theme top-20 margin-top-40">
                         Check my paper
@@ -101,7 +101,7 @@
     </div>
 </section>
 
-{% if top_results %} <section class="container-fluid mt-5 bg-light pt-2">
+{% if top_results %} <section class="container-fluid mt-5 pt-4 bg-light pt-2">
     <h2 class="text-center">Top study documents</h2>
         <div class="main-content" id="main0">
             <div class="owl-carousel owl-theme mt-4">
