@@ -249,7 +249,10 @@ class PaypalPaymentView(TemplateView):
 class SubscriptionView(TemplateView):
     template_name = 'desklib/subscription.html'
 
-
+    def get_context_data(self, **kwargs):
+        context = super(SubscriptionView, self).get_context_data(**kwargs)
+        context['plan_qs'] = Plan.objects.all()
+        return context
 
 class PayNowView(LoginRequiredMixin,TemplateView):
     template_name = 'desklib/paynow.html'

@@ -103,7 +103,7 @@
               <div class="card-body">
                 <h5 class="card-title">{{ p }}</h5>
                     {% for child in p.subject_set.all %}
-                    <a class="card-link" href="{% url 'study:search-results' %}?q=&amp;selected_facets=subjects_exact:{{child.slug}}">
+                    <a class="card-link mr-4" href="{% url 'study:search-results' %}?q=&amp;selected_facets=subjects_exact:{{child.slug}}">
 						{{child}}
 						</a>
                     {% endfor %}
@@ -186,7 +186,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center mt-4">
-                    <a class="btn btn-primary btn-bg-theme btn-lg" href="{% url 'subscription' %}">Try Now</a>
+                    <a class="btn btn-primary btn-bg-theme btn-lg border-radius-40" href="{% url 'subscription' %}">Try Now</a>
                 </div>
     </section>
 	

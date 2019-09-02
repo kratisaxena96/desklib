@@ -784,3 +784,9 @@ section.pricing {
     list-style-type: none;
     padding: 0 !important;
 }
+::placeholder { /* Firefox, Chrome, Opera */
+    color: #B8B8B8 !important;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #B8B8B8 !important;
+}
