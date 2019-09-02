@@ -10,10 +10,10 @@
             {% for resume_sample in resume_sample %}
                 <div class="col-md-4">
                     <div class="row sample_card my-2 border-1 bg-light-grey">
-                        <div class="col-2 py-2 px-2"><i class="fa fa-file-alt fa-w-12 fa-3x" aria-hidden="true"></i></div>
-                        <div class="col-10 p-2 pl-3">
+                        <div class="col-2 pt-4 text-center"><i class="fa fa-file-alt fa-w-12 fa-2x" aria-hidden="true"></i></div>
+                        <div class="col-10 pt-2 pl-3">
                             <a href="{% url 'writing:sample-view' resume_sample.slug %}"><p>{{resume_sample.name}}</p></a>
-                            <p>{{resume_sample.get_type_display}}</p>
+                            <p class="mb-2">{{resume_sample.get_type_display}}</p>
                         </div>
                     </div>
                 </div>

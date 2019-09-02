@@ -118,6 +118,8 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -127,6 +129,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'desklib.middleware.IpRestrict',
 ]
 
 INTERNAL_IPS = [
@@ -297,4 +300,4 @@ CACHES = {
 
 ASGI_APPLICATION = 'desklib.routing.application'
 
-
+COMING_SOON = True
