@@ -1,13 +1,30 @@
 {% extends 'desklib/base.html' %}
 {% block content %}
+<main class="login-page py-4 height-100">
+    <div class="container text-center">
+		<div class="row">
+			<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+				<div class="card card-signin box-shadow-3-3-5-5 my-2">
+					<div class="card-body">
+                        <h4 class="h3 py-2" id="head_banner">Pay Now Page <b>{{user.username}}</b></h4>
+                        <hr>
+                            <div class="loader">
+                            </div>
+                            {{ form.render }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% comment %}
 Pay Now Page
 {{user}}
 {{user.username}}
 <div class="loader">
 </div>
     {{ form.render }}
-
-
+{% endcomment %}
+</main>
 {% endblock %}
 {% block extra_js %}
 <script>
