@@ -301,12 +301,13 @@ $('#main0 .owl-carousel').owlCarousel({
              {
                 name: 'stocks',
                 displayKey: 'name',
+                async: true,
                 minLength: 3, // send AJAX request only after user type in at least X characters
                 source: stocks.ttAdapter(),
                 templates: {
                     empty: [
                           '<div class="empty-message">',
-                            'unable to find any Best Picture winners that match the current query',
+                            'unable to find any Best Document winners that match the current query',
                           '</div>'
                         ].join('\n'),
                           suggestion: function(data){
