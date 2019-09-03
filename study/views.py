@@ -76,14 +76,16 @@ def autocomplete(request):
     sqs = SearchQuerySet().autocomplete(content_auto=request.GET.get('q', ''))[:5]
     suggestions = [result.title for result in sqs]
     slugs = [result.slug for result in sqs]
+    cover_imgage = [result.cover_image for result in sqs]
     # suggestions = dict(zip(titles, slugs))
 
     # Make sure you return a JSON object, not a bare list.
     # Otherwise, you could be vulnerable to an XSS attack.
-    the_data = json.dumps({
+    the_data = json.dumps([{
         'results': suggestions,
-        'slug':slugs
-    })
+        'slug':slugs,
+        'cover_image': cover_imgage
+    }])
     return HttpResponse(the_data, content_type='application/json')
 
 

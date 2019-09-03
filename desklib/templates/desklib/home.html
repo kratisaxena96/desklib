@@ -9,18 +9,18 @@
 
 <section class="container-fluid banner-image img-responsive">
 <!--    <div class=""></div>-->
-    <div class="row pl-5 pt-10 pb-10 pltb-0">
+    <div class="row pl-5 pt-10 pb-10">
         <div class="col-md-6 mt-8">
-            <h1 class="blue-theme py-2">Best resources for your studies</h1>
-            <h3 class="pb-2">Search from over 2 million study documents</h3>
+            <h1 class="blue-theme py-2">One of three columns</h1>
+            <h3 class="pb-2">Search from 2 million attributes</h3>
 <!--            <div class="mb-3">-->
                 <form class="form-inline my-2 my-lg-0" action="{% url 'study:search-results' %}">
 <!--          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
 <!--          <button class="btn btn-outline-secondary rounded-circle" type="submit"><i class="fa fa-search rounded-circle"></i></button>-->
-                    <div class="input-group w-75 mb-3">
-                        <input type="text" name="q" class="form-control form-control-lg search-input box-shadow-3-3-5-5 border-radius-30" placeholder="Search here...">
+                    <div id="remote" class="input-group w-75 mb-3">
+                        <input type="text" id="new" name="q" class="typeahead form-control form-control-lg search-input box-shadow-3-3-5-5 border-radius-30" placeholder="Search here...">
                         <div class="input-group-append">
-                          <button class="btn btn-lg rounded-circle btn-outline-secondary" type="submit"><i class="fa fa-search rounded-circle"></i></button>
+                           <button class="btn btn-lg rounded-circle btn-outline-secondary" type="submit"><i class="fa fa-search rounded-circle"></i></button>
                         </div>
                     </div>
                 </form>
@@ -42,7 +42,7 @@
 <!--                <i class="fa fa-search"></i>-->
 <!--              </div>-->
 <!--            </div>-->
-            <p class="pt-1 pb-5">Eg: marketing plan, database design</p>
+            <p class="pt-1 pb-5">Eg: Starbucks case study, presentation.</p>
 
         </div>
         <div class="col-md-6">
@@ -79,8 +79,8 @@
 <section class="container mt-5">
         <div class="row">
             <div class="col-md-6">
-                <div class="yellow p-5 p-15">
-                    <h2 class="font-40">Discover resources similar to your homework problems</h2>
+                <div class="yellow p-5">
+                    <h2 class="font-40">Having a heard time compliting your work.</h2>
                     <a href="{%url 'study:study-search'%}">
                     <button class="btn btn-primary btn-bg-theme top-30 margin-top-40">
                         Explore Resources
@@ -89,11 +89,11 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="green p-5 p-15">
-                    <h2 class="font-40">Free tools to improve your writing skills instantly</h2>
+                <div class="green p-5">
+                    <h2 class="font-40">Not sure if your written document is error-free.</h2>
                     <a href="{% url 'writing:grammar' %}">
                     <button class="btn btn-primary btn-bg-theme top-20 margin-top-40">
-                        Check my paper
+                        Check Paper
                     </button>
                     </a>
                 </div>
@@ -133,40 +133,38 @@
     <div class="padding-top-30 py-5">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="text-center">Subscription Details</h2>
-                <p class="text-center">Access complete resources anytime - anywhere with complete document downloads</p>
+                <h2 class="text-center">Subscription details</h2>
+                <p class="text-center">Access unlimited resources anytime - anywhere</p>
             </div>
         </div>
         <div class="row mt-5">
             <div class="col-md-3 text-center">
                 <img src="{% static 'src/assets/images/Documents icon.png' %}" alt="doc-img">
-                <p class="font-size-25 font-weight-600 padding-top-20">Explore Documents</p>
-                <p class="font-size-20 font-weight-400">Access complete document content from anywhere. Search easily related resources based on your needs</p>
+                <p class="font-size-25 font-weight-600 padding-top-20">Documents</p>
+                <p class="font-size-20 font-weight-400">Explore, run and improve</p>
             </div>
             <div class="col-md-3 text-center">
                 <img class="text-center" src="{% static 'src/assets/images/Downloads icon.png' %}" alt="download-img">
-                <p class="font-size-25 font-weight-600 padding-top-20">Download Resources</p>
-                <p class="font-size-20 font-weight-400">Download resources directly and use them offline. Receive documents on your email address</p>
+                <p class="font-size-25 font-weight-600 padding-top-20">Downloads</p>
+                <p class="font-size-20 font-weight-400">Download upto 60 resources a month</p>
             </div>
             <div class="col-md-3 text-center">
                 <img class="text-center" src="{% static 'src/assets/images/writing tools icon.png' %}" alt="write-img">
-                <p class="font-size-25 font-weight-600 padding-top-20">Improve Writing</p>
-                <p class="font-size-20 font-weight-400">Free tools to improve your writing and grammar. Get your content edited by our experienced writers</p>
+                <p class="font-size-25 font-weight-600 padding-top-20">Writing Tools</p>
+                <p class="font-size-20 font-weight-400">Free tools to improve writing</p>
             </div>
             <div class="col-md-3 text-center">
                 <img class="text-center" src="{% static 'src/assets/images/upload icon.png' %}" alt="upload-img">
-                <p class="font-size-25 font-weight-600 padding-top-20">Upload Resources</p>
-                <p class="font-size-20 font-weight-400">Upload your resources and earn credits. Spread your knowledge and help many other students in need</p>
+                <p class="font-size-25 font-weight-600 padding-top-20">Upload</p>
+                <p class="font-size-20 font-weight-400">Upload resources and earn credits</p>
             </div>
         </div>
     </div>
     <div class="row mt-3">
         <div class="col-md-12 text-center">
-            <a class="btn btn-primary btn-bg-theme py-3 px-4 border-radius-40" href="{% url 'subscription' %}">Subscribe us for an low as $30 a month</a>
-            <p class="pt-3">* Please read details about our subscription by clicking on the link above</p>
-            {% comment %}
+            <a class="btn btn-primary btn-bg-theme py-3 px-4 border-radius-40" href="{% url 'subscription' %}">Subscribe us for $30 a month</a>
+            <p class="pt-3">*View access unlimited with limits on daily usage.</p>
             <p class="font-size-20 blue-font"> <a href="{% url 'subscription' %}">Learn more</a></p>
-            {% endcomment %}
         </div>
     </div>
 </section>
@@ -274,11 +272,57 @@ $('#main0 .owl-carousel').owlCarousel({
         }
     }
 });
+   $(function(){
+        var stocks = new Bloodhound({
+            datumTokenizer: function (datum) {
+                return Bloodhound.tokenizers.whitespace(datum.tokens);
+            },
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            limit: 5,
+            remote: {
+                url: "/study/autocomplete/",
+                replace: function(url, query) {
+                    return url + "?q=" + query;
+                },
+                filter: function(stocks) {
+                    return stocks;
+                }
+            }
+        });
+        stocks.initialize();
+        $('#remote .typeahead').typeahead({
+                hint: true,
+                highlight: true,
+                minLength: 2,
+            },
+             {
+                name: 'stocks',
+                displayKey: 'name',
+                minLength: 3, // send AJAX request only after user type in at least X characters
+                source: stocks.ttAdapter(),
+                templates: {
+                    empty: [
+                          '<div class="empty-message">',
+                            'unable to find any Best Picture winners that match the current query',
+                          '</div>'
+                        ].join('\n'),
+                    suggestion: function(data){
+                      var str = '<ul>'
+                    	$(data).each(function(index,value){
+                    		$(value.slug).each(function(ind,val){
+                    			var url = "/document/"+value.slug[ind]
+                    			str += '<li><a href="' + url + '">' + value.results[ind] + '</a></li>'
+<!--    							console.log(value.results[ind]+"::::"+value.slug[ind]+">>>>>>>>"+ind);-->
+							});
+						});
+						str += '</ul>'
+<!--						console.log(str)-->
+                        return  str ;
+                    }
+                }
+        })
+        });
 
-</script>
-<script>
-    $(document).ready(function (){
-        $(".home").addClass("active");
-    });
+
 </script>
 {% endblock %}
