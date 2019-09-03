@@ -84,10 +84,10 @@ class DocumentView(JsonLdDetailView):
             if page_views:
                 if len(page_views) < 5:
                     pageviews_left = True
-                    SessionPageView.objects.create(session=request.session.session_key, document=self.object)
                     if slug not in page_views:
                         page_views.append(slug)
                         request.session['page_views'] = page_views
+                        SessionPageView.objects.create(session=request.session.session_key, document=self.object)
                         # page_views.append(slug)
                         # print(page_views)
                     else:
