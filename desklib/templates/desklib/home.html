@@ -254,6 +254,7 @@ $('#main0 .owl-carousel').owlCarousel({
     stagePadding: 50,
     loop: true,
     margin: 10,
+    dots: false,
     nav: true,
     navText: [
         '<i class="fa fa-angle-left" aria-hidden="true"></i>',
@@ -306,7 +307,7 @@ $('#main0 .owl-carousel').owlCarousel({
                             'unable to find any Best Picture winners that match the current query',
                           '</div>'
                         ].join('\n'),
-                    suggestion: function(data){
+                          suggestion: function(data){
                       var str = '<ul>'
                     	$(data).each(function(index,value){
                     		$(value.slug).each(function(ind,val){
@@ -316,7 +317,16 @@ $('#main0 .owl-carousel').owlCarousel({
 							});
 						});
 						str += '</ul>'
-<!--						console.log(str)-->
+<!--                    suggestion: function(data){-->
+<!--                      var str = '<ul class="list-group">'-->
+<!--                    	$(data).each(function(index,value){-->
+<!--                    		$(value.slug).each(function(ind,val){-->
+<!--                    			var url = "/document/"+value.slug[ind]-->
+<!--                    			str += '<li  class="list-group-item"><img src="' + value.cover_image[ind] + '" width="20%" height="20%"	 class="float-right""/><a href="' + url + '">' + value.results[ind] + '</a></li>'-->
+<!--&lt;!&ndash;    							console.log(value.results[ind]+"::::"+value.slug[ind]+">>>>>>>>"+ind);&ndash;&gt;-->
+<!--							});-->
+<!--						});-->
+<!--						str += '</ul>'-->
                         return  str ;
                     }
                 }
