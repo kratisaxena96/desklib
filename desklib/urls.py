@@ -64,6 +64,7 @@ urlpatterns = [
     path('subscription/', SubscriptionView.as_view(), name='subscription'),
     path('paynow/<str:key>', PayNowView.as_view(), name='paynow'),
     path('paypal/', include('paypal.standard.ipn.urls'), name='paypal-ipn'),
+    path('payment/cancelled', PayNowView.as_view(), name='payment_cancelled'),
     path('api-auth/', include('rest_framework.urls')),
     # path('payment/document',)
     path('api/', include(('api.urls', 'api'), namespace="api")),
