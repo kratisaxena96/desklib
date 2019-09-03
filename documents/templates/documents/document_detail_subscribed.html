@@ -169,7 +169,7 @@ opacity:0.9 !important;
         <ul class="p-0 d-inline-block float-right">
             <li class="d-inline-block text-center p-2 border-right">
               <div class="dropdown">
-                <a class="" data-toggle="dropdown">
+                <a class="btn" data-toggle="dropdown" href="JavaScript:Void(0);">
                   <i class="fas fa-share-alt mb-1"></i>
                   <p class="mb-0">Share</p>
                 </a>
@@ -189,7 +189,7 @@ opacity:0.9 !important;
             </li>
 
             <li class="d-inline-block text-center p-2">
-                <a class="" data-toggle="modal" data-target="#myModal">
+                <a class="btn" data-toggle="modal" data-target="#myModal" href="JavaScript:Void(0);">
                   <i class="fas fa-exclamation-circle mb-1"></i>
                       <p class="mb-0">Report</p>
                 </a>
@@ -209,7 +209,7 @@ opacity:0.9 !important;
                           <div class="modal-body">
 
                             <div class="report">
-                                <form id="report-form" action="." method="post" data-url="{% url 'api:report-document-api' %}" data-title="{{object.pk  }}">
+                                <form id="report-form" action="." method="post" data-url="{% url 'api:report-document-api' %}" data-title="{{object.pk}}">
                                 {% csrf_token %}
 
 
@@ -245,7 +245,7 @@ opacity:0.9 !important;
                             <div class="loader"></div>
                         </div>
                         <div class="thank-you jumbotron bg-white mb-0" style="display:none;">
-                            <p class="mb-0">Thank you for your feedback.</p>
+                            <p class="mb-0">Thank you for your valuable feedback.</p>
                         </div>
 
                           <!-- Modal footer -->
@@ -267,21 +267,22 @@ opacity:0.9 !important;
                 <form class="feedback-form" action="." method="post" data-url="{% url 'api:document-feedback-api' slug=object.slug %}">
                 {% csrf_token %}
 
-                  <label class="mr-2">{% if object.was_helpful %}
-                  {{object.was_helpful}} people found this Helpful.
+                   <label class="mr-2">{% if object.was_helpful %}
+                  {{object.was_helpful}} people found this document helpful.
                   {% endif %} Did you find it helpful?</label>
-<button data-value="helpful" class="btn btn-light border submit-feedback mr-2">Useful</button>
-                <button data-value="not-helpful" class="btn btn-light border submit-feedback">Not Useful</button>
+
+                <button data-value="helpful" class="btn btn-light border submit-feedback mr-2">Yes</button>
+                <button data-value="not-helpful" class="btn btn-light border submit-feedback">No</button>
 
                 <!--<input type="submit" name="was_heplful" value="Yes">-->
                 <!--<input type="submit" name="not_heplful" value="No">-->
                 </form>
             </div>
             <div class="helpful" style="display:none;">
-                Thank you for your feedback.
+                Thank you for your valuable feedback.
             </div>
             <div class="not-helpful" style="display:none;">
-                Thank you for your feedback. if you want to report <a class="" data-toggle="modal" data-target="#myModal">Click Here!</a>
+                Thank you for your feedback. If you want to report an issue about this document <a class="" data-toggle="modal" data-target="#myModal">click here</a>
             </div>
         </div>
 
@@ -306,9 +307,9 @@ opacity:0.9 !important;
 
        {% comment %}
         <div class="subscribe mt-3">
-            <div class="jumbotron">
-                <h4>You’re reading a preview. Unlock the full document with a Free Trial!</h4>
-                <a href="{% url 'subscription' %}" class="btn btn-bg-theme text-white">Continue Reading</a>
+            <div class="jumbotron  text-center">
+                <h4>You’re reading a preview. To view complete document, subscribe to a plan</h4>
+                <a href="{% url 'subscription' %}" class="btn btn-bg-theme text-white btn-lg p-4">View subscription plan</a>
             </div>
         </div>
          {% endcomment %}
@@ -359,7 +360,7 @@ opacity:0.9 !important;
 
 <!-- Modal body -->
     <div class="bg-dark  pt-5 pb-5">
-        <h4 class="text-white mb-0 text-center">You have reached the preview limit.</h4>
+        <h4 class="text-white mb-0 text-center">You have reached the preview limit for daily views</h4>
     </div>
 <div class="modal-body">
     <div class="text-center">
@@ -368,6 +369,7 @@ opacity:0.9 !important;
         <p>Already on Desklib? <a href="{% url 'account_login' %}">Log in</a> </p>
     </div>
 </div>
+
 
 
 </div>

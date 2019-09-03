@@ -4,7 +4,7 @@ logger = logging.getLogger(__name__)
 from rest_framework.views import APIView
 from django.views.generic import TemplateView, DetailView,CreateView
 from .models import Document
-from subscription.models import Download, PageView
+from subscription.models import Download, PageView, SessionPageView
 from django_json_ld.views import JsonLdContextMixin
 from django.utils.translation import gettext as _
 from django_json_ld.views import JsonLdDetailView
@@ -80,9 +80,11 @@ class DocumentView(JsonLdDetailView):
 
         else:
             page_views = request.session.get('page_views')
+
             if page_views:
                 if len(page_views) < 5:
                     pageviews_left = True
+                    SessionPageView.objects.create(session=request.session.session_key, document=self.object)
                     if slug not in page_views:
                         page_views.append(slug)
                         request.session['page_views'] = page_views

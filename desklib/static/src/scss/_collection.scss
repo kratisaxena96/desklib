@@ -5,6 +5,17 @@ body {
 // h1, h2, h3, h4, h5, h6{
 //     font-family: 'Roboto', sans-serif !important;
 // }
+.owl-carousel.author-carousel .owl-nav .owl-prev, .owl-carousel.author-carousel .owl-nav .owl-next,{
+	position: absolute;
+	top: 38%;
+	font-size:50px;
+}
+.owl-carousel.author-carousel .owl-nav .owl-prev{
+	left:-2rem;
+}
+.owl-carousel.author-carousel .owl-nav .owl-next{
+	right:-2rem;
+}
 .main-content {
     position: relative;
 
@@ -369,7 +380,7 @@ card {
 		background-size: cover;
 		background-image: url("/static/src/assets/images/explore_resources_img.png");
 		padding: 5%;
-		height: 95%;
+		height: 100%;
 		margin-bottom: 4%;
 	}
 	.resume-img {
@@ -399,7 +410,27 @@ card {
     .btn-100{
     max-width: 100% !important;
     }
+    .p-t-0{
+    padding-top: 0px !important;
+    }
+    .width-100{
+    width:100% !important;
+    }
+    .plr{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    }
+    .dk_toggle{
+    padding:10px 20px 9px 10px !important;
+    }
+    .no-padding{
+    padding:10px !important;
+    }
+    .m-top-10{
+    margin-top:10px !important;
+    }
 }
+
 @media only screen and (max-width: $breakpoint-mobile) {
 	.top-image {
 		height: 80vh;
@@ -734,6 +765,9 @@ img.img-responsive.mx-auto.d-block {
 	.login-card {
 		margin-top: 22% !important;
 	}
+	.m-top-10{
+	margin-top: 10px !important;
+	}
 }
 
 
@@ -856,6 +890,12 @@ section.pricing {
 .footer-ul{
     list-style-type: none;
     padding: 0 !important;
+}
+::placeholder { /* Firefox, Chrome, Opera */
+    color: #B8B8B8 !important;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #B8B8B8 !important;
 }
 #remote > span > input.typeahead.form-control.form-control-lg.search-input.box-shadow-3-3-5-5.border-radius-30.tt-hint{
 display:none;

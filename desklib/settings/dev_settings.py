@@ -18,7 +18,7 @@ INSTALLED_APPS += [
     'debug_toolbar',
 ]
 
-ALLOWED_IPS = ['192.168.0.86']
+ALLOWED_IPS = ['127.0.0.1']
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
