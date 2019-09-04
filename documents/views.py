@@ -173,6 +173,7 @@ class DocumentDownloadView(LoginRequiredMixin, TemplateView):
                     slug = kwargs.get('slug')
                     try:
                         document_obj = Document.objects.get(slug=slug)
+                        Document.objects.filter(pk=document_obj.pk).update(total_downloads=F('total_downloads') + 1)
                         download_obj = Download.objects.create(user=request.user, document=document_obj)
                         attachments = {}
                         pdf_doc_name = document_obj.pdf_converted_file.name.split('/')[-1]
