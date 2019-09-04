@@ -57,8 +57,10 @@ class DocumentFeedbackApi(GenericAPIView):
         helpful = serializer.validated_data['helpful']
         if helpful == True:
             document.was_helpful = document.was_helpful + 1
+            document.save(update_fields=["was_helpful"])
         else:
             document.not_helpful = document.not_helpful + 1
+            document.save(update_fields=["not_helpful"])
 
         document.save()
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
