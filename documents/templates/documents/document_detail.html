@@ -168,7 +168,7 @@ opacity:0.9 !important;
         <ul class="p-0 d-inline-block float-right">
             <li class="d-inline-block text-center p-2 border-right">
               <div class="dropdown">
-                <a class="btn btn-light" data-toggle="dropdown" href="JavaScript:Void(0);">
+                <a class="btn" data-toggle="dropdown" href="JavaScript:Void(0);">
                   <i class="fas fa-share-alt mb-1"></i>
                   <p class="mb-0">Share</p>
                 </a>
@@ -188,7 +188,7 @@ opacity:0.9 !important;
             </li>
 
             <li class="d-inline-block text-center p-2">
-                <a class="report-button btn btn-light" data-toggle="modal" data-target="#myModal" href="JavaScript:Void(0);">
+                <a class="report-button btn" data-toggle="modal" data-target="#myModal" href="JavaScript:Void(0);">
                   <i class="fas fa-exclamation-circle mb-1"></i>
                       <p class="mb-0">Report</p>
                 </a>
@@ -259,9 +259,9 @@ opacity:0.9 !important;
         <div class="alert alert-light border">
 
             <div class="feedback">
-                <form class="feedback-form" action="." method="post" data-url="{% url 'api:document-feedback-api' slug=object.slug %}"> 
+                <form class="feedback-form" action="." method="post" data-url="{% url 'api:document-feedback-api' slug=object.slug %}">
                 {% csrf_token %}
-                
+
                    <label class="mr-2">{% if object.was_helpful %}
                   {{object.was_helpful}} people found this document helpful.
                   {% endif %} Did you find it helpful?</label>
@@ -331,7 +331,7 @@ opacity:0.9 !important;
                                 <div class="row">
                             {% endif %}
                             {% endif %}
-                       
+
                         {% endfor %}
                     </div>
                 </div>

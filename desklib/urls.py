@@ -27,7 +27,7 @@ from django.contrib.sitemaps import views
 
 from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView, TestPageView, \
     SubscriptionView, PayNowView, PrivacyPolicyView, HonorCodeView, CopyrightPolicyView, TermsOfUseView, \
-    AcademicIntegrityView
+    AcademicIntegrityView, ComingSoonPageView, PaymentCancelledView, PaymentSuccessView
 
 # if settings.DEBUG:
 #     import debug_toolbar
@@ -44,6 +44,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('study/',include(('study.urls','study'),namespace="study")),
     path('', HomePageView.as_view(), name='home'),
+    path('coming-soon/', ComingSoonPageView.as_view(), name='coming-soon'),
     path('document/', include(('documents.urls','documents'),namespace="documents")),
     path('about/', AboutPageView.as_view(), name='about'),
     path('privacy-policy/', PrivacyPolicyView.as_view(), name='privacypolicy'),
@@ -61,8 +62,11 @@ urlpatterns = [
                        name='django.contrib.sitemaps.views.sitemap'),
     # path('payment/doc', PaypalPaymentView.as_view(), name='paypal_view'),
     path('subscription/', SubscriptionView.as_view(), name='subscription'),
-    path('paynow/', PayNowView.as_view(), name='paynow'),
+    path('paynow/<str:key>', PayNowView.as_view(), name='paynow'),
     path('paypal/', include('paypal.standard.ipn.urls'), name='paypal-ipn'),
+    path('payment/cancelled', PaymentCancelledView.as_view(), name='payment_cancelled'),
+    path('payment/success', PaymentSuccessView.as_view(), name='payment_success'),
+
     path('api-auth/', include('rest_framework.urls')),
     # path('payment/document',)
     path('api/', include(('api.urls', 'api'), namespace="api")),

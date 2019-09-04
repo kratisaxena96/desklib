@@ -5,6 +5,17 @@ body {
 // h1, h2, h3, h4, h5, h6{
 //     font-family: 'Roboto', sans-serif !important;
 // }
+.owl-carousel.author-carousel .owl-nav .owl-prev, .owl-carousel.author-carousel .owl-nav .owl-next,{
+	position: absolute;
+	top: 38%;
+	font-size:50px;
+}
+.owl-carousel.author-carousel .owl-nav .owl-prev{
+	left:-2rem;
+}
+.owl-carousel.author-carousel .owl-nav .owl-next{
+	right:-2rem;
+}
 .main-content {
     position: relative;
 
@@ -96,7 +107,84 @@ body {
 #header.header-pages #topbar {
 	display: none;
 }
+.tt-suggestion strong {
+  font-weight: normal;
+  background: yellow;
+}
+.search-input {
+    width: 80%;
+}
+.tt-hint {
+    width: 396px;
+    height: 30px;
+    padding: 8px 12px;
+    font-size: 24px;
+    line-height: 30px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+}
+#new{
+ width: 100%!important;
+}
 
+
+.tt-hint {
+    color: #999;
+}
+
+.tt-menu {    /* used to be tt-dropdown-menu in older versions */
+  width: 422px;
+  margin-top: 4px;
+  padding: 4px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+          box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+.tt-suggestion {
+  padding: 3px 20px;
+  line-height: 24px;
+}
+.tt-suggestion li .tt-cursor,.tt-suggestion li:hover {
+   a {color: #FFFFFF!important; }
+    background-color: #0097cf;
+    display:block;
+
+
+}
+.tt-suggestion li {
+  margin: 0;
+  color: #FFFFFF!important;
+
+}
+
+.tt-suggestion li {
+    padding-bottom: 8px;
+    a {
+    text-decoration: none !important;
+     display:block;
+
+}
+
+}
+
+.tt-suggestion.tt-cursor { /* UPDATE: newer versions use .tt-suggestion.tt-cursor */
+    color: #fff;
+    background-color: #0097cf;
+
+}
+#remote .empty-message {
+  padding: 5px 10px;
+ text-align: center;
+}
+
+.tt-suggestion p {
+    margin: 0;
+}
 #header .logo h1 {
 	font-size: 36px;
 	margin: 0;
@@ -292,7 +380,7 @@ card {
 		background-size: cover;
 		background-image: url("/static/src/assets/images/explore_resources_img.png");
 		padding: 5%;
-		height: 95%;
+		height: 100%;
 		margin-bottom: 4%;
 	}
 	.resume-img {
@@ -322,7 +410,27 @@ card {
     .btn-100{
     max-width: 100% !important;
     }
+    .p-t-0{
+    padding-top: 0px !important;
+    }
+    .width-100{
+    width:100% !important;
+    }
+    .plr{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    }
+    .dk_toggle{
+    padding:10px 20px 9px 10px !important;
+    }
+    .no-padding{
+    padding:10px !important;
+    }
+    .m-top-10{
+    margin-top:10px !important;
+    }
 }
+
 @media only screen and (max-width: $breakpoint-mobile) {
 	.top-image {
 		height: 80vh;
@@ -394,10 +502,6 @@ card {
 	//float: right;
 }
 
-
-.search-input {
-	width: 80% !important;
-}
 
 @media (max-width:990px) and (min-width:768px) {
 	img.img-responsive.mx-auto.d-block {
@@ -661,6 +765,9 @@ img.img-responsive.mx-auto.d-block {
 	.login-card {
 		margin-top: 22% !important;
 	}
+	.m-top-10{
+	margin-top: 10px !important;
+	}
 }
 
 
@@ -783,4 +890,16 @@ section.pricing {
 .footer-ul{
     list-style-type: none;
     padding: 0 !important;
+}
+::placeholder { /* Firefox, Chrome, Opera */
+    color: #B8B8B8 !important;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #B8B8B8 !important;
+}
+#remote > span > input.typeahead.form-control.form-control-lg.box-shadow-3-3-5-5.border-radius-30.tt-hint{
+display:none;
+}
+#search_bar{
+    border-radius:25px;
 }

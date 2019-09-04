@@ -7,6 +7,7 @@ from documents.models import Document
 from django.core.files import File
 from documents.utils import get_text
 import requests
+from termcolor import colored
 # command to run the file
 # exec(open("./upload_files_via_api.py").read())
 
@@ -58,8 +59,8 @@ for root, dirs, files in os.walk(path, topdown=False):
                         print('File content is valid')
                         filepath = os.path.join(path, filename)
                         files = {'upload_file': open(filepath, 'rb')}
-                        requests.post(url, files=files)
-
+                        r = requests.post(url, files=files)
+                        print(colored(("Status Code is :%s"%r.status_code), 'green'))
                         print("Closing file: "+ filename)
                     else:
                         print("Ignoring file : " + filename + " Invalid filename Content")
