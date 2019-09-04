@@ -332,6 +332,7 @@ card {
     }
     .btn-100{
     max-width: 100% !important;
+    width: 100% !important;
     }
     .p-t-0{
     padding-top: 0px !important;
@@ -339,19 +340,10 @@ card {
     .width-100{
     width:100% !important;
     }
-    .plr{
-    padding-left: 0px !important;
-    padding-right: 0px !important;
-    }
     .dk_toggle{
     padding:10px 20px 9px 10px !important;
-    }
-    .no-padding{
-    padding:10px !important;
-    }
-    .m-top-10{
-    margin-top:10px !important;
-    }
+    } 
+    
 }
 
 @media only screen and (max-width: $breakpoint-mobile) {
@@ -691,9 +683,7 @@ img.img-responsive.mx-auto.d-block {
 	.login-card {
 		margin-top: 22% !important;
 	}
-	.m-top-10{
-	margin-top: 10px !important;
-	}
+	
 }
 
 
