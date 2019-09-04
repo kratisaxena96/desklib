@@ -1,8 +1,60 @@
 {% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% load i18n %}
 {% load meta %}
 {% block content %}
-<div class="text-center py-5">
-    <h1>About</h1>
-    <p>This page is under development process, will be available soon.</p>
-</div>
+<main>
+    <section class="container-fluid banner-image-study">
+        <div class="row pl-5 pt-10 pltb-0">
+              <div class="col-md-6 mt-8">
+          </div>
+            <div class="col-md-6 mt-8">
+                <h1 class="blue-theme py-2">Best resources for your studies</h1>
+            </div>
+        </div>
+    </section>
+<section class="container-fluid bg-light-grey py-5">
+        <div class="row pl-5 pb-5 pltb-0">
+            <div class="col-md-6">
+                <img class="img-fluid pt-3 width-100
+                   " src="{% static 'src/assets/images/check_paper_img_plain.png' %}" alt="plain-img" style="width:85%;">
+            </div>
+            <div class="col-md-6 pt-4">
+                <h4 class="blue-theme py-1">About Desklib</h4>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
+                    dummy text ever since the 1500s.</p>
+                <p>When an unknown printer took a galley of type and scrambled it to make a type specimen
+                    book. It has survived not only five centuries.</p>
+                <p>But also the leap into electronic typesetting, remaining essentially
+                    unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages</p>
+                <p>And more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            </div>
+        </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="py-2 text-center">Services we offer</h4>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 bg-light-grey">
+                <img class="img-fluid pt-4 mx-auto d-block" src="{% static 'src/assets/images/Option 2.png' %}" alt="service1">
+                <p class="text-center font-size-20"><a href="javascript:void(0);">Service One</a></p>
+            </div>
+            <div class="col-md-4 bg-light-grey">
+                <img class="img-fluid pt-4 mx-auto d-block" src="{% static 'src/assets/images/Option 2.png' %}" alt="service2">
+                <p class="text-center font-size-20"><a href="javascript:void(0);">Service two</a></p>
+            </div>
+            <div class="col-md-4 bg-light-grey">
+                <img class="img-fluid pt-4 mx-auto d-block" src="{% static 'src/assets/images/Option 2.png' %}" alt="service3">
+                <p class="text-center font-size-20"><a href="javascript:void(0);">Service three</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+</main>
 {% endblock %}
