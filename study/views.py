@@ -35,15 +35,15 @@ from .forms import CustomFacetedSearchForm
 # Create your views here.
 
 class StudyPageView(MetadataMixin,JsonLdContextMixin, SearchView):
-    title = 'Study page'
-    description = 'This is a Study page'
+    title = 'Study | desklib.com'
+    description = 'Find best resources for your studies. Search solutions, assignments, presentations, thesis, homework solutions from our library.'
 
     template_name = "study/study_list.html"
 
     structured_data = {
         "@type": "Organization",
-        "name": "The Company home",
-        "description": _("A Contact company."),
+        "name": "desklib.com",
+        "description": _("desklib.com"),
     }
 
     # def get(self, request, *args, **kwargs):
@@ -93,9 +93,9 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, FacetedSearchView):
     form_class = CustomFacetedSearchForm
     facet_fields = ['subjects']
     paginate_by = 18
-    title = 'pashehi page'
-    description = 'This is an sasassasaawesome page hey'
-    keywords = ['Our', 'best', 'homepage']
+    title = 'Search Page | desklib.com'
+    description = 'Search results for your query on desklib.com'
+    keywords = ['Study resources', 'study notes search', 'study documents', 'study material search']
     suggestions = {}
     selected_facets = ['subjects']
     # query_set =  None
@@ -103,8 +103,8 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, FacetedSearchView):
 
     structured_data = {
         "@type": "Organizasaation",
-        "name": "The Compasany home",
-        "description": _("A greatesast hd company."),
+        "name": "desklib.com",
+        "description": _("desklib.com"),
     }
 
     def get_context_data(self, **kwargs):
