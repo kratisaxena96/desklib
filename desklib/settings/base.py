@@ -234,7 +234,7 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 
-HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+# HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 # Allauth settings
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
@@ -265,7 +265,7 @@ ACCOUNT_FORMS = {
 
 
 
-HAYSTACK_DEFAULT_OPERATOR = 'OR'
+HAYSTACK_DEFAULT_OPERATOR = 'AND'
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'

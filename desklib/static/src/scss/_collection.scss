@@ -6,7 +6,7 @@ body {
 //     font-family: 'Roboto', sans-serif !important;
 // }
 .owl-carousel.author-carousel .owl-nav .owl-prev, .owl-carousel.author-carousel .owl-nav .owl-next,{
-	position: absolute; 
+	position: absolute;
 	top: 38%;
 	font-size:50px;
 }
@@ -107,7 +107,84 @@ body {
 #header.header-pages #topbar {
 	display: none;
 }
+.tt-suggestion strong {
+  font-weight: normal;
+  background: yellow;
+}
+.search-input {
+    width: 80%;
+}
+.tt-hint {
+    width: 396px;
+    height: 30px;
+    padding: 8px 12px;
+    font-size: 24px;
+    line-height: 30px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+}
+#new{
+ width: 100%!important;
+}
 
+
+.tt-hint {
+    color: #999;
+}
+
+.tt-menu {    /* used to be tt-dropdown-menu in older versions */
+  width: 422px;
+  margin-top: 4px;
+  padding: 4px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+          box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+.tt-suggestion {
+  padding: 3px 20px;
+  line-height: 24px;
+}
+.tt-suggestion li .tt-cursor,.tt-suggestion li:hover {
+   a {color: #FFFFFF!important; }
+    background-color: #0097cf;
+    display:block;
+
+
+}
+.tt-suggestion li {
+  margin: 0;
+  color: #FFFFFF!important;
+
+}
+
+.tt-suggestion li {
+    padding-bottom: 8px;
+    a {
+    text-decoration: none !important;
+     display:block;
+
+}
+
+}
+
+.tt-suggestion.tt-cursor { /* UPDATE: newer versions use .tt-suggestion.tt-cursor */
+    color: #fff;
+    background-color: #0097cf;
+
+}
+#remote .empty-message {
+  padding: 5px 10px;
+ text-align: center;
+}
+
+.tt-suggestion p {
+    margin: 0;
+}
 #header .logo h1 {
 	font-size: 36px;
 	margin: 0;
@@ -368,6 +445,7 @@ card {
 		margin: 0 auto;
 		display: block;
 	}
+	
 }
 
 
@@ -424,10 +502,6 @@ card {
 	//float: right;
 }
 
-
-.search-input {
-	width: 80% !important;
-}
 
 @media (max-width:990px) and (min-width:768px) {
 	img.img-responsive.mx-auto.d-block {
@@ -822,4 +896,10 @@ section.pricing {
 }
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
     color: #B8B8B8 !important;
+}
+#remote > span > input.typeahead.form-control.form-control-lg.box-shadow-3-3-5-5.border-radius-30.tt-hint{
+display:none;
+}
+#search_bar{
+    border-radius:25px;
 }
