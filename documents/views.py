@@ -174,6 +174,7 @@ class DocumentDownloadView(LoginRequiredMixin, TemplateView):
                     try:
                         document_obj = Document.objects.get(slug=slug)
                         Download.objects.create(user=request.user, document=document_obj)
+                        Document.objects.filter(pk=document_obj.pk).update(total_downloads=F('total_downloads') + 1)
                         attachments = {}
                         pdf_doc_name = document_obj.pdf_converted_file.name.split('/')[-1]
                         attachments[pdf_doc_name] = ContentFile(document_obj.pdf_converted_file.file.read())

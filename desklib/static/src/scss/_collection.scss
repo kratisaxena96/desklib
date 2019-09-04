@@ -285,9 +285,9 @@ body {
 	min-height: 100px;
 	background-size: cover;
 	background-image: url("/static/src/assets/images/explore_resources_img.png");
-	padding: 5%;
+	//padding: 5%;
 	height: 100%;
-	margin-bottom: 4%;
+	//margin-bottom: 4%;
 }
 
 .green {
@@ -295,13 +295,13 @@ body {
 	min-height: 100px;
 	background-size: cover;
 	background-image: url("/static/src/assets/images/check_paper_img.png");
-	padding: 5%;
+	//padding: 5%;
 	height: 100%;
+	//margin-bottom: 4%;
 }
 
 .space {
 	padding: 4%;
-	;
 }
 
 .space-col {
@@ -426,9 +426,9 @@ card {
     .no-padding{
     padding:10px !important;
     }
-    .m-top-10{
-    margin-top:10px !important;
-    }
+//     .m-top-10{
+//     margin-top:10px !important;
+//     }
 }
 
 @media only screen and (max-width: $breakpoint-mobile) {
@@ -445,7 +445,7 @@ card {
 		margin: 0 auto;
 		display: block;
 	}
-	
+
 }
 
 
@@ -765,9 +765,9 @@ img.img-responsive.mx-auto.d-block {
 	.login-card {
 		margin-top: 22% !important;
 	}
-	.m-top-10{
-	margin-top: 10px !important;
-	}
+// 	.m-top-10{
+// 	margin-top: 10px !important;
+// 	}
 }
 
 
@@ -871,7 +871,7 @@ section.pricing {
 		opacity: 1;
 	}
 }
-
+// For making an element fit to screen
 .height-100{
     min-height : calc(100vh - 201px - 58px);
 }
