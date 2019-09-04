@@ -35,15 +35,15 @@ from .forms import CustomFacetedSearchForm
 # Create your views here.
 
 class StudyPageView(MetadataMixin,JsonLdContextMixin, SearchView):
-    title = 'Study page'
-    description = 'This is a Study page'
+    title = 'Study | desklib.com'
+    description = 'Find best resources for your studies. Search solutions, assignments, presentations, thesis, homework solutions from our library.'
 
     template_name = "study/study_list.html"
 
     structured_data = {
         "@type": "Organization",
-        "name": "The Company home",
-        "description": _("A Contact company."),
+        "name": "desklib.com",
+        "description": _("desklib.com"),
     }
 
     # def get(self, request, *args, **kwargs):
@@ -76,14 +76,16 @@ def autocomplete(request):
     sqs = SearchQuerySet().autocomplete(content_auto=request.GET.get('q', ''))[:5]
     suggestions = [result.title for result in sqs]
     slugs = [result.slug for result in sqs]
+    # cover_imgage = [result.cover_image for result in sqs]
     # suggestions = dict(zip(titles, slugs))
 
     # Make sure you return a JSON object, not a bare list.
     # Otherwise, you could be vulnerable to an XSS attack.
-    the_data = json.dumps({
+    the_data = json.dumps([{
         'results': suggestions,
-        'slug':slugs
-    })
+        'slug':slugs,
+        # 'cover_image': cover_imgage
+    }])
     return HttpResponse(the_data, content_type='application/json')
 
 
@@ -93,9 +95,9 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, FacetedSearchView):
     form_class = CustomFacetedSearchForm
     facet_fields = ['subjects']
     paginate_by = 18
-    title = 'pashehi page'
-    description = 'This is an sasassasaawesome page hey'
-    keywords = ['Our', 'best', 'homepage']
+    title = 'Search Page | desklib.com'
+    description = 'Search results for your query on desklib.com'
+    keywords = ['Study resources', 'study notes search', 'study documents', 'study material search']
     suggestions = {}
     selected_facets = ['subjects']
     # query_set =  None
@@ -103,8 +105,8 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, FacetedSearchView):
 
     structured_data = {
         "@type": "Organizasaation",
-        "name": "The Compasany home",
-        "description": _("A greatesast hd company."),
+        "name": "desklib.com",
+        "description": _("desklib.com"),
     }
 
     def get_context_data(self, **kwargs):

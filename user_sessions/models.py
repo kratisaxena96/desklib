@@ -40,10 +40,18 @@ class UserSession(models.Model):
 
 
 def user_logged_in_handler(sender, request, user, **kwargs):
+
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    ip_addr = ""
+    if x_forwarded_for:
+        ip_addr = x_forwarded_for.split(',')[0]
+    else:
+        ip_addr = request.META.get('REMOTE_ADDR')
+
     user, created = UserSession.objects.get_or_create(
         user = user,
         session_id = request.session.session_key,
-        ip=request.META.get('REMOTE_ADDR', ''),
+        ip=ip_addr,
         user_agent=request.META.get('HTTP_USER_AGENT', ''),
     )
     if not created:

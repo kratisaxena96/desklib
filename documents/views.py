@@ -84,10 +84,10 @@ class DocumentView(JsonLdDetailView):
             if page_views:
                 if len(page_views) < 5:
                     pageviews_left = True
-                    SessionPageView.objects.create(session=request.session.session_key, document=self.object)
                     if slug not in page_views:
                         page_views.append(slug)
                         request.session['page_views'] = page_views
+                        SessionPageView.objects.create(session=request.session.session_key, document=self.object)
                         # page_views.append(slug)
                         # print(page_views)
                     else:
@@ -154,7 +154,7 @@ class DocumentView(JsonLdDetailView):
 class DocumentDownloadView(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
-        print(request.user)
+        # print(request.user)
         if request.user.subscriptions.all().exists():
             check_subscribed_status = is_subscribed(self.request.user)
 
@@ -173,7 +173,8 @@ class DocumentDownloadView(LoginRequiredMixin, TemplateView):
                     slug = kwargs.get('slug')
                     try:
                         document_obj = Document.objects.get(slug=slug)
-                        download_obj = Download.objects.create(user=request.user, document=document_obj)
+                        Download.objects.create(user=request.user, document=document_obj)
+                        Document.objects.filter(pk=document_obj.pk).update(total_downloads=F('total_downloads') + 1)
                         attachments = {}
                         pdf_doc_name = document_obj.pdf_converted_file.name.split('/')[-1]
                         attachments[pdf_doc_name] = ContentFile(document_obj.pdf_converted_file.file.read())

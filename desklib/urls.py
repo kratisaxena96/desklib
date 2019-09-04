@@ -27,7 +27,7 @@ from django.contrib.sitemaps import views
 
 from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView, TestPageView, \
     SubscriptionView, PayNowView, PrivacyPolicyView, HonorCodeView, CopyrightPolicyView, TermsOfUseView, \
-    AcademicIntegrityView, ComingSoonPageView
+    AcademicIntegrityView, ComingSoonPageView, PaymentCancelledView, PaymentSuccessView
 
 # if settings.DEBUG:
 #     import debug_toolbar
@@ -64,7 +64,9 @@ urlpatterns = [
     path('subscription/', SubscriptionView.as_view(), name='subscription'),
     path('paynow/<str:key>', PayNowView.as_view(), name='paynow'),
     path('paypal/', include('paypal.standard.ipn.urls'), name='paypal-ipn'),
-    path('payment/cancelled', PayNowView.as_view(), name='payment_cancelled'),
+    path('payment/cancelled', PaymentCancelledView.as_view(), name='payment_cancelled'),
+    path('payment/success', PaymentSuccessView.as_view(), name='payment_success'),
+
     path('api-auth/', include('rest_framework.urls')),
     # path('payment/document',)
     path('api/', include(('api.urls', 'api'), namespace="api")),
