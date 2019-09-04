@@ -61,7 +61,7 @@ def main_files(instance, filename):
     # filename_base, filename_ext = os.path.splitext(filename)
     # uid = instance.content_object.uuid
 
-    return 'main_files/{}/{}'.format(
+    return 'files/{}/{}'.format(
         now.strftime("%Y/%m/%d/"),
         filename,
     )
@@ -72,7 +72,7 @@ def pdf_converted_files(instance, filename):
     # filename_base, filename_ext = os.path.splitext(filename)
     # uid = instance.content_object.uuid
 
-    return 'pdf_converted_file/{}/{}'.format(
+    return 'pdf/{}/{}'.format(
         now.strftime("%Y/%m/%d/"),
         uuid.uuid4().hex+'.pdf',
     )
@@ -92,7 +92,7 @@ def images(instance, filename):
 def cover_images(instance, filename):
     now = timezone.now()
     file_name = get_filename_from_path(filename)
-    return 'images/{}/{}'.format(
+    return 'cover-images/{}/{}'.format(
         now.strftime("%Y/%m/%d/"),
         file_name,
     )

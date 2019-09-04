@@ -29,7 +29,7 @@ class ReportDocumentApi(CreateAPIView):
 
         locus_email = "kushagra.goel@locusrags.com"
         if not settings.DEBUG:
-            locus_email = "locus@locus.com"
+            locus_email = "info@desklib.com"
 
         mail.send(
             locus_email,  # List of email addresses also accepted
