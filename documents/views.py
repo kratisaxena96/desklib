@@ -1,5 +1,8 @@
 # some_app/views.py
 import logging
+import os
+import tempfile
+
 logger = logging.getLogger(__name__)
 from rest_framework.views import APIView
 from django.views.generic import TemplateView, DetailView,CreateView, FormView
@@ -40,6 +43,8 @@ from .forms import ReportForm, DownloadFileForm
 from django.db.models import F
 from datetime import timedelta
 from subscription.utils import is_subscribed, get_current_subscription
+from django.core.files import File as DjangoFile
+
 
 class DocumentView(JsonLdDetailView):
     model = Document
@@ -227,6 +232,34 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
         form = DownloadFileForm(self.request.POST)
         # print(request.user)
         if form.is_valid():
+
+            # Generating filename without spaces. Replacing them with underscore.
+            filename = Document.objects.get(slug=kwargs.get('slug')).upload_file.name
+            filename = os.path.basename(filename)
+            filename = filename.replace(' ', '_')
+
+            temp = tempfile.NamedTemporaryFile(suffix=filename)  # Temporary File to copy to
+
+            pre, ext = os.path.splitext(filename)
+            temp_dir = tempfile.TemporaryDirectory(prefix=pre)
+
+            # convert the uploaded file to pdf file and save it
+            os.system('soffice --headless --convert-to pdf --outdir ' + temp_dir.name + ' ' + temp.name)
+
+            pre, ext = os.path.splitext(filename)
+            file_with_pdf_ext = pre + ".pdf"
+            # Changing file extension
+            # https://stackoverflow.com/questions/2900035/changing-file-extension-in-python
+            head, tail = os.path.split(temp.name)
+            pre, ext = os.path.splitext(tail)
+            pdf_converted_loc = os.path.join(temp_dir.name, pre + ".pdf")
+
+            # Reading generated pdf document from soffice and adding it to our model field
+            f = open(pdf_converted_loc, 'rb')
+            myfile = DjangoFile(f)  # Converting to django's File model object
+            # self.pdf_converted_file = myfile
+            # self.pdf_converted_file.name = file_with_pdf_ext
+
             subscription_obj = get_current_subscription(self.request.user)
             expiry_date_subscription = subscription_obj.expire_on
             plan = subscription_obj.plan
@@ -244,8 +277,8 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
                     Download.objects.create(user=request.user, document=document_obj)
                     Document.objects.filter(pk=document_obj.pk).update(total_downloads=F('total_downloads') + 1)
                     attachments = {}
-                    pdf_doc_name = document_obj.pdf_converted_file.name.split('/')[-1]
-                    attachments[pdf_doc_name] = ContentFile(document_obj.pdf_converted_file.file.read())
+                    pdf_doc_name = myfile.name.split('/')[-1]
+                    attachments[pdf_doc_name] = ContentFile(myfile.file.read())
 
                     mail.send(
                         request.user.email,  # List of email addresses also accepted
@@ -261,7 +294,7 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
 
                 except Exception as e:
                     print(e)
-
+            return redirect('documents:download-success-view')
         else:
             return render(request, self.template_name, {
                 'form': form,

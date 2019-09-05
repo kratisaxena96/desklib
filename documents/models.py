@@ -167,7 +167,7 @@ class Document(ModelMeta, models.Model):
     first_sentence = models.CharField(_('First Sentence'), max_length=1000 ,blank=True, null=True)
     upload_file = models.FileField(verbose_name=_('Upload File'), upload_to=upload_to, max_length=1000)
     main_file = models.FileField(verbose_name=_(' Main File'), upload_to=main_files, max_length=1000, blank=True, null=True)
-    pdf_converted_file = models.FileField(verbose_name=_(' Pdf converted file'), upload_to=pdf_converted_files, max_length=1000,blank=True, null=True)
+    # pdf_converted_file = models.FileField(verbose_name=_(' Pdf converted file'), upload_to=pdf_converted_files, max_length=1000,blank=True, null=True)
     words = models.IntegerField(_('Total Words'), blank=True, null=True)
     page = models.IntegerField(_('Total pages'), blank=True, null=True)
     filename = models.CharField(_('filename'), max_length=200, blank=True, null=True)
@@ -322,7 +322,6 @@ class Document(ModelMeta, models.Model):
             os.system('soffice --headless --convert-to pdf --outdir ' + temp_dir.name + ' ' + temp.name)
 
 
-
             # Changing file extension
             # https://stackoverflow.com/questions/2900035/changing-file-extension-in-python
             head, tail = os.path.split(temp.name)
@@ -331,14 +330,14 @@ class Document(ModelMeta, models.Model):
 
             # Reading generated pdf document from soffice and adding it to our model field
             f = open(pdf_converted_loc, 'rb')
-            myfile = DjangoFile(f)  # Converting to django's File model object
-            self.pdf_converted_file = myfile
-            self.pdf_converted_file.name = file_with_pdf_ext
+            # myfile = DjangoFile(f)  # Converting to django's File model object
+            # self.pdf_converted_file = myfile
+            # self.pdf_converted_file.name = file_with_pdf_ext
 
             # Creating a temp directory where images of pages will be populated.
             images_tmpdir = tempfile.TemporaryDirectory()
             # Converting each page of pdf to images
-            pdf_images = convert_from_path(pdf_converted_loc, output_folder=images_tmpdir.name, fmt='jpg')
+            pdf_images = convert_from_path(pdf_converted_loc, output_folder=images_tmpdir.name, fmt='jpg', dpi=72) #reduce dpi for converted image
 
             self.page = pdf_images.__len__()
 
