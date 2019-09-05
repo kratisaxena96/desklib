@@ -8,10 +8,13 @@ from subscription.models import Download, PageView, SessionPageView
 from django_json_ld.views import JsonLdContextMixin
 from django.utils.translation import gettext as _
 from django_json_ld.views import JsonLdDetailView
+from django.template.loader import render_to_string
+
 from django.views import View
 from django.shortcuts import render
 from django.urls import reverse
-
+from django.template.loader import get_template
+from django.template import Context
 import simplejson as json
 from django.http import HttpResponse
 from haystack.query import SearchQuerySet
@@ -178,13 +181,25 @@ class DocumentDownloadView(LoginRequiredMixin, TemplateView):
                         attachments = {}
                         pdf_doc_name = document_obj.pdf_converted_file.name.split('/')[-1]
                         attachments[pdf_doc_name] = ContentFile(document_obj.pdf_converted_file.file.read())
+                        # plaintext = get_template('desklib/mail-templates/document_download_email.html')
+                        context = {'document':document_obj}
+                        htmly = render_to_string('desklib/mail-templates/document_download_email.html',context,request=request)
 
+                        # d = Context({'username':username})
+                        #
+                        # subject, from_email, to = 'Your Download', settings.DEFAULT_FROM_EMAIL, "rishidutta92@gmail.com"
+                        # # # text_content = plaintext.render(d)
+                        # # # html_content = htmly.render(html)
+                        # msg = EmailMultiAlternatives(subject, "TEXTCONTENT", from_email, [to])
+                        # msg.attach_alternative(htmly, "text/html")
+                        # res = msg.send()
+                        #
                         mail.send(
                             request.user.email,  # List of email addresses also accepted
                             settings.DEFAULT_FROM_EMAIL,
-                            subject='Your Download',
-                            message='Hi there!',
-                            html_message='Hi <strong>Here is your download</strong>!',
+                            subject='Your Downloaded Document From Desklib',
+                            # message=htmly,
+                            html_message=htmly,
                             attachments=attachments,
                             priority='now'
                         )

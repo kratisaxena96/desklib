@@ -1,0 +1,90 @@
+.tt-suggestion strong {
+  font-weight: normal;
+  background: yellow;
+}
+.tt-input-group {
+    width: 100%;
+}
+.twitter-typeahead .tt-hint, .tt-input, .tt-menu { width: 100%!important;  }
+.twitter-typeahead{
+    width:90%
+}
+.tt-input{
+    background:white!important;
+}
+.tt-hint {
+    width: 396px;
+    height: 30px;
+    padding: 8px 12px;
+    font-size: 24px;
+    line-height: 30px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+}
+#new{
+ width: 100%!important;
+}
+
+
+.tt-hint {
+    color: #999;
+}
+
+.tt-menu {    /* used to be tt-dropdown-menu in older versions */
+  width: 422px;
+  margin-top: 4px;
+  padding: 4px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+          box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+.tt-suggestion {
+  padding: 3px 20px;
+  line-height: 24px;
+}
+.tt-suggestion li .tt-cursor,.tt-suggestion li:hover {
+   a {color: #FFFFFF!important; }
+    background-color: #0097cf;
+    display:block;
+
+
+}
+.tt-suggestion li .tt-cursor,.tt-suggestion li:onkeyup {
+   a {color: #FFFFFF!important; }
+    background-color: #0097cf;
+    display:block;
+}
+.tt-suggestion li {
+  margin: 0;
+  color: #FFFFFF!important;
+
+}
+
+.tt-suggestion li {
+    padding-bottom: 8px;
+    a {
+    text-decoration: none !important;
+     display:block;
+
+}
+
+}
+
+.tt-suggestion.tt-cursor { /* UPDATE: newer versions use .tt-suggestion.tt-cursor */
+    color: #fff;
+    background-color: #0097cf;
+
+}
+#remote .empty-message {
+  padding: 5px 10px;
+ text-align: center;
+}
+
+.tt-suggestion p {
+    margin: 0;
+}
