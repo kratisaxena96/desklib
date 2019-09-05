@@ -107,84 +107,7 @@ body {
 #header.header-pages #topbar {
 	display: none;
 }
-.tt-suggestion strong {
-  font-weight: normal;
-  background: yellow;
-}
-// .search-input {
-//     width: 80%;
-// }
-.tt-hint {
-    width: 396px;
-    height: 30px;
-    padding: 8px 12px;
-    font-size: 24px;
-    line-height: 30px;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    outline: none;
-}
-#new{
- width: 100%!important;
-}
 
-
-.tt-hint {
-    color: #999;
-}
-
-.tt-menu {    /* used to be tt-dropdown-menu in older versions */
-  width: 422px;
-  margin-top: 4px;
-  padding: 4px 0;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 12px;
-  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-          box-shadow: 0 5px 10px rgba(0,0,0,.2);
-}
-.tt-suggestion {
-  padding: 3px 20px;
-  line-height: 24px;
-}
-.tt-suggestion li .tt-cursor,.tt-suggestion li:hover {
-   a {color: #FFFFFF!important; }
-    background-color: #0097cf;
-    display:block;
-
-
-}
-.tt-suggestion li {
-  margin: 0;
-  color: #FFFFFF!important;
-
-}
-
-.tt-suggestion li {
-    padding-bottom: 8px;
-    a {
-    text-decoration: none !important;
-     display:block;
-
-}
-
-}
-
-.tt-suggestion.tt-cursor { /* UPDATE: newer versions use .tt-suggestion.tt-cursor */
-    color: #fff;
-    background-color: #0097cf;
-
-}
-#remote .empty-message {
-  padding: 5px 10px;
- text-align: center;
-}
-
-.tt-suggestion p {
-    margin: 0;
-}
 #header .logo h1 {
 	font-size: 36px;
 	margin: 0;
@@ -281,17 +204,23 @@ body {
 }
 
 .yellow {
+	//height: 60vh;
 	min-height: 100px;
 	background-size: cover;
 	background-image: url("/static/src/assets/images/explore_resources_img.png");
+	//padding: 5%;
 	height: 100%;
+	//margin-bottom: 4%;
 }
 
 .green {
+	//height: 60vh;
 	min-height: 100px;
 	background-size: cover;
 	background-image: url("/static/src/assets/images/check_paper_img.png");
+	//padding: 5%;
 	height: 100%;
+	//margin-bottom: 4%;
 }
 
 .space {
@@ -369,11 +298,13 @@ card {
 	//         width: 400px !important;
 	//     }
 	.yellow {
+		//height: 60vh;
 		min-height: 100px;
 		background-size: cover;
 		background-image: url("/static/src/assets/images/explore_resources_img.png");
 		padding: 5%;
 		height: 100%;
+		margin-bottom: 4%;
 	}
 	.resume-img {
 		border: 1px solid #000;
@@ -401,7 +332,6 @@ card {
     }
     .btn-100{
     max-width: 100% !important;
-    width: 100% !important;
     }
     .p-t-0{
     padding-top: 0px !important;
@@ -409,10 +339,19 @@ card {
     .width-100{
     width:100% !important;
     }
+    .plr{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    }
     .dk_toggle{
     padding:10px 20px 9px 10px !important;
     }
-
+    .no-padding{
+    padding:10px !important;
+    }
+    .m-top-10{
+    margin-top:10px !important;
+    }
 }
 
 @media only screen and (max-width: $breakpoint-mobile) {
@@ -469,7 +408,9 @@ card {
 	background-color: #FFDA45;
 	background-size: cover;
 	background-repeat: no-repeat;
+	//height: 100%;
 	width: 135px;
+	//float: right;
 }
 
 .green-img {
@@ -746,7 +687,9 @@ img.img-responsive.mx-auto.d-block {
 	.login-card {
 		margin-top: 22% !important;
 	}
-
+	.m-top-10{
+	margin-top: 10px !important;
+	}
 }
 
 
@@ -882,3 +825,47 @@ display:none;
 #search_bar{
     border-radius:25px;
 }
+
+// For displaying errors on pages
+.errorlist{
+    list-style: none;
+}
+.errorlist li{
+    color: red !important;
+}
+// Download success page for owl-nav
+
+// .rel-doc > .owl-nav > .owl-prev, .owl-next {
+//                 position: absolute;
+//                 top: 50%;
+//                 font-size: 100px !important;
+//                 color: black !important;
+//                 transform: translateY(-50%);
+// }
+// .rel-doc >.owl-nav > .owl-prev{
+// 	left: -25px;
+// }
+// .rel-doc >.owl-nav > .owl-next{
+//     right: -10px;
+// }
+//
+// .sim-doc > .owl-nav > .owl-prev, .owl-next {
+//                 position: absolute;
+//                 top: 50%;
+//                 font-size: 100px !important;
+//                 color: black !important;
+//                 transform: translateY(-50%);
+// }
+// .sim-doc >.owl-nav > .owl-prev{
+// 	left: -25px;
+// }
+// .sim-doc >.owl-nav > .owl-next{
+//     right: -10px;
+// }
+//
+// .rel-doc, .sim-doc > .owl-next, .owl-prev{
+//     background-color: transparent;
+// }
+// .sim-doc.owl-theme .owl-nav [class*="owl-"]:hover, .rel-doc.owl-theme .owl-nav [class*="owl-"]:hover  {
+//     background: transparent;
+// }

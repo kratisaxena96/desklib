@@ -11,10 +11,13 @@ from subscription.models import Download, PageView, SessionPageView
 from django_json_ld.views import JsonLdContextMixin
 from django.utils.translation import gettext as _
 from django_json_ld.views import JsonLdDetailView
+from django.template.loader import render_to_string
+
 from django.views import View
 from django.shortcuts import render
 from django.urls import reverse
-
+from django.template.loader import get_template
+from django.template import Context
 import simplejson as json
 from django.http import HttpResponse
 from haystack.query import SearchQuerySet
@@ -280,15 +283,36 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
                     pdf_doc_name = myfile.name.split('/')[-1]
                     attachments[pdf_doc_name] = ContentFile(myfile.file.read())
 
+                    context = {'document': document_obj}
+                    htmly = render_to_string('desklib/mail-templates/document_download_email.html', context,
+                                             request=request)
+                    # d = Context({'username':username})
+                    #
+                    # subject, from_email, to = 'Your Download', settings.DEFAULT_FROM_EMAIL, "rishidutta92@gmail.com"
+                    # # # text_content = plaintext.render(d)
+                    # # # html_content = htmly.render(html)
+                    # msg = EmailMultiAlternatives(subject, "TEXTCONTENT", from_email, [to])
+                    # msg.attach_alternative(htmly, "text/html")
+                    # res = msg.send()
+                    #
                     mail.send(
                         request.user.email,  # List of email addresses also accepted
                         settings.DEFAULT_FROM_EMAIL,
-                        subject='Your Download',
-                        message='Hi there!',
-                        html_message='Hi <strong>Here is your download</strong>!',
+                        subject='Your Downloaded Document From Desklib',
+                        # message=htmly,
+                        html_message=htmly,
                         attachments=attachments,
                         priority='now'
                     )
+                    # mail.send(
+                    #     request.user.email,  # List of email addresses also accepted
+                    #     settings.DEFAULT_FROM_EMAIL,
+                    #     subject='Your Download',
+                    #     message='Hi there!',
+                    #     html_message='Hi <strong>Here is your download</strong>!',
+                    #     attachments=attachments,
+                    #     priority='now'
+                    # )
 
                     logger.info("mail send")
 
@@ -313,7 +337,7 @@ class DocumentDownloadView(LoginRequiredMixin, TemplateView):
 
 
 class DownloadSuccessView(LoginRequiredMixin, TemplateView):
-    template_name = 'documents/download_success_page.html'
+    template_name = 'documents/download_success.html'
 
     def get_context_data(self, **kwargs):
         context = super(DownloadSuccessView, self).get_context_data(**kwargs)
