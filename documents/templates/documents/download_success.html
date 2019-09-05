@@ -1,0 +1,153 @@
+{% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Download Success" %}{% endblock %}
+
+{% block content %}
+<main class="py-4">
+    <section class="container">
+        <div class="row text-center">
+            <div class="col-md-12">
+                <img class="img-fluid" src="{% static 'src/assets/images/checked.png' %}" width="11%;">
+                <p class="pt-2 font-size-20">Thank you for downloading.</p>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-12">
+                <p>To go back to the document, <a href="javascript:void(0);">click here</a>.</p>
+                <p>For any issue or query, <a href="https://tawk.to/chat/5d52a62677aa790be32eb23b/default">click here</a>.</p>
+            </div>
+        </div>
+    </section>
+    <section class="container-fluid bg-light-grey mt-5">
+        <div class="row">
+            <div class="col-md-12 text-center pt-4">
+                <h4>Check related documents</h4>
+                <hr>
+                <div class="owl-carousel owl-theme rel-doc">
+                    <div class="card">
+                        <img class="card-img-top" src="{% static 'src/assets/images/check_paper_img_plain.png' %}" alt="rel-doc1">
+                        <div class="card-body">
+                                <p class="card-text">Document1</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img class="card-img-top" src="{% static 'src/assets/images/check_paper_img_plain.png' %}" alt="rel-doc1">
+                        <div class="card-body">
+                                <p class="card-text">Document2</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img class="card-img-top" src="{% static 'src/assets/images/check_paper_img_plain.png' %}" alt="rel-doc1">
+                        <div class="card-body">
+                                <p class="card-text">Document3</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img class="card-img-top" src="{% static 'src/assets/images/check_paper_img_plain.png' %}" alt="rel-doc1">
+                        <div class="card-body">
+                                <p class="card-text">Document4</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img class="card-img-top" src="{% static 'src/assets/images/check_paper_img_plain.png' %}" alt="rel-doc1">
+                        <div class="card-body">
+                                <p class="card-text">Document5</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="container-fluid bg-light-grey pt-5">
+        <div class="row">
+            <div class="col-md-12 text-center pt-4">
+                <h4>Similar documents</h4>
+                <hr>
+                <div class="owl-carousel owl-theme sim-doc">
+                    <div class="card">
+                        <img class="card-img-top img-fluid" src="{% static 'src/assets/images/check_paper_img_plain.png' %}" alt="sim-doc1">
+                        <div class="card-body">
+                                <p class="card-text">Document1</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img class="card-img-top img-fluid" src="{% static 'src/assets/images/check_paper_img_plain.png' %}" alt="sim-doc2">
+                        <div class="card-body">
+                                <p class="card-text">Document2</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img class="card-img-top img-fluid" src="{% static 'src/assets/images/check_paper_img_plain.png' %}" alt="sim-doc3">
+                        <div class="card-body">
+                                <p class="card-text">Document3</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img class="card-img-top img-fluid" src="{% static 'src/assets/images/check_paper_img_plain.png' %}" alt="sim-doc4">
+                        <div class="card-body">
+                                <p class="card-text">Document4</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img class="card-img-top img-fluid" src="{% static 'src/assets/images/check_paper_img_plain.png' %}" alt="sim-doc5">
+                        <div class="card-body">
+                                <p class="card-text">Document5</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+{% block extra_js %}
+<script>
+    var owl = $('.sim-doc');
+        owl.owlCarousel({
+            margin: 15,
+            dots: true,
+            nav: false,
+            loop: true,
+            responsiveClass: true,
+            responsive: {
+                0: {
+                    items: 1,
+                },
+                400: {
+                    items: 2,
+                },
+                600: {
+                    items: 3,
+                },
+                768: {
+                    items: 4,
+                }
+            }
+        });
+
+        var owl = $('.rel-doc');
+        owl.owlCarousel({
+            margin: 15,
+            dots: true,
+            nav: false,
+            loop: true,
+            responsiveClass: true,
+            responsive: {
+                0: {
+                    items: 1,
+                },
+                400: {
+                    items: 2,
+                },
+                600: {
+                    items: 3,
+                },
+                768: {
+                    items: 4,
+                }
+            }
+        });
+</script>
+{% endblock %}

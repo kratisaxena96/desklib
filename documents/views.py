@@ -304,7 +304,7 @@ class DocumentDownloadView(LoginRequiredMixin, TemplateView):
 
 
 class DownloadSuccessView(LoginRequiredMixin, TemplateView):
-    template_name = 'documents/download_success_page.html'
+    template_name = 'documents/download_success.html'
 
     def get_context_data(self, **kwargs):
         context = super(DownloadSuccessView, self).get_context_data(**kwargs)
