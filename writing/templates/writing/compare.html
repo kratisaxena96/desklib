@@ -1,17 +1,18 @@
 {% extends "writing/base.html" %}
 {% load meta %}
 {% block content %}
-<section class="container mt-5 mb-5">
+
+<section class="container mt-0 mb-5 mt-sm-3 mt-md-5">
     <h1 class="text-center">Compare documents</h1>
     <h4 class="text-center">Compare two texts and see how similar they are.</h4>
     <br>
     <form action="." method="POST">
         {% csrf_token %}
     <div class="row">
-        <div class="col-md">
+        <div class="col-md mb-2">
             {{form.textarea1}}
         </div>
-        <div class="col-md">
+        <div class="col-md mb-2">
             {{form.textarea2}}
         </div>
     </div>
@@ -23,5 +24,6 @@
         </form>
 
 </section>
+
 
 {% endblock %}

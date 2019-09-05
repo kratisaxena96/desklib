@@ -1,0 +1,33 @@
+{% extends 'desklib/base.html' %}
+{% load meta %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block content %}
+
+    <main class="py-2 height-100 doc-img">
+        <div class="center-align-box card box-shadow-3-3-5-5 border-radius-20 bg-light-grey">
+            <div class="card-body">
+                <h3 class="card-title text-center">Document Information</h3>
+                <hr>
+                <p>Document will be sent to your email: <strong>{{user.email}}</strong></p>
+                <p>Remaining downloads: <strong>{{remaining_downloads}}</strong></p>
+                <p>Pages in document: <strong>{{document.title}}</strong></p>
+                <p>Pages in document: <strong>{{document.pages.all.count}}</strong></p>
+                <hr>
+                <p>To proceed download</p>
+                <form action="." method="post">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <input type="submit">
+                </form>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}
+

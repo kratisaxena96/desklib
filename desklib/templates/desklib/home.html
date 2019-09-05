@@ -10,7 +10,7 @@
 <section class="container-fluid banner-image img-responsive">
 <!--    <div class=""></div>-->
     <div class="row pl-5 pt-10 pb-10 pltb-0">
-        <div class="col-md-6 mt-8">
+        <div class="col-md-6">
             <h1 class="blue-theme py-2">Best resources for your studies</h1>
             <h3 class="pb-2">Search from over 2 million study documents</h3>
             <div class="col-md-12 pl-0">
@@ -86,21 +86,21 @@
 
 <section class="container mt-5">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 mb-sm-3 mb-3">
                 <div class="yellow p-5 p-15 rounded">
                     <h2 class="font-40">Discover resources similar to your homework problems</h2>
                     <a href="{%url 'study:study-search'%}">
-                    <button class="btn btn-primary btn-bg-theme top-30 margin-top-40 border-radius-40">
+                    <button class="btn btn-primary btn-bg-theme mt-5 border-radius-40">
                         Explore Resources
                     </button>
                     </a>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="green p-5 p-15 rounded m-top-10">
+            <div class="col-md-6 mb-sm-3 mb-3">
+                <div class="green p-5 p-15 rounded">
                     <h2 class="font-40">Remove errors and improve your writing skills instantly</h2>
                     <a href="{% url 'writing:grammar' %}">
-                    <button class="btn btn-primary btn-bg-theme top-20 margin-top-40 border-radius-40">
+                    <button class="btn btn-primary btn-bg-theme mt-5 border-radius-40">
                         Check my paper
                     </button>
                     </a>
@@ -138,7 +138,7 @@
 {% endif %}
 
 <section class="container-fluid">
-    <div class="padding-top-30 py-5">
+    <div class="py-sm-5 py-0">
         <div class="row">
             <div class="col-md-12">
                 <h2 class="text-center">Subscription Details</h2>
@@ -289,5 +289,10 @@ $(document).on('typeahead:opened', function(event, datum) {
   $('.tt-dropdown-menu').width("100%");
 });
 
+</script>
+<script>
+    $(document).ready(function (){
+        $(".home").addClass("active");
+    });
 </script>
 {% endblock %}
