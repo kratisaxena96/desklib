@@ -1,17 +1,23 @@
 # some_app/views.py
 import logging
+import os
+import tempfile
+
 logger = logging.getLogger(__name__)
 from rest_framework.views import APIView
-from django.views.generic import TemplateView, DetailView,CreateView
+from django.views.generic import TemplateView, DetailView,CreateView, FormView
 from .models import Document
 from subscription.models import Download, PageView, SessionPageView
 from django_json_ld.views import JsonLdContextMixin
 from django.utils.translation import gettext as _
 from django_json_ld.views import JsonLdDetailView
+from django.template.loader import render_to_string
+
 from django.views import View
 from django.shortcuts import render
 from django.urls import reverse
-
+from django.template.loader import get_template
+from django.template import Context
 import simplejson as json
 from django.http import HttpResponse
 from haystack.query import SearchQuerySet
@@ -35,15 +41,17 @@ from rest_framework.renderers import (
     JSONRenderer,
     BrowsableAPIRenderer,
 )
-from .forms import reportForm
+from .forms import ReportForm, DownloadFileForm
 
 from django.db.models import F
 from datetime import timedelta
 from subscription.utils import is_subscribed, get_current_subscription
+from django.core.files import File as DjangoFile
+
 
 class DocumentView(JsonLdDetailView):
     model = Document
-    form = reportForm
+    form = ReportForm
 
     def get(self, request, *args, **kwargs):
         slug = self.kwargs['slug']
@@ -103,6 +111,7 @@ class DocumentView(JsonLdDetailView):
             else:
                 pageviews_left = True
                 request.session['page_views'] = [slug]
+                SessionPageView.objects.create(session=request.session.session_key, document=self.object)
                 # context = self.get_context_data(object=self.object)
                 # return self.render_to_response(context)
 
@@ -151,56 +160,185 @@ class DocumentView(JsonLdDetailView):
 
         return [self.template_name]
 
+
+# class DocumentDownloadView(LoginRequiredMixin, TemplateView):
+#
+#     def get(self, request, *args, **kwargs):
+#         # print(request.user)
+#         if request.user.subscriptions.all().exists():
+#             check_subscribed_status = is_subscribed(self.request.user)
+#
+#             if check_subscribed_status:
+#                 subscription_obj = get_current_subscription(self.request.user)
+#                 expiry_date_subscription = subscription_obj.expire_on
+#                 plan = subscription_obj.plan
+#                 plan_days = plan.days
+#                 plan_download_limit = plan.download_limit
+#                 startdate_subscription = expiry_date_subscription - timedelta(days=plan_days)
+#                 download_count = Download.objects.filter(user=self.request.user, created_at__gte=startdate_subscription,
+#                                                          created_at__lte=expiry_date_subscription).count()
+#                 remaining_downloads = plan_download_limit - download_count
+#
+#                 if remaining_downloads > 0 :
+#                     slug = kwargs.get('slug')
+#                     try:
+#                         document_obj = Document.objects.get(slug=slug)
+#                         Download.objects.create(user=request.user, document=document_obj)
+#                         Document.objects.filter(pk=document_obj.pk).update(total_downloads=F('total_downloads') + 1)
+#                         attachments = {}
+#                         pdf_doc_name = document_obj.pdf_converted_file.name.split('/')[-1]
+#                         attachments[pdf_doc_name] = ContentFile(document_obj.pdf_converted_file.file.read())
+#
+#                         mail.send(
+#                             request.user.email,  # List of email addresses also accepted
+#                             settings.DEFAULT_FROM_EMAIL,
+#                             subject='Your Download',
+#                             message='Hi there!',
+#                             html_message='Hi <strong>Here is your download</strong>!',
+#                             attachments=attachments,
+#                             priority='now'
+#                         )
+#
+#                         logger.info("mail send")
+#
+#                     except Exception as e:
+#                         print(e)
+#
+#
+#             return redirect('documents:download-success-view')
+#         else:
+#             return redirect('subscription')
+
+
+class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
+    template_name = 'documents/download_info.html'
+    form_class = DownloadFileForm
+
+    def get_context_data(self, **kwargs):
+        context = super(DocumentDownloadDetailView, self).get_context_data(**kwargs)
+        subscription_obj = get_current_subscription(self.request.user)
+        expiry_date_subscription = subscription_obj.expire_on
+        plan = subscription_obj.plan
+        plan_days = plan.days
+        plan_download_limit = plan.download_limit
+        startdate_subscription = expiry_date_subscription - timedelta(days=plan_days)
+        download_count = Download.objects.filter(user=self.request.user, created_at__gte=startdate_subscription,
+                                                 created_at__lte=expiry_date_subscription).count()
+        remaining_downloads = plan_download_limit - download_count
+        document_obj = Document.objects.get(slug=self.kwargs.get('slug'))
+
+        context['remaining_downloads'] = remaining_downloads
+        context['document'] = document_obj
+        return context
+
+    def post(self, request, *args, **kwargs):
+
+        form = DownloadFileForm(self.request.POST)
+        # print(request.user)
+        if form.is_valid():
+
+            # Generating filename without spaces. Replacing them with underscore.
+            filename = Document.objects.get(slug=kwargs.get('slug')).upload_file.name
+            filename = os.path.basename(filename)
+            filename = filename.replace(' ', '_')
+
+            temp = tempfile.NamedTemporaryFile(suffix=filename)  # Temporary File to copy to
+
+            pre, ext = os.path.splitext(filename)
+            temp_dir = tempfile.TemporaryDirectory(prefix=pre)
+
+            # convert the uploaded file to pdf file and save it
+            os.system('soffice --headless --convert-to pdf --outdir ' + temp_dir.name + ' ' + temp.name)
+
+            pre, ext = os.path.splitext(filename)
+            file_with_pdf_ext = pre + ".pdf"
+            # Changing file extension
+            # https://stackoverflow.com/questions/2900035/changing-file-extension-in-python
+            head, tail = os.path.split(temp.name)
+            pre, ext = os.path.splitext(tail)
+            pdf_converted_loc = os.path.join(temp_dir.name, pre + ".pdf")
+
+            # Reading generated pdf document from soffice and adding it to our model field
+            f = open(pdf_converted_loc, 'rb')
+            myfile = DjangoFile(f)  # Converting to django's File model object
+            # self.pdf_converted_file = myfile
+            # self.pdf_converted_file.name = file_with_pdf_ext
+
+            subscription_obj = get_current_subscription(self.request.user)
+            expiry_date_subscription = subscription_obj.expire_on
+            plan = subscription_obj.plan
+            plan_days = plan.days
+            plan_download_limit = plan.download_limit
+            startdate_subscription = expiry_date_subscription - timedelta(days=plan_days)
+            download_count = Download.objects.filter(user=self.request.user, created_at__gte=startdate_subscription,
+                                                     created_at__lte=expiry_date_subscription).count()
+            remaining_downloads = plan_download_limit - download_count
+
+            if remaining_downloads > 0 :
+                slug = kwargs.get('slug')
+                try:
+                    document_obj = Document.objects.get(slug=slug)
+                    Download.objects.create(user=request.user, document=document_obj)
+                    Document.objects.filter(pk=document_obj.pk).update(total_downloads=F('total_downloads') + 1)
+                    attachments = {}
+                    pdf_doc_name = myfile.name.split('/')[-1]
+                    attachments[pdf_doc_name] = ContentFile(myfile.file.read())
+
+                    context = {'document': document_obj}
+                    htmly = render_to_string('desklib/mail-templates/document_download_email.html', context,
+                                             request=request)
+                    # d = Context({'username':username})
+                    #
+                    # subject, from_email, to = 'Your Download', settings.DEFAULT_FROM_EMAIL, "rishidutta92@gmail.com"
+                    # # # text_content = plaintext.render(d)
+                    # # # html_content = htmly.render(html)
+                    # msg = EmailMultiAlternatives(subject, "TEXTCONTENT", from_email, [to])
+                    # msg.attach_alternative(htmly, "text/html")
+                    # res = msg.send()
+                    #
+                    mail.send(
+                        request.user.email,  # List of email addresses also accepted
+                        settings.DEFAULT_FROM_EMAIL,
+                        subject='Your Downloaded Document From Desklib',
+                        # message=htmly,
+                        html_message=htmly,
+                        attachments=attachments,
+                        priority='now'
+                    )
+                    # mail.send(
+                    #     request.user.email,  # List of email addresses also accepted
+                    #     settings.DEFAULT_FROM_EMAIL,
+                    #     subject='Your Download',
+                    #     message='Hi there!',
+                    #     html_message='Hi <strong>Here is your download</strong>!',
+                    #     attachments=attachments,
+                    #     priority='now'
+                    # )
+
+                    logger.info("mail send")
+
+                except Exception as e:
+                    print(e)
+            return redirect('documents:download-success-view')
+        else:
+            return render(request, self.template_name, {
+                'form': form,
+            })
+
+
+
 class DocumentDownloadView(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         # print(request.user)
         if request.user.subscriptions.all().exists():
-            check_subscribed_status = is_subscribed(self.request.user)
-
-            if check_subscribed_status:
-                subscription_obj = get_current_subscription(self.request.user)
-                expiry_date_subscription = subscription_obj.expire_on
-                plan = subscription_obj.plan
-                plan_days = plan.days
-                plan_download_limit = plan.download_limit
-                startdate_subscription = expiry_date_subscription - timedelta(days=plan_days)
-                download_count = Download.objects.filter(user=self.request.user, created_at__gte=startdate_subscription,
-                                                         created_at__lte=expiry_date_subscription).count()
-                remaining_downloads = plan_download_limit - download_count
-
-                if remaining_downloads > 0 :
-                    slug = kwargs.get('slug')
-                    try:
-                        document_obj = Document.objects.get(slug=slug)
-                        Download.objects.create(user=request.user, document=document_obj)
-                        Document.objects.filter(pk=document_obj.pk).update(total_downloads=F('total_downloads') + 1)
-                        attachments = {}
-                        pdf_doc_name = document_obj.pdf_converted_file.name.split('/')[-1]
-                        attachments[pdf_doc_name] = ContentFile(document_obj.pdf_converted_file.file.read())
-
-                        mail.send(
-                            request.user.email,  # List of email addresses also accepted
-                            settings.DEFAULT_FROM_EMAIL,
-                            subject='Your Download',
-                            message='Hi there!',
-                            html_message='Hi <strong>Here is your download</strong>!',
-                            attachments=attachments,
-                            priority='now'
-                        )
-
-                        logger.info("mail send")
-
-                    except Exception as e:
-                        print(e)
-
-
-            return redirect('documents:download-success-view')
+            return redirect('documents:download-info-view', slug=kwargs.get('slug'))
         else:
             return redirect('subscription')
 
+
 class DownloadSuccessView(LoginRequiredMixin, TemplateView):
-    template_name = 'documents/download_success_page.html'
+    template_name = 'documents/download_success.html'
 
     def get_context_data(self, **kwargs):
         context = super(DownloadSuccessView, self).get_context_data(**kwargs)
