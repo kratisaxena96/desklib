@@ -39,8 +39,7 @@ def upload_to(instance, filename):
     # filename_base, filename_ext = os.path.splitext(filename)
     # uid = instance.content_object.uuid
 
-    return 'document/{}/{}'.format(
-        now.strftime("%Y/%m/%d/"),
+    return 'document/{}'.format(
         filename,
     )
 
@@ -50,8 +49,7 @@ def all_files(instance, filename):
     # filename_base, filename_ext = os.path.splitext(filename)
     # uid = instance.content_object.uuid
 
-    return 'files/{}/{}'.format(
-        now.strftime("%Y/%m/%d/"),
+    return 'files/{}'.format(
         filename,
     )
 
@@ -72,8 +70,7 @@ def pdf_converted_files(instance, filename):
     # filename_base, filename_ext = os.path.splitext(filename)
     # uid = instance.content_object.uuid
 
-    return 'pdf/{}/{}'.format(
-        now.strftime("%Y/%m/%d/"),
+    return 'pdf/{}'.format(
         uuid.uuid4().hex+'.pdf',
     )
 
@@ -84,16 +81,14 @@ def images(instance, filename):
     # filename_base, filename_ext = os.path.splitext(filename)
     # uid = instance.content_object.uuid
 
-    return 'images/{}/{}'.format(
-        now.strftime("%Y/%m/%d/"),
+    return 'images/{}'.format(
         file_name,
     )
 
 def cover_images(instance, filename):
     now = timezone.now()
     file_name = get_filename_from_path(filename)
-    return 'cover-images/{}/{}'.format(
-        now.strftime("%Y/%m/%d/"),
+    return 'cover-images/{}'.format(
         file_name,
     )
 

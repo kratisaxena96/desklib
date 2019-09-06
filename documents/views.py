@@ -111,6 +111,7 @@ class DocumentView(JsonLdDetailView):
             else:
                 pageviews_left = True
                 request.session['page_views'] = [slug]
+                SessionPageView.objects.create(session=request.session.session_key, document=self.object)
                 # context = self.get_context_data(object=self.object)
                 # return self.render_to_response(context)
 
