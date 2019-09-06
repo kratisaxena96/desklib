@@ -39,8 +39,7 @@ def upload_to(instance, filename):
     # filename_base, filename_ext = os.path.splitext(filename)
     # uid = instance.content_object.uuid
 
-    return 'document/{}/{}'.format(
-        now.strftime("%Y/%m/%d/"),
+    return 'document/{}'.format(
         filename,
     )
 
@@ -50,8 +49,7 @@ def all_files(instance, filename):
     # filename_base, filename_ext = os.path.splitext(filename)
     # uid = instance.content_object.uuid
 
-    return 'files/{}/{}'.format(
-        now.strftime("%Y/%m/%d/"),
+    return 'files/{}'.format(
         filename,
     )
 
