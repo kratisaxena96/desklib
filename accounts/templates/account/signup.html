@@ -14,23 +14,6 @@
 {% comment %}
 <div class="container-fluid">
 
- {% block messages %}
-    {% if messages %}
-    <div>
-        <ul >
-        {% for message in messages %}
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>{{message}}</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-        </div>
-        {% endfor %}
-        </ul>
-    </div>
-    {% endif %}
-  {% endblock %}
-
 <h3 class="h3" id="head_banner">{% trans "Sign Up" %}</h3>
 
 <p class="exist_account_info">{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
@@ -65,33 +48,57 @@
             <h4 class="card-title text-center">Register</h4>
             <form class="container-fluid text-center" id="signup_form" method="POST" action="{% url 'account_signup' %}">
                 {% csrf_token %}
+                
+                    {% if messages %}
+    <div>
+        <ul >
+        {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>{{message}}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+        </div>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
 
                 <div class="form-label-group">
                     {{ form.email }}
+                    <small id="emailHelp" class="form-text text-muted">{{form.email.errors}}</small>
+                    
 <!--                    <input type="text" id="inputEmail" class="form-control" placeholder="Email address" required>-->
 <!--                    <label for="inputEmail">Email address</label>-->
                 </div>
                 <div class="form-label-group">
                     {{ form.first_name }}
+                    <small id="emailHelp" class="form-text text-muted">{{form.first_name.errors}}</small>
 <!--                    <input type="text" id="inputUserame" class="form-control" placeholder="Username" required autofocus>-->
 <!--                    <label for="inputUserame">Username</label>-->
                 </div>
+                {{ form.captcha }}
                 <div class="form-label-group">
                     {{ form.last_name }}
+                    <small id="emailHelp" class="form-text text-muted">{{form.last_name.errors}}</small>
+
 <!--                    <input type="email" id="" class="form-control" placeholder="Email address" required>-->
 <!--                    <label for="inputEmail"></label>-->
                 </div>
                 <hr>
                 <div class="form-label-group">
                     {{ form.contact_no }}
+                    <small id="emailHelp" class="form-text text-muted">{{form.contact_no.errors}}</small>
 <!--                    <input type="email" id="" class="form-control" placeholder="Email address" required>-->
 <!--                    <label for="inputContact"></label>-->
                 </div>
                 <div class="form-label-group">
                     {{ form.password1 }}
+                    <small id="emailHelp" class="form-text text-muted">{{form.password1.errors}}</small>
                 </div>
                 <div class="form-label-group">
                     {{ form.password2 }}
+                    <small id="emailHelp" class="form-text text-muted">{{form.password2.errors}}</small>
                 </div>
 <!--                <p><label for="id_password1">Password:</label>-->
 <!--                    <input class="form-control" type="password" name="password1" placeholder="Password" id="id_password1" required=""></p>-->
