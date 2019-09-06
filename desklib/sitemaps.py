@@ -5,6 +5,7 @@ from samples.models import Sample
 from django.urls import reverse
 from django.utils import timezone
 
+
 class SampleSitemap(Sitemap):
     priority = 0.5
     changefreq = 'daily'
@@ -19,6 +20,7 @@ class SampleSitemap(Sitemap):
 class DocumentSitemap(Sitemap):
     priority = 0.5
     changefreq = 'daily'
+
     # limit = 50000
 
     def items(self):
@@ -27,12 +29,13 @@ class DocumentSitemap(Sitemap):
     def lastmod(self, obj):
         return obj.published_date
 
+
 class StaticViewSitemap(Sitemap):
     priority = 0.5
     changefreq = 'daily'
 
     def items(self):
-        return ['home','about','contact']
+        return ['home', 'about', 'contact']
 
     def location(self, item):
         return reverse(item)

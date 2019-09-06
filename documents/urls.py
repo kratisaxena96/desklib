@@ -12,7 +12,4 @@ urlpatterns = [
     path('download/<slug:slug>/', DocumentDownloadView.as_view(), name='document-download-view'),
     path('download/success', DownloadSuccessView.as_view(), name='download-success-view'),
     path('extend/subscription', PageViewsFinishView.as_view(), name='pageviews-finish-view'),
-
-    path('sitemap-index.xml/', TemplateView.as_view(template_name='documents/sitemap-index.xml',content_type='text/xml'), name='sitemap_index'),
-
 ]
