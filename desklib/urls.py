@@ -19,12 +19,9 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
 from django.conf.urls.i18n import i18n_patterns
-from .sitemaps import DocumentSitemap,StaticViewSitemap, SampleSitemap
+from .sitemaps import DocumentSitemap, StaticViewSitemap, SampleSitemap
 from django.views.decorators.cache import cache_page
-
-from .sitemaps import DocumentSitemap,StaticViewSitemap
 from django.contrib.sitemaps import views
-
 from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView, TestPageView, \
     SubscriptionView, PayNowView, PrivacyPolicyView, HonorCodeView, CopyrightPolicyView, TermsOfUseView, \
     AcademicIntegrityView, ComingSoonPageView, PaymentCancelledView, PaymentSuccessView

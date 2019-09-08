@@ -21,6 +21,7 @@ import pytz
 logger = logging.getLogger(__name__)
 
 
+
 class ComingSoonPageView(MetadataMixin, JsonLdContextMixin, TemplateView):
     form_class = HomeSearchForm
     title = 'Best study and educational resources | desklib.com'
@@ -324,3 +325,5 @@ class PaymentCancelledView(LoginRequiredMixin, TemplateView):
 
 class PaymentSuccessView(LoginRequiredMixin, TemplateView):
     template_name = 'desklib/payment_success.html'
+
+
