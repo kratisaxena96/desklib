@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-
+{% comment %}
     <main class="py-2 height-100 doc-img">
         <div class="center-align-box card box-shadow-3-3-5-5 border-radius-20 bg-light-grey">
             <div class="card-body">
@@ -25,7 +25,84 @@
             </div>
         </div>
     </main>
+{% endcomment %}
+<main class="py-5 height-100">
+    <section class="container bg-light-grey border-radius-40 p-5">
+        <div class="row">
+            <div class="col-md mb-2 border-radius-20 border border-primary download-info p-4 mx-auto mr-md-1 mb-sm-1 mb-1">
+                <h5 class="text-center">Download Document</h5>
+                <hr>
+                <p>You are about to download this document, are you sure you want to continue?</p>
+                <p>Please review the following details:</p>
+                <div class="table-responsive">
+                <table class="table table-sm">
+                    <tbody>
+                        <tr>
+                            <td class="w-25"><p>Plan type: </p></td>
+                            <td class="w-25"><p><strong> ** </strong></p></td>
+                        </tr>
+                        <tr>
+                            <td class="w-25"><p>Validity: </p></td>
+                            <td class="w-25"><p><strong> ** </strong></p></td>
+                        </tr>
+                        <tr>
+                            <td class="w-25"><p>Total downloads: </p></td>
+                            <td class="w-25"><p><strong> ** </strong></p></td>
+                        </tr>
+                        <tr>
+                            <td class="w-25"><p>Downloads Remaining: </p></td>
+                            <td class="w-25"><p><strong> {{remaining_downloads}} </strong></p></td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
 
+                <form class="form-inline" action="." method="post">
+                    {% csrf_token %}
+                    <div class="container py-1">
+                    <div class="row">
+                    <div class="col">
+<!--                        <div class="">-->
+                            {{form.issue}}
+                            <label class="form-control" for="{{form.id_issue}}"  id="id_issue"> &nbsp;{{form.issue.label}}</label>
+<!--                        </div>-->
+                    </div>
+                    </div>
+                    </div>
+                    <div class="container py-1">
+                      <div class="row">
+                        <div class="col text-center">
+                          <button class="btn btn-primary btn-bg-theme border-radius-40" type="submit">Download now</button>
+                        </div>
+                      </div>
+                    </div>
+<!--                    <div class="container">-->
+<!--                    <div class="row">-->
+<!--                    <div class="col-sm-12 text-center">-->
+<!--                        <div class="form-group">-->
+<!--                            <button class="btn btn-primary btn-bg-theme border-radius-40" type="submit" value="Download now">Download now</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    </div>-->
+<!--                    </div>-->
+                </form>
+                <p class="text-muted pt-2">*Document will be sent on you email.</p>
+    <!--                <button class="btn btn-primary btn-bg-theme mt-5 border-radius-40">Download now</button>-->
+            </div>
+            <div class="col-md mb-2 border border-primary border-radius-20 download-info p-4 mx-auto ml-md-1 mb-sm-1 mb-1">
+                <h5 class="text-center">Selected Document</h5>
+                <hr>
+                <img class="img-fluid" src="{{ document.image_file.url }}" alt="{{ document.title }}">
+                <p class="mt-2"><strong>{{ document.title }}</strong></p>
+                <p>No of pages: <strong>{{document.pages.all.count}}</strong></p>
+                <p>No of words: <strong>{{document.words.all.count}}</strong></p>
+                <div class="text-center">
+                    <a href="https://tawk.to/chat/5d52a62677aa790be32eb23b/default"><button class="btn btn-primary btn-bg-theme mt-5 border-radius-40">Chat now</button></a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
 {% endblock %}
 
 {% block extra_js %}
