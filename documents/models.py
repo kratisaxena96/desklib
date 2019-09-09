@@ -40,7 +40,7 @@ def upload_to(instance, filename):
     # uid = instance.content_object.uuid
 
     return 'document/{}/{}'.format(
-        instance.pk,
+        now.strftime("%Y/%m/%d/"),
         filename,
     )
 
