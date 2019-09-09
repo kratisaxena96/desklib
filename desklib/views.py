@@ -13,7 +13,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from haystack.generic_views import SearchView
 from django_json_ld import settings as setting
 from documents.models import Document
-from .forms import HomeSearchForm
+from .forms import HomeSearchForm, CustomPayPalPaymentForm
 from subscription.models import Plan
 from django.utils import timezone
 from subscription.utils import get_current_subscription
@@ -288,7 +288,7 @@ class PayNowView(LoginRequiredMixin,TemplateView):
                 "custom": self.request.user.username + "_" + plan_key,  # Custom command to correlate to some function later (optional)
             }
 
-            form = PayPalPaymentsForm(initial=paypal_dict, button_type="subscribe")
+            form = CustomPayPalPaymentForm(initial=paypal_dict, button_type="subscribe")
             context = {"form": form}
         return context
 
