@@ -16,6 +16,7 @@ from documents.models import Document
 from .forms import HomeSearchForm
 from subscription.models import Plan
 from django.utils import timezone
+from subscription.utils import get_current_subscription
 import pytz
 
 logger = logging.getLogger(__name__)
@@ -264,6 +265,8 @@ class PayNowView(LoginRequiredMixin,TemplateView):
         context = super(PayNowView, self).get_context_data(**kwargs)
         plan_key = kwargs.get('key')
         plan= Plan.objects.get(key=plan_key)
+        subscription_obj = get_current_subscription(self.request.user)
+        context['subscription'] = subscription_obj
 
 
         if settings.PAYPAL_TEST:
