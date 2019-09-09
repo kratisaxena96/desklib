@@ -146,8 +146,7 @@ opacity:0.9 !important;
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="{% url 'study:study-search'%}">Study</a></li>
-         <li class="breadcrumb-item"><a href="{% url 'writing:writing' %}">Writing</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Document</li>
+        <li class="breadcrumb-item active" aria-current="page">{{object.title}}</li>
   </ol>
 </nav>
 </section>
@@ -156,7 +155,7 @@ opacity:0.9 !important;
     <article class="col-sm-8 border-right">
 
         <h3>{{object.title}}</h3>
-        <p>Added on - {{object.created|date:"D d M Y"}}</p>
+        <p>Added on - {{object.created|date:"d M Y"}}</p>
         <ul class="p-0 d-inline-block">
             <li class="d-inline-block p-2 text-center border-right">
                 <p class="mb-1">{{object.views}}</p>
@@ -256,9 +255,13 @@ opacity:0.9 !important;
 <section>
 <div class="alert alert-light border mb-4 mt-2">
   <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-6">
        <span>Number of pages in document:{{object.pages.all.count}}</span>
     </div>
+    <div class="col-sm-6">
+     <span>Total Words:</span>
+     <span>{{object.words}}</span>
+  </div>
   </div>
   <div class="row">
     <div class="col-sm-6"> 
@@ -268,10 +271,6 @@ opacity:0.9 !important;
       {% endfor %}
      
     </div>
-  <div class="col-sm-6">
-     <span>Total Words:</span>
-     <span>{{object.words}}</span>
-  </div>
 </div>
 </div>
 </section>
