@@ -11,8 +11,7 @@ from allauth.utils import get_username_max_length, set_form_field_order
 
 
 class CustomSignupForm(SignupForm):
-    # captcha = ReCaptchaField(widget=ReCaptchaV3,label=False)
-
+    captcha = ReCaptchaField(widget=ReCaptchaV3)
     first_name = forms.CharField(max_length=40, label='First Name', widget=forms.TextInput(attrs={'placeholder':"First Name",'class':"form-control"}))
     last_name = forms.CharField(max_length=40, label='Last Name', widget=forms.TextInput(attrs={'placeholder':"Last Name",'class':"form-control"}))
     email = forms.EmailField(max_length=100, label='E-mail', widget=forms.EmailInput(attrs={'placeholder': "E-mail", 'class': "form-control"}))

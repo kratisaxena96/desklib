@@ -1,6 +1,7 @@
 from django import forms
 from .models import Report, Issue
-
+from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV3
 
 class ReportForm(forms.ModelForm):
     issue = forms.ModelMultipleChoiceField(label='Issue', queryset=Issue.objects.all(), widget=forms.SelectMultiple(attrs={'class':"form-control", 'id':"id_issue"}), required=False)
@@ -12,4 +13,5 @@ class ReportForm(forms.ModelForm):
 
 
 class DownloadFileForm(forms.Form):
-    issue = forms.BooleanField(label='Agree to Terms and conditions', widget=forms.CheckboxInput(attrs={'class':"form-control", 'id': "id_issue"}))
+    captcha = ReCaptchaField(widget=ReCaptchaV3)
+    issue = forms.BooleanField(label='Agree to Terms and conditions', widget=forms.CheckboxInput(attrs={'id': "id_issue"}))
