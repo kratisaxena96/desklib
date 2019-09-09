@@ -13,8 +13,9 @@ from termcolor import colored
 
 path = input("Folder Path: ")
 last_file = input("Enter last filename to restart program: ")
-url = input("Enter Url Of website: ")
+# url = input("Enter Url Of website: ")
 # url = 'http://127.0.0.1:8000/api/create/document'
+url = 'https://desklib.com/api/document/create/document/'
 
 ALLOWED_EXTENSIONS = ['pdf','docx','doc', 'pptx', 'ppt', 'odt', 'odf']
 IGNORE_FILENAME_KEYWORDS = ['lecture', 'rubic', 'rubric', 'instructions', 'assignmentbrief', 'criteria', 'requirements', 'programmingassignment', 'individual-assignment', 'individualassignment']
