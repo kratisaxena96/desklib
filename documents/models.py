@@ -39,7 +39,8 @@ def upload_to(instance, filename):
     # filename_base, filename_ext = os.path.splitext(filename)
     # uid = instance.content_object.uuid
 
-    return 'document/{}'.format(
+    return 'document/{}/{}'.format(
+        now.strftime("%Y/%m/%d/"),
         filename,
     )
 
@@ -291,6 +292,12 @@ class Document(ModelMeta, models.Model):
 
             # Get first sentence.
             self.first_sentence = get_first_sentence(sentences)
+            if len(self.first_sentence) > 300:
+                # https://stackoverflow.com/questions/6266727/python-cut-off-the-last-word-of-a-sentence
+                self.first_sentence = self.first_sentence[:300].rsplit(' ', 1)[0]
+            elif len(self.first_sentence) < 15:
+                self.first_sentence = text[:300]
+
             # Set publishing date of the document
             self.published_date = timezone.now() + datetime.timedelta(+0)
 
@@ -336,16 +343,22 @@ class Document(ModelMeta, models.Model):
 
             self.page = pdf_images.__len__()
 
-            if self.page <= 5:
+            self.preview_from = 2
+            if self.page <= 1:
+                self.preview_from = 1
+                self.preview_to = 1
+            elif self.page <= 3:
                 self.preview_to = 2
-            elif self.page <=10:
-                self.preview_to = 2
-            elif self.page <= 20:
+            elif self.page <= 5:
                 self.preview_to = 3
-            elif self.page <=30:
+            elif self.page <= 10:
                 self.preview_to = 4
-            elif self.page > 30:
+            elif self.page <= 20:
                 self.preview_to = 5
+            elif self.page <= 30:
+                self.preview_to = 7
+            elif self.page > 30:
+                self.preview_to = 9
 
             super(Document, self).save(*args, **kwargs)
 
