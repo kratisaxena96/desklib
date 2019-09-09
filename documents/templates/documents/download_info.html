@@ -39,15 +39,15 @@
                     <tbody>
                         <tr>
                             <td class="w-25"><p>Plan type: </p></td>
-                            <td class="w-25"><p><strong> ** </strong></p></td>
+                            <td class="w-25"><p><strong> {{subscription.plan}} </strong></p></td>
                         </tr>
                         <tr>
                             <td class="w-25"><p>Validity: </p></td>
-                            <td class="w-25"><p><strong> ** </strong></p></td>
+                            <td class="w-25"><p><strong> {{subscription.expire_on}} </strong></p></td>
                         </tr>
                         <tr>
                             <td class="w-25"><p>Total downloads: </p></td>
-                            <td class="w-25"><p><strong> ** </strong></p></td>
+                            <td class="w-25"><p><strong> {{subscription.plan.download_limit}} </strong></p></td>
                         </tr>
                         <tr>
                             <td class="w-25"><p>Downloads Remaining: </p></td>
@@ -95,7 +95,7 @@
                 <img class="img-fluid" src="{{ document.image_file.url }}" alt="{{ document.title }}">
                 <p class="mt-2"><strong>{{ document.title }}</strong></p>
                 <p>No of pages: <strong>{{document.pages.all.count}}</strong></p>
-                <p>No of words: <strong>{{document.words.all.count}}</strong></p>
+                <p>No of words: <strong>{{document.words}}</strong></p>
                 <div class="text-center">
                     <a href="https://tawk.to/chat/5d52a62677aa790be32eb23b/default"><button class="btn btn-primary btn-bg-theme mt-5 border-radius-40">Chat now</button></a>
                 </div>
