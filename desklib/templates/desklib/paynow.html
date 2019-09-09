@@ -1,7 +1,52 @@
 {% extends 'desklib/base.html' %}
 {% load meta %}
 {% block content %}
-<main class="login-page">
+<section>
+    <div class="container py-2">
+		<div class="row">
+            <div class="col-sm-9 mx-auto">
+                <h4 class="py-1 text-center" id="">Payment Details</h4>
+                <p>Your payment details are -</p>
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr>
+                                <td class="w-25"><p>Plan type: </p></td>
+                                <td class="w-25 text-right"><p><strong> {{subscription.plan}} </strong></p></td>
+                            </tr>
+                            <tr>
+                                <td class="w-25"><p>Available views: </p></td>
+                                <td class="w-25 text-right"><p><strong> {{subscription.plan.view_limit}} </strong></p></td>
+                            </tr>
+                            <tr>
+                                <td class="w-25"><p>Available downloads: </p></td>
+                                <td class="w-25 text-right"><p><strong> {{subscription.plan.download_limit}} </strong></p></td>
+                            </tr>
+                            <tr>
+                                <td class="w-25"><p>Days: </p></td>
+                                <td class="w-25 text-right"><p><strong> {{subscription.plan.days}} </strong></p></td>
+                            </tr>
+                            <tr>
+                                <td class="w-25"><p>Price: </p></td>
+                                <td class="w-25 text-right"><p><strong> {{subscription.plan.price}} </strong></p></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <form action="." method="POST">
+                    {% csrf_token %}
+                    {{form.check}}
+                            &nbsp;<label class="v-align-m" for="{{form.id_check}}" id="id_check"> {{form.check.label}}</label>
+                        <div class="col text-center">
+                            <button class="btn btn-primary btn-bg-theme border-radius-40" type="submit">Pay now</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% comment %}
+<main class="">
     <div class="container">
 		<div class="row">
 			<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
@@ -35,12 +80,12 @@
                                 </tbody>
                             </table>
                         </div>
-                        <form action="." method="post">
+                        <form action="." method="POST">
                             {% csrf_token %}
-                            {{form.issue}}
+                            {{form.as_p}}
                                     &nbsp;<label class="v-align-m" for="{{form.id_issue}}" id="id_issue"> {{form.issue.label}}</label>
                                 <div class="col text-center">
-                                    <button class="btn btn-primary btn-bg-theme border-radius-40" type="submit">Download now</button>
+                                    <button class="btn btn-primary btn-bg-theme border-radius-40" type="submit">Pay now</button>
                                 </div>
                         </form>
                     </div>
@@ -48,7 +93,7 @@
             </div>
         </div>
     </div>
-{% comment %}
+
 Pay Now Page
 <div class="loader">
 </div>
