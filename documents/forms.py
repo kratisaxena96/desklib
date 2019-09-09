@@ -14,4 +14,4 @@ class ReportForm(forms.ModelForm):
 
 class DownloadFileForm(forms.Form):
     captcha = ReCaptchaField(widget=ReCaptchaV3)
-    issue = forms.BooleanField(label='Agree to Terms and conditions', widget=forms.CheckboxInput(attrs={'class':"form-control", 'id': "id_issue"}))
+    issue = forms.BooleanField(label='Agree to Terms and conditions', widget=forms.CheckboxInput(attrs={'id': "id_issue"}))

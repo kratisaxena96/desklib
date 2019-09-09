@@ -229,6 +229,7 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
 
         context['remaining_downloads'] = remaining_downloads
         context['document'] = document_obj
+        context['subscription'] = subscription_obj
         return context
 
     def post(self, request, *args, **kwargs):
