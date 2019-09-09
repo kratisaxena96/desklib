@@ -5,27 +5,65 @@
 {% endblock %}
 
 {% block content %}
-{% comment %}
-    <main class="py-2 height-100 doc-img">
-        <div class="center-align-box card box-shadow-3-3-5-5 border-radius-20 bg-light-grey">
-            <div class="card-body">
-                <h3 class="card-title text-center">Document Information</h3>
+<div class="container pb-2">
+  <div class="row pt-0 pt-sm-5">
+      <article class="col-sm-8 border-right">
+          <h5 class="text-center">Download Document</h5>
                 <hr>
-                <p>Document will be sent to your email: <strong>{{user.email}}</strong></p>
-                <p>Remaining downloads: <strong>{{remaining_downloads}}</strong></p>
-                <p>Pages in document: <strong>{{document.title}}</strong></p>
-                <p>Pages in document: <strong>{{document.pages.all.count}}</strong></p>
-                <hr>
-                <p>To proceed download</p>
+                <p>You are about to download this document, are you sure you want to continue?</p>
+                <p>Please review the following details:</p>
+                <div class="table-responsive">
+                <table class="table table-sm">
+                    <tbody>
+                        <tr>
+                            <td class="w-50"><p>Plan type: </p></td>
+                            <td class="w-50 text-center"><p><strong> {{subscription.plan}} </strong></p></td>
+                        </tr>
+                        <tr>
+                            <td class="w-50"><p>Validity: </p></td>
+                            <td class="w-50 text-center"><p><strong> {{subscription.expire_on.date}} </strong></p></td>
+                        </tr>
+                        <tr>
+                            <td class="w-50"><p>Total downloads: </p></td>
+                            <td class="w-50 text-center"><p><strong> {{subscription.plan.download_limit}} </strong></p></td>
+                        </tr>
+                        <tr>
+                            <td class="w-50"><p>Downloads Remaining: </p></td>
+                            <td class="w-50 text-center"><p><strong> {{remaining_downloads}} </strong></p></td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+
                 <form action="." method="post">
                     {% csrf_token %}
-                    {{form.as_p}}
-                    <input type="submit">
+                        <div>
+                            {{form.issue}}
+                            &nbsp;<label class="v-align-m" for="{{form.id_issue}}" id="id_issue"> {{form.issue.label}}</label>
+                        </div>
+                        <div class="col text-center">
+                          <button class="btn btn-primary btn-bg-theme border-radius-40" type="submit">Download now</button>
+                        </div>
                 </form>
+                <p class="text-muted pt-2">*Document will be sent on you email.</p>
+      </article>
+      <aside class="col-sm-4">
+            <h5 class="text-center">Selected Document</h5>
+            <hr>
+            <img class="img-fluid" src="{{ document.cover_file.url }}" alt="{{ document.title }}">
+            <p class="mt-2"><strong>{{ document.title }}</strong></p>
+            <div>
+            <p>No of pages: <strong>{{document.pages.all.count}}</strong></p>
+            <p>No of words: <strong>{{document.words}}</strong></p>
             </div>
-        </div>
-    </main>
-{% endcomment %}
+            <hr>
+            <div class="text-center">
+                <a href="https://tawk.to/chat/5d52a62677aa790be32eb23b/default"><button class="btn btn-primary btn-bg-theme mt-2 border-radius-40">Chat now</button></a>
+            </div>
+      </aside>
+  </div>
+</div>
+{% comment %}
 <main class="py-5 height-100">
     <section class="container border-radius-40 p-5">
         <div class="row">
@@ -85,6 +123,7 @@
         </div>
     </section>
 </main>
+{% endcomment %}
 {% endblock %}
 
 {% block extra_js %}
