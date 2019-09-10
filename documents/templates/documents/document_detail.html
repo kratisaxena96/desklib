@@ -158,6 +158,14 @@ opacity:0.9 !important;
         <p>Added on - {{object.created|date:"d M Y"}}</p>
         <ul class="p-0 d-inline-block">
             <li class="d-inline-block p-2 text-center border-right">
+                <p class="mb-1">{{object.pages.all.count}}</p>
+                <p class="mb-0">pages</p>
+            </li>
+            <li class="d-inline-block p-2 text-center border-right">
+                <p class="mb-1">{{object.words}}</p>
+                <p class="mb-0">words</p>
+            </li>
+            <li class="d-inline-block p-2 text-center border-right">
                 <p class="mb-1">{{object.views}}</p>
                 <p class="mb-0">views</p>
             </li>
@@ -253,6 +261,7 @@ opacity:0.9 !important;
 
         </ul>
 <section>
+    {% comment %}
 <div class="alert alert-light border mb-4 mt-2">
   <div class="row">
     <div class="col-sm-6">
@@ -273,6 +282,7 @@ opacity:0.9 !important;
     </div>
 </div>
 </div>
+    {% endcomment %}
 </section>
         <div class="alert alert-light border">
 
@@ -421,7 +431,7 @@ $(document).ready(function(){
 
 </script>
 <script>
-    var images = [{% for page in object.pages.all %}"{{ page.image_file.url }}", {% endfor %}];
+    var images = [{% for page in controlled_pages %}"{{ page.image_file.url }}", {% endfor %}];
     $('.page').each(function(index, ele) {
 
         // var newimg = $( "img" );
