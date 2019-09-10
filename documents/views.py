@@ -333,7 +333,11 @@ class DocumentDownloadView(LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         # print(request.user)
         if request.user.subscriptions.all().exists():
-            return redirect('documents:download-info-view', slug=kwargs.get('slug'))
+            subscription_obj = get_current_subscription(self.request.user)
+            if subscription_obj:
+                return redirect('documents:download-info-view', slug=kwargs.get('slug'))
+            else:
+                return redirect('subscription')
         else:
             return redirect('subscription')
 

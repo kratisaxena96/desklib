@@ -292,11 +292,11 @@ class Document(ModelMeta, models.Model):
 
             # Get first sentence.
             self.first_sentence = get_first_sentence(sentences)
-            if len(self.first_sentence) > 300:
+            if len(self.first_sentence) > 160:
                 # https://stackoverflow.com/questions/6266727/python-cut-off-the-last-word-of-a-sentence
-                self.first_sentence = self.first_sentence[:300].rsplit(' ', 1)[0]
+                self.first_sentence = self.first_sentence[:160].rsplit(' ', 1)[0]
             elif len(self.first_sentence) < 15:
-                self.first_sentence = text[:300]
+                self.first_sentence = text[:160]
 
             # Set publishing date of the document
             self.published_date = timezone.now() + datetime.timedelta(+0)

@@ -5,7 +5,7 @@
 <section class="margin-top-40">
     <div class="container">
         <div class="row margin-bottom-20">
-            <div class="col-11">
+            <div class="col-12">
                 <h1 class="">{{object.name}}</h1>
                 {% comment %}
                 <p class="">{{object.description|safe}}</p>
@@ -14,13 +14,12 @@
 </div>
 </div>
 <div class="row margin-bottom-20">
-    <div class="col-md-12">
-         <div class="row"> 
+    <!-- <div class="col-md-12"> -->
+        <!--  <div class="row"> --> 
              <div class="col-md-8"> 
                  <div class="owl-carousel owl-theme author-carousel">
                      {% for sample in object.samples.all %}
                      <img class="img-fluid resume-img" src="{{ sample.image_file.url }}" alt="{{object.name}}">
-
                      <img class="img-fluid resume-img" src="{{ sample.image_file.url }}" alt="{{object.name}}">
                     
                       {% endfor %}
@@ -36,8 +35,8 @@
                 <span class="d-block text-center">Or</span>
                 <a href="https://tawk.to/chat/5d52a62677aa790be32eb23b/default" target="_blank" class="btn btn-primary bg-blue-theme mt-sm-3 mb-sm-3 d-block border-radius-30 px-4 py-2">Hire Professional</a>
               </div>
-         </div>
-    </div>
+        <!--  </div> -->
+    <!-- </div> -->
 </div>
 <div class="row margin-bottom-20">
     <div class="col-md-4"> 
@@ -70,10 +69,7 @@
                     <img class="img-fluid resume-img" src="{{ sample.image_file.url }}" alt="{{object.name}}">
                 {% endfor %}
         {% endcomment %}
-               <!--  <div class="margin-bottom-20"></div> -->
-           <!--  </div> -->
-       <!--  </div> -->
-   <!--  </div> -->
+           
 </section>
 
 {% endblock %}
@@ -87,7 +83,7 @@ $(document).ready(function () {
                 nav: false,
                 dots: true,
                 autoplay: true,
-                margin: 10,
+                // margin: 10,
                 responsiveClass: true,
                 responsive: {
                     0: {
@@ -102,9 +98,13 @@ $(document).ready(function () {
                     },
                     768: {
                         items: 1,
+                        dots: true,
+                         nav: false
                     },
                     992: {
                         items: 1,
+                        dots: true,
+                         nav: false
                     }
                 }
             });
