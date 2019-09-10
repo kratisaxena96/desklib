@@ -60,6 +60,7 @@
              {% endcomment %}
              {% if query or facets %}
          {% if page_obj.object_list %}
+    
 			 <div class="container ">
                   <div role="tabpanel">
                      <ul class="nav nav-tabs ">
@@ -213,6 +214,8 @@
              </div>
             </div>
              {% endif %}
+            
+         </div>
              {% if not page_obj.object_list and not is_empty %}
              <div class="container mt-5 mb-5">
                  <div class="row">
