@@ -234,6 +234,7 @@ HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.elasticsearch2_backend.Elasticsearch2SearchEngine',
         'URL': 'localhost:9200',
+        'TIMEOUT': 60 * 5,
         'INDEX_NAME': 'haystack_new',
         'INCLUDE_SPELLING': True,
     },
