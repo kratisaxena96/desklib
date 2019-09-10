@@ -50,7 +50,7 @@
       <aside class="col-sm-4">
             <h5 class="text-center">Selected Document</h5>
             <hr>
-            <img class="img-fluid" src="{{ document.cover_file.url }}" alt="{{ document.title }}">
+            <img class="img-fluid" src="{{ image.url }}" alt="{{ image.name }}">
             <p class="mt-2"><strong>{{ document.title }}</strong></p>
             <div>
             <p>No of pages: <strong>{{document.pages.all.count}}</strong></p>
@@ -111,7 +111,7 @@
             <div class="col-md mb-2 border border-primary border-radius-20 download-info p-4 mx-auto ml-md-1 mb-sm-1">
                 <h5 class="text-center">Selected Document</h5>
                 <hr>
-                <img class="img-fluid" src="{{ document.image_file.url }}" alt="{{ document.title }}">
+                <img class="img-fluid" src="{{ image.url }}" alt="{{ image.name }}">
                 <p class="mt-2"><strong>{{ document.title }}</strong></p>
                 <p>No of pages: <strong>{{document.pages.all.count}}</strong></p>
                 <p>No of words: <strong>{{document.words}}</strong></p>
