@@ -5,29 +5,34 @@
 <section class="margin-top-40">
     <div class="container">
         <div class="row margin-bottom-20">
-            <div class="col-12">
+            <div class="col-md-12">
                 <h1 class="">{{object.name}}</h1>
                 {% comment %}
                 <p class="">{{object.description|safe}}</p>
                  {% endcomment %}
-<!--                <img src="{{ object.image_file.url }}" alt="{{object.name}}">-->
+
 </div>
 </div>
-<div class="row margin-bottom-20">
-    <!-- <div class="col-md-12"> -->
-        <!--  <div class="row"> --> 
-             <div class="col-md-8"> 
-                 <div class="owl-carousel owl-theme author-carousel">
+ <!--    <div class="card mb-5"> -->
+      <div class="row">
+            <div class="col-md-6"> 
+              <div class="card">
+                  <div class="card-body">
+                    <div class="owl-carousel owl-theme author-carousel">
                      {% for sample in object.samples.all %}
-                     <img class="img-fluid resume-img" src="{{ sample.image_file.url }}" alt="{{object.name}}">
-                     <img class="img-fluid resume-img" src="{{ sample.image_file.url }}" alt="{{object.name}}">
+                     <img class="img-fluid" src="{{ sample.image_file.url }}" alt="{{object.name}}">
+                     <img class="img-fluid" src="{{ sample.image_file.url }}" alt="{{object.name}}">
                     
                       {% endfor %}
-                 </div>
+               </div>
              </div>
-             <div class="col-md-3 align-self-center">
-                <h4>Our Sample</h4>
-                 <p class="font-size-15 pb-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+         </div>
+     </div>
+             <div class="col-md-6">
+              <div class="card">
+                <div class="card-body">
+                  <h4>Our Sample</h4>
+                  <p class="font-size-15 pb-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
                             standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
                             a type specimen book.
                 </p>
@@ -35,30 +40,28 @@
                 <span class="d-block text-center">Or</span>
                 <a href="https://tawk.to/chat/5d52a62677aa790be32eb23b/default" target="_blank" class="btn btn-primary bg-blue-theme mt-sm-3 mb-sm-3 d-block border-radius-30 px-4 py-2">Hire Professional</a>
               </div>
-        <!--  </div> -->
-    <!-- </div> -->
-</div>
-<div class="row margin-bottom-20">
+          </div>
+        </div>
+</div>  
+<!-- </div> -->
+<div class="row mt-5">
     <div class="col-md-4"> 
       <div class="dropdown">
         <a class="btn btn-light" data-toggle="dropdown" href="JavaScript:Void(0);">
         <i class="fas fa-share-alt mb-1"></i>
-        <p class="mb-0">Share</p></a>
+        <p class="mb-0 d-inline pl-2">Share</p></a>
          <div class="dropdown-menu">
              <a class="dropdown-item" href="https://facebook.com/sharer.php?u=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank">Share on Facebook</a>
-
               <a class="dropdown-item" href="https://twitter.com/intent/tweet?url=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank" >Share on Twitter</a>
-
               <a class="dropdown-item" href="https://www.linkedin.com/shareArticle?mini=true&url=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}&title=LinkedIn%20Developer%20Network &summary=My%20favorite%20developer%20program&source=LinkedIn" target="_blank">Share on LinkedIn</a>
-
+              <a class="dropdown-item" href="https://web.whatsapp.com/send?text=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank">Share on Whatsapp</a>
                <a class="dropdown-item" href="mailto:?subject=Read {{object.title}}  on Scribd&body=I am reading {{object.title}}  on Desklib: https://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank">Share on Mail</a>
-
                 <a class="dropdown-item copy_text" href="https://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank">Copy Link</a>
 </div>
 </div>
 </div>
 </div>
-<div class="row margin-bottom-20">
+<div class="row mt-4 mb-4">
     <div class="col-md-12"> 
         <p class="text-center">{{object.description|safe}}</p> 
 </div>
@@ -81,30 +84,26 @@ $(document).ready(function () {
                 items: 1,
                 loop: true,
                 nav: false,
-                dots: true,
+                dots: false,
                 autoplay: true,
                 // margin: 10,
                 responsiveClass: true,
                 responsive: {
                     0: {
                         items: 1,
-                         dots: true,
-                         nav: false
+                        
                     },
                     400: {
                         items: 1,
-                         dots: true,
-                         nav: false
+                         
                     },
                     768: {
                         items: 1,
-                        dots: true,
-                         nav: false
+                        
                     },
                     992: {
                         items: 1,
-                        dots: true,
-                         nav: false
+                        
                     }
                 }
             });
