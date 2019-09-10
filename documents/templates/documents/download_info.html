@@ -7,7 +7,7 @@
 {% block content %}
 <div class="container pb-2 height-100">
   <div class="row pt-0 pt-sm-5">
-      <div class="col-sm-8">
+      <div class="col-sm-8 mycontent-left">
           <h5 class="text-center">Download Document</h5>
                 <hr>
                 <p>You are about to download this document, are you sure you want to continue?</p>
@@ -17,19 +17,19 @@
                     <tbody>
                         <tr>
                             <td class="w-50"><p>Plan type: </p></td>
-                            <td class="w-50 text-center"><p><strong> {{subscription.plan}} </strong></p></td>
+                            <td class="w-50 text-right"><p><strong> {{subscription.plan}} </strong></p></td>
                         </tr>
                         <tr>
                             <td class="w-50"><p>Validity: </p></td>
-                            <td class="w-50 text-center"><p><strong> {{subscription.expire_on.date}} </strong></p></td>
+                            <td class="w-50 text-right"><p><strong> {{subscription.expire_on.date}} </strong></p></td>
                         </tr>
                         <tr>
                             <td class="w-50"><p>Total downloads: </p></td>
-                            <td class="w-50 text-center"><p><strong> {{subscription.plan.download_limit}} </strong></p></td>
+                            <td class="w-50 text-right"><p><strong> {{subscription.plan.download_limit}} </strong></p></td>
                         </tr>
                         <tr>
                             <td class="w-50"><p>Downloads Remaining: </p></td>
-                            <td class="w-50 text-center"><p><strong> {{remaining_downloads}} </strong></p></td>
+                            <td class="w-50 text-right"><p><strong> {{remaining_downloads}} </strong></p></td>
                         </tr>
                     </tbody>
                 </table>
@@ -52,10 +52,20 @@
             <hr>
             <img class="img-fluid" src="{{ image.url }}" alt="{{ image.name }}">
             <p class="mt-2"><strong>{{ document.title }}</strong></p>
-            <div>
-            <p>No of pages: <strong>{{document.pages.all.count}}</strong></p>
-            <p>No of words: <strong>{{document.words}}</strong></p>
-            </div>
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr>
+                                <td class="w-50"><p>Number of pages: </p></td>
+                                <td class="w-50 text-right"><p><strong> {{document.pages.all.count}} </strong></p></td>
+                            </tr>
+                            <tr>
+                                <td class="w-50"><p>Number of words: </p></td>
+                                <td class="w-50 text-right"><p><strong> {{document.words}} </strong></p></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             <hr>
             <div class="text-center">
                 <a href="https://tawk.to/chat/5d52a62677aa790be32eb23b/default"><button class="btn btn-primary btn-bg-theme mt-2 border-radius-40">Chat now</button></a>
@@ -64,7 +74,7 @@
   </div>
 </div>
 {% comment %}
-<main class="py-5 height-100">
+<main class="py-5 ">
     <section class="container border-radius-40 p-5">
         <div class="row">
             <div class="col-md mb-2 border-radius-20 border border-primary download-info p-4 mx-auto mr-md-1 mb-sm-1">
