@@ -1,6 +1,5 @@
 from django import forms
 from haystack.forms import SearchForm
-from paypal.standard.forms import PayPalPaymentsForm
 
 
 class HomeSearchForm(SearchForm):
@@ -20,7 +19,3 @@ class HomeSearchForm(SearchForm):
             sqs = sqs.load_all()
 
         return sqs
-
-class CustomPayPalPaymentForm(PayPalPaymentsForm):
-    check = forms.BooleanField(label='Agree to Terms and conditions', widget=forms.CheckboxInput(attrs={'id': "id_check"}))
-

@@ -12,34 +12,37 @@
                         <tbody>
                             <tr>
                                 <td class="w-25"><p>Plan type: </p></td>
-                                <td class="w-25 text-right"><p><strong> {{subscription.plan}} </strong></p></td>
+                                <td class="w-25 text-right"><p><strong>{{plan.package_name}} </strong></p></td>
                             </tr>
                             <tr>
                                 <td class="w-25"><p>Available views: </p></td>
-                                <td class="w-25 text-right"><p><strong> {{subscription.plan.view_limit}} </strong></p></td>
+                                <td class="w-25 text-right"><p><strong> {{plan.view_limit}} </strong></p></td>
                             </tr>
                             <tr>
                                 <td class="w-25"><p>Available downloads: </p></td>
-                                <td class="w-25 text-right"><p><strong> {{subscription.plan.download_limit}} </strong></p></td>
+                                <td class="w-25 text-right"><p><strong> {{plan.download_limit}} </strong></p></td>
                             </tr>
                             <tr>
                                 <td class="w-25"><p>Days: </p></td>
-                                <td class="w-25 text-right"><p><strong> {{subscription.plan.days}} </strong></p></td>
+                                <td class="w-25 text-right"><p><strong> {{plan.days}} </strong></p></td>
                             </tr>
                             <tr>
                                 <td class="w-25"><p>Price: </p></td>
-                                <td class="w-25 text-right"><p><strong> {{subscription.plan.price}} </strong></p></td>
+                                <td class="w-25 text-right"><p><strong> {{plan.price}} </strong></p></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <form action="." method="POST">
+                <form action="{{form.get_endpoint}}" method="post">
                     {% csrf_token %}
-                    {{form.check}}
+
+
+                    {{form.as_p}}
                             &nbsp;<label class="v-align-m" for="{{form.id_check}}" id="id_check"> {{form.check.label}}</label>
                         <div class="col text-center">
                             <button class="btn btn-primary btn-bg-theme border-radius-40" type="submit">Pay now</button>
                         </div>
+                    <input type="image" src="{{form.get_image}}" border="0" name="submit" alt="Buy it Now" />
                 </form>
             </div>
         </div>
