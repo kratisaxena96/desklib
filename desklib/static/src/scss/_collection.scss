@@ -1,3 +1,5 @@
+//------------------------------------------------     Normal CSS      ---------------------------------------------------------------//
+
 body {
 	font-family: 'Roboto', sans-serif !important;
 }
@@ -6,6 +8,18 @@ body {
 //     font-family: 'Roboto', sans-serif !important;
 // }
 
+.owl-carousel.author-carousel .owl-nav .owl-prev, .owl-carousel.author-carousel .owl-nav .owl-next,{
+	position: absolute;
+	top: 38%;
+	font-size:50px;
+}
+
+.owl-carousel.author-carousel .owl-nav .owl-prev{
+	left:-2rem;
+}
+.owl-carousel.author-carousel .owl-nav .owl-next{
+	right:-2rem;
+}
 .main-content {
    position: relative;
 
@@ -137,15 +151,8 @@ body {
 	float: none;
 }
 
-@media (min-width: 768px) {
-	.navbar-expand-md .navbar-nav .dropdown-menu {
-		position: static;
-	}
-}
-
-//-------------------------------------------------------
+            //----------------------------------------  Study Page  ------------------------------------------//
 .top-image {
-	//height: 100vh;
 	min-height: 500px;
 	background-image: url("/static/src/assets/images/Desklib banner4.png");
 	background-size: cover;
@@ -154,7 +161,6 @@ body {
 }
 
 .study-top-image {
-	//height: 100vh;
 	min-height: 500px;
 	background-image: url("/static/src/assets/images/Desklib banner4.png");
 	background-size: cover;
@@ -164,7 +170,6 @@ body {
 
 .btn-bg-theme {
 	background-color: $blue-theme;
-//	border-radius: 20px;
 	width: auto;
 }
 
@@ -824,45 +829,19 @@ display:none;
 .errorlist li{
     color: red !important;
 }
-// Download success page for owl-nav
-
-// .rel-doc > .owl-nav > .owl-prev, .owl-next {
-//                 position: absolute;
-//                 top: 50%;
-//                 font-size: 100px !important;
-//                 color: black !important;
-//                 transform: translateY(-50%);
-// }
-// .rel-doc >.owl-nav > .owl-prev{
-// 	left: -25px;
-// }
-// .rel-doc >.owl-nav > .owl-next{
-//     right: -10px;
-// }
-//
-// .sim-doc > .owl-nav > .owl-prev, .owl-next {
-//                 position: absolute;
-//                 top: 50%;
-//                 font-size: 100px !important;
-//                 color: black !important;
-//                 transform: translateY(-50%);
-// }
-// .sim-doc >.owl-nav > .owl-prev{
-// 	left: -25px;
-// }
-// .sim-doc >.owl-nav > .owl-next{
-//     right: -10px;
-// }
-//
-// .rel-doc, .sim-doc > .owl-next, .owl-prev{
-//     background-color: transparent;
-// }
-// .sim-doc.owl-theme .owl-nav [class*="owl-"]:hover, .rel-doc.owl-theme .owl-nav [class*="owl-"]:hover  {
-//     background: transparent;
-// }
 .download-info{
     background-color: #e9f5fd !important;
 }
 .v-align-m{
     vertical-align: middle;
+}
+.mycontent-left {
+  border-right: 1px solid #BEBEBE;
+}
+//------------------------------------------------     Media(@media) CSS      ---------------------------------------------------------//
+
+@media (min-width: 768px) {
+	.navbar-expand-md .navbar-nav .dropdown-menu {
+		position: static;
+	}
 }
