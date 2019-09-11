@@ -226,7 +226,11 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
                                                  created_at__lte=expiry_date_subscription).count()
         remaining_downloads = plan_download_limit - download_count
         document_obj = Document.objects.get(slug=self.kwargs.get('slug'))
-
+        from haystack.inputs import Raw
+        # sqs = SearchQuerySet().filter(content= self.kwargs.get('slug'))
+        # searchqueryset = SearchQuerySet().filter(slug=self.kwargs.get('slug'))
+        # SearchIndex.get_model(self)
+        context['image'] =  document_obj.pages.first().image_file
         context['remaining_downloads'] = remaining_downloads
         context['document'] = document_obj
         context['subscription'] = subscription_obj
