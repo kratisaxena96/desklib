@@ -84,9 +84,9 @@
 <!--    </div>-->
 <!--</section>-->
 
-<section class="container mt-5">
+<section class="container mt-5 mb-5">
         <div class="row">
-            <div class="col-md-6 mb-sm-3 mb-3">
+            <div class="col-md-6 mb-sm-3 mb-lg-0 mb-3">
                 <div class="yellow p-4 p-gl-5 p-15 rounded">
                     <h2 class="font-40">Discover resources similar to your homework problems</h2>
                     <a href="{%url 'study:study-search'%}">
@@ -96,7 +96,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-md-6 mb-sm-3 mb-3">
+            <div class="col-md-6 mb-sm-3 mb-lg-0 mb-3">
                 <div class="green p-4 p-gl-5 p-15 rounded">
                     <h2 class="font-40">Remove errors and improve your writing skills instantly</h2>
                     <a href="{% url 'writing:grammar' %}">
@@ -112,9 +112,11 @@
 {% if top_results %} <section class="container-fluid mt-5 pt-4 bg-light pt-2">
     <h2 class="text-center">Top study documents</h2>
         <div class="main-content" id="main0">
-            <div class="owl-carousel owl-theme mt-4">
+            <div class="owl-carousel owl-theme mt-4">  
                {% for results in top_results %}
+             
                         <a href="{% url 'documents:document-view' results.slug %}">
+                         
                             <div class="item shadow mr-1 mb-5 bg-white rounded">
                                 <div class="card">
                                     <img class="card-img-top card-height" src="{{results.cover_image}}" alt="Card image">
@@ -124,6 +126,7 @@
                                 </div>
                             </div>
                         </a>
+                    
                 {% endfor %}
             </div>
             <div class="owl-theme">
@@ -133,7 +136,6 @@
             </div>
         </div>
   </section>
-
 
 {% endif %}
 
@@ -168,7 +170,7 @@
             </div>
         </div>
     </div>
-    <div class="row mt-3">
+    <div class="row mt-3 mb-5">
         <div class="col-md-12 text-center">
             <a class="btn btn-primary btn-bg-theme py-3 px-4 border-radius-40" href="{% url 'subscription' %}">Subscribe us for an low as $30 a month</a>
             <p class="pt-3">* Please read details about our subscription by clicking on the link above</p>
@@ -260,7 +262,7 @@
 {% block extra_js %}
 <script>
 $('#main0 .owl-carousel').owlCarousel({
-    autoplay:true,
+    // autoplay:true,
     stagePadding: 50,
     loop: true,
     margin: 10,
