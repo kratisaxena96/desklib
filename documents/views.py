@@ -230,7 +230,7 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
         # sqs = SearchQuerySet().filter(content= self.kwargs.get('slug'))
         # searchqueryset = SearchQuerySet().filter(slug=self.kwargs.get('slug'))
         # SearchIndex.get_model(self)
-        context['image'] =  document_obj.pages.first().image_file
+        context['image'] =  document_obj.pages.all()[document_obj.cover_page_number].image_file
         context['remaining_downloads'] = remaining_downloads
         context['document'] = document_obj
         context['subscription'] = subscription_obj
