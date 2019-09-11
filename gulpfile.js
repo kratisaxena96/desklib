@@ -78,7 +78,7 @@ gulp.task('copy-js', function(){
   gulp.src('bower_components/bootstrap/dist/js/bootstrap.js').pipe(gulp.dest('desklib/static/src/js/'));
   gulp.src('bower_components/owl.carousel/dist/owl.carousel.min.js').pipe(gulp.dest('desklib/static/src/js/'));
   gulp.src('bower_components/typeahead.js/dist/typeahead.bundle.js').pipe(gulp.dest('desklib/static/src/js/'));
-  gulp.src('bower_components/typeahead.js/dist/bloodhound.js).pipe(gulp.dest('desklib/static/src/js/'));
+  gulp.src('bower_components/typeahead.js/dist/bloodhound.js').pipe(gulp.dest('desklib/static/src/js/'));
 
 });
 
