@@ -245,7 +245,7 @@ class Document(ModelMeta, models.Model):
             self.updated = timezone.now()
 
         # We only autogenerate data at time of creation.
-        if not self.id:
+        if not self.id or self.require_recalculation:
             # Populating created timestamp
             self.created = timezone.now()
             # Generating filename without spaces. Replacing them with underscore.
