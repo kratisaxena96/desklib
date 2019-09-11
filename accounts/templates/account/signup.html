@@ -114,10 +114,9 @@
               <button class="btn btn-lg btn-primary btn-block text-uppercase form-btn-group custom-rounded-circle" type="submit">Register</button>
               <a class="d-block text-center mt-2 form-btn-group" href="{% url 'account_login' %}">Sign In</a>
               <hr class="my-4">
-                <a href="{% provider_login_url 'google' method='oauth2'%}"><button class="btn btn-lg btn-google btn-block custom-rounded-circle form-btn-group" type="submit"><i class="fab fa-google mr-2"></i>Google Sign up</button></a>
+                <a class="btn btn-lg btn-google btn-block custom-rounded-circle form-btn-group" href="{% provider_login_url 'google' method='oauth2'%}"><i class="fab fa-google mr-2"></i>Google Sign up</a>
               &nbsp
-                <a id="facebook_login" href="{% provider_login_url 'facebook' method='oauth2' %}"><button class="btn btn-lg btn-facebook btn-block form-btn-group custom-rounded-circle" type="submit"><i class="fab fa-facebook-f mr-2"></i>Facebook Sign up</button></a>
-              
+                <a class="btn btn-lg btn-facebook btn-block form-btn-group custom-rounded-circle" id="facebook_login" href="{% provider_login_url 'facebook' method='oauth2' %}"><i class="fab fa-facebook-f mr-2"></i>Facebook Sign up</button></a>
               </form>
           </div>
         </div>
