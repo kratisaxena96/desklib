@@ -177,6 +177,8 @@ class Document(ModelMeta, models.Model):
     views = models.PositiveIntegerField(default=0)
     search_clicks = models.PositiveIntegerField(default=0)
     google_clicks = models.PositiveIntegerField(default=0)
+    cover_page_number = models.PositiveIntegerField(_('Cover Page No.'), null=True, blank=True,default=0)
+
 
     is_published = models.BooleanField(_('Is Published'), default=True)
     is_visible = models.BooleanField(_('Is Visible'), default=True)
