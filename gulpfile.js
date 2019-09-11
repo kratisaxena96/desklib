@@ -46,7 +46,7 @@ gulp.task('jshint', function() {
 });
 
  gulp.task('build-js', function() {
-   return gulp.src(['desklib/static/src/js/jquery.js','desklib/static/src/js/popper.min.js','desklib/static/src/js/bootstrap.js','desklib/static/src/js/owl.carousel.min.js','desklib/static/src/js/custom.js','desklib/static/src/js/typeahead.bundle.js'])
+   return gulp.src(['desklib/static/src/js/jquery.js','desklib/static/src/js/popper.min.js','desklib/static/src/js/bootstrap.js','desklib/static/src/js/owl.carousel.min.js','desklib/static/src/js/typeahead.bundle.js','desklib/static/src/js/bloodhound.js','desklib/static/src/js/custom.js'])
      .pipe(sourcemaps.init())
        .pipe(concat('bundle.js'))
        .pipe(uglify())
@@ -78,6 +78,7 @@ gulp.task('copy-js', function(){
   gulp.src('bower_components/bootstrap/dist/js/bootstrap.js').pipe(gulp.dest('desklib/static/src/js/'));
   gulp.src('bower_components/owl.carousel/dist/owl.carousel.min.js').pipe(gulp.dest('desklib/static/src/js/'));
   gulp.src('bower_components/typeahead.js/dist/typeahead.bundle.js').pipe(gulp.dest('desklib/static/src/js/'));
+  gulp.src('bower_components/typeahead.js/dist/bloodhound.js).pipe(gulp.dest('desklib/static/src/js/'));
 
 });
 
