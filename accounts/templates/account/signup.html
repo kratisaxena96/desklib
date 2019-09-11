@@ -36,11 +36,10 @@
 
 </div>
 {% endcomment %}
-<main class="login-page">
     <div class="container">
     <div class="row">
       <div class="col-lg-10 col-xl-9 mx-auto">
-        <div class="card card-signin flex-row my-5">
+        <div class="card card-signin flex-row my-5 border">
           <div class="card-img-left d-none d-md-flex">
              <!-- Background image for card set in CSS! -->
           </div>
@@ -73,14 +72,14 @@
                 </div>
                 <div class="form-label-group">
                     {{ form.first_name }}
-                    <small id="emailHelp" class="form-text text-muted">{{form.first_name.errors}}</small>
+                    <small id="fnameHelp" class="form-text text-muted">{{form.first_name.errors}}</small>
 <!--                    <input type="text" id="inputUserame" class="form-control" placeholder="Username" required autofocus>-->
 <!--                    <label for="inputUserame">Username</label>-->
                 </div>
                 {{ form.captcha }}
                 <div class="form-label-group">
                     {{ form.last_name }}
-                    <small id="emailHelp" class="form-text text-muted">{{form.last_name.errors}}</small>
+                    <small id="lnameHelp" class="form-text text-muted">{{form.last_name.errors}}</small>
 
 <!--                    <input type="email" id="" class="form-control" placeholder="Email address" required>-->
 <!--                    <label for="inputEmail"></label>-->
@@ -88,17 +87,17 @@
                 <hr>
                 <div class="form-label-group">
                     {{ form.contact_no }}
-                    <small id="emailHelp" class="form-text text-muted">{{form.contact_no.errors}}</small>
+                    <small id="contHelp" class="form-text text-muted">{{form.contact_no.errors}}</small>
 <!--                    <input type="email" id="" class="form-control" placeholder="Email address" required>-->
 <!--                    <label for="inputContact"></label>-->
                 </div>
                 <div class="form-label-group">
                     {{ form.password1 }}
-                    <small id="emailHelp" class="form-text text-muted">{{form.password1.errors}}</small>
+                    <small id="password1Help" class="form-text text-muted">{{form.password1.errors}}</small>
                 </div>
                 <div class="form-label-group">
                     {{ form.password2 }}
-                    <small id="emailHelp" class="form-text text-muted">{{form.password2.errors}}</small>
+                    <small id="password2Help" class="form-text text-muted">{{form.password2.errors}}</small>
                 </div>
 <!--                <p><label for="id_password1">Password:</label>-->
 <!--                    <input class="form-control" type="password" name="password1" placeholder="Password" id="id_password1" required=""></p>-->
@@ -124,7 +123,6 @@
       </div>
     </div>
   </div>
-</main>
 {% endblock %}
 {% block extra_js %}
 <script>
