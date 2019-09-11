@@ -180,6 +180,7 @@ class Document(ModelMeta, models.Model):
 
     is_published = models.BooleanField(_('Is Published'), default=True)
     is_visible = models.BooleanField(_('Is Visible'), default=True)
+    require_recalculation = models.BooleanField(_('Require Recalculation'), default=False)
 
     published_date = models.DateTimeField(_('Published Date'), default=timezone.now)
     created = models.DateTimeField(editable=False)

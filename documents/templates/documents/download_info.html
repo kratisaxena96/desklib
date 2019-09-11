@@ -38,6 +38,7 @@
                 <form action="." method="post">
                     {% csrf_token %}
                         <div>
+          {{form.captcha}}
                             {{form.issue}}
                             &nbsp;<label class="v-align-m" for="{{form.id_issue}}" id="id_issue"> {{form.issue.label}}</label>
                         </div>

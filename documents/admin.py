@@ -2,23 +2,61 @@ from django.contrib import admin
 from documents.models import Document, File, Page, Report, Issue
 from subjects.models import Subject
 from django.db.models import F
+from subjects.utils import get_subjects
+
 
 def publish_documents(modeladmin, request, queryset):
     for doc in queryset:
         if doc.is_published == False:
             doc.is_published = True
             doc.save()
+
+
 publish_documents.short_description = 'Publish Documents'
+
 
 def un_publish_documents(modeladmin, request, queryset):
     for doc in queryset:
         if doc.is_published == True:
             doc.is_published = False
             doc.save()
+
+
 un_publish_documents.short_description = 'Un-Publish Documents'
 
-class SubjectListFilter(admin.SimpleListFilter):
 
+def soft_delete_documents(modeladmin, request, queryset):
+    for doc in queryset:
+        if doc.is_published == True or doc.is_visible == True:
+            doc.is_published = False
+            doc.is_visible = False
+            doc.save()
+
+
+soft_delete_documents.short_description = 'Soft Delete Documents'
+
+
+def restore_documents(modeladmin, request, queryset):
+    for doc in queryset:
+        if doc.is_published == False or doc.is_visible == False:
+            doc.is_published = True
+            doc.is_visible = True
+            doc.save()
+
+
+restore_documents.short_description = 'Restore Documents'
+
+
+def set_document_subject(modeladmin, request, queryset):
+    for doc in queryset:
+        for subject in get_subjects(doc.description):
+            doc.subjects.add(subject)
+
+
+set_document_subject.short_description = 'Set Subjects of Documents'
+
+
+class SubjectListFilter(admin.SimpleListFilter):
     title = 'Subjects'
     parameter_name = 'sub'
     default_value = None
@@ -38,14 +76,11 @@ class SubjectListFilter(admin.SimpleListFilter):
         return queryset
 
 
-
-
 class FileInline(admin.TabularInline):
     raw_id_fields = ('document',)
     # readonly_fields = ('author',)
     exclude = ['author']
     model = File
-
 
 
 class PageInline(admin.TabularInline):
@@ -54,16 +89,16 @@ class PageInline(admin.TabularInline):
     exclude = ['author']
     model = Page
 
+
 class DocumentAdmin(admin.ModelAdmin):
     readonly_fields = ('created', 'updated', 'key')
     # prepopulated_fields = {'slug': ('title',)}
     date_hierarchy = 'published_date'
     raw_id_fields = ('author',)
-    search_fields = ['title','content']
-    list_display = ('title','published_date','is_published','page','words','get_subjects' )
-    list_filter = (SubjectListFilter, )
-    actions = [publish_documents, un_publish_documents]
-
+    search_fields = ['title', 'content']
+    list_display = ('title', 'published_date', 'is_published', 'is_visible', 'page', 'words', 'get_subjects')
+    list_filter = (SubjectListFilter,)
+    actions = [publish_documents, un_publish_documents, soft_delete_documents, set_document_subject, restore_documents]
 
     inlines = [
         FileInline,
@@ -75,7 +110,8 @@ class DocumentAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         queryset = super(DocumentAdmin, self).get_queryset(request)
-        queryset = queryset.prefetch_related('pages').prefetch_related('document_file').prefetch_related('pages__author').prefetch_related('document_file__author')
+        queryset = queryset.prefetch_related('pages').prefetch_related('document_file').prefetch_related(
+            'pages__author').prefetch_related('document_file__author')
         return queryset
 
     def get_form(self, request, obj=None, **kwargs):
@@ -83,10 +119,10 @@ class DocumentAdmin(admin.ModelAdmin):
         if obj:  # obj is not None, so this is a change page
             pass
         else:  # obj is None, so this is an add page
-            kwargs['exclude'] = ('title', 'slug', 'subjects', 'key', 'created', 'updated', 'seo_title', 'seo_description', 'seo_keywords',)
+            kwargs['exclude'] = (
+            'title', 'slug', 'subjects', 'key', 'created', 'updated', 'seo_title', 'seo_description', 'seo_keywords',)
 
         return super(DocumentAdmin, self).get_form(request, obj, **kwargs)
-
 
 
 class IssueAdmin(admin.ModelAdmin):
