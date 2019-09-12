@@ -119,9 +119,9 @@
         <div class="main-content" id="main0">
             <div class="owl-carousel owl-theme mt-4">
                 {% for top in top_results %}
-                <a href="{% url 'documents:document-view' top.slug %}">
-                    <div class="item shadow mr-1 mb-5 bg-white rounded">
-                        <div class="card">
+                <a href="{% url 'documents:document-view' top.slug %}" class="h-100 d-inline-block w-100">
+                    <div class="item shadow bg-white rounded h-100">
+                        <div class="card h-100">
                             <img class="card-img-top card-height" src="{{top.cover_image}}" alt="Card image">
                             <div class="card-body">
                                 <p class="card-text">{{top.title|truncatechars:25}}</p>
@@ -146,9 +146,9 @@
         <div class="main-content" id="main" >
             <div class="owl-carousel owl-theme mt-4 owl-carousel1 ">
               {% for rec in recent %}
-                        <a href="{% url 'documents:document-view' rec.slug %}">
-                            <div class="item shadow mr-1 mb-5 bg-white rounded">
-                                <div class="card">
+                        <a href="{% url 'documents:document-view' rec.slug %}" class="h-100 d-inline-block w-100">
+                            <div class="item shadow h-100 bg-white rounded">
+                                <div class="card h-100">
                                     <img class="card-img-top card-height" src="{{rec.cover_image}}" alt="Card image">
                                     <div class="card-body">
                                             <p class="card-text">{{rec.title|truncatechars:25}}</p>
