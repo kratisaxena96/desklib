@@ -6,19 +6,17 @@
 {% block head_title %}{% trans "Subscription Page" %}{% endblock %}
 
 {% block content %}
-<main class=" py-4 ">
-    <div class="container text-center">
-		<div class="row">
-			<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-				<div class="card card-signin box-shadow-3-3-5-5">
-					<div class="card-body my-2">
-                        <h4>Payment Cancelled</h4>
-                        <hr>
-                        <p>{{ user.username }} your payment has been cancelled, click <a href="/">here</a> to go to the home page.</p>
-                    </div>
+<div class="container text-center py-4">
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card card-signin box-shadow-3-3-5-5">
+                <div class="card-body my-2">
+                    <h4>Payment Cancelled</h4>
+                    <hr>
+                    <p>{{ user.username }} your payment has been cancelled, click <a href="/">here</a> to go to the home page.</p>
                 </div>
             </div>
         </div>
     </div>
-</main>
+</div>
 {% endblock %}
