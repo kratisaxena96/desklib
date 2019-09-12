@@ -19,6 +19,6 @@ class CheckSubscriptionMixin(object):
     def dispatch(self, request, *args, **kwargs):
 
         if self.request.user.subscriptions.all().filter(expire_on__gt=timezone.now()):
-            return redirect('documents:download-info-view', slug=kwargs.get('slug'))
+            return redirect('already_subscribed')
         else:
             return super(CheckSubscriptionMixin, self).dispatch(request, *args, **kwargs)
