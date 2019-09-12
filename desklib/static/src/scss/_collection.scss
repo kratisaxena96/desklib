@@ -8,18 +8,6 @@ body {
 //     font-family: 'Roboto', sans-serif !important;
 // }
 
-.owl-carousel.author-carousel .owl-nav .owl-prev, .owl-carousel.author-carousel .owl-nav .owl-next,{
-	position: absolute;
-	top: 38%;
-	font-size:50px;
-}
-
-.owl-carousel.author-carousel .owl-nav .owl-prev{
-	left:-2rem;
-}
-.owl-carousel.author-carousel .owl-nav .owl-next{
-	right:-2rem;
-}
 .main-content {
    position: relative;
 
@@ -445,7 +433,7 @@ img.img-responsive.mx-auto.d-block {
 .card-signin {
 	border: 0;
 	border-radius: 1rem;
-	box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+	//box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 	overflow: hidden;
 }
 
@@ -567,14 +555,14 @@ img.img-responsive.mx-auto.d-block {
 }
 
 .login-page {
-	background: #007bff;
-	background: linear-gradient(to right, #0062E6, #33AEFF);
+// 	background: #007bff;
+// 	background: linear-gradient(to right, #0062E6, #33AEFF);
 }
 
 .card-signin {
 	border: 0;
 	border-radius: 1rem;
-	box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+	//box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 }
 
 .card-signin .card-title {
@@ -729,16 +717,16 @@ img.img-responsive.mx-auto.d-block {
 }
 
 //  ------------------  Subscription    ----------------    //
-section.pricing {
-	background: #007bff;
-	background: linear-gradient(to right, #0062E6, #33AEFF);
-}
+// section.pricing {
+// 	background: #007bff;
+// 	background: linear-gradient(to right, #0062E6, #33AEFF);
+// }
 
 .pricing .card {
 	border: none;
 	border-radius: 1rem;
 	transition: all 0.2s;
-	box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+	//box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 }
 
 .pricing hr {
@@ -783,7 +771,7 @@ section.pricing {
 	.pricing .card:hover {
 		margin-top: -.25rem;
 		margin-bottom: .25rem;
-		box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
+		//box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
 }
 	.pricing .card:hover .btn {
 		opacity: 1;
@@ -838,6 +826,14 @@ display:none;
 .mycontent-left {
   border-right: 1px solid #BEBEBE;
 }
+
+.owl-theme .owl-stage{
+    display: flex;
+}
+.owl-theme .owl-item{
+    padding-bottom: 20px;
+}
+
 //------------------------------------------------     Media(@media) CSS      ---------------------------------------------------------//
 
 @media (min-width: 768px) {

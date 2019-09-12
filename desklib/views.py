@@ -107,7 +107,7 @@ class HomePageView(MetadataMixin, JsonLdContextMixin, SearchView):
         return context
 
 
-class AboutPageView(MetadataMixin,JsonLdContextMixin,TemplateView):
+class AboutPageView(MetadataMixin, JsonLdContextMixin, TemplateView):
     title = 'About | desklib.com'
     description = 'Desklib is a single stop solution for all your academic needs. We provide millions of study documents including assignment solutions which can help students achieve better grades.'
 
@@ -225,6 +225,8 @@ class PaypalPaymentView(TemplateView):
         if settings.PAYPAL_TEST:
             receiver_email = "info-facilitator@a2zservices.net"
             # action="https://www.sandbox.paypal.com/cgi-bin/webscr"
+        else:
+            receiver_email = "info@desklib.com"
 
         paypal_dict = {
             "cmd": "_xclick-subscriptions",
