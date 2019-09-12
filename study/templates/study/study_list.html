@@ -94,7 +94,7 @@
 
 <!--{% endfor %}-->
 {% endcomment %}
-	<section class="container pt-5">
+	<section class="container pt-5 pb-4">
         <h2 class="text-center">Explore By Subjects</h2>
         <div class="card-columns">
 		{% for p in parent %}
@@ -103,7 +103,7 @@
               <div class="card-body">
                 <h5 class="card-title">{{ p }}</h5>
                     {% for child in p.subject_set.all %}
-                    <a class="card-link mr-4" href="{% url 'study:search-results' %}?q=&amp;selected_facets=subjects_exact:{{child.slug}}">
+                    <a class="card-link mr-4 ml-0" href="{% url 'study:search-results' %}?q=&amp;selected_facets=subjects_exact:{{child.slug}}">
 						{{child}}
 						</a>
                     {% endfor %}
@@ -114,14 +114,14 @@
             </div>
 	</section>
     {% if top_results %}
-  <section class="container-fluid pt-5 bg-light">
+  <section class="container-fluid pt-5 pb-5 bg-light">
     <h2 class="text-center">Top Study Documents</h2>
         <div class="main-content" id="main0">
             <div class="owl-carousel owl-theme mt-4">
                 {% for top in top_results %}
-                <a href="{% url 'documents:document-view' top.slug %}">
-                    <div class="item shadow mr-1 mb-5 bg-white rounded">
-                        <div class="card">
+                <a href="{% url 'documents:document-view' top.slug %}" class="h-100 d-inline-block w-100">
+                    <div class="item shadow bg-white rounded h-100">
+                        <div class="card h-100">
                             <img class="card-img-top card-height" src="{{top.cover_image}}" alt="Card image">
                             <div class="card-body">
                                 <p class="card-text">{{top.title|truncatechars:25}}</p>
@@ -141,14 +141,14 @@
 
     {% endif %}
     {% if recent %}
-     <section class="container-fluid mt-0 pt-5 bg-white">
+     <section class="container-fluid mt-0 pt-5 pb-5 bg-white">
          <h2 class="text-center">Recently uploaded documents</h2>
         <div class="main-content" id="main" >
             <div class="owl-carousel owl-theme mt-4 owl-carousel1 ">
               {% for rec in recent %}
-                        <a href="{% url 'documents:document-view' rec.slug %}">
-                            <div class="item shadow mr-1 mb-5 bg-white rounded">
-                                <div class="card">
+                        <a href="{% url 'documents:document-view' rec.slug %}" class="h-100 d-inline-block w-100">
+                            <div class="item shadow h-100 bg-white rounded">
+                                <div class="card h-100">
                                     <img class="card-img-top card-height" src="{{rec.cover_image}}" alt="Card image">
                                     <div class="card-body">
                                             <p class="card-text">{{rec.title|truncatechars:25}}</p>
@@ -169,7 +169,7 @@
 </section>
 {% endif %}
 
-    <section class="container-fluid pt-5 bg-light padding-bot">
+    <section class="container-fluid pt-5 bg-light pb-5">
          <h2 class="text-center">Our Subscription Includes</h2>
                 <div class="row text-center mt-4">
                     <div class="col-md-4 col-sm-12">

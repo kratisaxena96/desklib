@@ -177,9 +177,12 @@ class Document(ModelMeta, models.Model):
     views = models.PositiveIntegerField(default=0)
     search_clicks = models.PositiveIntegerField(default=0)
     google_clicks = models.PositiveIntegerField(default=0)
+    cover_page_number = models.PositiveIntegerField(_('Cover Page No.'), null=True, blank=True,default=0)
+
 
     is_published = models.BooleanField(_('Is Published'), default=True)
     is_visible = models.BooleanField(_('Is Visible'), default=True)
+    require_recalculation = models.BooleanField(_('Require Recalculation'), default=False)
 
     published_date = models.DateTimeField(_('Published Date'), default=timezone.now)
     created = models.DateTimeField(editable=False)
@@ -244,7 +247,7 @@ class Document(ModelMeta, models.Model):
             self.updated = timezone.now()
 
         # We only autogenerate data at time of creation.
-        if not self.id:
+        if not self.id or self.require_recalculation:
             # Populating created timestamp
             self.created = timezone.now()
             # Generating filename without spaces. Replacing them with underscore.

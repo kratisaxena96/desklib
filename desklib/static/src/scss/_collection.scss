@@ -1,3 +1,5 @@
+//------------------------------------------------     Normal CSS      ---------------------------------------------------------------//
+
 body {
 	font-family: 'Roboto', sans-serif !important;
 }
@@ -137,15 +139,8 @@ body {
 	float: none;
 }
 
-@media (min-width: 768px) {
-	.navbar-expand-md .navbar-nav .dropdown-menu {
-		position: static;
-	}
-}
-
-//-------------------------------------------------------
+            //----------------------------------------  Study Page  ------------------------------------------//
 .top-image {
-	//height: 100vh;
 	min-height: 500px;
 	background-image: url("/static/src/assets/images/Desklib banner4.png");
 	background-size: cover;
@@ -154,7 +149,6 @@ body {
 }
 
 .study-top-image {
-	//height: 100vh;
 	min-height: 500px;
 	background-image: url("/static/src/assets/images/Desklib banner4.png");
 	background-size: cover;
@@ -164,7 +158,6 @@ body {
 
 .btn-bg-theme {
 	background-color: $blue-theme;
-//	border-radius: 20px;
 	width: auto;
 }
 
@@ -294,7 +287,7 @@ card {
 		background-image: url("/static/src/assets/images/explore_resources_img.png");
 		padding: 5%;
 		height: 100%;
-		margin-bottom: 4%;
+		//margin-bottom: 4%;
 	}
 	.resume-img {
 		border: 1px solid #000;
@@ -440,7 +433,7 @@ img.img-responsive.mx-auto.d-block {
 .card-signin {
 	border: 0;
 	border-radius: 1rem;
-	box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+	//box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 	overflow: hidden;
 }
 
@@ -562,14 +555,14 @@ img.img-responsive.mx-auto.d-block {
 }
 
 .login-page {
-	background: #007bff;
-	background: linear-gradient(to right, #0062E6, #33AEFF);
+// 	background: #007bff;
+// 	background: linear-gradient(to right, #0062E6, #33AEFF);
 }
 
 .card-signin {
 	border: 0;
 	border-radius: 1rem;
-	box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+	//box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 }
 
 .card-signin .card-title {
@@ -724,16 +717,16 @@ img.img-responsive.mx-auto.d-block {
 }
 
 //  ------------------  Subscription    ----------------    //
-section.pricing {
-	background: #007bff;
-	background: linear-gradient(to right, #0062E6, #33AEFF);
-}
+// section.pricing {
+// 	background: #007bff;
+// 	background: linear-gradient(to right, #0062E6, #33AEFF);
+// }
 
 .pricing .card {
 	border: none;
 	border-radius: 1rem;
 	transition: all 0.2s;
-	box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+	//box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 }
 
 .pricing hr {
@@ -778,7 +771,7 @@ section.pricing {
 	.pricing .card:hover {
 		margin-top: -.25rem;
 		margin-bottom: .25rem;
-		box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
+		//box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
 }
 	.pricing .card:hover .btn {
 		opacity: 1;
@@ -824,45 +817,27 @@ display:none;
 .errorlist li{
     color: red !important;
 }
-// Download success page for owl-nav
-
-// .rel-doc > .owl-nav > .owl-prev, .owl-next {
-//                 position: absolute;
-//                 top: 50%;
-//                 font-size: 100px !important;
-//                 color: black !important;
-//                 transform: translateY(-50%);
-// }
-// .rel-doc >.owl-nav > .owl-prev{
-// 	left: -25px;
-// }
-// .rel-doc >.owl-nav > .owl-next{
-//     right: -10px;
-// }
-//
-// .sim-doc > .owl-nav > .owl-prev, .owl-next {
-//                 position: absolute;
-//                 top: 50%;
-//                 font-size: 100px !important;
-//                 color: black !important;
-//                 transform: translateY(-50%);
-// }
-// .sim-doc >.owl-nav > .owl-prev{
-// 	left: -25px;
-// }
-// .sim-doc >.owl-nav > .owl-next{
-//     right: -10px;
-// }
-//
-// .rel-doc, .sim-doc > .owl-next, .owl-prev{
-//     background-color: transparent;
-// }
-// .sim-doc.owl-theme .owl-nav [class*="owl-"]:hover, .rel-doc.owl-theme .owl-nav [class*="owl-"]:hover  {
-//     background: transparent;
-// }
 .download-info{
     background-color: #e9f5fd !important;
 }
 .v-align-m{
     vertical-align: middle;
+}
+.mycontent-left {
+  border-right: 1px solid #BEBEBE;
+}
+
+.owl-theme .owl-stage{
+    display: flex;
+}
+.owl-theme .owl-item{
+    padding-bottom: 20px;
+}
+
+//------------------------------------------------     Media(@media) CSS      ---------------------------------------------------------//
+
+@media (min-width: 768px) {
+	.navbar-expand-md .navbar-nav .dropdown-menu {
+		position: static;
+	}
 }

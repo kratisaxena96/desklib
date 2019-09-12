@@ -311,7 +311,7 @@ opacity:0.9 !important;
 
         <div class="">
             <a href='{% url "documents:document-download-view" slug=object.slug%}' class="btn btn-bg-theme btn-lg text-white">Download</a>
-            <span class="d-inline-block text-center">Showing pages {{controlled_pages.count}} of {{object.pages.all.count}} </span>
+            <span class="d-md-inline-block width-82 text-md-left text-lg-center">Showing pages {{object.pages.all.count}} of {{object.pages.all.count}} </span>
         </div>
 
 
@@ -341,7 +341,6 @@ opacity:0.9 !important;
                 <div class="py-4">
                     <div class="row">
                         {% for results in more_like_this %}
-                            {% if not results.slug == object.slug %}
                                 <article class="col-6 mb-3">
                                     <a href="{% url 'documents:document-view' results.slug %}">
                                         <div>
@@ -354,10 +353,9 @@ opacity:0.9 !important;
                                         </div>
                                     </a>
                                 </article>
-                             {% if forloop.counter0|divisibleby:2 %}
+                             {% if forloop.counter|divisibleby:2 %}
                                 </div>
                                 <div class="row">
-                            {% endif %}
                             {% endif %}
 
                         {% endfor %}

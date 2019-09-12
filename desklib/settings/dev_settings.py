@@ -33,7 +33,7 @@ DATABASES = {
 }
 # EXPECTED_IP_API = ['192.168.1.1','127.0.0.1']
 #Commented out in production envirment
-SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
+# SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
 
 EMAIL_HOST_USER = 'vishakha.sharma@locusrags.com'
 EMAIL_HOST_PASSWORD = 'vishakhalocus7@4'
@@ -73,4 +73,6 @@ META_USE_TITLE_TAG = True
 # AWS_LOCATION = 'uploads'
 #
 # STATIC_URL = 'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION)
-
+#
+RECAPTCHA_PUBLIC_KEY= "6LeT_rYUAAAAACn413JJTLeX6FJShA3sCK3Tc5b4"
+RECAPTCHA_PRIVATE_KEY = "6LeT_rYUAAAAADYzTg-nkVC3eRv5KBUrbRPTkkxZ"

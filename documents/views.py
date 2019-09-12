@@ -226,7 +226,11 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
                                                  created_at__lte=expiry_date_subscription).count()
         remaining_downloads = plan_download_limit - download_count
         document_obj = Document.objects.get(slug=self.kwargs.get('slug'))
-
+        from haystack.inputs import Raw
+        # sqs = SearchQuerySet().filter(content= self.kwargs.get('slug'))
+        # searchqueryset = SearchQuerySet().filter(slug=self.kwargs.get('slug'))
+        # SearchIndex.get_model(self)
+        context['image'] =  document_obj.pages.all()[document_obj.cover_page_number].image_file
         context['remaining_downloads'] = remaining_downloads
         context['document'] = document_obj
         context['subscription'] = subscription_obj
@@ -347,30 +351,11 @@ class DownloadSuccessView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(DownloadSuccessView, self).get_context_data(**kwargs)
-        try:
-            remaining_downloads_flag = False
-            subscription_obj = get_current_subscription(self.request.user)
-            expiry_date_subscription = subscription_obj.expire_on
-            plan = subscription_obj.plan
-            plan_days = plan.days
-            plan_download_limit = plan.download_limit
-            startdate_subscription = expiry_date_subscription - timedelta(days=plan_days)
-            download_count = Download.objects.filter(user=self.request.user, created_at__gte=startdate_subscription,
-                                                     created_at__lte=expiry_date_subscription).count()
-            remaining_downloads = plan_download_limit - download_count
-            context['remaining_downloads'] = remaining_downloads
 
-
-            if remaining_downloads < 0:
-                remaining_downloads_flag = False
-            else:
-                remaining_downloads_flag = True
-
-            context['remaining_downloads_flag'] = remaining_downloads_flag
-
-
-        except Exception as e:
-            print(e)
+        recent = SearchQuerySet().order_by('-pub_date')[:5]
+        top_results = SearchQuerySet().order_by('-views')[:5]
+        context['top_results'] = top_results
+        context['recent'] = recent
 
         return context
 

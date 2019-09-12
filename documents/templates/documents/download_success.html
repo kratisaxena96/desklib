@@ -5,8 +5,7 @@
 {% block head_title %}{% trans "Download Success" %}{% endblock %}
 
 {% block content %}
-<main class="py-4">
-    <section class="container">
+    <section class="container py-4">
         <div class="row text-center">
             <div class="col-md-12">
                 <img class="img-fluid" src="{% static 'src/assets/images/checked.png' %}" width="11%;">
@@ -20,6 +19,66 @@
             </div>
         </div>
     </section>
+
+
+    {% if top_results %}
+  <section class="container-fluid pt-5 pb-5 bg-light">
+    <h2 class="text-center">Top Study Documents</h2>
+        <div class="main-content" id="main0">
+            <div class="owl-carousel owl-theme mt-4">
+                {% for top in top_results %}
+                <a href="{% url 'documents:document-view' top.slug %}" class="h-100 d-inline-block w-100">
+                    <div class="item shadow bg-white rounded h-100">
+                        <div class="card h-100">
+                            <img class="card-img-top card-height" src="{{top.cover_image}}" alt="Card image">
+                            <div class="card-body">
+                                <p class="card-text">{{top.title|truncatechars:25}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+            <div class="owl-theme">
+                <div class="owl-controls">
+                    <div class="custom-nav owl-nav"></div>
+                </div>
+            </div>
+        </div>
+  </section>
+
+    {% endif %}
+    {% if recent %}
+     <section class="container-fluid mt-0 pt-5 pb-5 bg-white">
+         <h2 class="text-center">Recently uploaded documents</h2>
+        <div class="main-content" id="main" >
+            <div class="owl-carousel owl-theme mt-4 owl-carousel1 ">
+              {% for rec in recent %}
+                        <a href="{% url 'documents:document-view' rec.slug %}" class="h-100 d-inline-block w-100">
+                            <div class="item shadow h-100 bg-white rounded">
+                                <div class="card h-100">
+                                    <img class="card-img-top card-height" src="{{rec.cover_image}}" alt="Card image">
+                                    <div class="card-body">
+                                            <p class="card-text">{{rec.title|truncatechars:25}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                         </a>
+                {% endfor %}
+            </div>
+            <div class="owl-theme">
+                <div class="owl-controls">
+                    <div class="custom-nav owl-nav"></div>
+                </div>
+            </div>
+        </div>
+
+<!--           <div><p class="text-center font-size-20 font-weight-400 padding-bottom-30"><a href="#">View all</a></p></div>-->
+</section>
+{% endif %}
+
+
+    {% comment %}
     <section class="container-fluid bg-light-grey mt-5">
         <div class="row">
             <div class="col-md-12 text-center pt-4">
@@ -100,54 +159,58 @@
             </div>
         </div>
     </section>
-</main>
-{% endblock %}
-{% block extra_js %}
-<script>
-    var owl = $('.sim-doc');
-        owl.owlCarousel({
-            margin: 15,
-            dots: true,
-            nav: false,
-            loop: true,
-            responsiveClass: true,
-            responsive: {
-                0: {
-                    items: 1,
-                },
-                400: {
-                    items: 2,
-                },
-                600: {
-                    items: 3,
-                },
-                768: {
-                    items: 4,
-                }
-            }
-        });
+    {% endcomment %}
 
-        var owl = $('.rel-doc');
-        owl.owlCarousel({
-            margin: 15,
-            dots: true,
-            nav: false,
-            loop: true,
-            responsiveClass: true,
-            responsive: {
-                0: {
-                    items: 1,
-                },
-                400: {
-                    items: 2,
-                },
-                600: {
-                    items: 3,
-                },
-                768: {
-                    items: 4,
-                }
-            }
-        });
+{% endblock %}
+
+          {% block extra_js %}
+ <script>
+$('#main0 .owl-carousel').owlCarousel({
+    autoplay:true,
+    stagePadding: 50,
+    loop: true,
+    margin: 10,
+    nav: true,
+    navText: [
+        '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+        '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+    ],
+    navContainer: '#main0 .custom-nav',
+    responsive:{
+        0:{
+            items: 2
+        },
+        600:{
+            items: 4
+        },
+        1000:{
+            items: 6
+        }
+    }
+});
+
+$('#main .owl-carousel1').owlCarousel({
+    autoplay:true,
+    stagePadding: 50,
+    loop: true,
+    margin: 10,
+    nav: true,
+    navText: [
+        '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+        '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+    ],
+    navContainer: '#main .custom-nav',
+    responsive:{
+        0:{
+            items: 2
+        },
+        600:{
+            items: 4
+        },
+        1000:{
+            items: 6
+        }
+    }
+});
 </script>
 {% endblock %}
