@@ -225,6 +225,8 @@ class PaypalPaymentView(TemplateView):
         if settings.PAYPAL_TEST:
             receiver_email = "info-facilitator@a2zservices.net"
             # action="https://www.sandbox.paypal.com/cgi-bin/webscr"
+        else:
+            receiver_email = "info@desklib.com"
 
         paypal_dict = {
             "cmd": "_xclick-subscriptions",
