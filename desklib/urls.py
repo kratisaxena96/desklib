@@ -24,7 +24,7 @@ from django.views.decorators.cache import cache_page
 from django.contrib.sitemaps import views
 from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView, TestPageView, \
     SubscriptionView, PayNowView, PrivacyPolicyView, HonorCodeView, CopyrightPolicyView, TermsOfUseView, \
-    AcademicIntegrityView, ComingSoonPageView, PaymentCancelledView, PaymentSuccessView
+    AcademicIntegrityView, ComingSoonPageView, PaymentCancelledView, PaymentSuccessView, AlreadySubscribedView
 
 # if settings.DEBUG:
 #     import debug_toolbar
@@ -63,6 +63,7 @@ urlpatterns = [
     path('paypal/', include('paypal.standard.ipn.urls'), name='paypal-ipn'),
     path('payment/cancelled', PaymentCancelledView.as_view(), name='payment_cancelled'),
     path('payment/success', PaymentSuccessView.as_view(), name='payment_success'),
+    path('subscribed/', AlreadySubscribedView.as_view(), name='already_subscribed'),
 
     path('api-auth/', include('rest_framework.urls')),
     # path('payment/document',)
