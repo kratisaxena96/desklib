@@ -826,6 +826,14 @@ display:none;
 .mycontent-left {
   border-right: 1px solid #BEBEBE;
 }
+
+.owl-theme .owl-stage{
+    display: flex;
+}
+.owl-theme .owl-item{
+    padding-bottom: 20px;
+}
+
 //------------------------------------------------     Media(@media) CSS      ---------------------------------------------------------//
 
 @media (min-width: 768px) {
