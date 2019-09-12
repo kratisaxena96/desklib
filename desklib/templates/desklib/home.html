@@ -109,16 +109,16 @@
     </div>
 </section>
 
-{% if top_results %} <section class="container-fluid mt-5 pt-4 bg-light pt-2">
+{% if top_results %} <section class="container-fluid mt-5 pt-4 pb-5 bg-light pt-2">
     <h2 class="text-center">Top study documents</h2>
         <div class="main-content" id="main0">
-            <div class="owl-carousel owl-theme mt-4">  
+            <div class="owl-carousel owl-theme mt-4">
                {% for results in top_results %}
-             
-                        <a href="{% url 'documents:document-view' results.slug %}">
+
+                        <a href="{% url 'documents:document-view' results.slug %}" class="h-100 d-inline-block w-100">
                          
-                            <div class="item shadow mr-1 mb-5 bg-white rounded">
-                                <div class="card">
+                            <div class="item shadow bg-white rounded h-100">
+                                <div class="card h-100">
                                     <img class="card-img-top card-height" src="{{results.cover_image}}" alt="Card image">
                                     <div class="card-body">
                                             <p class="card-text">{{results.title|truncatechars:25}}</p>
