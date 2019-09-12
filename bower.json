@@ -1,7 +1,7 @@
 {
-  "name": "bower.json",
+  "name": "typeahead.js",
   "description": "desklib frontend.",
-  "main": "index.js",
+  "main": "dist/typeahead.bundle.js",
   "authors": [
     "desklib"
   ],
@@ -15,18 +15,10 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "^3.4.1",
-    "bootstrap": "^4.3.1",
-    "owl.carousel": "^2.3.4",
-    "components-font-awesome": "^5.9.0"
+    "jquery": ">=1.7",
+    "typeahead.js": "^0.11.1"
   },
-
-  "name": "typeahead.js",
   "version": "0.11.1",
-  "main": "dist/typeahead.bundle.js",
-  "dependencies": {
-    "jquery": ">=1.7"
-  },
   "devDependencies": {
     "jquery": "~1.7",
     "jasmine-ajax": "~1.3.1",
