@@ -35,28 +35,29 @@ $( document ).ready(function() {
                           '</div>'
                         ].join('\n'),
                           suggestion: function(data){
-                      var str = '<ul>'
+//                      var str = '<ul>';
                     	$(data).each(function(index,value){
                     		$(value.slug).each(function(ind,val){
-                    			var url = "/document/"+value.slug[ind]
-                    			str += '<li><a href="' + url + '">' + value.results[ind] + '</a></li>'
-<!--    							console.log(value.results[ind]+"::::"+value.slug[ind]+">>>>>>>>"+ind);-->
+                    			var url = "/document/"+value.slug[ind];
+                    			str += '<li><a href="' + url + '">' + value.results[ind] + '</a></li>';
+//<!--    							console.log(value.results[ind]+"::::"+value.slug[ind]+">>>>>>>>"+ind);-->
+                                $(".tt-menu").append('<li><a href="' + url + '">' + value.results[ind] + '</a></li>');
 							});
 						});
-						str += '</ul>'
-<!--                    suggestion: function(data){-->
-<!--                      var str = '<ul class="list-group">'-->
-<!--                    	$(data).each(function(index,value){-->
-<!--                    		$(value.slug).each(function(ind,val){-->
-<!--                    			var url = "/document/"+value.slug[ind]-->
-<!--                    			str += '<li  class="list-group-item"><img src="' + value.cover_image[ind] + '" width="20%" height="20%"	 class="float-right""/><a href="' + url + '">' + value.results[ind] + '</a></li>'-->
-<!--&lt;!&ndash;    							console.log(value.results[ind]+"::::"+value.slug[ind]+">>>>>>>>"+ind);&ndash;&gt;-->
-<!--							});-->
-<!--						});-->
-<!--						str += '</ul>'-->
-                        return  str ;
+//						str += '</ul>';
+//<!--                    suggestion: function(data){-->
+//<!--                      var str = '<ul class="list-group">'-->
+//<!--                    	$(data).each(function(index,value){-->
+//<!--                    		$(value.slug).each(function(ind,val){-->
+//<!--                    			var url = "/document/"+value.slug[ind]-->
+//<!--                    			str += '<li  class="list-group-item"><img src="' + value.cover_image[ind] + '" width="20%" height="20%"	 class="float-right""/><a href="' + url + '">' + value.results[ind] + '</a></li>'-->
+//<!--&lt;!&ndash;    							console.log(value.results[ind]+"::::"+value.slug[ind]+">>>>>>>>"+ind);&ndash;&gt;-->
+//<!--							});-->
+//<!--						});-->
+//<!--						str += '</ul>'-->
+//                        return  str ;
                     }
                 }
-        })
+        });
         });
 });
