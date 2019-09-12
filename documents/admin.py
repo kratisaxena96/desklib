@@ -6,20 +6,14 @@ from subjects.utils import get_subjects
 
 
 def publish_documents(modeladmin, request, queryset):
-    for doc in queryset:
-        if doc.is_published == False:
-            doc.is_published = True
-            doc.save()
+    queryset.update(is_published = True)
 
 
 publish_documents.short_description = 'Publish Documents'
 
 
 def un_publish_documents(modeladmin, request, queryset):
-    for doc in queryset:
-        if doc.is_published == True:
-            doc.is_published = False
-            doc.save()
+    queryset.update(is_published = False)
 
 
 un_publish_documents.short_description = 'Un-Publish Documents'
