@@ -28,7 +28,7 @@ gulp.task('minify-css', ['build-css'], () => {
     .pipe(sourcemaps.init())
     .pipe(concat('bundle.css'))
     .pipe(cleanCSS())
-    .pipe(sourcemaps.write())
+//    .pipe(sourcemaps.write())
     .pipe(gulp.dest('desklib/static/dist/css'));
 });
 
@@ -50,7 +50,7 @@ gulp.task('jshint', function() {
      .pipe(sourcemaps.init())
        .pipe(concat('bundle.js'))
        .pipe(uglify())
-     .pipe(sourcemaps.write())
+//     .pipe(sourcemaps.write())
      .pipe(gulp.dest('desklib/static/dist/js'))
      .pipe(browserSync.reload({stream: true}));
  });
