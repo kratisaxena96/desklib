@@ -36,14 +36,27 @@ from .forms import CustomFacetedSearchForm
 
 class StudyPageView(MetadataMixin,JsonLdContextMixin, SearchView):
     title = 'Study | desklib.com'
-    description = 'Find best resources for your studies. Search solutions, assignments, presentations, thesis, homework solutions from our library.'
+    description = 'Desklib allows you to explore best resources for your study requirements. Search solutions, assignments, presentations, thesis, homework solutions from our library.'
 
     template_name = "study/study_list.html"
 
     structured_data = {
         "@type": "Organization",
         "name": "desklib.com",
-        "description": _("desklib.com"),
+        "description": _("Desklib allows you to explore best resources for your study requirements. Search solutions, assignments, presentations, thesis, homework solutions from our library."),
+        "url": "https://desklib.com/study/",
+        "logo": "https://desklib.com/static/src/assets/images/desklib-logo-theme.png",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://www.desklib.com/study/search/?q={search_term}",
+            "query-input": "required name=search_term"
+        },
+        "sameAs": [
+            "https://www.facebook.com/desklib",
+            "https://twitter.com/desklib",
+            "https://www.linkedin.com/company/desklib",
+            "https://www.instagram.com/desklib/"
+        ]
     }
 
     # def get(self, request, *args, **kwargs):
@@ -106,7 +119,20 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, FacetedSearchView):
     structured_data = {
         "@type": "Organizasaation",
         "name": "desklib.com",
-        "description": _("desklib.com"),
+        "description": _("Search results for your query on desklib.com"),
+        "url": "https://desklib.com/study/search/",
+        "logo": "https://desklib.com/static/src/assets/images/desklib-logo-theme.png",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://www.desklib.com/study/search/?q={search_term}",
+            "query-input": "required name=search_term"
+        },
+        "sameAs": [
+            "https://www.facebook.com/desklib",
+            "https://twitter.com/desklib",
+            "https://www.linkedin.com/company/desklib",
+            "https://www.instagram.com/desklib/"
+        ]
     }
 
     def get_context_data(self, **kwargs):
