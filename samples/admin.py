@@ -5,22 +5,14 @@ from samples.models import Sample, Image
 
 
 def soft_delete_samples(modeladmin, request, queryset):
-    for sample in queryset:
-        if sample.is_published == True or sample.is_visible == True:
-            sample.is_published = False
-            sample.is_visible = False
-            sample.save()
+    queryset.update(is_published = False, is_visible = False)
 
 
 soft_delete_samples.short_description = 'Soft Delete Samples'
 
 
 def restore_samples(modeladmin, request, queryset):
-    for sample in queryset:
-        if sample.is_published == False or sample.is_visible == False:
-            sample.is_published = True
-            sample.is_visible = True
-            sample.save()
+    queryset.update(is_published = True, is_visible = True)
 
 
 restore_samples.short_description = 'Restore Samples'

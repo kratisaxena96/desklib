@@ -20,22 +20,14 @@ un_publish_documents.short_description = 'Un-Publish Documents'
 
 
 def soft_delete_documents(modeladmin, request, queryset):
-    for doc in queryset:
-        if doc.is_published == True or doc.is_visible == True:
-            doc.is_published = False
-            doc.is_visible = False
-            doc.save()
+    queryset.update(is_published = False, is_visible = False)
 
 
 soft_delete_documents.short_description = 'Soft Delete Documents'
 
 
 def restore_documents(modeladmin, request, queryset):
-    for doc in queryset:
-        if doc.is_published == False or doc.is_visible == False:
-            doc.is_published = True
-            doc.is_visible = True
-            doc.save()
+    queryset.update(is_published = True, is_visible = True)
 
 
 restore_documents.short_description = 'Restore Documents'
