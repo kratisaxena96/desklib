@@ -345,23 +345,24 @@ class Document(ModelMeta, models.Model):
             pdf_images = convert_from_path(pdf_converted_loc, output_folder=images_tmpdir.name, fmt='jpg', dpi=72) #reduce dpi for converted image
 
             self.page = pdf_images.__len__()
+            self.cover_page_number = 2
 
-            self.preview_from = 2
+            self.preview_from = 1
             if self.page <= 1:
-                self.preview_from = 1
                 self.preview_to = 1
+                self.cover_page_number = 1
             elif self.page <= 3:
-                self.preview_to = 2
+                self.preview_to = 1
             elif self.page <= 5:
-                self.preview_to = 3
+                self.preview_to = 2
             elif self.page <= 10:
-                self.preview_to = 4
+                self.preview_to = 3
             elif self.page <= 20:
-                self.preview_to = 5
+                self.preview_to = 4
             elif self.page <= 30:
-                self.preview_to = 7
+                self.preview_to = 6
             elif self.page > 30:
-                self.preview_to = 9
+                self.preview_to = 8
 
             super(Document, self).save(*args, **kwargs)
 
