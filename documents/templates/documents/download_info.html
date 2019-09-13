@@ -40,7 +40,7 @@
                         <div>
           {{form.captcha}}
                             {{form.issue}}
-                            &nbsp;<label class="v-align-m" for="{{form.id_issue}}" id="id_issue"> {{form.issue.label}}</label>
+                            &nbsp;<label class="v-align-m" for="{{form.id_issue}}" id="id_issue"> I agree to <a href="{% url 'termsofuse' %}">Terms of use</a> & <a href="{% url 'privacypolicy' %}">Privacy Policy</a> </label>
                         </div>
                         <div class="col text-center">
                           <button class="btn btn-primary btn-bg-theme border-radius-40" type="submit">Download now</button>
