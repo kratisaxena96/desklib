@@ -12,6 +12,8 @@ from paypal.standard.forms import PayPalPaymentsForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from haystack.generic_views import SearchView
 from django_json_ld import settings as setting
+
+from desklib.mixins import CheckSubscriptionMixin
 from documents.models import Document
 from .forms import HomeSearchForm
 from subscription.models import Plan
@@ -22,12 +24,12 @@ import pytz
 logger = logging.getLogger(__name__)
 
 
-
 class ComingSoonPageView(MetadataMixin, JsonLdContextMixin, TemplateView):
     form_class = HomeSearchForm
     title = 'Best study and educational resources | desklib.com'
     description = 'Desklib is your home for best study resources and educational documents. We have a large collection of homework answers, assignment solutions, reports, sample resume and presentations. Our study tools help you improve your writing skills and grammar.'
-    keywords = ['study resources', 'study material', 'homework solution', 'study tools', 'online tutoring', 'educational documents', 'sample resume']
+    keywords = ['study resources', 'study material', 'homework solution', 'study tools', 'online tutoring',
+                'educational documents', 'sample resume']
     twitter_title = 'All study resources you will need to secure best grades in your assignments'
     og_title = 'All study resources you will need to secure best grades in your assignments'
     gplus_title = 'All study resources you will need to secure best grades in your assignments'
@@ -62,7 +64,8 @@ class HomePageView(MetadataMixin, JsonLdContextMixin, SearchView):
     form_class = HomeSearchForm
     title = 'Best study and educational resources | desklib.com'
     description = 'Desklib is your home for best study resources and educational documents. We have a large collection of homework answers, assignment solutions, reports, sample resume and presentations. Our study tools help you improve your writing skills and grammar.'
-    keywords = ['study resources', 'study material', 'homework solution', 'study tools', 'online tutoring', 'educational documents', 'sample resume']
+    keywords = ['study resources', 'study material', 'homework solution', 'study tools', 'online tutoring',
+                'educational documents', 'sample resume']
     twitter_title = 'All study resources you will need to secure best grades in your assignments'
     og_title = 'All study resources you will need to secure best grades in your assignments'
     gplus_title = 'All study resources you will need to secure best grades in your assignments'
@@ -116,9 +119,10 @@ class AboutPageView(MetadataMixin, JsonLdContextMixin, TemplateView):
     structured_data = {
         "@type": "Organization",
         "name": "Desklib",
-        "description": _("Desklib is a single stop solution for all your academic needs. We provide millions of study documents which can be used for by students to obtain better grades."),
+        "description": _(
+            "Desklib is a single stop solution for all your academic needs. We provide millions of study documents which can be used for by students to obtain better grades."),
         "url": "https://desklib.com/",
-        "logo": "https://www.desklib.com/assets/img/desklib_logo.png",
+        "logo": "https://desklib.com/static/src/assets/images/desklib-logo-theme.png",
         "potentialAction": {
             "@type": "SearchAction",
             "target": "https://www.desklib.com/study/search/?q={search_term}",
@@ -137,7 +141,7 @@ class AboutPageView(MetadataMixin, JsonLdContextMixin, TemplateView):
         return sd
 
 
-class PricingPageView(MetadataMixin,JsonLdContextMixin,TemplateView):
+class PricingPageView(MetadataMixin, JsonLdContextMixin, TemplateView):
     title = 'Pricing | desklib.com'
     description = 'Desklib provides a subscription based access to its resources at affordable price.'
     template_name = "desklib/pricing.html"
@@ -148,7 +152,7 @@ class PricingPageView(MetadataMixin,JsonLdContextMixin,TemplateView):
         "description": _(
             'Desklib provides a subscription based access to its resources at affordable price.'),
         "url": "https://desklib.com/",
-        "logo": "https://www.desklib.com/assets/img/desklib_logo.png",
+        "logo": "https://desklib.com/static/src/assets/images/desklib-logo-theme.png",
         "potentialAction": {
             "@type": "SearchAction",
             "target": "https://www.desklib.com/study/search/?q={search_term}",
@@ -167,7 +171,7 @@ class PricingPageView(MetadataMixin,JsonLdContextMixin,TemplateView):
         return sd
 
 
-class ContactPageView(MetadataMixin,JsonLdContextMixin, TemplateView):
+class ContactPageView(MetadataMixin, JsonLdContextMixin, TemplateView):
     title = 'Contact | desklib.com'
     description = '24X7 online support for our customers. Reach our customer support and get your queries answered instantly.'
 
@@ -179,7 +183,7 @@ class ContactPageView(MetadataMixin,JsonLdContextMixin, TemplateView):
         "description": _(
             '24X7 online support for our customers. Reach our customer support and get your queries answered instantly.'),
         "url": "https://desklib.com/",
-        "logo": "https://www.desklib.com/assets/img/desklib_logo.png",
+        "logo": "https://desklib.com/static/src/assets/images/desklib-logo-theme.png",
         "potentialAction": {
             "@type": "SearchAction",
             "target": "https://www.desklib.com/study/search/?q={search_term}",
@@ -204,17 +208,16 @@ class TestPageView(TemplateView):
 
 def handler404(request, *args, **kwargs):
     if settings.DEBUG:
-        return render(request,'desklib/error_404.html', status=404)
+        return render(request, 'desklib/error_404.html', status=404)
     else:
         return render(request, 'desklib/error_404.html', status=404)
 
 
 def handler500(request, *args, **kwargs):
     if settings.DEBUG:
-        return render(request,'desklib/error_500.html', status=500)
+        return render(request, 'desklib/error_500.html', status=500)
     else:
         return render(request, 'desklib/error_500.html', status=500)
-
 
 
 class PaypalPaymentView(TemplateView):
@@ -250,6 +253,7 @@ class PaypalPaymentView(TemplateView):
         context = {"form": form}
         return context
 
+
 class SubscriptionView(TemplateView):
     template_name = 'desklib/subscription.html'
 
@@ -258,10 +262,9 @@ class SubscriptionView(TemplateView):
         context['plan_qs'] = Plan.objects.all()
         return context
 
-class PayNowView(LoginRequiredMixin,TemplateView):
+
+class PayNowView(LoginRequiredMixin, CheckSubscriptionMixin, TemplateView):
     template_name = 'desklib/paynow.html'
-
-
 
     def get_context_data(self, **kwargs):
         context = super(PayNowView, self).get_context_data(**kwargs)
@@ -276,7 +279,7 @@ class PayNowView(LoginRequiredMixin,TemplateView):
             receiver_email = "info@desklib.com"
         now = timezone.now()
 
-        if not self.request.user.subscriptions.all().filter(expire_on__gt = now):
+        if not self.request.user.subscriptions.all().filter(expire_on__gt=now):
             paypal_dict = {
                 "business": receiver_email,
                 "amount": plan.price,
@@ -285,7 +288,8 @@ class PayNowView(LoginRequiredMixin,TemplateView):
                 "notify_url": self.request.build_absolute_uri(reverse('paypal-ipn')),
                 "return": self.request.build_absolute_uri(reverse('payment_success')),
                 "cancel_return": self.request.build_absolute_uri(reverse('payment_cancelled')),
-                "custom": self.request.user.username + "_" + plan_key,  # Custom command to correlate to some function later (optional)
+                "custom": self.request.user.username + "_" + plan_key,
+            # Custom command to correlate to some function later (optional)
             }
 
             form = PayPalPaymentsForm(initial=paypal_dict, button_type="subscribe")
@@ -326,7 +330,10 @@ class HonorCodeView(MetadataMixin, TemplateView):
 class PaymentCancelledView(LoginRequiredMixin, TemplateView):
     template_name = 'desklib/payment_cancelled.html'
 
+
 class PaymentSuccessView(LoginRequiredMixin, TemplateView):
     template_name = 'desklib/payment_success.html'
 
 
+class AlreadySubscribedView(LoginRequiredMixin, TemplateView):
+    template_name = 'desklib/already_subscribed.html'

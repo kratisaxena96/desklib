@@ -24,15 +24,28 @@ from termcolor import colored
 
 
 class WritingPageView(MetadataMixin,JsonLdContextMixin, TemplateView):
-    title = 'Writing page'
-    description = 'This is a Writing page'
+    title = 'Writing and content editing services | desklib.com'
+    description = 'Desklib provides free writing tools for everyone to improve their writing skills. Hire top content writers and proofreaders for your content requirements.'
 
     template_name = "writing/writing.html"
 
     structured_data = {
         "@type": "Organization",
-        "name": "This is writing Company home",
-        "description": _("A writing company."),
+        "name": "Writing and content editing services",
+        "description": _("Desklib provides free writing tools for everyone to improve their writing skills. Hire top content writers and proofreaders for your content requirements."),
+        "url": "https://desklib.com/writing/",
+        "logo": "https://desklib.com/static/src/assets/images/desklib-logo-theme.png",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://www.desklib.com/study/search/?q={search_term}",
+            "query-input": "required name=search_term"
+        },
+        "sameAs": [
+            "https://www.facebook.com/desklib",
+            "https://twitter.com/desklib",
+            "https://www.linkedin.com/company/desklib",
+            "https://www.instagram.com/desklib/"
+        ]
     }
 
     def get_structured_data(self):
