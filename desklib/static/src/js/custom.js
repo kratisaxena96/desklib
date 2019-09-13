@@ -35,16 +35,15 @@ $( document ).ready(function() {
                           '</div>'
                         ].join('\n'),
                           suggestion: function(data){
-//                      var str = '<ul>';
+                      var str = '<ul>'
                     	$(data).each(function(index,value){
                     		$(value.slug).each(function(ind,val){
-                    			var url = "/document/"+value.slug[ind];
-                    			str += '<li><a href="' + url + '">' + value.results[ind] + '</a></li>';
+                    			var url = "/document/"+value.slug[ind]
+                    			str += '<li><a href="' + url + '">' + value.results[ind] + '</a></li>'
 //<!--    							console.log(value.results[ind]+"::::"+value.slug[ind]+">>>>>>>>"+ind);-->
-                                $(".tt-menu").append('<li><a href="' + url + '">' + value.results[ind] + '</a></li>');
 							});
 						});
-//						str += '</ul>';
+						str += '</ul>'
 //<!--                    suggestion: function(data){-->
 //<!--                      var str = '<ul class="list-group">'-->
 //<!--                    	$(data).each(function(index,value){-->
@@ -55,9 +54,9 @@ $( document ).ready(function() {
 //<!--							});-->
 //<!--						});-->
 //<!--						str += '</ul>'-->
-//                        return  str ;
+                        return  str ;
                     }
                 }
-        });
+        })
         });
 });
