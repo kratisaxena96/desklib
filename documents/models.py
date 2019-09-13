@@ -302,7 +302,7 @@ class Document(ModelMeta, models.Model):
                 self.first_sentence = text[:160]
 
             # Set publishing date of the document
-            self.published_date = timezone.now() + datetime.timedelta(days=1)
+            self.published_date = timezone.now() + datetime.timedelta(hours=3)
 
             # Populating seo related data
             self.seo_title = self.title
