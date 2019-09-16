@@ -174,7 +174,7 @@
                  <nav>
                      {% if is_paginated %}
                        <ul class="pagination  pagination-sm">
-                           <!--                    <img class="img-responsive" src="{% static 'src/assets/images/search icon.png' %}" alt="search" height="70px" style="margin-top: -11px; margin-left: -50px;">-->
+                           <!--                    <img class="img-responsive" src="{% static 'dist/assets/images/search icon.png' %}" alt="search" height="70px" style="margin-top: -11px; margin-left: -50px;">-->
                       {% if page_obj.has_previous %}
                         <li class="page-item p-3">
                             <span class=""><a href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}"><i class='fas fa-angle-left fafa-nav-active'></i>
@@ -229,7 +229,7 @@
 						 </div>
                      </div>
                        <div class="col-md-2 col-sm-2 mx-auto text-center">
-                           <img src="{% static 'src/assets/images/not-found.svg'%}" width="160px" height="160px" class="img-fluid"/>
+                           <img src="{% static 'dist/assets/images/not-found.svg'%}" width="160px" height="160px" class="img-fluid"/>
                        
                            <h5 class="mt-3">No Results found kindly search with another query</h5>
                      </div>

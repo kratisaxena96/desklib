@@ -142,7 +142,7 @@ body {
             //----------------------------------------  Study Page  ------------------------------------------//
 .top-image {
 	min-height: 500px;
-	background-image: url("/static/src/assets/images/Desklib banner4.png");
+	background-image: url("/static/dist/assets/images/Desklib banner4.png");
 	background-size: cover;
 	background-repeat: no-repeat;
 	height: 100%;
@@ -150,7 +150,7 @@ body {
 
 .study-top-image {
 	min-height: 500px;
-	background-image: url("/static/src/assets/images/Desklib banner4.png");
+	background-image: url("/static/dist/assets/images/Desklib banner4.png");
 	background-size: cover;
 	background-repeat: no-repeat;
 	height: 100%;
@@ -190,7 +190,7 @@ body {
 	//height: 60vh;
 	min-height: 100px;
 	background-size: cover;
-	background-image: url("/static/src/assets/images/explore_resources_img.png");
+	background-image: url("/static/dist/assets/images/explore_resources_img.png");
 	//padding: 5%;
 	height: 100%;
 	//margin-bottom: 4%;
@@ -200,7 +200,7 @@ body {
 	//height: 60vh;
 	min-height: 100px;
 	background-size: cover;
-	background-image: url("/static/src/assets/images/check_paper_img.png");
+	background-image: url("/static/dist/assets/images/check_paper_img.png");
 	//padding: 5%;
 	height: 100%;
 	//margin-bottom: 4%;
@@ -284,7 +284,7 @@ card {
 		//height: 60vh;
 		min-height: 100px;
 		background-size: cover;
-		background-image: url("/static/src/assets/images/explore_resources_img.png");
+		background-image: url("/static/dist/assets/images/explore_resources_img.png");
 		padding: 5%;
 		height: 100%;
 		//margin-bottom: 4%;
@@ -341,7 +341,7 @@ card {
 	.top-image {
 		height: 80vh;
 		min-height: 250px;
-		background-image: url("/static/src/assets/images/M_Desklib banner4.png");
+		background-image: url("/static/dist/assets/images/M_Desklib banner4.png");
 		background-size: cover;
 		background-repeat: no-repeat;
 	}
@@ -355,7 +355,7 @@ card {
 
 
 .banner-image {
-	background-image: url("/static/src/assets/images/Desklib banner4.png");
+	background-image: url("/static/dist/assets/images/Desklib banner4.png");
 	background-size: cover;
 	background-repeat: no-repeat;
 	//height: 100%;
@@ -364,7 +364,7 @@ card {
 .banner-image-study {
 	//height: 100vh;
 	min-height: 500px;
-	background-image: url("/static/src/assets/images/banner_study_detail.png");
+	background-image: url("/static/dist/assets/images/banner_study_detail.png");
 	background-size: cover;
 	background-repeat: no-repeat;
 	height: 100%;
@@ -387,7 +387,7 @@ card {
 
 .yellow-img {
 	min-height: 300px;
-	//background-image: url("/static/src/assets/images/explore resources img.png");
+	//background-image: url("/static/dist/assets/images/explore resources img.png");
 	background-color: #FFDA45;
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -398,7 +398,7 @@ card {
 
 .green-img {
 	min-height: 300px;
-	//background-image: url("/static/src/assets/images/check paper img.png");
+	//background-image: url("/static/dist/assets/images/check paper img.png");
 	background-color: #B2FFFF;
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -783,7 +783,7 @@ img.img-responsive.mx-auto.d-block {
 }
 .doc-img{
     position: relative;
-    background-image: url("/static/src/assets/images/document.jpg");
+    background-image: url("/static/dist/assets/images/document.jpg");
 	background-size: cover;
 	//background-repeat: no-repeat;
 }
