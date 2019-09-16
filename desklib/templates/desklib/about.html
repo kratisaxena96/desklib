@@ -4,6 +4,7 @@
 {% load meta %}
 {% block content %}
 
+{% comment %}
     <section class="container-fluid banner-image-study">
         <div class="row pl-5 pt-10 pltb-0">
               <div class="col-md-6 mt-8">
@@ -13,6 +14,7 @@
             </div>
         </div>
     </section>
+{% endcomment %}
 <section class="container-fluid bg-light-grey py-2 py-sm-5">
         <div class="row pl-5 pltb-0">
             <div class="col-md-6">
@@ -41,29 +43,29 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4 bg-light-grey">
+            <div class="col-md-4">
                 <div class="card">
                     <img class="card-img-top" src="{% static 'dist/assets/images/check_paper_img_plain.png' %}" alt="rel-doc1">
                     <div class="card-body">
-                        <p class="card-text text-center"><a href="javascript:void(0);">Document</a></p>
+                        <p class="card-text text-center"><a href="{% url 'writing:sample-list-view' %}">Documents</a></p>
                     </div>
                 </div>
 <!--                <img class="img-fluid pt-4 mx-auto d-block" src="{% static 'dist/assets/images/Option 2.png' %}" alt="service1">-->
 <!--                <p class="text-center font-size-20"><a href="javascript:void(0);">Service One</a></p>-->
             </div>
-            <div class="col-md-4 bg-light-grey">
+            <div class="col-md-4">
                 <div class="card">
                     <img class="card-img-top" src="{% static 'dist/assets/images/check_paper_img_plain.png' %}" alt="rel-doc1">
                     <div class="card-body">
-                        <p class="card-text text-center"><a href="javascript:void(0);">Grammar Checker</a></p>
+                        <p class="card-text text-center"><a href="{% url 'writing:grammar' %}">Grammar Checker</a></p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 bg-light-grey">
+            <div class="col-md-4">
                 <div class="card">
                     <img class="card-img-top" src="{% static 'dist/assets/images/check_paper_img_plain.png' %}" alt="rel-doc1">
                     <div class="card-body">
-                        <p class="card-text text-center"><a href="javascript:void(0);">Compare Text</a></p>
+                        <p class="card-text text-center"><a href="{% url 'writing:compare' %}">Compare Text</a></p>
                     </div>
                 </div>
             </div>
