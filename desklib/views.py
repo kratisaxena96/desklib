@@ -122,7 +122,7 @@ class AboutPageView(MetadataMixin, JsonLdContextMixin, TemplateView):
         "description": _(
             "Desklib is a single stop solution for all your academic needs. We provide millions of study documents which can be used for by students to obtain better grades."),
         "url": "https://desklib.com/",
-        "logo": "https://desklib.com/static/src/assets/images/desklib-logo-theme.png",
+        "logo": "https://desklib.com/static/dist/assets/images/desklib-logo-theme.png",
         "potentialAction": {
             "@type": "SearchAction",
             "target": "https://www.desklib.com/study/search/?q={search_term}",
@@ -152,7 +152,7 @@ class PricingPageView(MetadataMixin, JsonLdContextMixin, TemplateView):
         "description": _(
             'Desklib provides a subscription based access to its resources at affordable price.'),
         "url": "https://desklib.com/",
-        "logo": "https://desklib.com/static/src/assets/images/desklib-logo-theme.png",
+        "logo": "https://desklib.com/static/dist/assets/images/desklib-logo-theme.png",
         "potentialAction": {
             "@type": "SearchAction",
             "target": "https://www.desklib.com/study/search/?q={search_term}",
@@ -183,7 +183,7 @@ class ContactPageView(MetadataMixin, JsonLdContextMixin, TemplateView):
         "description": _(
             '24X7 online support for our customers. Reach our customer support and get your queries answered instantly.'),
         "url": "https://desklib.com/",
-        "logo": "https://desklib.com/static/src/assets/images/desklib-logo-theme.png",
+        "logo": "https://desklib.com/static/dist/assets/images/desklib-logo-theme.png",
         "potentialAction": {
             "@type": "SearchAction",
             "target": "https://www.desklib.com/study/search/?q={search_term}",

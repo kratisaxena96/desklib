@@ -10,7 +10,8 @@ var gulp   = require('gulp'),
 	uglify = require('gulp-uglify'),
 	browserSync = require('browser-sync').create(),
 	reload = browserSync.reload,
-	cleanCSS = require('gulp-clean-css');
+	cleanCSS = require('gulp-clean-css'),
+	gulpimagemin = require('gulp-imagemin');
 
 // define the default task and add the watch task to it
 gulp.task('default', ['watch']);
@@ -28,7 +29,7 @@ gulp.task('minify-css', ['build-css'], () => {
     .pipe(sourcemaps.init())
     .pipe(concat('bundle.css'))
     .pipe(cleanCSS())
-    .pipe(sourcemaps.write())
+//    .pipe(sourcemaps.write())
     .pipe(gulp.dest('desklib/static/dist/css'));
 });
 
@@ -50,7 +51,7 @@ gulp.task('jshint', function() {
      .pipe(sourcemaps.init())
        .pipe(concat('bundle.js'))
        .pipe(uglify())
-     .pipe(sourcemaps.write())
+//     .pipe(sourcemaps.write())
      .pipe(gulp.dest('desklib/static/dist/js'))
      .pipe(browserSync.reload({stream: true}));
  });
@@ -82,8 +83,27 @@ gulp.task('copy-js', function(){
 
 });
 
+//compress images
+
+gulp.task('image', function () {
+	gulp.src('desklib/static/dist/assets/images/*')
+		.pipe(gulpimagemin([
+		    gulpimagemin.gifsicle({interlaced: true}),
+		    gulpimagemin.jpegtran({progressive: true}),
+		    gulpimagemin.optipng({optimizationLevel: 5}),
+		    gulpimagemin.svgo({
+		        plugins: [
+		            {removeViewBox: true},
+		            {cleanupIDs: false}
+		        ]
+		    })
+		]))
+		.pipe(gulp.dest('desklib/static/dist/assets/images'))
+});
+
+
 // Static Server + watching scss/html files
-gulp.task('serve', ['copy-css', 'copy-font', 'copy-js', 'minify-css', 'build-js'], function() {
+gulp.task('serve', ['copy-css', 'copy-font', 'copy-js', 'minify-css', 'build-js', 'image'], function() {
 
     browserSync.init({
       	injectChanges: true,
