@@ -13,6 +13,8 @@ from django.core.files import File as DjangoFile
 from pdf2image import convert_from_path, convert_from_bytes
 from documents.models import images
 
+from documents.utils import unique_slug_generator,random_string_generator
+from django.template.defaultfilters import slugify
 
 
 
@@ -116,6 +118,8 @@ class Sample(models.Model):
             pre, ext = os.path.splitext(sample_filename)
             file_with_pdf_ext = pre + ".pdf"
 
+            self.slug = unique_slug_generator(self, new_slug=slugify(self.name[:40]) if self.name else random_string_generator(size=4))
+
             temp_dir = tempfile.TemporaryDirectory(prefix=pre)
 
             # convert the uploaded file to pdf file and save it
@@ -135,22 +139,21 @@ class Sample(models.Model):
             images_tmpdir = tempfile.TemporaryDirectory()
             # Converting each page of pdf to images
             pdf_images = convert_from_path(pdf_converted_loc, output_folder=images_tmpdir.name, fmt='jpg')
+            super(Sample, self).save(*args, **kwargs)
 
-        super(Sample, self).save(*args, **kwargs)
+            # Creating pages data for document
+            img_count = 1
+            for pdf_img in pdf_images:
+                img_obj = Image()
+                img_obj.no = img_count
+                img_obj.image_file = DjangoFile(open(pdf_img.filename, 'rb'))
+                img_obj.sample = self
+                img_obj.author = self.author
+                img_obj.save()
+                img_count += 1
 
-        # Creating pages data for document
-        img_count = 1
-        for pdf_img in pdf_images:
-            img_obj = Image()
-            img_obj.no = img_count
-            img_obj.image_file = DjangoFile(open(pdf_img.filename, 'rb'))
-            img_obj.sample = self
-            img_obj.author = self.author
-            img_obj.save()
-            img_count += 1
-
-
-
+        else:
+            super(Sample, self).save(*args, **kwargs)
 
 class Image(models.Model):
     no = models.PositiveIntegerField()
