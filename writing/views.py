@@ -34,7 +34,7 @@ class WritingPageView(MetadataMixin,JsonLdContextMixin, TemplateView):
         "name": "Writing and content editing services",
         "description": _("Desklib provides free writing tools for everyone to improve their writing skills. Hire top content writers and proofreaders for your content requirements."),
         "url": "https://desklib.com/writing/",
-        "logo": "https://desklib.com/static/src/assets/images/desklib-logo-theme.png",
+        "logo": "https://desklib.com/static/dist/assets/images/desklib-logo-theme.png",
         "potentialAction": {
             "@type": "SearchAction",
             "target": "https://www.desklib.com/study/search/?q={search_term}",

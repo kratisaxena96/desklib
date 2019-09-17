@@ -45,7 +45,7 @@ class StudyPageView(MetadataMixin,JsonLdContextMixin, SearchView):
         "name": "desklib.com",
         "description": _("Desklib allows you to explore best resources for your study requirements. Search solutions, assignments, presentations, thesis, homework solutions from our library."),
         "url": "https://desklib.com/study/",
-        "logo": "https://desklib.com/static/src/assets/images/desklib-logo-theme.png",
+        "logo": "https://desklib.com/static/dist/assets/images/desklib-logo-theme.png",
         "potentialAction": {
             "@type": "SearchAction",
             "target": "https://www.desklib.com/study/search/?q={search_term}",
@@ -121,7 +121,7 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, FacetedSearchView):
         "name": "desklib.com",
         "description": _("Search results for your query on desklib.com"),
         "url": "https://desklib.com/study/search/",
-        "logo": "https://desklib.com/static/src/assets/images/desklib-logo-theme.png",
+        "logo": "https://desklib.com/static/dist/assets/images/desklib-logo-theme.png",
         "potentialAction": {
             "@type": "SearchAction",
             "target": "https://www.desklib.com/study/search/?q={search_term}",

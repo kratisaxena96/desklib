@@ -4,13 +4,13 @@
 
 <!--    <div class="container">-->
 <!--        <div class="float-left padding-top-20">-->
-<!--            <img class="img-responsive" src="{% static 'src/assets/images/Desklib.png' %}" alt="logo">-->
+<!--            <img class="img-responsive" src="{% static 'dist/assets/images/Desklib.png' %}" alt="logo">-->
 <!--        </div>-->
 
 
 <!--<header>-->
 <nav class="navbar navbar-expand-md bg-light navbar-light">
-  <a class="navbar-brand" href="/"><img class="img-responsive" src="{% static 'src/assets/images/desklib-logo-theme.png' %}" alt="desklib-logo"></a>
+  <a class="navbar-brand" href="/"><img class="img-responsive" src="{% static 'dist/assets/images/desklib-logo-theme.png' %}" alt="desklib-logo"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -86,14 +86,14 @@
       <ul class="navbar-nav text-left">
           <li class="nav-item">
               {% if user.is_authenticated %}
-                <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
+                <a class="nav-link" href="{% url 'account_logout' %}" rel="nofollow">Logout</a>
             {% else %}
-            <a class="nav-link login" href="{% url 'account_login' %}">Login</a>
+            <a class="nav-link login" href="{% url 'account_login' %}" rel="nofollow">Login</a>
               {% endif %}
           </li>
           {% if not user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link register" href="{% url 'account_signup'%}">Register</a>
+            <a class="nav-link register" href="{% url 'account_signup'%}" rel="nofollow">Register</a>
           </li>
           {% endif %}
       </ul>
@@ -113,7 +113,7 @@
 
 
 <!--      <nav class="navbar navbar-expand-md navbar-light">-->
-<!--          <a class="navbar-brand" href="/"><img class="img-responsive padding-bottom-20" src="{% static 'src/assets/images/Desklib.png' %}" alt="logo"></a>-->
+<!--          <a class="navbar-brand" href="/"><img class="img-responsive padding-bottom-20" src="{% static 'dist/assets/images/Desklib.png' %}" alt="logo"></a>-->
 <!--          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">-->
 <!--            <span class="navbar-toggler-icon"></span>-->
 <!--          </button>-->
@@ -172,9 +172,9 @@
 
 <!--
 <nav class="navbar navbar-expand-md bg-transparent nav-fixed-top">
-  <a class="navbar-brand" href="/"><img src="{% static 'src/assets/images/Desklib.png' %}" alt="logo"></a>
+  <a class="navbar-brand" href="/"><img src="{% static 'dist/assets/images/Desklib.png' %}" alt="logo"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <img src="{% static 'src/assets/images/menu.png' %}" alt="menu-icon">
+    <img src="{% static 'dist/assets/images/menu.png' %}" alt="menu-icon">
   </button>
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav ml-auto">
