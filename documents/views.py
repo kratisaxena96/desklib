@@ -250,7 +250,13 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
             filename = os.path.basename(filename)
             filename = filename.replace(' ', '_')
 
+            f1 = Document.objects.get(slug=kwargs.get('slug')).upload_file.file  # File to copy from
             temp = tempfile.NamedTemporaryFile(suffix=filename)  # Temporary File to copy to
+
+            with open(temp.name, 'wb') as f2:
+                f2.write(f1.read())
+
+            f2.close()
 
             pre, ext = os.path.splitext(filename)
             temp_dir = tempfile.TemporaryDirectory(prefix=pre)
