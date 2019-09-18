@@ -83,7 +83,7 @@ class DocumentAdmin(admin.ModelAdmin):
     raw_id_fields = ('author',)
     search_fields = ['title', 'content']
     list_display = ('title', 'published_date', 'is_published', 'is_visible', 'page', 'words', 'get_subjects')
-    list_filter = (SubjectListFilter,)
+    list_filter = (SubjectListFilter, 'is_published', 'is_visible')
     actions = [publish_documents, un_publish_documents, soft_delete_documents, set_document_subject, restore_documents]
 
     inlines = [
