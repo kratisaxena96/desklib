@@ -6,7 +6,8 @@ from post_office import mail
 from documents.models import Document
 from .serializers import DocumentCreateSerializer, ReportDocumentSerializer, DocumentFeedbackSerializer
 from desklib.mixins import RestrictIpMixin
-
+from samples.models import Sample
+from documents.models import Issue
 
 class DocumentCreateApiView(RestrictIpMixin, CreateAPIView):
     serializer_class = DocumentCreateSerializer
@@ -26,7 +27,7 @@ class ReportDocumentApi(CreateAPIView):
         reported_issue = serializer.validated_data['issue']
         if not reported_issue:
             reported_issue = serializer.validated_data['other_issue']
-
+        reported_issue = Issue.objects.get(id=reported_issue).title
         locus_email = "kushagra.goel@locusrags.com"
         if not settings.DEBUG:
             locus_email = "info@desklib.com"
