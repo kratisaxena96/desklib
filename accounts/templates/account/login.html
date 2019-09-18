@@ -74,9 +74,18 @@
 <!--                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>-->
 <!--                <label for="inputPassword">Password</label>-->
               </div>
+
+          <div class="form-check">
+             {{ form.remember }}
+             <label class="form-check-label" for="id_remember">&nbsp;&nbsp;Remember me</label>
+          </div>
+
+            {% comment %}
               <div class="form-label-group">
-                  {{ form.remember }} Remember me
+                  {{ form.remember }}Remember me
               </div>
+                {% endcomment %}
+                
               {% if redirect_field_value %}
 
                 <input class="custom-alert" type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
