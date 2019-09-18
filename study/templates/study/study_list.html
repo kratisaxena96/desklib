@@ -258,19 +258,6 @@ $('#form').submit(function (event) {
 
   });
 
-   $('#id_q').autocomplete({
- source: function (request, response) {
-     $.getJSON("/study/autocomplete/?q=" + request.term, function (data) {
-         response($.map(data, function (value, key) {
-             return {
-                label: value,
-                value: key
-             };
-         }));
-     });
- },
- minLength: 1
-});
 
 </script>
 <script>

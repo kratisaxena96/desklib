@@ -39,8 +39,8 @@ class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
         return [(t.slug) for t in obj.subjects.all()]
 
     def prepare_cover_image(self, obj):
-        if obj.cover_page_number and obj.cover_page_number != 0 :
-            url = obj.pages.all()[obj.cover_page_number-1].image_file.url
+        if obj.cover_page_number:
+            url = obj.pages.get(no=obj.cover_page_number).image_file.url
             return url
         else:
             if obj.pages.count() >=2:
@@ -53,8 +53,8 @@ class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
                 return url
 
     def prepare_cover_image_name(self, obj):
-        if obj.cover_page_number and obj.cover_page_number != 0:
-            name = obj.pages.all()[obj.cover_page_number-1].image_file.name
+        if obj.cover_page_number:
+            name = obj.pages.get(no=obj.cover_page_number).image_file.name
             return name
 
         else:
