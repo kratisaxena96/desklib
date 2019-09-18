@@ -124,8 +124,6 @@
 					 </div>
 				 </div>
 			 </div>
-            
-          
             <div class="container">
                  <div class="d-flex flex-row-reverse bd-highlight">
 <!--                      <div class="p-2 bd-highlight">Flex item 2</div>-->
@@ -138,6 +136,21 @@
                                <div class="dropdown-menu scrollable-menu" role="menu">
                                    {% for sub in sqs.fields.subjects|slice:":5" %}
                                            <a class="dropdown-item" id="{{sub.0|cut:' '}}" href="?q={{ query }}&amp;selected_facets=subjects_exact:{{ sub.0|urlencode }}"> {{ sub.0}}</a>
+                
+                                     {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                     {% endif %}
+                     {% if sqs_page_number %}
+                      <div class="p-2 bd-highlight ">
+                           <div class="dropdown">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown">
+                                  Page Numbers
+                                </a>
+                               <div class="dropdown-menu scrollable-menu" role="menu">
+                                   {% for sub in sqs_page_number.fields.no_of_pages|slice:":5" %}
+                                           <a class="dropdown-item" id="{{sub.0|cut:' '}}" href="?q={{ query }}&amp;selected_facets=no_of_pages_exact:{{ sub.0|urlencode }}"> {{ sub.0}}</a>
                 
                                      {% endfor %}
                                 </div>
