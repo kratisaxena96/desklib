@@ -148,7 +148,7 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, FacetedSearchView):
         suggest_string = SearchQuerySet().spelling_suggestion(self.request.GET.get('q', ''))
         if self.request.GET.get('q', '') != suggest_string:
             context['suggestion'] = suggest_string
-
+        context['selected'] = self.request.GET.get('selected_facets')
         if not self.request.GET.get('q') and not self.request.GET.get('selected_facets') :
             context['is_empty'] = True
         # self.searchqueryset = SearchQuerySet().order_by('-pub_date')[:5]
