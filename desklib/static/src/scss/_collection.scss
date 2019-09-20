@@ -16,7 +16,7 @@ body {
     .owl-theme {
         .custom-nav {
             position: absolute;
-            top: 20%;
+            top: 32%;
             left: 0;
             right: 0;
 
@@ -158,6 +158,9 @@ body {
 	height: 100%;
 }
 
+.text-white{
+	color:$white;
+}
 .btn-bg-theme {
 	background-color: $blue-theme;
 	width: auto;
@@ -194,7 +197,7 @@ body {
 	background-size: cover;
 	background-image: url("/static/dist/assets/images/explore_resources_img.png");
 	//padding: 5%;
-	height: 100%;
+	//height: 100%;
 	//margin-bottom: 4%;
 }
 
@@ -204,7 +207,7 @@ body {
 	background-size: cover;
 	background-image: url("/static/dist/assets/images/check_paper_img.png");
 	//padding: 5%;
-	height: 100%;
+	//height: 100%;
 	//margin-bottom: 4%;
 }
 
@@ -235,7 +238,7 @@ card {
 }
 
 .card-height {
-	height: 150px;
+	height: auto;
 }
 
 .top-study {

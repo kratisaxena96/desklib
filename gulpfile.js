@@ -85,8 +85,8 @@ gulp.task('copy-js', function(){
 
 //compress images
 
-gulp.task('image', function () {
-	gulp.src('desklib/static/dist/assets/images/*')
+gulp.task('minify-image', function () {
+	gulp.src('desklib/static/src/assets/images/*')
 		.pipe(gulpimagemin([
 		    gulpimagemin.gifsicle({interlaced: true}),
 		    gulpimagemin.jpegtran({progressive: true}),
@@ -103,7 +103,7 @@ gulp.task('image', function () {
 
 
 // Static Server + watching scss/html files
-gulp.task('serve', ['copy-css', 'copy-font', 'copy-js', 'minify-css', 'build-js', 'image'], function() {
+gulp.task('serve', ['copy-css', 'copy-font', 'copy-js', 'minify-css', 'build-js', 'minify-image'], function() {
 
     browserSync.init({
       	injectChanges: true,
@@ -118,6 +118,7 @@ gulp.task('serve', ['copy-css', 'copy-font', 'copy-js', 'minify-css', 'build-js'
 
     gulp.watch('desklib/static/src/js/**/*.js', ['jshint', 'build-js']);
     gulp.watch('desklib/static/src/scss/**/*.scss', ['minify-css']);
+    gulp.watch('desklib/static/src/assets/**', ['minify-image']);
     // gulp.watch('desklib/static/desklib/css/**/*.css', browserSync.reload({stream: true}));
     // gulp.watch("desklib/static/desklib/css/**/*.css").on('change', browserSync.reload),
     gulp.watch("./**/*.html").on('change', browserSync.reload);

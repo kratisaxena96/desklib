@@ -74,9 +74,18 @@
 <!--                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>-->
 <!--                <label for="inputPassword">Password</label>-->
               </div>
+
+          <div class="form-check">
+             {{ form.remember }}
+             <label class="form-check-label" for="id_remember">&nbsp;&nbsp;Remember me</label>
+          </div>
+
+            {% comment %}
               <div class="form-label-group">
-                  {{ form.remember }} Remember me
+                  {{ form.remember }}Remember me
               </div>
+                {% endcomment %}
+                
               {% if redirect_field_value %}
 
                 <input class="custom-alert" type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
@@ -94,7 +103,7 @@
 				{% get_providers as socialaccount_providers %}
 				{% for provider in socialaccount_providers %}
 					<a title="{{provider.name}}" class="btn btn-{{provider.name|lower}} btn-lg btn-block"
-					 href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><i class="fa fa-{{provider.name}}" ></i>&nbsp Sign In {{provider.name}}</a>
+					 href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}" rel="nofollow"><i class="fa fa-{{provider.name}}" ></i>&nbsp Sign In {{provider.name}}</a>
 				{% endfor %}
 
                 <div class="text-center pt-4"><p class="m-0 p-0">Don't have an account? <a href="{% url 'account_signup' %}{% if redirect_field_value %}?{{ redirect_field_name }}={{ redirect_field_value }}{% endif %}" rel="nofollow">Sign Up</a></p>
