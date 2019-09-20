@@ -199,9 +199,10 @@
 $('#main0 .owl-carousel').owlCarousel({
     autoplay:true,
     stagePadding: 50,
+    nav: true,
+    dots:false,
     loop: true,
     margin: 10,
-    nav: true,
     navText: [
         '<i class="fa fa-angle-left" aria-hidden="true"></i>',
         '<i class="fa fa-angle-right" aria-hidden="true"></i>'
@@ -209,13 +210,16 @@ $('#main0 .owl-carousel').owlCarousel({
     navContainer: '#main0 .custom-nav',
     responsive:{
         0:{
+            items: 1
+        },
+        576:{
             items: 2
         },
-        600:{
+        768:{
             items: 4
         },
         1000:{
-            items: 6
+            items: 5
         }
     }
 });
@@ -223,10 +227,10 @@ $('#main0 .owl-carousel').owlCarousel({
 $('#main .owl-carousel1').owlCarousel({
     autoplay:true,
     stagePadding: 50,
+    nav: true,
     dots:false,
     loop: true,
     margin: 10,
-    nav: true,
     navText: [
         '<i class="fa fa-angle-left" aria-hidden="true"></i>',
         '<i class="fa fa-angle-right" aria-hidden="true"></i>'
@@ -234,13 +238,16 @@ $('#main .owl-carousel1').owlCarousel({
     navContainer: '#main .custom-nav',
     responsive:{
         0:{
+            items: 1
+        },
+        576:{
             items: 2
         },
-        600:{
+        768:{
             items: 4
         },
         1000:{
-            items: 6
+            items: 5
         }
     }
 });
