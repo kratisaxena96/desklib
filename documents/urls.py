@@ -7,9 +7,9 @@ from django.views.generic import TemplateView
 
 
 urlpatterns = [
-    path('<slug:slug>/', DocumentView.as_view(), name='document-view'),
-    path('download/info/<slug:slug>/', DocumentDownloadDetailView.as_view(), name='download-info-view'),
-    path('download/<slug:slug>/', DocumentDownloadView.as_view(), name='document-download-view'),
+    path('download/confirm/', DocumentDownloadDetailView.as_view(), name='download-info-view'),
+    path('download/', DocumentDownloadView.as_view(url='https://desklib.com/?doc=%(slug)'), name='document-download-view'),
     path('download/success', DownloadSuccessView.as_view(), name='download-success-view'),
     path('extend/subscription', PageViewsFinishView.as_view(), name='pageviews-finish-view'),
+    path('<slug:slug>/', DocumentView.as_view(), name='document-view'),
 ]
