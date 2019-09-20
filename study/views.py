@@ -151,6 +151,7 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, FacetedSearchView):
         context['selected'] = self.request.GET.get('selected_facets')
         if not self.request.GET.get('q') and not self.request.GET.get('selected_facets') :
             context['is_empty'] = True
+        # context.update({'object_list': SearchQuerySet().filter(no_of_pages__range=[1, 5])})
         # self.searchqueryset = SearchQuerySet().order_by('-pub_date')[:5]
 
         # if self.suggestions:

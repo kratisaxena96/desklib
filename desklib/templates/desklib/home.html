@@ -90,17 +90,17 @@
                 <div class="yellow p-4 p-gl-5 p-15 rounded">
                     <h2 class="font-40">Discover resources similar to your homework problems</h2>
                     <a href="{%url 'study:study-search'%}">
-                    <button class="btn btn-primary btn-bg-theme mt-3 mt-lg-5 mb-lg-2 border-radius-40">
+                    <button class="btn text-white btn-bg-theme mt-3 mt-lg-5 mb-lg-2 border-radius-40">
                         Explore Resources
                     </button>
                     </a>
                 </div>
             </div>
-            <div class="col-md-6 mb-sm-3 mb-lg-0 mb-3">
+            <div class="col-md-6 mb-lg-0">
                 <div class="green p-4 p-gl-5 p-15 rounded">
                     <h2 class="font-40">Remove errors and improve your writing skills instantly</h2>
                     <a href="{% url 'writing:grammar' %}">
-                    <button class="btn btn-primary btn-bg-theme mt-3 mt-lg-5 mb-lg-2 border-radius-40">
+                    <button class="btn text-white btn-bg-theme mt-3 mt-lg-5 mb-lg-2 border-radius-40">
                         Check my paper
                     </button>
                     </a>
@@ -172,7 +172,7 @@
     </div>
     <div class="row mb-5">
         <div class="col-md-12 text-center">
-            <a class="btn btn-primary btn-bg-theme py-3 px-4 border-radius-40" href="{% url 'subscription' %}">Subscribe us for an low as $30 a month</a>
+            <a class="btn text-white btn-bg-theme py-3 px-4 border-radius-40" href="{% url 'subscription' %}">Subscribe us for an low as $30 a month</a>
             <p class="pt-3">* Please read details about our subscription by clicking on the link above</p>
             {% comment %}
             <p class="font-size-20 blue-font"> <a href="{% url 'subscription' %}">Learn more</a></p>
@@ -277,11 +277,14 @@ $('#main0 .owl-carousel').owlCarousel({
         0:{
             items: 1
         },
-        600:{
+        576:{
+            items: 2
+        },
+        768:{
             items: 4
         },
         1000:{
-            items: 6
+            items: 5
         }
     }
 });

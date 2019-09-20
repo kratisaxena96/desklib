@@ -27,7 +27,8 @@ class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
     pub_date = indexes.DateTimeField(model_attr='published_date')
     cover_image = indexes.CharField()
     cover_image_name = indexes.CharField()
-    no_of_pages = indexes.CharField(model_attr='page')
+    no_of_pages = indexes.IntegerField(model_attr='page')
+    no_of_words = indexes.IntegerField(model_attr='words')
     subjects = indexes.MultiValueField(faceted=True)
     views = indexes.CharField(model_attr='views')
 

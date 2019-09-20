@@ -2,6 +2,12 @@ from django import forms
 from haystack.forms import FacetedSearchForm
 
 class CustomFacetedSearchForm(FacetedSearchForm):
+    from_page = forms.IntegerField(required=False)
+    to_page = forms.IntegerField(required=False)
+    from_words = forms.IntegerField(required=False)
+    to_words = forms.IntegerField(required=False)
+
+
     def __init__(self, *args, **kwargs):
         super(CustomFacetedSearchForm, self).__init__(*args, **kwargs)
 
@@ -19,7 +25,18 @@ class CustomFacetedSearchForm(FacetedSearchForm):
             sqs = sqs.load_all()
         # We need to process each facet to ensure that the field name and the
         # value are quoted correctly and separately:
-        self.searchqueryset.facet('author', size=10, order='term')
+        # self.searchqueryset.facet('author', size=10, order='term')
+
+        if self.cleaned_data['from_page']:
+            sqs = sqs.filter(no_of_pages__gte=self.cleaned_data['from_page'])
+        if self.cleaned_data['from_words']:
+            sqs = sqs.filter(no_of_words__gte=self.cleaned_data['from_words'])
+
+            # Check to see if an end_date was chosen.
+        if self.cleaned_data['to_page']:
+            sqs = sqs.filter(no_of_pages__lte=self.cleaned_data['to_page'])
+        if self.cleaned_data['to_words']:
+            sqs = sqs.filter(no_of_words__lte=self.cleaned_data['to_words'])
 
         for facet in self.selected_facets:
             if ":" not in facet:
