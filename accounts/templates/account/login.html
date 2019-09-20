@@ -103,7 +103,7 @@
 				{% get_providers as socialaccount_providers %}
 				{% for provider in socialaccount_providers %}
 					<a title="{{provider.name}}" class="btn btn-{{provider.name|lower}} btn-lg btn-block"
-					 href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><i class="fa fa-{{provider.name}}" ></i>&nbsp Sign In {{provider.name}}</a>
+					 href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}" rel="nofollow"><i class="fa fa-{{provider.name}}" ></i>&nbsp Sign In {{provider.name}}</a>
 				{% endfor %}
 
                 <div class="text-center pt-4"><p class="m-0 p-0">Don't have an account? <a href="{% url 'account_signup' %}{% if redirect_field_value %}?{{ redirect_field_name }}={{ redirect_field_value }}{% endif %}" rel="nofollow">Sign Up</a></p>
