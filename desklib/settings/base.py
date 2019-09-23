@@ -73,6 +73,7 @@ INSTALLED_APPS = [
     'django.contrib.admindocs',
     # 'channels',
     'storages',
+    'django_countries',
 ]
 
 SITE_ID = 1

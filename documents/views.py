@@ -6,6 +6,7 @@ import tempfile
 logger = logging.getLogger(__name__)
 from rest_framework.views import APIView
 from django.views.generic import TemplateView, DetailView,CreateView, FormView
+from django.views.generic.base import RedirectView
 from .models import Document
 from subscription.models import Download, PageView, SessionPageView
 from django_json_ld.views import JsonLdContextMixin
@@ -225,7 +226,7 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
         download_count = Download.objects.filter(user=self.request.user, created_at__gte=startdate_subscription,
                                                  created_at__lte=expiry_date_subscription).count()
         remaining_downloads = plan_download_limit - download_count
-        document_obj = Document.objects.get(slug=self.kwargs.get('slug'))
+        document_obj = Document.objects.get(slug=self.request.GET.get('doc'))
         from haystack.inputs import Raw
         # sqs = SearchQuerySet().filter(content= self.kwargs.get('slug'))
         # searchqueryset = SearchQuerySet().filter(slug=self.kwargs.get('slug'))
@@ -341,14 +342,15 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
 
 
 
-class DocumentDownloadView(LoginRequiredMixin, TemplateView):
+class DocumentDownloadView(LoginRequiredMixin, RedirectView):
 
     def get(self, request, *args, **kwargs):
         # print(request.user)
         if request.user.subscriptions.all().exists():
             subscription_obj = get_current_subscription(self.request.user)
             if subscription_obj:
-                return redirect('documents:download-info-view', slug=kwargs.get('slug'))
+                # return redirect('documents:download-info-view', slug=request.GET.get('doc'))
+                return redirect("%s?doc=%s" % (redirect('documents:download-info-view').url, request.GET.get('doc')))
             else:
                 return redirect('subscription')
         else:

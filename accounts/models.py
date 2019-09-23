@@ -8,6 +8,7 @@ from django.core.mail import send_mail
 from django.utils import timezone
 from django.urls import reverse
 from phonenumber_field.modelfields import PhoneNumberField
+from django_countries.fields import CountryField
 
 
 class UserAccountManager(BaseUserManager):
@@ -54,6 +55,9 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(_('first name'), max_length=40)
     last_name = models.CharField(_('last name'), max_length=40, blank=True, null=True)
     contact_no = PhoneNumberField(_('contact number'), max_length=20, blank=True, null=True)
+    country = CountryField(blank_label='(select country)')
+    university = models.CharField(_('University'), max_length=50)
+    college = models.CharField(_('College'), max_length=50)
 
     is_staff = models.BooleanField(_('staff status'), default=False,
                                    help_text=_('Designates whether the user can log into this master site.'))
