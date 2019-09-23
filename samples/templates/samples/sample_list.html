@@ -3,6 +3,22 @@
 
 {% block content %}
 <section class="mt-0 mb-5 mt-sm-3 mt-md-5">
+      {% block messages %}
+    {% if messages %}
+        <div>
+            <ul>
+                {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>{{message}}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+  {% endblock %}
     <div class="container">
         <h1 class="text-center pt-0 pt-sm-0">Resumes samples for everyone</h1>
         <p class="py-2">Preparing to get a good job starts with building a perfect resume. Your resume reflects who you are as a professional. Our team has created sample resumes for everyone who is looking for the perfect format for resume.</p>

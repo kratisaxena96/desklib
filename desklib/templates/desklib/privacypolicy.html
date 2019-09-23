@@ -2,6 +2,22 @@
 {% load meta %}
 {% block content %}
 <div class="container py-2 py-md-5">
+      {% block messages %}
+    {% if messages %}
+        <div>
+            <ul>
+                {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>{{message}}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+  {% endblock %}
     <h1>Privacy Policy</h1>
 
     <p>We at Desklib have created this Privacy Notice to describe our practices regarding information we collect through our web sites, mobile features, mobile applications and any other interactive features or services owned or controlled by Desklib that post a link to this Privacy Notice (each, a "Service"), as well as any information we collect offline and combine in our databases. Note that we combine the information we collect from you through all of our Services.</p>

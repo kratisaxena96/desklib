@@ -8,6 +8,22 @@
    
       {% block content %}
       <div class="container-fluid bg-3 text-center mt-2">
+       {% block messages %}
+            {% if messages %}
+                <div>
+                    <ul>
+                    {% for message in messages %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>{{message}}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+     {% endblock %}
          <form method="get" action="." class="form">
 
             {{ form.non_field_errors }}

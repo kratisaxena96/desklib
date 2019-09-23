@@ -9,6 +9,22 @@
 <!--    <li><a href="{% url 'writing:grammar' %}">Grammar Checker</a> </li>-->
 <!--</ul>-->
 <section class="container-fluid bg-light-grey">
+    {% block messages %}
+    {% if messages %}
+        <div>
+            <ul>
+                {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>{{message}}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+  {% endblock %}
         <div class="row pl-5 pb-5 pltb-0">
             <div class="col-md-6 mt-8 pt-10 p-t-0">
                 <h1 class="blue-theme py-1">Say no to bad grammar</h1>

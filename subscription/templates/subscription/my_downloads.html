@@ -1,0 +1,30 @@
+{% extends "desklib/base.html" %}
+{% block content %}
+	{% block messages %}
+		{% if messages %}
+			<div>
+				<ul>
+					{% for message in messages %}
+					<div class="alert alert-warning alert-dismissible fade show" role="alert">
+							<strong>{{message}}</strong>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+					</div>
+					{% endfor %}
+				</ul>
+			</div>
+		{% endif %}
+  	{% endblock %}
+	<h1>Documents Download By User</h1>
+	{% for downloads in user_downloads %}
+		{{downloads.document}}
+		{{downloads.created_at|date:'Y-m-d H:i'}}
+	{% endfor %}
+<br/><br/>
+	<h1>Pages View By User</h1>
+	{% for pages in page_view %}
+		{{pages.document}}
+		{{pages.created_at|date:'Y-m-d H:i'}}
+	{% endfor %}
+{% endblock %}
