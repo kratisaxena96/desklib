@@ -8,5 +8,5 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('', include('allauth.urls')),
-    path('my-profile', MyProfileView.as_view(), name='my-profile'),
+    path('my-profile/', MyProfileView.as_view(), name='my-profile'),
 ]
