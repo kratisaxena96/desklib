@@ -38,7 +38,7 @@ sitemaps = {
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('accounts/', include('accounts.urls')),  # new
-    path('accounts/', include('allauth.urls')),
+    path('accounts/', include('accounts.urls')),
     path('study/',include(('study.urls','study'),namespace="study")),
     path('', HomePageView.as_view(), name='home'),
     path('coming-soon/', ComingSoonPageView.as_view(), name='coming-soon'),
