@@ -112,7 +112,7 @@
 							<td align="center" valign="middle" style="padding-top:40px;padding-bottom:40px">
 								<!-- Logo and Link  // -->
 								<a href="{{ request.get_host }}" target="_blank" style="text-decoration:none;">
-									<img mc:edit="logo" src="{{ request.get_host }}{% static 'dist/assets/images/desklib-logo-theme.png'%}" alt="" width="180" border="0" style="height:auto; display:block;"/>
+									<img mc:edit="logo" src="{{ request.get_host }}{% static 'dist/assets/images/desklib-logo-theme.png'%}" alt="desklib-logo" width="180" border="0" style="height:auto; display:block;"/>
 								</a>
 							</td>
 						</tr>
@@ -139,7 +139,7 @@
 							<td align="center" valign="top" style="padding-bottom:40px" class="imgHero">
 								<!-- Hero Image  // -->
 								<a href="#" target="_blank" style="text-decoration:none;">
-									<img mc:edit="heroImg" src="{{ request.get_host }}{% static 'dist/assets/images/download.png'%}" width="600" alt="" border="0" style="width:100%; max-width:600px; height:auto; display:block;" />
+									<img mc:edit="heroImg" src="{{ request.get_host }}{% static 'dist/assets/images/download.png'%}" width="600" alt="download-img" border="0" style="width:100%; max-width:600px; height:auto; display:block;" />
 								</a>
 							</td>
 						</tr>
@@ -148,7 +148,7 @@
 							<td align="center" valign="top" style="padding-bottom:5px;padding-left:20px;padding-right:20px;" class="title">
 								<!-- Main Title Text // -->
 								<h2 mc:edit="title" class="bigTitle" style="color:#313131; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:26px; font-weight:600; font-style:normal; letter-spacing:normal; line-height:34px; text-align:center; padding:0; margin:0;">
-									Congratulations
+									Congratulations!
 								</h2>
 							</td>
 						</tr>
@@ -157,7 +157,7 @@
 							<td align="center" valign="top" style="padding-bottom:20px;padding-left:20px;padding-right:20px;" class="subTitle">
 								<!-- Sub Title Text // -->
 								<h4 mc:edit="subTitle" class="midTitle" style="color:#919191; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:18px; font-weight:400; font-style:normal; letter-spacing:normal; line-height:26px; text-align:center; padding:0; margin:0;">
-									Yours Document Is Ready For Download Kindly See Attachment
+									Your document is ready for download, kindly see attachment
 								</h4>
 							</td>
 						</tr>
@@ -166,7 +166,7 @@
 							<td align="center" valign="top" style="padding-bottom:40px;padding-left:20px;padding-right:20px;" class="description">
 								<!-- Description // -->
 								<p mc:edit="description" class="midText" style="color:#919191; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:14px; font-weight:400; line-height:22px; text-align:center; padding:0; margin:0;">
-									Sourced from our collection of top-quality Documents. Desklib provides download to digital assets to help you deliver better Documents.
+									Sourced from our collection of top-quality documents. Desklib provides download to digital assets to help you deliver better documents.
 								</p>
 							</td>
 						</tr>
@@ -175,7 +175,7 @@
 							<td align="center" valign="top" style="padding-bottom:40px;padding-left:20px;padding-right:20px;" class="infoDate">
 								<!-- Date // -->
 								<p class="midText" style="color:#313131; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:11px; font-weight:700; line-height:20px; text-align:center; padding:0; margin:0;">
-									Downloaded on : {% now "jS F Y H:i" %}
+									Downloaded on : {% now "jS F Y" %} {% comment %}{% now "jS F Y H:i" %}{% endcomment %}
 								</p>
 							</td>
 						</tr>
@@ -208,19 +208,19 @@
 							<td align="center" valign="top" style="padding-top:10px;padding-bottom:10px;padding-left:10px;padding-right:10px;" class="socialLinks">
 								<!-- Social Links (Facebook)// -->
 								<a href="https://www.facebook.com/desklib/k" target="_blank" style="display:inline-block;" class="facebook">
-									<img mc:edit="social-1" src="{{ request.get_host }}{% static 'dist/assets/images/facebook.png'%}" alt="" width="40" border="0" style="height:auto;margin:2px" />
+									<img mc:edit="social-1" src="{{ request.get_host }}{% static 'dist/assets/images/facebook.png'%}" alt="facebook-icon" width="40" border="0" style="height:auto;margin:2px" />
 								</a>
 								<!-- Social Links (Twitter)// -->
 								<a href="https://twitter.com/Desklibcom" target="_blank" style="display:inline-block;" class="twitter">
-									<img mc:edit="social-2" src="{{ request.get_host }}{% static 'dist/assets/images/twitter.png'%}" alt="" width="40" border="0" style="height:auto;margin:2px" />
+									<img mc:edit="social-2" src="{{ request.get_host }}{% static 'dist/assets/images/twitter.png'%}" alt="twitter-icon" width="40" border="0" style="height:auto;margin:2px" />
 								</a>
 								<!-- Social Links (Instagram)// -->
 								<a href="https://www.instagram.com/desklib/" target="_blank" style="display:inline-block;" class="instagram">
-									<img mc:edit="social-4" src="{{ request.get_host }}{% static 'dist/assets/images/instagram_new.png'%}" alt="" width="40" border="0" style="height:auto;margin:2px" />
+									<img mc:edit="social-4" src="{{ request.get_host }}{% static 'dist/assets/images/instagram_new.png'%}" alt="instagram_new-icon" width="40" border="0" style="height:auto;margin:2px" />
 								</a>
 								<!-- Social Links (Linkdin)// -->
 								<a href="https://www.linkedin.com/company/desklib/" target="_blank" style="display:inline-block;" class="linkdin">
-									<img mc:edit="social-5" src="{{ request.get_host }}{% static 'dist/assets/images/linkdin.png'%}" alt="" width="40" border="0" style="height:auto;margin:2px" />
+									<img mc:edit="social-5" src="{{ request.get_host }}{% static 'dist/assets/images/linkdin.png'%}" alt="linkdin-icon" width="40" border="0" style="height:auto;margin:2px" />
 								</a>
 							</td>
 						</tr>
