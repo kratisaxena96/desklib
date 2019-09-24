@@ -247,11 +247,11 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
         if form.is_valid():
 
             # Generating filename without spaces. Replacing them with underscore.
-            filename = Document.objects.get(slug=kwargs.get('slug')).upload_file.name
+            filename = Document.objects.get(slug=request.POST['file']).upload_file.name
             filename = os.path.basename(filename)
             filename = filename.replace(' ', '_')
 
-            f1 = Document.objects.get(slug=kwargs.get('slug')).upload_file.file  # File to copy from
+            f1 = Document.objects.get(slug=request.POST['file']).upload_file.file  # File to copy from
             temp = tempfile.NamedTemporaryFile(suffix=filename)  # Temporary File to copy to
 
             with open(temp.name, 'wb') as f2:
@@ -290,7 +290,7 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
             remaining_downloads = plan_download_limit - download_count
 
             if remaining_downloads > 0 :
-                slug = kwargs.get('slug')
+                slug = request.POST['file']
                 try:
                     document_obj = Document.objects.get(slug=slug)
                     Download.objects.create(user=request.user, document=document_obj)

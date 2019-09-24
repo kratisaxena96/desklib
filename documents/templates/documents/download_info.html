@@ -54,6 +54,8 @@
                 <form action="." method="post">
                     {% csrf_token %}
                         <div>
+
+                            <input class="form-control" id="id_file" name="file" type="hidden" value="{{document.slug}}">
           {{form.captcha}}
                             {{form.issue}}
                             &nbsp;<label class="v-align-m" for="{{form.id_issue}}" id="id_issue"> I agree to <a href="{% url 'termsofuse' %}">Terms of use</a> & <a href="{% url 'privacypolicy' %}">Privacy Policy</a> </label>
