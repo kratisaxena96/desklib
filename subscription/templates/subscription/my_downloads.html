@@ -44,7 +44,7 @@
             <div class="col-md-3">
                 <div class="border p-1">
                     <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">My Profile</a>
-                    <a class="btn btn-light d-block text-decoration-none blue-theme" href="{% url 'my-downloads' %}">My Downloads</a>
+                    <a class="btn btn-light d-block text-decoration-none blue-theme my-downloads" href="{% url 'my-downloads' %}">My Downloads</a>
                     <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">My Settings</a>
                     <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">My Accounts</a>
                     <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">Upload Files</a>
@@ -112,4 +112,12 @@
 	 </div>
 </section>
 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $(document).ready(function (){
+        $(".my-downloads").addClass("active");
+    });
+</script>
 {% endblock %}
