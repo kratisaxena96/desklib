@@ -16,15 +16,47 @@
 			</div>
 		{% endif %}
   	{% endblock %}
-	<h1>Documents Download By User</h1>
-	{% for downloads in user_downloads %}
-		{{downloads.document}}
-		{{downloads.created_at|date:'Y-m-d H:i'}}
-	{% endfor %}
-<br/><br/>
-	<h1>Pages View By User</h1>
-	{% for pages in page_view %}
-		{{pages.document}}
-		{{pages.created_at|date:'Y-m-d H:i'}}
-	{% endfor %}
+<h1>Download Summary of User</h1>
+
+   {% if user_downloads %}
+      <div class="col-md-12 well">
+        {% for downloads in user_downloads %}
+			{{downloads.document}}
+			{{downloads.created_at|date:'Y-m-d H:i'}}
+		  <br/>
+		{% endfor %}
+        <span class="step-links pagination">
+            {% if user_downloads.has_previous %}
+                <a href="?page1={{ user_downloads.previous_page_number }}"> previous </a>
+            {% endif %}
+            <span class="current">
+                Page {{ user_downloads.number }} of {{ user_downloads.paginator.num_pages }}
+            </span>
+            {% if user_downloads.has_next %}
+                <a href="?page1={{ user_downloads.next_page_number }}"> next </a>
+            {% endif %}
+        </span>
+      </div>
+      {% endif %}
+<h1>Per Page View By User</h1>
+      {% if page_view %}
+      <div class="col-md-12 well">
+        	{% for pages in page_view %}
+					{{pages.document}}
+					{{pages.created_at|date:'Y-m-d H:i'}}
+		  <br/>
+			{% endfor %}
+        <span class="step-links pagination">
+            {% if page_view.has_previous %}
+                <a href="?page2={{ page_view.previous_page_number }}"> previous </a>
+            {% endif %}
+            <span class="current">
+                Page {{ page_view.number }} of {{ page_view.paginator.num_pages }}
+            </span>
+            {% if page_view.has_next %}
+                <a href="?page2={{ page_view.next_page_number }}"> next </a>
+            {% endif %}
+        </span>
+      </div>
+      {% endif %}
 {% endblock %}
