@@ -82,7 +82,7 @@
 	"Artificial Intelligence": {
 		"slug": "artificial-intelligence",
 		"parent_slug": "computer-science",
-		"keywords": ["AI", "artificial intelligence", "artificial vision", "autonomous", "classification systems", "clustering", "cognitive systems", "computer aided translation", "computer vision", "discrete inference", "machine learning", "natural language processing", "neural networks", "NLP", "pattern recognition", "prediction systems", "predictive analytics", "recommender systems", "regression modeling", "reinforcement learning", "robotic vision", "robotics", "supervised learning", "translation systems", "unsupervised learning"]
+		"keywords": ["AI", "artificial intelligence", "artificial vision", "autonomous", "classification systems", "clustering", "cognitive systems", "computer aided translation", "computer vision", "discrete inference", "machine learning", "natural language processing", "neural networks", "NLP", "pattern recognition", "prediction systems", "predictive analytics", "recommender systems", "regression modeling", "reinforcement learning", "robotic vision", "robotics", "supervised learning", "translation systems", "unsupervised learning", "Natural Language Processing"]
 	},
 	"Bioinformatics": {
 		"slug": "bioinformatics",
