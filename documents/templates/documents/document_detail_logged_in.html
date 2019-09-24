@@ -331,7 +331,7 @@ opacity:0.9 !important;
 
 
         <div class="">
-            <a href='{% url "documents:document-download-view" slug=object.slug%}' class="btn btn-bg-theme btn-lg text-white border-radius-40" rel="nofollow">Download</a>
+            <a href='{% url "documents:document-download-view"%}?slug={{object.slug}}' class="btn btn-bg-theme btn-lg text-white border-radius-40" rel="nofollow">Download</a>
             <span class="d-inline-block d-sm-inline-block width-82 text-center text-md-left text-lg-center">
                 {{controlled_pages.count}} of {{object.pages.all.count}} </span>
         </div>
