@@ -11,6 +11,22 @@
 {% endblock %}
 
 {% block content %}
+      {% block messages %}
+    {% if messages %}
+        <div>
+            <ul>
+                {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>{{message}}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+  {% endblock %}
         <div class="center-align-box card box-shadow-3-3-5-5 border-radius-20 bg-light-grey py-2 doc-img">
             <div class="card-body">
                 <h3 class="card-title text-center">Document Sent</h3>

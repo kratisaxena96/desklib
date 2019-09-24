@@ -151,6 +151,22 @@ opacity:0.9 !important;
 </nav>
 </section>
 <div class="container">
+      {% block messages %}
+    {% if messages %}
+        <div>
+            <ul>
+                {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>{{message}}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+  {% endblock %}
   <div class="row pt-0 pt-sm-5">
     <article class="col-sm-8 border-right">
 
@@ -174,7 +190,7 @@ opacity:0.9 !important;
                 <p class="mb-0">downloads</p>
             </li>
         </ul>
-        <ul class="p-0 d-inline-block float-right">
+        <ul class="p-0 d-inline-block float-md-right">
             <li class="d-inline-block text-center p-2 border-right">
               <div class="dropdown">
                 <a class="btn" data-toggle="dropdown" href="JavaScript:Void(0);">
@@ -315,8 +331,8 @@ opacity:0.9 !important;
 
 
         <div class="">
-            <a href='{% url "documents:document-download-view" slug=object.slug%}' class="btn btn-bg-theme btn-lg text-white border-radius-40" rel="nofollow">Download</a>
-            <span class="d-md-inline-block width-82 text-md-left text-lg-center">
+            <a href='{% url "documents:document-download-view"%}?slug={{object.slug}}' class="btn btn-bg-theme btn-lg text-white border-radius-40" rel="nofollow">Download</a>
+            <span class="d-inline-block d-sm-inline-block width-82 text-center text-md-left text-lg-center">
                 {{controlled_pages.count}} of {{object.pages.all.count}} </span>
         </div>
 

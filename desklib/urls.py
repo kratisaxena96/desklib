@@ -25,7 +25,7 @@ from django.contrib.sitemaps import views
 from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView, TestPageView, \
     SubscriptionView, PayNowView, PrivacyPolicyView, HonorCodeView, CopyrightPolicyView, TermsOfUseView, \
     AcademicIntegrityView, ComingSoonPageView, PaymentCancelledView, PaymentSuccessView, AlreadySubscribedView
-
+from subscription.views import MyDownloads
 # if settings.DEBUG:
 #     import debug_toolbar
 
@@ -38,11 +38,12 @@ sitemaps = {
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('accounts/', include('accounts.urls')),  # new
-    path('accounts/', include('allauth.urls')),
+    path('accounts/', include('accounts.urls')),
     path('study/',include(('study.urls','study'),namespace="study")),
     path('', HomePageView.as_view(), name='home'),
     path('coming-soon/', ComingSoonPageView.as_view(), name='coming-soon'),
     path('document/', include(('documents.urls','documents'),namespace="documents")),
+    path('my-downloads/', MyDownloads.as_view(),name="my-downloads"),
     path('about/', AboutPageView.as_view(), name='about'),
     path('privacy-policy/', PrivacyPolicyView.as_view(), name='privacypolicy'),
     path('copyright/', CopyrightPolicyView.as_view(), name='copyright'),
