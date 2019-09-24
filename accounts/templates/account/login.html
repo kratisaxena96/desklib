@@ -14,21 +14,20 @@
 
 {% block content %}
 <div class="container-fluid">
-
  {% block messages %}
     {% if messages %}
-    <div>
-        <ul>
-        {% for message in messages %}
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>{{message}}</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+        <div>
+            <ul>
+                {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>{{message}}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                {% endfor %}
+            </ul>
         </div>
-        {% endfor %}
-        </ul>
-    </div>
     {% endif %}
   {% endblock %}
 {% comment %}
@@ -52,7 +51,6 @@
 
 </form>
 {% endcomment %}
-</div>
 
 <div class="container">
     <div class="row">

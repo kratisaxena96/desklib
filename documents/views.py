@@ -234,7 +234,7 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
         if document_obj.cover_page_number:
             context['image'] =  document_obj.pages.get(no=document_obj.cover_page_number).image_file
         else:
-            context['image'] = document_obj.pages.get(no=1).image_file
+            context['image'] = document_obj.pages.first().image_file
         context['remaining_downloads'] = remaining_downloads
         context['document'] = document_obj
         context['subscription'] = subscription_obj

@@ -6,6 +6,22 @@
 
 {% block content %}
 <div class="container pb-2 ">
+      {% block messages %}
+    {% if messages %}
+        <div>
+            <ul>
+                {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>{{message}}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+  {% endblock %}
   <div class="row pt-0 pt-sm-5">
       <div class="col-sm-8 mycontent-left">
           <h5 class="text-center">Download Document</h5>
