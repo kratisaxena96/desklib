@@ -1,7 +1,9 @@
 {% extends "desklib/base.html" %}
 {% block content %}
+	
 	{% block messages %}
 		{% if messages %}
+
 			<div>
 				<ul>
 					{% for message in messages %}
@@ -59,4 +61,101 @@
         </span>
       </div>
       {% endif %}
+
+{% comment %}
+	<h1>Documents Download By User</h1>
+	{% for downloads in user_downloads %}
+		{{downloads.document}}
+		{{downloads.created_at|date:'Y-m-d H:i'}}
+	{% endfor %}
+<br/><br/>
+	<h1>Pages View By User</h1>
+	{% for pages in page_view %}
+		{{pages.document}}
+		{{pages.created_at|date:'Y-m-d H:i'}}
+	{% endfor %}
+{% endcomment %}
+
+<section class="py-5">
+      <div class="container-fluid">
+      	<div class="row">
+      		<div class="col-md-12">
+      			<h2 class="text-center mb-3">My Downloads</h2>
+      		</div>
+      	</div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="border p-1">
+                    <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">My Profile</a>
+                    <a class="btn btn-light d-block text-decoration-none blue-theme my-downloads" href="{% url 'my-downloads' %}">My Downloads</a>
+                    <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">My Settings</a>
+                    <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">My Accounts</a>
+                    <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">Upload Files</a>
+            </div>
+        </div>
+        	
+            <div class="col-md-9 mt-3 mt-md-0">
+            	<table class="table table-bordered">
+            		 <thead>
+            		 	 <tr>
+            		 	 	   <th scope="col">Title</th>
+            		 	 	    <th scope="col">Date</th>
+            		 	 </tr>
+            		 </thead>
+            		 {% for downloads in user_downloads %}
+            		   <tbody>
+            		   	   <tr>
+            		   	   	 <td scope="row">{{downloads.document}}</td>
+            		   	   	  <td scope="row">{{downloads.created_at|date:'Y-m-d H:i'}}</td>
+            		   	   </tr>
+            		   </tbody>
+            		   {% endfor %}
+            	</table>
+        </div>
+      </div>
+     </div>
+</section>
+<section class="mb-5">
+	 <div class="container-fluid">
+	 	<div class="row">
+	 		<div class="col-md-12">
+	 			<h2 class="text-center mb-3">My page view</h2>
+	 		</div>
+	 	</div>
+	 	<div class="row">
+	 		<div class="col-md-3"></div>
+	 		<div class="col-md-9">
+	 			<table class="table table-bordered">
+	 				 <thead>
+	 				 	 <tr>
+	 				 	 	<th scope="col">Pages</th>
+	 				 	 	<th scope="col">Date</th>
+	 				 	 </tr>
+	 				 </thead>
+	 				 {% for pages in page_view %}
+	 				   <tbody>
+	 				   	 <tr>
+	 				   	 	 <td scope="row">
+	 				   	 	 	{{pages.document}}</td>
+	 				   	 	  <td scope="row">
+	 				   	 	  	{{pages.created_at|date:'Y-m-d H:i'}}
+	 				   	 	  </td>
+	 				   	 </tr>
+	 				   </tbody>
+	 				   {% endfor %}
+	 			</table>
+	 			
+	 		</div>
+	 	</div>
+	 </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $(document).ready(function (){
+        $(".my-downloads").addClass("active");
+    });
+</script>
 {% endblock %}
