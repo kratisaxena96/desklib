@@ -52,27 +52,22 @@
         </div>
         	
             <div class="col-md-9 mt-3 mt-md-0">
-            	<div class="card p-4">
-            		<div class="row">
-            			<div class="col-md-6">
-            				<p class=""><strong>Title:</strong></p>
-            			</div>
-            			<div class="col-md-6">
-            				<p class=""><strong>Date:</strong></p>
-            			</div>
-            		</div>
-            			
-	            	{% for downloads in user_downloads %}
-	            		<div class="row">
-	            			<div class="col-md-6">
-	            			   <p class="">{{downloads.document}}</p>
-	            		</div>
-	            			<div class="col-md-6">
-	            			  <p class="">{{downloads.created_at|date:'Y-m-d H:i'}}</p>
-	            		</div>
-	            	</div> 
-	            	 {% endfor %} 
-	          </div> 
+            	<table class="table table-bordered">
+            		 <thead>
+            		 	 <tr>
+            		 	 	   <th scope="col">Title</th>
+            		 	 	    <th scope="col">Date</th>
+            		 	 </tr>
+            		 </thead>
+            		 {% for downloads in user_downloads %}
+            		   <tbody>
+            		   	   <tr>
+            		   	   	 <td scope="row">{{downloads.document}}</td>
+            		   	   	  <td scope="row">{{downloads.created_at|date:'Y-m-d H:i'}}</td>
+            		   	   </tr>
+            		   </tbody>
+            		   {% endfor %} 
+            	</table>
         </div>
       </div>
      </div>
@@ -87,26 +82,26 @@
 	 	<div class="row">
 	 		<div class="col-md-3"></div>
 	 		<div class="col-md-9">
-	 			<div class="card p-4">
-	 				<div class="row">
-            			<div class="col-md-6">
-            				<p class=""><strong>Pages:</strong></p>
-            			</div>
-            			<div class="col-md-6">
-            				<p class=""><strong>Date:</strong></p>
-            			</div>
-            		</div>
-	 				{% for pages in page_view %}
-	 				<div class="row">
-	 					<div class="col-md-6">
-	 						 <p class="">{{pages.document}}</p>
-	 					</div>
-	 					<div class="col-md-6">
-	 						 <p class="">{{pages.created_at|date:'Y-m-d H:i'}}</p>
-	 					</div>
-	 				</div>
-	 				{% endfor %}
-	 			</div>
+	 			<table class="table table-bordered">
+	 				 <thead>
+	 				 	 <tr>
+	 				 	 	<th scope="col">Pages</th>
+	 				 	 	<th scope="col">Date</th>
+	 				 	 </tr>
+	 				 </thead>
+	 				 {% for pages in page_view %}
+	 				   <tbody>
+	 				   	 <tr>
+	 				   	 	 <td scope="row">
+	 				   	 	 	{{pages.document}}</td>
+	 				   	 	  <td scope="row">
+	 				   	 	  	{{pages.created_at|date:'Y-m-d H:i'}}
+	 				   	 	  </td>
+	 				   	 </tr>
+	 				   </tbody>
+	 				   {% endfor %}
+	 			</table>
+	 			
 	 		</div>
 	 	</div>
 	 </div>
