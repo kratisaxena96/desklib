@@ -307,4 +307,4 @@ CACHES = {
 
 ASGI_APPLICATION = 'desklib.routing.application'
 
-COMING_SOON = True
+COMING_SOON = False
