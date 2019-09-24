@@ -1,7 +1,9 @@
 {% extends "desklib/base.html" %}
 {% block content %}
+	
 	{% block messages %}
 		{% if messages %}
+
 			<div>
 				<ul>
 					{% for message in messages %}
@@ -16,6 +18,8 @@
 			</div>
 		{% endif %}
   	{% endblock %}
+
+{% comment %}
 	<h1>Documents Download By User</h1>
 	{% for downloads in user_downloads %}
 		{{downloads.document}}
@@ -27,4 +31,85 @@
 		{{pages.document}}
 		{{pages.created_at|date:'Y-m-d H:i'}}
 	{% endfor %}
+{% endcomment %}
+
+<section class="py-5">
+      <div class="container-fluid">
+      	<div class="row">
+      		<div class="col-md-12">
+      			<h2 class="text-center mb-3">My Downloads</h2>
+      		</div>
+      	</div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="border p-1">
+                    <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">My Profile</a>
+                    <a class="btn btn-light d-block text-decoration-none blue-theme" href="{% url 'my-downloads' %}">My Downloads</a>
+                    <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">My Settings</a>
+                    <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">My Accounts</a>
+                    <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">Upload Files</a>
+            </div>
+        </div>
+        	
+            <div class="col-md-9 mt-3 mt-md-0">
+            	<div class="card p-4">
+            		<div class="row">
+            			<div class="col-md-6">
+            				<p class=""><strong>Title:</strong></p>
+            			</div>
+            			<div class="col-md-6">
+            				<p class=""><strong>Date:</strong></p>
+            			</div>
+            		</div>
+            			
+	            	{% for downloads in user_downloads %}
+	            		<div class="row">
+	            			<div class="col-md-6">
+	            			   <p class="">{{downloads.document}}</p>
+	            		</div>
+	            			<div class="col-md-6">
+	            			  <p class="">{{downloads.created_at|date:'Y-m-d H:i'}}</p>
+	            		</div>
+	            	</div> 
+	            	 {% endfor %} 
+	          </div> 
+        </div>
+      </div>
+     </div>
+</section>
+<section class="mb-5">
+	 <div class="container-fluid">
+	 	<div class="row">
+	 		<div class="col-md-12">
+	 			<h2 class="text-center mb-3">My page view</h2>
+	 		</div>
+	 	</div>
+	 	<div class="row">
+	 		<div class="col-md-3"></div>
+	 		<div class="col-md-9">
+	 			<div class="card p-4">
+	 				<div class="row">
+            			<div class="col-md-6">
+            				<p class=""><strong>Pages:</strong></p>
+            			</div>
+            			<div class="col-md-6">
+            				<p class=""><strong>Date:</strong></p>
+            			</div>
+            		</div>
+	 				{% for pages in page_view %}
+	 				<div class="row">
+	 					<div class="col-md-6">
+	 						 <p class="">{{pages.document}}</p>
+	 					</div>
+	 					<div class="col-md-6">
+	 						 <p class="">{{pages.created_at|date:'Y-m-d H:i'}}</p>
+	 					</div>
+	 				</div>
+	 				{% endfor %}
+	 			</div>
+	 		</div>
+	 	</div>
+	 </div>
+</section>
+
 {% endblock %}
