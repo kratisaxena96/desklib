@@ -1,0 +1,22 @@
+{% extends "desklib/base.html" %}
+{% block content %}
+
+<section class="py-5">
+	<div class="container">
+		<div class="row d-flex justify-content-center">
+			<div class="col-md-8">
+				<h2 class="text-center mb-3 mt-3 mt-md-0">Upload your documents</h2>
+				<form>
+				<div class="border p-5 mt-md-5 mb-3">
+					<!-- <button class="btn"> -->
+						<input type="file" id="document" class="form-group position-absolute" name="file" style="opacity:0;">
+						<label for="document" class="d-block p-4 font-size-20 text-center">Click or Drop files to upload</label>
+					<!-- </button> -->
+				</div>
+				<input type="submit" value="upload document" class="btn btn-bg-theme text-white">
+			</form>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

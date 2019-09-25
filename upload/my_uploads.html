@@ -1,0 +1,54 @@
+{% extends "desklib/base.html" %}
+{% block content %}
+
+<section class="py-5">
+	<div class="container">
+		<!-- <div class="row">
+			<div class="col-md-12">
+				<h2 class="text-center mb-3">My Uploads</h2>
+			</div>
+		</div> -->
+		 <div class="row">
+		 	<div class="col-md-3">
+		 		 <div class="border p-1">
+		 		 	<a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">My Profile</a>
+                    <a class="btn btn-light d-block text-decoration-none blue-theme my-downloads" href="{% url 'my-downloads' %}">My Downloads</a>
+                    <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">My Settings</a>
+                    <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">My Accounts</a>
+                    <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">My Upload Files</a>
+		 		 </div>
+		 	</div>
+		 	 <div class="col-md-9 mt-3 mt-md-0">
+		 	 		<h2 class="text-center mb-3 mt-3 mt-md-0">My Uploads</h2>
+		 	 		<div class="row">
+		 	 			<div class="col-md-6 mb-3 mb-md-0">
+		 	 				<div class="card">
+		 	 					<div class="card-body">
+		 	 				     	<p class="card-text">
+		 	 				     	There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. 
+		 	 				     	If you are going to use a passage of Lorem Ipsum,
+		 	 				     </p>
+		 	 				      <span><strong>Date:</strong></span>
+		 	 				       <span><strong>25-09-2019</strong></span>
+		 	 				 </div>
+		 	 				</div>
+		 	 			</div>
+		 	 			<div class="col-md-6 mb-3 mb-md-0">
+		 	 				<div class="card">
+		 	 					<div class="card-body">
+		 	 						<p class="card-text">
+		 	 				     	There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. 
+		 	 				     	If you are going to use a passage of Lorem Ipsum,
+		 	 				     </p>
+		 	 				       <span><strong>Date:</strong></span>
+		 	 				       <span><strong>25-09-2019</strong></span>
+		 	 				 </div>
+		 	 				</div>
+		 	 			</div>
+		 	 		</div>
+		 	 </div>
+		 </div>
+	</div>
+</section>
+
+{% endblock %}

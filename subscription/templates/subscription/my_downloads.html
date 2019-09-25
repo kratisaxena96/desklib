@@ -1,6 +1,8 @@
 {% extends "desklib/base.html" %}
 {% block content %}
 	
+
+
 	{% block messages %}
 		{% if messages %}
 
@@ -18,6 +20,7 @@
 			</div>
 		{% endif %}
   	{% endblock %}
+
 <h1>Download Summary of User</h1>
 
    {% if user_downloads %}
@@ -90,14 +93,14 @@
                     <a class="btn btn-light d-block text-decoration-none blue-theme my-downloads" href="{% url 'my-downloads' %}">My Downloads</a>
                     <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">My Settings</a>
                     <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">My Accounts</a>
-                    <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">Upload Files</a>
+                    <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">My Upload Files</a>
             </div>
         </div>
         	
             <div class="col-md-9 mt-3 mt-md-0">
-            	<table class="table table-bordered">
-            		 <thead>
-            		 	 <tr>
+            		<table class="table table-bordered">
+            		 	<thead>
+            		 	 	<tr>
             		 	 	   <th scope="col">Title</th>
             		 	 	    <th scope="col">Date</th>
             		 	 </tr>
@@ -158,4 +161,5 @@
         $(".my-downloads").addClass("active");
     });
 </script>
+
 {% endblock %}
