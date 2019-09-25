@@ -17,7 +17,7 @@ from desklib.settings.base import *
 ALLOWED_HOSTS = ['.desklib.com']
 DEBUG=False
 
-ALLOWED_IPS = ['180.151.16.174']
+ALLOWED_IPS = ['171.50.149.84']
 
 META_USE_TITLE_TAG = True
 
