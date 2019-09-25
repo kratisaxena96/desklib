@@ -384,7 +384,7 @@ card {
 	background-color: #405FBD;
 	color: white;
 	z-index: 3 !important;
-}
+}	
 
 .form-inline input {
 	border-radius: 15px;
@@ -838,7 +838,16 @@ display:none;
 .owl-theme .owl-item{
     padding-bottom: 20px;
 }
-
+.search-bg {
+	background-color: #405FBD;
+	//border-radius: 50% !important;
+	//line-height: 25px;	
+	margin-left: -35px;
+	padding: 0 10px;
+}
+.search-icon {
+	color: white;
+}
 //------------------------------------------------     Media(@media) CSS      ---------------------------------------------------------//
 
 @media (min-width: 768px) {

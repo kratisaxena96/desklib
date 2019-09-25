@@ -10,7 +10,7 @@
 
 <!--<header>-->
 <nav class="navbar navbar-expand-md bg-light navbar-light">
-  <a class="navbar-brand" href="/"><img class="img-responsive" src="{% static 'dist/assets/images/desklib-logo-theme.png' %}" alt="desklib-logo"></a>
+  <a class="navbar-brand" href="/"><img class="img-fluid" src="{% static 'dist/assets/images/desklib-logo-theme.png' %}" alt="desklib-logo"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -77,7 +77,7 @@
                     <input type="search" name="q" class="typeahead form-control border-radius-30" placeholder="Search here..." value="{{request.GET.q}}">
                 {% endif %}
                 <div class="input-group-append">
-                  <button class="btn btn-outline-secondary rounded-circle" type="submit"><i class="fa fa-search"></i></button>
+                  <button class="btn rounded-circle search-bg" type="submit"><i class="fa fa-search search-icon"></i></button>
                 </div>
             </div>
         </form>

@@ -5,6 +5,29 @@
 {% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
 
 {% block content %}
+<div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5 box-shadow-3-3-5-5 border">
+          <div class="card-body">
+            <h4 class="card-title text-center">{% trans "Verify Your E-mail Address" %}</h4>
+            <p>{% blocktrans %}This part of the site requires us to verify that
+			you are who you claim to be. For this purpose, we require that you
+			verify ownership of your e-mail address. {% endblocktrans %}</p>
+
+			<p>{% blocktrans %}We have sent an e-mail to you for
+			verification. Please click on the link inside this e-mail. Please
+			contact us if you do not receive it within a few minutes.{% endblocktrans %}</p>
+
+			<p>{% blocktrans %}<strong>Note:</strong> you can still <a href="{{ email_url }}">change your e-mail address</a>.{% endblocktrans %}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>            
+
+
+{% comment %}
 <h1>{% trans "Verify Your E-mail Address" %}</h1>
 
 {% url 'account_email' as email_url %}
@@ -19,5 +42,5 @@ contact us if you do not receive it within a few minutes.{% endblocktrans %}</p>
 
 <p>{% blocktrans %}<strong>Note:</strong> you can still <a href="{{ email_url }}">change your e-mail address</a>.{% endblocktrans %}</p>
 
-
+{% endcomment %}
 {% endblock %}
