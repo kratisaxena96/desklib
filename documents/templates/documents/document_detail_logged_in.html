@@ -134,7 +134,9 @@ opacity:0.9 !important;
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-
+.modal-open {
+    overflow: hidden !important;
+}
     </style>
 <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
 <!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>-->
@@ -390,7 +392,7 @@ opacity:0.9 !important;
 
 {% if not pageviews_flag %}
 <!-- The Modal -->
-<div class="modal show" id="myModal" style="display: block;" aria-modal="true">
+<div class="modal show" id="previewModal" style="display: block;" aria-modal="true">
 <div class="modal-dialog">
 <div class="modal-content">
 
@@ -403,8 +405,7 @@ opacity:0.9 !important;
 <div class="modal-body">
     <div class="text-center">
         <p>Subscribe or upgrade to access study resources for your class.</p>
-        <a href="{% url 'subscription' %}" class="btn btn-bg-theme text-white mb-3">Subscribe</a>
-        <p>Already on Desklib? <a href="{% url 'account_login' %}">Log in</a> </p>
+        <a href="{% url 'subscription' %}" class="btn btn-bg-theme text-white mb-3">Subscribe</a>        
     </div>
 </div>
 
@@ -424,6 +425,13 @@ $(document).ready(function(){
   });
 });
 </script> -->
+<script>  
+$(document).ready(function(){  
+  if($('#previewModal').is(':visible')){  
+  $("body").addClass("modal-open");
+  }  
+});
+</script>
 
 <script>
 

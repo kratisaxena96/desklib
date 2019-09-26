@@ -129,6 +129,9 @@ background: rgba(0,0,255,0.3);
 .opacity-1{
 opacity:0.9 !important;
 }
+.modal-open {
+    overflow: hidden !important;
+}
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
@@ -386,7 +389,8 @@ opacity:0.9 !important;
 
 {% if not pageviews_flag %}
 <!-- The Modal -->
-<div class="modal show" id="myModal" style="display: block;" aria-modal="true">
+<!-- <div class="modal show" id="myModal" style="display: block;" aria-modal="true"> -->
+<div class="modal fade show" id="previewModal" style="padding-right: 10px; display: block;">
 <div class="modal-dialog">
 <div class="modal-content">
 
@@ -400,7 +404,7 @@ opacity:0.9 !important;
     <div class="text-center">
         <p>Subscribe or upgrade to access study resources for your class.</p>
         <a href="{% url 'subscription' %}" class="btn btn-bg-theme text-white">Subscribe</a>
-        <p>Already on Desklib? <a href="{% url 'account_login' %}">Log in</a> </p>
+        <p class="pt-2">Already on Desklib? <a href="{% url 'account_login' %}">Log in</a> </p>
     </div>
 </div>
 
@@ -420,7 +424,13 @@ $(document).ready(function(){
   });
 });
 </script> -->
-
+<script>  
+$(document).ready(function(){  
+  if($('#previewModal').is(':visible')){  
+  $("body").addClass("modal-open");
+  }  
+});
+</script>
 <script>
 
     var adjustViewer = function(){
@@ -457,7 +467,6 @@ $(document).ready(function(){
     });
 
 $(document).ready(function(){
-
     $( ".submit-feedback" ).on( "click", function(e) {
         // jQuery('.feedback-form').submit( function(e) {
             e.preventDefault();

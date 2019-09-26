@@ -35,8 +35,72 @@
 				</ul>
 			</div>
 		{% endif %}
-  	{% endblock %}   
+  	{% endblock %}
+<div class="container">
+  <div class="row pt-0 pt-sm-5">
+      <aside class="col-sm-4 border-right">
+        <div class="list-group" role="tablist">
+          <a class="list-group-item list-group-item-action bg-active white" href="{% url 'my-profile' %}" role="tab" aria-controls="my-profile">My Profile</a>
+          <a class="list-group-item list-group-item-action" href="{% url 'my-downloads' %}" role="tab" aria-controls="my-downloads">My Downloads</a>
+          <a class="list-group-item list-group-item-action" href="javascript:void(0);" role="tab" aria-controls="my-account">My Account</a>
+          <a class="list-group-item list-group-item-action" href="javascript:void(0);" role="tab" aria-controls="my-settings">My Settings</a>
+          <a class="list-group-item list-group-item-action" href="javascript:void(0);" role="tab" aria-controls="upload-files">Upload Files</a>
+        </div>
+        <!-- <ul class="list-group list-group-flush">
+          <li class="list-group-item bg-active"><a class="white my-profile" href="{% url 'my-profile' %}">My Profile</a></li>
+          <li class="list-group-item"><a class="blue-theme" href="{% url 'my-downloads' %}">My Downloads</a></li>
+          <li class="list-group-item"><a class="blue-theme" href="javascript:void(0);">My Account</a></li>
+          <li class="list-group-item"><a class="blue-theme" href="javascript:void(0);">My Settings</a></li>
+          <li class="list-group-item"><a class="blue-theme" href="javascript:void(0);">Upload Files</a></li>
+        </ul> -->
+      </aside>
+      <section class="col-sm-8">
+          <div class="text-center py-2">
+                <img class="img-fluid" src="{% static 'dist/assets/images/avatar-main.png' %}" width="100px" height="150px">
+          </div>
+          <div class="table-responsive-sm">
+            <table class="table">
+              {% comment %}
+              <tr>
+                <td>Email</td>
+                <td class="text-center">{{user.email}}</td>
+              </tr>
+              {% endcomment %}
+              <tr>
+                <td>Username</td>
+                <td class="text-center">{{user.username}}</td>
+              </tr>
+              <tr>
+                <td>Name</td>
+                <td class="text-center">{{user.first_name}} {{user.last_name}}</td>
+              </tr>              
+              <tr>
+                <td>Contact number</td>
+                <td class="text-center">{{user.contact_no}}</td>
+              </tr>
+              {% if user.college %}
+              <tr>
+                <td>College</td>
+                <td class="text-center">{{user.college}}</td>
+              </tr>
+              {% endif %}
+              {% if user.university %}
+              <tr>
+                <td>University</td>
+                <td class="text-center">{{user.university}}</td>
+              </tr>
+              {% endif %}              
+              <tr>
+                <td>Country</td>
+                <td class="text-center">{{user.get_country_display}}</td>
+              </tr>              
+            </table>
+          </div>
+      </section>
+  </div>    
+</div>
 
+{% comment %}
 <section class="py-5">
       <div class="container-fluid">
       	<div class="row">
@@ -55,16 +119,16 @@
             </div>
         </div>
 
-            <div class="col-md-9 mt-3 mt-md-0 bg-light-grey">
+            <div class="col-md-9 mt-3 mt-md-0">
               <div class="text-center py-2">
-                <img class="img-fluid" src="{% static 'dist/assets/images/user.png' %}" width="150px" height="150px">
+                <img class="img-fluid" src="{% static 'dist/assets/images/user.png' %}" width="100px" height="150px">
               </div>
               <div class="table-responsive-sm">
-              <table class="table">
+              <table class="table">              
                 <tr>
-                  <td>User</td>
-                  <td class="text-center">{{user}}</td>
-                </tr>
+                  <td>Email</td>
+                  <td class="text-center">{{user.email}}</td>
+                </tr>                
                 <tr>
                   <td>Username</td>
                   <td class="text-center">{{user.username}}</td>
@@ -99,7 +163,7 @@
       </div>
      </div>
 </section>
-
+{% endcomment %}
 
 {% endblock %}
 

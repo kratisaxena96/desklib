@@ -7,14 +7,11 @@
 .red{
     color: $red;
 }
-.bg-white{
-    background-color: $white;
-}
 .grey-theme{
     background-color: $grey-theme;
 }
-.transparent{
-    background-color: transparent;
+.bg-white{
+    background-color: $white;
 }
 .bg-light-grey{
     background-color: $light-grey;
@@ -22,6 +19,12 @@
 .bg-blue-theme{
     background-color: $blue-theme;
 }
+.bg-active{
+    background-color:  $blue-theme;
+}
+.transparent{
+    background-color: transparent;
+} 
 .min-height-smilar-pages-card{
     min-height:240px;
-    }
+    }   

@@ -848,6 +848,25 @@ display:none;
 .search-icon {
 	color: white;
 }
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.absolute{
+	position: absolute !important;
+	right: 0;
+	top: 100%;	
+	left: auto;
+}
+.nav-link{
+	position: relative;
+}
+//.absolute:hover .dropdown-menu1 {display: block;}
 //------------------------------------------------     Media(@media) CSS      ---------------------------------------------------------//
 
 @media (min-width: 768px) {
