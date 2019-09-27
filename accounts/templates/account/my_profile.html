@@ -94,12 +94,12 @@
                 <td>Country</td>
                 <td class="text-center">{{user.get_country_display}}</td>
               </tr>
-              
+              {% if subscription %}  
               <tr>
                 <td>Plan</td>
                 <td class="text-center">{{subscription.plan}}</td>
               </tr>
-                         
+              {% endif %}              
             </table>
           </div>
       </section>
