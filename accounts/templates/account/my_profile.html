@@ -43,7 +43,9 @@
           <a class="list-group-item list-group-item-action bg-active white" href="{% url 'my-profile' %}" role="tab" aria-controls="my-profile">My Profile</a>
           <a class="list-group-item list-group-item-action" href="{% url 'my-downloads' %}" role="tab" aria-controls="my-downloads">My Downloads</a>
           <a class="list-group-item list-group-item-action" href="javascript:void(0);" role="tab" aria-controls="my-account">My Account</a>
+          {% comment %}
           <a class="list-group-item list-group-item-action" href="javascript:void(0);" role="tab" aria-controls="my-settings">My Settings</a>
+          {% endcomment %}
           <a class="list-group-item list-group-item-action" href="javascript:void(0);" role="tab" aria-controls="upload-files">Upload Files</a>
         </div>
         <!-- <ul class="list-group list-group-flush">
@@ -58,7 +60,7 @@
           <div class="text-center py-2">
                 <img class="img-fluid" src="{% static 'dist/assets/images/avatar-main.png' %}" width="100px" height="150px">
           </div>
-          <div class="table-responsive-sm">
+          <div class="table-responsive-sm" id="profile-table">
             <table class="table">
               {% comment %}
               <tr>
