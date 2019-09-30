@@ -13,5 +13,6 @@ class MyProfileView(LoginRequiredMixin, TemplateView):
         context = super(MyProfileView, self).get_context_data(**kwargs)
         user_obj = self.request.user
         subscription_obj = get_current_subscription(self.request.user)
-        context['subscription'] = subscription_obj
         context['user'] = user_obj
+        context['subscription'] = subscription_obj
+        return context
