@@ -94,17 +94,17 @@
       		</div>
       	</div>
         <div class="row">
-            <div class="col-md-3">
-                <div class="border p-1">
-                    <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">My Profile</a>
-                    <a class="btn btn-light d-block text-decoration-none blue-theme my-downloads" href="{% url 'my-downloads' %}">My Downloads</a>
-                    <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">My Settings</a>
-                    <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">My Accounts</a>
-                    <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">My Upload Files</a>
-            </div>
+              <aside class="col-sm-4 border-right">
+		 	 	<div class="list-group" role="tablist">
+			         <a class="list-group-item list-group-item-action bg-active white" href="{% url 'my-profile' %}" role="tab" aria-controls="my-profile">My Profile</a>
+			         <a class="list-group-item list-group-item-action" href="{% url 'my-downloads' %}" role="tab" aria-controls="my-downloads">My Downloads</a>
+			         <a class="list-group-item list-group-item-action" href="javascript:void(0);" role="tab" aria-controls="my-account">My Account</a>
+			         <a class="list-group-item list-group-item-action" href="javascript:void(0);" role="tab" aria-controls="my-settings">My Settings</a>
+			         <a class="list-group-item list-group-item-action" href="javascript:void(0);" role="tab" aria-controls="upload-files">Upload Files</a>
         </div>
+	</aside> 
 
-            <div class="col-md-9 mt-3 mt-md-0">
+            <div class="col-md-8 mt-3 mt-md-0">
             		<table class="table table-bordered">
             		 	<thead>
             		 	 	<tr>
