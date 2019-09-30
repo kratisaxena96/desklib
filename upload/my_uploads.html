@@ -1,54 +1,46 @@
 {% extends "desklib/base.html" %}
 {% block content %}
 
-<section class="py-5">
-	<div class="container">
-		<!-- <div class="row">
-			<div class="col-md-12">
-				<h2 class="text-center mb-3">My Uploads</h2>
-			</div>
-		</div> -->
-		 <div class="row">
-		 	<div class="col-md-3">
-		 		 <div class="border p-1">
-		 		 	<a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">My Profile</a>
-                    <a class="btn btn-light d-block text-decoration-none blue-theme my-downloads" href="{% url 'my-downloads' %}">My Downloads</a>
-                    <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">My Settings</a>
-                    <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">My Accounts</a>
-                    <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">My Upload Files</a>
-		 		 </div>
-		 	</div>
-		 	 <div class="col-md-9 mt-3 mt-md-0">
-		 	 		<h2 class="text-center mb-3 mt-3 mt-md-0">My Uploads</h2>
-		 	 		<div class="row">
-		 	 			<div class="col-md-6 mb-3 mb-md-0">
-		 	 				<div class="card">
-		 	 					<div class="card-body">
-		 	 				     	<p class="card-text">
-		 	 				     	There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. 
-		 	 				     	If you are going to use a passage of Lorem Ipsum,
-		 	 				     </p>
-		 	 				      <span><strong>Date:</strong></span>
-		 	 				       <span><strong>25-09-2019</strong></span>
-		 	 				 </div>
-		 	 				</div>
-		 	 			</div>
-		 	 			<div class="col-md-6 mb-3 mb-md-0">
-		 	 				<div class="card">
-		 	 					<div class="card-body">
-		 	 						<p class="card-text">
-		 	 				     	There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. 
-		 	 				     	If you are going to use a passage of Lorem Ipsum,
-		 	 				     </p>
-		 	 				       <span><strong>Date:</strong></span>
-		 	 				       <span><strong>25-09-2019</strong></span>
-		 	 				 </div>
-		 	 				</div>
-		 	 			</div>
-		 	 		</div>
-		 	 </div>
-		 </div>
-	</div>
+<section class="pt-5">
+      <div class="container">
+        <div class="row">
+            <aside class="col-sm-4 border-right">
+		 	 	<div class="list-group" role="tablist">
+			         <a class="list-group-item list-group-item-action bg-active white" href="{% url 'my-profile' %}" role="tab" aria-controls="my-profile">My Profile</a>
+			         <a class="list-group-item list-group-item-action" href="{% url 'my-downloads' %}" role="tab" aria-controls="my-downloads">My Downloads</a>
+			         <a class="list-group-item list-group-item-action" href="javascript:void(0);" role="tab" aria-controls="my-account">My Account</a>
+			         <a class="list-group-item list-group-item-action" href="javascript:void(0);" role="tab" aria-controls="my-settings">My Settings</a>
+			         <a class="list-group-item list-group-item-action" href="javascript:void(0);" role="tab" aria-controls="upload-files">Upload Files</a>
+        </div>
+	</aside> 
+            <div class="col-sm-8 mt-3 mt-md-0">
+            	<h2 class="text-center mb-3">My Uploads</h2>
+            	 <div class="table-responsive-sm">
+            		<table class="table table-bordered">
+            		 	<thead>
+            		 	 	<tr>
+            		 	 	   <th scope="col">Course</th>
+            		 	 	    <th scope="col">Subject</th>
+            		 	 	     <th scope="col">Title</th>
+            		 	 	      <th scope="col">Date</th>
+            		 	 	    	<th scope="col">Status</th>
+            		 	 </tr>
+            		 </thead>
+            		   <tbody>
+            		   	   <tr>
+            		   	   	 <td scope="row">MCA</td>
+            		   	   	 <td scope="row">Java</td>
+            		   	   	 <td scope="row">Inheritance</td>
+            		   	   	 <td scope="row">20-09-2019</td>
+            		   	   	 <td scope="row">accepted</td>
+            		   	   </tr>
+            		   </tbody>
+            		  
+  </table>
+</div>
+</div>
+</div>
+</div>
 </section>
 
 {% endblock %}

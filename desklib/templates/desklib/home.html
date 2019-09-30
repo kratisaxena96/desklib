@@ -34,7 +34,7 @@
 <!--          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
 <!--          <button class="btn btn-outline-secondary rounded-circle" type="submit"><i class="fa fa-search rounded-circle"></i></button>-->
                     <div class="input-group mb-3 w-100 tt-input-group" id="remote">
-                  <input type="text" id="new" name="q"   class=" form-control form-control-lg box-shadow-3-3-5-5 border-radius-30 typeahead" placeholder="Search here..." placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2 " >
+                  <input type="text" id="new" name="q" class=" form-control form-control-lg box-shadow-3-3-5-5 border-radius-30 typeahead" placeholder="Search here..." placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2 " >
                   <div class="input-group-append">
                         <button class="btn btn-lg rounded-circle btn-outline-secondary" type="submit"><i class="fa fa-search rounded-circle"></i></button>
                   </div>
@@ -135,6 +135,15 @@
                          
                             <div class="item shadow bg-white rounded h-100">
                                 <div class="card h-100">
+                                {% comment %}
+                                  <span class="p-1">
+                                   <i class="fa fa-file-word text-white"></i>
+                                    <span class="blue-theme">{{results.no_of_pages}}</span>
+                                    <i class="fa fa-font text-white"></i>
+                                    <span class="blue-theme">{{results.no_of_words}}</span>
+                                </span>
+
+                                {% endcomment %}
                                     <img class="card-img-top card-height" src="{{results.cover_image}}" alt="Card image">
                                     <div class="card-body">
                                             <p class="card-text">{{results.title|truncatechars:25}}</p>
@@ -278,7 +287,7 @@
 {% block extra_js %}
 <script>
 $('#main0 .owl-carousel').owlCarousel({
-    autoplay:true,
+    // autoplay:true,
     stagePadding: 50,
     loop: true,
     margin: 10,
