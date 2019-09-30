@@ -265,100 +265,6 @@ card {
 	text-align: center !important;
 }
 
-@media only screen and (max-width: $breakpoint-tablet) {
-	.img-top-text {
-		position: absolute;
-		z-index: 30;
-		text-align: left;
-		padding-left: 7%;
-		top: 20%;
-	}
-	.navbar {
-		background-color: navbar-light bg-light;
-		//         .navbar-toggler{
-		//             margin-left: 80%;
-		//         }
-	}
-	.header .container {
-		background-color: white !important;
-	}
-	//     .owl-second .owl-stage-outer .owl-stage .owl-item{
-	//         width: 400px !important;
-	//     }
-	.yellow {
-		//height: 60vh;
-		min-height: 100px;
-		background-size: cover;
-		background-image: url("/static/dist/assets/images/explore_resources_img.png");
-		padding: 5%;
-		height: 100%;
-		//margin-bottom: 4%;
-	}
-	.resume-img {
-		border: 1px solid #000;
-		width: 80% !important;
-		margin: 0 auto;
-		display: block;
-	}
-}	
-
-@media only screen and (min-width: $breakpoint-mob) and (max-width: $breakpoint-mobile){
-	.pltb-0{
-		padding-left: 0px !important;
-		padding-top: 10px !important;
-		padding-bottom: 0px !important;
-	}
-	.font-40{
-        width: 80% !important;
-        font-weight: 380;
-    }
-    .p-15{
-        padding: 15px !important;
-    }
-    .editorHeader{
-    display: block !important;
-    }
-    .btn-100{
-    max-width: 100% !important;
-    }
-    .p-t-0{
-    padding-top: 0px !important;
-    }
-    .width-100{
-    width:100% !important;
-    }
-    .plr{
-    padding-left: 0px !important;
-    padding-right: 0px !important;
-    }
-    .dk_toggle{
-    padding:10px 20px 9px 10px !important;
-    }
-    .no-padding{
-    padding:10px !important;
-    }
-    .m-top-10{
-    margin-top:10px !important;
-    }
-}
-
-@media only screen and (max-width: $breakpoint-mobile) {
-	.top-image {
-		height: 80vh;
-		min-height: 250px;
-		background-image: url("/static/dist/assets/images/M_Desklib banner4.png");
-		background-size: cover;
-		background-repeat: no-repeat;
-	}
-	.resume-img {
-		border: 1px solid #000;
-		width: 100% !important;
-		margin: 0 auto;
-		display: block;
-	}
-}
-
-
 .banner-image {
 	background-image: url("/static/dist/assets/images/Desklib banner4.png");
 	background-size: cover;
@@ -410,16 +316,6 @@ card {
 	height: 100%;
 	width: 135px;
 	//float: right;
-}
-
-
-@media (max-width:990px) and (min-width:768px) {
-	img.img-responsive.mx-auto.d-block {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-	}
 }
 
 img.img-responsive.mx-auto.d-block {
@@ -667,21 +563,6 @@ img.img-responsive.mx-auto.d-block {
 	z-index: 1;
 }
 
-@media only screen and (max-width: $breakpoint-tablet) {
-	.container-fluid>div>ul {
-		margin: 0px;
-		width: 100%;
-	}
-	.login-card {
-		margin-top: 22% !important;
-	}
-	.m-top-10{
-	margin-top: 10px !important;
-	}
-
-}
-
-
 /* Fallback for Edge
 -------------------------------------------------- */
 
@@ -771,17 +652,6 @@ img.img-responsive.mx-auto.d-block {
 	transition: all 0.2s;
 }
 
-/* Hover Effects on Card */
-@media (min-width: 992px) {
-	.pricing .card:hover {
-		margin-top: -.25rem;
-		margin-bottom: .25rem;
-		//box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
-}
-	.pricing .card:hover .btn {
-		opacity: 1;
-	}
-}
 // For making an element fit to screen
 .height-100{
     min-height : calc(100vh - 241px - 58px);
@@ -874,10 +744,191 @@ display:none;
 	position: relative;
 }
 //.absolute:hover .dropdown-menu1 {display: block;}
-//------------------------------------------------     Media(@media) CSS      ---------------------------------------------------------//
+
+
+//------------------------------  Media(@media) CSS  ----------------------------------//
+
+/* Hover Effects on Card */
+@media (min-width: 992px) {
+	.pricing .card:hover {
+		margin-top: -.25rem;
+		margin-bottom: .25rem;
+		//box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
+}
+	.pricing .card:hover .btn {
+		opacity: 1;
+	}
+}
+
+@media (max-width:991px) and (min-width:768px) {
+	img.img-responsive.mx-auto.d-block {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+}
+
+			//------------	For Tablets ----------//
+
+@media only screen and (max-width: $breakpoint-tablet) {
+	.img-top-text {
+		position: absolute;
+		z-index: 30;
+		text-align: left;
+		padding-left: 7%;
+		top: 20%;
+	}
+	.navbar {
+		background-color: navbar-light bg-light;
+		//         .navbar-toggler{
+		//             margin-left: 80%;
+		//         }
+	}
+	.header .container {
+		background-color: white !important;
+	}
+	//     .owl-second .owl-stage-outer .owl-stage .owl-item{
+	//         width: 400px !important;
+	//     }
+	.yellow {
+		//height: 60vh;
+		min-height: 100px;
+		background-size: cover;
+		background-image: url("/static/dist/assets/images/explore_resources_img.png");
+		padding: 5%;
+		height: 100%;
+		//margin-bottom: 4%;
+	}
+	.resume-img {
+		border: 1px solid #000;
+		width: 80% !important;
+		margin: 0 auto;
+		display: block;
+	}
+
+	.container-fluid>div>ul {
+		margin: 0px;
+		width: 100%;
+	}
+	.login-card {
+		margin-top: 22% !important;
+	}
+	.m-top-10{
+	margin-top: 10px !important;
+	}
+}	
+
+		//	---------------  For Mobile ---------//
+
+@media only screen and (max-width: $breakpoint-mobile) {
+	.top-image {
+		height: 80vh;
+		min-height: 250px;
+		background-image: url("/static/dist/assets/images/M_Desklib banner4.png");
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+	.resume-img {
+		border: 1px solid #000;
+		width: 100% !important;
+		margin: 0 auto;
+		display: block;
+	}
+	.pltb-0{
+		padding-left: 0px !important;
+		padding-top: 10px !important;
+		padding-bottom: 0px !important;
+	}
+	.font-40{
+        width: 80% !important;
+        font-weight: 380;
+    }
+    .p-15{
+        padding: 15px !important;
+    }
+    .editorHeader{
+    display: block !important;
+    }
+    .btn-100{
+    max-width: 100% !important;
+    }
+    .p-t-0{
+    padding-top: 0px !important;
+    }
+    .width-100{
+    width:100% !important;
+    }
+    .plr{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    }
+    .dk_toggle{
+    padding:10px 20px 9px 10px !important;
+    }
+    .no-padding{
+    padding:10px !important;
+    }
+    .m-top-10{
+    margin-top:10px !important;
+    }
+
+	#profile-table {
+		background-color: #f5f8fd !important;
+	}
+}
+
+@media only screen and (min-width: $breakpoint-mobile) {
+	#profile-table {
+		background-color: white !important;
+	}
+}
+
+/*		//--------- For mobile(576)	---------//
+
+@media only screen and (max-width: $breakpoint-mobile){
+	.pltb-0{
+		padding-left: 0px !important;
+		padding-top: 10px !important;
+		padding-bottom: 0px !important;
+	}
+	.font-40{
+        width: 80% !important;
+        font-weight: 380;
+    }
+    .p-15{
+        padding: 15px !important;
+    }
+    .editorHeader{
+    display: block !important;
+    }
+    .btn-100{
+    max-width: 100% !important;
+    }
+    .p-t-0{
+    padding-top: 0px !important;
+    }
+    .width-100{
+    width:100% !important;
+    }
+    .plr{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    }
+    .dk_toggle{
+    padding:10px 20px 9px 10px !important;
+    }
+    .no-padding{
+    padding:10px !important;
+    }
+    .m-top-10{
+    margin-top:10px !important;
+    }
+}
 
 @media (min-width: 768px) {
 	.navbar-expand-md .navbar-nav .dropdown-menu {
 		position: static;
 	}
 }
+*/

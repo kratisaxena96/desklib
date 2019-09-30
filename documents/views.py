@@ -48,11 +48,13 @@ from django.db.models import F
 from datetime import timedelta
 from subscription.utils import is_subscribed, get_current_subscription
 from django.core.files import File as DjangoFile
+from django.db.models import Q
 
 
 class DocumentView(JsonLdDetailView):
     model = Document
     form = ReportForm
+    queryset = Document.objects.filter(Q(is_published=True) | Q(is_visible=True))
 
     def get(self, request, *args, **kwargs):
         slug = self.kwargs['slug']
