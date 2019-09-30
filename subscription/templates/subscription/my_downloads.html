@@ -87,12 +87,14 @@
 
 
 <section class="pt-5">
-      <div class="container-fluid">
+      <div class="container">
+      	 {% comment %}
       	<div class="row">
-      		<div class="col-md-12">
+      		<div class="col-sm-12">
       			<h2 class="text-center mb-3">My Downloads</h2>
       		</div>
       	</div>
+      	 {% endcomment %}
         <div class="row">
               <aside class="col-sm-4 border-right">
 		 	 	<div class="list-group" role="tablist">
@@ -104,8 +106,9 @@
         </div>
 	</aside> 
 
-            <div class="col-md-8 mt-3 mt-md-0">
+            <div class="col-sm-8 mt-3 mt-md-0">
             		<table class="table table-bordered">
+            			<h2 class="text-center mb-3">My Downloads</h2>
             		 	<thead>
             		 	 	<tr>
             		 	 	   <th scope="col">Title</th>
@@ -121,10 +124,7 @@
             		   </tbody>
             		   {% endfor %}
             	</table>
-        </div>
-      </div>
-
-<div class="d-flex justify-content-center mb-3">
+            	<div class="d-flex justify-content-center mb-3">
 <nav aria-label="Page navigation example">
   <ul class="pagination">
     <li class="page-item"><a class="page-link" href="#">Previous</a></li>
@@ -135,6 +135,10 @@
   </ul>
 </nav>
 </div>
+        </div>
+      </div>
+
+
     {% comment %}
        <div class="d-flex justify-content-center mb-3">
        		<nav aria-label="Page navigation example">
@@ -159,16 +163,19 @@
      </div>
 </section>
 <section class="mb-5">
-	 <div class="container-fluid">
+	 <div class="container">
+	 	 {% comment %}
 	 	<div class="row">
 	 		<div class="col-md-12">
 	 			<h2 class="text-center mb-3">My page view</h2>
 	 		</div>
 	 	</div>
+	 	 {% endcomment %}
 	 	<div class="row">
-	 		<div class="col-md-3"></div>
-	 		<div class="col-md-9">
+	 		<div class="col-sm-4"></div>
+	 		<div class="col-sm-8">
 	 			<table class="table table-bordered">
+	 				<h2 class="text-center mb-3">My page view</h2>
 	 				 <thead>
 	 				 	 <tr>
 	 				 	 	<th scope="col">Pages</th>
@@ -187,10 +194,7 @@
 	 				   </tbody>
 	 				   {% endfor %}
 	 			</table>
-	 			
-	 		</div>
-	 	</div>
-<div class="d-flex justify-content-center mb-3 mt-3">
+	 			<div class="d-flex justify-content-center mb-3 mt-3">
 <nav aria-label="Page navigation example">
   <ul class="pagination">
     <li class="page-item"><a class="page-link" href="#">Previous</a></li>
@@ -201,6 +205,9 @@
   </ul>
 </nav>
 </div>
+	 		</div>
+	 	</div>
+
 {% comment %}
 	 	 <div class="d-flex justify-content-center mb-2">
 	 	 	 <nav>
