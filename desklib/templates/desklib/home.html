@@ -135,18 +135,17 @@
                          
                             <div class="item shadow bg-white rounded h-100">
                                 <div class="card h-100">
-                                {% comment %}
-                                  <span class="p-1">
-                                   <i class="fa fa-file-word text-white"></i>
-                                    <span class="blue-theme">{{results.no_of_pages}}</span>
-                                    <i class="fa fa-font text-white"></i>
-                                    <span class="blue-theme">{{results.no_of_words}}</span>
-                                </span>
-
-                                {% endcomment %}
                                     <img class="card-img-top card-height" src="{{results.cover_image}}" alt="Card image">
                                     <div class="card-body">
-                                            <p class="card-text">{{results.title|truncatechars:25}}</p>
+                                        <p class="card-text black-font">{{results.title|truncatechars:25}}</p>
+                                        <span class="border-right p-2">
+                                        <span class="text-muted">{{results.no_of_pages}}</span>
+                                         <span class="text-muted">pages</span>
+                                      </span>
+                                        <span class="p-2">
+                                            <span class="text-muted">{{results.no_of_words}}</span>
+                                             <span class="text-muted">words</span>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
