@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     'api',
     'django.contrib.admindocs',
     # 'channels',
+    'uploads',
     'storages',
     'django_countries',
 ]
