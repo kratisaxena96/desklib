@@ -1,12 +1,11 @@
 {% extends "desklib/base.html" %}
 {% block content %}
-{% comment %}
   <form method="POST" action=""  enctype="multipart/form-data">
         {% csrf_token %}
         <table>{{ form }}</table>
           <input type="file" name="upload_file">
-</form>
-
+	  <input type="submit" value="abc">
+{% comment %}
 {{form.as_p}}
 {% endcomment %}
 <section class="py-5">
@@ -103,7 +102,7 @@
 			<div class="row mt-4">
 				<div class="col-sm-4 col-md-4"></div>
 				<div class="col-sm-8">
-				<input type="submit" value="Upload document" class="btn btn-bg-theme text-white border-radius-40"> 	
+				<input type="submit" value="Upload document" class="btn btn-bg-theme text-white border-radius-40">
 			</div>
 			</div>
 			</form	>

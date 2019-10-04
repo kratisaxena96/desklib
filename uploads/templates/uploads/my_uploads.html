@@ -1,20 +1,20 @@
 {% extends "desklib/base.html" %}
 {% block content %}
-
-{% comment %}
 <ul>
-    {% for object in object_list %}
-    <h1></h1>
-    <li>{{ object.course_name }}</li>
-    <li>{{ object.course_code }}</li>
-    <li>{{ object.country }}</li>
-    <li>{{ object.university }}</li>
-    <li>{{ object.get_type_display }}</li>
-    <li>{{ object.subjects }}</li>
-    <li>{{ object.upload_file}}</li>
-    {% endfor %}
+	{% for object in object_list %}
+	<h1></h1>
+	<li>{{ object.course_name }}</li>
+	<li>{{ object.course_code }}</li>
+	<li>{{ object.country }}</li>
+	<li>{{ object.university }}</li>
+	<li>{{ object.get_type_display }}</li>
+	{% for i in object.subjects.all %}
+	<li>{{ i }}</li>
+	{% endfor %}
+	<li>{{ object.upload_file}}</li>
+	{% endfor %}
 </ul>
-	{% endcomment %}
+	
 <section class="pt-5">
       <div class="container">
         <div class="row">
