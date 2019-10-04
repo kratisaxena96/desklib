@@ -19,73 +19,6 @@
 		{% endif %}
   	{% endblock %}
 
-{% comment %}
-<h1>Download Summary of User</h1>
-
-   {% if user_downloads %}
-      <div class="col-md-12 well">
-        {% for downloads in user_downloads %}
-			{{downloads.document}}
-			{{downloads.created_at|date:'Y-m-d H:i'}}
-		  <br/>
-		{% endfor %}
-        <span class="step-links pagination">
-            {% if user_downloads.has_previous %}
-                <a href="?page1={{ user_downloads.previous_page_number }}"> previous </a>
-            {% endif %}
-            <span class="current">
-                Page {{ user_downloads.number }} of {{ user_downloads.paginator.num_pages }}
-            </span>
-            {% if user_downloads.has_next %}
-                <a href="?page1={{ user_downloads.next_page_number }}"> next </a>
-            {% endif %}
-        </span>
-      </div>
-      {% endif %}
-
-      {% endcomment %}
-
-{% comment %}
-<h1>Per Page View By User</h1>
-      {% if page_view %}
-      <div class="col-md-12 well">
-        	{% for pages in page_view %}
-					{{pages.document}}
-					{{pages.created_at|date:'Y-m-d H:i'}}
-		  <br/>
-			{% endfor %}
-        <span class="step-links pagination">
-            {% if page_view.has_previous %}
-                <a href="?page2={{ page_view.previous_page_number }}"> previous </a>
-            {% endif %}
-            <span class="current">
-                Page {{ page_view.number }} of {{ page_view.paginator.num_pages }}
-            </span>
-            {% if page_view.has_next %}
-                <a href="?page2={{ page_view.next_page_number }}"> next </a>
-            {% endif %}
-        </span>
-      </div>
-      {% endif %}
-     {% endcomment %}
-
-{% comment %}
-	<h1>Documents Download By User</h1>
-	{% for downloads in user_downloads %}
-		{{downloads.document}}
-		{{downloads.created_at|date:'Y-m-d H:i'}}
-	{% endfor %}
-<br/><br/>
-	<h1>Pages View By User</h1>
-	{% for pages in page_view %}
-		{{pages.document}}
-		{{pages.created_at|date:'Y-m-d H:i'}}
-	{% endfor %}
-{% endcomment %}
-
-
-
-
 <section class="pt-5">
       <div class="container">
       	 {% comment %}
@@ -124,43 +57,25 @@
             		   </tbody>
             		   {% endfor %}
             	</table>
-            	<div class="d-flex justify-content-center mb-3">
-<nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-  </ul>
-</nav>
+    <div class="d-flex justify-content-center mb-3">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item">
+               {% if user_downloads.has_previous %}
+              <a class="page-link" href="href=?page1={{ user_downloads.previous_page_number }}" class="pagination-Previous">Previous</a>
+                {% endif %}
+                <span class="current">Page {{ user_downloads.number }} of {{ user_downloads.paginator.num_pages }}
+                </span>
+                {% if user_downloads.has_next %}
+                        <a href="?page1={{ user_downloads.next_page_number }}" class="pagination-next">next </a>
+                    {% endif %}
+            </li>
+          </ul>
+        </nav>
 </div>
-        </div>
-      </div>
-
-
-    {% comment %}
-       <div class="d-flex justify-content-center mb-3">
-       		<nav aria-label="Page navigation example">
-       		  <ul class="pagination">
-       		 	<li class="page-item p-3">
-       		 	 	<span class="step-links pagination">
-            {% if user_downloads.has_previous %}
-                <a href="?page1={{ user_downloads.previous_page_number }}"> previous </a>
-            {% endif %}
-            <span class="current">
-                Page {{ user_downloads.number }} of {{ user_downloads.paginator.num_pages }}
-            </span>
-            {% if user_downloads.has_next %}
-                <a href="?page1={{ user_downloads.next_page_number }}"> next </a>
-            {% endif %}
-        </span>
-       	</li>
-       	</ul>
-       </nav>
-       </div>
-       {% endcomment %}
-     </div>
+</div>
+</div>
+</div>
 </section>
 <section class="mb-5">
 	 <div class="container">
@@ -197,38 +112,25 @@
 	 			<div class="d-flex justify-content-center mb-3 mt-3">
 <nav aria-label="Page navigation example">
   <ul class="pagination">
-    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    <li class="page-item">
+       <span class="step-links">
+            {% if page_view.has_previous %}
+                    <a href="?page2={{ page_view.previous_page_number }}" class="pagination-previous"> previous </a>
+            {% endif %}
+              <span class="current">
+                Page {{ page_view.number }} of {{ page_view.paginator.num_pages }}
+            </span>
+            {% if page_view.has_next %}
+                    <a href="?page2={{ page_view.next_page_number }}" class="pagination-next"> next </a>
+            {% endif %}
+        </span>
+      
+    </li>
   </ul>
 </nav>
 </div>
 	 		</div>
 	 	</div>
-
-{% comment %}
-	 	 <div class="d-flex justify-content-center mb-2">
-	 	 	 <nav>
-	 	 	 	 <ul class="pagination  pagination-sm">
-	 	 	 	 	  <li class="page-item p-3">
-	 	 	 	 	  	 <span class="step-links pagination">
-            {% if page_view.has_previous %}
-                		<a href="?page2={{ page_view.previous_page_number }}"> previous </a>
-            {% endif %}
-            			<span class="current">
-                Page {{ page_view.number }} of {{ page_view.paginator.num_pages }}
-            </span>
-            {% if page_view.has_next %}
-                		<a href="?page2={{ page_view.next_page_number }}"> next </a>
-            {% endif %}
-        </span>
-	 	 	 	 	  </li>
-	 	 	 	 </ul>
-	 	 	 </nav>
-	 	 </div>
-	 	 {% endcomment %}
 	 </div>
 </section>
 

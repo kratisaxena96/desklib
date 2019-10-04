@@ -129,7 +129,9 @@ class DocumentView(JsonLdDetailView):
         slug = self.kwargs['slug']
         entry = Document.objects.get(slug=slug)
         subjects = entry.subjects.all()
-        # mlt = SearchQuerySet().more_like_this(entry)[:6]
+        from haystack.inputs import AutoQuery, Raw
+
+        mlt = SearchQuerySet().more_like_this(entry)[:6]
         if subjects:
             s = "context['more_like_this'] = SearchQuerySet()"
             for sub in subjects:
@@ -394,7 +396,21 @@ class DownloadSuccessView(LoginRequiredMixin, TemplateView):
 class PageViewsFinishView(LoginRequiredMixin, TemplateView):
     template_name = 'documents/page_views_finish.html'
 
+class FilterSimlar():
+    def fiterSimilar(self):
+        return SearchQuerySet.raw_search(
+            mlt_query={
+                'query': {
+                    'more_like_this': {
+                        'like': [{
+                            "_id": 1
+                        }],
+                        'minimum_should_match': '100%'
+                    }
+                }
+            }
 
+        )
 
 
 
