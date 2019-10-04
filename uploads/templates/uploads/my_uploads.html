@@ -1,5 +1,6 @@
 {% extends "desklib/base.html" %}
 {% block content %}
+{% comment %}
 <ul>
 	{% for object in object_list %}
 	<h1></h1>
@@ -14,7 +15,8 @@
 	<li>{{ object.upload_file}}</li>
 	{% endfor %}
 </ul>
-	
+	{% endcomment %}
+    
 <section class="pt-5">
       <div class="container">
         <div class="row">
@@ -47,7 +49,9 @@
             		   	   <tr>
             		   	   	 <td scope="row">{{ object.course_name }}</td>
             		   	   	 <td scope="row">{{ object.course_code }}</td>
-                             <td scope="row">{{ object.subjects }}</td>
+                             {% for i in object.subjects.all %}
+                             <td scope="row">{{ i }}</td>
+                             {% endfor %}
             		   	   	 <td scope="row">{{ object.country }}</td>
             		   	   	 <td scope="row">{{ object.university }}</td>
                              <td scope="row">{{ object.get_type_display }}</td>
