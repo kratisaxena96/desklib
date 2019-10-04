@@ -1,18 +1,20 @@
 {% extends "desklib/base.html" %}
 {% block content %}
+
+{% comment %}
 <ul>
-	{% for object in object_list %}
-	<h1></h1>
-	<li>{{ object.course_name }}</li>
-	<li>{{ object.course_code }}</li>
-	<li>{{ object.country }}</li>
-	<li>{{ object.university }}</li>
-	<li>{{ object.get_type_display }}</li>
-	<li>{{ object.subjects }}</li>
-	<li>{{ object.upload_file}}</li>
-	{% endfor %}
+    {% for object in object_list %}
+    <h1></h1>
+    <li>{{ object.course_name }}</li>
+    <li>{{ object.course_code }}</li>
+    <li>{{ object.country }}</li>
+    <li>{{ object.university }}</li>
+    <li>{{ object.get_type_display }}</li>
+    <li>{{ object.subjects }}</li>
+    <li>{{ object.upload_file}}</li>
+    {% endfor %}
 </ul>
-	
+	{% endcomment %}
 <section class="pt-5">
       <div class="container">
         <div class="row">
@@ -32,20 +34,28 @@
             		 	<thead>
             		 	 	<tr>
             		 	 	   <th scope="col">Course Name</th>
-            		 	 	    <th scope="col">Subject</th>
-            		 	 	     <th scope="col">Title</th>
-            		 	 	      <th scope="col">Date</th>
-            		 	 	    	<th scope="col">Status</th>
+                                <th scope="col">Course Code</th>
+            		 	 	     <th scope="col">Subject</th>
+                                 <th scope="col">Country</th>
+                                 <th scope="col">University</th>
+                                 <th scope="col">Document Type</th>
+                                 <th scope="col">Uploaded File</th>
             		 	 </tr>
             		 </thead>
             		   <tbody>
+                         {% for object in object_list %}
             		   	   <tr>
-            		   	   	 <td scope="row">MCA</td>
-            		   	   	 <td scope="row">Java</td>
-            		   	   	 <td scope="row">Inheritance</td>
-            		   	   	 <td scope="row">20-09-2019</td>
-            		   	   	 <td scope="row">accepted</td>
+            		   	   	 <td scope="row">{{ object.course_name }}</td>
+            		   	   	 <td scope="row">{{ object.course_code }}</td>
+                             <td scope="row">{{ object.subjects }}</td>
+            		   	   	 <td scope="row">{{ object.country }}</td>
+            		   	   	 <td scope="row">{{ object.university }}</td>
+                             <td scope="row">{{ object.get_type_display }}</td>
+                              <td scope="row">
+                                {{ object.upload_file|truncatechars:10 }}
+                              </td>
             		   	   </tr>
+                             {% endfor %}
             		   </tbody>
             		  
   </table>

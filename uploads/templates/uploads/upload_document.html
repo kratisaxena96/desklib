@@ -1,11 +1,12 @@
 {% extends "desklib/base.html" %}
 {% block content %}
+{% comment %}
   <form method="POST" action=""  enctype="multipart/form-data">
         {% csrf_token %}
         <table>{{ form }}</table>
           <input type="file" name="upload_file">
+</form>
 
-{% comment %}
 {{form.as_p}}
 {% endcomment %}
 <section class="py-5">
@@ -14,91 +15,89 @@
 			<div class="col-md-8">
 			   <div class="card p-4">
 				<h2 class="text-center mb-3 mt-3 mt-md-0">Upload your documents</h2>
-					<form method="post">
-						{% csrf_token %}
+					<form method="POST" action=""  enctype="multipart/form-data">
+						 {% csrf_token %}
 						<div class="row mt-3 mb-md-3">
 							<div class="col-sm-4 col-md-4">
 								<div class="form-group">
-					 	  			<label for="id_course_name" class=""><strong>Course Name:</strong></label>
+					 	  			<label for="id_course_name" class=""><strong>{{form.course_name.label}}:</strong></label>
 					 </div>
 					</div>
 					<div class="col-sm-8">
 						<div class="form-group">
-							{{form.course_name}}
+							{{ form.course_name }}
 						</div>
 					</div>
 				</div>
 				<div class="row mb-md-3">
 					<div class="col-sm-4 col-md-4">
 						<div class="form-group">
-					 	  		<label for="id_course_code" class=""><strong>Course Code:</strong></label>
+					 	  		<label for="id_course_code" class=""><strong>{{form.course_code.label}}:</strong></label>
 					</div>
 				</div>
 				<div class="col-sm-8">
 					<div class="form-group">
-						{{form.course_code}}
+						{{ form.course_code }}
 					</div>
 				</div>
 			</div>
-			{% comment %}
 			<div class="row mb-md-3">
 					<div class="col-sm-4 col-md-4">
 						<div class="form-group">
-					 	  		<label for="id_subject" class=""><strong>Subject:</strong></label>
+					 	  		<label for="id_subject" class=""><strong>{{form.subjects.label}}:</strong></label>
 					</div>
 				</div>
 				<div class="col-sm-8">
 					<div class="form-group">
-						{{form.subjects}}
+						{{ form.subjects }}
 						
 					</div>
 				</div>
 			</div>
-			{% endcomment %}
 			<div class="row mb-md-3">
 				<div class="col-sm-4 col-md-4">
 					<div class="form-group">
-					 	  		<label for="id_country" class=""><strong>Country:</strong></label>
+					 	  		<label for="id_country" class=""><strong>{{form.country.label}}:</strong></label>
 				</div>
 			</div>
 				<div class="col-sm-8">
 					<div class="form-group">
-						{{form.country}}
+						{{ form.country }}
 					</div>
 				</div>
 			</div>
 			<div class="row mb-md-3">
 				<div class="col-sm-4 col-md-4">
 					<div class="form-group">
-					 	  		<label for="id_college" class=""><strong>University / College:</strong></label>
+					 	  		<label for="id_college" class=""><strong>{{form.university.label}}:</strong></label>
 				</div>
 				</div>
 				<div class="col-sm-8">
 					<div class="form-group">
-						{{form.university}}
+						{{ form.university }}
 					</div>
 				</div>
 			</div>
 			<div class="row mb-md-3">
 				<div class="col-sm-4 col-md-4">
 					<div class="form-group">
-					 	  		<label for="id_document" class=""><strong>Type of document:</strong></label>
+					 	  		<label for="id_document" class=""><strong>{{form.type.label}}:</strong></label>
 				</div>
 				</div>
 				<div class="col-sm-8">
 					<div class="form-group">
-						{{form.type}}
+						{{ form.type }}
 					</div>
 				</div>
 			</div>
 			<div class="row mb-md-3">
 				<div class="col-sm-4 col-md-4">
 					<div class="form-group">
-						<label for="id_file" class=""><strong>Choose file:</strong></label>
+						<label for="id_file" class=""><strong>{{form.upload_file.label}}:</strong></label>
 					</div>
 				</div>
 				<div class="col-sm-8">
-					{{form.upload_file}}
+					{{ form.upload_file}}
 			</div>
 		</div>
 			<div class="row mt-4">
@@ -107,7 +106,7 @@
 				<input type="submit" value="Upload document" class="btn btn-bg-theme text-white border-radius-40"> 	
 			</div>
 			</div>
-			</form>
+			</form	>
 			</div>
 		</div> 
 		</div>
