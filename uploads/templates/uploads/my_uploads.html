@@ -1,6 +1,18 @@
 {% extends "desklib/base.html" %}
 {% block content %}
-
+<ul>
+	{% for object in object_list %}
+	<h1></h1>
+	<li>{{ object.course_name }}</li>
+	<li>{{ object.course_code }}</li>
+	<li>{{ object.country }}</li>
+	<li>{{ object.university }}</li>
+	<li>{{ object.get_type_display }}</li>
+	<li>{{ object.subjects }}</li>
+	<li>{{ object.upload_file}}</li>
+	{% endfor %}
+</ul>
+	
 <section class="pt-5">
       <div class="container">
         <div class="row">
