@@ -8,7 +8,9 @@
 	<li>{{ object.country }}</li>
 	<li>{{ object.university }}</li>
 	<li>{{ object.get_type_display }}</li>
-	<li>{{ object.subjects }}</li>
+	{% for i in object.subjects.all %}
+	<li>{{ i }}</li>
+	{% endfor %}
 	<li>{{ object.upload_file}}</li>
 	{% endfor %}
 </ul>
