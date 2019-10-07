@@ -23,12 +23,12 @@ IGNORE_FILECONTENT_KEYWORDS = ['ORIGINALITY REPORT']
 import hashlib
 conn = None;
 try:
-    conn = sqlite3.connect(':memory:')
+    conn = sqlite3.connect('UploadFiles.db')
 except Error as e:
     print(e)
 try:
         c = conn.cursor()
-        c.execute("DROP TABLE IF EXISTS tasks")
+        # c.execute("DROP TABLE IF EXISTS tasks")
         c.execute("""CREATE TABLE IF NOT EXISTS tasks (
                                     id integer PRIMARY KEY,
                                     path text NOT NULL,
@@ -86,7 +86,7 @@ for root, dirs, files in os.walk(path, topdown=False):
                         c.execute("SELECT * FROM tasks WHERE hash=?", (digest,))
                         rows = c.fetchall()
                         if rows:
-                           import pdb; pdb.set_trace()
+                            pass
                         else:
                             data_tuple = (i, path_for_text, digest)
                             c.execute(sqlite_insert_with_param, data_tuple)
