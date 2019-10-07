@@ -41,7 +41,7 @@
 
             <div class="col-sm-8 mt-3 mt-md-0">
             		<table class="table table-bordered">
-            			<h2 class="text-center mb-3">My Downloads</h2>
+            			<h4 class="text-center mb-3">My Downloads</h4>
             		 	<thead>
             		 	 	<tr>
             		 	 	   <th scope="col">Title</th>
@@ -62,12 +62,12 @@
           <ul class="pagination">
             <li class="page-item">
                {% if user_downloads.has_previous %}
-              <a class="page-link" href="href=?page1={{ user_downloads.previous_page_number }}" class="pagination-Previous">Previous</a>
+              <a class="page-link" href="href=?page1={{ user_downloads.previous_page_number }}" class="page-link">Previous</a>
                 {% endif %}
                 <span class="current">Page {{ user_downloads.number }} of {{ user_downloads.paginator.num_pages }}
                 </span>
                 {% if user_downloads.has_next %}
-                        <a href="?page1={{ user_downloads.next_page_number }}" class="pagination-next">next </a>
+                        <a href="?page1={{ user_downloads.next_page_number }}" class="page-link">next </a>
                     {% endif %}
             </li>
           </ul>
@@ -90,7 +90,7 @@
 	 		<div class="col-sm-4"></div>
 	 		<div class="col-sm-8">
 	 			<table class="table table-bordered">
-	 				<h2 class="text-center mb-3">My page view</h2>
+	 				<h4 class="text-center mb-3">My page view</h4>
 	 				 <thead>
 	 				 	 <tr>
 	 				 	 	<th scope="col">Pages</th>
@@ -109,19 +109,19 @@
 	 				   </tbody>
 	 				   {% endfor %}
 	 			</table>
-	 			<div class="d-flex justify-content-center mb-3 mt-3">
-<nav aria-label="Page navigation example">
+<div class="d-flex justify-content-center mb-3 mt-5">
+  <nav aria-label="Page navigation example">
   <ul class="pagination">
     <li class="page-item">
        <span class="step-links">
             {% if page_view.has_previous %}
-                    <a href="?page2={{ page_view.previous_page_number }}" class="pagination-previous"> previous </a>
+                    <a href="?page2={{ page_view.previous_page_number }}" class=" page-link d-inline"> previous </a>
             {% endif %}
               <span class="current">
                 Page {{ page_view.number }} of {{ page_view.paginator.num_pages }}
             </span>
             {% if page_view.has_next %}
-                    <a href="?page2={{ page_view.next_page_number }}" class="pagination-next"> next </a>
+                    <a href="?page2={{ page_view.next_page_number }}" class="page-link d-inline"> next </a>
             {% endif %}
         </span>
       
