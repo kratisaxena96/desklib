@@ -1,4 +1,9 @@
 {% extends "desklib/base.html" %}
+
+<head>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+</head>
+
 {% block content %}
 {% comment %}
   <form method="POST" action=""  enctype="multipart/form-data">
@@ -25,8 +30,8 @@
 					</div>
 					<div class="col-sm-8">
 						<div class="form-group">
-							{{ form.course_name }}
-							<small id="" class="form-text text-muted">{{form.course_name.errors}}</small>
+							{{form.course_name}}
+							<span id="" class="form-text text-muted">{{form.course_name.errors}}</span>
 						</div>
 					</div>
 				</div>
@@ -39,7 +44,7 @@
 				<div class="col-sm-8">
 					<div class="form-group">
 						{{ form.course_code }}
-						<small id="" class="form-text text-muted">{{form.course_cod.errors}}</small>
+						<span id="" class="form-text text-muted">{{form.course_cod.errors}}</span>
 					</div>
 				</div>
 			</div>
@@ -50,9 +55,9 @@
 					</div>
 				</div>
 				<div class="col-sm-8">
-					<div class="form-group">
+                  <div class="form-group">
 						{{ form.subjects }}
-						<small id="" class="form-text text-muted">{{form.subjects.errors}}</small>	
+						<span id="" class="form-text text-muted">{{form.subjects.errors}}</span>	
 					</div>
 				</div>
 			</div>
@@ -65,7 +70,8 @@
 				<div class="col-sm-8">
 					<div class="form-group">
 						{{ form.country }}
-						<small id="" class="form-text text-muted">{{form.country.errors}}</small>
+						<span id="" class="form-text text-muted">{{form.country.errors}}</span>
+						
 					</div>
 				</div>
 			</div>
@@ -78,7 +84,7 @@
 				<div class="col-sm-8">
 					<div class="form-group">
 						{{ form.university }}
-						<small id="" class="form-text text-muted">{{form.university.errors}}</small>
+						<span id="" class="form-text text-muted">{{form.university.errors}}</span>
 					</div>
 				</div>
 			</div>
@@ -91,7 +97,7 @@
 				<div class="col-sm-8">
 					<div class="form-group">
 						{{ form.type }}
-						<small id="" class="form-text text-muted">{{form.type.errors}}</small>
+						<span id="" class="form-text text-muted">{{form.type.errors}}</span>
 					</div>
 				</div>
 			</div>
@@ -101,22 +107,55 @@
 						<label for="id_file" class=""><strong>{{form.upload_file.label}}:</strong></label>
 					</div>
 				</div>
+			<div class="col-sm-8">
+			   <div class="form-group">
+				<div class="input-group">
+					  <div class="custom-file">
+					  	{{ form.upload_file}}
+    					<label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+ 			 </div>
+ 			 {% comment %}
+  				<div class="input-group-append">
+    					<button class="btn btn-outline-secondary" type="button">Button</button>
+  			</div>
+  			{% endcomment %}
+		</div>
+		<span id="" class="form-text text-muted">{{form.upload_file.errors}}</span>
+	</div>
+</div>
+	          {% comment %}
 				<div class="col-sm-8">
 					{{ form.upload_file}}
-					<small id="" class="form-text text-muted">{{form.upload_file.errors}}</small>
+					<span id="" class="form-text text-muted">{{form.upload_file.errors}}</span>
 			</div>
+			{% endcomment %}
 		</div>
 			<div class="row mt-4">
 				<div class="col-sm-4 col-md-4"></div>
 				<div class="col-sm-8">
 				<input type="submit" value="Upload document" class="btn btn-bg-theme text-white border-radius-40">
+				<span class="d-block mt-3">You can upload doc, docx, and pdf format. Max: 300 KB </span>
 			</div>
-			</div>
-			</form>
+			</div> 
+			</form>	 
 			</div>
 		</div> 
 		</div>
 	</div>
 </section>
 
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('.js-example-basic-single').select2();
+});
+</script>
+<script>
+$(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+});
+</script>
 {% endblock %}
