@@ -1,5 +1,22 @@
 {% extends "desklib/base.html" %}
+{% block extra_css %}
+<style type="text/css">
+/* https://djangopy.org/how-to/pagination-with-django/*/
+#down li{
+  font-size: 25px;
+}
+#down2 li{
+  font-size: 25px;
+}
+.active{ 
+  /*background-color: #405fbd;*/
+  background-color: #a1def2;
+}
+</style>
+{% endblock extra_css %}
+{% load staticfiles %}
 {% block content %}
+{% comment %}
 <ul>
 	{% for object in object_list %}
 	<h1></h1>
@@ -14,7 +31,7 @@
 	<li>{{ object.upload_file}}</li>
 	{% endfor %}
 </ul>
-	
+{% endcomment %}
 <section class="pt-5">
       <div class="container">
         <div class="row">
@@ -28,18 +45,18 @@
         </div>
 	</aside> 
             <div class="col-sm-8 mt-3 mt-md-0">
-            	<h2 class="text-center mb-3">My Uploads</h2>
+            	<h4 class="mb-3" style="display: inline-block;">My Uploads</h4><i class="fa fa-upload fa-4" aria-hidden="true" style="font-size:21px;color: #405fbd; padding-left: inherit;"></i>
             	 <div class="table-responsive-sm">
             		<table class="table table-bordered">
             		 	<thead>
             		 	 	<tr>
             		 	 	   <th scope="col">Course Name</th>
                                 <th scope="col">Course Code</th>
-            		 	 	     <th scope="col">Subject</th>
-                                 <th scope="col">Country</th>
+            		 	 	     <th scope="col">Subject</th>                                 
                                  <th scope="col">University</th>
                                  <th scope="col">Document Type</th>
-                                 <th scope="col">Uploaded File</th>
+                                 <!-- <th scope="col">Uploaded File</th> -->
+                                 <th scope="col">Status</th>
             		 	 </tr>
             		 </thead>
             		   <tbody>
@@ -47,18 +64,75 @@
             		   	   <tr>
             		   	   	 <td scope="row">{{ object.course_name }}</td>
             		   	   	 <td scope="row">{{ object.course_code }}</td>
-                             <td scope="row">{{ object.subjects }}</td>
-            		   	   	 <td scope="row">{{ object.country }}</td>
+                             <td scope="row">{{ object.subjects }}</td>            		   	   	 
             		   	   	 <td scope="row">{{ object.university }}</td>
                              <td scope="row">{{ object.get_type_display }}</td>
-                              <td scope="row">
+
+                              <!-- <td scope="row">
                                 {{ object.upload_file|truncatechars:10 }}
-                              </td>
+                              </td> -->
+                              <td scope="row">{{ object.status }}</td>
             		   	   </tr>
                              {% endfor %}
             		   </tbody>
             		  
   </table>
+
+<div class="d-flex justify-content-center mb-3 mt-3">
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+       <span class="step-links">
+            {% if my_uploads.has_previous %}
+                    <a href="?page={{ my_uploads.previous_page_number }}" class="pagination-previous"> previous </a>
+            {% endif %}
+              <span class="current">
+                Page {{ my_uploads.number }} of {{ my_uploads.paginator.num_pages }}
+            </span>
+            {% if my_uploads.has_next %}
+                    <a href="?page={{ my_uploads.next_page_number }}" class="pagination-next"> next </a>
+            {% endif %}
+        </span>
+      
+    </li>
+  </ul>
+</nav>
+</div>
+{% comment %}
+<div class = "container d-flex justify-content-center">
+  <div class="row">
+  <div class = "col-md-12">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination" id="down">
+        <li class="page-item">  <!-- Jump to Prvious Page -->
+          {% if object_list.has_previous %}
+             <li class="previous px-2"> <a href="?page={{ object_list.previous_page_number }}">
+             <span aria-hidden="true"><img class="img-fluid" src="{% static 'dist/assets/images/chevron_left copy.png' %}"></span></a>
+          {% else %}
+              <li class="previous disabled px-2"><a><img class="img-fluid" src="{% static 'dist/assets/images/chevron_left copy.png' %}"></a>
+          {% endif %}
+        </li>
+         {% for page in object_list.paginator.page_range %}
+            {% if page == object_list.number %}
+            <li class="pg px-2 active"><a class = "page_number" href="?page={{page}}">{{page}}</a>
+            {% else %}
+            <li class="pg px-2"><a class = "page_number" href="?page={{page}}">{{page}}</a>
+            {% endif %}
+        {% endfor %}
+        <li class="page-item">  <!-- Jump to Next Page -->
+          {% if object_list.has_next %}
+            <li class="previous px-2"> <a href="?page={{ object_list.next_page_number }}"><img class="img-fluid" src="{% static 'dist/assets/images/ic_chevron_right_24px copy.png' %}"></a></li>
+          {% else %}
+              <li class="next disabled px-2"><a><img class="img-fluid" src="{% static 'dist/assets/images/ic_chevron_right_24px copy.png' %}"></a>
+          {% endif %}
+        </li>
+      </ul>      
+    </nav>
+  </div>
+  </div>
+</div>
+{% endcomment %}
+
 </div>
 </div>
 </div>
