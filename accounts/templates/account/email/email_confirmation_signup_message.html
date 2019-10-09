@@ -15,7 +15,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title>Welcome - Notify Email Newsletter</title>
+	<title>Email Confirmation - Desklib</title>
 
 	<!-- Google Fonts Link -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -50,6 +50,7 @@
 		.oneColumn {text-align:center; font-size:0;}
 		
 		/*------ Images Style ------ */
+		
 		.imgHero img{ width:600px; height:auto; }
 		
 	</style>
@@ -80,17 +81,6 @@
 		<td align="center" valign="top" style="padding-right:10px;padding-left:10px;" id="bodyCell">
 		<!--[if (gte mso 9)|(IE)]><table align="center" border="0" cellspacing="0" cellpadding="0" style="width:600px;" width="600"><tr><td align="center" valign="top"><![endif]-->
 
-		<!-- Email Pre-Header Open // -->
-		<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px;" width="100%" class="wrapperTable">
-			<tr>
-				<td align="center" valign="top">
-					<!-- Content Table Open // -->
-					<!-- Content Table Close // -->
-				</td>
-			</tr>
-		</table>
-		<!-- Email Pre-Header Close // -->
-
 		<!-- Email Header Open // -->
 		<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px;" width="100%" class="wrapperTable">
 			<tr>
@@ -101,7 +91,7 @@
 							<td align="center" valign="middle" style="padding-top:40px;padding-bottom:40px">
 								<!-- Logo and Link // -->
 								<a href="{{ request.get_host }}" target="_blank" style="text-decoration:none;">
-									<img mc:edit="logo" src="{{ request.get_host }}{% static 'dist/assets/images/desklib-logo-theme.png'%}" alt="desklib-logo" width="180" border="0" style="height:auto; display:block;"/>
+									<img src="{{ request.get_host }}{% static 'dist/assets/images/desklib-logo-theme.png'%}" alt="desklib-logo" width="180" border="0" style="height:auto; display:block;"/>
 								</a>
 							</td>
 						</tr>
@@ -124,20 +114,20 @@
 							<td class="topBorder" height="3" style="background-color:#8D6CD1;font-size:1px;line-height:3px;">&nbsp;</td>
 						</tr>
 
-						<tr>
-							<td align="center" valign="top" style="padding-bottom:40px" class="imgHero">
-								<!-- Hero Image // -->
-								<a href="#" target="_blank" style="text-decoration:none;">
-									<img mc:edit="heroImg" src="{{ request.get_host }}{% static 'dist/assets/images/user-welcome.png'%}" width="600" alt="user-welcome" border="0" style="width:100%; max-width:600px; height:auto; display:block;" />
-								</a>
-							</td>
-						</tr>
+<!--						<tr>-->
+<!--							<td align="center" valign="top" style="padding-bottom:40px" class="imgHero">-->
+<!--								&lt;!&ndash; Hero Image  // &ndash;&gt;-->
+<!--								<a href="#" target="_blank" style="text-decoration:none;">-->
+<!--									<img src="{% static 'dist/assets/images/account-confirmation.png'%}" width="600" alt="" border="0" style="width:100%; max-width:600px; height:auto; display:block;" />-->
+<!--								</a>-->
+<!--							</td>-->
+<!--						</tr>-->
 
 						<tr>
 							<td align="center" valign="top" style="padding-bottom:5px;padding-left:20px;padding-right:20px;" class="title">
 								<!-- Main Title Text // -->
-								<h2 mc:edit="title" class="bigTitle" style="color:#313131; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:26px; font-weight:600; font-style:normal; letter-spacing:normal; line-height:34px; text-align:center; padding:0; margin:0;">
-									Welcome!
+								<h2 class="bigTitle" style="color:#313131; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:26px; font-weight:600; font-style:normal; letter-spacing:normal; line-height:34px; text-align:center; padding:0; margin:0;">
+									Hi {{ user.get_username }}
 								</h2>
 							</td>
 						</tr>
@@ -145,47 +135,17 @@
 						<tr>
 							<td align="center" valign="top" style="padding-bottom:20px;padding-left:20px;padding-right:20px;" class="subTitle">
 								<!-- Sub Title Text // -->
-								<h4 mc:edit="subTitle" class="midTitle" style="color:#919191; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:18px; font-weight:400; font-style:normal; letter-spacing:normal; line-height:26px; text-align:center; padding:0; margin:0;">
-									You have registered successfully on Desklib
+								<h4 class="midTitle" style="color:#919191; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:18px; font-weight:400; font-style:normal; letter-spacing:normal; line-height:26px; text-align:center; padding:0; margin:0;">
+									Verify Your Email Account
 								</h4>
 							</td>
 						</tr>
 
 						<tr>
-							<td align="center" valign="top" style="padding-bottom:10px;padding-left:20px;padding-right:20px;" class="infoTitle">
-								<!-- Info Title Text // -->
-								<p mc:edit="infoTitle" class="midTitle" style="color:#313131; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:18px; font-weight:400; font-style:normal; letter-spacing:normal; line-height:26px; text-align:center; padding:0; margin:0;">
-									Explore our documents
-								</p>
-							</td>
-						</tr>
-
-						<tr>
-							<td align="center" valign="top" style="padding-bottom:20px;padding-left:10px;padding-right:10px;" class="catagoryLinks">
-								<!-- Catagory Link // -->
-								<a href="#Catagory-link" target="_blank" style="display:inline-block;" class="link-1">
-									<img mc:edit="catagory-1" src="{{ request.get_host }}{% static 'dist/assets/images/catagory-1.png'%}" alt="catagory-1" width="50" border="0" style="height:auto;margin:2px" />
-								</a>
-								<!-- Catagory Link // -->
-								<a href="#Catagory-link" target="_blank" style="display:inline-block;" class="link-2">
-									<img mc:edit="catagory-2" src="{{ request.get_host }}{% static 'dist/assets/images/catagory-2.png'%}" alt="catagory-2" width="50" border="0" style="height:auto;margin:2px" />
-								</a>
-								<!-- Catagory Link // -->
-								<a href="#Catagory-link" target="_blank" style="display:inline-block;" class="link-3">
-									<img mc:edit="catagory-3" src="{{ request.get_host }}{% static 'dist/assets/images/catagory-3.png'%}" alt="catagory-3" width="50" border="0" style="height:auto;margin:2px" />
-								</a>
-								<!-- Catagory Link // -->
-								<a href="#Catagory-link" target="_blank" style="display:inline-block;" class="link-4">
-									<img mc:edit="catagory-4" src="{{ request.get_host }}{% static 'dist/assets/images/catagory-4.png'%}" alt="catagory-4" width="50" border="0" style="height:auto;margin:2px" />
-								</a>
-							</td>
-						</tr>
-
-						<tr>
 							<td align="center" valign="top" style="padding-bottom:40px;padding-left:20px;padding-right:20px;" class="description">
-								<!-- Description Text // -->
-								<p mc:edit="description" class="midText" style="color:#919191; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:14px; font-weight:400; line-height:22px; text-align:center; padding:0; margin:0;">
-									Thank you for joining with Desklib, we have more than 6 million readers each month, keeping you up to date with what’s going on in the world.
+								<!-- Description  Text// -->
+								<p class="midText" style="color:#919191; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:14px; font-weight:400; line-height:22px; text-align:center; padding:0; margin:0;">
+									Thanks for signing up. Please click confirm button for be a part of Desklib.
 								</p>
 							</td>
 						</tr>
@@ -193,12 +153,32 @@
 						<tr>
 							<td align="center" valign="top" style="padding-bottom:40px;padding-left:20px;padding-right:20px;" class="btnCard">
 								<!-- Button Table // -->
+								<table align="center" border="0" cellpadding="0" cellspacing="0">
+									<tr>
+										<td align="center" class="postButton" style="background-color:#8D6CD1;padding-top:10px;padding-bottom:10px;padding-left:25px;padding-right:25px;border-radius:2px">
+											<!-- Button Link // -->
+											<a href="{{ activate_url }}" target="_blank" style="color:#FFFFFF; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:12px; font-weight:600; letter-spacing:1px; line-height:20px; text-transform:uppercase; text-decoration:none; display:block;" >
+												Confirm Email
+											</a>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+
+						<tr>
+							<td align="center" valign="top" style="padding-bottom:40px;padding-left:20px;padding-right:20px;" class="description">
+								<!-- Link Confirm // -->
+								<p class="midText" style="color:#313131; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:14px; font-weight:400; line-height:22px; text-align:center; padding:0; margin:0;">
+									Or confirm using this link: <a href="#" target="_blank" style="color:#8D6CD1">{{ activate_url }}</a>
+								</p>
 							</td>
 						</tr>
 
 						<tr>
 							<td height="10" style="font-size:1px;line-height:1px;">&nbsp;</td>
 						</tr>
+
 					</table>
 					<!-- Card Table Close// -->
 
@@ -223,6 +203,7 @@
 						<tr>
 							<td align="center" valign="top" style="padding-top:10px;padding-bottom:10px;padding-left:10px;padding-right:10px;" class="socialLinks">
 								<!-- Social Links (Facebook)// -->
+								<!-- Social Links (Facebook)// -->
 								<a href="https://www.facebook.com/desklib/k" target="_blank" style="display:inline-block;" class="facebook">
 									<img mc:edit="social-1" src="{{ request.get_host }}{% static 'dist/assets/images/facebook.png'%}" alt="facebook-icon" width="40" border="0" style="height:auto;margin:2px" />
 								</a>
@@ -244,33 +225,23 @@
 						<tr>
 							<td align="center" valign="top" class="footerLinks">
 								<!-- Use Full Links (Privacy Policy)// -->
-								<p mc:edit="footerLinks" class="smlText" style="color:#313131; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:12px; font-weight:400; line-height:18px; text-align:center; margin:0; padding:0;" >
-									<a href="{{ request.get_host }}{% url 'privacypolicy' %}" style="color:#8D6CD1;text-decoration:none" target="_blank">Privacy Policy</a> | <a href="{{ request.get_host }}{% url 'about' %}" style="color:#8D6CD1;text-decoration:none" target="_blank">About</a>							</p>
+								<p class="smlText" style="color:#313131; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:12px; font-weight:400; line-height:18px; text-align:center; margin:0; padding:0;" >
+									<a href="{{ request.get_host }}{% url 'privacypolicy' %}" style="color:#8D6CD1;text-decoration:none" target="_blank">Privacy Policy</a> | <a href="{{ request.get_host }}{% url 'about' %}" style="color:#8D6CD1;text-decoration:none" target="_blank">About</a>
+								</p>
 							</td>
 						</tr>
 
 						<tr>
 							<td align="center" valign="top" style="padding-top:10px;padding-bottom:10px;padding-left:10px;padding-right:10px;" class="brandInfo">
 								<!-- Information of NewsLetter (Privacy Policy)// -->
-								<p mc:edit="brandInfo" class="smlText" style="color:#313131; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:11px; font-weight:400; line-height:18px; text-align:center; margin:0; padding:0;">
-									This email was sent to you by Desklib. You are receiving this email because you recently joined us. 
-									<br />Desklib | www.desklib.com
+								<p class="smlText" style="color:#313131; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:11px; font-weight:400; line-height:18px; text-align:center; margin:0; padding:0;">
+									This email was sent to you by Desklib, You are receiving this email because you Signup on Desklib. 
+
+									<br />Desklib.com
 								</p>
 							</td>
 						</tr>
-
-						<tr>
-							<td align="center" valign="top" style="padding-top:10px;padding-bottom:10px;padding-left:10px;padding-right:10px;" class="appLinks">
-								<!-- App Links (Anroid)// -->
-								<a href="#Play-Store-Link" target="_blank" style="display:inline-block;" class="play-store">
-									<img mc:edit="playstore" src="img/play-store.png" alt="play-store" width="120" border="0" style="height:auto;margin:5px" />
-								</a>
-								<!-- App Links (IOs)// -->
-								<a href="#App-Store-Link" target="_blank" style="display:inline-block;" class="app-store">
-									<img mc:edit="appstore" src="img/app-store.png" alt="app-store" width="120" border="0" style="height:auto;margin:5px" />
-								</a>
-							</td>
-						</tr>
+						
 					</table>
 					<!-- Content Table Close// -->
 				</td>
@@ -291,3 +262,4 @@
 </center>
 </body>
 </html>
+
