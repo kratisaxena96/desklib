@@ -267,10 +267,11 @@ GECKO_DRIVER_URL = os.path.join(BASE_DIR, 'geckodriver')
 GEOIP_PATH = os.path.join(BASE_DIR, 'geoip')
 
 ACCOUNT_FORMS = {
-'signup': 'accounts.forms.CustomSignupForm',
+# 'signup': 'accounts.forms.CustomSignupForm',
 'login': 'accounts.forms.CustomLoginForm',
 }
 
+ACCOUNT_SIGNUP_FORM_CLASS = 'accounts.forms.CustomSignupForm'
 
 
 HAYSTACK_DEFAULT_OPERATOR = 'AND'
