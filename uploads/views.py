@@ -35,6 +35,7 @@ class MyUploads(LoginRequiredMixin, ListView):
         queryset = queryset.filter(author=self.request.user).order_by('created')
         return queryset
 
+
     def get_context_data(self, **kwargs):
         context = super(MyUploads, self).get_context_data(**kwargs)
         upload = Upload.objects.filter(author=self.request.user).order_by('created')
