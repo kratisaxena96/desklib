@@ -379,6 +379,14 @@ img.img-responsive.mx-auto.d-block {
 	height: auto;
 	border-radius: 2rem;
 }
+.form-control.form-rounded{
+	border-radius:2rem;
+}
+
+.form-group .star:after {
+  content:"*";
+  color:red;
+}
 
 .form-btn-group {
 	height: auto;

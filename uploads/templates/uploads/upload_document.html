@@ -3,6 +3,35 @@
 <head>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
 </head>
+ {% block extra_css %}
+ <style>
+ .select2-container--default .select2-selection--multiple{
+ 	border-radius: 2rem;
+ 	border-color: #ced4da;
+}
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+	border: solid 1px #ced4da;
+}
+.select2-container--default .select2-selection--single{
+ 	border-radius: 2rem;
+ 	border-color: #ced4da;
+ 	height: 38px;
+ 	padding: 4px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+	top: 6px;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered{
+	margin-left: 16px;
+}
+#flag_id_country{
+	position: absolute;
+	left: 5px;
+	top: 8px;
+}
+</style>
+{% endblock extra_css %}
+
 
 {% block content %}
 {% comment %}
@@ -18,14 +47,14 @@
 	<div class="container">
 		<div class="row d-flex justify-content-center">
 			<div class="col-md-8">
-			   <div class="card p-4">
-				<h2 class="text-center mb-3 mt-3 mt-md-0">Upload your documents</h2>
+			   <div class="card p-4 box-shadow-3-3-5-5">
+				<h2 class="text-center mb-3 mt-3 mt-md-3">Upload your documents</h2>
 					<form method="POST" action="" enctype="multipart/form-data">
 						 {% csrf_token %}
 						<div class="row mt-3 mb-md-3">
 							<div class="col-sm-4 col-md-4">
 								<div class="form-group">
-					 	  			<label for="id_course_name" class=""><strong>{{form.course_name.label}}:</strong></label>
+					 	  			<label for="id_course_name" class="star"><strong>{{form.course_name.label}}:</strong></label>
 					 </div>
 					</div>
 					<div class="col-sm-8">
@@ -51,7 +80,7 @@
 			<div class="row mb-md-3">
 					<div class="col-sm-4 col-md-4">
 						<div class="form-group">
-					 	  		<label for="id_subject" class=""><strong>{{form.subjects.label}}:</strong></label>
+					 	  		<label for="id_subject" class="star"><strong>{{form.subjects.label}}:</strong></label>
 					</div>
 				</div>
 				<div class="col-sm-8">
@@ -64,11 +93,11 @@
 			<div class="row mb-md-3">
 				<div class="col-sm-4 col-md-4">
 					<div class="form-group">
-					 	  		<label for="id_country" class=""><strong>{{form.country.label}}:</strong></label>
+					 	  		<label for="id_country" class="star"><strong>{{form.country.label}}:</strong></label>
 				</div>
 			</div>
 				<div class="col-sm-8">
-					<div class="form-group">
+					<div class="form-group position-relative">
 						{{ form.country }}
 						<span id="" class="form-text text-muted">{{form.country.errors}}</span>
 						
@@ -91,7 +120,7 @@
 			<div class="row mb-md-3">
 				<div class="col-sm-4 col-md-4">
 					<div class="form-group">
-					 	  		<label for="id_document" class=""><strong>{{form.type.label}}:</strong></label>
+					 	  		<label for="id_document" class="star"><strong>{{form.type.label}}:</strong></label>
 				</div>
 				</div>
 				<div class="col-sm-8">
@@ -104,7 +133,7 @@
 			<div class="row mb-md-3">
 				<div class="col-sm-4 col-md-4">
 					<div class="form-group">
-						<label for="id_file" class=""><strong>{{form.upload_file.label}}:</strong></label>
+						<label for="inputGroupFile02" class="star"><strong>{{form.upload_file.label}}:</strong></label>
 					</div>
 				</div>
 			<div class="col-sm-8">
@@ -112,16 +141,16 @@
 				<div class="input-group">
 					  <div class="custom-file">
 					  	{{ form.upload_file}}
-    					<label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+    					<label class="custom-file-label" for="inputGroupFile02">Choose file</label>
  			 </div>
- 			<!--  <span class="d-block mt-3">You can upload doc, docx, and pdf format. Max: 300 KB </span> -->
- 			 {% comment %}
-  				<div class="input-group-append">
-    					<button class="btn btn-outline-secondary" type="button">Button</button>
-  			</div>
-  			{% endcomment %}
+ 			 <div class="input-group-append">
+    			<span class="input-group-text" id="">Upload</span>
+  		</div>
 		</div>
-		<span id="" class="form-text text-muted">{{form.upload_file.errors}}</span>
+		<small id="" class="form-text text-muted">
+			You can upload doc, docx, and pdf format.</small>
+		<small id="" class="form-text text-muted">{{form.upload_file.errors}}</small>
+		
 	</div>
 </div>
 	          {% comment %}
@@ -131,9 +160,8 @@
 			</div>
 			{% endcomment %}
 		</div>
-			<div class="row mt-4">
-				<div class="col-sm-4 col-md-4"></div>
-				<div class="col-sm-8">
+			<div class="row d-flex justify-content-center mt-3 mb-4">
+				<div class="col-sm-3">
 				<input type="submit" value="Upload document" class="btn btn-bg-theme text-white border-radius-40">
 			</div>
 			</div> 
@@ -157,5 +185,10 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('.js-example-basic-multiple').select2();
 });
+</script>
+ <script>
+    $(document).on('change', '.custom-file-input', function (event) {
+    $(this).next('.custom-file-label').html(event.target.files[0].name);
+})
 </script>
 {% endblock %}
