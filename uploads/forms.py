@@ -6,14 +6,14 @@ from subjects.models import Subject
 from django.db.models import Q
 
 class UploadForm(forms.ModelForm):
-    course_name = forms.CharField(label='Course Name', widget=forms.TextInput(attrs={'class': "form-control", 'placeholder':"Course Name...",}), )
+    course_name = forms.CharField(label='Course Name', widget=forms.TextInput(attrs={'class': "form-control", 'placeholder':"Course Name...",}), required=False)
     # subjects = forms.ChoiceField(label='Subject',initial=0, widget=forms.Select(attrs={'class': "form-control"}), required=True)
-    subjects = forms.ModelMultipleChoiceField(queryset= Subject.objects.filter(~Q(parent_subject=None)), initial=0, widget=forms.Select(attrs={'class': "form-control js-example-basic-multiple", 'multiple': "multiple"}))
+    subjects = forms.ModelMultipleChoiceField(queryset= Subject.objects.filter(~Q(parent_subject=None)), initial=0, widget=forms.SelectMultiple(attrs={'class': "form-control js-example-basic-multiple", }), required=False)
 
-    type = forms.ChoiceField(label='Type of Document', choices=Upload.TYPE_OF_DOCUMENT, widget=forms.Select(attrs={'class': "form-control"}))
-    upload_file = forms.FileField(label='Upload Document', widget=forms.FileInput(attrs={'class': "form-control custom-file-input"}), required=True)
+    type = forms.ChoiceField(label='Type of Document', choices=Upload.TYPE_OF_DOCUMENT, widget=forms.Select(attrs={'class': "form-control"}), required=False)
+    upload_file = forms.FileField(label='Upload Document', widget=forms.FileInput(attrs={'class': "form-control custom-file-input"}), required=False)
     course_code = forms.CharField(label='Course Code', widget=forms.TextInput(attrs={'class': "form-control", 'placeholder':"Course Code..."}), required=False)
-    country = CountryField().formfield(blank_label='(select country)', widget=CountrySelectWidget(attrs={'class': "form-control js-example-basic-single"}))
+    country = CountryField().formfield(blank_label='(select country)', widget=CountrySelectWidget(attrs={'class': "form-control js-example-basic-single"}), required=False)
     university = forms.CharField(label='University', widget=forms.TextInput(attrs={'class': "form-control", 'placeholder':"Your University"}), required=False)
 
     class Meta:
