@@ -2,12 +2,12 @@
 {% block extra_css %}
 <style type="text/css">
 /* https://djangopy.org/how-to/pagination-with-django/*/
-#down li{
+#user_download, #page_view li{
   font-size: 25px;
 }
-#down2 li{
+/*#page_view li{
   font-size: 25px;
-}
+}*/
 .active{
   /*background-color: #405fbd;*/
   background-color: #405fbd;
@@ -101,7 +101,7 @@
     <div class="col-md-12">
       <div class="pagination">
         <!-- <span class="step-links"> -->
-          <ul class="pagination" id="down">
+          <ul class="pagination" id="user_download">
             <li class="page-item p-3">
             {% if user_downloads.has_previous %}
                 <a class="previous" href="?page1={{ user_downloads.previous_page_number }}">
@@ -174,7 +174,7 @@
           <div class="col-md-12">
             <div class="pagination">
               <!-- <span class="step-links"> -->
-                <ul class="pagination" id="down2">
+                <ul class="pagination" id="page_view">
                   <li class="page-item p-3">
                   {% if page_view.has_previous %}
                       
