@@ -4,6 +4,16 @@ from uploads.models import Upload
 from django_countries.widgets import CountrySelectWidget
 from subjects.models import Subject
 from django.db.models import Q
+from django.template.defaultfilters import filesizeformat
+from django.utils.translation import ugettext_lazy as _
+# 5MB - 5242880
+# 10MB - 10485760
+# 20MB - 20971520
+# 50MB - 5242880
+# 100MB 104857600
+# 250MB - 214958080
+# 500MB - 429916160
+MAX_UPLOAD_SIZE = 5242880
 
 class UploadForm(forms.ModelForm):
     course_name = forms.CharField(label='Course Name', widget=forms.TextInput(attrs={'class': "form-control", 'placeholder':"Course Name...",}), )
@@ -23,3 +33,8 @@ class UploadForm(forms.ModelForm):
         # def __init__(self, *args, **kwargs):
         #     super(UploadForm, self).__init__(*args, **kwargs)
         #     self.fields['subjects'].queryset = Subject.objects.filter(~Q(parent_subject=None))
+    def clean_upload_file(self):
+        content = self.cleaned_data['upload_file']
+        if content.size > MAX_UPLOAD_SIZE:
+            raise forms.ValidationError(_('Please keep filesize under %s. Current filesize %s') % (filesizeformat(MAX_UPLOAD_SIZE), filesizeformat(content.size)))
+        return content
