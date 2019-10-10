@@ -1,4 +1,5 @@
 {% extends "desklib/base.html" %}
+{% load staticfiles %}
 {% block content %}
 
 	{% block messages %}
@@ -31,17 +32,17 @@
         <div class="row">
               <aside class="col-sm-4 border-right">
 		 	 	<div class="list-group" role="tablist">
-			         <a class="list-group-item list-group-item-action bg-active white" href="{% url 'my-profile' %}" role="tab" aria-controls="my-profile">My Profile</a>
-			         <a class="list-group-item list-group-item-action" href="{% url 'my-downloads' %}" role="tab" aria-controls="my-downloads">My Downloads</a>
-			         <a class="list-group-item list-group-item-action" href="javascript:void(0);" role="tab" aria-controls="my-account">My Account</a>
-			         <a class="list-group-item list-group-item-action" href="javascript:void(0);" role="tab" aria-controls="my-settings">My Settings</a>
-			         <a class="list-group-item list-group-item-action" href="javascript:void(0);" role="tab" aria-controls="upload-files">Upload Files</a>
+			         <a class="list-group-item list-group-item-action" href="{% url 'my-profile' %}" role="tab" aria-controls="my-profile">My Profile</a>
+               <a class="list-group-item list-group-item-action bg-active white" href="{% url 'my-downloads' %}" role="tab" aria-controls="my-downloads">My Downloads</a>
+               <a class="list-group-item list-group-item-action" href="{% url 'my-uploads' %}" role="tab" aria-controls="my-uploads">My Uploads</a>
+			         <!-- <a class="list-group-item list-group-item-action" href="javascript:void(0);" role="tab" aria-controls="my-settings">My Settings</a>
+			         <a class="list-group-item list-group-item-action" href="javascript:void(0);" role="tab" aria-controls="upload-files">Upload Files</a> -->
         </div>
 	</aside> 
 
             <div class="col-sm-8 mt-3 mt-md-0">
-            		<table class="table table-bordered">
-            			<h4 class="text-center mb-3">My Downloads</h4>
+                <h4 class="text-center mb-3" style="display: inline-block;">My Downloads</h4><i class="fa fa-download fa-4" aria-hidden="true" style="font-size:21px;color: #405fbd; padding-left: inherit;"></i>
+            		<table class="table table-bordered table-sm">            			
             		 	<thead>
             		 	 	<tr>
             		 	 	   <th scope="col">Title</th>
@@ -51,28 +52,63 @@
             		 {% for downloads in user_downloads %}
             		   <tbody>
             		   	   <tr>
-            		   	   	 <td scope="row">{{downloads.document}}</td>
-            		   	   	  <td scope="row">{{downloads.created_at|date:'Y-m-d H:i'}}</td>
+            		   	   	 <td scope="row">{{downloads.document | truncatechars:40}}</td>
+            		   	   	  <td scope="row">{{downloads.created_at|date:'Y-m-d'}}</td>
             		   	   </tr>
             		   </tbody>
             		   {% endfor %}
             	</table>
+{% comment %}    
     <div class="d-flex justify-content-center mb-3">
         <nav aria-label="Page navigation example">
           <ul class="pagination">
             <li class="page-item">
                {% if user_downloads.has_previous %}
-              <a class="page-link" href="href=?page1={{ user_downloads.previous_page_number }}" class="page-link">Previous</a>
+              <a class="page-link" href="href=?page1={{ user_downloads.previous_page_number }}" class="pagination-Previous">Previous</a>
                 {% endif %}
                 <span class="current">Page {{ user_downloads.number }} of {{ user_downloads.paginator.num_pages }}
                 </span>
                 {% if user_downloads.has_next %}
-                        <a href="?page1={{ user_downloads.next_page_number }}" class="page-link">next </a>
+                        <a href="?page1={{ user_downloads.next_page_number }}" class="pagination-next">next </a>
                     {% endif %}
             </li>
           </ul>
         </nav>
+    </div>
+{% endcomment %}
+
+<div class="container d-flex justify-content-center">
+  <div class="row">
+    <div class="col-md-12">
+        <ul class="pagination" id="user_download">
+          <li class="page-item p-3">
+          {% if user_downloads.has_previous %}
+              <a class="previous" href="?page1={{ user_downloads.previous_page_number }}">
+         <span aria-hidden="true"><i class='fas fa-angle-left fafa-nav-active'></i></span></a>
+          {% else %}
+          <a class="previous"><i class='fas fa-angle-left fafa-nav-in-active'></i></a>
+          {% endif %}
+          </li>
+          {% for page in user_downloads.paginator.page_range %}
+              {% if page == user_downloads.number %}
+              <li class="page-item active p-3"><a class="rounded-circle page-link" href="?page1={{page}}">{{page}}</a></li>
+              {% else %}
+              <li class="page-item p-3"><a class="rounded-circle page-link" href="?page1={{page}}">{{page}}</a></li>
+              {% endif %}
+          {% endfor %}
+          <li class="page-item p-3">
+          {% if user_downloads.has_next %}                                    
+              <a class="previous" href="?page1={{ user_downloads.next_page_number }}"><span aria-hidden="true"><i class='fas fa-angle-right fafa-nav-in-active'></i></span></a>
+          {% else %}
+            <a class="next"><i class='fas fa-angle-right fafa-nav-in-active'></i></a>
+
+          {% endif %}
+          </li>
+        </ul>
+    </div>
+  </div>
 </div>
+
 </div>
 </div>
 </div>
@@ -89,8 +125,8 @@
 	 	<div class="row">
 	 		<div class="col-sm-4"></div>
 	 		<div class="col-sm-8">
-	 			<table class="table table-bordered">
-	 				<h4 class="text-center mb-3">My page view</h4>
+        <h4 class="text-center mb-3" style="display: inline-block;">My page view</h4><i class="fas fa-book-open fa-4" aria-hidden="true" style="font-size:21px;color: #405fbd; padding-left: inherit;"></i>
+	 			<table class="table table-bordered table-sm">	 				
 	 				 <thead>
 	 				 	 <tr>
 	 				 	 	<th scope="col">Pages</th>
@@ -101,46 +137,73 @@
 	 				   <tbody>
 	 				   	 <tr>
 	 				   	 	 <td scope="row">
-	 				   	 	 	{{pages.document}}</td>
+	 				   	 	 	{{pages.document | truncatechars:40}}</td>
 	 				   	 	  <td scope="row">
-	 				   	 	  	{{pages.created_at|date:'Y-m-d H:i'}}
+	 				   	 	  	{{pages.created_at|date:'Y-m-d'}}
 	 				   	 	  </td>
 	 				   	 </tr>
 	 				   </tbody>
 	 				   {% endfor %}
-	 			</table>
-<div class="d-flex justify-content-center mb-3 mt-5">
+	 			</table>       
+
+      <div class="container d-flex justify-content-center">
+        <div class="row">
+          <div class="col-md-12">            
+            <ul class="pagination" id="page_view">
+              <li class="page-item p-3">
+              {% if page_view.has_previous %}
+                  
+                  <a class="previous" href="?page2={{ page_view.previous_page_number }}">
+             <span aria-hidden="true"><i class='fas fa-angle-left fafa-nav-active'></i></span></a>
+              {% else %}
+              <a class="previous"><i class='fas fa-angle-left fafa-nav-in-active'></i></a>
+              {% endif %}
+              </li>
+              {% for page in page_view.paginator.page_range %}
+                  {% if page == page_view.number %}
+                  <li class="page-item active p-3"><a class="rounded-circle page-link" href="?page2={{page}}">{{page}}</a></li>
+                  {% else %}
+                  <li class="page-item p-3"><a class="rounded-circle page-link" href="?page2={{page}}">{{page}}</a></li>
+                  {% endif %}
+              {% endfor %}
+              <li class="page-item p-3">
+              {% if page_view.has_next %}                                    
+                  <a class="previous" href="?page2={{ page_view.next_page_number }}"><span aria-hidden="true"><i class='fas fa-angle-right fafa-nav-in-active'></i></span></a>
+              {% else %}
+                <a class="next"><i class='fas fa-angle-right fafa-nav-in-active'></i></a>
+
+              {% endif %}
+              </li>
+            </ul>              
+        </div>
+      </div>
+    </div>
+
+{% comment %}
+<div class="d-flex justify-content-center mb-3 mt-3">
   <nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item">
-       <span class="step-links">
-            {% if page_view.has_previous %}
-                    <a href="?page2={{ page_view.previous_page_number }}" class=" page-link d-inline"> previous </a>
-            {% endif %}
-              <span class="current">
-                Page {{ page_view.number }} of {{ page_view.paginator.num_pages }}
-            </span>
-            {% if page_view.has_next %}
-                    <a href="?page2={{ page_view.next_page_number }}" class="page-link d-inline"> next </a>
-            {% endif %}
-        </span>
-      
-    </li>
-  </ul>
-</nav>
+    <ul class="pagination">
+      <li class="page-item">
+         <span class="step-links">
+              {% if page_view.has_previous %}
+                      <a href="?page2={{ page_view.previous_page_number }}" class="pagination-previous"> previous </a>
+              {% endif %}
+                <span class="current">
+                  Page {{ page_view.number }} of {{ page_view.paginator.num_pages }}
+              </span>
+              {% if page_view.has_next %}
+                      <a href="?page2={{ page_view.next_page_number }}" class="pagination-next"> next </a>
+              {% endif %}
+          </span>
+        
+      </li>
+    </ul>
+  </nav>
 </div>
+{% endcomment %}
 	 		</div>
 	 	</div>
 	 </div>
 </section>
-
-{% endblock %}
-
-{% block extra_js %}
-<script>
-    $(document).ready(function (){
-        $(".my-downloads").addClass("active");
-    });
-</script>
 
 {% endblock %}
