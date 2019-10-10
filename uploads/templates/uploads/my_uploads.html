@@ -1,19 +1,4 @@
 {% extends "desklib/base.html" %}
-{% block extra_css %}
-<style type="text/css">
-/* https://djangopy.org/how-to/pagination-with-django/*/
-#down li{
-  font-size: 25px;
-}
-#down2 li{
-  font-size: 25px;
-}
-.active{ 
-  /*background-color: #405fbd;*/
-  background-color: #a1def2;
-}
-</style>
-{% endblock extra_css %}
 {% load staticfiles %}
 {% block content %}
 {% comment %}
@@ -33,41 +18,40 @@
 </ul>
 {% endcomment %}
 <section class="pt-5">
-      <div class="container">
+    <div class="container">
         <div class="row">
             <aside class="col-sm-4 border-right">
 		 	 	<div class="list-group" role="tablist">
-			         <a class="list-group-item list-group-item-action bg-active white" href="{% url 'my-profile' %}" role="tab" aria-controls="my-profile">My Profile</a>
+			         <a class="list-group-item list-group-item-action" href="{% url 'my-profile' %}" role="tab" aria-controls="my-profile">My Profile</a>
 			         <a class="list-group-item list-group-item-action" href="{% url 'my-downloads' %}" role="tab" aria-controls="my-downloads">My Downloads</a>
-			         <a class="list-group-item list-group-item-action" href="javascript:void(0);" role="tab" aria-controls="my-account">My Account</a>
-			         <a class="list-group-item list-group-item-action" href="javascript:void(0);" role="tab" aria-controls="my-settings">My Settings</a>
-			         <a class="list-group-item list-group-item-action" href="javascript:void(0);" role="tab" aria-controls="upload-files">Upload Files</a>
-        </div>
-	</aside> 
+			         <a class="list-group-item list-group-item-action bg-active white" href="{% url 'my-uploads' %}" role="tab" aria-controls="my-account">My Uploads</a>
+			         <!-- <a class="list-group-item list-group-item-action" href="javascript:void(0);" role="tab" aria-controls="my-settings">My Settings</a>
+			         <a class="list-group-item list-group-item-action" href="javascript:void(0);" role="tab" aria-controls="upload-files">Upload Files</a> -->
+                </div>
+	        </aside> 
             <div class="col-sm-8 mt-3 mt-md-0">
             	<h4 class="mb-3" style="display: inline-block;">My Uploads</h4><i class="fa fa-upload fa-4" aria-hidden="true" style="font-size:21px;color: #405fbd; padding-left: inherit;"></i>
             	 <div class="table-responsive-sm">
-            		<table class="table table-bordered">
+            		<table class="table table-bordered table-sm">
             		 	<thead>
             		 	 	<tr>
-            		 	 	   <th scope="col">Course Name</th>
-                                <th scope="col">Course Code</th>
-            		 	 	     <th scope="col">Subject</th>                                 
-                                 <th scope="col">University</th>
-                                 <th scope="col">Document Type</th>
-                                 <!-- <th scope="col">Uploaded File</th> -->
-                                 <th scope="col">Status</th>
+            		 	 	    <th scope="col">Course Name</th>
+                                <th scope="col">Course Code</th> 
+                                <th scope="col">University</th>
+                                <th scope="col">Document Type</th>
+                                <th scope="col">Upload Date</th>
+                                <th scope="col">Status</th>
             		 	 </tr>
             		 </thead>
             		   <tbody>
                          {% for object in object_list %}
             		   	   <tr>
             		   	   	 <td scope="row">{{ object.course_name }}</td>
-            		   	   	 <td scope="row">{{ object.course_code }}</td>
-                             <td scope="row">{{ object.subjects }}</td>            		   	   	 
+            		   	   	 <td scope="row">{{ object.course_code }}</td>   	   	
             		   	   	 <td scope="row">{{ object.university }}</td>
                              <td scope="row">{{ object.get_type_display }}</td>
-
+                             <td scope="row">{{ object.created|date:"M d, Y" }}</td>
+                             <td scope="row">{{ object.get_status_display }}</td>                              
                               <!-- <td scope="row">
                                 {{ object.upload_file|truncatechars:10 }}
                               </td> -->
@@ -76,9 +60,10 @@
                              {% endfor %}
             		   </tbody>
             		  
-  </table>
+                    </table>
 
-    <div class="d-flex justify-content-center mb-3 mt-3">
+    {% comment %}
+    <div class="d-flex justify-content-center my-3">
     <nav aria-label="Page navigation example">
       <ul class="pagination">
         <li class="page-item">
@@ -98,31 +83,32 @@
       </ul>
     </nav>
     </div>
+    {% endcomment %}
 
     <div class="container d-flex justify-content-center">
       <div class="row">
         <div class="col-md-12">
-          <div class="pagination">
+          <!-- <div class="pagination"> -->
             <!-- <span class="step-links"> -->
-              <ul class="pagination" id="down">
+              <ul class="pagination" id="uploads">
                 <li class="page-item p-3">
                 {% if object.has_previous %}
-                    <a class="previous" href="?page1={{ object.previous_page_number }}">
+                    <a class="previous" href="?page={{ object.previous_page_number }}">
                <span aria-hidden="true"><i class='fas fa-angle-left fafa-nav-active'></i></span></a>
                 {% else %}
-                <a class="previous"><i class='fas fa-angle-left fafa-nav'></i></a>
+                <a class="previous"><i class='fas fa-angle-left fafa-nav-in-active'></i></a>
                 {% endif %}
                 </li>
                 {% for page in object.paginator.page_range %}
                     {% if page == object.number %}
-                    <li class="page-item active p-3"><a class="rounded-circle page_number" href="?page1={{page}}">{{page}}</a></li>
+                    <li class="page-item active p-3"><a class="rounded-circle page-link" href="?page={{page}}">{{page}}</a></li>
                     {% else %}
-                    <li class="page-item p-3"><a class="rounded-circle page_number" href="?page1={{page}}">{{page}}</a></li>
+                    <li class="page-item p-3"><a class="rounded-circle page-link" href="?page={{page}}">{{page}}</a></li>
                     {% endif %}
                 {% endfor %}
                 <li class="page-item p-3">
                 {% if object.has_next %}                                    
-                    <a class="previous" href="?page1={{ object.next_page_number }}"><span aria-hidden="true"><i class='fas fa-angle-right fafa-nav-in-active'></i></span></a>
+                    <a class="previous" href="?page={{ object.next_page_number }}"><span aria-hidden="true"><i class='fas fa-angle-right fafa-nav-in-active'></i></span></a>
                 {% else %}
                   <a class="next"><i class='fas fa-angle-right fafa-nav-in-active'></i></a>
 
@@ -130,7 +116,7 @@
                 </li>
               </ul>
             <!-- </span> -->
-          </div>
+          <!-- </div> -->
         </div>
       </div>
     </div>
