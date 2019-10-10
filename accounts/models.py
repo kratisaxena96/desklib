@@ -54,7 +54,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), max_length=60, unique=True)
     first_name = models.CharField(_('first name'), max_length=40)
     last_name = models.CharField(_('last name'), max_length=40, blank=True, null=True)
-    contact_no = PhoneNumberField(_('contact number'), max_length=20, blank=True, null=True)
+    contact_no = PhoneNumberField(_('contact number'), max_length=20)
     country = CountryField(blank_label='(select country)')
     university = models.CharField(_('University'), max_length=50)
     college = models.CharField(_('College'), max_length=50)
