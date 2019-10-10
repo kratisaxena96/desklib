@@ -45,11 +45,23 @@ class Upload(models.Model):
         (THESIS, 'Thesis'),
         (RESEARCH_PAPER, 'Research Paper')
     )
+
+    PENDING = 1
+    ACCEPTED = 2
+    REJECTED = 7
+
+    STATUS_CHOICES = (
+        (PENDING, 'Pending'),
+        (ACCEPTED, 'Accepted'),
+        (REJECTED, 'Rejected'),
+    )
+
     course_name = models.CharField(_('Course Name'), db_index=True, max_length=200)
     course_code = models.CharField(_('Course Code'), max_length=100, blank=True, null=True)
     country = CountryField(blank_label='(select country)', blank=True, null=True)
     university = models.CharField(_('University / College'), max_length=50, blank=True, null=True)
     type = models.IntegerField(choices=TYPE_OF_DOCUMENT, default=SOLUTION, db_index=True)
+    status = models.IntegerField(choices=STATUS_CHOICES, default=PENDING, blank=True, null=True)
     subjects = models.ManyToManyField(Subject, db_index=True, related_name='subject_uploads')
     upload_file = models.FileField(verbose_name=_(' Upload File'), upload_to=upload_to, max_length=1000, validators=[FileExtensionValidator(allowed_extensions=['pdf', 'doc', 'docx'])])
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='author_upload' ,blank=True, null=True)

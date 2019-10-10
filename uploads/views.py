@@ -24,7 +24,7 @@ class UploadDocumentView(LoginRequiredMixin, JsonLdContextMixin, CreateView):
 class MyUploads(LoginRequiredMixin, ListView):
     model = Upload
     template_name = "uploads/my_uploads.html"
-    paginate_by = 10
+    paginate_by = 2
     title = "My-uploads"
 
     def get_queryset(self):
