@@ -71,67 +71,69 @@
                               <!-- <td scope="row">
                                 {{ object.upload_file|truncatechars:10 }}
                               </td> -->
-                              <td scope="row">{{ object.status }}</td>
+                              <!-- <td scope="row">{{ object.status }}</td> -->
             		   	   </tr>
                              {% endfor %}
             		   </tbody>
             		  
   </table>
 
-<div class="d-flex justify-content-center mb-3 mt-3">
-<nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item">
-       <span class="step-links">
-            {% if my_uploads.has_previous %}
-                    <a href="?page={{ my_uploads.previous_page_number }}" class="pagination-previous"> previous </a>
-            {% endif %}
-              <span class="current">
-                Page {{ my_uploads.number }} of {{ my_uploads.paginator.num_pages }}
-            </span>
-            {% if my_uploads.has_next %}
-                    <a href="?page={{ my_uploads.next_page_number }}" class="pagination-next"> next </a>
-            {% endif %}
-        </span>
-      
-    </li>
-  </ul>
-</nav>
-</div>
-{% comment %}
-<div class = "container d-flex justify-content-center">
-  <div class="row">
-  <div class = "col-md-12">
+    <div class="d-flex justify-content-center mb-3 mt-3">
     <nav aria-label="Page navigation example">
-      <ul class="pagination" id="down">
-        <li class="page-item">  <!-- Jump to Prvious Page -->
-          {% if object_list.has_previous %}
-             <li class="previous px-2"> <a href="?page={{ object_list.previous_page_number }}">
-             <span aria-hidden="true"><img class="img-fluid" src="{% static 'dist/assets/images/chevron_left copy.png' %}"></span></a>
-          {% else %}
-              <li class="previous disabled px-2"><a><img class="img-fluid" src="{% static 'dist/assets/images/chevron_left copy.png' %}"></a>
-          {% endif %}
+      <ul class="pagination">
+        <li class="page-item">
+           <span class="step-links">
+                {% if my_uploads.has_previous %}
+                        <a href="?page={{ my_uploads.previous_page_number }}" class="pagination-previous"> previous </a>
+                {% endif %}
+                  <span class="current">
+                    Page {{ my_uploads.number }} of {{ my_uploads.paginator.num_pages }}
+                </span>
+                {% if my_uploads.has_next %}
+                        <a href="?page={{ my_uploads.next_page_number }}" class="pagination-next"> next </a>
+                {% endif %}
+            </span>
+          
         </li>
-         {% for page in object_list.paginator.page_range %}
-            {% if page == object_list.number %}
-            <li class="pg px-2 active"><a class = "page_number" href="?page={{page}}">{{page}}</a>
-            {% else %}
-            <li class="pg px-2"><a class = "page_number" href="?page={{page}}">{{page}}</a>
-            {% endif %}
-        {% endfor %}
-        <li class="page-item">  <!-- Jump to Next Page -->
-          {% if object_list.has_next %}
-            <li class="previous px-2"> <a href="?page={{ object_list.next_page_number }}"><img class="img-fluid" src="{% static 'dist/assets/images/ic_chevron_right_24px copy.png' %}"></a></li>
-          {% else %}
-              <li class="next disabled px-2"><a><img class="img-fluid" src="{% static 'dist/assets/images/ic_chevron_right_24px copy.png' %}"></a>
-          {% endif %}
-        </li>
-      </ul>      
+      </ul>
     </nav>
-  </div>
-  </div>
-</div>
-{% endcomment %}
+    </div>
+
+    <div class="container d-flex justify-content-center">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="pagination">
+            <!-- <span class="step-links"> -->
+              <ul class="pagination" id="down">
+                <li class="page-item p-3">
+                {% if object.has_previous %}
+                    <a class="previous" href="?page1={{ object.previous_page_number }}">
+               <span aria-hidden="true"><i class='fas fa-angle-left fafa-nav-active'></i></span></a>
+                {% else %}
+                <a class="previous"><i class='fas fa-angle-left fafa-nav'></i></a>
+                {% endif %}
+                </li>
+                {% for page in object.paginator.page_range %}
+                    {% if page == object.number %}
+                    <li class="page-item active p-3"><a class="rounded-circle page_number" href="?page1={{page}}">{{page}}</a></li>
+                    {% else %}
+                    <li class="page-item p-3"><a class="rounded-circle page_number" href="?page1={{page}}">{{page}}</a></li>
+                    {% endif %}
+                {% endfor %}
+                <li class="page-item p-3">
+                {% if object.has_next %}                                    
+                    <a class="previous" href="?page1={{ object.next_page_number }}"><span aria-hidden="true"><i class='fas fa-angle-right fafa-nav-in-active'></i></span></a>
+                {% else %}
+                  <a class="next"><i class='fas fa-angle-right fafa-nav-in-active'></i></a>
+
+                {% endif %}
+                </li>
+              </ul>
+            <!-- </span> -->
+          </div>
+        </div>
+      </div>
+    </div>
 
 </div>
 </div>
