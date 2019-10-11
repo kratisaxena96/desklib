@@ -26,8 +26,8 @@
       <div class="col-sm-8 mycontent-left">
           <h5 class="text-center">Download Document</h5>
                 <hr>
-                <p>You are about to download this document, are you sure you want to continue?</p>
-                <p>Please review the following details:</p>
+                <p>You are about to download this document, document will be sent on you email. Please review the following details:</p>
+                <p>Are you sure you want to continue?</p>
                 <div class="table-responsive">
                 <table class="table table-sm">
                     <tbody>
@@ -58,13 +58,13 @@
                             <input class="form-control" id="id_file" name="file" type="hidden" value="{{document.slug}}">
           {{form.captcha}}
                             {{form.issue}}
-                            &nbsp;<label class="v-align-m" for="{{form.id_issue}}" id="id_issue"> I agree to <a href="{% url 'termsofuse' %}">Terms of use</a> & <a href="{% url 'privacypolicy' %}">Privacy Policy</a> </label>
+                            &nbsp;<label class="form-check-label" for="id_issue"> I agree to <a href="{% url 'termsofuse' %}">Terms of use</a> & <a href="{% url 'privacypolicy' %}">Privacy Policy</a> </label>
                         </div>
                         <div class="col text-center">
                           <button class="btn text-white btn-bg-theme border-radius-40" type="submit">Download now</button>
                         </div>
                 </form>
-                <p class="text-muted pt-2">*Document will be sent on you email.</p>
+                <!-- <p class="text-muted pt-2">*Document will be sent on you email.</p> -->
       </div>
       <aside class="col-sm-4">
             <h5 class="text-center">Selected Document</h5>
