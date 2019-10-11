@@ -50,6 +50,8 @@ from subscription.utils import is_subscribed, get_current_subscription
 from django.core.files import File as DjangoFile
 from django.db.models import Q
 
+from documents.utils import merge_pdf
+
 
 class DocumentView(JsonLdDetailView):
     model = Document
@@ -269,6 +271,7 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
             # convert the uploaded file to pdf file and save it
             os.system('soffice --headless --convert-to pdf --outdir ' + temp_dir.name + ' ' + temp.name)
 
+
             pre, ext = os.path.splitext(filename)
             file_with_pdf_ext = pre + ".pdf"
             # Changing file extension
@@ -277,11 +280,18 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
             pre, ext = os.path.splitext(tail)
             pdf_converted_loc = os.path.join(temp_dir.name, pre + ".pdf")
 
+
+            merge_pdf(input_pdf=pdf_converted_loc,
+                      output=pdf_converted_loc,
+                      watermark='desklib/static/pdf/watermark-desklib.pdf')
+
             # Reading generated pdf document from soffice and adding it to our model field
             f = open(pdf_converted_loc, 'rb')
             myfile = DjangoFile(f)  # Converting to django's File model object
             # self.pdf_converted_file = myfile
             # self.pdf_converted_file.name = file_with_pdf_ext
+
+
 
             subscription_obj = get_current_subscription(self.request.user)
             expiry_date_subscription = subscription_obj.expire_on
@@ -293,6 +303,7 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
                                                      created_at__lte=expiry_date_subscription).count()
             remaining_downloads = plan_download_limit - download_count
 
+
             if remaining_downloads > 0 :
                 slug = request.POST['file']
                 try:
@@ -302,6 +313,7 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
                     attachments = {}
                     pdf_doc_name = myfile.name.split('/')[-1]
                     attachments[pdf_doc_name] = ContentFile(myfile.file.read())
+
 
                     context = {'document': document_obj}
                     htmly = render_to_string('desklib/mail-templates/document_download_email.html', context,
