@@ -12,6 +12,8 @@ import random
 import string
 from haystack.utils import Highlighter
 
+from PyPDF2 import PdfFileWriter, PdfFileReader
+
 
 # FILES_DIR = 'files'
 # files_list = os.listdir(FILES_DIR)
@@ -307,5 +309,21 @@ def unique_slug_generator(instance, new_slug=None):
         return unique_slug_generator(instance, new_slug=new_slug)
     return slug
 
+
+def merge_pdf(input_pdf, output, watermark):
+    watermark_obj = PdfFileReader(watermark)
+    watermark_page = watermark_obj.getPage(0)
+
+    pdf_reader = PdfFileReader(input_pdf)
+    pdf_writer = PdfFileWriter()
+
+    # Watermark all the pages
+    for page in range(pdf_reader.getNumPages()):
+        page = pdf_reader.getPage(page)
+        page.mergePage(watermark_page)
+        pdf_writer.addPage(page)
+
+    with open(output, 'wb') as out:
+        pdf_writer.write(out)
 
 
