@@ -330,7 +330,7 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
                     mail.send(
                         request.user.email,  # List of email addresses also accepted
                         settings.DEFAULT_FROM_EMAIL,
-                        subject='Your downloaded document from Desklib.com',
+                        subject='Your downloaded document from desklib.com',
                         # message=htmly,
                         html_message=htmly,
                         attachments=attachments,
