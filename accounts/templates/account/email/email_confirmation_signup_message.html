@@ -1,6 +1,5 @@
-{% include "account/email/email_confirmation_message.txt" %}
 {% load staticfiles %}
-
+{% load account %}{% user_display user as user_display %}{% load i18n %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
@@ -87,11 +86,13 @@
 				<td align="center" valign="top">
 					<!-- Content Table Open // -->
 					<table border="0" cellpadding="0" cellspacing="0" width="100%" class="logoTable">
+						<br/><br/>
 						<tr>
 							<td align="center" valign="middle" style="padding-top:40px;padding-bottom:40px">
 								<!-- Logo and Link // -->
-								<a href="{{ request.get_host }}" target="_blank" style="text-decoration:none;">
-									<img src="{{ request.get_host }}{% static 'dist/assets/images/desklib-logo-theme.png'%}" alt="desklib-logo" width="180" border="0" style="height:auto; display:block;"/>
+
+								<a href="{{ current_site.domain}}{% url 'home'%}" target="_blank" style="text-decoration:none;">
+									<img src="{% static 'dist/assets/images/desklib-logo-theme.png'%}" alt="desklib-logo" width="180" border="0" style="height:auto; display:block;"/>
 								</a>
 							</td>
 						</tr>
@@ -126,9 +127,11 @@
 						<tr>
 							<td align="center" valign="top" style="padding-bottom:5px;padding-left:20px;padding-right:20px;" class="title">
 								<!-- Main Title Text // -->
+								<br/><br>
 								<h2 class="bigTitle" style="color:#313131; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:26px; font-weight:600; font-style:normal; letter-spacing:normal; line-height:34px; text-align:center; padding:0; margin:0;">
 									Hi {{ user.get_username }}
 								</h2>
+								<br/>
 							</td>
 						</tr>
 
@@ -205,19 +208,19 @@
 								<!-- Social Links (Facebook)// -->
 								<!-- Social Links (Facebook)// -->
 								<a href="https://www.facebook.com/desklib/k" target="_blank" style="display:inline-block;" class="facebook">
-									<img mc:edit="social-1" src="{{ request.get_host }}{% static 'dist/assets/images/facebook.png'%}" alt="facebook-icon" width="40" border="0" style="height:auto;margin:2px" />
+									<img mc:edit="social-1" src="{% static 'dist/assets/images/facebook.png'%}" alt="facebook-icon" width="40" border="0" style="height:auto;margin:2px" />
 								</a>
 								<!-- Social Links (Twitter)// -->
 								<a href="https://twitter.com/Desklibcom" target="_blank" style="display:inline-block;" class="twitter">
-									<img mc:edit="social-2" src="{{ request.get_host }}{% static 'dist/assets/images/twitter.png'%}" alt="twitter-icon" width="40" border="0" style="height:auto;margin:2px" />
+									<img mc:edit="social-2" src="{% static 'dist/assets/images/twitter.png'%}" alt="twitter-icon" width="40" border="0" style="height:auto;margin:2px" />
 								</a>
 								<!-- Social Links (Instagram)// -->
 								<a href="https://www.instagram.com/desklib/" target="_blank" style="display:inline-block;" class="instagram">
-									<img mc:edit="social-4" src="{{ request.get_host }}{% static 'dist/assets/images/instagram.png'%}" alt="instagram-icon" width="40" border="0" style="height:auto;margin:2px" />
+									<img mc:edit="social-4" src="{% static 'dist/assets/images/instagram.png'%}" alt="instagram-icon" width="40" border="0" style="height:auto;margin:2px" />
 								</a>
 								<!-- Social Links (Linkdin)// -->
 								<a href="https://www.linkedin.com/company/desklib/" target="_blank" style="display:inline-block;" class="linkdin">
-									<img mc:edit="social-5" src="{{ request.get_host }}{% static 'dist/assets/images/linkdin.png'%}" alt="linkdin-icon" width="40" border="0" style="height:auto;margin:2px" />
+									<img mc:edit="social-5" src="{% static 'dist/assets/images/linkdin.png'%}" alt="linkdin-icon" width="40" border="0" style="height:auto;margin:2px" />
 								</a>
 							</td>
 						</tr>
@@ -226,7 +229,8 @@
 							<td align="center" valign="top" class="footerLinks">
 								<!-- Use Full Links (Privacy Policy)// -->
 								<p class="smlText" style="color:#313131; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:12px; font-weight:400; line-height:18px; text-align:center; margin:0; padding:0;" >
-									<a href="{{ request.get_host }}{% url 'privacypolicy' %}" style="color:#8D6CD1;text-decoration:none" target="_blank">Privacy Policy</a> | <a href="{{ request.get_host }}{% url 'about' %}" style="color:#8D6CD1;text-decoration:none" target="_blank">About</a>
+									<a href="{{ current_site.domain}}{% url 'privacypolicy' %}" style="color:#8D6CD1;text-decoration:none" target="_blank">Privacy Policy</a> | <a href="{{ current_site.domain}}{% url 'about' %}" style="color:#8D6CD1;text-decoration:none" target="_blank">About</a>
+
 								</p>
 							</td>
 						</tr>
