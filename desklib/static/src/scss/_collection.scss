@@ -349,7 +349,8 @@ img.img-responsive.mx-auto.d-block {
 .card-signin .card-img-left {
 	width: 45%;
 	/* Link to your background image using in the property below! */
-	background: scroll center url('https://source.unsplash.com/WEQbe2jBg40/414x512');
+	/* background: scroll center url('https://source.unsplash.com/WEQbe2jBg40/414x512');*/
+	background: scroll center url("/static/dist/assets/images/signup_image.jpg");
 	background-size: cover;
 }
 
@@ -748,6 +749,13 @@ display:none;
 #uploads, #user_download, #page_view li{
   font-size: 18px;
 }
+
+.search-drop{
+	transform: translate3d(0px, 40px, 0px);
+	left: unset !important;
+	right: 0;
+}
+
 //------------------------------  Media(@media) CSS  ----------------------------------//
 
 /* Hover Effects on Card */

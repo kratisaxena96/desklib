@@ -156,7 +156,7 @@
                                 <a class="btn dropdown-toggle" data-toggle="dropdown">
                                   Subjects
                                 </a>
-                               <div class="dropdown-menu scrollable-menu" role="menu">
+                               <div class="dropdown-menu scrollable-menu search-drop" role="menu">
                                    {% for sub in sqs.fields.subjects|slice:":5" %}
                                            <a class="dropdown-item" id="{{sub.0|cut:' '}}" href="?q={{ query }}&amp;selected_facets=subjects_exact:{{ sub.0|urlencode }}"> {{ sub.0}}</a>
                 
