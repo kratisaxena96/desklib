@@ -64,8 +64,7 @@ class HomePageView(MetadataMixin, JsonLdContextMixin, SearchView):
     form_class = HomeSearchForm
     title = 'Best study and educational resources | desklib.com'
     description = 'Desklib is your home for best study resources and educational documents. We have a large collection of homework answers, assignment solutions, reports, sample resume and presentations. Our study tools help you improve your writing skills and grammar.'
-    keywords = ['study resources', 'study material', 'homework solution', 'study tools', 'online tutoring',
-                'educational documents', 'sample resume']
+    keywords = [ 'assignment writing help', 'uk assignment help', 'homework help', 'desklib homework help', 'dissertation writing help', 'assignment help online', 'Case Study Help']
     twitter_title = 'All study resources you will need to secure best grades in your assignments'
     og_title = 'All study resources you will need to secure best grades in your assignments'
     gplus_title = 'All study resources you will need to secure best grades in your assignments'
@@ -113,7 +112,7 @@ class HomePageView(MetadataMixin, JsonLdContextMixin, SearchView):
 class AboutPageView(MetadataMixin, JsonLdContextMixin, TemplateView):
     title = 'About | desklib.com'
     description = 'Desklib is a single stop solution for all your academic needs. We provide millions of study documents including assignment solutions which can help students achieve better grades.'
-
+    keywords= ['assignment help', 'homework help websites', 'online dissertation help', 'online thesis writing services', 'college assignment help online', 'college homework help']
     template_name = "desklib/about.html"
 
     structured_data = {
@@ -174,7 +173,7 @@ class PricingPageView(MetadataMixin, JsonLdContextMixin, TemplateView):
 class ContactPageView(MetadataMixin, JsonLdContextMixin, TemplateView):
     title = 'Contact | desklib.com'
     description = '24X7 online support for our customers. Reach our customer support and get your queries answered instantly.'
-
+    keywords = [ 'homework help', 'online assignment help', 'dissertation help', 'thesis writing help online', 'dissertation writing service uk', 'college assignment help', 'online homework help']
     template_name = "desklib/contact.html"
 
     structured_data = {
