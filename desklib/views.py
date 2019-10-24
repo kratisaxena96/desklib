@@ -63,7 +63,8 @@ class ComingSoonPageView(MetadataMixin, JsonLdContextMixin, TemplateView):
 class HomePageView(MetadataMixin, JsonLdContextMixin, SearchView):
     form_class = HomeSearchForm
     title = 'Best study and educational resources | desklib.com'
-    description = 'Desklib is your home for best study resources and educational documents. We have a large collection of homework answers, assignment solutions, reports, sample resume and presentations. Our study tools help you improve your writing skills and grammar.'
+    # description = 'Desklib is your home for best study resources and educational documents. We have a large collection of homework answers, assignment solutions, reports, sample resume and presentations. Our study tools help you improve your writing skills and grammar.'
+    description = 'Assignment, homework help and all Academic Assistance for students studying in Australia, UK, USA, Saudi Arabia, UAE, Canada not only save time but also save money'
     keywords = [ 'assignment writing help', 'uk assignment help', 'homework help', 'desklib homework help', 'dissertation writing help', 'assignment help online', 'Case Study Help']
     twitter_title = 'All study resources you will need to secure best grades in your assignments'
     og_title = 'All study resources you will need to secure best grades in your assignments'
@@ -111,7 +112,8 @@ class HomePageView(MetadataMixin, JsonLdContextMixin, SearchView):
 
 class AboutPageView(MetadataMixin, JsonLdContextMixin, TemplateView):
     title = 'About | desklib.com'
-    description = 'Desklib is a single stop solution for all your academic needs. We provide millions of study documents including assignment solutions which can help students achieve better grades.'
+    # description = 'Desklib is a single stop solution for all your academic needs. We provide millions of study documents including assignment solutions which can help students achieve better grades.'
+    description = 'We as a best choice among students of Aus,UK,USA,and leading towards globe to become best Assignment Writing help Service Company in World. Consult our highly-qualified and experienced writers to attain academic excellence.'
     keywords= ['assignment help', 'homework help websites', 'online dissertation help', 'online thesis writing services', 'college assignment help online', 'college homework help']
     template_name = "desklib/about.html"
 
@@ -172,7 +174,8 @@ class PricingPageView(MetadataMixin, JsonLdContextMixin, TemplateView):
 
 class ContactPageView(MetadataMixin, JsonLdContextMixin, TemplateView):
     title = 'Contact | desklib.com'
-    description = '24X7 online support for our customers. Reach our customer support and get your queries answered instantly.'
+    # description = '24X7 online support for our customers. Reach our customer support and get your queries answered instantly.'
+    description = 'If any of you need online assignment help,homework help or dissertation help services,you can contact us through email or via phone.'
     keywords = [ 'homework help', 'online assignment help', 'dissertation help', 'thesis writing help online', 'dissertation writing service uk', 'college assignment help', 'online homework help']
     template_name = "desklib/contact.html"
 
