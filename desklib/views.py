@@ -65,7 +65,7 @@ class HomePageView(MetadataMixin, JsonLdContextMixin, SearchView):
     title = 'Best study and educational resources | desklib.com'
     # description = 'Desklib is your home for best study resources and educational documents. We have a large collection of homework answers, assignment solutions, reports, sample resume and presentations. Our study tools help you improve your writing skills and grammar.'
     description = 'Assignment, homework help and all Academic Assistance for students studying in Australia, UK, USA, Saudi Arabia, UAE, Canada not only save time but also save money'
-    keywords = [ 'assignment writing help', 'uk assignment help', 'homework help', 'desklib homework help', 'dissertation writing help', 'assignment help online', 'Case Study Help']
+    keywords = [ 'assignment writing help', 'uk assignment help', 'homework help', 'dissertation writing help', 'assignment help online', 'Case Study Help']
     twitter_title = 'All study resources you will need to secure best grades in your assignments'
     og_title = 'All study resources you will need to secure best grades in your assignments'
     gplus_title = 'All study resources you will need to secure best grades in your assignments'
