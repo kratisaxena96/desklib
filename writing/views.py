@@ -56,8 +56,8 @@ class WritingPageView(MetadataMixin,JsonLdContextMixin, TemplateView):
 class ComparePageView(MetadataMixin,JsonLdContextMixin, FormView):
     form_class = CompareForm
     use_title_tag = True
-    title = 'compare page'
-    description = 'This is a compare page'
+    title = 'Compare two texts for similarity for free | Desklib'
+    description = 'Plagiarism comparison tool for comparing two texts or documents. This free tool compares two texts for similarity and displays copied content.'
 
     template_name = "writing/compare.html"
 
@@ -126,9 +126,9 @@ class ComparePageView(MetadataMixin,JsonLdContextMixin, FormView):
 
 class SpellCheckPageView(MetadataMixin,JsonLdContextMixin, FormView):
     form_class = SpellCheckForm
-    title = 'spell check page'
+    title = 'Free grammar check and spell corrector | Desklib'
     use_title_tag = True
-    description = 'This is a spell check page'
+    description = 'Check your text for grammar corrections and spelling mistakes using our free tool. Get free writing tips and suggestions to improve your writing skills.'
 
     template_name = "writing/spell_check.html"
 
