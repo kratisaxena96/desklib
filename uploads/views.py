@@ -38,7 +38,7 @@ class MyUploads(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(MyUploads, self).get_context_data(**kwargs)
-        upload = Upload.objects.filter(author=self.request.user).order_by('created')
+        upload = Upload.objects.filter(author=self.request.user).order_by('-created')
         paginator = Paginator(upload, self.paginate_by)
 
         page = self.request.GET.get('page')
