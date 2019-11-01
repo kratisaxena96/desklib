@@ -24,14 +24,25 @@
 .select2-container--default .select2-selection--single .select2-selection__rendered{
 	margin-left: 16px;
 }
+.select2.select2-container.select2-container--default{
+	width: 100% !important;
+}
+
 #flag_id_country{
 	position: absolute;
 	left: 5px;
 	top: 8px;
 }
+label.custom-file-label{
+	border-top-left-radius: 2rem;
+	border-bottom-left-radius: 2rem;
+}
+span.input-group-text{
+	border-top-right-radius: 2rem;
+	border-bottom-right-radius: 2rem;
+}
 </style>
 {% endblock extra_css %}
-
 
 {% block content %}
 {% comment %}
@@ -49,9 +60,9 @@
 			<div class="col-md-8">
 			   <div class="card p-4 box-shadow-3-3-5-5">
 				<h2 class="text-center mb-3 mt-3 mt-md-3">Upload your documents</h2>
-					<form method="POST" action="" enctype="multipart/form-data">
+					<form method="POST" action="" enctype="multipart/form-data" novalidate>
 						 {% csrf_token %}
-						<div class="row mt-3 mb-md-3">
+						<div class="row mt-3 mb-sm-3">
 							<div class="col-sm-4 col-md-4">
 								<div class="form-group">
 					 	  			<label for="id_course_name" class="star"><strong>{{form.course_name.label}}:</strong></label>
@@ -64,7 +75,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row mb-md-3">
+				<div class="row mb-sm-3">
 					<div class="col-sm-4 col-md-4">
 						<div class="form-group">
 					 	  		<label for="id_course_code" class=""><strong>{{form.course_code.label}}:</strong></label>
@@ -73,11 +84,11 @@
 				<div class="col-sm-8">
 					<div class="form-group">
 						{{ form.course_code }}
-						<span id="" class="form-text text-muted">{{form.course_cod.errors}}</span>
+						<span id="" class="form-text text-muted">{{form.course_code.errors}}</span>
 					</div>
 				</div>
 			</div>
-			<div class="row mb-md-3">
+			<div class="row mb-sm-3">
 					<div class="col-sm-4 col-md-4">
 						<div class="form-group">
 					 	  		<label for="id_subject" class="star"><strong>{{form.subjects.label}}:</strong></label>
@@ -90,7 +101,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row mb-md-3">
+			<div class="row mb-sm-3">
 				<div class="col-sm-4 col-md-4">
 					<div class="form-group">
 					 	  		<label for="id_country" class="star"><strong>{{form.country.label}}:</strong></label>
@@ -104,7 +115,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row mb-md-3">
+			<div class="row mb-sm-3">
 				<div class="col-sm-4 col-md-4">
 					<div class="form-group">
 					 	  		<label for="id_college" class=""><strong>{{form.university.label}}:</strong></label>
@@ -130,7 +141,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row mb-md-3">
+			<div class="row mb-sm-3">
 				<div class="col-sm-4 col-md-4">
 					<div class="form-group">
 						<label for="inputGroupFile02" class="star"><strong>{{form.upload_file.label}}:</strong></label>
@@ -139,7 +150,7 @@
 			<div class="col-sm-8">
 			   <div class="form-group">
 				<div class="input-group">
-					  <div class="custom-file">
+					<div class="custom-file">
 					  	{{ form.upload_file}}
     					<label class="custom-file-label" for="inputGroupFile02">Choose file</label>
  			 </div>
@@ -148,7 +159,7 @@
   		</div>
 		</div>
 		<small id="" class="form-text text-muted">
-			You can upload doc, docx, and pdf format.</small>
+			You can upload doc, docx, and pdf format. Max file-size should be 5 MB</small>
 		<small id="" class="form-text text-muted">{{form.upload_file.errors}}</small>
 		
 	</div>
@@ -160,7 +171,7 @@
 			</div>
 			{% endcomment %}
 		</div>
-			<div class="row d-flex justify-content-center mt-3 mb-4">
+			<div class="row d-flex justify-content-center mt-3 mb-sm-3">
 				<div class="col-sm-3">
 				<input type="submit" value="Upload document" class="btn btn-bg-theme text-white border-radius-40">
 			</div>
@@ -191,4 +202,5 @@ $(document).ready(function() {
     $(this).next('.custom-file-label').html(event.target.files[0].name);
 })
 </script>
+
 {% endblock %}
