@@ -751,9 +751,9 @@ display:none;
 }
 
 .search-drop{
-	transform: translate3d(0px, 40px, 0px);
+	transform: translate3d(0px, 40px, 0px) !important;
 	left: unset !important;
-	right: 0;
+	right: 0 !important;
 }
 
 //------------------------------  Media(@media) CSS  ----------------------------------//
