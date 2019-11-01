@@ -16,6 +16,7 @@ from desklib.settings.base import *
 
 ALLOWED_HOSTS = ['.desklib.com']
 DEBUG=False
+ADMINS = [('Rishi', 'rishi.dutta@zucolservices.com')]
 
 ALLOWED_IPS = ['171.50.149.84']
 
@@ -79,6 +80,10 @@ LOGGING = {
             'class': 'logging.FileHandler',
             'filename': 'logs/debug.log',
         },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+        }
     },
     'loggers': {
         'django': {
@@ -86,8 +91,58 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': True,
         },
+        'django.request': {
+            'handlers': ['mail_admins', 'file'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
     },
 }
+
+
+
+# # Logging
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console': {
+#             'class': 'logging.StreamHandler',
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['console'],
+#             'propagate': True,
+#             'level': 'INFO'
+#         },
+#         'chat': {
+#             'handlers': ['console'],
+#             'propagate': False,
+#             'level': 'DEBUG',
+#         },
+#     },
+# }
+
+
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'file': {
+#             'level': 'DEBUG',
+#             'class': 'logging.FileHandler',
+#             'filename': 'debug.log',
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['file'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#     },
+# }
 
 
 THUMBNAIL_DEBUG = False

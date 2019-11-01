@@ -7,7 +7,7 @@
 {% block content %}
 <!--<h1>Home</h1>-->
 
-<section class="container-fluid banner-image img-responsive">
+<section class="container-fluid banner-image img-fluid">
  {% block messages %}
      {% if messages %}
         <div>
@@ -196,7 +196,7 @@
     </div>
     <div class="row mb-5">
         <div class="col-md-12 text-center">
-            <a class="btn text-white btn-bg-theme py-3 px-4 border-radius-40" href="{% url 'subscription' %}">Subscribe us for an low as $30 a month</a>
+            <a class="btn text-white btn-bg-theme py-3 px-4 border-radius-40" href="{% url 'subscription' %}">Subscribe us for an low as $60 a month</a>
             <p class="pt-3">* Please read details about our subscription by clicking on the link above</p>
             {% comment %}
             <p class="font-size-20 blue-font"> <a href="{% url 'subscription' %}">Learn more</a></p>
