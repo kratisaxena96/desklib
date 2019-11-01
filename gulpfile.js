@@ -68,6 +68,7 @@ gulp.task('copy-css', function(){
   gulp.src('bower_components/owl.carousel/dist/assets/owl.carousel.min.css').pipe(gulp.dest('desklib/static/src/css/'));
   gulp.src('bower_components/owl.carousel/dist/assets/owl.theme.default.min.css').pipe(gulp.dest('desklib/static/src/css/'));
   gulp.src('bower_components/components-font-awesome/css/all.css').pipe(gulp.dest('desklib/static/src/css/'));
+  gulp.src('bower_components/select2/dist/css/select2.css').pipe(gulp.dest('desklib/static/src/css/'));
 });
 
 gulp.task('copy-font', function(){
@@ -80,7 +81,7 @@ gulp.task('copy-js', function(){
   gulp.src('bower_components/owl.carousel/dist/owl.carousel.min.js').pipe(gulp.dest('desklib/static/src/js/'));
   gulp.src('bower_components/typeahead.js/dist/typeahead.bundle.js').pipe(gulp.dest('desklib/static/src/js/'));
   gulp.src('bower_components/typeahead.js/dist/bloodhound.js').pipe(gulp.dest('desklib/static/src/js/'));
-
+  gulp.src('bower_components/select2/dist/js/select2.js').pipe(gulp.dest('desklib/static/src/js/'));
 });
 
 //compress images

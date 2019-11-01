@@ -16,15 +16,15 @@ from django.utils.translation import ugettext_lazy as _
 MAX_UPLOAD_SIZE = 5242880
 
 class UploadForm(forms.ModelForm):
-    course_name = forms.CharField(label='Course Name', widget=forms.TextInput(attrs={'class': "form-control", 'placeholder':"Course Name...",}), )
+    course_name = forms.CharField(label='Course Name', widget=forms.TextInput(attrs={'class': "form-control form-rounded", 'placeholder':"Course Name...",}))
     # subjects = forms.ChoiceField(label='Subject',initial=0, widget=forms.Select(attrs={'class': "form-control"}), required=True)
-    subjects = forms.ModelMultipleChoiceField(queryset= Subject.objects.filter(~Q(parent_subject=None)), initial=0, widget=forms.Select(attrs={'class': "form-control js-example-basic-multiple", 'multiple': "multiple"}))
+    subjects = forms.ModelMultipleChoiceField(queryset= Subject.objects.filter(~Q(parent_subject=None)), initial=0, widget=forms.SelectMultiple(attrs={'class': "form-control js-example-basic-multiple"}))
 
-    type = forms.ChoiceField(label='Type of Document', choices=Upload.TYPE_OF_DOCUMENT, widget=forms.Select(attrs={'class': "form-control"}))
-    upload_file = forms.FileField(label='Upload Document', widget=forms.FileInput(attrs={'class': "form-control custom-file-input"}), required=True)
-    course_code = forms.CharField(label='Course Code', widget=forms.TextInput(attrs={'class': "form-control", 'placeholder':"Course Code..."}), required=False)
+    type = forms.ChoiceField(label='Type of Document', choices=Upload.TYPE_OF_DOCUMENT, widget=forms.Select(attrs={'class': "form-control form-rounded"}))
+    upload_file = forms.FileField(label='Upload Document', widget=forms.FileInput(attrs={'class': "form-control custom-file-input", 'id': "inputGroupFile02"}))
+    course_code = forms.CharField(label='Course Code', widget=forms.TextInput(attrs={'class': "form-control form-rounded", 'placeholder':"Course Code..."}))
     country = CountryField().formfield(blank_label='(select country)', widget=CountrySelectWidget(attrs={'class': "form-control js-example-basic-single"}))
-    university = forms.CharField(label='University', widget=forms.TextInput(attrs={'class': "form-control", 'placeholder':"Your University"}), required=False)
+    university = forms.CharField(label='University', widget=forms.TextInput(attrs={'class': "form-control form-rounded", 'placeholder':"Your University"}))
 
     class Meta:
         model = Upload
