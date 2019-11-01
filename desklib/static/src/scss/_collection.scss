@@ -141,6 +141,48 @@ body {
 	float: none;
 }
 
+//------------------for upload-file page 01/11/2019---------//
+
+.select2-container--default .select2-selection--multiple{
+ 	border-radius: 2rem;
+ 	border-color: #ced4da;
+}
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+	border: solid 1px #ced4da;
+}
+.select2-container--default .select2-selection--single{
+ 	border-radius: 2rem;
+ 	border-color: #ced4da;
+ 	height: 38px;
+ 	padding: 4px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+	top: 6px;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered{
+	margin-left: 16px;
+}
+.select2.select2-container.select2-container--default{
+	width: 100% !important;
+}
+
+#flag_id_country{
+	position: absolute;
+	left: 5px;
+	top: 8px;
+}
+label.custom-file-label{
+	border-top-left-radius: 2rem;
+	border-bottom-left-radius: 2rem;
+}
+form ul{
+	padding-left: 0px;
+}
+span.input-group-text{
+	border-top-right-radius: 2rem;
+	border-bottom-right-radius: 2rem;
+}
+
             //----------------------------------------  Study Page  ------------------------------------------//
 .top-image {
 	min-height: 500px;

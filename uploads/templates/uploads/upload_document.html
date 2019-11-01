@@ -1,48 +1,8 @@
 {% extends "desklib/base.html" %}
 
-<head>
+<!-- <head>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
-</head>
- {% block extra_css %}
- <style>
- .select2-container--default .select2-selection--multiple{
- 	border-radius: 2rem;
- 	border-color: #ced4da;
-}
-.select2-container--default.select2-container--focus .select2-selection--multiple {
-	border: solid 1px #ced4da;
-}
-.select2-container--default .select2-selection--single{
- 	border-radius: 2rem;
- 	border-color: #ced4da;
- 	height: 38px;
- 	padding: 4px;
-}
-.select2-container--default .select2-selection--single .select2-selection__arrow {
-	top: 6px;
-}
-.select2-container--default .select2-selection--single .select2-selection__rendered{
-	margin-left: 16px;
-}
-.select2.select2-container.select2-container--default{
-	width: 100% !important;
-}
-
-#flag_id_country{
-	position: absolute;
-	left: 5px;
-	top: 8px;
-}
-label.custom-file-label{
-	border-top-left-radius: 2rem;
-	border-bottom-left-radius: 2rem;
-}
-span.input-group-text{
-	border-top-right-radius: 2rem;
-	border-bottom-right-radius: 2rem;
-}
-</style>
-{% endblock extra_css %}
+</head> -->
 
 {% block content %}
 {% comment %}
@@ -57,6 +17,14 @@ span.input-group-text{
 <section class="py-5">
 	<div class="container">
 		<div class="row d-flex justify-content-center">
+			<aside class="col-sm-4 border-right">
+		 	 	<div class="list-group" role="tablist">
+			         <a class="list-group-item list-group-item-action" href="{% url 'my-profile' %}" role="tab" aria-controls="my-profile">My Profile</a>
+			         <a class="list-group-item list-group-item-action" href="{% url 'my-downloads' %}" role="tab" aria-controls="my-downloads">My Downloads</a>
+			         <a class="list-group-item list-group-item-action" href="{% url 'my-uploads' %}" role="tab" aria-controls="my-account">My Uploads</a>
+			         <a class="list-group-item list-group-item-action bg-active white" href="{% url 'upload-file' %}" role="tab" aria-controls="upload-files">Upload Files</a>
+                </div>
+	        </aside>
 			<div class="col-md-8">
 			   <div class="card p-4 box-shadow-3-3-5-5">
 				<h2 class="text-center mb-3 mt-3 mt-md-3">Upload your documents</h2>
@@ -155,12 +123,12 @@ span.input-group-text{
     					<label class="custom-file-label" for="inputGroupFile02">Choose file</label>
  			 </div>
  			 <div class="input-group-append">
-    			<span class="input-group-text" id="">Upload</span>
+    			<span class="input-group-text" id=""></span>
   		</div>
 		</div>
 		<small id="" class="form-text text-muted">
 			You can upload doc, docx, and pdf format. Max file-size should be 5 MB</small>
-		<small id="" class="form-text text-muted">{{form.upload_file.errors}}</small>
+		<span id="" class="form-text text-muted">{{form.upload_file.errors}}</span>
 
 	</div>
 </div>
@@ -186,8 +154,8 @@ span.input-group-text{
 {% endblock %}
 
 {% block extra_js %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
-<script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>-->
+<script> 
 $(document).ready(function() {
     $('.js-example-basic-single').select2();
 });

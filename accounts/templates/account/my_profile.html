@@ -43,10 +43,7 @@
           <a class="list-group-item list-group-item-action bg-active white" href="{% url 'my-profile' %}" role="tab" aria-controls="my-profile">My Profile</a>
                <a class="list-group-item list-group-item-action" href="{% url 'my-downloads' %}" role="tab" aria-controls="my-downloads">My Downloads</a>
                <a class="list-group-item list-group-item-action" href="{% url 'my-uploads' %}" role="tab" aria-controls="my-uploads">My Uploads</a>
-          {% comment %}
-          <a class="list-group-item list-group-item-action" href="javascript:void(0);" role="tab" aria-controls="my-settings">My Settings</a>
-          <a class="list-group-item list-group-item-action" href="javascript:void(0);" role="tab" aria-controls="upload-files">Upload Files</a>
-          {% endcomment %}
+                <a class="list-group-item list-group-item-action" href="{% url 'upload-file' %}" role="tab" aria-controls="upload-files">Upload Files</a>
         </div>
         <!-- <ul class="list-group list-group-flush">
           <li class="list-group-item bg-active"><a class="white my-profile" href="{% url 'my-profile' %}">My Profile</a></li>
