@@ -81,7 +81,7 @@
                 </div>
             </div>
         </form>      
-        {% comment %}
+
         {% if user.is_authenticated %}
         <ul class="navbar-nav">
           <li class="nav-item dropdown">
@@ -91,9 +91,12 @@
             <div class="dropdown-menu absolute">                
                 <a class="dropdown-item blue-theme" href="{% url 'my-profile' %}" rel="nofollow">My Profile</a>
                 <a class="dropdown-item blue-theme" href="{% url 'my-downloads' %}" rel="nofollow">My Downloads</a>
+                 <a class="dropdown-item blue-theme" href="{% url 'my-uploads' %}" rel="nofollow">My Uploads</a>
+                {% comment %}
                 <a class="dropdown-item blue-theme" href="javascript:void(0);" rel="nofollow">My Settings</a>
                 <a class="dropdown-item blue-theme" href="javascript:void(0);" rel="nofollow">My Accounts</a>
-                <a class="dropdown-item blue-theme" href="javascript:void(0);" rel="nofollow">Upload file</a>
+                 {% endcomment %}
+                <a class="dropdown-item blue-theme" href="{% url 'upload-file' %}" rel="nofollow">Upload files</a>
                 <a class="dropdown-item blue-theme" href="{% url 'account_logout' %}" rel="nofollow">Logout</a>                                        
             </div>
           </li>      
@@ -110,7 +113,8 @@
           </li>
           {% endif %}
         </ul>
-      {% endcomment %}
+      {% comment %}
+
       <ul class="navbar-nav text-left">
           <li class="nav-item">
               {% if user.is_authenticated %}
@@ -125,6 +129,7 @@
           </li>
           {% endif %}
       </ul>
+      {% endcomment %}
 
 
 <!--        <li class="nav-item">-->
