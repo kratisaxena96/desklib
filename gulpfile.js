@@ -82,7 +82,7 @@ gulp.task('copy-js', function(){
   gulp.src('bower_components/typeahead.js/dist/typeahead.bundle.js').pipe(gulp.dest('desklib/static/src/js/'));
   gulp.src('bower_components/typeahead.js/dist/bloodhound.js').pipe(gulp.dest('desklib/static/src/js/'));
   gulp.src('bower_components/select2/dist/js/select2.js').pipe(gulp.dest('desklib/static/src/js/'));
-});
+}); 
 
 //compress images
 
