@@ -47,8 +47,8 @@ gulp.task('jshint', function() {
 });
 
  gulp.task('build-js', function() {
-   return gulp.src(['desklib/static/src/js/jquery.js','desklib/static/src/js/popper.min.js','desklib/static/src/js/bootstrap.js','desklib/static/src/js/owl.carousel.min.js','desklib/static/src/js/typeahead.bundle.js','desklib/static/src/js/bloodhound.js','desklib/static/src/js/custom.js'])
-     .pipe(sourcemaps.init())
+   return gulp.src(['desklib/static/src/js/jquery.js','desklib/static/src/js/popper.min.js','desklib/static/src/js/bootstrap.js','desklib/static/src/js/owl.carousel.min.js','desklib/static/src/js/typeahead.bundle.js','desklib/static/src/js/bloodhound.js','desklib/static/src/js/select2.js','desklib/static/src/js/custom.js'])
+  .pipe(sourcemaps.init())
        .pipe(concat('bundle.js'))
        .pipe(uglify())
 //     .pipe(sourcemaps.write())
