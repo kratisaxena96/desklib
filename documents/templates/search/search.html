@@ -128,7 +128,7 @@
                                     Did You Mean: <a href="{{ request.get_absolute_path }}?q={{suggestion}}" id="suggest">{{suggestion}}</a>
                                 </span>
                                 {% endif %}
-							 <p>Showing {{ page_obj.end_index }} of {{ page_obj.paginator.count }} resouces</p>
+							 <p>Showing {{ page_obj.end_index }} of {{ page_obj.paginator.count }} resources</p>
 						 </div>
 					 </div>
 					 <div class="col-md-4 mt-3">
@@ -158,7 +158,8 @@
                                 </a>
                                <div class="dropdown-menu scrollable-menu search-drop" role="menu">
                                    {% for sub in sqs.fields.subjects|slice:":5" %}
-                                           <a class="dropdown-item" id="{{sub.0|cut:' '}}" href="?q={{ query }}&amp;selected_facets=subjects_exact:{{ sub.0|urlencode }}"> {{ sub.0}}</a>
+                                        
+                                           <a class="dropdown-item" id="{{sub.0|cut:' '}}" href="?q={{ query }}&amp;selected_facets=subjects_exact:{{ sub.0|urlencode }}"> {{sub.0}}</a>
                 
                                      {% endfor %}
                                 </div>
