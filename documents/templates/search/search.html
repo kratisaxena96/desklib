@@ -157,8 +157,8 @@
                                   Subjects
                                 </a>
                                <div class="dropdown-menu scrollable-menu search-drop" role="menu">
-                                   {% for key, values in slug_faceit.items %}
-                                           <a class="dropdown-item" id="{{key}}" href="?q={{ query }}&amp;selected_facets=subjects_exact:{{ key|urlencode }}"> {{values}}</a>
+                                   {% for sub in slug_faceit %}
+                                           <a class="dropdown-item" id="{{sub.slug}}" href="?q={{ query }}&amp;selected_facets=subjects_exact:{{ sub.slug|urlencode }}"> {{sub.name}}</a>
                                      {% endfor %}
                                 </div>
                             </div>
