@@ -141,6 +141,11 @@ body {
 	float: none;
 }
 
+//------------------for base-header page 04/11/2019---------//
+.hover-on-menu.dropdown:hover>.dropdown-menu {
+  display: block;
+}
+
 //------------------for upload-file page 01/11/2019---------//
 
 .select2-container--default .select2-selection--multiple{
