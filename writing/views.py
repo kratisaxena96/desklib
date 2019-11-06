@@ -24,9 +24,9 @@ from termcolor import colored
 
 
 class WritingPageView(MetadataMixin,JsonLdContextMixin, TemplateView):
-    title = 'Writing and content editing services | desklib.com'
-    description = 'Desklib provides free writing tools for everyone to improve their writing skills. Hire top content writers and proofreaders for your content requirements.'
-
+    title = 'Writing | proofreading service | content editing services | desklib.com'
+    description = 'Desklib provides free writing tools and proofreading service for everyone to improve their writing skills. Hire top content writers and proofreaders for your content requirements.'
+    keywords = ['content editing services', 'editing services', 'proofreading service', 'writing tools', 'free writing tools']
     template_name = "writing/writing.html"
 
     structured_data = {
@@ -123,7 +123,7 @@ class ComparePageView(MetadataMixin,JsonLdContextMixin, FormView):
 
 
 
-
+# not using this view
 class SpellCheckPageView(MetadataMixin,JsonLdContextMixin, FormView):
     form_class = SpellCheckForm
     title = 'Free grammar check and spell corrector | Desklib'
@@ -145,9 +145,9 @@ class SpellCheckPageView(MetadataMixin,JsonLdContextMixin, FormView):
 
 class GrammarCorrectPageView(MetadataMixin,JsonLdContextMixin, FormView):
     form_class = SpellCheckForm
-    title = 'spell check page'
+    title = 'Free grammar check and spell corrector | Desklib'
     use_title_tag = True
-    description = 'This is a spell check page'
+    description = 'Check your text for grammar corrections and spelling mistakes using our free tool. Get free writing tips and suggestions to improve your writing skills.'
 
     template_name = "writing/grammar_correct.html"
 
