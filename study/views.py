@@ -140,9 +140,11 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, FacetedSearchView):
         sqs_count = sqs.facet_counts()
         context = super(CustomSearchView, self).get_context_data(**kwargs)
         # context[settings.CONTEXT_ATTRIBUTE] = self.get_structured_data()
-        context['sqs'] = sqs_count
-        # s =  SearchQuerySet().filter().facet('subjects')
-        # context['qry_st'] = self.query_set
+        # context['sqs'] = sqs_count
+        slug_list = []
+        for sub_filter in sqs_count.get('fields').get('subjects'):
+            slug_list.append(sub_filter[0])
+        context['slug_faceit'] = Subject.objects.filter(slug__in=slug_list)
         context['parent'] = Subject.objects.filter(parent_subject__isnull=True).prefetch_related('subject_set')
         context['subject_facet'] = Subject.objects.all()
         suggest_string = SearchQuerySet().spelling_suggestion(self.request.GET.get('q', ''))

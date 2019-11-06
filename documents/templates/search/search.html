@@ -157,10 +157,8 @@
                                   Subjects
                                 </a>
                                <div class="dropdown-menu scrollable-menu search-drop" role="menu">
-                                   {% for sub in sqs.fields.subjects|slice:":5" %}
-                                        
-                                           <a class="dropdown-item" id="{{sub.0|cut:' '}}" href="?q={{ query }}&amp;selected_facets=subjects_exact:{{ sub.0|urlencode }}"> {{sub.0}}</a>
-                
+                                   {% for sub in slug_faceit %}
+                                           <a class="dropdown-item" id="{{sub.slug}}" href="?q={{ query }}&amp;selected_facets=subjects_exact:{{ sub.slug|urlencode }}"> {{sub.name}}</a>
                                      {% endfor %}
                                 </div>
                             </div>
