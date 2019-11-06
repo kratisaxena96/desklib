@@ -35,9 +35,9 @@ from .forms import CustomFacetedSearchForm
 # Create your views here.
 
 class StudyPageView(MetadataMixin,JsonLdContextMixin, SearchView):
-    title = 'Study | desklib.com'
-    description = 'Desklib allows you to explore best resources for your study requirements. Search solutions, assignments, presentations, thesis, homework solutions from our library.'
-
+    title = 'Get Homework Help With desklib | desklib.com'
+    description = 'Get homework help fast! Desklib allows you to explore the best resources for your study requirements. Search solutions, assignments, presentations, thesis, homework solutions from our online learning library.'
+    keywords = ['homework writing services', 'online homework help', 'best online homework help website', 'statistics homework help', 'engineering homework help', 'computer science homework help', 'mechanical engineering homework help', 'humanities homework help', 'nursing homework help', 'law homework help', 'tort law homework help', 'psychology homework help', '24 homework help', 'urgent homework help']
     template_name = "study/study_list.html"
 
     structured_data = {
