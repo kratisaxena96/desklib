@@ -84,19 +84,23 @@
 
         {% if user.is_authenticated %}
         <ul class="navbar-nav">
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown hover-on-menu">
             <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbardrop" data-toggle="dropdown">
               <img class="img-fluid" src="{% static 'dist/assets/images/avatar-small.png' %}" width="30px" height="30px">
             </a>
-            <div class="dropdown-menu absolute">                
+            <div class="dropdown-menu absolute">
                 <a class="dropdown-item blue-theme" href="{% url 'my-profile' %}" rel="nofollow">My Profile</a>
+                <div class="dropdown-divider"></div>
                 <a class="dropdown-item blue-theme" href="{% url 'my-downloads' %}" rel="nofollow">My Downloads</a>
+                <div class="dropdown-divider"></div>
                  <a class="dropdown-item blue-theme" href="{% url 'my-uploads' %}" rel="nofollow">My Uploads</a>
+                <div class="dropdown-divider"></div>
                 {% comment %}
                 <a class="dropdown-item blue-theme" href="javascript:void(0);" rel="nofollow">My Settings</a>
                 <a class="dropdown-item blue-theme" href="javascript:void(0);" rel="nofollow">My Accounts</a>
                  {% endcomment %}
-                <a class="dropdown-item blue-theme" href="{% url 'upload-file' %}" rel="nofollow">Upload files</a>
+                <a class="dropdown-item blue-theme" href="{% url 'upload-file' %}" rel="nofollow">Upload Files</a>
+                <div class="dropdown-divider"></div>
                 <a class="dropdown-item blue-theme" href="{% url 'account_logout' %}" rel="nofollow">Logout</a>                                        
             </div>
           </li>      
