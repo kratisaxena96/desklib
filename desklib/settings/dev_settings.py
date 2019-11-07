@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 from desklib.settings.base import *
 # Application definition
+FLAG_MAIL_TO_TEST = True
 
 INSTALLED_APPS += [
     'debug_toolbar',

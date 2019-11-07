@@ -213,7 +213,8 @@ table[class=hide], img[class=hide], td[class=hide] {
                             <td class="inner" style="padding-top:0px;padding-bottom:10px; padding-right:20px;padding-left:30px;"><table class="contents1" style="border-spacing:0; width:100%">
                                 <tr>
                                   <td   align="center" valign="middle" style="padding-top:20px; padding-right:30px"><p style="font-size:20px; text-decoration:none; color:#262626; font-family: 'Josefin Sans', sans-serif; text-align:left"><strong>{{key.title}}</strong></p>
-                                    <p style="font-size:15px; text-decoration:none; color:#3a3d41; font-family: 'Josefin Sans', sans-serif; text-align:left; line-height:18px">{{key.description|slice:120}}<br />
+									  <p style="font-size:15px; text-decoration:none; color:#3a3d41; font-family: 'Josefin Sans', sans-serif; text-align:left; line-height:18px">{{key.description|striptags|slice:120}}
+</p><br />
                                       <br />
                                     </p>
                                  </td>
@@ -247,7 +248,7 @@ table[class=hide], img[class=hide], td[class=hide] {
 					<table border="0" cellpadding="0" cellspacing="0" width="100%" class="">
 					<tr>
 							<td align="center" valign="top" style="padding-top:30px;padding-bottom:0px;padding-left:10px;padding-right:10px;" class="">
-								<a href="" style="background-color: #405fbd;color: #fff;padding-left: 20px;padding-right: 20px;padding-top: 8px;padding-bottom: 8px;border-radius: 20px;text-decoration: none;font-family:'Open Sans', Helvetica, Arial, sans-serif;">View More</a>
+								<a href="{{ current_site.domain}}{% url 'home'%}" style="background-color: #405fbd;color: #fff;padding-left: 20px;padding-right: 20px;padding-top: 8px;padding-bottom: 8px;border-radius: 20px;text-decoration: none;font-family:'Open Sans', Helvetica, Arial, sans-serif;">View More</a>
 							</td>
 						</tr>
 					</table>
