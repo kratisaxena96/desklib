@@ -182,6 +182,8 @@ class Document(ModelMeta, models.Model):
 
     is_published = models.BooleanField(_('Is Published'), default=True)
     is_visible = models.BooleanField(_('Is Visible'), default=True)
+    is_featured = models.BooleanField(_('Featured'), default=False)
+
     require_recalculation = models.BooleanField(_('Require Recalculation'), default=False)
 
     published_date = models.DateTimeField(_('Published Date'), default=timezone.now)
