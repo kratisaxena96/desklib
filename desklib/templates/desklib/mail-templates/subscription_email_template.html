@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -5,10 +6,9 @@
 <!--[if !mso]><!-->
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <!--<![endif]-->
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="https://fonts.googleapis.com/css?family=Playfair+Display&display=swap" rel="stylesheet"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
 <link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Muli|Playfair+Display&display=swap" rel="stylesheet"> 
-<link href="https://fonts.googleapis.com/css?family=Catamaran&display=swap" rel="stylesheet"> <title>Email</title>
+<title>Email</title>
 <style type="text/css">
 * {
 	-webkit-font-smoothing: antialiased;
@@ -172,7 +172,7 @@ table[class=hide], img[class=hide], td[class=hide] {
       <td width="100%"><div class="webkit" style="max-width:600px;Margin:0 auto;"> 
           
           <!--[if (gte mso 9)|(IE)]>
-
+	
 						<table width="600" align="center" cellpadding="0" cellspacing="0" border="0" style="border-spacing:0" >
 							<tr>
 								<td style="padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;" >
@@ -183,7 +183,6 @@ table[class=hide], img[class=hide], td[class=hide] {
             <tr>
               <td style="padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;"><!-- ======= start header ======= -->
                  <!--<logo>-->
-
                  <table border="0" cellpadding="0" cellspacing="0" width="100%" class="logoTable">
 						<tr>
 							<td align="center" valign="middle" style="padding-top:50px;padding-bottom:30px">
@@ -202,8 +201,8 @@ table[class=hide], img[class=hide], td[class=hide] {
                
                 
                 <!-- ======= start two column ======= -->
-                
-                <table cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#FFFFFF" style="border-top:3px solid #405fbd;">
+                {% for key, value in doc.items %}
+                <table cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#FFFFFF" style="border-top:3px solid #405fbd;border-bottom: 1px solid #c1bebe;">
                   <tr>
                     <td class="two-column" style="padding-top:0;padding-bottom:20px;padding-right:0;padding-left:0;text-align:center;font-size:0;">
                       
@@ -212,8 +211,9 @@ table[class=hide], img[class=hide], td[class=hide] {
                           <tr>
                             <td class="inner" style="padding-top:0px;padding-bottom:10px; padding-right:20px;padding-left:30px;"><table class="contents1" style="border-spacing:0; width:100%">
                                 <tr>
-                                  <td   align="center" valign="middle" style="padding-top:20px; padding-right:30px"><p style="font-size:20px; text-decoration:none; color:#262626; font-family: 'Josefin Sans', sans-serif; text-align:left"><strong>Mobile App Development</strong></p>
-                                    <p style="font-size:15px; text-decoration:none; color:#3a3d41; font-family: 'Josefin Sans', sans-serif; text-align:left; line-height:18px">Mobile app is developed for mobile devices, such as personal digital assistants, enterprise digital assistants or mobile phones. <br />
+                                  <td   align="center" valign="middle" style="padding-top:20px; padding-right:30px"><p style="font-size:20px; text-decoration:none; color:#262626; font-family: 'Josefin Sans', sans-serif; text-align:left"><strong>{{key.title}}</strong></p>
+									  <p style="font-size:15px; text-decoration:none; color:#3a3d41; font-family: 'Josefin Sans', sans-serif; text-align:left; line-height:18px">{{key.description|striptags|slice:120}}
+</p><br />
                                       <br />
                                     </p>
                                  </td>
@@ -226,8 +226,10 @@ table[class=hide], img[class=hide], td[class=hide] {
                       <div class="column" style="width:100%;max-width:200px;display:inline-block;vertical-align:top;">
                         <table class="contents" style="border-spacing:0; width:100%" bgcolor="#FFFFFF">
                           <tr>
-                            <td align="left" style="padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;"><img src="{% static 'dist/assets/images/img1.jpeg'%}" alt="desklib" alt="" width="160" border="0" style="height:auto; display:block;margin: 0 auto;margin-top: 20px;"/></td>
-                          </tr>
+							  {% if value %}
+                            <td align="left" style="padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;"><img src="{{ current_site.domain}}{{value}}" alt="desklib" alt="" width="160" border="0" style="height:auto; display:block;margin: 0 auto;margin-top: 20px;border:2px solid #423f3f;"/></td>
+							  {% endif %}
+						  </tr>
                         </table>
                       </div>
                      </td>
@@ -238,125 +240,14 @@ table[class=hide], img[class=hide], td[class=hide] {
                     </td>
                   </tr>
                 </table>
-
-                <!-- ======= end two column ======= --> 
-                
-                <table cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#FFFFFF" style="padding-top: 30px;">
-                  <tr>
-                    <td class="two-column" style="padding-top:0;padding-bottom:20px;padding-right:0;padding-left:0;text-align:center;font-size:0;">
-                      
-                      <div class="column" style="width:100%;max-width:350px;display:inline-block;vertical-align:top;">
-                        <table width="100%" style="border-spacing:0">
-                          <tr>
-                            <td class="inner" style="padding-top:0px;padding-bottom:10px; padding-right:20px;padding-left:30px;"><table class="contents1" style="border-spacing:0; width:100%">
-                                <tr>
-                                  <td   align="center" valign="middle" style="padding-top:20px; padding-right:30px"><p style="font-size:20px; text-decoration:none; color:#262626; font-family: 'Playfair Display', serif; text-align:left"><strong>Android App Development</strong></p>
-                                    <p style="font-size:15px; text-decoration:none; color:#3a3d41; font-family: 'Playfair Display', serif; text-align:left; line-height:18px">Android software development is the process by which new applications are created for devices running the Android operating system. <br />
-                                      <br />
-                                    </p>
-                                  </td>
-                                </tr>
-                              </table></td>
-                          </tr>
-                        </table>
-                      </div>
-                      
-                      <div class="column" style="width:100%;max-width:200px;display:inline-block;vertical-align:top;">
-                        <table class="contents" style="border-spacing:0; width:100%" bgcolor="#FFFFFF">
-                          <tr>
-                            <td align="left" style="padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;"><img src="{% static 'dist/assets/images/img2.png'%}" alt="desklib" alt="" width="160" border="0" style="height:auto; display:block;margin: 0 auto;margin-top: 20px;"/></td>
-                          </tr>
-                        </table>
-                      </div>
-                     </td>
-                  </tr>
-                   <tr>
-                    <td>
-                       <hr style="background-color:#405fbd;width: 80%;">
-                    </td>
-                  </tr>
-                </table>
-                
-                <!-- ======= end two column ======= --> 
-
-                 <!-- ======= start two column ======= --> 
-                
-                <table cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#FFFFFF" style="padding-top: 30px;">
-                  <tr>
-                    <td class="two-column" style="padding-top:0;padding-bottom:20px;padding-right:0;padding-left:0;text-align:center;font-size:0;">
-                      
-                      <div class="column" style="width:100%;max-width:350px;display:inline-block;vertical-align:top;">
-                        <table width="100%" style="border-spacing:0">
-                          <tr>
-                            <td class="inner" style="padding-top:0px;padding-bottom:10px; padding-right:20px;padding-left:30px;"><table class="contents1" style="border-spacing:0; width:100%">
-                                <tr>
-                                  <td   align="center" valign="middle" style="padding-top:20px; padding-right:30px"><p style="font-size:20px; text-decoration:none; color:#262626; font-family: 'Catamaran', sans-serif; text-align:left"><strong>French Grammar & Writing</strong></p>
-                                    <p style="font-size:15px; text-decoration:none; color:#3a3d41; font-family: 'Catamaran', sans-serif; text-align:left; line-height:18px">French grammar is all about using French words in the correct way so people can understand your meaning. You can learn a lot of French words by browsing an English-French dictionary, but to make sense, you need to know the rules of French grammar. <br />
-                                      <br />
-                                    </p>
-                                  </td>
-                                </tr>
-                              </table></td>
-                          </tr>
-                        </table>
-                      </div>
-                      
-                      <div class="column" style="width:100%;max-width:200px;display:inline-block;vertical-align:top;">
-                        <table class="contents" style="border-spacing:0; width:100%" bgcolor="#FFFFFF">
-                          <tr>
-                            <td align="left" style="padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;"><img src="{% static 'dist/assets/images/img3.png'%" alt="desklib" width="160" border="0" style="height:auto; display:block;margin: 0 auto;margin-top: 20px;"/></td>
-                          </tr>
-                        </table>
-                      </div>
-                     </td>
-                  </tr>
-                   <tr>
-                    <td>
-                       <hr style="background-color:#405fbd;width: 80%;">
-                    </td>
-                  </tr>
-                </table>
-                
-                <!-- ======= end two column ======= --> 
-
-			   <!-- ======= start two column ======= --> 
-			   	<table cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#FFFFFF" style="padding-top: 30px;">
-                  <tr>
-                    <td class="two-column" style="padding-top:0;padding-bottom:20px;padding-right:0;padding-left:0;text-align:center;font-size:0;">
-                      
-                      <div class="column" style="width:100%;max-width:350px;display:inline-block;vertical-align:top;">
-                        <table width="100%" style="border-spacing:0">
-                          <tr>
-                            <td class="inner" style="padding-top:0px;padding-bottom:10px; padding-right:20px;padding-left:30px;"><table class="contents1" style="border-spacing:0; width:100%">
-                                <tr>
-                                  <td   align="center" valign="middle" style="padding-top:20px; padding-right:30px"><p style="font-size:20px; text-decoration:none; color:#262626; font-family: 'Josefin Sans', sans-serif; text-align:left"><strong>Business development</strong></p>
-                                    <p style="font-size:15px; text-decoration:none; color:#3a3d41; font-family: 'Josefin Sans', sans-serif; text-align:left; line-height:18px">Business development is the creation of long-term value for an organization from customers, markets, and relationships. Business development can be taken to mean any activity by either a small or large organization, <br />
-                                      <br />
-                                    </p>
-                                  </td>
-                                </tr>
-                              </table></td>
-                          </tr>
-                        </table>
-                      </div>
-                      
-                      <div class="column" style="width:100%;max-width:200px;display:inline-block;vertical-align:top;">
-                        <table class="contents" style="border-spacing:0; width:100%" bgcolor="#FFFFFF">
-                          <tr>
-                            <td align="left" style="padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;"><img src="{% static 'dist/assets/images/img4.png'%}" alt="desklib" width="160" border="0" style="height:auto; display:block;margin: 0 auto;margin-top: 20px;"/></td>
-                          </tr>
-                        </table>
-                      </div>
-                     </td>
-                  </tr>
-                </table>
-			    <!-- ======= end two column ======= --> 
-
+				  {% endfor %}
+				            
+               
                 <!-- Addign button// -->
 					<table border="0" cellpadding="0" cellspacing="0" width="100%" class="">
 					<tr>
 							<td align="center" valign="top" style="padding-top:30px;padding-bottom:0px;padding-left:10px;padding-right:10px;" class="">
-								<a href="" style="background-color: #405fbd;color: #fff;padding-left: 20px;padding-right: 20px;padding-top: 8px;padding-bottom: 8px;border-radius: 20px;text-decoration: none;font-family:'Open Sans', Helvetica, Arial, sans-serif;">View More</a>
+								<a href="{{ current_site.domain}}{% url 'home'%}" style="background-color: #405fbd;color: #fff;padding-left: 20px;padding-right: 20px;padding-top: 8px;padding-bottom: 8px;border-radius: 20px;text-decoration: none;font-family:'Open Sans', Helvetica, Arial, sans-serif;">View More</a>
 							</td>
 						</tr>
 					</table>

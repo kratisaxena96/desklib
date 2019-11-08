@@ -171,7 +171,7 @@ MEDIAFILES_LOCATION = 'media'
 AWS_S3_CUSTOM_DOMAIN = 'desklib.com'
 
 AWS_S3_SECURE_URLS = True
-
+FLAG_MAIL_TO_TEST = True
 #AWS_HEADERS = {
 #   'Expires': 'Thu, 25 Nov 2016 21:00:00 GMT',
 #    'Cache-Control': 'max-age=94608000',
