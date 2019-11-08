@@ -1,7 +1,11 @@
 {% extends 'desklib/base.html' %}
 {% load meta %}
 
-
+{% block canonical %}
+    {% if canonical %}
+        <link rel="canonical" href="{{canonical}}"/>
+    {% endif %}
+{% endblock %}
 
 <!--    <link rel="stylesheet" href="https://rawgit.com/mozilla/pdf.js/master/web/viewer.css">-->
 <!--    <link rel="stylesheet" href="https://rawgit.com/mozilla/pdf.js/master/examples/mobile-viewer/viewer.css">-->

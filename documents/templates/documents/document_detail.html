@@ -1,11 +1,18 @@
 {% extends 'desklib/base.html' %}
-{% load meta %}
+{% load meta %}\
+{% block canonical %}
+    {% if canonical %}
+        <link rel="canonical" href="{{canonical}}"/>
+    {% endif %}
+{% endblock %}
 
 
 
 <!--    <link rel="stylesheet" href="https://rawgit.com/mozilla/pdf.js/master/web/viewer.css">-->
 <!--    <link rel="stylesheet" href="https://rawgit.com/mozilla/pdf.js/master/examples/mobile-viewer/viewer.css">-->
-
+    {% if canonical %}
+        <link rel="canonical" href="{{canonical}}"/>
+    {% endif %}
     {% block extra_css %}
 
 <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">-->
@@ -144,6 +151,7 @@ opacity:0.9 !important;
     {% endblock %}
 
 {% block content %}
+
 <section>
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
