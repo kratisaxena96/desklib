@@ -49,7 +49,7 @@ from datetime import timedelta
 from subscription.utils import is_subscribed, get_current_subscription
 from django.core.files import File as DjangoFile
 from django.db.models import Q
-
+from django.http import HttpResponsePermanentRedirect
 from documents.utils import merge_pdf
 
 
@@ -62,6 +62,8 @@ class DocumentView(JsonLdDetailView):
         slug = self.kwargs['slug']
         self.object = self.get_object()
         entry = Document.objects.get(slug=slug)
+        if self.object.redirect_url:
+            return HttpResponsePermanentRedirect(self.object.redirect_url)
         Document.objects.filter(pk=entry.pk).update(views=F('views') + 1)
         if not self.request.user.is_anonymous:
             check_subscribed_status = is_subscribed(self.request.user)
