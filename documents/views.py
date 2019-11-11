@@ -131,6 +131,7 @@ class DocumentView(JsonLdDetailView):
         slug = self.kwargs['slug']
         entry = Document.objects.get(slug=slug)
         subjects = entry.subjects.all()
+        context['canonical'] = entry.canonical_url
         from haystack.inputs import AutoQuery, Raw
 
         mlt = SearchQuerySet().more_like_this(entry)[:6]
