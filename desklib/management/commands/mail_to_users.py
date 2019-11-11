@@ -13,9 +13,13 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         User = get_user_model()
         emails = []
-        users = User.objects.filter(is_active=True, is_staff=False)
+        if settings.FLAG_MAIL_TO_TEST:
+            users = User.objects.filter(is_staff=True, is_active=True)
+        else:
+            users = User.objects.filter(is_active=True, is_staff=False)
         for user in users:
             emails.append(user.email)
+
         doc = Document.objects.filter(page__gte=8,views__gte=2,is_featured=True,is_visible=True)
         email_doc = {}
         if doc:

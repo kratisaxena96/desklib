@@ -195,6 +195,7 @@ class Document(ModelMeta, models.Model):
                                        help_text='Tip: Create concise and high-quality descriptions that accurately describe your page, Make sure each page on our website has a different description.')
     seo_keywords = models.CharField(max_length=140,
                                     help_text='Recommended max.length of relevant seo keyword is 140 characters')
+    canonical_url= models.URLField(max_length=1024, blank=True, null=True)
 
     # cover_image = models.ImageField(verbose_name=_('Image'), upload_to=cover_images, max_length=1000, blank = True, null = True, help_text='Dimensions Should be 80x112 as per document ration')
 

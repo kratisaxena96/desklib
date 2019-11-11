@@ -94,11 +94,21 @@ def autocomplete(request):
 
     # Make sure you return a JSON object, not a bare list.
     # Otherwise, you could be vulnerable to an XSS attack.
-    the_data = json.dumps([{
-        'results': suggestions,
-        'slug':slugs,
-        # 'cover_image': cover_imgage
-    }])
+    # the_data = json.dumps([{
+    #     'results': suggestions,
+    #     'slug':slugs,
+    #     # 'cover_image': cover_imgage
+    # }])
+    data = {}
+
+    for i in range(len(sqs)):
+        for result in sqs:
+            item = {"title": result.title, "slug": result.slug}
+
+            data[i] = item
+
+    the_data = json.dumps(data)
+
     return HttpResponse(the_data, content_type='application/json')
 
 
