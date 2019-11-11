@@ -18447,10 +18447,10 @@ $('#remote .typeahead').typeahead(null,{
   templates: {
     empty: [
       '<div class="empty-message">',
-        'unable to find any Best Picture winners that match the current query',
+        'No results found',
       '</div>'
     ].join('\n'),
-    suggestion: Handlebars.compile('<div><strong>{{title}}</strong> – {{slug}}</div>')
+    suggestion: Handlebars.compile('<a href="/document/{{slug}}">{{title}}</a>')
   }
 });
 
