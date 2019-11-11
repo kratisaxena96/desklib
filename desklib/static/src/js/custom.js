@@ -1,38 +1,78 @@
-$( document ).ready(function() {
-    var stocks;
-    $(function(){
-        var stocks = new Bloodhound({
-            datumTokenizer: function (datum) {Bloodhound.tokenizers.obj.whitespace(datum.tokens);},
-            queryTokenizer: Bloodhound.tokenizers.whitespace,
-            remote: {
-                url: "/study/autocomplete/",
-                replace: function(url, query) {
-                    return url + "?q=" + query;
-                },
-                filter: function(stocks) {
-                    return stocks;
-                }
-            }
-        });
-        stocks.initialize();
-        $('#remote .typeahead').typeahead(null, {
-            hint: true,
-            highlight: true,
-            minLength: 3,
-            name: 'stocks',
-            display: 'name',
-            source: stocks,
-            templates: {
-                empty: [
-                  '<div class="empty-message">',
-                    'No matching results.',
-                  '</div>'
-                ].join('\n'),
-                suggestion: data
-            }
-        });
-    });
+
+var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
+  'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
+  'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
+  'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
+  'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
+  'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
+  'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
+  'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
+  'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+];
+
+var states = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  // `states` is an array of state names defined in "The Basics"
+  prefetch: '/study/autocomplete/?q=ass',
+  remote: {
+    url: '/study/autocomplete/?q=%QUERY',
+    wildcard: '%QUERY'
+  }
 });
+
+
+
+$('#remote .typeahead').typeahead(null,{
+
+  name: 'states',
+  display: 'title',
+  source: states,
+  templates: {
+    empty: [
+      '<div class="empty-message">',
+        'unable to find any Best Picture winners that match the current query',
+      '</div>'
+    ].join('\n'),
+    suggestion: Handlebars.compile('<div><strong>{{title}}</strong> – {{slug}}</div>')
+  }
+});
+
+
+
+//$( document ).ready(function() {
+//        var stocks = new Bloodhound({
+//            datumTokenizer: function (datum) {Bloodhound.tokenizers.obj.whitespace(datum.tokens);},
+//            queryTokenizer: Bloodhound.tokenizers.whitespace,
+//            remote: {
+//                url: "/study/autocomplete/?q=%QUERY",
+//                wildcard: '%QUERY'
+////                replace: function(url, query) {
+////                    return url + "?q=" + query;
+////                },
+////                filter: function(stocks) {
+////                    return stocks;
+////                }
+//            }
+//        });
+////        stocks.initialize();
+//        $('#remote .typeahead').typeahead(null, {
+////            hint: true,
+////            highlight: true,
+////            minLength: 3,
+//            name: 'stocks',
+//            display: 'title',
+//            source: stocks,
+//            templates: {
+//                empty: [
+//                  '<div class="empty-message">',
+//                    'No matching results.',
+//                  '</div>'
+//                ].join('\n'),
+//                suggestion:  Handlebars.compile('<div><strong>{{title}}</strong> – {{slug}}</div>')
+//            },
+//        });
+//});
 
 
 
