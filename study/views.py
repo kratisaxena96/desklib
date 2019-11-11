@@ -100,12 +100,14 @@ def autocomplete(request):
     #     # 'cover_image': cover_imgage
     # }])
     data = {}
+    i = 0
+    # for i in range(len(sqs)):
+    for result in sqs:
 
-    for i in range(len(sqs)):
-        for result in sqs:
-            item = {"title": result.title, "slug": result.slug}
+        item = {"title": result.title, "slug": result.slug}
 
-            data[i] = item
+        data[i] = item
+        i += 1
 
     the_data = json.dumps(data)
 
