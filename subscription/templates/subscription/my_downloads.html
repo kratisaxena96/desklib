@@ -144,7 +144,49 @@
 	 				   </tbody>
 	 				   {% endfor %}
 	 			</table>       
+<!-- pagination 12-11-2019 -->
+<div class="d-flex justify-content-center mb-2">
+  <nav aria-label="Page navigation">   
+    <ul class="pagination">
+{% if page_view.has_previous %}
+<li class="page-item p-3">
+  <a class="previous" href="?page2={{ page_view.previous_page_number }}">
+    <span aria-hidden="true"><i class='fas fa-angle-left fafa-nav-active'></i></span></a>
+  </li>
+  {% else %}
+   <li class="page-item disabled p-3">
+    <a class="next">
+      <span aria-hidden="true"><i class='fas fa-angle-left fafa-nav-in-active'></i></span></a>
+</li>   
+{% endif %}
 
+{% for page in page_view.paginator.page_range %}
+  {% if page_view.number == page %}
+    <li class="page-item active p-3">
+      <a class="rounded-circle page-link" href="?page2={{page}}">{{ page }}<span class="sr-only">(current)</span></a>
+    </li>
+  {% elif page > page_view.number|add:'-3' and page < page_view.number|add:'3' %}
+    <li class="page-item p-3"><a class="page-link rounded-circle" href="?page2={{ page }}">{{ page }}</a></li>
+  {% endif %}
+{% endfor %}
+  <li class="page-item p-3">
+    {% if page_view.has_next %}
+    <a class="previous" href="?page2={{ page_view.next_page_number }}"><span aria-hidden="true"><i class='fas fa-angle-right fafa-nav-in-active'></i></span></a>
+  </li>
+  {% else %}
+    <li class="page-item disabled p-3">
+      <span class=""><i class='fas fa-angle-right fafa-nav-in-active'></i></span>
+    </li>
+  {% endif %}   
+</ul> 
+</nav>
+</div>
+	 		</div>
+	 	</div>
+	 </div>
+</section>
+
+  {% comment %}
       <div class="container d-flex justify-content-center">
         <div class="row">
           <div class="col-md-12">            
@@ -153,7 +195,7 @@
               {% if page_view.has_previous %}
                   
                   <a class="previous" href="?page2={{ page_view.previous_page_number }}">
-             <span aria-hidden="true"><i class='fas fa-angle-left fafa-nav-active'></i></span></a>
+                  <span aria-hidden="true"><i class='fas fa-angle-left fafa-nav-active'></i></span></a>
               {% else %}
               <a class="previous"><i class='fas fa-angle-left fafa-nav-in-active'></i></a>
               {% endif %}
@@ -177,32 +219,6 @@
         </div>
       </div>
     </div>
-
-{% comment %}
-<div class="d-flex justify-content-center mb-3 mt-3">
-  <nav aria-label="Page navigation example">
-    <ul class="pagination">
-      <li class="page-item">
-         <span class="step-links">
-              {% if page_view.has_previous %}
-                      <a href="?page2={{ page_view.previous_page_number }}" class="pagination-previous"> previous </a>
-              {% endif %}
-                <span class="current">
-                  Page {{ page_view.number }} of {{ page_view.paginator.num_pages }}
-              </span>
-              {% if page_view.has_next %}
-                      <a href="?page2={{ page_view.next_page_number }}" class="pagination-next"> next </a>
-              {% endif %}
-          </span>
-        
-      </li>
-    </ul>
-  </nav>
-</div>
-{% endcomment %}
-	 		</div>
-	 	</div>
-	 </div>
-</section>
+    {% endcomment %}
 
 {% endblock %}
