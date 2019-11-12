@@ -25,7 +25,7 @@
     {% endif %}
  {% endblock %}
 <!--    <div class=""></div>-->
-    <div class="row pl-5 pt-5rem pb-5rem pltb-0">
+    <div class="row pl-5 pt-7rem pb-7rem pltb-0">
         <div class="col-md-6">
             <h1 class="blue-theme py-2">Get 24/7 homework help at our online learning library</h1>
             <h3 class="pb-2">Access 2 million course-specific study materials at our online learning library</h3>
@@ -136,17 +136,23 @@
 </section>
 
 
-{% comment %}
 <section class=" bg-light">
     <div class="container pt-5 pb-5">
-        <div class="row">
+        <div class="row  justify-content-md-center">
             <div class="col-md-12">
-                <h2 class="text-center h1 ">Why choose Desklib</h2>
+                <h2 class="text-center ">Why choose Desklib</h2>
+                <div class="row  justify-content-md-center">
+                    <div class="col-md-10 text-center">
+                        <p class="">We at Desklib carefully select the best study material for your college homework help and solutions to assignments, essays, dissertations, and case studies. Our resources are diverse so they can be used by students studying in any college, enrolled in any course or pursuing any degree/level. Moreover, new documents are added regularly and content is updated as well with improvements. We are an online learning library developed for the students where anyone can learn, gain and contribute. Our resources are extremely useful for students working on writing solutions to their assignments helping them secure better grades. </p>
+                        <a href="{% url 'about' %}" class="btn text-white btn-bg-theme pl-2 pr-2 border-radius-40">Learn more</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
+{% comment %}
 {% endcomment %}
 
 {% if top_results %} <section class="container-fluid mt-5 pt-5 pb-5 pt-2">
@@ -156,7 +162,7 @@
                {% for results in top_results %}
 
                         <a href="{% url 'documents:document-view' results.slug %}" class="h-100 d-inline-block w-100">
-                         
+
                             <div class="item shadow bg-white rounded h-100">
                                 <div class="card h-100">
                                     <img class="card-img-top card-height" src="{{results.cover_image}}" alt="Card image">
@@ -174,7 +180,7 @@
                                 </div>
                             </div>
                         </a>
-                    
+
                 {% endfor %}
             </div>
             <div class="owl-theme">

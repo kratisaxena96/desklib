@@ -5,7 +5,7 @@ from django_json_ld.views import JsonLdContextMixin
 from django.utils.translation import gettext as _
 # from haystack.inputs import AutoQuery, Exact, Clean
 from haystack.utils.highlighting import Highlighter
-from django.views.generic import TemplateView, DetailView,CreateView
+from django.views.generic import TemplateView, DetailView, CreateView
 from documents.models import Document
 from subscription.models import Download, PageView
 from django_json_ld.views import JsonLdContextMixin
@@ -17,7 +17,7 @@ import simplejson as json
 from django.http import HttpResponse
 from haystack.query import SearchQuerySet
 from meta.views import Meta
-from django_json_ld.views import JsonLdContextMixin,settings,JsonLdSingleObjectMixin
+from django_json_ld.views import JsonLdContextMixin, settings, JsonLdSingleObjectMixin
 from django.utils.translation import gettext as _
 from haystack.generic_views import SearchMixin, SearchView, FacetedSearchView
 from meta.views import MetadataMixin
@@ -32,18 +32,24 @@ from subjects.models import Subject
 from haystack.inputs import AutoQuery, Exact, Clean
 from .forms import CustomFacetedSearchForm
 
+
 # Create your views here.
 
-class StudyPageView(MetadataMixin,JsonLdContextMixin, SearchView):
+class StudyPageView(MetadataMixin, JsonLdContextMixin, SearchView):
     title = 'Get Homework Help With desklib | desklib.com'
     description = 'Get homework help fast! Desklib allows you to explore the best resources for your study requirements. Search solutions, assignments, presentations, thesis, homework solutions from our online learning library.'
-    keywords = ['homework writing services', 'online homework help', 'best online homework help website', 'statistics homework help', 'engineering homework help', 'computer science homework help', 'mechanical engineering homework help', 'humanities homework help', 'nursing homework help', 'law homework help', 'tort law homework help', 'psychology homework help', '24 homework help', 'urgent homework help']
+    keywords = ['homework writing services', 'online homework help', 'best online homework help website',
+                'statistics homework help', 'engineering homework help', 'computer science homework help',
+                'mechanical engineering homework help', 'humanities homework help', 'nursing homework help',
+                'law homework help', 'tort law homework help', 'psychology homework help', '24 homework help',
+                'urgent homework help']
     template_name = "study/study_list.html"
 
     structured_data = {
         "@type": "Organization",
         "name": "desklib.com",
-        "description": _("Desklib allows you to explore best resources for your study requirements. Search solutions, assignments, presentations, thesis, homework solutions from our library."),
+        "description": _(
+            "Desklib allows you to explore best resources for your study requirements. Search solutions, assignments, presentations, thesis, homework solutions from our library."),
         "url": "https://desklib.com/study/",
         "logo": "https://desklib.com/static/dist/assets/images/desklib-logo-theme.png",
         "potentialAction": {
@@ -63,7 +69,6 @@ class StudyPageView(MetadataMixin,JsonLdContextMixin, SearchView):
     #     recent = SearchQuerySet().order_by('-pub_date')[:5]
     #     context = self.get_context_data(**kwargs)
     #     return self.render_to_response(context)
-
 
     def get_context_data(self, **kwargs):
         # sqs = SearchQuerySet().facet('subjects')
@@ -100,11 +105,24 @@ def autocomplete(request):
     #     # 'cover_image': cover_imgage
     # }])
     data = {}
+    item = {}
     i = 0
     # for i in range(len(sqs)):
     for result in sqs:
+        document_obj = Document.objects.get(slug=result.slug)
+        try:
+            words = document_obj.words
+            item["words"] = words
+        except:
+            pass
+        try:
+            img = document_obj.pages.get(no=document_obj.cover_page_number).image_file
+            item["image"] = img.url
+        except:
+            pass
 
-        item = {"title": result.title, "slug": result.slug}
+        item = {"title": result.title, "slug": result.slug, "pages": result.no_of_pages, }
+        # item = {"title": result.title, "slug": result.slug, "pages": result.no_of_pages, "words": words, "image": img}
 
         data[i] = item
         i += 1
@@ -126,7 +144,6 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, FacetedSearchView):
     suggestions = {}
     selected_facets = ['subjects']
     # query_set =  None
-
 
     structured_data = {
         "@type": "Organizasaation",
@@ -163,7 +180,7 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, FacetedSearchView):
         if self.request.GET.get('q', '') != suggest_string:
             context['suggestion'] = suggest_string
         context['selected'] = self.request.GET.get('selected_facets')
-        if not self.request.GET.get('q') and not self.request.GET.get('selected_facets') :
+        if not self.request.GET.get('q') and not self.request.GET.get('selected_facets'):
             context['is_empty'] = True
         # context.update({'object_list': SearchQuerySet().filter(no_of_pages__range=[1, 5])})
         # self.searchqueryset = SearchQuerySet().order_by('-pub_date')[:5]
@@ -184,8 +201,6 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, FacetedSearchView):
     def get_structured_data(self):
         sd = super(CustomSearchView, self).get_structured_data()
         return sd
-
-
 
     # def get(self, request, *args, **kwargs):
     #     # sqs = SearchQuerySet().filter(content=AutoQuery(request.GET['q']), subjects=Exact('sanskrit'))
