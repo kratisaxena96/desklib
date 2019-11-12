@@ -1,8 +1,11 @@
+import os
+
 from django.contrib import admin
 from documents.models import Document, File, Page, Report, Issue
 from subjects.models import Subject
 from django.db.models import F
 from subjects.utils import get_subjects
+
 
 
 def publish_documents(modeladmin, request, queryset):
@@ -25,6 +28,23 @@ def soft_delete_documents(modeladmin, request, queryset):
 
 soft_delete_documents.short_description = 'Soft Delete Documents'
 
+def hard_delete_documents(modeladmin, request, queryset):
+    for document in queryset:
+        if document.upload_file:
+            if os.path.isfile(document.upload_file.path):
+                os.remove(document.upload_file.path)
+        if document.main_file:
+            if os.path.isfile(document.main_file.path):
+                os.remove(document.main_file.path)
+        for page in document.pages.all():
+            if os.path.isfile(page.image_file.path):
+                os.remove(page.image_file.path)
+        for file in document.document_file.all():
+            if os.path.isfile(file.file.path):
+                os.remove(file.file.path)
+        document.delete()
+
+hard_delete_documents.short_description = 'Hard Delete Documents with assets'
 
 def restore_documents(modeladmin, request, queryset):
     queryset.update(is_published = True, is_visible = True)
@@ -84,7 +104,7 @@ class DocumentAdmin(admin.ModelAdmin):
     search_fields = ['title', 'content']
     list_display = ('title', 'published_date', 'is_published', 'is_visible', 'page', 'words', 'get_subjects')
     list_filter = (SubjectListFilter, 'is_published', 'is_visible')
-    actions = [publish_documents, un_publish_documents, soft_delete_documents, set_document_subject, restore_documents]
+    actions = [publish_documents, un_publish_documents, soft_delete_documents, set_document_subject, restore_documents, hard_delete_documents]
 
     inlines = [
         FileInline,
