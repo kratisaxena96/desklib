@@ -68,6 +68,7 @@ urlpatterns = [
                   path('payment/cancelled', PaymentCancelledView.as_view(), name='payment_cancelled'),
                   path('payment/success', PaymentSuccessView.as_view(), name='payment_success'),
                   path('subscribed/', AlreadySubscribedView.as_view(), name='already_subscribed'),
+                  path('subjects/', include(('subjects.urls', 'subjects'), namespace="subjects")),
 
                   path('api-auth/', include('rest_framework.urls')),
                   # path('payment/document',)
