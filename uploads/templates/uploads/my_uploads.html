@@ -50,11 +50,7 @@
             		   	   	 <td scope="row">{{ object.university }}</td>
                              <td scope="row">{{ object.get_type_display }}</td>
                              <td scope="row">{{ object.created|date:"M d, Y" }}</td>
-                             <td scope="row">{{ object.get_status_display }}</td>                              
-                              <!-- <td scope="row">
-                                {{ object.upload_file|truncatechars:10 }}
-                              </td> -->
-                              <!-- <td scope="row">{{ object.status }}</td> -->
+                             <td scope="row">{{ object.get_status_display }}</td>             
             		   	   </tr>
                              {% endfor %}
             		   </tbody>
@@ -77,7 +73,7 @@
                         <a href="?page={{ my_uploads.next_page_number }}" class="pagination-next"> next </a>
                 {% endif %}
             </span>
-          
+
         </li>
       </ul>
     </nav>
@@ -87,8 +83,6 @@
     <div class="container d-flex justify-content-center">
       <div class="row">
         <div class="col-md-12">
-          <!-- <div class="pagination"> -->
-            <!-- <span class="step-links"> -->
               <ul class="pagination" id="uploads">
                 <li class="page-item p-3">
                 {% if object.has_previous %}
@@ -99,31 +93,28 @@
                 {% endif %}
                 </li>
                 {% for page in object.paginator.page_range %}
-                    {% if page == object.number %}
+                    {% if object.number == page %}
                     <li class="page-item active p-3"><a class="rounded-circle page-link" href="?page={{page}}">{{page}}</a></li>
-                    {% else %}
+                    {% elif page > object.number|add:'-3' and page < object.number|add:'3' %}
                     <li class="page-item p-3"><a class="rounded-circle page-link" href="?page={{page}}">{{page}}</a></li>
                     {% endif %}
                 {% endfor %}
                 <li class="page-item p-3">
-                {% if object.has_next %}                                    
+                {% if object.has_next %}
                     <a class="previous" href="?page={{ object.next_page_number }}"><span aria-hidden="true"><i class='fas fa-angle-right fafa-nav-in-active'></i></span></a>
                 {% else %}
                   <a class="next"><i class='fas fa-angle-right fafa-nav-in-active'></i></a>
-
                 {% endif %}
                 </li>
               </ul>
-            <!-- </span> -->
-          <!-- </div> -->
         </div>
       </div>
     </div>
-
 </div>
 </div>
 </div>
 </div>
 </section>
+
 
 {% endblock %}
