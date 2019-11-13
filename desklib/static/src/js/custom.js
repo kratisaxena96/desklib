@@ -14,7 +14,7 @@ var states = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
   queryTokenizer: Bloodhound.tokenizers.whitespace,
   // `states` is an array of state names defined in "The Basics"
-  prefetch: '/study/autocomplete/?q=ass',
+//  prefetch: '/study/autocomplete/?q=ass',
   remote: {
     url: '/study/autocomplete/?q=%QUERY',
     wildcard: '%QUERY'
@@ -34,7 +34,8 @@ $('#remote .typeahead').typeahead(null,{
         'No results found',
       '</div>'
     ].join('\n'),
-    suggestion: Handlebars.compile('<a href="/document/{{slug}}">{{title}}</a>')
+//    suggestion: Handlebars.compile('<a href="/document/{{slug}}"><div>{{title}}</div></a>')
+    suggestion: Handlebars.compile('<a href="/document/{{slug}}" class="border-bottom text-dark"><div class="row"><div class="col-2"><img src="{{image}}" alt="{{title}}" class="img-fluid border"></div><div class="col-10 position-relative"><h4>{{title}}</h4><p>{{description}}</p><div class="text-right d-block w-100 position-absolute bottom-0-right-20">words: <strong>{{words}}</strong>   pages: <strong>{{pages}}</strong></div></div> </div></a>')
   }
 });
 
