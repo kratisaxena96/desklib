@@ -320,10 +320,10 @@
                           <div class="d-flex justify-content-center mt-4">
                               <div class="col-md-6">
                                  <form class="form-inline my-2 my-lg-0" action="{% url 'study:search-results' %}">
-                                    <div class="form-group input-group w-75 mb-3" style="margin:auto">
-                                          <input type="search" id="search_bar" name="q" class="form-control search-input box-shadow-3-3-5-5" placeholder="Search a topic or subject">
+                                    <div class="form-group input-group w-75 mb-3" id="remote" style="margin:auto">
+                                          <input type="search" id="search_bar" name="q" class="form-control search-input box-shadow-3-3-5-5 typeahead" placeholder="Search a topic or subject">
                                           <div class="input-group-append">
-                                              <button class="btn btn-lg rounded-circle search-bg" type="button"><i class="fa fa-search rounded-circle search-icon"></i></button>
+                                              <button class="btn btn-lg rounded-circle search-bg" type="submit"><i class="fa fa-search rounded-circle search-icon"></i></button>
                                           </div>
                                     </div>
                                 </form>
@@ -354,21 +354,3 @@
                 </div>
              {% endif %}
             {% endblock %}
-    {% block extra_js %}
-      <script>
-
-         $('#id_q').autocomplete({
-         source: function (request, response) {
-          $.getJSON("study/autocomplete/?q=" + request.term, function (data) {
-              response($.map(data, function (value, key) {
-                  return {
-                     label: value,
-                     value: key
-                  };
-              }));
-          });
-         },
-         minLength: 1
-         });
-      </script>
-	    {% endblock extra_js %}
