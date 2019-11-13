@@ -34,8 +34,8 @@ $('#remote .typeahead').typeahead(null,{
         'No results found',
       '</div>'
     ].join('\n'),
-    suggestion: Handlebars.compile('<a href="/document/{{slug}}"><div>{{title}}</div></a>')
-//    suggestion: Handlebars.compile('<a href="/document/{{slug}}"><div>{{title}} words: {{words}} pages: {{pages}} <img src="{{image}}"></div></a>')
+//    suggestion: Handlebars.compile('<a href="/document/{{slug}}"><div>{{title}}</div></a>')
+    suggestion: Handlebars.compile('<a href="/document/{{slug}}" class="border-bottom text-dark"><div class="row"><div class="col-2"><img src="{{image}}" alt="{{title}}" class="img-fluid border"></div><div class="col-10 position-relative"><h4>{{title}}</h4><p>{{description}}</p><div class="text-right d-block w-100 position-absolute bottom-0-right-20">words: <strong>{{words}}</strong>   pages: <strong>{{pages}}</strong></div></div> </div></a>')
   }
 });
 

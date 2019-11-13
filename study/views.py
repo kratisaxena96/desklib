@@ -121,6 +121,11 @@ def autocomplete(request):
         except:
             pass
 
+        if len(result.description) > 75:
+            item["description"] = (result.description[:250] + '..')
+        else:
+            item["description"] = data
+
         item = {"title": result.title, "slug": result.slug, "pages": result.no_of_pages, }
         # item = {"title": result.title, "slug": result.slug, "pages": result.no_of_pages, "words": words, "image": img}
 
