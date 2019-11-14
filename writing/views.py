@@ -145,16 +145,21 @@ class SpellCheckPageView(MetadataMixin,JsonLdContextMixin, FormView):
 
 class GrammarCorrectPageView(MetadataMixin,JsonLdContextMixin, FormView):
     form_class = SpellCheckForm
-    title = 'Free grammar check and spell corrector | Desklib'
+    title = 'Desklib.com | Trusted and free grammar checker | spelling checker'
     use_title_tag = True
-    description = 'Check your text for grammar corrections and spelling mistakes using our free tool. Get free writing tips and suggestions to improve your writing skills.'
-
+    description = 'Check your text for grammar corrections and spelling mistakes using our trusted and free grammar ' \
+                  'checker tool. Get free writing tips and suggestions to improve your writing skills. '
+    keywords = ['trusted and free grammar checker', 'Grammar Checker Tool', 'Grammar and spelling checker',
+                'english grammar check online', 'english sentence correction', 'free grammar check',
+                'punctuation checker' , 'essay checker', 'spell', 'grammar', 'diction']
     template_name = "writing/grammar_correct.html"
 
     structured_data = {
         "@type": "Organization",
-        "name": "This is writing Company home",
-        "description": _("A writing company."),
+        "name": "Desklib.com | Trusted and free grammar checker | spelling checker",
+        "description": _("Check your text for grammar corrections and spelling mistakes using our trusted and free "
+                         "grammar checker tool. Get free writing tips and suggestions to improve your writing "
+                         "skills."),
     }
 
     def get_structured_data(self):
