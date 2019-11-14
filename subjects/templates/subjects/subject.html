@@ -1,19 +1,19 @@
-{% extends "desklib/base.html" %}
-{% load staticfiles %}
-{% block content %}
-<section>
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item"><a href="">Subjects</a></li>
-        <li class="breadcrumb-item active" aria-current="page"></li>
-  </ol>
-</nav>
-</section>
-<section>
-<div class="container">	
-	<div class=""></div>
-	<h1 class="pt-3 pb-3">Subjects</h1>
-</div>
-</section>
-{% endblock %}
+subject page
+
+        <div class="card-columns">
+		{% for p in parent_subject %}
+
+            <div class="card border-0">
+              <div class="card-body">
+                <a href="{% url 'subjects:parent-subject-view' p.slug %}" class="card-title">{{ p }}</a>
+                  <br>
+                    {% for child in p.subject_set.all %}
+                    <a class="card-link mr-4 ml-0" href="{% url 'subjects:child-subject-view' p.slug child.slug %}">
+						{{child}}
+						</a>
+                    {% endfor %}
+
+              </div>
+            </div>
+		{% endfor %}
+            </div>
