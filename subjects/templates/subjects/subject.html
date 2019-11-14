@@ -1,1 +1,19 @@
-subject page
+{% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% block content %}
+<section>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="">Subjects</a></li>
+        <li class="breadcrumb-item active" aria-current="page"></li>
+  </ol>
+</nav>
+</section>
+<section>
+<div class="container">	
+	<div class=""></div>
+	<h1 class="pt-3 pb-3">Subjects</h1>
+</div>
+</section>
+{% endblock %}
