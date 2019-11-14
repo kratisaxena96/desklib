@@ -20,10 +20,12 @@ from django.urls import path, include
 from django.conf.urls import url
 
 from django.conf.urls.i18n import i18n_patterns
-from .views import SubjectsPageView
+from .views import SubjectsPageView, ParentSubjectPageView, ChildSubjectPageView
 from samples.views import SampleListView, SampleView
 
 urlpatterns = [
     path('', SubjectsPageView.as_view(), name="subjects"),
+    path('<slug:parent_subject>/<slug:slug>/', ChildSubjectPageView.as_view(), name='child-subject-view'),
+    path('<slug:slug>/', ParentSubjectPageView.as_view(), name='parent-subject-view'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

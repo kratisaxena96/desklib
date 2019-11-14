@@ -1,1 +1,19 @@
 subject page
+
+        <div class="card-columns">
+		{% for p in parent_subject %}
+
+            <div class="card border-0">
+              <div class="card-body">
+                <a href="{% url 'subjects:parent-subject-view' p.slug %}" class="card-title">{{ p }}</a>
+                  <br>
+                    {% for child in p.subject_set.all %}
+                    <a class="card-link mr-4 ml-0" href="{% url 'subjects:child-subject-view' p.slug child.slug %}">
+						{{child}}
+						</a>
+                    {% endfor %}
+
+              </div>
+            </div>
+		{% endfor %}
+            </div>
