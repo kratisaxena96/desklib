@@ -75,6 +75,7 @@ INSTALLED_APPS = [
     'uploads',
     'storages',
     'django_countries',
+    'review',
 ]
 
 SITE_ID = 1
