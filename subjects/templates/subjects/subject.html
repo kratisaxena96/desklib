@@ -1,8 +1,8 @@
 subject page
 
         <div class="card-columns">
-		{% for p in parent_subject %}
-
+		{% for p in object_list %}
+        {% if not p.parent_subject %}
             <div class="card border-0">
               <div class="card-body">
                 <a href="{% url 'subjects:parent-subject-view' p.slug %}" class="card-title">{{ p }}</a>
@@ -15,5 +15,6 @@ subject page
 
               </div>
             </div>
+        {% endif %}
 		{% endfor %}
             </div>
