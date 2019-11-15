@@ -6,6 +6,10 @@ from django.views.generic.list import ListView
 # Create your views here.
 class SampleListView(ListView):
     model = Sample
+    title = 'Professional Resume Writing Service | Desklib.com'
+    use_title_tag = True
+    description = 'Desklib provides you professional resume writing service. Your resume reflects who you are as a professional. Our team has created sample resumes for everyone who is looking for the perfect format for resume'
+    keywords = ['professional resume writing service', 'resume writing services', 'resume services online', 'desklib resume writing service ']
 
     def get_context_data(self, **kwargs):
         context = super(SampleListView, self).get_context_data(**kwargs)
