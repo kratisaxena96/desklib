@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, DetailView
+from django.views.generic import TemplateView, DetailView, ListView
 from meta.views import MetadataMixin
 from django_json_ld.views import JsonLdContextMixin
 
@@ -9,14 +9,15 @@ from documents.models import Document
 from django.db.models import Count
 
 
-class SubjectsPageView(MetadataMixin, JsonLdContextMixin, TemplateView):
+class SubjectsPageView(MetadataMixin, JsonLdContextMixin, ListView):
     template_name = "subjects/subject.html"
+    model = Subject
 
-    def get_context_data(self, **kwargs):
-        context = super(SubjectsPageView, self).get_context_data(**kwargs)
-        context['parent_subject'] = Subject.objects.filter(parent_subject__isnull=True).prefetch_related('subject_set')
-        context['child_subject'] = Subject.objects.all()
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super(SubjectsPageView, self).get_context_data(**kwargs)
+    #     context['parent_subject'] = Subject.objects.filter(parent_subject__isnull=True).prefetch_related('subject_set')
+    #     context['child_subject'] = Subject.objects.all()
+    #     return context
 
 
 class ParentSubjectPageView(MetadataMixin, JsonLdContextMixin, DetailView):
@@ -28,7 +29,7 @@ class ParentSubjectPageView(MetadataMixin, JsonLdContextMixin, DetailView):
         parent_subject = Subject.objects.get(slug=self.kwargs['slug'])
         child_subject = Subject.objects.filter(parent_subject=parent_subject.id)
         document = Document.objects.filter(subjects=parent_subject.id)
-        # doc = Document.objects.annotate(doc_subject=Count('subjects'))
+        # doc = Document.objects.annotate(doc_subject=Count('subject_documents'))
         # print(doc[0].doc_subject)
 
         context['child_subject'] = child_subject
