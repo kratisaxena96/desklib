@@ -1,11 +1,12 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView
 from meta.views import MetadataMixin
 from django_json_ld.views import JsonLdContextMixin
 
 # Create your views here.
 from subjects.models import Subject
 from documents.models import Document
+from django.db.models import Count
 
 
 class SubjectsPageView(MetadataMixin, JsonLdContextMixin, TemplateView):
@@ -18,27 +19,31 @@ class SubjectsPageView(MetadataMixin, JsonLdContextMixin, TemplateView):
         return context
 
 
-class ParentSubjectPageView(MetadataMixin, JsonLdContextMixin, TemplateView):
+class ParentSubjectPageView(MetadataMixin, JsonLdContextMixin, DetailView):
     template_name = "subjects/parent_subject.html"
+    model = Subject
 
     def get_context_data(self, **kwargs):
         context = super(ParentSubjectPageView, self).get_context_data(**kwargs)
-        parent_subject = Subject.objects.get(slug=kwargs['slug'])
+        parent_subject = Subject.objects.get(slug=self.kwargs['slug'])
         child_subject = Subject.objects.filter(parent_subject=parent_subject.id)
+        document = Document.objects.filter(subjects=parent_subject.id)
+        # doc = Document.objects.annotate(doc_subject=Count('subjects'))
+        # print(doc[0].doc_subject)
 
-        # document = Document.objects.filter(subjects__in=child_subject[id])
-
-        context['parent'] = parent_subject
         context['child_subject'] = child_subject
-        # context['document'] = document
+        context['document'] = document
+        # context['doc_count'] = doc
         return context
 
-class ChildSubjectPageView(MetadataMixin, JsonLdContextMixin, TemplateView):
+
+class ChildSubjectPageView(MetadataMixin, JsonLdContextMixin, DetailView):
     template_name = "subjects/child_subject.html"
+    model = Subject
 
     def get_context_data(self, **kwargs):
         context = super(ChildSubjectPageView, self).get_context_data(**kwargs)
-        child_subject = Subject.objects.get(slug=kwargs['slug'])
-        context['child'] = child_subject
+        child_subject = Subject.objects.get(slug=self.kwargs['slug'])
+        # context['child'] = child_subject
         context['document'] = Document.objects.filter(subjects=child_subject.id)
         return context
