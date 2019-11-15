@@ -1,1 +1,58 @@
-subject page
+{% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% block content %}
+<section>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <!-- <li class="breadcrumb-item"><a href="">Subjects</a></li> -->
+        <li class="breadcrumb-item active" aria-current="page"></li>
+  </ol>
+</nav>
+</section>
+
+<section>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<h1>Subjects</h1>
+				<p>Find using our extensive subjects filters & get most out of it.
+		</p>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-12">
+        <div class="card-columns">
+		{% for p in object_list %}
+        {% if not p.parent_subject %}
+            <div class="card border-0">
+              <div class="card-body">
+                 <img src="{% static 'dist/assets/images/CS_Icon.png' %}" alt="icon" width="50px" height="50px">
+                 <h5 class="card-title d-inline">
+                 <a href="{% url 'subjects:parent-subject-view' p.slug %}" class="card-title black-font">{{ p }}</a> </h5>
+                  <br>
+ 					
+                    {% for child in p.subject_set.all %}
+                    <a class="card-link mr-4 ml-0" href="{% url 'subjects:child-subject-view' p.slug child.slug %}">
+						{{child}}
+					</a>
+                    {% endfor %}
+              </div>
+            </div>
+        {% endif %}
+		{% endfor %}
+        </div>
+</div>
+</div>
+<!-- common section -->
+<div class="row mb-5">
+	<div class="col-sm-12 text-center">
+		<h3>join us and improve your grades.</h3>
+		<h3>Get best deals</h3>
+		<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="">Join now</a>
+	</div>
+</div>
+</div>
+</section>
+
+ {% endblock %}

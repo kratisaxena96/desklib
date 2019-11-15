@@ -1,0 +1,149 @@
+{% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% block content %}
+<section>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="">Subjects</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{parent.name}}</li>
+  </ol>
+</nav>
+</section>
+<section>
+	<div class="container">
+		<div class="row mb-4 mt-4 pb-2 border-bottom">
+			<div class="col-sm-7">
+				 <img src="{{ object.info_graphic_image.url }}" alt="{{ image_alt_text.title }}" width="50px" height="50px">
+				 <h4 class="card-title d-inline">{{object.name}}</h4>
+                <p class="pt-2">{{object.sub_heading}}</p>
+			</div>
+			<div class="col-sm-5"></div>
+		</div>
+		<div class="row mt-4 mb-4">
+			 {% for child in child_subject %}
+			<div class="col-sm-4 mb-3">
+				<h5>
+					<a href="" class="blue-theme">{{child}}</a> </h5>
+					<span class="d-block text-muted pb-2 font-size-12">452 documents</span>
+			</div>
+			{% endfor %}
+		</div>
+		<!-- search bar and tabs -->
+		<div class="row mt-4 mb-4">
+			<div class="col-sm-6">
+				<form class="form-inline" >
+					<div class="input-group tt-input-group" id="remote">
+
+                <input type="search" name="sub_search" class=" form-control border-radius-30" placeholder="Search here.">
+                <button class="btn btn-bg-theme text-white border-radius-40 ml-2 px-4" type="submit">Search</button>
+            </div>
+			</form>
+			</div>
+			<div class="col-sm-6">
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+  					<li class="nav-item">
+    				<a class="nav-link active" id="" data-toggle="tab" href="#all-tab" role="tab" aria-controls="all" aria-selected="true">All</a> </li>
+  					<li class="nav-item">
+    				<a class="nav-link" id="" data-toggle="tab" href="#recent-tab" role="tab" aria-controls="recent" aria-selected="false">Recent</a>
+  					</li>
+				</ul>
+			</div>
+		</div>
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="all-tab" rall-tabole="tabpanel" aria-labelledby="all-tab">
+  	<div class="row mt-5 mb-4">
+		<div class="col-sm-3">
+			<a href="" class="text-decoration-none">
+			<div class="card h-100">
+				<img src="{% static 'dist/assets/images/Expert help in proofreading.png' %}" alt="icon">
+				<div class="card-body">
+					<p class="card-text black-font">title</p><span class="border-right p-2">
+                        <span class="text-muted">100</span>
+                            <span class="text-muted">pages</span>
+                    </span>
+                    <span class="p-2">
+                        <span class="text-muted">1000</span>
+                        <span class="text-muted">words
+                        </span>
+                    </span>
+			</div>
+		</div>
+	</a>
+	</div>
+</div>
+</div>
+<div class="tab-pane" id="recent-tab" role="tabpanel" aria-labelledby="recent-tab">
+	<div class="row mt-5 mb-4">
+		<div class="col-sm-3">
+			<a href="" class="text-decoration-none">
+			<div class="card h-100">
+				<img src="{% static 'dist/assets/images/Expert help in proofreading.png' %}" alt="icon">
+				<div class="card-body">
+					<p class="card-text black-font">title</p><span class="border-right p-2">
+                        <span class="text-muted">100</span>
+                            <span class="text-muted">pages</span>
+                    </span>
+                    <span class="p-2">
+                        <span class="text-muted">1000</span>
+                        <span class="text-muted">words
+                        </span>
+                    </span>
+				</div>
+			</div>
+		</a>
+		</div>
+		<div class="col-sm-3">
+			<a href="" class="text-decoration-none">
+			<div class="card h-100">
+				<img src="{% static 'dist/assets/images/Expert help in proofreading.png' %}" alt="icon">
+				<div class="card-body">
+					<p class="card-text black-font">title</p><span class="border-right p-2">
+                        <span class="text-muted">100</span>
+                            <span class="text-muted">pages</span>
+                    </span>
+                    <span class="p-2">
+                        <span class="text-muted">1000</span>
+                        <span class="text-muted">words
+                        </span>
+                    </span>
+				</div>
+			</div>
+		</a>
+		</div>
+	</div>
+</div>
+</div>
+<div class="row mb-5">
+	<div class="col-sm-12 text-center">
+		<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="">View More</a>
+	</div>
+</div>
+
+<div class="row mb-5">
+	<div class="col-sm-12 text-center">
+			<h3>join us and improve your grades.</h3>
+			<h3>Get best deals</h3>
+				<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="">Join now</a>
+	</div>
+</div>
+</div>
+</section>
+{% comment %}
+
+parent subject page
+{{child_subject}}
+{{parent.name}}
+{{object}}
+{{object.keywords.all}}
+{{object.description}}
+
+{% for c in doc_count %}
+{{c.doc_subject}}
+
+{% endfor %}
+
+{% endcomment %}
+
+{% endblock %}

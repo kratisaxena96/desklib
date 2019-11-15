@@ -75,8 +75,8 @@ class HomePageView(MetadataMixin, JsonLdContextMixin, SearchView):
 
     structured_data = {
         "@type": "Organization",
-        "name": "Desklib",
-        "description": _("All study resources you will need to secure best grade."),
+        "name": "Desklib | homework help | online learning library | assignment solutions",
+        "description": _("Desklib online learning library provides you 24/7 Homework Help, Q&A help, and solutions to assignments, essays, dissertations, case studies and Best free writing tools for everyone to improve their writing skills."),
         "url": "https://desklib.com/",
         "logo": "https://desklib.com/assets/img/desklib_logo.png",
         "potentialAction": {
