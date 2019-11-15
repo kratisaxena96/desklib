@@ -14,9 +14,9 @@
 	<div class="container">
 		<div class="row mb-4 mt-4 pb-2 border-bottom">
 			<div class="col-sm-7">
-				 <img src="{{ parent.info_graphic_image.url }}" alt="{{ image_alt_text.title }}" width="50px" height="50px">
-				 <h4 class="card-title d-inline">{{parent.name}}</h4>
-                <p class="pt-2">{{parent.sub_heading}}</p>
+				 <img src="{{ object.info_graphic_image.url }}" alt="{{ image_alt_text.title }}" width="50px" height="50px">
+				 <h4 class="card-title d-inline">{{object.name}}</h4>
+                <p class="pt-2">{{object.sub_heading}}</p>
 			</div>
 			<div class="col-sm-5"></div>
 		</div>
@@ -147,12 +147,3 @@ parent subject page
 {% endcomment %}
 
 {% endblock %}
-
-<!-- {% block extra_js %}
-<script>
-$('#myTab').on('click', function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
-</script>
-{% endblock %} -->
