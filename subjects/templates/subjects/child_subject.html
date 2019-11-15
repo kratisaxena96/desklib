@@ -1,6 +1,93 @@
+{% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% block content %}
+<section>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="">Subjects</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{child.name}}</li>
+  </ol>
+</nav>
+</section>
+<section>
+	<div class="container">
+		<div class="row mb-4 mt-4 pb-2 border-bottom">
+			<div class="col-sm-8">
+				<img src="{% static 'dist/assets/images/CS_Icon.png' %}" alt="icon" width="50px" height="50px">
+				 <h4 class="card-title d-inline">{{child.name}}</h4>
+                <p>Find best docs for this subject. Get bets help & secure good grades.
+                </p>
+			</div>
+			<div class="col-sm-4"></div>
+		</div>
+		<div class="row mt-4 mb-4">
+			<div class="col-sm-6">
+				<form class="form-inline" >
+					<div class="input-group tt-input-group" id="remote">
+              
+                <input type="search" name="sub_search" class=" form-control border-radius-30" placeholder="Search here."> 
+                <button class="btn btn-bg-theme text-white border-radius-40 ml-2 px-4" type="submit">Search</button>  
+            </div>
+			</form>
+			</div>
+			<div class="col-sm-6">
+				<ul class="nav">
+					<li class="nav-item border-right"><a class="nav-link active" href="">All</a></li>
+					<li class="nav-item border-right"><a class="nav-link active" href="" >Recent</a></li>
+					<li class="nav-item border-right"><a class="nav-link active" href="" >Top</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="row mt-5 mb-4">
+			<div class="col-sm-3">
+				<div class="card h-100">
+					<img src="{% static 'dist/assets/images/Expert help in proofreading.png' %}" alt="icon">
+					 <div class="card-body">
+					 	
+					 </div>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="card h-100">
+					<img src="{% static 'dist/assets/images/Expert help in proofreading.png' %}" alt="icon">
+					 <div class="card-body">
+					 	
+					 </div>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="card h-100">
+					<img src="{% static 'dist/assets/images/Expert help in proofreading.png' %}" alt="icon">
+					 <div class="card-body">
+					 	
+					 </div>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="card h-100">
+					<img src="{% static 'dist/assets/images/Expert help in proofreading.png' %}" alt="icon">
+					 <div class="card-body">
+					 	
+					 </div>
+				</div>
+			</div>
+		</div>
+		<div class="row mb-5">
+			<div class="col-sm-12 text-center">
+				<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="">View More</a>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+{% comment %}
 child subject page
 
 {{child.name}}
 
-
 {{document}}
+{% endcomment %}
+
+{% endblock %}
