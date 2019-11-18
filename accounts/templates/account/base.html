@@ -1,5 +1,7 @@
-{% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% load meta %}
 
+<!DOCTYPE html>
 <html>
 <head>
 
@@ -16,6 +18,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <!-- Font Awesome Icons -->
 
+    <title>{% block head_title %}{% endblock %}</title>
 {% block head_links %}
 {% endblock %}
 

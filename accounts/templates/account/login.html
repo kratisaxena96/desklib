@@ -1,16 +1,16 @@
 {% extends "desklib/base.html" %}
 {% load i18n %}
 
-{% block head_links %} 
+{% block head_links %}
 {% load socialaccount %}
 {% comment %}
 <!--<a href="{% provider_login_url "facebook" method="oauth2" %}">Facebook OAuth2</a>-->
 {% endcomment %}
-<title>Sign In</title>
+<!--<title>Sign In</title>-->
 
 {% endblock %}
 
-{% block head_title %}{% trans "Sign In" %} {% endblock %}
+{% block head_title %}<title>{% trans "Sign In | desklib.com" %}</title>{% endblock %}
 
 {% block content %}
 <div class="container-fluid">

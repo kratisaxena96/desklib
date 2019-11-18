@@ -2,9 +2,13 @@ from django.shortcuts import render
 from samples.models import Sample
 from django_json_ld.views import JsonLdDetailView
 from django.views.generic.list import ListView
+from meta.views import MetadataMixin
+from django_json_ld.views import JsonLdContextMixin
 
 # Create your views here.
-class SampleListView(ListView):
+
+
+class SampleListView(MetadataMixin, JsonLdContextMixin, ListView):
     model = Sample
     title = 'Professional Resume Writing Service | Desklib.com'
     use_title_tag = True
