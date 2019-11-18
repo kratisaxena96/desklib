@@ -37,6 +37,11 @@
                     {% for child in p.subject_set.all %}
                     <a class="card-link mr-4 ml-0" href="{% url 'subjects:child-subject-view' p.slug child.slug %}">
 						{{child}}
+                        {% for c in doc_count %}
+                            {% if c.name == child.name %}
+                                {{c.doc_subject}} documents
+                            {% endif %}
+                        {% endfor %}
 					</a>
                     {% endfor %}
               </div>

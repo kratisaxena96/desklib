@@ -29,7 +29,13 @@
 			<div class="col-sm-4 mb-3">
 				<h5>
 					<a href="" class="blue-theme">{{child}}</a> </h5>
-					<span class="d-block text-muted pb-2 font-size-12">452 documents</span>
+
+{% for c in doc_count %}
+{% if c.name == child.name %}
+
+				<span class="d-block text-muted pb-2 font-size-12">{{c.doc_subject}} documents 	</span>
+				{% endif %}
+				{% endfor %}
 			</div>
 			{% endfor %}
 		</div>
@@ -105,7 +111,7 @@
 	</div>
 	{% endfor %}
 	</div>
-</div> 
+</div>
 </div>
 <div class="row mb-5">
 	<div class="col-sm-12 text-center">
@@ -136,9 +142,11 @@ parent subject page
 {{object.description}}
 
 {% for c in doc_count %}
-{{c.doc_subject}}
+
+{{c}} : {{c.doc_subject}}<br>
 
 {% endfor %}
+
 
 {% endcomment %}
 
