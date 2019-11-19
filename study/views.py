@@ -148,7 +148,7 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, FacetedSearchView):
     description = 'Search results for your query on desklib.com'
     keywords = ['Study resources', 'study notes search', 'study documents', 'study material search']
     suggestions = {}
-    selected_facets = ['subjects']
+    selected_facets = ['subjects', 'p_subject']
     # query_set =  None
 
     structured_data = {
