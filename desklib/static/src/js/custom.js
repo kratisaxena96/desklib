@@ -1,15 +1,4 @@
 
-var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
-  'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
-  'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
-  'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
-  'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
-  'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
-  'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
-  'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
-  'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
-];
-
 var states = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
   queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -34,8 +23,7 @@ $('#remote .typeahead').typeahead(null,{
         'No results found',
       '</div>'
     ].join('\n'),
-//    suggestion: Handlebars.compile('<a href="/document/{{slug}}"><div>{{title}}</div></a>')
-    suggestion: Handlebars.compile('<a href="/document/{{slug}}" class="border-bottom text-dark"><div class="row"><div class="col-2"><img src="{{image}}" alt="{{title}}" class="img-fluid border"></div><div class="col-10 position-relative"><h4>{{title}}</h4><p>{{description}}</p><div class="text-right d-block w-100 position-absolute bottom-0-right-20">words: <strong>{{words}}</strong>   pages: <strong>{{pages}}</strong></div></div> </div></a>')
+    suggestion: Handlebars.compile('<a href="/document/{{slug}}" class="border-bottom text-dark"><div class="row"><div class="col-2"><img src="{{image}}" alt="{{title}}" class="img-fluid border"></div><div class="col-10 position-relative"><h4>{{title}}</h4><p>{{description}}</p><div class="text-right d-block w-100 position-absolute bottom-0-right-20">words: <b>{{words}}</b>   pages: <b>{{pages}}</b></div></div> </div></a>')
   }
 });
 

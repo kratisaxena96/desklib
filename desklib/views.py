@@ -256,8 +256,11 @@ class PaypalPaymentView(TemplateView):
         return context
 
 
-class SubscriptionView(TemplateView):
+class SubscriptionView(MetadataMixin, JsonLdContextMixin, TemplateView):
     template_name = 'desklib/subscription.html'
+    title = 'Get subscription | homework help | online learning library'
+    description = 'Get a subscription of Desklib online learning library for homework help, assignment help, case study and dissertation help by filling up your requirements and secure better grades.'
+    keywords = ['online learning library', 'homework help', 'dissertation writing help', 'assignment help', 'case study help ']
 
     def get_context_data(self, **kwargs):
         context = super(SubscriptionView, self).get_context_data(**kwargs)

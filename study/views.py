@@ -110,6 +110,7 @@ def autocomplete(request):
     # for i in range(len(sqs)):
     for result in sqs:
         document_obj = Document.objects.get(slug=result.slug)
+        item = {"title": result.title, "slug": result.slug, "pages": result.no_of_pages, }
         try:
             words = document_obj.words
             item["words"] = words
@@ -121,12 +122,12 @@ def autocomplete(request):
         except:
             pass
 
-        if len(result.description) > 75:
+        if len(result.description) > 250:
             item["description"] = (result.description[:250] + '..')
         else:
             item["description"] = data
 
-        item = {"title": result.title, "slug": result.slug, "pages": result.no_of_pages, }
+
         # item = {"title": result.title, "slug": result.slug, "pages": result.no_of_pages, "words": words, "image": img}
 
         data[i] = item
