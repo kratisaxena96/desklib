@@ -4,9 +4,8 @@ from .models import Review
 
 
 class ReviewAdmin(admin.ModelAdmin):
-    raw_id_fields = ('author',)
     readonly_fields = ('created_at', 'updated_at',)
-    list_display = ('title', 'email', 'stars', 'description', 'is_published', 'author',)
+    list_display = ('title', 'email', 'stars', 'description', 'is_published', 'name',)
     list_filter = ('is_published',)
 
 
