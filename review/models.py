@@ -8,7 +8,11 @@ from django.conf import settings
 
 class Review(models.Model):
     stars = models.IntegerField(max_length=5)
-    review = models.TextField(max_length=500)
+    description = models.TextField(max_length=500)
+    title = models.CharField(max_length=200)
+    email = models.EmailField(max_length=50)
+    name = models.CharField(max_length=50)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(default=False)
@@ -21,4 +25,4 @@ class Review(models.Model):
         ordering = ['created_at', ]
 
     def __str__(self):
-        return self.stars
+        return self.title

@@ -40,6 +40,7 @@ class ParentSubjectPageView(MetadataMixin, JsonLdContextMixin, DetailView):
         document = Document.objects.filter(subjects=parent_subject.id)
         doc = Subject.objects.filter(parent_subject=parent_subject.id).annotate(doc_subject=Count('subject_documents'))
 
+        all = SearchQuerySet().filter(p_subject=parent_subject)[:20]
         recent = SearchQuerySet().filter(p_subject=parent_subject).order_by('-pub_date')[:20]
         top_results = SearchQuerySet().filter(p_subject=parent_subject).order_by('-views')[:20]
         # print(doc[0].doc_subject)
