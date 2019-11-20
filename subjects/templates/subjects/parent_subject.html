@@ -20,7 +20,11 @@
 				 <img src="{{ object.image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid subject-img h-auto">
 				 {% endif %}
 				<h4 class="card-title d-inline">{{object.name}}</h4>
+				{% if object.sub_heading %}
                 <p class="pt-2">{{object.sub_heading}}</p>
+                {% elif  object.short_description %}
+                <p class="pt-2">{{object.short_description}}</p>
+                {% endif %}
 			</div>
 			<div class="col-sm-5"></div>
 		</div>
@@ -39,7 +43,12 @@
 			</div>
 			{% endfor %}
 		</div>
-		<!-- search bar and tabs -->
+	</div>	
+</section>	
+<!-- search bar and tabs -->
+{% if recent %}
+<section>			
+	<div class="container">		
 		<div class="row mt-md-4 mb-md-4 mb-3 mt-3 border-bottom pb-2">
 			<div class="col-sm-4 mb-md-2 mb-4">
 				<form class="form-inline" action="">
@@ -66,11 +75,11 @@
 <div class="tab-content" id="pills-tabContent">
   <div class="tab-pane fade show active" id="all-tab" role="tabpanel" aria-labelledby="all-tab">
 	<div class="row mt-5 mb-4">
-  		{% for documents in document %}
+  		{% for documents in recent %}
 		<div class="col-sm-6 col-md-4 col-lg-3 mb-3 mb-md-3">
 			<a href="" class="text-decoration-none">
 			<div class="card h-100">
-				<img class="card-img-top card-height" src="{{documents.image.url}}" alt="icon">
+				<img class="card-img-top card-height" src="{{documents.cover_image}}" alt="icon">
 				<div class="card-body">
 					<p class="card-text black-font">{{documents.title|truncatechars:25}}</p>
 					<span class="border-right p-2">
@@ -89,13 +98,13 @@
 	{% endfor %}
 </div>
 </div>
-  <div class="tab-pane fade" id="recent-tab" role="tabpanel" aria-labelledby="recent-tab">
-<div class="row mt-5 mb-4">
-		{% for documents in document %}
+<div class="tab-pane fade" id="recent-tab" role="tabpanel" aria-labelledby="recent-tab">
+	<div class="row mt-5 mb-4">
+		{% for documents in top_results %}
 		<div class="col-sm-6 col-md-4 col-lg-3 mb-3 mb-md-3">
 			<a href="" class="text-decoration-none">
 			<div class="card h-100">
-				<img class="card-img-top card-height" src="{{documents.image.url}}" alt="icon">
+				<img class="card-img-top card-height" src="{{documents.cover_image}}" alt="icon">
 				<div class="card-body">
 					<p class="card-text black-font">{{documents.title|truncatechars:25}}</p>
 					<span class="border-right p-2">
@@ -115,76 +124,22 @@
 	</div>
   </div>
 </div>
+</div>
+</section>
+{% endif %}
 
-				{% comment %}
-				<ul class="nav nav-tabs border-0 justify-content-end" id="myTab" role="tablist">
-  					<li class="nav-item">
-    				<a class="nav-link active" id="" data-toggle="tab" href="#all-tab" role="tab" aria-controls="all" aria-selected="true">All</a> </li>
-  					<li class="nav-item">
-    				<a class="nav-link" id="" data-toggle="tab" href="#recent-tab" role="tab" aria-controls="recent" aria-selected="false">Recent</a>
-  					</li>
-				</ul>
-			<!-- </div> -->
-		</div>
-<!-- Tab panes -->
-<div class="tab-content">
-  <div class="tab-pane active" id="all-tab" rall-tabole="tabpanel" aria-labelledby="all-tab">
-  	<div class="row mt-5 mb-4">
-  		{% for documents in document %}
-		<div class="col-sm-6 col-md-4 col-lg-3 mb-3 mb-md-0">
-			<a href="" class="text-decoration-none">
-			<div class="card h-100">
-				<img class="card-img-top card-height" src="{{documents.image.url}}" alt="icon">
-				<div class="card-body">
-					<p class="card-text black-font">{{documents.title|truncatechars:25}}</p>
-					<span class="border-right p-2">
-                        <span class="text-muted">100</span>
-                            <span class="text-muted">pages</span>
-                    </span>
-                    <span class="p-2">
-                        <span class="text-muted">1000</span>
-                        <span class="text-muted">words
-                        </span>
-                    </span>
+<section>
+	<div class="container">
+		<div class="row mb-5">
+			<div class="col-sm-12 text-center">
+				{% if recent %}
+				<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="">View More</a>
+				{% elif top_results %}
+				<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="">View More</a>
+				{% endif %}
 			</div>
 		</div>
-	</a>
 	</div>
-	{% endfor %}
-</div>
-</div>
- <div class="tab-pane" id="recent-tab" role="tabpanel" aria-labelledby="recent-tab">
-	<div class="row mt-5 mb-4">
-		{% for documents in document %}
-		<div class="col-sm-6 col-md-4 col-lg-3 mb-3 mb-md-0">
-			<a href="" class="text-decoration-none">
-			<div class="card h-100">
-				<img class="card-img-top card-height" src="{{documents.image.url}}" alt="icon">
-				<div class="card-body">
-					<p class="card-text black-font">{{documents.title|truncatechars:25}}</p>
-					<span class="border-right p-2">
-                        <span class="text-muted">100</span>
-                            <span class="text-muted">pages</span>
-                    </span>
-                    <span class="p-2">
-                        <span class="text-muted">1000</span>
-                        <span class="text-muted">words
-                        </span>
-                    </span>
-			</div>
-		</div>
-	</a>
-	</div>
-	{% endfor %}
-	</div>
-</div>
-</div>
-{% endcomment %}
-<div class="row mb-5">
-	<div class="col-sm-12 text-center">
-		<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="">View More</a>
-	</div>
-</div>
 </section>
 <section class="bg-light pt-5 pb-5">
 	<div class="container">
