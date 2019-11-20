@@ -31,7 +31,7 @@ class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
     no_of_words = indexes.IntegerField(model_attr='words')
     subjects = indexes.MultiValueField(faceted=True)
     views = indexes.CharField(model_attr='views')
-    p_sub = indexes.MultiValueField(faceted=True)
+    p_subject = indexes.MultiValueField(faceted=True)
 
     def get_model(self):
         return Document
@@ -39,7 +39,7 @@ class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
     def prepare_subjects(self, obj):
         return [(t.slug) for t in obj.subjects.all()]
 
-    def prepare_p_sub(self, obj):
+    def prepare_p_subject(self, obj):
         parent_sub = {(t.parent_subject.slug) for t in obj.subjects.all()}
         return list(parent_sub)
 
