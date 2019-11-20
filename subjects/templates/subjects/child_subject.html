@@ -6,7 +6,7 @@
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="{% url 'subjects:subjects'%}">Subjects</a></li>
-        <!-- <li class="breadcrumb-item"><a href="">{{object.name}}</a></li> -->
+        <li class="breadcrumb-item"><a href="{% url 'subjects:parent-subject-view' object.parent_subject.slug %}">{{object.parent_subject.name}}</a></li>
         <li class="breadcrumb-item active" aria-current="page">{{object.name}}</li>
   </ol>
 </nav>
@@ -16,12 +16,17 @@
 		<div class="row mb-4 mt-4 pb-2 border-bottom">
 			<div class="col-sm-7">
 				{% if object.info_graphic_image %}
-				<img src="{{ object.info_graphic_image.url }}" alt="{{ image_alt_text.title }}" width="50px" height="50px">
+				<img src="{{ object.info_graphic_image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid subject-img h-auto">
 				 {% elif object.image %}
-				 <img src="{{ object.image.url }}" alt="{{ image_alt_text.title }}" width="50px" height="50px">
+				 <img src="{{ object.image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid subject-img h-auto">
 				 {% endif %}
 				 <h4 class="card-title d-inline">{{object.name}}</h4>
-				<p class="pt-2">{{object.sub_heading}}</p>
+
+				 {% if object.short_description %}
+				<p class="pt-2">{{object.short_description}}</p>
+				 {% elif object.sub_heading %}
+				 <p class="pt-2">{{object.sub_heading}}</p>
+				 {% endif %}
 			</div>
 			<div class="col-sm-5"></div>
 		</div>
@@ -29,13 +34,14 @@
 		<!-- search bar and tabs -->
 		<div class="row mt-md-4 mb-md-4 mb-3 mt-3 border-bottom pb-2">
 			<div class="col-sm-4 mb-md-2 mb-4">
-				<form class="form-inline" >
-					<div class="input-group tt-input-group" id="remote">
-
-                <input type="search" name="sub_search" class=" form-control border-radius-30" placeholder="Search here.">
-                <button class="btn btn-bg-theme text-white border-radius-40 ml-2 px-4" type="submit">Search</button>
+				<form class="form-inline" action="">
+            		<div class="input-group tt-input-group" id="">
+                	<input type="search" name="search" class="typeahead form-control border-radius-30" placeholder="Search here..." value="">   
+                	<div class="input-group-append">
+                    <button class="btn rounded-circle search-bg" type="submit"><i class="fa fa-search search-icon"></i></button>
+                </div>
             </div>
-			</form>
+        </form> 
 			</div>
 			<div class="col-sm-8">
 				<ul class="nav nav-pills mb-3  justify-content-end" id="pills-tab" role="tablist">
@@ -54,7 +60,7 @@
   <div class="tab-pane fade show active" id="all-tab" role="tabpanel" aria-labelledby="all-tab">
 	<div class="row mt-5 mb-4">
   		{% for documents in document %}
-		<div class="col-sm-6 col-md-4 col-lg-3 mb-3 mb-md-0">
+		<div class="col-sm-6 col-md-4 col-lg-3 mb-3 mb-md-3">
 			<a href="" class="text-decoration-none">
 			<div class="card h-100">
 				<img class="card-img-top card-height" src="{{documents.image.url}}" alt="icon">
@@ -79,7 +85,7 @@
  <div class="tab-pane fade" id="recent-tab" role="tabpanel" aria-labelledby="recent-tab">
 	<div class="row mt-5 mb-4">
 		{% for documents in document %}
-		<div class="col-sm-6 col-md-4 col-lg-3 mb-3 mb-md-0">
+		<div class="col-sm-6 col-md-4 col-lg-3 mb-3 mb-md-3">
 			<a href="" class="text-decoration-none">
 			<div class="card h-100">
 				<img class="card-img-top card-height" src="{{documents.image.url}}" alt="icon">

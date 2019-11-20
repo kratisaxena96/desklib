@@ -27,16 +27,16 @@
             <!-- <div class="card border-0"> -->
               <!-- <div class="card-body"> -->
               	{% if object.info_graphic_image %}
-                  <img src="{{ object.info_graphic_image.url }}" alt="{{ image_alt_text.title }}" width="50px" height="50px">
+                  <img src="{{ object.info_graphic_image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid subject-img h-auto">
                    {% elif object.image %}
-				 <img src="{{ object.image.url }}" alt="{{ image_alt_text.title }}" width="50px" height="50px">
+				 <img src="{{ object.image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid subject-img h-auto">
 				  {% endif %}
                  <h4>
                  <a href="{% url 'subjects:parent-subject-view' p.slug %}" class="card-title black-font">{{ p }}</a> </h4>
                   
                     {% for child in p.subject_set.all %}
                     <h5>
-                    <a class="card-link" href="{% url 'subjects:child-subject-view' p.slug child.slug %}">
+                    <a class="card-link blue-theme" href="{% url 'subjects:child-subject-view' p.slug child.slug %}">
 						{{child}}
 
 						{% comment %}
