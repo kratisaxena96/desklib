@@ -1,0 +1,10 @@
+<form method="post">
+    {% csrf_token %}
+    {{form.stars}}
+    {{form.title}}
+    {{form.description}}
+    {{form.email}}
+    {{form.name}}
+    <button type="submit">submit</button>
+
+</form>
