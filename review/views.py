@@ -3,10 +3,12 @@ from django.db.models import Count, Avg
 from django.shortcuts import render
 
 # Create your views here.
-from django.views.generic import ListView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView
 from django_json_ld.views import JsonLdContextMixin
 from meta.views import MetadataMixin
 from review.models import Review
+from .forms import ReviewForm
 
 
 class ReviewPageView(MetadataMixin, JsonLdContextMixin, ListView):
@@ -50,3 +52,10 @@ class ReviewPageView(MetadataMixin, JsonLdContextMixin, ListView):
         context['review_1_stars_count'] = review_1_stars_count
         # context['reviews'] = Review.objects.filter(is_published=True)[:5]
         return context
+
+
+class AddReviewPageView(MetadataMixin, JsonLdContextMixin, CreateView):
+    template_name = "review/add_review.html"
+    model = Review
+    form_class = ReviewForm
+    success_url = reverse_lazy('review:review')
