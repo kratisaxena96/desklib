@@ -27,9 +27,9 @@
             <!-- <div class="card border-0"> -->
               <!-- <div class="card-body"> -->
               	{% if object.info_graphic_image %}
-                  <img src="{{ object.info_graphic_image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid subject-img h-auto">
+                  <img src="{{ object.info_graphic_image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid width-50px h-auto">
                    {% elif object.image %}
-				 <img src="{{ object.image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid subject-img h-auto">
+				 <img src="{{ object.image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid width-50px h-auto">
 				  {% endif %}
                  <h4>
                  <a href="{% url 'subjects:parent-subject-view' p.slug %}" class="card-title black-font">{{ p }}</a> </h4>

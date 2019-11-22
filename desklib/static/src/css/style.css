@@ -481,6 +481,12 @@ span.input-group-text {
 .subject-img {
   width: 50px !important; }
 
+.star-img {
+  width: 100px !important; }
+
+.star-img-200 {
+  width: 200px !important; }
+
 .top-image {
   min-height: 500px;
   background-image: url("/static/dist/assets/images/Desklib banner4.png");
