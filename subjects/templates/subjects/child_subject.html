@@ -16,9 +16,9 @@
 		<div class="row mb-4 mt-4 pb-2 border-bottom">
 			<div class="col-sm-7">
 				{% if object.info_graphic_image %}
-				 <img src="{{ object.info_graphic_image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid subject-img h-auto">
+				 <img src="{{ object.info_graphic_image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid width-50px h-auto">
 				 {% elif object.image %}
-				 <img src="{{ object.image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid subject-img h-auto">
+				 <img src="{{ object.image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid width-50px h-auto">
 				 {% endif %}
 				<h4 class="card-title d-inline">{{object.name}}</h4>
                {% if object.sub_heading %}
