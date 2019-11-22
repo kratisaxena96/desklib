@@ -14,29 +14,29 @@
                         <div class="row mt-3 mb-sm-3">
                             <div class="col-sm-2 col-md-2">
                                 <div class="form-group">
-                                    <label for="" class=""><strong>Name:</strong></label>
+                                    <label for="" class=""><strong>{{form.name.label}}:</strong></label> 
                      </div>
                     </div>
                     <div class="col-sm-10">
                         <div class="form-group">
                           {{form.name}}
-                          <input type="text" class="form-control form-rounded" placeholder="Name..">
-                            <!-- <span id="" class="form-text text-muted">{{form.name.errors}}</span> -->
+                          <!-- <input type="text" class="form-control form-rounded" placeholder="Name.."> -->
+                            <span id="" class="form-text text-muted">{{form.name.errors}}</span>
                         </div>
                     </div>
                 </div>
                 <div class="row mb-sm-3">
                     <div class="col-sm-2 col-md-2">
                         <div class="form-group">
-                            <!-- {{form.email.label}} -->
-                                <label for="" class=""><strong>Email:</strong></label>
+                                 <label for="" class=""><strong>{{form.email.label}}:</strong></label> 
                     </div>
                 </div>
                 <div class="col-sm-10">
                     <div class="form-group">
-                        <input type="email" class="form-control form-rounded" placeholder="Email..">
-                       		{{form.email}}
-                       <!--  <span id="" class="form-text text-muted">{{form.email.errors}}</span> -->
+                    	 {{form.email}} 
+                        <!-- <input type="email" class="form-control form-rounded" placeholder="Email.."> -->
+                       		
+                         <span id="" class="form-text text-muted">{{form.email.errors}}</span> 
                     </div>
                 </div>
             </div>          
@@ -49,8 +49,8 @@
                  <div class="col-sm-10">
                     <div class="form-group">
                         {{ form.title }}
-                       <input type="text" class="form-control form-rounded" placeholder="Title..">
-                       <!--  <span id="" class="form-text text-muted">{{form.email.errors}}</span> -->
+                       <!-- <input type="text" class="form-control form-rounded" placeholder="Title.."> -->
+                        <span id="" class="form-text text-muted">{{form.email.errors}}</span>
                     </div>
                 </div>
             </div>
@@ -58,37 +58,47 @@
                 <div class="col-sm-2 col-md-2">
                     <div class="form-group">
                                 <label for="id_country" class=""><strong> 
-                                {{form.description.label}}Description:</strong></label>
+                                {{form.description.label}}:</strong></label>
                 </div>
             </div>
                  <div class="col-sm-10">
                     <div class="form-group">
                     	{{form.description}}
-                        <!-- <textarea rows="5" cols="58">   
-                        </textarea> -->
+                    	<span id="" class="form-text text-muted">{{form.email.errors}}</span>
+                        
                     </div>
                 </div>
             </div>
-            {% comment %}
+           
              <div class="row mb-sm-3">
                 <div class="col-sm-2 col-md-2">
                     <div class="form-group">
-                                <label for="id_country" class=""><strong><!-- {{form.stars.label}} -->Star-Ratings:</strong></label>
+                                <label for="id_country" class=""><strong><!-- {{form.stars.label}} --> Ratings:</strong></label>
                 </div>
             </div>
                  <div class="col-sm-10">
-                    <div class="form-group">
-                        <input type="text" class="form-control form-rounded" placeholder="Stars..">
-                      <!--  {{form.stars}} -->
-                       <!--  <span id="" class="form-text text-muted">{{form.email.errors}}</span> -->
-                    </div>
+                 	{{form.stars}}
+                    <!-- <div class="form-group"> -->
+                 <div class="rate">
+				    <input type="radio" id="star5" name="rate" value="5" />
+				    <label for="star5" title="text">5 stars</label>
+				    <input type="radio" id="star4" name="rate" value="4" />
+				    <label for="star4" title="text">4 stars</label>
+				    <input type="radio" id="star3" name="rate" value="3" />
+				    <label for="star3" title="text">3 stars</label>
+				    <input type="radio" id="star2" name="rate" value="2" />
+				    <label for="star2" title="text">2 stars</label>
+				    <input type="radio" id="star1" name="rate" value="1" />
+				    <label for="star1" title="text">1 star</label>
+				  </div>
+                   <!--  </div> -->
                 </div>
             </div>
-            {% endcomment %}
+            
             <div class="row mb-sm-3">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-4">
-                    <input type="submit" class="form-control border-radius-40 btn-bg-theme text-white py-1 px-4" value="Submit">
+                    <input type="submit" class="form-control border-radius-40 btn-bg-theme text-white py-1 px-4" value="Post Review">
                 </div>
             </div>
            </form>
@@ -98,7 +108,7 @@
 </div>
 </section>
 {% endblock %}
-
+{% comment %}
 <form method="post">
     {% csrf_token %}
     {{form.stars}}
@@ -107,5 +117,5 @@
     {{form.email}}
     {{form.name}}
     <button type="submit">submit</button>
-
 </form>
+{% endcomment %}

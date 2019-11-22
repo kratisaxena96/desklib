@@ -5,52 +5,58 @@
 <section class="pt-5 pb-5">
 	<div class="container">
 		<div class="row ">
-			<div class="col-sm-8">
+			<div class="col-md-8">
 				<div class="row">
 					
-					<div class="col-sm-6">
+					<div class="col-md-6">
+						
 						<h4 class="d-inline pr-3">Reviews</h4>
-						<h4 class="d-inline text-muted">768</h4>
+						<h4 class="d-inline text-muted">{{review_count}}</h4>
 					</div>
-					<div class="col-sm-6 text-center">
+					{% comment %}
+					<div class="col-md-6 text-center">
 						<a href="" class="btn blue-theme">Write Review</a>
 					</div>
+					{% endcomment %}
 				</div>
 				<hr>
 				<div class="row">
-					<div class="col-sm-12">
+					<div class="col-md-12">
 						<div class="mt-3 mb-3">
-							<img src="{% static 'dist/assets/images/star3.png' %}" class="img-fluid width-200px">
+							{{review_avg.stars__avg}}
+							<span class="fa fa-star checked text-success"></span>
+							<span class="fa fa-star checked text-success"></span>
 						</div>
 			</div>
 			</div>
 			<!-- <hr> -->
 			<div class="row pt-3 pb-3">
-				<div class="col-sm-12">
+				<div class="col-md-12">
 					<div class="row">
-						<div class="col-sm-1">
+						<div class="col-sm-2 col-md-1">
 							<a href="" class="text-decoration-none">
 								<small class="text-muted">Excellent</small>
+
 							</a>
 						</div>
-						<div class="col-sm-8">
+						<div class="col-md-8">
 						<a href="" class="text-decoration-none">
 							<div class="progress">
-  							<div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+  							<div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">58%</div>
 						</div>
 						</a>
 					</div>
 					<div class="col-sm-1">
-						<span class="text-muted">58%</span>
+						<span class="text-muted"></span>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-sm-1">
+					<div class="col-sm-2 col-md-1">
 						<a href="" class="text-decoration-none">
 						<small class="text-muted">Great</small>
 						</a>
 					</div>
-					<div class="col-sm-8">
+					<div class="col-md-8">
 						<a href="" class="text-decoration-none">
 							<div class="progress">
   							<div class="progress-bar bg-info" role="progressbar" style="width: 30%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
@@ -62,12 +68,12 @@
 					</div>
 				</div>
 				<div class="row">
-						<div class="col-sm-1">
+						<div class="col-sm-2 col-md-1">
 							<a href="" class="text-decoration-none">
 								<small class="text-muted">Avg</small>
 							</a>
 						</div>
-						<div class="col-sm-8">
+						<div class="col-md-8">
 						<a href="" class="text-decoration-none">
 							<div class="progress">
   							<div class="progress-bar bg-info" role="progressbar" style="width: 5%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
@@ -79,12 +85,12 @@
 					</div>
 				</div>
 				<div class="row">
-						<div class="col-sm-1">
+						<div class="col-sm-2 col-md-1">
 							<a href="" class="text-decoration-none">
 								<small class="text-muted">Poor</small>
 							</a>
 						</div>
-						<div class="col-sm-8">
+						<div class="col-md-8">
 						<a href="">
 							<div class="progress">
   							<div class="progress-bar bg-info" role="progressbar" style="width: 10%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
@@ -96,12 +102,12 @@
 					</div>
 				</div>
 				<div class="row">
-						<div class="col-sm-1">
+						<div class="col-sm-2 col-md-1">
 							<a href="" class="text-decoration-none">
 								<small class="text-muted">Bad</small>
 							</a>
 						</div>
-						<div class="col-sm-8">
+						<div class="col-md-8">
 						<a href="">
 							<div class="progress">
   							<div class="progress-bar bg-info" role="progressbar" style="width: 5%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
@@ -115,26 +121,31 @@
 				</div>
 			</div>
 			<hr>
-			{% for list in object_list %}
+			{% for list in all_reviews %}
 			<div class="row mt-3">
-				<div class="col-sm-9">
+				<div class="col-md-9">
 					<a href="" class="text-decoration-none">
 					<img src="{% static 'dist/assets/images/avatar.png' %}" class="img-fluid width-50px h-auto">
 					<span class="text-muted">&nbsp; &nbsp;{{list.name}}</span>
 					</a>
 					<a href="" class="black-font"><h5 class="pt-4">{{list.title}}</h5></a>
 					<p>{{list.description}}
-					</p>
-					<img src="{% static 'dist/assets/images/star2.png' %}" class="img-fluid width-100px">
+					</p> 
+					{{list.stars}}
+									 <span class="fa fa-star checked text-info"></span>
+					<span class="fa fa-star checked text-info"></span>
+					<span class="fa fa-star checked text-info"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
 				</div>
-				<div class="col-sm-3">
-					<span class="text-muted">2 days ago</span>
+				<div class="col-md-3">
+					<span class="text-muted">{{list.created_at}}</span>
 				</div>
 			</div>
 			{% endfor %}
 			<!-- <hr> -->
 		</div>
-			<div class="col-sm-4">
+			<div class="col-md-4">
 				<h5>Desklib</h5>
 				<p>Desklib is an online learning library where students can find solutions to assignments, essays, dissertations, case studies, research reports, reflection writing and a lot more. </p>
 				<p><a href="" class="btn blue-theme">Desklib</a></p>
