@@ -20,7 +20,7 @@ class ReviewPageView(MetadataMixin, JsonLdContextMixin, ListView):
         #         context = super(OzAssignmentsReviewPageView, self).get_context_data(**kwargs)
         all_reviews = Review.objects.filter(is_published=True).order_by('-created_at')  # For pagination
         #         review_count = Review.objects.aggregate(Count('stars'))
-        review_count = Review.objects.filter(is_published=True).annotate(Count('stars')).values()  # For removing "stars__count" text from template
+        review_count = Review.objects.filter(is_published=True).count()  # For removing "stars__count" text from template
         review_avg = Review.objects.filter(is_published=True).aggregate(Avg('stars'))  # For removing "stars__avg" text from template
         review_5_stars_count = Review.objects.filter(is_published=True, stars=5).count()
         review_4_stars_count = Review.objects.filter(is_published=True, stars=4).count()
