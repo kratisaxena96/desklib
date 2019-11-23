@@ -15,7 +15,7 @@ class Review(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    is_published = models.BooleanField(default=False)
+    is_published = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = _('Review')
