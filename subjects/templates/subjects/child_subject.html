@@ -47,7 +47,7 @@
 	</div>	
 </section>	
 <!-- search bar and tabs -->
-{% if top %}
+{% if recent or top_results %}
 <section>			
 	<div class="container">		
 		<div class="row mt-md-4 mb-md-4 mb-3 mt-3 border-bottom pb-2">
@@ -80,7 +80,7 @@
 		<div class="col-sm-6 col-md-4 col-lg-3 mb-3 mb-md-3">
 			<a href="" class="text-decoration-none">
 			<div class="card h-100">
-				<img class="card-img-top card-height" src="{{documents.image.url}}" alt="icon">
+				<img class="card-img-top card-height" src="{{documents.cover_image}}" alt="icon">
 				<div class="card-body">
 					<p class="card-text black-font">{{documents.title|truncatechars:25}}</p>
 					<span class="border-right p-2">

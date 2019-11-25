@@ -56,7 +56,7 @@ class WritingPageView(MetadataMixin,JsonLdContextMixin, TemplateView):
 class ComparePageView(MetadataMixin,JsonLdContextMixin, FormView):
     form_class = CompareForm
     use_title_tag = True
-    title = 'Free plagiarism checker with percentage | desklib.com '
+    title = 'Plagiarism compare checker | compare the similarity of two documents | desklib.com '
     description = ' Desklib free plagiarism checker & comparison tool to detect your content originality. Reports with percentage, 100% perfect and authentic.'
     keywords=['Free Plagiarism Checker', 'free online plagiarism checker with percentage', 'free plagiarism checker with percentage', 'free plagiarism checker by desklib', 'online plagiarism checker']
     template_name = "writing/compare.html"

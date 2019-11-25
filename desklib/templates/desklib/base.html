@@ -16,8 +16,10 @@
     <link rel="shortcut icon" href="{% static 'dist/assets/images/favicon.ico' %}">
     {% block canonical %}
     {% endblock %}
+    <title>
     {% block head_title %}
     {% endblock %}
+        </title>
     {% if sd %}
     {% render_json_ld sd %}
     {% endif %}
