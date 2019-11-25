@@ -43,83 +43,51 @@
 <!-- added accordion -->
 <section class="pb-5">
     <div class="container">
-        <div class="row">
-            <div class="col-md-5">
-                <div class="card">
-    <div class="card-header" id="headingOne">
-      <h5 class="mb-0">
-        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Free similarity checker with percentage by Desklib
-        </button>
-      </h5>
-    </div>
-</div>
-
- <div class="card">
-    <div class="card-header" id="headingTwo">
-      <h5 class="mb-0">
-        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          How to use Desklib similarity Checker
-        </button>
-      </h5>
-    </div>
-</div>
- <div class="card">
-    <div class="card-header" id="headingThree">
-      <h5 class="mb-0">
-        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-          Benefits of similarity tool by Desklib
-        </button>
-      </h5>
-    </div>
-</div>
-
- <div class="card">
-    <div class="card-header" id="headingFour">
-      <h5 class="mb-0">
-        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
-          Offers provided by Desklib
-        </button>
-      </h5>
-    </div>
-</div>
+        <div id="accordion">
+    <div class="card">
+      <div class="card-header">
+        <a class="card-link" data-toggle="collapse" href="#collapseOne">
+            Free similarity checker with percentage by Desklib
+        </a>
+      </div>
+      <div id="collapseOne" class="collapse show">
+        <div class="card-body">
+          Any student or professional looking to compare two text documents can use our free similarity checker and get an instant comparison. Sometimes it becomes difficult to check if two texts are similar or if one text is copied from another. This tool helps to identify such similarities in the content and provide a complete report with additional details on where the text is matching. It is useful for anyone looking to avoid plagiarism and copied content. This tool is useful only if you have two texts to compare. This doesn't provide plagiarism check over the data available on the internet.
         </div>
-            <div class="col-md-7">
-                <div id="accordion">
-  <!-- <div class="card"> -->
-  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-      <div class="card-body">
-        <p>
-        Any student or professional looking to compare two text documents can use our free similarity checker and get an instant comparison. Sometimes it becomes difficult to check if two texts are similar or if one text is copied from another. This tool helps to identify such similarities in the content and provide a complete report with additional details on where the text is matching. It is useful for anyone looking to avoid plagiarism and copied content. This tool is useful only if you have two texts to compare. This doesn't provide plagiarism check over the data available on the internet.
-    </p>
       </div>
     </div>
-
-     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-      <div class="card-body">
-        <p>
-        Using this tool is super easy. Firstly, you need to copy both the content to be compared in separate text boxes available in the form. Once that done you need to click on the "Compare Now" button and witness the magic. You will get a complete report on where exactly the content is matching and aggregated information on how much content is similar in both the files. This tool is free to use for anyone.
-    </p>
+    <div class="card">
+      <div class="card-header">
+        <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+            How to use Desklib similarity checker
+      </a>
       </div>
-    </div>
-
-    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-      <div class="card-body">
-        <p>
-            This tool is based on diff which means that it compares for the exact text search. This makes it perfect to use in the case where we need to find the similarity between two documents. Following are some of the use cases for this tool:
-        </p>
-        <ul>
-            <li>Comparing the solutions of two students to find plagiarism.</li>
-            <li>Comparing the content of two websites to check if they have similar content.</li>
-            <li>Finding if two students cheated in examination by comparing their answers.</li>
-            <li>Checking duplicate content on your website. </li>
-        </ul>
-      </div>
-    </div>
-<!-- </div> -->
-            </div>
+      <div id="collapseTwo" class="collapse show">
+        <div class="card-body">
+          Using this tool is super easy. Firstly, you need to copy both the content t be compared in separate text boxes available in the form. Once that done you need to click on the "Compare Now" button and witness the magic. You will get a complete report on where exactly the content is matching and aggregated information on how much content is similar in both the files. This tool is free to use for anyone.
         </div>
+      </div>
     </div>
+    <div class="card">
+      <div class="card-header">
+        <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+            Benefits of similarity tool by Desklib
+        </a>
+      </div>
+      <div id="collapseThree" class="collapse show">
+        <div class="card-body">
+          This tool is based on diff which means that it compares for the exact text search. This makes it perfect to use in the case where we need to find the similarity between two documents.
+Following are some of the use cases for this tool:
+            <ul>
+                <li>Comparing the solutions of two students to find plagiarism.</li>
+                <li>Comparing the content of two websites to check if they have similar content.</li>
+                <li>Finding if two students cheated in examination by comparing their answers.</li>
+                <li>Checking duplicate content on your website. </li>
+            </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 </section>
 {% comment %}
