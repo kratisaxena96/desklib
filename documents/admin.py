@@ -1,10 +1,15 @@
 import os
 
 from django.contrib import admin
+from django.http import HttpResponseRedirect
+from django.contrib import messages
+
+from documents.admin_forms import PublishedDateForm
 from documents.models import Document, File, Page, Report, Issue
 from subjects.models import Subject
 from django.db.models import F
 from subjects.utils import get_subjects
+from django.template.response import TemplateResponse
 
 
 
@@ -14,6 +19,19 @@ def publish_documents(modeladmin, request, queryset):
 
 publish_documents.short_description = 'Publish Documents'
 
+def chage_publish_date(modeladmin, request, queryset):
+    if 'date_time_1' and 'date_time_0' in request.POST:
+        str = request.POST.get('date_time_0')+' '+request.POST.get('date_time_1')
+
+        queryset.update(published_date=str)
+        messages.info(request, 'Publish Date changed of'" %s"%queryset.count()+' documents')
+        return HttpResponseRedirect(request.get_full_path())
+    else:
+        form = PublishedDateForm()
+        return TemplateResponse(request,"admin/change_published_date.html", context={'dates_obj':queryset, 'form': form})
+
+
+chage_publish_date.short_description = 'Change Publish Date'
 
 def un_publish_documents(modeladmin, request, queryset):
     queryset.update(is_published = False)
@@ -104,7 +122,7 @@ class DocumentAdmin(admin.ModelAdmin):
     search_fields = ['title', 'content']
     list_display = ('title', 'published_date', 'is_published', 'is_visible', 'page', 'words', 'get_subjects')
     list_filter = (SubjectListFilter, 'is_published', 'is_visible')
-    actions = [publish_documents, un_publish_documents, soft_delete_documents, set_document_subject, restore_documents, hard_delete_documents]
+    actions = [publish_documents, un_publish_documents, soft_delete_documents, set_document_subject, restore_documents, hard_delete_documents, chage_publish_date]
 
     inlines = [
         FileInline,
