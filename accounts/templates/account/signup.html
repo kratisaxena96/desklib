@@ -10,9 +10,11 @@
 {% endblock %}
 
 
-{% block head_title %}<title>{% trans "Register | desklib.com" %}</title>
-<meta name="description" content="Register here for the best homework help and assignment solutions at the desklib online library.">
-{% endblock %}
+{% block head_title %}{% trans "Register | desklib.com" %}{% endblock %}
+
+    {% block canonical %}
+        <meta name="description" content="Register here for the best homework help and assignment solutions at the desklib online library.">
+    {% endblock %}
 
 {% block content %}
 {% comment %}

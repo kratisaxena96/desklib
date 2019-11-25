@@ -9,6 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 
 # Create your models here.
 from taggit.managers import TaggableManager
+from django.urls import reverse
 
 
 def get_file_path(instance, filename):
@@ -57,3 +58,9 @@ class Subject(models.Model):
     def get_keywords(self):
         keywords = self.seo_keywords.split(",")
         return keywords
+
+    def get_absolute_url(self):
+        if self.parent_subject:
+            return reverse('subjects:child-subject-view', kwargs={'parent_subject': self.parent_subject.slug, 'slug': self.slug})
+        else:
+            return reverse('subjects:parent-subject-view', kwargs={'slug': self.slug})
