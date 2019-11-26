@@ -29,8 +29,8 @@ class Subject(models.Model):
 
     is_parent = models.BooleanField(default=False)
     introduction = models.TextField(_('Introduction'), max_length=2000, null=True, blank=True)
-    short_description = models.TextField(_('Short description'), max_length=200, null=True, blank=True)
-    sub_heading = models.CharField(_('Sub heading'), max_length=200, null=True, blank=True)
+    short_description = models.TextField(_('Short description'), max_length=500, null=True, blank=True)
+    sub_heading = models.CharField(_('Sub heading'), max_length=500, null=True, blank=True)
     image = models.ImageField(upload_to=get_file_path, help_text='Image of the subject', null=True, blank=True)
     image_alt_text = models.CharField(max_length=70, help_text='Alternate text of subject image', null=True, blank=True)
     info_graphic_image = models.ImageField(upload_to=get_file_path, help_text='Graphic image of the parent subject', null=True, blank=True)
