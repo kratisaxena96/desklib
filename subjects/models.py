@@ -35,9 +35,9 @@ class Subject(models.Model):
     image_alt_text = models.CharField(max_length=70, help_text='Alternate text of subject image', null=True, blank=True)
     info_graphic_image = models.ImageField(upload_to=get_file_path, help_text='Graphic image of the parent subject', null=True, blank=True)
     info_graphic_image_alt_text = models.CharField(max_length=70, help_text='Alternate text of parent subject graphic image', null=True, blank=True)
-    seo_title = models.CharField(max_length=70, help_text='Tip: Start every main word in the title with a capital letter, Keep title brief and descriptive that is relevant to the content of your pages.', null=True, blank=True)
-    seo_description = models.TextField(max_length=160, help_text='Tip: Create concise and high-quality descriptions that accurately describe your page, Make sure each page on our website has a different description.', null=True, blank=True)
-    seo_keywords = models.CharField(max_length=140, help_text='Recommended max.length of relevant seo keyword is 140 characters', null=True, blank=True)
+    seo_title = models.CharField(max_length=150, help_text='Tip: Start every main word in the title with a capital letter, Keep title brief and descriptive that is relevant to the content of your pages.', null=True, blank=True)
+    seo_description = models.TextField(max_length=500, help_text='Tip: Create concise and high-quality descriptions that accurately describe your page, Make sure each page on our website has a different description.', null=True, blank=True)
+    seo_keywords = models.CharField(max_length=500, help_text='Recommended max.length of relevant seo keyword is 140 characters', null=True, blank=True)
 
     canonical_url = models.URLField(max_length=2048, blank=True, null=True, help_text='Search Engine like max. 2048 characters of url')
 
