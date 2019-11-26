@@ -22,7 +22,6 @@ publish_documents.short_description = 'Publish Documents'
 def chage_publish_date(modeladmin, request, queryset):
     if 'date_time_1' and 'date_time_0' in request.POST:
         str = request.POST.get('date_time_0')+' '+request.POST.get('date_time_1')
-
         queryset.update(published_date=str)
         messages.info(request, 'Publish Date changed of'" %s"%queryset.count()+' documents')
         return HttpResponseRedirect(request.get_full_path())
