@@ -23,9 +23,11 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="mt-3 mb-3">
-							{{review_avg.stars__avg}}
+							<span class="" data-star="{{review_avg.stars__avg}}"></span>
+							{% comment %}
 							<span class="fa fa-star checked text-success"></span>
 							<span class="fa fa-star checked text-success"></span>
+							{% endcomment %}
 						</div>
 			</div>
 			</div>
@@ -35,25 +37,25 @@
 					<div class="row">
 						<div class="col-sm-2 col-md-1">
 							<a href="" class="text-decoration-none">
-								<small class="text-muted">Excellent</small>
+								<span class="blue-theme">{{review_5_stars_count}}&nbspstar</span>
 
 							</a>
 						</div>
 						<div class="col-md-8">
 						<a href="" class="text-decoration-none">
 							<div class="progress">
-  							<div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">58%</div>
+  							<div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
 						</div>
 						</a>
 					</div>
 					<div class="col-sm-1">
-						<span class="text-muted"></span>
+						<span class="text-muted">58%</span>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-sm-2 col-md-1">
 						<a href="" class="text-decoration-none">
-						<small class="text-muted">Great</small>
+						<span class="blue-theme">  {{review_4_stars_count}}&nbspstar</span>
 						</a>
 					</div>
 					<div class="col-md-8">
@@ -70,7 +72,7 @@
 				<div class="row">
 						<div class="col-sm-2 col-md-1">
 							<a href="" class="text-decoration-none">
-								<small class="text-muted">Avg</small>
+								<span class="blue-theme">{{review_3_stars_count}}&nbspstar</span>
 							</a>
 						</div>
 						<div class="col-md-8">
@@ -87,7 +89,7 @@
 				<div class="row">
 						<div class="col-sm-2 col-md-1">
 							<a href="" class="text-decoration-none">
-								<small class="text-muted">Poor</small>
+								<span class="blue-theme">{{ review_2_stars_count}}&nbspstar</span>
 							</a>
 						</div>
 						<div class="col-md-8">
@@ -104,7 +106,7 @@
 				<div class="row">
 						<div class="col-sm-2 col-md-1">
 							<a href="" class="text-decoration-none">
-								<small class="text-muted">Bad</small>
+								<span class="blue-theme">{{review_1_stars_count}}&nbspstar</span>
 							</a>
 						</div>
 						<div class="col-md-8">
@@ -131,15 +133,17 @@
 					<a href="" class="black-font"><h5 class="pt-4">{{list.title}}</h5></a>
 					<p>{{list.description}}
 					</p> 
-					{{list.stars}}
-									 <span class="fa fa-star checked text-info"></span>
-					<span class="fa fa-star checked text-info"></span>
-					<span class="fa fa-star checked text-info"></span>
-					<span class="fa fa-star"></span>
-					<span class="fa fa-star"></span>
+					
+					{% comment %}
+					 {{list.stars}}
+ 					{% endcomment %}
+					
+					<span class="stars" data-rating="{{list.stars}}">
+					</span>
 				</div>
 				<div class="col-md-3">
-					<span class="text-muted">{{list.created_at}}</span>
+					<span class="text-muted">{{list.created_at|date:"d M Y"}}</span>
+
 				</div>
 			</div>
 			{% endfor %}
@@ -174,3 +178,20 @@ review page
 
 {% endblock %}
 
+{% block extra_js %}
+<script type="text/javascript">
+$("[data-rating]").each(function(){
+	  var rat = $(this).data('rating');
+		for( var i=1; i<=rat; i++){
+	      $(this).append("<i class='fa fa-star text-warning'></span>");
+}
+}); 
+$("[data-star]").each(function(){
+	  var rat = $(this).data('star');
+		for( var j=1; j<=rat; j++){
+	      $(this).append("<i class='fa fa-star text-success font-size-35'></span>");
+}
+}); 
+</script>
+
+{% endblock %}
