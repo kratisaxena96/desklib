@@ -1,35 +1,14 @@
-from django.views.generic.base import TemplateView
 
-from meta.views import MetadataMixin
-from django_json_ld.views import JsonLdContextMixin
-from django.utils.translation import gettext as _
-# from haystack.inputs import AutoQuery, Exact, Clean
-from haystack.utils.highlighting import Highlighter
-from django.views.generic import TemplateView, DetailView, CreateView
 from documents.models import Document
-from subscription.models import Download, PageView
-from django_json_ld.views import JsonLdContextMixin
-from django.utils.translation import gettext as _
-from django_json_ld.views import JsonLdDetailView
-from django.views import View
-from django.shortcuts import render
+
 import simplejson as json
 from django.http import HttpResponse
 from haystack.query import SearchQuerySet
-from meta.views import Meta
-from django_json_ld.views import JsonLdContextMixin, settings, JsonLdSingleObjectMixin
+from django_json_ld.views import JsonLdContextMixin
 from django.utils.translation import gettext as _
-from haystack.generic_views import SearchMixin, SearchView, FacetedSearchView
+from haystack.generic_views import SearchView, FacetedSearchView
 from meta.views import MetadataMixin
-from django.views.generic.list import ListView
-from post_office import mail
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.conf import settings
-from django.core.files.base import ContentFile
-import logging
-from django_json_ld import settings
 from subjects.models import Subject
-from haystack.inputs import AutoQuery, Exact, Clean
 from .forms import CustomFacetedSearchForm
 
 
@@ -92,8 +71,8 @@ class StudyPageView(MetadataMixin, JsonLdContextMixin, SearchView):
 
 def autocomplete(request):
     sqs = SearchQuerySet().autocomplete(content_auto=request.GET.get('q', ''))[:5]
-    suggestions = [result.title for result in sqs]
-    slugs = [result.slug for result in sqs]
+    # suggestions = [result.title for result in sqs]
+    # slugs = [result.slug for result in sqs]
     # cover_imgage = [result.cover_image for result in sqs]
     # suggestions = dict(zip(titles, slugs))
 
@@ -110,7 +89,9 @@ def autocomplete(request):
     # for i in range(len(sqs)):
     for result in sqs:
         document_obj = Document.objects.get(slug=result.slug)
-        item = {"title": result.title, "slug": result.slug, "pages": result.no_of_pages, }
+        item["title"] = result.title
+        item["slug"] = result.slug
+        item["pages"] = result.no_of_pages
         try:
             words = document_obj.words
             item["words"] = words
@@ -126,9 +107,6 @@ def autocomplete(request):
             item["description"] = (result.description[:250] + '..')
         else:
             item["description"] = data
-
-
-        # item = {"title": result.title, "slug": result.slug, "pages": result.no_of_pages, "words": words, "image": img}
 
         data[i] = item
         i += 1
