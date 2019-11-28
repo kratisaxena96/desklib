@@ -51,6 +51,14 @@
     {% block extra_js %}
     {% endblock extra_js %}
 
+            {% block chat %}
+            {% if not debug %}
+
+            {% include 'desklib/chat_tawkto.html' %}
+
+            {% endif %}
+            {% endblock %}
+
 
             {% block google_analytics %}
             {% if not debug %}
