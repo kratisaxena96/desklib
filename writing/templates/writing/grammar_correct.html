@@ -1,6 +1,10 @@
 {% extends 'desklib/base.html' %}
 {% load staticfiles %}
 
+{% block canonical %}
+<link rel="canonical" href="https://desklib.com/writing/grammar-checker/" />
+{% endblock %}
+
 {% block extra_css %}
 <!--    <link rel="stylesheet" href="https://languagetool.org/css/bootstrap.min.css">-->
     <link rel="stylesheet" href="https://languagetool.org/vendors/glide3/dist/css/glide.core.min.css">
