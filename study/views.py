@@ -109,6 +109,7 @@ def autocomplete(request):
             item["description"] = data
 
         data[i] = item
+        item = {}
         i += 1
 
     the_data = json.dumps(data)
