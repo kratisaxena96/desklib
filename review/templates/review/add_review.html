@@ -57,7 +57,7 @@
               <div class="row mb-sm-3">
                 <div class="col-sm-2 col-md-2">
                     <div class="form-group">
-                                <label for="id_country" class=""><strong> 
+                                <label for="" class=""><strong> 
                                 {{form.description.label}}:</strong></label>
                 </div>
             </div>
@@ -73,11 +73,25 @@
              <div class="row mb-sm-3">
                 <div class="col-sm-2 col-md-2">
                     <div class="form-group">
-                                <label for="id_country" class=""><strong><!-- {{form.stars.label}} --> Ratings:</strong></label>
+                                <label for="" class=""><strong><!-- {{form.stars.label}} --> Ratings:</strong></label>
                 </div>
             </div>
                  <div class="col-sm-10">
+                    {% comment %}
+                   <input type="radio" name="rating" id="star-1"><label for="star-1" class="d-inline-block width-50px">
+                    </label>
+                    <input type="radio" name="rating" id="star-2"><label for="star-2" class="d-inline-block width-50px"> 
+                    </label>
+                    <input type="radio" name="rating" id="star-3"><label for="star-3" class="d-inline-block width-50px">  
+                    </label>
+                    <input type="radio" name="rating" id="star-4"><label for="star-4" class="d-inline-block width-50px">  
+                    </label>
+                    <input type="radio" name="rating" id="star-5"><label for="star-5" class="d-inline-block width-50px">
+                    </label>
+             {% endcomment %}
+             
                  	{{form.stars}}
+                    <span id="" class="form-text text-muted">{{form.email.errors}}</span>
                 </div>
             </div>
             
