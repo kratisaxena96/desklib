@@ -45,6 +45,7 @@ class ParentSubjectPageView(MetadataMixin, JsonLdContextMixin, DetailView):
         top_results = SearchQuerySet().filter(p_subject=parent_subject).order_by('-views')[:20]
         # print(doc[0].doc_subject)
 
+        context['meta'] = self.get_object().as_meta(self.request)
         context['child_subject'] = child_subject
         context['document'] = document
         context['recent'] = recent
@@ -63,6 +64,7 @@ class ChildSubjectPageView(MetadataMixin, JsonLdContextMixin, DetailView):
         recent = SearchQuerySet().filter(subjects=child_subject).order_by('-pub_date')[:20]
         top_results = SearchQuerySet().filter(subjects=child_subject).order_by('-views')[:20]
         # context['child'] = child_subject
+        context['meta'] = self.get_object().as_meta(self.request)
         context['document'] = Document.objects.filter(subjects=child_subject.id)
         context['recent'] = recent
         context['top_results'] = top_results

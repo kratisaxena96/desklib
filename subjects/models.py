@@ -10,6 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 # Create your models here.
 from taggit.managers import TaggableManager
 from django.urls import reverse
+from meta.models import ModelMeta
 
 
 def get_file_path(instance, filename):
@@ -18,7 +19,7 @@ def get_file_path(instance, filename):
     return os.path.join('images/subject/', filename)
 
 
-class Subject(models.Model):
+class Subject(ModelMeta, models.Model):
     name = models.CharField(_('Title'), db_index=True, max_length=200)
     slug = models.SlugField(_('Slug'), unique=True)
     # keywords = models.CharField(_('Keywords'), max_length=1000, blank=True, null=True,)
@@ -47,6 +48,28 @@ class Subject(models.Model):
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    _metadata = {
+            'use_og': 'True',
+            'use_facebook': 'True',
+            'use_twitter': 'True',
+            'use_title_tag': 'False',
+            'use_googleplus': 'True',
+            'use_sites': 'True',
+            'keywords': 'seo_keywords',
+            'title': 'seo_title',
+            'description': 'seo_description',
+            'canonical_url': 'canonical_url',
+        }
+
+
+    @property
+    def sd(self):
+        return {
+            "@type": 'Document',
+            "description": self.title,
+            "name": self.title,
+        }
 
     class Meta:
         verbose_name = _('subject')
