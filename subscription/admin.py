@@ -1,5 +1,7 @@
 from django.contrib import admin
-from subscription.models import Plan, Subscription, Download, PageView, SessionPageView
+from subscription.models import Plan, Subscription, Download, PageView, SessionPageView, PayPerDocument
+
+
 # Register your models here.
 
 
@@ -27,6 +29,7 @@ class SessionPageViewsAdmin(admin.ModelAdmin):
     search_fields = ['document__title', ]
     list_display = ('document', 'session', 'created_at', 'updated_at')
 
+admin.site.register(PayPerDocument)
 admin.site.register(Plan,PlanAdmin)
 admin.site.register(Subscription, SubscriptionAdmin)
 admin.site.register(Download, DownloadAdmin)

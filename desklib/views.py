@@ -264,7 +264,7 @@ class SubscriptionView(MetadataMixin, JsonLdContextMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(SubscriptionView, self).get_context_data(**kwargs)
-        context['plan_qs'] = Plan.objects.all()
+        context['plan_qs'] = Plan.objects.filter(is_pay_per_download=False)
         return context
 
 

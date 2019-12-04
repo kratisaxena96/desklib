@@ -1,0 +1,34 @@
+{% extends "desklib/base.html" %}
+{% load i18n %}
+{% block head_title %}{% trans "" %}{% endblock %}
+{% block content %}
+<h1>Select a Plan</h1>
+	{% for plan in plan_qs %}
+		<h1>{{plan.price}}</h1>
+		<input class="selected_plan" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}">{{plan}}</input>
+<!--		<input type="radio" name="radio" value="{{ plan.key }}" onClick="document.getElementById('id_custom').value=this.value">{{plan}}</input>-->
+	{% endfor %}
+	 <form action="{{form.get_endpoint}}" method="post">
+		{% csrf_token %}
+		{{form}}
+		 <input id="id_custom" name="custom" type="hidden" value=""/>
+		 <input id="id_amount" name="amount" type="hidden"  value=""/>
+		<input alt="Buy it Now" border="0" id="submit" name="submit" src="https://www.paypal.com/en_US/i/btn/btn_subscribeCC_LG.gif" type="image"/></div></form>
+{% endblock %}
+
+
+    {% block extra_js %}
+
+<script>
+$( document ).ready(function() {
+	$(".selected_plan").on("click", function(){
+	if ($("input[type='radio']").is(":checked")) {
+	key= $(this).data("key");
+	value = $(this).val();
+	$("#id_custom").val("{{ user }}_" + key +"_{{doc}}");
+	$("#id_amount").val(value);
+}
+});
+});
+</script>
+    {% endblock extra_js %}

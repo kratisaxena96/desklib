@@ -11,6 +11,7 @@ class Plan(models.Model):
     slug = models.SlugField(_('Slug'), unique=True)
     package_name = models.CharField(_('Package Name'), db_index=True, max_length=200)
     price = models.IntegerField(_('Price'))
+    is_pay_per_download = models.BooleanField(default=False)
     download_limit = models.IntegerField(_('Download Limit'), blank=True, null=True)
     view_limit = models.IntegerField(_('View Limit'), blank=True, null=True)
     days = models.IntegerField(_('Plan Days'))
@@ -27,7 +28,8 @@ class Subscription(models.Model):
     is_current = models.BooleanField(default=True)
     expire_on = models.DateTimeField()
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='subscription_author')
-
+    is_pay_per_download = models.BooleanField(default=True, blank=True, null=True,)
+    documents =  models.ManyToManyField(Document, null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -35,6 +37,16 @@ class Subscription(models.Model):
     def __str__(self):
         return self.plan.package_name
 
+class PayPerDocument(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, blank=True, null=True, related_name = 'pay_per_download')
+    plan = models.ForeignKey(Plan, on_delete=models.PROTECT)
+    documents =  models.ManyToManyField(Document, null=True, blank=True)
+    is_current = models.BooleanField(default=True)
+    # author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='pay_per_doc_author')
+    start_date = models.DateTimeField()
+    expire_on = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class Download(models.Model):
     document = models.ForeignKey(Document,on_delete=models.CASCADE, related_name='downloads')
