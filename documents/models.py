@@ -3,6 +3,8 @@ import re
 import tempfile
 import datetime
 import uuid
+import random
+import string
 
 from io import BytesIO
 from sorl.thumbnail import ImageField, get_thumbnail
@@ -31,6 +33,15 @@ from django.urls import reverse
 # Create your models here.
 from subjects.models import Subject
 from subjects.utils import get_subjects
+
+
+
+
+def randomString(stringLength=10):
+    """Generate a random string of fixed length """
+    letters = string.ascii_lowercase
+    return ''.join(random.choice(letters) for i in range(stringLength))
+
 
 
 def upload_to(instance, filename):
@@ -82,7 +93,8 @@ def images(instance, filename):
     # filename_base, filename_ext = os.path.splitext(filename)
     # uid = instance.content_object.uuid
 
-    return 'images/{}'.format(
+    return 'images/{}/{}'.format(
+        randomString(2),
         file_name,
     )
 
