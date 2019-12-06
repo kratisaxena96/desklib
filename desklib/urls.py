@@ -24,7 +24,8 @@ from django.views.decorators.cache import cache_page
 from django.contrib.sitemaps import views
 from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView, TestPageView, \
     SubscriptionView, PayNowView, PrivacyPolicyView, HonorCodeView, CopyrightPolicyView, TermsOfUseView, \
-    AcademicIntegrityView, ComingSoonPageView, PaymentCancelledView, PaymentSuccessView, AlreadySubscribedView
+    AcademicIntegrityView, ComingSoonPageView, PaymentCancelledView, PaymentSuccessView, AlreadySubscribedView, \
+    AdmissionsView
 from subscription.views import MyDownloads
 
 # if settings.DEBUG:
@@ -71,7 +72,7 @@ urlpatterns = [
                   path('subscribed/', AlreadySubscribedView.as_view(), name='already_subscribed'),
                   path('subjects/', include(('subjects.urls', 'subjects'), namespace="subjects")),
                   path('review/', include(('review.urls', 'review'), namespace="review")),
-
+                  path('admission/', AdmissionsView.as_view(), name='admissions'),
                   path('api-auth/', include('rest_framework.urls')),
                   # path('payment/document',)
                   path('api/', include(('api.urls', 'api'), namespace="api")),
@@ -80,6 +81,7 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(
     url(r'^$', HomePageView.as_view(), name='home'),
+    url(r'^admission/', AdmissionsView.as_view(), name='admissions')
     # url(r'^admin/', include(admin.site.urls)),
 )
 

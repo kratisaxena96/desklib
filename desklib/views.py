@@ -59,6 +59,34 @@ class ComingSoonPageView(MetadataMixin, JsonLdContextMixin, TemplateView):
         sd = super(ComingSoonPageView, self).get_structured_data()
         return sd
 
+class AdmissionsView(MetadataMixin, JsonLdContextMixin, TemplateView):
+    title = 'About us | about desklib online learning library | online solutions '
+    # description = 'Desklib is a single stop solution for all your academic needs. We provide millions of study documents including assignment solutions which can help students achieve better grades.'
+    description = 'We as the best choice among students of Aus, UK, USA, and leading towards the globe to become the best online learning library and homework help Service provider Company in the World. Consult our highly-qualified and experienced writers to attain academic excellence.'
+    keywords = ['assignment help', 'online learning library', 'homework help websites', 'online dissertation help',
+                'online thesis writing services', 'college assignment help online', 'college homework help']
+    template_name = "desklib/admissions.html"
+
+    structured_data = {
+        "@type": "Organization",
+        "name": "Desklib",
+        "description": _(
+            "Desklib is a single stop solution for all your academic needs. We provide millions of study documents which can be used for by students to obtain better grades."),
+        "url": "https://desklib.com/",
+        "logo": "https://desklib.com/static/dist/assets/images/desklib-logo-theme.png",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://www.desklib.com/study/search/?q={search_term}",
+            "query-input": "required name=search_term"
+        },
+        "sameAs": [
+            "https://www.facebook.com/desklib",
+            "https://twitter.com/desklib",
+            "https://www.linkedin.com/company/desklib",
+            "https://www.instagram.com/desklib/"
+        ]
+    }
+
 
 class HomePageView(MetadataMixin, JsonLdContextMixin, SearchView):
     form_class = HomeSearchForm

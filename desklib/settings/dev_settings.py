@@ -12,11 +12,18 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 from desklib.settings.base import *
+from django.utils.translation import ugettext_lazy as _
+LANGUAGES = (
+    ('ro', _('Romanian')),
+)
 # Application definition
 FLAG_MAIL_TO_TEST = True
 
 INSTALLED_APPS += [
     'debug_toolbar',
+    'djcelery',
+    # 'django_celery_results',
+    # 'kombu.transport.django'
 ]
 
 ALLOWED_IPS = ['127.0.0.1']
