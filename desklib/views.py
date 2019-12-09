@@ -360,13 +360,16 @@ class HonorCodeView(MetadataMixin, TemplateView):
     template_name = "desklib/honorcode.html"
 
 
-class PaymentCancelledView(LoginRequiredMixin, TemplateView):
+class PaymentCancelledView(LoginRequiredMixin,MetadataMixin, TemplateView):
+    title = 'Payment Cancel | desklib.com'
     template_name = 'desklib/payment_cancelled.html'
 
 
-class PaymentSuccessView(LoginRequiredMixin, TemplateView):
+class PaymentSuccessView(LoginRequiredMixin,MetadataMixin,TemplateView):
+    title = 'Payment Success | desklib.com'
     template_name = 'desklib/payment_success.html'
 
 
-class AlreadySubscribedView(LoginRequiredMixin, TemplateView):
+class AlreadySubscribedView(LoginRequiredMixin,MetadataMixin, TemplateView):
+    title = 'Already Subscribed | desklib.com'
     template_name = 'desklib/already_subscribed.html'
