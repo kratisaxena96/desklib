@@ -32,20 +32,23 @@ body {
 
             .owl-prev, .owl-next {
                 position: absolute;
-                height: 100px;
-                color: inherit;
-                background: none;
+                height: 40px;
+                width: 40px;
+                top: 34px;
                 border: none;
                 z-index: 100;
+                background: #fff;
+                border-radius: 50%;
+                box-shadow: 0 0 20px 0 rgba(0,0,0,.12);
 
                 i {
                     font-size: 2.5rem;
                     color: #cecece;
                 }
-            }
+              }
 
-            .owl-prev {
-                left: 0;
+             .owl-prev {
+                left: -2px;
             }
 
             .owl-next {
@@ -201,6 +204,33 @@ span.input-group-text{
 .nav-pills .nav-link.active{
 	background-color: #405fbd !important;
 }
+
+//-------404 Error Background Image 06/12/2019------//
+
+.error-404-bg-img{
+	background-image: url("/static/dist/assets/images/Error-404.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+//-------500 Error Background Image 06/12/2019------//
+
+.error-500-bg-img{
+	background-image: url("/static/dist/assets/images/error-500.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+.orange-font{
+    color:  #f0b03c;
+}
+
+//------payment section-------//
+.payment-card-box:hover {
+ box-shadow: 1px 0px 18px 2px #CDCDCD;
+ background-color: #405FBD !important;
+ color: #fff;
+}
+
 
 
 
