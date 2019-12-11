@@ -4,12 +4,13 @@ from django.contrib import admin
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 
-from documents.admin_forms import PublishedDateForm
+from documents.admin_forms import PublishedDateForm, ChangeAuthorForm
 from documents.models import Document, File, Page, Report, Issue
 from subjects.models import Subject
 from django.db.models import F
 from subjects.utils import get_subjects
 from django.template.response import TemplateResponse
+from accounts.models import UserAccount
 
 
 
@@ -31,6 +32,19 @@ def chage_publish_date(modeladmin, request, queryset):
 
 
 chage_publish_date.short_description = 'Change Publish Date'
+
+def change_author(modeladmin, request, queryset):
+    user_id = request.POST.get('user')
+    if user_id:
+        user = UserAccount.objects.get(id = user_id)
+        queryset.update(author=user)
+        messages.add_message(request, messages.INFO, 'Author of "%s" Documents has been updated'%(queryset.count()))
+        return HttpResponseRedirect(request.get_full_path())
+    else:
+        form = ChangeAuthorForm()
+        return TemplateResponse(request, "admin/change_author_documents.html", context={'author_obj':queryset,'form': form})
+change_author.short_description = 'Change Author'
+
 
 def un_publish_documents(modeladmin, request, queryset):
     queryset.update(is_published = False)
@@ -117,16 +131,29 @@ class DocumentAdmin(admin.ModelAdmin):
     readonly_fields = ('created', 'updated', 'key')
     # prepopulated_fields = {'slug': ('title',)}
     date_hierarchy = 'published_date'
-    raw_id_fields = ('author',)
+    raw_id_fields = ('author','subjects')
     search_fields = ['title', 'content']
     list_display = ('title', 'published_date', 'is_published', 'is_visible', 'page', 'words', 'get_subjects')
     list_filter = (SubjectListFilter, 'is_published', 'is_visible')
-    actions = [publish_documents, un_publish_documents, soft_delete_documents, set_document_subject, restore_documents, hard_delete_documents, chage_publish_date]
+    actions = [publish_documents, un_publish_documents, soft_delete_documents, set_document_subject, restore_documents, hard_delete_documents, chage_publish_date, change_author]
 
     inlines = [
         FileInline,
         PageInline
     ]
+
+    def get_actions(self, request):
+        actions = super().get_actions(request)
+        if not request.user.is_superuser:
+            if 'change_author' in actions:
+                del actions['change_author']
+        return actions
+
+    def get_queryset(self, request):
+        qs = super(DocumentAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(author=request.user)
 
     def get_subjects(self, obj):
         return "\n".join([sub.name for sub in obj.subjects.all()])
@@ -135,7 +162,9 @@ class DocumentAdmin(admin.ModelAdmin):
         queryset = super(DocumentAdmin, self).get_queryset(request)
         queryset = queryset.prefetch_related('pages').prefetch_related('document_file').prefetch_related(
             'pages__author').prefetch_related('document_file__author')
-        return queryset
+        if request.user.is_superuser:
+            return queryset
+        return queryset.filter(author=request.user)
 
     def get_form(self, request, obj=None, **kwargs):
         # Proper kwargs are form, fields, exclude, formfield_callback
@@ -147,6 +176,8 @@ class DocumentAdmin(admin.ModelAdmin):
 
         return super(DocumentAdmin, self).get_form(request, obj, **kwargs)
 
+class ReportAdmin(admin.ModelAdmin):
+    raw_id_fields = ('issue','author','document')
 
 class IssueAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
@@ -155,4 +186,4 @@ class IssueAdmin(admin.ModelAdmin):
 admin.site.register(Document, DocumentAdmin)
 
 admin.site.register(Issue, IssueAdmin)
-admin.site.register(Report)
+admin.site.register(Report, ReportAdmin)

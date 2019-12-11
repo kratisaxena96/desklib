@@ -26,7 +26,7 @@ from subjects.models import Subject
 
 class UplaodAdmin(admin.ModelAdmin):
     readonly_fields = ('created', 'updated')
-    raw_id_fields = ('author',)
+    raw_id_fields = ('author','subjects','author')
     search_fields = ['course_name', 'university']
     list_display = ('course_name', 'type', 'is_published', 'get_subjects')
     list_filter = ('subjects', 'type', 'is_published')
