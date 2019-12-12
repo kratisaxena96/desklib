@@ -1,34 +1,105 @@
 {% extends "desklib/base.html" %}
 {% load i18n %}
-{% block head_title %}{% trans "" %}{% endblock %}
+{% block head_title %}{% trans "payment" %}{% endblock %}
 {% block content %}
-<h1>Select a Plan</h1>
-	{% for plan in plan_qs %}
-		<h1>{{plan.price}}</h1>
-		<input class="selected_plan" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}">{{plan}}</input>
-<!--		<input type="radio" name="radio" value="{{ plan.key }}" onClick="document.getElementById('id_custom').value=this.value">{{plan}}</input>-->
-	{% endfor %}
-	 <form action="{{form.get_endpoint}}" method="post">
-		{% csrf_token %}
-		{{form}}
-		 <input id="id_custom" name="custom" type="hidden" value=""/>
-		 <input id="id_amount" name="amount" type="hidden"  value=""/>
-		<input alt="Buy it Now" border="0" id="submit" name="submit" src="https://www.paypal.com/en_US/i/btn/btn_subscribeCC_LG.gif" type="image"/></div></form>
+<section class="pt-5 pb-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<h2 class="text-center">Select a Plan</h2>
+				<p class="text-center">Accesss our library by selecting appropriate plans.
+				</p>
+			</div>
+		</div>
+		{% for plan in plan_qs %}	
+		<div class="row justify-content-center">
+			<div class="col-sm-12 col-md-9 col-lg-6">
+				<div class="card mb-2 mt-2 payment-card-box bg-light ">
+					<div class="card-body">
+						<h5 class="">{{plan}}</h5>
+						<span class="mt-4">
+						<input class="selected_plan" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}"><!-- {{plan}} -->
+					</span>
+						<span class="">		
+							<span class="">{{plan.view_limit}}</span>
+							<span class="">Views</span>
+						</span>
+						
+						<span class="d-block ml-4">
+							<span>{{plan.download_limit}}</span>
+							<span class="">downloads</span>
+						</span>
+						<span class="float-right mt-n5">
+						<span>${{plan.price}} per</span>
+						<span>{{plan.days}}</span>
+						<span>days</span>
+						</span>	
+			</div>
+		</div>
+	</div>
+</div>
+{% endfor %}
+
+{% comment %}
+<!-- {% for plan in plan_qs %}
+	<h1>{{plan.price}}</h1>
+	<input class="selected_plan" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}">{{plan}} -->
+
+<!-- <input type="radio" name="radio" value="{{ plan.key }}" onClick="document.getElementById('id_custom').value=this.value">{{plan}}</input>-->
+
+	<!-- {% endfor %} -->
+{% endcomment %}
+
+<form action="{{form.get_endpoint}}" method="post">
+{% csrf_token %}
+{{form}}
+ 	<input id="id_custom" name="custom" type="hidden" value=""/>
+	<input id="id_amount" name="amount" type="hidden"  value=""/>
+	<div class="row justify-content-center mt-4">	
+		<div class="col-sm-6">
+			<input type="checkbox" name="checkbox" id="check">
+				<label for="check" class="blue-theme">&nbsp;I agree</label>
+		</div>
+	</div>
+	<div class="row justify-content-center mt-4">
+
+	 	<div class="col-sm-12 col-md-9 col-lg-6">
+			<input type="submit" name="" value="Proceed with Paypal" class="btn btn-bg-theme border-radius-20 text-white px-5 d-block">
+
+			<!-- <input alt="Buy it Now" border="0" id="submit" name="submit" src="https://www.paypal.com/en_US/i/btn/btn_subscribeCC_LG.gif" type="image"/> -->
+		</div>
+	</div>
+	</form>
+	</div> 
+</section>
 {% endblock %}
 
 
     {% block extra_js %}
 
 <script>
-$( document ).ready(function() {
+// $( document ).ready(function() {
+// 		$('.payment-card-box').click(function(){
+// 		if($(this).find('input[type="radio"]').is(':checked')){
+//     	 	$(this).find('input[type="radio"]').attr('checked', false);		
+// 		}
+// 		else{
+//    		$(this).find('input[type="radio"]').attr('checked', true);
+//  	 }	
+// });
+
 	$(".selected_plan").on("click", function(){
 	if ($("input[type='radio']").is(":checked")) {
+		
 	key= $(this).data("key");
 	value = $(this).val();
 	$("#id_custom").val("{{ user }}_" + key +"_{{doc}}");
 	$("#id_amount").val(value);
+	
 }
+
 });
-});
+ 
+
 </script>
     {% endblock extra_js %}
