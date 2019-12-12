@@ -1,5 +1,54 @@
 {% extends "desklib/base.html" %}
 {% load staticfiles %}
+
+
+{% block json_ld %}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "image": [
+    "https://desklib.com/assets/img/desklib_logo.png"
+   ],
+  "@id": "https://desklib.com/",
+  "name": "Desklib- Homework help, online learning library",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "68 Circular Rd",
+    "addressLocality": "Singapore",
+    "addressRegion": "Downtown",
+    "postalCode": "049422",
+    "addressCountry": "Singapore"
+  },
+  "priceRange": "$25 - $250",
+  "review": [{% for list in top_review %}
+  {
+    "@type": "Review",
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": "{{list.stars}}",
+      "bestRating": "5"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "{{list.name}}"
+    }
+  }{% if not forloop.last %},{% endif %}{% endfor %}
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "{{review_avg.stars__avg}}",
+    "reviewCount": "{{review_count}}"
+  },
+  "url": "https://desklib.com/",
+  "telephone": "+44-7482880720"
+}
+</script>
+
+{% endblock %}
+
+
 {% block content %}
 <section class="pt-5 pb-5">
     <div class="container">

@@ -22,6 +22,7 @@ class ReviewPageView(MetadataMixin, JsonLdContextMixin, ListView):
         #         review_count = Review.objects.aggregate(Count('stars'))
         review_count = Review.objects.filter(is_published=True).count()  # For removing "stars__count" text from template
         review_avg = Review.objects.filter(is_published=True).aggregate(Avg('stars'))  # For removing "stars__avg" text from template
+        top_reviews = Review.objects.filter(is_published=True).order_by('-stars')[:5]
         review_5_stars_count = Review.objects.filter(is_published=True, stars=5).count()
         review_4_stars_count = Review.objects.filter(is_published=True, stars=4).count()
         review_3_stars_count = Review.objects.filter(is_published=True, stars=3).count()
@@ -45,6 +46,7 @@ class ReviewPageView(MetadataMixin, JsonLdContextMixin, ListView):
         context['all_reviews'] = reviews
         context['review_count'] = review_count
         context['review_avg'] = review_avg
+        context['top_review'] = top_reviews
         context['review_5_stars_count'] = review_5_stars_count
         context['review_4_stars_count'] = review_4_stars_count
         context['review_3_stars_count'] = review_3_stars_count
