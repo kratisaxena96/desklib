@@ -1,7 +1,6 @@
 {% extends "desklib/base.html" %}
 {% load staticfiles %}
 
-
 {% block json_ld %}
 
 <script type="application/ld+json">
@@ -52,15 +51,22 @@
 {% block content %}
 <section class="pt-5 pb-5">
     <div class="container">
-        <div class="row ">
-            <div class="col-lg-8">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
                 <div class="row">
-                    <div class="col-sm-7 col-md-8">
-                        <h5 class="d-inline pr-3 blue-theme">Reviews</h5>
+                    <div class="col-sm-12">
+                        <h2 class="font-weight-light mb-4">Reviews of Desklib</h2>
+                        <h4 class="font-weight-light mb-3">Student Testimonials</h4>
+                        <h6 class="text-muted">What students have to say about our tutors</h6>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-6 col-sm-7 col-md-9">
+                        <h5 class="d-inline pr-3 blue-theme" total-reviews="{{review_count}}">Reviews</h5>
                         <h5 class="d-inline blue-theme">{{review_count}}</h5>
                        
                     </div>
-                    <div class="col-sm-5 col-md-4">
+                    <div class="col-6 col-sm-5 col-md-3 pl-4">
                          <span class="" data-star="{{review_avg.stars__avg}}"></span>
                     </div>
                     {% comment %}
@@ -70,117 +76,104 @@
                     {% endcomment %}
                 </div>
                 <hr>
-              
                 <div class="row pt-3 pb-3">
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-sm-2 col-md-1">
-                                <a href="" class="text-decoration-none">
-                                    <span class="blue-theme">{{review_5_stars_count}}&nbsp;stars</span>
-
-                                </a>
+                            <div class="col-2 col-sm-2 col-md-1">
+                                <span>5&nbsp;<i class="fa fa-star d-inline"></i></span>
                             </div>
-                            <div class="col-sm-8 col-md-10">
-                                <a href="" class="text-decoration-none">
+                            <div class="col-7 col-sm-8 col-md-9">
                                     <div class="progress">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </a>
+                                        <div class="progress-bar bg-blue-theme" role="progressbar" style="" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" data-progress="{{review_5_stars_count}}"></div>
+                                    </div> 
                             </div>
-                            <div class="col-sm-2 col-md-1">
-                                <span class="blue-theme">58%</span>
+                            <div class="col-3 col-sm-2 col-md-2">
+                                <span class="blue-theme">{{review_5_stars_count}}</span>
+                                
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-2 col-md-1">
-                                <a href="" class="text-decoration-none">
-                                    <span class="blue-theme">  {{review_4_stars_count}}&nbsp;stars</span>
-                                </a>
+                            <div class="col-2 col-sm-2 col-md-1">
+                                     <span>4&nbsp;<i class="fa fa-star d-inline"></i></span>
                             </div>
-                            <div class="col-sm-8 col-md-10">
-                                <a href="" class="text-decoration-none">
+                            <div class="col-7 col-sm-8 col-md-9">
                                     <div class="progress">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 30%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-blue-theme" role="progressbar" style="" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" data-progress="{{review_4_stars_count}}"></div>
                                     </div>
-                                </a>
                             </div>
-                            <div class="col-sm-1">
-                                <span class="blue-theme">41%</span>
+                            <div class="col-3 col-sm-2 col-md-2">
+                                <span class="blue-theme">{{review_4_stars_count}}</span>
+                                
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-2 col-md-1">
-                                <a href="" class="text-decoration-none">
-                                    <span class="blue-theme">{{review_3_stars_count}}&nbsp;stars</span>
-                                </a>
+                            <div class="col-2 col-sm-2 col-md-1">
+                                 <span>3&nbsp;<i class="fa fa-star d-inline"></i></span>
                             </div>
-                            <div class="col-sm-8 col-md-10">
-                                <a href="" class="text-decoration-none">
+                            <div class="col-7 col-sm-8 col-md-9">
+                               
                                     <div class="progress">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 5%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-blue-theme" role="progressbar" style="" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" data-progress="{{review_3_stars_count}}"></div>
                                     </div>
-                                </a>
+                               
                             </div>
-                            <div class="col-sm-1">
-                                <span class="blue-theme">5%</span>
+                            <div class="col-3 col-sm-2 col-md-2">
+                                <span class="blue-theme">{{review_3_stars_count}}</span>
+                                
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-2 col-md-1">
-                                <a href="" class="text-decoration-none">
-                                    <span class="blue-theme">{{ review_2_stars_count}}&nbsp;stars</span>
-                                </a>
+                            <div class="col-2 col-sm-2 col-md-1">
+                                 <span>2&nbsp;<i class="fa fa-star d-inline"></i></span>
                             </div>
-                            <div class="col-sm-8 col-md-10">
-                                <a href="">
+                            <div class="col-7 col-sm-8 col-md-9">
+                               
                                     <div class="progress">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 10%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-blue-theme" role="progressbar" style="" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" data-progress="{{ review_2_stars_count}}"></div>
                                     </div>
-                                </a>
+                              
                             </div>
-                            <div class="col-sm-1">
-                                <span class="blue-theme">10%</span>
+                            <div class="col-3 col-sm-2 col-md-2">
+                                <span class="blue-theme">{{ review_2_stars_count}}</span>
+                                 
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-2 col-md-1">
-                                <a href="" class="text-decoration-none">
-                                    <span class="blue-theme">{{review_1_stars_count}}&nbsp;stars</span>
-                                </a>
+                            <div class="col-2 col-sm-2 col-md-1">
+                                 <span>1&nbsp;<i class="fa fa-star d-inline"></i></span>
                             </div>
-                            <div class="col-sm-8 col-md-10">
-                                <a href="">
+                            <div class="col-7 col-sm-8 col-md-9">
                                     <div class="progress">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 5%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-blue-theme" role="progressbar" style="" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" data-progress="{{review_1_stars_count}}"></div>
                                     </div>
-                                </a>
                             </div>
-                            <div class="col-sm-1">
-                                <span class="blue-theme">5%</span>
+                            <div class="col-3 col-sm-2 col-md-2">
+                                <span class="blue-theme">{{review_1_stars_count}}</span>
+                                 
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- <hr> -->
+                
                 {% for list in all_reviews %}
                 <div class="card mb-4 mt-4">
-                	<div class="card-body">
-                <div class="row mt-2">
-                	
-                    <div class="col-sm-9 col-md-9">
-                        <a href="" class="text-decoration-none">
-                            <img src="{% static 'dist/assets/images/avatar.png' %}" class="img-fluid width-50px h-auto">
-                            <span class="text-muted">&nbsp; &nbsp;{{list.name}}</span>
-                        </a>
-                            <span class="stars d-block mt-n3 padding-left-60" data-rating="{{list.stars}}">
-                            </span>
-                        <a href="" class="black-font"><h6 class="pt-3">{{list.title}}</h6></a>
-                        <p class="m-0">{{list.description}}
-                        </p>                      
+                    <div class="card-body">
+                        <div class="row mt-2">
+                    
+                            <div class="col-sm-8 col-md-9">
+                                <a href="" class="text-decoration-none">
+                                <img src="{% static 'dist/assets/images/avatar.png' %}" class="img-fluid width-50px h-auto">
+                                <span class="text-muted">&nbsp; &nbsp;{{list.name}}</span>
+                                </a>
+                                <span class="stars d-block mt-n3 padding-left-60" data-rating="{{list.stars}}">
+                                </span>
+                                <a href="" class="black-font"><h6 class="pt-3">{{list.title}}</h6></a>
+                                <p class="m-0">{{list.description}}
+                                </p>                      
                         {% comment %} {{list.stars}} {% endcomment %}
                     </div>
-                    <div class="col-sm-3 col-md-3">
-                    	<p class="text-muted text-sm-right">{{list.created_at|date:"d M Y"}}</p>
+                            <div class="col-sm-4 col-md-3">
+                        <p class="text-muted text-sm-right">{{list.created_at|date:"d M Y"}}</p>
                        
                     </div>
                </div>
@@ -188,57 +181,52 @@
         </div>
                 {% endfor %}
             </div>
-            <div class="col-lg-4 p-5 bg-light h-100">
-                <h4>Desklib</h4>
-                <p>Desklib is an online learning library where students can find solutions to assignments, essays, dissertations, case studies, research reports, reflection writing and a lot more. </p>
-                <a href="" class="blue-theme">Desklib</a>
-                <hr>
-                <h4>Desklib</h4>
-                <p>Desklib is an online learning library where students can find solutions to assignments, essays, dissertations, case studies, research reports, reflection writing and a lot more. </p>
-                <hr>
-                <h4>Contact</h4>
-                <p>A2ZSERVICES PTE LTD
-                    <br> 68 CIRCULAR ROAD
-                    <br> #02-01 SINGAPORE (049422)</p> 
-            </div>
+            {% comment %}
+           
+            {% endcomment %}
         </div>
+        <div class="row row justify-content-center mt-3">
+            <div class="col-md-9 text-center">
+                <a class="btn text-white btn-bg-theme py-3 px-4 border-radius-40" href="{% url 'subscription' %}">Subscribe us for as low as $60 a month</a>
+                <p class="pt-3">* Our subscription allows instant access to read and download millions of assignments solutions and homework answers at our online learning library </p>
+        </div>
+    </div>    
     </div>
 </section>
 
-{% comment %}
-review page
-
-{{object_list}}
-
-{{review_count}}
-
-{{review_avg.stars__avg}}
-
-{% endcomment %}
-
-{% endblock %}
 
 {% block extra_js %}
 <script type="text/javascript">
 $("[data-rating]").each(function(){
-	  var rat = $(this).data('rating');
-		for( var i=1; i<=rat; i++){
-	      $(this).append("<i class='fa fa-star text-warning font-size-15'></i>");
+      var rat = $(this).data('rating');
+        for( var i=1; i<=rat; i++){
+          $(this).append("<i class='fa fa-star text-warning font-size-15'></i>");
 }
   for( var j=1; j<=5-rat; j++){
           $(this).append("<i class='fa fa-star font-size-15'></i>");
 }   
 }); 
 $("[data-star]").each(function(){
-	  var rating = $(this).data('star');
+      var rating = $(this).data('star');
        var rates = Math.round(rating);
-		for( var k=1; k<=rates; k++){
-	      $(this).append("<i class='fa fa-star blue-theme font-size-20'></i>");
+        for( var k=1; k<=rates; k++){
+          $(this).append("<i class='fa fa-star blue-theme font-size-20'></i>");
 }
         for( var l=1; l<=5-rates; l++){
           $(this).append("<i class='fa fa-star font-size-20'></i>");
 }   
 }); 
 </script>
-
+<script>
+ $("[data-progress]").each(function(){
+        var prog = $(this).data('progress');
+        var percentage = (prog/{{review_count}})*100
+        var round = Math.round(percentage * 100) / 100;
+        // console.log(round);
+            for( var i=1; i<=prog; i++){
+             $(this).css('width', round+'%').attr('aria-valuenow', round);                
+        }
+    });
+  
+</script>
 {% endblock %}
