@@ -1,16 +1,14 @@
 {% extends "desklib/base.html" %}
 {% load staticfiles %}
 
-
+{% comment %}
 {% block json_ld %}
 
-<script type="application/ld+json">
+<!--<script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "image": [
-    "https://desklib.com/assets/img/desklib_logo.png"
-   ],
+  "image": "https://desklib.com/assets/img/desklib_logo.png",
   "@id": "https://desklib.com/",
   "name": "Desklib- Homework help, online learning library",
   "address": {
@@ -44,9 +42,10 @@
   "url": "https://desklib.com/",
   "telephone": "+44-7482880720"
 }
-</script>
+</script>-->
 
 {% endblock %}
+{% endcomment %}
 
 
 {% block content %}
