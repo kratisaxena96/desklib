@@ -60,9 +60,11 @@
  	<input id="id_custom" name="custom" type="hidden" value=""/>
 	<input id="id_amount" name="amount" type="hidden"  value=""/>
 	<div class="row justify-content-center mt-4">	
-		<div class="col-md-9 col-lg-6">
+		<div class="col-md-9 col-lg-5">
 			<input type="checkbox" name="checkbox" id="check-box" class="checkbox" id="check-box" required>
-				<label class="blue-theme" for="check-box" class="blue-theme">&nbsp;I agree to the <a href="">terms & conditions and privacy policy</a></label>
+				<label class="blue-theme d-sm-inline" for="check-box" class="blue-theme">&nbsp;I agree to the <a href="{% url 'termsofuse' %}">terms & conditions</a>, <a href="{% url 'privacypolicy' %}"> privacy policy</a>, <a href="{% url 'academicintegrity' %}">Academic Integrity</a>, <a href="{% url 'honorcode' %}">Honor Code</a> and <a href="{% url 'copyright' %}">Copyright</a>
+
+				</label>
 		</div>
 </div>
 	<div class="row justify-content-center mt-4">
