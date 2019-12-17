@@ -25,7 +25,7 @@ from django.contrib.sitemaps import views
 from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView, TestPageView, \
     SubscriptionView, PayNowView, PrivacyPolicyView, HonorCodeView, CopyrightPolicyView, TermsOfUseView, \
     AcademicIntegrityView, ComingSoonPageView, PaymentCancelledView, PaymentSuccessView, AlreadySubscribedView, \
-    AdmissionsView
+    AdmissionsView, Error404View, Error500View
 from subscription.views import MyDownloads
 
 # if settings.DEBUG:
@@ -74,6 +74,9 @@ urlpatterns = [
                   path('review/', include(('review.urls', 'review'), namespace="review")),
                   path('admission/', AdmissionsView.as_view(), name='admissions'),
                   path('api-auth/', include('rest_framework.urls')),
+
+                  path('404-error/', Error404View.as_view(), name='404_error'),
+                  path('500-error/', Error500View.as_view(), name='500_error'),
                   # path('payment/document',)
                   path('api/', include(('api.urls', 'api'), namespace="api")),
 
