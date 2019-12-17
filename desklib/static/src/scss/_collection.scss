@@ -233,10 +233,13 @@ span.input-group-text{
 }
 
 .payment-card-box:focus {
-	background-color: #405FBD !important;
+	background-color: cadetblue !important;
 	color: #fff;
 }
 
+.overflow-wrap{
+	overflow-wrap: break-word;
+}
 //--hover effect on documents on home page 12/12/2019--//
 .main-div{
 	position: relative;
