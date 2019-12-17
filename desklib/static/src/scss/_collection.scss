@@ -232,11 +232,16 @@ span.input-group-text{
  color: #fff;
 }
 
+.payment-card-box:focus {
+	background-color: #405FBD !important;
+	color: #fff;
+}
+
 //--hover effect on documents on home page 12/12/2019--//
 .main-div{
 	position: relative;
 	overflow: hidden;
-}
+} 
 .inner-div{
   position: absolute;
   bottom: 0;
