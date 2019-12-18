@@ -78,7 +78,7 @@
 	<div class="row mt-5 mb-4">
   		{% for documents in recent %}
 		<div class="col-sm-6 col-md-4 col-lg-3 mb-3 mb-md-3">
-			<a href="" class="text-decoration-none">
+			<a href="{% url 'documents:document-view' documents.slug %}" class="text-decoration-none">
 			<div class="card h-100">
 				<img class="card-img-top card-height" src="{{documents.cover_image}}" alt="icon">
 				<div class="card-body">
@@ -103,7 +103,7 @@
 	<div class="row mt-5 mb-4">
 		{% for documents in top_results %}
 		<div class="col-sm-6 col-md-4 col-lg-3 mb-3 mb-md-3">
-			<a href="" class="text-decoration-none">
+			<a href="{% url 'documents:document-view' documents.slug %}" class="text-decoration-none">
 			<div class="card h-100">
 				<img class="card-img-top card-height" src="{{documents.cover_image}}" alt="icon">
 				<div class="card-body">
@@ -134,9 +134,9 @@
 		<div class="row mb-5">
 			<div class="col-sm-12 text-center">
 				{% if recent %}
-				<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="">View More</a>
+				<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="{% url 'study:search-results' %}?q=&amp;selected_facets=p_subject_exact:{{child.slug}} ">View More</a>
 				{% elif top_results %}
-				<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="">View More</a>
+				<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="{% url 'study:search-results' %}?q=&amp;selected_facets=p_subject_exact:{{child.slug}}">View More</a>
 				{% endif %}
 			</div>
 		</div>
@@ -146,9 +146,9 @@
 	<div class="container">
 		<div class="row bg-light">
 			<div class="col-sm-12 text-center">
-				<h3>join us and improve your grades.</h3>
+				<h3>Join us and improve your grades.</h3>
 				<h3>Get best deals</h3>
-					<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="">Join now</a>
+					<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="{% url 'subscription' %}">Join now</a>
 			</div>
 		</div>
 	</div>
