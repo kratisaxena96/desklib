@@ -336,10 +336,12 @@ opacity:0.9 !important;
             </div>
         </div>
 
-        <div class="">
+        <div class="d-inline-block d-sm-inline-block width-82 text-center text-md-left text-lg-center">
+            <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white btn-sm p-3" rel="nofollow">Unlock this Document</a>
+			{% comment %}
+
             <a href='{% url "documents:document-download-view" %}?doc={{object.slug}}' class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Download</a>
 			<a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Plains</a>
-			{% comment %}
 <!--            <a href='{% url "documents:document-download-view"%}?doc={{object.slug}}&single=True' class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Pay Per Download</a>-->
             {% endcomment %}
             <span class="d-inline-block d-sm-inline-block width-82 text-center text-md-left text-lg-center">Showing pages {{object.pages.all.count}} of {{object.pages.all.count}} </span>
