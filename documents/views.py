@@ -97,7 +97,7 @@ class DocumentView(JsonLdDetailView):
             # remaining_page_view = plan_view_limit - view_limit_count
             # print(remaining_page_view)
 
-            if view_limit_count < plan_view_limit:
+            if view_limit_count <= plan_view_limit:
                 PageView.objects.create(user=request.user, document=self.object)
                 pageviews_left = True
                 # context = self.get_context_data(object=self.object)
@@ -278,7 +278,7 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
     def post(self, request, *args, **kwargs):
 
         form = DownloadFileForm(self.request.POST)
-
+        slug =  request.POST['file']
 
         # print(request.user)
         if form.is_valid():
@@ -398,11 +398,38 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
                 'form': form,
             })
 
-class DocumentPayment(LoginRequiredMixin,CheckSubscriptionMixin, TemplateView):
+class DocumentPayment(LoginRequiredMixin, TemplateView):
     template_name = 'documents/doc-payment.html'
+    #
+    def get(self, request, *args, **kwargs):
+        context = super(DocumentPayment, self).get(request, *args, **kwargs)
+        subscription_obj = get_current_subscription(self.request.user)
+        try:
+            pay_per_doc_sub = self.request.user.pay_per_download.all()
+        except:
+            pass
+        doc = Document.objects.get(slug=self.request.GET.get('doc'))
+        pay_per_doc_obj = pay_per_doc_sub.filter(documents=doc, expire_on__gt=timezone.now())
+
+        if subscription_obj:
+            expiry_date_subscription = subscription_obj.expire_on
+            plan = subscription_obj.plan
+            plan_download_limit = plan.download_limit
+
+            plan_days = plan.days
+            startdate_subscription = expiry_date_subscription - timedelta(days=plan_days)
+            download_count = Download.objects.filter(user=self.request.user, created_at__gte=startdate_subscription,
+                                                 created_at__lte=expiry_date_subscription).count()
+            remaining_downloads = plan_download_limit - download_count
+            if remaining_downloads > 0 :
+                return redirect("%s?doc=%s" % (redirect('documents:download-info-view').url, doc.slug))
+        elif pay_per_doc_obj:
+            return redirect("%s?doc=%s" % (redirect('documents:download-info-view').url, doc.slug))
+        return context
 
     def get_context_data(self, **kwargs):
         context = super(DocumentPayment, self).get_context_data(**kwargs)
+
         context['plan_qs'] = Plan.objects.all()
         context['payperdoc'] = PayPerDocument.objects.all()
         context['doc'] = self.request.GET.get('doc')
@@ -423,9 +450,10 @@ class DocumentPayment(LoginRequiredMixin,CheckSubscriptionMixin, TemplateView):
         form = PayPalPaymentsForm(initial=paypal_dict, button_type="subscribe")
         context['form'] = form
         return context
+
 class PaypalDocumentRedirect(RedirectView):
     def get(self, request, *args, **kwargs):
-        messages.success(request, 'Your Payment Under review we will notify you by mail Or try to download again in 10 minutes!')
+        messages.success(request, 'Your payment is being processed. Please access your document once you recieve an email regarding your activation.')
         return redirect(self.request.build_absolute_uri('../../%s'%(kwargs.get('slug'))))
 
 class DocumentDownloadView(LoginRequiredMixin, RedirectView):

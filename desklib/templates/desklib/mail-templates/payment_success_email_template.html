@@ -129,7 +129,7 @@
 							<td align="center" valign="top" style="padding-bottom:5px;padding-left:20px;padding-right:20px;" class="title">
 								<!-- Main Title Text // -->
 								<h2 mc:edit="title" class="bigTitle" style="color:#313131; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:26px; font-weight:600; font-style:normal; letter-spacing:normal; line-height:34px; text-align:center; padding:0; margin:0;">
-									Order Confirmation
+									Subscription Confirmation
 								</h2>
 							</td>
 						</tr>
@@ -162,6 +162,25 @@
 						</tr>
 							<td height="10" style="font-size:1px;line-height:1px;">&nbsp;</td>
 						</tr>
+						{% if document_redirect %}
+						<tr>
+							<td align="center" valign="top" style="padding-bottom:20px;padding-left:20px;padding-right:20px;" class="productPrice">
+								<!-- Product Price Text // -->
+								<p mc:edit="productPrice" class="midText" style="color:#8D6CD1; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:16px; font-weight:400; font-style:normal; letter-spacing:normal; line-height:24px; text-align:center; padding:0; margin:0;">
+									View full document: <strong><a href="{{ request.get_host }}{% url 'documents:document-view' document_redirect %}"></strong>
+								</p>
+							</td>
+						</tr>
+						{% else %}
+						<tr>
+							<td align="center" valign="top" style="padding-bottom:20px;padding-left:20px;padding-right:20px;" class="productPrice">
+								<!-- Product Price Text // -->
+								<p mc:edit="productPrice" class="midText" style="color:#8D6CD1; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:16px; font-weight:400; font-style:normal; letter-spacing:normal; line-height:24px; text-align:center; padding:0; margin:0;">
+									Go to website: <strong><a href="{{ request.get_host }}"></strong>
+								</p>
+							</td>
+						</tr>
+						{% endif %}
 
 					</table>
 					<!-- Card Table Close// -->
@@ -187,12 +206,8 @@
 						<tr>
 							<td align="center" valign="top" style="padding-top:10px;padding-bottom:10px;padding-left:10px;padding-right:10px;" class="socialLinks">
 								<!-- Social Links (Facebook)// -->
-								<a href="https://www.facebook.com/desklib/k" target="_blank" style="display:inline-block;" class="facebook">
+								<a href="https://www.facebook.com/desklib/" target="_blank" style="display:inline-block;" class="facebook">
 									<img mc:edit="social-1" src="{{ request.get_host }}{% static 'dist/assets/images/facebook.png'%}" alt="facebook-icon" width="40" border="0" style="height:auto;margin:2px" />
-								</a>
-								<!-- Social Links (Twitter)// -->
-								<a href="https://twitter.com/Desklibcom" target="_blank" style="display:inline-block;" class="twitter">
-									<img mc:edit="social-2" src="{{ request.get_host }}{% static 'dist/assets/images/twitter.png'%}" alt="twitter-icon" width="40" border="0" style="height:auto;margin:2px" />
 								</a>
 								<!-- Social Links (Instagram)// -->
 								<a href="https://www.instagram.com/desklib/" target="_blank" style="display:inline-block;" class="instagram">
