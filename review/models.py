@@ -24,3 +24,18 @@ class Review(models.Model):
 
     def __str__(self):
         return self.title
+
+    @property
+    def sd(self):
+        return {
+            "@type": 'Review',
+            "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": self.stars,
+                "bestRating": "5"
+            },
+            "author": {
+                "@type": "Person",
+                "name": self.name
+            }
+        }
