@@ -134,9 +134,9 @@
 		<div class="row mb-5">
 			<div class="col-sm-12 text-center">
 				{% if recent %}
-				<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="{% url 'study:search-results' %}?q=&amp;selected_facets=p_subject_exact:{{child.slug}} ">View More</a>
+				<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="{% url 'study:search-results' %}?q=&amp;selected_facets=p_subject_exact:{{object.slug}} ">View More</a>
 				{% elif top_results %}
-				<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="{% url 'study:search-results' %}?q=&amp;selected_facets=p_subject_exact:{{child.slug}}">View More</a>
+				<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="{% url 'study:search-results' %}?q=&amp;selected_facets=p_subject_exact:{{object.slug}}">View More</a>
 				{% endif %}
 			</div>
 		</div>

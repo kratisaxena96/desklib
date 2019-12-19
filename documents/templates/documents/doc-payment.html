@@ -15,7 +15,7 @@
 		{% for plan in plan_qs %}	
 		<div class="row justify-content-center">
 			<div class="col-sm-12 col-md-9 col-lg-6">
-				<div class="card mb-2 mt-2 payment-card-box bg-light" tabindex="1">
+				<div class="card mb-2 mt-2 payment-card-box">
 					<label class="d-block">
 					<div class="card-body">
 						<h5 class="">{{plan}}</h5>
@@ -91,10 +91,10 @@
  	$("#id_custom").val("{{ user }}_" + key +"_{{doc}}");
 	$("#id_amount").val(value);
  }
+});
+
 
 });	
-
-});
 </script>
 
  {% endblock extra_js %}
