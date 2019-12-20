@@ -174,7 +174,7 @@ opacity:0.9 !important;
     {% endif %}
   {% endblock %}
   <div class="row pt-0 pt-sm-5">
-    <article class="col-sm-8 border-right">
+    <article class="col-md-8 border-right">
 
         <h3>{{object.title}}</h3>
         <p>Added on - {{object.created|date:"d M Y"}}</p>
@@ -336,18 +336,18 @@ opacity:0.9 !important;
         </div>
 
 
-        <div class="d-inline-block d-sm-inline-block width-82 text-center text-md-left text-lg-center">
-            <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white btn-sm p-3" rel="nofollow">Unlock this Document</a>
+        <div class="d-inline-block d-sm-inline-block w-100 text-center text-md-left text-lg-center p-4 mb-3 jumbotron">
+            <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white border-radius-40" rel="nofollow">Unlock this Document</a>
 
             {% comment %}
             <a href='{% url "documents:document-download-view"%}?slug={{object.slug}}' class="btn btn-bg-theme btn-lg text-white border-radius-40" rel="nofollow">Download</a>
             <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Plans</a>
 <!--            <a href='{% url "documents:document-download-view"%}?doc={{object.slug}}&single=True' class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Pay Per Download</a>-->
-            {% endcomment %}            <span class="d-inline-block d-sm-inline-block width-82 text-center text-md-left text-lg-center">
-                {{controlled_pages.count}} of {{object.pages.all.count}} </span>
+            {% endcomment %}            
         </div>
+          <span class="d-inline-block d-sm-inline-block w-100 text-center text-md-left text-lg-center text-muted">Showing pages {{controlled_pages.count}} of {{object.pages.all.count}} </span>
 
-        <div id="viewer" class="documentViewer mb-5">
+        <div id="viewer" class="documentViewer">
             {% comment %}
             {% for page in object.pages.all %}
             {% endcomment %}
@@ -358,24 +358,24 @@ opacity:0.9 !important;
 
         </div>
         {% if not pay_per_view %}
-        <div class="subscribe mt-3">
-            <div class="jumbotron  text-center">
-                <h4>You’re reading a preview. To view complete document, subscribe to a plan</h4>
-                <a href="{% url 'subscription' %}" class="btn btn-bg-theme text-white btn-lg p-4">View subscription plan</a>
+        <div class="subscribe mt-3 mb-5">
+            <div class="jumbotron p-4 mb-3 text-center">
+                <h6 class="mb-3">You’re reading a preview. To view complete document, subscribe to a plan</h6>
+                <a href="{% url 'subscription' %}" class="btn btn-bg-theme text-white border-radius-40">View subscription plan</a>
             </div>
         </div>
         {% endif %}
 
     </article>
-      <aside class="col-sm-4">
+      <aside class="col-md-4">
         {% if more_like_this %}
             <section class="similar-resource">
                 <h3>Similar Resources</h3>
                 <div class="py-4">
                     <div class="row">
                         {% for results in more_like_this %}
-                                <article class="col-6 mb-3">
-                                    <a href="{% url 'documents:document-view' results.slug %}">
+                                <article class="col-6 col-md-12 col-lg-6 mb-3">
+                                    <a href="{% url 'documents:document-view' results.slug %}" class="text-decoration-none">
                                         <div>
                                             <div class="card min-height-smilar-pages-card">
                                                 <img class="card-img-top card-height" src="{{ results.cover_image }}" alt="{{ results.title }}">
