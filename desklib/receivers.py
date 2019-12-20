@@ -1,9 +1,10 @@
 from paypal.standard.models import ST_PP_COMPLETED
 from paypal.standard.ipn.signals import valid_ipn_received, invalid_ipn_received
-from subscription.models import Subscription, Plan
+from subscription.models import Subscription, Plan, PayPerDocument
 from accounts.models import UserAccount
 from datetime import timedelta
 from django.template.loader import render_to_string
+from documents.models import Document
 from post_office import mail
 from django.conf import settings
 from django.conf import settings
@@ -27,6 +28,11 @@ def show_me_the_money(sender, **kwargs):
                     custom_str_list = custom_str.split('_')
                     username = custom_str_list[0]
                     plan_key = custom_str_list[1]
+                    try:
+                        doc_slug = custom_str_list[2]
+                        doc = Document.objects.get(slug=doc_slug)
+                    except:
+                        pass
                     plan = Plan.objects.get(key=plan_key)
                     plan_days = plan.days
                     payment_date = ipn_obj.payment_date
@@ -47,7 +53,14 @@ def show_me_the_money(sender, **kwargs):
 
                     except Exception as e:
                         print("Payment Success Email Sending failed",e)
-                    subscription =  Subscription.objects.create(user=user, plan=plan, expire_on=expire_on, author=user)
+                    if plan.is_pay_per_download:
+                        # pay_doc = PayPerDocument.objects.filter(user=user, start_date=payment_date,documents=doc, expire_on=expire_on)
+                        # if pay_doc :
+                        #     pay_doc.documents.add(doc)
+                        payperdoc = PayPerDocument.objects.create(user=user,plan=plan,expire_on=expire_on,start_date=payment_date,is_current=True)
+                        payperdoc.documents.add(doc)
+                    else:
+                        subscription =  Subscription.objects.create(user=user, plan=plan, expire_on=expire_on, author=user)
             else:
                 return
 

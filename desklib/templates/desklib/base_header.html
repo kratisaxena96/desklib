@@ -1,4 +1,4 @@
-{% load staticfiles %}
+<!-- {% load staticfiles %} -->
 
 
 
@@ -10,8 +10,37 @@
 <!--            <img class="img-responsive" src="{% static 'dist/assets/images/Desklib.png' %}" alt="logo">-->
 <!--        </div>-->
 
-
-<!--<header>-->
+{% comment %}
+<header class="bg-blue-theme">
+  <div class="pt-1 ">
+  <div class="container-fluid">
+    <div class="row">
+       <div class="col-4 col-sm-2 col-md-3">
+          <ul class="mb-0">
+            <li class="list-inline-item">
+              <a href="mailto:info@desklib.com">
+                <i class="fa fa-envelope-o text-white font-size-20"></i>
+                <li class="list-inline-item">
+                  <a href="mailto:info@desklib.com" class="text-white text-decoration-none">info@desklib.com</a>
+                </li>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-4 col-sm-8 col-md-7">
+          <h6 class="text-white m-0"></h6>
+        </div>
+        <div class="col-4 col-sm-2 col-md-2">
+                <ul class="mb-0">
+                    <li class="list-inline-item white mr-4"><a href="https://www.linkedin.com/company/desklib/"><i class="fa fa-linkedin text-white font-size-20"></i></a></li>
+                    <li class="list-inline-item white mr-4"><a href="https://www.facebook.com/desklib/"><i class="fa fa-facebook text-white font-size-20"></i></a></li>
+                    <li class="list-inline-item white"><a href="https://www.instagram.com/desklib/"><i class="fa fa-instagram text-white font-size-20"></i></a></li>
+                </ul>
+            </div> 
+    </div>
+  </div>
+ </div>
+{% endcomment %}
 <nav class="navbar navbar-expand-md bg-light navbar-light">
   <a class="navbar-brand" href="/"><img class="img-fluid" src="{% static 'dist/assets/images/desklib-logo-theme.png' %}" alt="desklib-logo"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,11 +102,11 @@
         <form class="form-inline" action="{% url 'study:search-results' %}">
 <!--          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
 <!--          <button class="btn btn-outline-secondary rounded-circle" type="submit"><i class="fa fa-search rounded-circle"></i></button>-->
-            <div class="input-group tt-input-group" id="remote">
+            <div class="input-group tt-input-group" id="">
                 {% if request.GET.q %}
-                <input type="search" name="q" class="typeahead form-control border-radius-30" placeholder="Search here..." value="{{request.GET.q}}">
+                <input type="search" name="q" class="sm-search typeahead form-control border-radius-30" placeholder="Search here..." value="{{request.GET.q}}">
                 {% else %}
-                    <input type="search" name="q" class="typeahead form-control border-radius-30" placeholder="Search here..." value="{{request.GET.q}}">
+                    <input type="search" name="q" class="sm-search typeahead form-control border-radius-30" placeholder="Search here..." value="{{request.GET.q}}">
                 {% endif %}
                 <div class="input-group-append">
                   <button class="btn rounded-circle search-bg" type="submit"><i class="fa fa-search search-icon"></i></button>
@@ -150,7 +179,7 @@
 <!--        </li>-->
   </div>
 </nav>
-<!--</header>-->
+<!-- </header> -->
 
 
 <!--      <nav class="navbar navbar-expand-md navbar-light">-->

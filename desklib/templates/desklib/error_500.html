@@ -1,1 +1,22 @@
-<h1>500 error</h1>
+{% extends "desklib/base.html" %}
+{% load staticfiles %}
+    {% block navbar %}
+{% endblock %}
+{% block content %}
+<section class="error-500-bg-img pb-md-5 pt-md-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-5 ">
+				<h2 class="orange-font font-size-130 pt-4 ml-md-5 ">500</h2>`
+				<p class="blue-theme font-size-25 mt-n5 text-center">Sorry, we have some internal server error..</p>
+			</div>
+			<div class="col-md-7 order-first order-md-7 mt-3">
+				<img class="img-fluid" src="{% static 'dist/assets/images/error-500.png' %}" alt="image-Error-404">
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}
+
+ {% block footer %}
+  {% endblock %}

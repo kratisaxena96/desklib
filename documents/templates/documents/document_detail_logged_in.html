@@ -336,9 +336,14 @@ opacity:0.9 !important;
         </div>
 
 
-        <div class="">
+        <div class="d-inline-block d-sm-inline-block width-82 text-center text-md-left text-lg-center">
+            <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white btn-sm p-3" rel="nofollow">Unlock this Document</a>
+
+            {% comment %}
             <a href='{% url "documents:document-download-view"%}?slug={{object.slug}}' class="btn btn-bg-theme btn-lg text-white border-radius-40" rel="nofollow">Download</a>
-            <span class="d-inline-block d-sm-inline-block width-82 text-center text-md-left text-lg-center">
+            <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Plans</a>
+<!--            <a href='{% url "documents:document-download-view"%}?doc={{object.slug}}&single=True' class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Pay Per Download</a>-->
+            {% endcomment %}            <span class="d-inline-block d-sm-inline-block width-82 text-center text-md-left text-lg-center">
                 {{controlled_pages.count}} of {{object.pages.all.count}} </span>
         </div>
 
@@ -352,13 +357,14 @@ opacity:0.9 !important;
             {% endfor %}
 
         </div>
-
+        {% if not pay_per_view %}
         <div class="subscribe mt-3">
             <div class="jumbotron  text-center">
                 <h4>You’re reading a preview. To view complete document, subscribe to a plan</h4>
                 <a href="{% url 'subscription' %}" class="btn btn-bg-theme text-white btn-lg p-4">View subscription plan</a>
             </div>
         </div>
+        {% endif %}
 
     </article>
       <aside class="col-sm-4">
@@ -409,7 +415,8 @@ opacity:0.9 !important;
 <div class="modal-body">
     <div class="text-center">
         <p>Subscribe or upgrade to access study resources for your class.</p>
-        <a href="{% url 'subscription' %}" class="btn btn-bg-theme text-white mb-3">Subscribe</a>        
+        <a href="{% url 'subscription' %}" class="btn btn-bg-theme text-white mb-3">Subscribe</a>
+        <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white mb-3" rel="nofollow">Pay Per Document</a>
     </div>
 </div>
 

@@ -32,20 +32,24 @@ body {
 
             .owl-prev, .owl-next {
                 position: absolute;
-                height: 100px;
-                color: inherit;
-                background: none;
+                height: 40px;
+                width: 40px;
+                top: 70px;
                 border: none;
                 z-index: 100;
+                background: #fff;
+                border-radius: 50%;
+                box-shadow: 0 0 20px 0 rgba(0,0,0,.12);
 
                 i {
-                    font-size: 2.5rem;
-                    color: #cecece;
+                    font-size: 1.5rem;
+                    color: #6c757d !important;
+                    line-height: 1.3;
                 }
-            }
+              }
 
-            .owl-prev {
-                left: 0;
+             .owl-prev {
+                left: -2px;
             }
 
             .owl-next {
@@ -202,9 +206,67 @@ span.input-group-text{
 	background-color: #405fbd !important;
 }
 
+//-------404 Error Background Image 06/12/2019------//
+
+.error-404-bg-img{
+	background-image: url("/static/dist/assets/images/Error-404.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+//-------500 Error Background Image 06/12/2019------//
+
+.error-500-bg-img{
+	background-image: url("/static/dist/assets/images/error-500.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+.orange-font{
+    color:  #f4aa5b;
+}
+
+//------payment section-------//
+.payment-card-box:hover {
+ box-shadow: 1px 0px 18px 2px #CDCDCD;
+ background-color: #405FBD !important;
+ color: #fff;
+}
+
+.payment-card-box:focus {
+	background-color: #87b5d2 !important;
+	color: #fff;
+}
+
+.word-wrap{
+	word-wrap:break-word;
+}
+//--hover effect on documents on home page 12/12/2019--//
+.main-div{
+	position: relative;
+	overflow: hidden;
+} 
+.inner-div{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 150px;
+  transition: .5s ease;
+}
+.main-div:hover .inner-div {
+  height: 200px;
+}
+.btn-d-none{
+	display: none;
+}
+.main-div:hover .btn-d-none {
+	display: block;
+}
 
 
-            //----------------------------------------  Study Page  ------------------------------------------//
+   //----------------------------------------  Study Page  ------------------------------------------//
 .top-image {
 	min-height: 500px;
 	background-image: url("/static/dist/assets/images/Desklib banner4.png");

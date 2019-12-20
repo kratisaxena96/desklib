@@ -159,6 +159,40 @@
 {% comment %}
 {% endcomment %}
 
+{% if top_results %}
+<section class="container-fluid mt-5 pt-5 pb-5 pt-2">
+    <h2 class="text-center">Top study documents</h2>
+    <div class="main-content" id="main0">
+        <div class="owl-carousel owl-theme mt-4">
+         {% for results in top_results %}
+            <div class="item  bg-white rounded h-100">
+                <div class="main-div shadow mt-2 h-100">
+                    <a href="{% url 'documents:document-view' results.slug %}" class="h-100 d-inline-block w-100">
+                    <img class="card-img-top" src="{{results.cover_image}}" alt="documents image">
+                 </a>
+                 <div class="card-body inner-div bg-light">
+                     <h6 class="card-title blue-theme">{{results.title|truncatechars:40}}</h6>
+                     <small class="text-muted">{{results.no_of_pages}}</small>
+                     <small class="text-muted">pages</small>
+                     <small class="text-muted">{{results.no_of_words}}</small>
+                     <small class="text-muted">words</small>
+                     <small class="text-muted">{{results.pub_date|date:"d M Y"}}</small>
+                     <a href="{% url 'documents:document-view' results.slug %}" class="btn btn-bg-theme border-radius-20 btn-d-none text-white mt-3">View document</a>
+                 </div>
+        </div>
+    </div>
+        {% endfor %}
+    </div>
+    <div class="owl-theme">
+                <div class="owl-controls">
+                    <div class="custom-nav owl-nav"></div>
+                </div>
+            </div>
+    </div>
+</section>
+{% endif %} 
+
+{% comment %}
 {% if top_results %} <section class="container-fluid mt-5 pt-5 pb-5 pt-2">
     <h2 class="text-center">Top study documents</h2>
         <div class="main-content" id="main0">
@@ -196,6 +230,7 @@
   </section>
 
 {% endif %}
+{% endcomment %}
 
 <section class="container-fluid bg-light">
     <div class="py-sm-5 py-5">
@@ -321,9 +356,9 @@
 <script>
 $('#main0 .owl-carousel').owlCarousel({
     // autoplay:true,
-    stagePadding: 50,
+    stagePadding: 10,
     loop: true,
-    margin: 10,
+    margin: 30,
     dots: false,
     nav: true,
     navText: [
@@ -339,10 +374,10 @@ $('#main0 .owl-carousel').owlCarousel({
             items: 2
         },
         768:{
-            items: 4
+            items: 3
         },
         1000:{
-            items: 5
+            items: 4
         }
     }
 });
