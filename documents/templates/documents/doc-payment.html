@@ -43,16 +43,6 @@
 </div>
 {% endfor %}
 
-{% comment %}
-<!-- {% for plan in plan_qs %}
-	<h1>{{plan.price}}</h1>
-	<input class="selected_plan" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}">{{plan}} -->
-
-<!-- <input type="radio" name="radio" value="{{ plan.key }}" onClick="document.getElementById('id_custom').value=this.value">{{plan}}</input>-->
-
-	<!-- {% endfor %} -->
-{% endcomment %}
-
 <form action="{{form.get_endpoint}}" method="post" id="form-check">
 {% csrf_token %}
 {{form}}
