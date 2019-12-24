@@ -159,6 +159,7 @@
 {% comment %}
 {% endcomment %}
 
+{% comment %}
 {% if top_results %}
 <section class="container-fluid mt-5 pt-5 pb-5 pt-2">
     <h2 class="text-center">Top study documents</h2>
@@ -191,8 +192,10 @@
     </div>
 </section>
 {% endif %} 
+{% endcomment %}
 
-{% comment %}
+
+
 {% if top_results %} <section class="container-fluid mt-5 pt-5 pb-5 pt-2">
     <h2 class="text-center">Top study documents</h2>
         <div class="main-content" id="main0">
@@ -230,7 +233,7 @@
   </section>
 
 {% endif %}
-{% endcomment %}
+
 
 <section class="container-fluid bg-light">
     <div class="py-sm-5 py-5">
@@ -355,10 +358,10 @@
 {% block extra_js %}
 <script>
 $('#main0 .owl-carousel').owlCarousel({
-    // autoplay:true,
-    stagePadding: 10,
+    autoplay:true,
+    stagePadding: 50,
     loop: true,
-    margin: 30,
+    margin: 10,
     dots: false,
     nav: true,
     navText: [
@@ -377,7 +380,7 @@ $('#main0 .owl-carousel').owlCarousel({
             items: 3
         },
         1000:{
-            items: 4
+            items: 5
         }
     }
 });
