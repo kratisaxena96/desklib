@@ -395,8 +395,12 @@ opacity:0.9 !important;
 <div class="modal-body">
     <div class="text-center">
         <p>Subscribe or upgrade to access study resources for your class.</p>
-        <a href="{% url 'subscription' %}" class="btn btn-bg-theme text-white">Subscribe</a>
-        <p class="pt-2">Already on Desklib? <a href="{% url 'account_login' %}">Log in</a> </p>
+        <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white border-radius-40 mb-3" rel="nofollow">Unlock this Document</a>
+        
+        <p class="pt-2">Already on Desklib? 
+        <a href="{% url 'account_login' %}">Log in</a> </p>
+        <!-- <a href="{% url 'subscription' %}" class="btn btn-bg-theme text-white">Subscribe</a> -->
+        
     </div>
 </div>
 

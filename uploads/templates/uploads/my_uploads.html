@@ -49,7 +49,7 @@
             		   	   	 <td scope="row">{{ object.course_code }}</td>   	   	
             		   	   	 <td scope="row">{{ object.university }}</td>
                              <td scope="row">{{ object.get_type_display }}</td>
-                             <td scope="row">{{ object.created|date:"M d, Y" }}</td>
+                             <td scope="row">{{ object.created|date:"M d Y" }}</td>
                              <td scope="row">{{ object.get_status_display }}</td>             
             		   	   </tr>
                              {% endfor %}
