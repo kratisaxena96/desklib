@@ -20,7 +20,7 @@ class MyDownloads(MetadataMixin,JsonLdContextMixin,LoginRequiredMixin,TemplateVi
         except EmptyPage:
             user_downloads = paginator.page(paginator.num_pages)
 
-        page_view = PageView.objects.filter(user=self.request.user).order_by('created_at')
+        page_view = PageView.objects.filter(user=self.request.user).order_by('-created_at')
         paginator = Paginator(page_view, 6)
         page = request.GET.get('page2')
         try:
