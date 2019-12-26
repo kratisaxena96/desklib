@@ -34,7 +34,7 @@ body {
                 position: absolute;
                 height: 40px;
                 width: 40px;
-                top: 70px;
+                top: 40px;
                 border: none;
                 z-index: 100;
                 background: #fff;
@@ -222,7 +222,7 @@ span.input-group-text{
 	background-repeat: no-repeat;
 }
 .orange-font{
-    color:  #f0b03c;
+    color:  #f4aa5b;
 }
 
 //------payment section-------//
@@ -232,10 +232,11 @@ span.input-group-text{
  color: #fff;
 }
 
-.payment-card-box:focus {
-	background-color: cadetblue !important;
-	color: #fff;
+.bg-blue{
+	background-color: #87b5d2 !important;
 }
+	
+
 
 .word-wrap{
 	word-wrap:break-word;

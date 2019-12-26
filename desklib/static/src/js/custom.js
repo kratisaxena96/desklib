@@ -24,9 +24,11 @@ $('#remote .typeahead').typeahead(null,{
       '</div>'
     ].join('\n'),
 //    suggestion: Handlebars.compile('<a href="/document/{{slug}}"><div>{{title}}</div></a>')
-    suggestion: Handlebars.compile('<a href="/document/{{slug}}" class="border-bottom text-dark"><div class="row"><div class="col-2"><img src="{{image}}" alt="{{title}}" class="img-fluid border"></div><div class="col-10 position-relative"><h4>{{title}}</h4><p class="word-wrap">{{description}}</p><div class="text-right d-block w-100 position-absolute bottom-0-right-20">words: <b>{{words}}</b>   pages: <b>{{pages}}</b></div></div> </div></a>')
+    suggestion: Handlebars.compile('<a href="/document/{{slug}}" class="border-bottom text-dark"><div class="row"><div class="col-2"><img src="{{image}}" alt="{{title}}" class="img-fluid border"></div><div class="col-10"><h4 class="word-wrap">{{title}}</h4><p class="word-wrap">{{description}}</p><div class="w-100"><span>words: </span><b><span>{{words}}</b></span><span>&nbsp;pages: </span><b><span>{{pages}}</b></span></div></div> </div></a>')
   }
 });
+
+
 $('.sm-search').typeahead(null,{
     name: 'states',
     display: 'title',
