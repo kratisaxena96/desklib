@@ -5,6 +5,7 @@ from django_json_ld.views import JsonLdContextMixin
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
+from django.contrib import messages
 
 from uploads.models import Upload
 from uploads.forms import UploadForm
@@ -16,13 +17,15 @@ class UploadDocumentView(LoginRequiredMixin, JsonLdContextMixin, CreateView):
     form_class = UploadForm
     model = Upload
     template_name = 'uploads/upload_document.html'
-    success_url = "/"
+    success_url = "/accounts/upload-file"
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
         self.object.author = self.request.user
         self.object.save()
+        messages.success(self.request, 'Your form is being processed.')
         return super().form_valid(form)
+
 
 class MyUploads(LoginRequiredMixin, ListView):
     model = Upload

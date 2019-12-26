@@ -72,6 +72,7 @@ class DocumentView(JsonLdDetailView):
         Document.objects.filter(pk=entry.pk).update(views=F('views') + 1)
         if not self.request.user.is_anonymous:
             check_subscribed_status = is_subscribed(self.request.user)
+            PageView.objects.create(user=request.user, document=self.object)
         else:
             check_subscribed_status = False
 
@@ -80,10 +81,9 @@ class DocumentView(JsonLdDetailView):
             if pay_per_doc_sub:
                 if  pay_per_doc_sub.filter(documents=entry, expire_on__gt=timezone.now()):
                     self.payperdoc = True
-            pageviews_left = True
+                    pageviews_left = True
         except:
             pass
-
         if check_subscribed_status and not self.payperdoc:
             subscription_obj = get_current_subscription(self.request.user)
             expiry_date_subscription = subscription_obj.expire_on
@@ -98,7 +98,6 @@ class DocumentView(JsonLdDetailView):
             # print(remaining_page_view)
 
             if view_limit_count <= plan_view_limit:
-                PageView.objects.create(user=request.user, document=self.object)
                 pageviews_left = True
                 # context = self.get_context_data(object=self.object)
                 # return self.render_to_response(context)
