@@ -147,128 +147,78 @@
     </div>
     {% endfor %}
 </div>
-        <!-- <div class="card-columns">
-<section class="container pt-5 pb-4">
-    <h2 class="text-center pb-4">Explore By Subjects</h2>
-    <div class="row mb-3">
-        {% for p in parent %}
-    <div class="col-sm-6 col-md-4">
-        {% if not p.parent_subject %}
-                {% if object.info_graphic_image %}
-                  <img src="{{ object.info_graphic_image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid width-50px h-auto">
-                   {% elif object.image %}
-                 <img src="{{ object.image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid width-50px h-auto">
-                  {% endif %}
-                 <h4>
-                 <a href="{% url 'subjects:parent-subject-view' p.slug %}" class="card-title black-font">{{ p }}</a> </h4>
+</section>
 
-                    {% for child in p.subject_set.all %}
-                    <h5>
-                    <a class="card-link blue-theme" href="{% url 'subjects:child-subject-view' p.slug child.slug %}">
-                        {{child}}
-                    </a>
-
-                </h5>
-                     <span class="d-block text-muted font-size-12 pb-4">
-                        {% for c in doc_count %}
-                            {% if c.name == child.name %}
-                                {{c.doc_subject}} documents
-                            {% endif %}
-                        {% endfor %}
-                    </span>
-                    {% endfor %}
-        {% endif %}
-
+{% if top_results %}
+<section class="container-fluid pt-5 pb-5 bg-light">
+    <h2 class="text-center">Top study documents</h2>
+    <div class="main-content" id="main0">
+        <div class="owl-carousel owl-theme mt-4">
+         {% for results in top_results %}
+            <div class="item h-350">
+                <div class="main-div shadow mt-2 h-350 border-radius-12">
+                    <a href="{% url 'documents:document-view' results.slug %}" class="h-350 d-inline-block w-100">
+                    <img class="card-img-top" src="{{results.cover_image}}" alt="documents image">
+                 </a>
+                 <a href="{% url 'documents:document-view' results.slug %}" class="text-decoration-none">
+                 <div class="card-body inner-div bg-light">
+                     <h6 class="card-title blue-theme">{{results.title|truncatechars:40}}</h6>
+                     <small class="text-muted">{{results.no_of_pages}}</small>
+                     <small class="text-muted">pages</small>
+                     <small class="text-muted">{{results.no_of_words}}</small>
+                     <small class="text-muted">words</small>
+                     <small class="text-muted">{{results.pub_date|date:"d M Y"}}</small>
+                     <small class="text-muted pt-2 btn-d-none">{{results.description|safe|truncatechars:60}}</small>
+                     <a href="{% url 'documents:document-view' results.slug %}" class="btn btn-bg-theme border-radius-20 btn-d-none text-white mt-3 mb-3 pt-1 pb-1">View document</a>
+                 </div></a>
+        </div>  
     </div>
-    {% endfor %}
-</div>
-        <!-- <div class="card-columns">
-		{% for p in parent %}
 
-            <div class="card border-0">
-              <div class="card-body">
-                <h5 class="card-title">{{ p }}</h5>
-                    {% for child in p.subject_set.all %}
-                    <a class="card-link mr-4 ml-0" href="{% url 'study:search-results' %}?q=&amp;selected_facets=subjects_exact:{{child.slug}}">
-						{{child}}
-						</a>
-                    {% endfor %}
-
-              </div>
-            </div>
-		{% endfor %}
-            </div> -->
-
-	</section>
-    {% if top_results %}
-  <section class="container-fluid pt-5 pb-5 bg-light">
-    <h2 class="text-center">Top Study Documents</h2>
-        <div class="main-content" id="main0">
-            <div class="owl-carousel owl-theme mt-4">
-                {% for top in top_results %}
-                <a href="{% url 'documents:document-view' top.slug %}" class="h-100 d-inline-block w-100">
-                    <div class="item shadow bg-white rounded h-100">
-                        <div class="card h-100">
-                            <img class="card-img-top card-height" src="{{top.cover_image}}" alt="Card image">
-                            <div class="card-body">
-                                <p class="card-text black-font">{{top.title|truncatechars:25}}</p>
-                                 <span class="border-right p-2">
-                                        <span class="text-muted">{{top.no_of_pages}}</span>
-                                         <span class="text-muted">pages</span>
-                                      </span>
-                                        <span class="p-2">
-                                            <span class="text-muted">{{top.no_of_words}}</span>
-                                             <span class="text-muted">words</span>
-                                        </span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                {% endfor %}
-            </div>
-            <div class="owl-theme">
+        {% endfor %}
+    </div>
+    <div class="owl-theme">
                 <div class="owl-controls">
                     <div class="custom-nav owl-nav"></div>
                 </div>
             </div>
-        </div>
-  </section>
+    </div>
+</section>
+{% endif %} 
 
-    {% endif %}
     {% if recent %}
-     <section class="container-fluid mt-0 pt-5 pb-5 bg-white">
+     <section class="container-fluid pt-5 pb-5 bg-white">
          <h2 class="text-center">Recently uploaded documents</h2>
         <div class="main-content" id="main" >
             <div class="owl-carousel owl-theme mt-4 owl-carousel1 ">
               {% for rec in recent %}
-                        <a href="{% url 'documents:document-view' rec.slug %}" class="h-100 d-inline-block w-100">
-                            <div class="item shadow h-100 bg-white rounded">
-                                <div class="card h-100">
-                                    <img class="card-img-top card-height" src="{{rec.cover_image}}" alt="Card image">
-                                    <div class="card-body">
-                                            <p class="card-text black-font">{{rec.title|truncatechars:25}}</p>
-                                        <span class="border-right p-2">
-                                        <span class="text-muted">{{rec.no_of_pages}}</span>
-                                         <span class="text-muted">pages</span>
-                                      </span>
-                                        <span class="p-2">
-                                            <span class="text-muted">{{rec.no_of_words}}</span>
-                                             <span class="text-muted">words</span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                         </a>
-                {% endfor %}
-            </div>
-            <div class="owl-theme">
-                <div class="owl-controls">
-                    <div class="custom-nav owl-nav"></div>
+                <div class="item  bg-white h-350">
+                    <div class="main-div shadow mt-2 h-350 border-radius-12">
+                        <a href="{% url 'documents:document-view' rec.slug %}" class="h-350 d-inline-block w-100">
+                        <img class="card-img-top" src="{{rec.cover_image}}" alt="documents image">
+                        </a>
+                        <a href="{% url 'documents:document-view' rec.slug %}" class="text-decoration-none">
+                        <div class="card-body inner-div bg-light">
+                        <h6 class="card-title blue-theme">{{rec.title|truncatechars:40}}</h6>
+                        <small class="text-muted">{{rec.no_of_pages}}</small>
+                        <small class="text-muted">pages</small>
+                        <small class="text-muted">{{rec.no_of_words}}</small>
+                        <small class="text-muted">words</small>
+                        <small class="text-muted">{{rec.pub_date|date:"d M Y"}}</small>
+                        <small class="text-muted pt-2 btn-d-none">{{rec.description|safe|truncatechars:60}}</small>
+                        <a href="{% url 'documents:document-view' rec.slug %}" class="btn btn-bg-theme border-radius-20 btn-d-none text-white mt-3 mb-3 pt-1 pb-1">View document</a>
+                 </div>
+             </a>
+        </div>  
+    </div>
+
+ {% endfor %}
+    </div>
+        <div class="owl-theme">
+            <div class="owl-controls">
+                <div class="custom-nav owl-nav"></div>
                 </div>
             </div>
         </div>
-
-<!--           <div><p class="text-center font-size-20 font-weight-400 padding-bottom-30"><a href="#">View all</a></p></div>-->
 </section>
 {% endif %}
 
@@ -301,11 +251,11 @@
  <script>
 $('#main0 .owl-carousel').owlCarousel({
     autoplay:true,
-    stagePadding: 50,
+    stagePadding: 10,
     nav: true,
     dots:false,
     loop: true,
-    margin: 10,
+    margin: 25,
     navText: [
         '<i class="fa fa-angle-left" aria-hidden="true"></i>',
         '<i class="fa fa-angle-right" aria-hidden="true"></i>'
@@ -319,21 +269,24 @@ $('#main0 .owl-carousel').owlCarousel({
             items: 2
         },
         768:{
-            items: 4
+            items: 3
         },
         1000:{
-            items: 5
+            items: 3
+        },
+        1200:{
+            items: 4
         }
     }
 });
 
 $('#main .owl-carousel1').owlCarousel({
     autoplay:true,
-    stagePadding: 50,
+    stagePadding: 10,
     nav: true,
     dots:false,
     loop: true,
-    margin: 10,
+    margin: 25,
     navText: [
         '<i class="fa fa-angle-left" aria-hidden="true"></i>',
         '<i class="fa fa-angle-right" aria-hidden="true"></i>'
@@ -347,10 +300,13 @@ $('#main .owl-carousel1').owlCarousel({
             items: 2
         },
         768:{
-            items: 4
+            items: 3
         },
         1000:{
-            items: 5
+            items: 3
+        },
+        1200:{
+            items: 4
         }
     }
 });

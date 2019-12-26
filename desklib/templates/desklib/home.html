@@ -7,9 +7,7 @@
 <link rel="canonical" href="https://desklib.com" />
 {% endblock %}
 
-
 {% block content %}
-<!--<h1>Home</h1>-->
 
 <section class="container-fluid banner-image img-fluid">
  {% block messages %}
@@ -28,16 +26,13 @@
         </div>
     {% endif %}
  {% endblock %}
-<!--    <div class=""></div>-->
+
     <div class="row pl-5 pt-7rem pb-7rem pltb-0">
         <div class="col-md-6">
             <h1 class="blue-theme py-2">Get 24/7 homework help at our online learning library</h1>
             <h3 class="pb-2">Access 2 million course-specific study materials at our online learning library</h3>
             <div class="col-md-12 pl-0">
                 <form class="form-inline " action="{% url 'study:search-results' %}">
-<!--          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
-<!--          <button class="btn btn-outline-secondary rounded-circle" type="submit"><i class="fa fa-search rounded-circle"></i></button>-->
-
                     <div id="remote" class="input-group mb-3 w-100">
                       <input class=" form-control form-control-lg box-shadow-3-3-5-5 border-radius-30 typeahead" type="text" placeholder="Find subjects, homework solution and more..." name="q">
                         <div class="input-group-append">
@@ -54,66 +49,13 @@
                     </div>
                     {% endcomment %}
                     
-<!--                    <div id="remote" class="input-group">-->
-<!--                        <input type="text" id="new" name="q" class="typeahead form-control-lg  box-shadow-3-3-5-5 border-radius-30" placeholder="Search here...">-->
-<!--                        <div class="input-group-append">-->
-<!--                           <button class="btn btn-lg rounded-circle btn-outline-secondary" type="submit"><i class="fa fa-search rounded-circle"></i></button>-->
-<!--                        </div>-->
-<!--                    </div>-->
                 </form>
             </div>
-
-<!--            <form class="form-inline my-2 my-lg-0" action="{% url 'study:search-results' %}">-->
-<!--                <div class="form-group w-75 mb-3">-->
-<!--                      <input type="text" name="q" class="form-control search-input box-shadow-3-3-5-5" placeholder="Search a topic or subject" aria-label="Search here" aria-describedby="basic-addon2">-->
-<!--                      <div class="input-group-append">-->
-<!--                          <button class="btn btn-outline-secondary rounded-circle" type="button"><i class="fa fa-search"></i></button>-->
-<!--                      </div>-->
-<!--                </div>-->
-
-<!--&lt;!&ndash;              <input type="text" class="form-control form-rounded" placeholder="Search a topic or subject" aria-label="Recipient's username" aria-describedby="basic-addon2">&ndash;&gt;-->
-<!--&lt;!&ndash;              <div class="input-group-append">&ndash;&gt;-->
-<!--&lt;!&ndash;                <button class="btn btn-outline-secondary rounded-circle" type="button"><i class="fa fa-search"></i></button>&ndash;&gt;-->
-<!--&lt;!&ndash;              </div>&ndash;&gt;-->
-<!--            </form>-->
-<!--              <div class="input-group-append">-->
-<!--                <i class="fa fa-search"></i>-->
-<!--              </div>-->
-<!--            </div>-->
-            <!--<p class="pt-1 pb-5">Eg: marketing plan, database design</p>-->
-
         </div>
         <div class="col-md-6">
         </div>
     </div>
 </section>
-
-
-<!--<section class="top-banner">-->
-<!--    <div class="">-->
-<!--        <div class="top-image">-->
-<!--            &lt;!&ndash; <img class="img-fluid" src="{% static 'dist/assets/images/Desklib banner4.png' %}" alt="top-banner"> &ndash;&gt;-->
-<!--        </div>-->
-<!--        <div class="img-top-text">-->
-<!--            <h1 class="blue-theme">-->
-<!--                Find Study resources-->
-<!--            </h1>-->
-<!--            <p class="font-size-25 font-weight-400">Search from 2 million attributes</p>-->
-<!--            <div>-->
-<!--            <form class="frm-responsive" action="{% url 'study:search-results' %}" method="get">-->
-<!--                <input class="form-control py-2 rounded-pill mr-1 pr-3" type="search" id ="id_q" name="q" placeholder="Search a topic or subject"/>-->
-<!--                <span>-->
-<!--                        <input class="img-search" type="image" src="{% static 'dist/assets/images/search icon.png' %}" />-->
-<!--&lt;!&ndash;                    <img class="img-responsive" src="{% static 'dist/assets/images/search icon.png' %}" alt="search" height="70px" style="margin-top: -11px; margin-left: -50px;">&ndash;&gt;-->
-<!--                </span>-->
-<!--&lt;!&ndash;                <input type="submit"/>&ndash;&gt;-->
-<!--             </form>-->
-<!--            </div>-->
-<!--            <p class="font-size-20 font-weight-400">Eg: Starbucks case study, presentation.</p>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</section>-->
-
 <section class="container mt-5 mb-5">
         <div class="row">
             <div class="col-md-6 mb-sm-3 mb-lg-0 mb-3">
@@ -138,8 +80,6 @@
             </div>
     </div>
 </section>
-
-
 <section class=" bg-light">
     <div class="container pt-5 pb-5">
         <div class="row  justify-content-md-center">
@@ -157,14 +97,14 @@
 </section>
 
 {% if top_results %}
-<section class="container-fluid mt-0 mt-md-5 pt-5 pb-0 pb-md-5">
+<section class="container-fluid pt-5 pb-5">
     <h2 class="text-center">Top study documents</h2>
     <div class="main-content" id="main0">
         <div class="owl-carousel owl-theme mt-4">
          {% for results in top_results %}
-            <div class="item  bg-white h-90">
-                <div class="main-div shadow mt-2 h-90 border-radius-12">
-                    <a href="{% url 'documents:document-view' results.slug %}" class="h-90 d-inline-block w-100">
+            <div class="item  bg-white h-350">
+                <div class="main-div shadow mt-2 h-350 border-radius-12">
+                    <a href="{% url 'documents:document-view' results.slug %}" class="h-350 d-inline-block w-100">
                     <img class="card-img-top" src="{{results.cover_image}}" alt="documents image">
                  </a>
                  <a href="{% url 'documents:document-view' results.slug %}" class="text-decoration-none">
@@ -191,45 +131,6 @@
     </div>
 </section>
 {% endif %} 
-
-{% comment %}
-<!-- {% if top_results %} <section class="container-fluid mt-5 pt-5 pb-5 pt-2">
-    <h2 class="text-center">Top study documents</h2>
-        <div class="main-content" id="main0">
-            <div class="owl-carousel owl-theme mt-4">
-               {% for results in top_results %}
-
-                        <a href="{% url 'documents:document-view' results.slug %}" class="h-100 d-inline-block w-100">
-
-                            <div class="item shadow bg-white rounded h-100">
-                                <div class="card h-100">
-                                    <img class="card-img-top card-height" src="{{results.cover_image}}" alt="Card image">
-                                    <div class="card-body">
-                                        <p class="card-text black-font">{{results.title|truncatechars:25}}</p>
-                                        <span class="border-right p-2">
-                                        <span class="text-muted">{{results.no_of_pages}}</span>
-                                         <span class="text-muted">pages</span>
-                                      </span>
-                                        <span class="p-2">
-                                            <span class="text-muted">{{results.no_of_words}}</span>
-                                             <span class="text-muted">words</span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-
-                {% endfor %}
-            </div>
-            <div class="owl-theme">
-                <div class="owl-controls">
-                    <div class="custom-nav owl-nav"></div>
-                </div>
-            </div>
-        </div>
-  </section>
-{% endif %} -->
-{% endcomment %}
 
 <section class="container-fluid bg-light">
     <div class="py-sm-5 py-5">
@@ -272,40 +173,6 @@
         </div>
     </div>
 </section>
-
-<!--<section id="intro" class="clearfix">-->
-<!--    <div class="container d-flex h-100">-->
-<!--      <div class="row justify-content-center align-self-center">-->
-<!--        <div class="col-md-6 intro-info order-md-first order-last">-->
-<!--          <h2>Rapid Solutions<br>for Your <span>Business!</span></h2>-->
-<!--          <div>-->
-<!--            <a href="#about" class="btn-get-started scrollto">Get Started</a>-->
-<!--          </div>-->
-<!--        </div>-->
-
-<!--        <div class="col-md-6 intro-img order-md-last order-first">-->
-<!--          <img class="img-fluid" src="{% static 'dist/assets/images/Desklib banner4.png' %}" alt="top-banners"    >-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--    </div>-->
-<!--</section>-->
-
-<!-- Page Content -->
-<!--<section class="py-5">-->
-<!--  <div class="container">-->
-<!--    <h2 class="font-weight-light">Page Content</h2>-->
-<!--    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus ab nulla dolorum autem nisi officiis blanditiis voluptatem hic, assumenda aspernatur facere ipsam nemo ratione cumque magnam enim fugiat reprehenderit expedita.</p>-->
-<!--  </div>-->
-<!--</section>-->
-
-{% comment %}
-{% if user.is_authenticated %}
-  Hi {{ user.username }}!
-{% else %}
-  <p>You are not logged in</p>
-{% endif %}
-{% endcomment %}
 
 {% comment %}
 <ul>
@@ -351,11 +218,12 @@
     </div>
 </div>
 {% endcomment %}
+
 {% endblock %}
 {% block extra_js %}
 <script>
 $('#main0 .owl-carousel').owlCarousel({
-    //autoplay:true,
+    autoplay:true,
     stagePadding: 10,
     loop: true,
     margin: 25,
