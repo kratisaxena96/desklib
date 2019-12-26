@@ -31,17 +31,17 @@ class DocumentSitemap(Sitemap):
         return obj.published_date
 
 
-# class SubjectSitemap(Sitemap):
-#     priority = 0.5
-#     changefreq = 'daily'
-#
-#     # limit = 50000
-#
-#     def items(self):
-#         return Subject.objects.filter(is_visible=True, updated__lte=timezone.now()).order_by('name')
-#
-#     def lastmod(self, obj):
-#         return obj.updated
+class SubjectSitemap(Sitemap):
+    priority = 0.5
+    changefreq = 'daily'
+
+    # limit = 50000
+
+    def items(self):
+        return Subject.objects.filter(is_visible=True, updated__lte=timezone.now()).order_by('name')
+
+    def lastmod(self, obj):
+        return obj.updated
 
 
 class StaticViewSitemap(Sitemap):

@@ -114,9 +114,41 @@
 
 <!--{% endfor %}-->
 {% endcomment %}
-	<section class="container pt-5 pb-4">
-        <h2 class="text-center">Explore By Subjects</h2>
-        <div class="card-columns">
+<section class="container pt-5 pb-4">
+    <h2 class="text-center pb-4">Explore By Subjects</h2> 
+    <div class="row mb-3">
+        {% for p in parent %}
+    <div class="col-sm-6 col-md-4">
+        {% if not p.parent_subject %}
+                {% if object.info_graphic_image %}
+                  <img src="{{ object.info_graphic_image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid width-50px h-auto">
+                   {% elif object.image %}
+                 <img src="{{ object.image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid width-50px h-auto">
+                  {% endif %}
+                 <h4>
+                 <a href="{% url 'subjects:parent-subject-view' p.slug %}" class="card-title black-font">{{ p }}</a> </h4>
+                  
+                    {% for child in p.subject_set.all %}
+                    <h5>
+                    <a class="card-link blue-theme" href="{% url 'subjects:child-subject-view' p.slug child.slug %}">
+                        {{child}}
+                    </a>
+
+                </h5>
+                     <span class="d-block text-muted font-size-12 pb-4">
+                        {% for c in doc_count %}
+                            {% if c.name == child.name %}
+                                {{c.doc_subject}} documents
+                            {% endif %}
+                        {% endfor %}
+                    </span>
+                    {% endfor %}
+        {% endif %}
+        
+    </div>
+    {% endfor %}
+</div>    
+        <!-- <div class="card-columns">
 		{% for p in parent %}
 
             <div class="card border-0">
@@ -131,7 +163,8 @@
               </div>
             </div>
 		{% endfor %}
-            </div>
+            </div> -->
+
 	</section>
     {% if top_results %}
   <section class="container-fluid pt-5 pb-5 bg-light">

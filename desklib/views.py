@@ -373,3 +373,9 @@ class PaymentSuccessView(LoginRequiredMixin,MetadataMixin,TemplateView):
 class AlreadySubscribedView(LoginRequiredMixin,MetadataMixin, TemplateView):
     title = 'Already Subscribed | desklib.com'
     template_name = 'desklib/already_subscribed.html'
+
+
+class Error404View(TemplateView):
+    template_name = "desklib/error_404.html"
+class Error500View(TemplateView):
+    template_name = "desklib/error_500.html"

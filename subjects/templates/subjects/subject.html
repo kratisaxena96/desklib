@@ -19,13 +19,9 @@
 	</div>
 </div>
 <div class="row mb-3">
-	<!-- <div class="col-sm-12"> -->
-        <!-- <div class="card-columns"> -->
         	{% for p in object_list %}
     <div class="col-sm-6 col-md-4">
         {% if not p.parent_subject %}
-            <!-- <div class="card border-0"> -->
-              <!-- <div class="card-body"> -->
               	{% if object.info_graphic_image %}
                   <img src="{{ object.info_graphic_image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid width-50px h-auto">
                    {% elif object.image %}
@@ -37,15 +33,15 @@
                     {% for child in p.subject_set.all %}
                     <h5>
                     <a class="card-link blue-theme" href="{% url 'subjects:child-subject-view' p.slug child.slug %}">
-						{{child}}
+						            {{child}}
 
-						{% comment %}
+						        {% comment %}
                         {% for c in doc_count %}
                             {% if c.name == child.name %}
                                 {{c.doc_subject}} documents
                             {% endif %}
                         {% endfor %}
-                        {% endcomment %}
+                    {% endcomment %}
 					</a>
 				</h5>
 					 <span class="d-block text-muted font-size-12 pb-4">
@@ -56,14 +52,10 @@
                         {% endfor %}
                     </span>
                     {% endfor %}
-              <!-- </div> -->
-            <!-- </div> -->
         {% endif %}
 		
 	</div>
 	{% endfor %}
-       <!--  </div> -->
-<!-- </div> -->
 </div>
 
 </div>
@@ -73,9 +65,9 @@
 	<div class="container">
 		<div class="row bg-light">
 			<div class="col-sm-12 text-center">
-				<h3 class="">join us and improve your grades.</h3>
+				<h3 class="">Join us and improve your grades.</h3>
 				<h3>Get best deals</h3>
-					<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="">Join now</a>
+					<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="{% url 'subscription' %}">Join now</a>
 			</div>
 		</div>
 	</div>

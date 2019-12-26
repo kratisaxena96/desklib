@@ -157,8 +157,6 @@
 </section>
 
 {% comment %}
-{% endcomment %}
-
 {% if top_results %}
 <section class="container-fluid mt-5 pt-5 pb-5 pt-2">
     <h2 class="text-center">Top study documents</h2>
@@ -179,7 +177,7 @@
                      <small class="text-muted">{{results.pub_date|date:"d M Y"}}</small>
                      <a href="{% url 'documents:document-view' results.slug %}" class="btn btn-bg-theme border-radius-20 btn-d-none text-white mt-3">View document</a>
                  </div>
-        </div>
+        </div>  
     </div>
         {% endfor %}
     </div>
@@ -191,8 +189,8 @@
     </div>
 </section>
 {% endif %} 
+{% endcomment %}
 
-{% comment %}
 {% if top_results %} <section class="container-fluid mt-5 pt-5 pb-5 pt-2">
     <h2 class="text-center">Top study documents</h2>
         <div class="main-content" id="main0">
@@ -230,7 +228,7 @@
   </section>
 
 {% endif %}
-{% endcomment %}
+
 
 <section class="container-fluid bg-light">
     <div class="py-sm-5 py-5">
@@ -273,6 +271,7 @@
         </div>
     </div>
 </section>
+
 <!--<section id="intro" class="clearfix">-->
 <!--    <div class="container d-flex h-100">-->
 <!--      <div class="row justify-content-center align-self-center">-->
@@ -355,10 +354,10 @@
 {% block extra_js %}
 <script>
 $('#main0 .owl-carousel').owlCarousel({
-    // autoplay:true,
-    stagePadding: 10,
+    autoplay:true,
+    stagePadding: 50,
     loop: true,
-    margin: 30,
+    margin: 10,
     dots: false,
     nav: true,
     navText: [
@@ -377,7 +376,7 @@ $('#main0 .owl-carousel').owlCarousel({
             items: 3
         },
         1000:{
-            items: 4
+            items: 5
         }
     }
 });

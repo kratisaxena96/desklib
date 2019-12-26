@@ -13,14 +13,14 @@
 		</div>
 		
 		{% for plan in plan_qs %}	
-		<div class="row justify-content-center">
+		<div class="row justify-content-center parent">
 			<div class="col-sm-12 col-md-9 col-lg-6">
-				<div class="card mb-2 mt-2 payment-card-box bg-light" tabindex="1">
-					<label class="d-block">
+				<div class="card mb-2 mt-2 payment-card-box bg-light">
+					<label class="d-block label">
 					<div class="card-body">
 						<h5 class="">{{plan}}</h5>
 						<span class="">
-						<input class="selected_plan d-none" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}"><!-- {{plan}} -->
+						<input class="selected_plan d-none" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}">
 					</span>
 						<span class="">		
 							<span class="">{{plan.view_limit}}</span>
@@ -43,17 +43,6 @@
 </div>
 {% endfor %}
 
-{% comment %}
-<!-- {% for plan in plan_qs %}
-	<h1>{{plan.price}}</h1>
-	<input class="selected_plan" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}">{{plan}} -->
-
-<!-- <input type="radio" name="radio" value="{{ plan.key }}" onClick="document.getElementById('id_custom').value=this.value">{{plan}}</input>-->
-
-	<!-- {% endfor %} -->
-{% endcomment %}
-
-<!-- <form action="{{form.get_endpoint}}" method="post" id="form-check"> -->
 <form action="{{form.get_endpoint}}" method="post" id="form-check">
 {% csrf_token %}
 {{form}}
@@ -73,7 +62,6 @@
 			<input type="submit" value="Proceed with Paypal" class="btn btn-bg-theme border-radius-20 text-white px-sm-5 px-4" id="submit">
 		</div>
 	</div>
-	<!-- <input alt="Buy it Now" border="0" id="submit" name="submit" src="https://www.paypal.com/en_US/i/btn/btn_subscribeCC_LG.gif" type="image"/> -->
 	</form>
 	</div> 
 </section>
@@ -91,10 +79,15 @@
  	$("#id_custom").val("{{ user }}_" + key +"_{{doc}}");
 	$("#id_amount").val(value);
  }
-
-});	
-
 });
+	
+  	$('.parent .payment-card-box').click(function() {
+    $('.parent .payment-card-box').removeClass("bg-blue");
+    $(this).addClass("bg-blue");
+
+  	})
+ });
+
 </script>
 
  {% endblock extra_js %}

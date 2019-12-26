@@ -1,3 +1,4 @@
+from django.db.models import Count
 
 from documents.models import Document
 
@@ -59,6 +60,8 @@ class StudyPageView(MetadataMixin, JsonLdContextMixin, SearchView):
         # cover_image = top_results.pages.first().image_file.name
         context['top_results'] = top_results
         context['recent'] = recent
+        doc = Subject.objects.annotate(doc_subject=Count('subject_documents'))
+        context['doc_count'] = doc
         # context['subject_facet'] = subjects
         context['parent'] = Subject.objects.filter(parent_subject__isnull=True).prefetch_related('subject_set')
         context['subject_facet'] = Subject.objects.all()

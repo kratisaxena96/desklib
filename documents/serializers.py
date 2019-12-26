@@ -5,10 +5,11 @@ from documents.models import Report
 
 class DocumentCreateSerializer(serializers.ModelSerializer):
     upload_file = serializers.FileField()
+    # classifier =
 
     class Meta:
         model = Document
-        fields = ('upload_file',)
+        fields = ('upload_file', 'is_published', 'is_visible',)
 
 
 class DocumentFeedbackSerializer(serializers.Serializer):
