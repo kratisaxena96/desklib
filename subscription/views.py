@@ -10,7 +10,7 @@ class MyDownloads(MetadataMixin,JsonLdContextMixin,LoginRequiredMixin,TemplateVi
     template_name ="subscription/my_downloads.html"
     title = "My-Downloads"
     def get(self, request, *args, **kwargs):
-        user_downloads = Download.objects.filter(user=self.request.user).order_by('created_at')
+        user_downloads = Download.objects.filter(user=self.request.user).order_by('-created_at')
         paginator = Paginator(user_downloads, 6)
         page = request.GET.get('page1')
         try:
