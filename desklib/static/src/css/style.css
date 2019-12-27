@@ -70,6 +70,9 @@
 .font-size-50 {
   font-size: 50px !important; }
 
+.font-size-130 {
+  font-size: 130px; }
+
 .font-weight-100 {
   font-weight: 100 !important; }
 
@@ -363,7 +366,7 @@ body {
       position: absolute;
       height: 40px;
       width: 40px;
-      top: 70px;
+      top: 40px;
       border: none;
       z-index: 100;
       background: #fff;
@@ -533,17 +536,20 @@ span.input-group-text {
   right: 0;
   overflow: hidden;
   width: 100%;
-  height: 150px;
+  height: 120px;
   transition: .5s ease; }
 
 .main-div:hover .inner-div {
-  height: 200px; }
+  height: 220px; }
 
 .btn-d-none {
   display: none; }
 
 .main-div:hover .btn-d-none {
   display: block; }
+
+.h-350 {
+  height: 350px !important; }
 
 .top-image {
   min-height: 500px;
@@ -1085,6 +1091,12 @@ a.tt-suggestion.tt-selectable {
     margin-top: 10px !important; } }
 
 @media only screen and (max-width: 576px) {
+  .main-div:hover .btn-d-none {
+    display: none; }
+  .main-div:hover .inner-div {
+    height: 130px; }
+  .inner-div {
+    height: 130px; }
   .top-image {
     height: 80vh;
     min-height: 250px;
@@ -1127,7 +1139,19 @@ a.tt-suggestion.tt-selectable {
 
 @media only screen and (min-width: 576px) {
   #profile-table {
-    background-color: white !important; } }
+    background-color: white !important; }
+  .main-div:hover .btn-d-none {
+    display: none; }
+  .main-div:hover .inner-div {
+    height: 140px; }
+  .inner-div {
+    height: 140px; } }
+
+@media only screen and (min-width: 992px) {
+  .main-div:hover .btn-d-none {
+    display: block; }
+  .main-div:hover .inner-div {
+    height: 220px; } }
 
 /*		//--------- For mobile(576)	---------//
 

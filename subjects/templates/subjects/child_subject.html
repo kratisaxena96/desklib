@@ -21,7 +21,7 @@
 				 {% elif object.image %}
 				 <img src="{{ object.image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid width-50px h-auto">
 				 {% endif %}
-				<h4 class="card-title d-inline">{{object.name}}</h4>
+				<h4 class="card-title d-inline ml-2">{{object.name}}</h4>
                {% if object.sub_heading %}
                 <p class="pt-2">{{object.sub_heading}}</p>
                 {% elif  object.short_description %}
