@@ -114,7 +114,25 @@ class SubjectListFilter(admin.SimpleListFilter):
         if self.value():
             return queryset.filter(subjects__id=int(self.value()))
         return queryset
-
+#
+# class ByAuthorFilter(admin.SimpleListFilter):
+#     title = 'Author'
+#     parameter_name = 'author'
+#     default_value = None
+#
+#     def lookups(self, request, model_admin):
+#         list_of_authors = []
+#         queryset = UserAccount.objects.filter(is_staff=True, is_superuser=False)
+#         for author in queryset:
+#             list_of_authors.append(
+#                 (str(author.username))
+#             )
+#         return list_of_authors
+#
+#     def queryset(self, request, queryset):
+#         if self.value():
+#             return queryset.filter(username=self.value())
+#         return queryset
 
 class FileInline(admin.TabularInline):
     raw_id_fields = ('document',)
@@ -137,7 +155,7 @@ class DocumentAdmin(admin.ModelAdmin):
     raw_id_fields = ('author','subjects')
     search_fields = ['title', 'content']
     list_display = ('title', 'published_date', 'is_published', 'is_visible', 'page', 'words', 'get_subjects')
-    list_filter = (SubjectListFilter, 'is_published', 'is_visible')
+    list_filter = (SubjectListFilter, 'is_published', 'is_visible' , 'author__username')
     actions = [publish_documents, un_publish_documents, soft_delete_documents, set_document_subject, restore_documents, hard_delete_documents, chage_publish_date, change_author]
 
     inlines = [
