@@ -169,7 +169,7 @@
                      <small class="text-muted">words</small>
                      <small class="text-muted">{{results.pub_date|date:"d M Y"}}</small>
                      <small class="text-muted pt-2 btn-d-none">{{results.description|safe|truncatechars:60}}</small>
-                     <a href="{% url 'documents:document-view' results.slug %}" class="btn btn-bg-theme border-radius-20 btn-d-none text-white mt-3 mb-3 pt-1 pb-1">View document</a>
+                     <a href="{% url 'documents:document-view' results.slug %}" class="btn btn-bg-theme border-radius-20 btn-d-none text-white mt-3 mb-3 pt-1 pb-1">View Document</a>
                  </div></a>
         </div>  
     </div>
@@ -205,10 +205,10 @@
                         <small class="text-muted">words</small>
                         <small class="text-muted">{{rec.pub_date|date:"d M Y"}}</small>
                         <small class="text-muted pt-2 btn-d-none">{{rec.description|safe|truncatechars:60}}</small>
-                        <a href="{% url 'documents:document-view' rec.slug %}" class="btn btn-bg-theme border-radius-20 btn-d-none text-white mt-3 mb-3 pt-1 pb-1">View document</a>
+                        <a href="{% url 'documents:document-view' rec.slug %}" class="btn btn-bg-theme border-radius-20 btn-d-none text-white mt-3 mb-3 pt-1 pb-1">View Document</a>
                  </div>
              </a>
-        </div>  
+        </div>
     </div>
 
  {% endfor %}
