@@ -254,6 +254,11 @@ class Document(ModelMeta, models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        permissions = [
+            ("change_document_author", "Staff Can Assign Document Author"),
+        ]
+
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''
         # Get the complete file path to obtain filename
