@@ -382,7 +382,7 @@ opacity:0.9 !important;
 {% if not pageviews_flag %}
 <!-- The Modal -->
 <!-- <div class="modal show" id="myModal" style="display: block;" aria-modal="true"> -->
-<div class="modal fade show" id="previewModal" style="padding-right: 10px; display: block;">
+<div class="modal fade show" id="previewModal" style="display: block;">
 <div class="modal-dialog">
 <div class="modal-content">
 
@@ -398,9 +398,7 @@ opacity:0.9 !important;
         <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white border-radius-40 mb-3" rel="nofollow">Unlock this Document</a>
         
         <p class="pt-2">Already on Desklib? 
-        <a href="{% url 'account_login' %}">Log in</a> </p>
-        <!-- <a href="{% url 'subscription' %}" class="btn btn-bg-theme text-white">Subscribe</a> -->
-        
+        <a href="{% url 'account_login' %}">Log in</a> </p> 
     </div>
 </div>
 
