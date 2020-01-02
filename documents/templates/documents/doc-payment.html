@@ -15,7 +15,7 @@
 		{% for plan in plan_qs %}	
 		<div class="row justify-content-center parent">
 			<div class="col-sm-12 col-md-9 col-lg-6">
-				<div class="card mb-2 mt-2 payment-card-box">
+				<div class="card mb-2 mt-2 payment-card-box bg-light">
 					<label class="d-block label">
 					<div class="card-body">
 						<h5 class="">{{plan}}</h5>
@@ -42,16 +42,6 @@
 	</div>
 </div>
 {% endfor %}
-
-{% comment %}
-<!-- {% for plan in plan_qs %}
-	<h1>{{plan.price}}</h1>
-	<input class="selected_plan" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}">{{plan}} -->
-
-<!-- <input type="radio" name="radio" value="{{ plan.key }}" onClick="document.getElementById('id_custom').value=this.value">{{plan}}</input>-->
-
-	<!-- {% endfor %} -->
-{% endcomment %}
 
 <form action="{{form.get_endpoint}}" method="post" id="form-check">
 {% csrf_token %}
