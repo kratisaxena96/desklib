@@ -242,7 +242,7 @@
                     <a class="btn text-white btn-bg-theme btn-lg border-radius-40" href="{% url 'subscription' %}">Try Now</a>
                 </div>
     </section>
-	
+    
 {% for subject in subjects %}
 <a href="{% url 'study:search' %}?selected_facets=subjects_exact:{{ subject.slug }}">{{ subject.name }}</a>
 {% endfor %}
