@@ -5,6 +5,11 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin
+from post_office.admin import EmailAdmin
+from post_office.models import Email
+
 from documents.admin_forms import PublishedDateForm, ChangeAuthorForm
 from documents.models import Document, File, Page, Report, Issue
 from subjects.models import Subject
@@ -146,6 +151,17 @@ class PageInline(admin.TabularInline):
     # readonly_fields = ('author',)
     exclude = ['author']
     model = Page
+
+def sendmail(modeladmin, request, queryset):
+    """An admin action to send  emails on priority"""
+
+    for query in queryset:
+        query.dispatch()
+
+sendmail.short_description = 'Send Mail'
+
+admin.site._registry[Email].actions.append(sendmail)
+
 
 
 class DocumentAdmin(admin.ModelAdmin):

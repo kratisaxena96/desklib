@@ -222,7 +222,7 @@
                      <small class="text-muted pt-2 btn-d-none">{{top.description|safe|truncatechars:60}}</small>
                      <a href="{% url 'documents:document-view' top.slug %}" class="btn btn-bg-theme border-radius-20 btn-d-none text-white mt-3 mb-3 pt-1 pb-1">View document</a>
                  </div></a>
-        </div>  
+        </div>
     </div>
 
                 {% endfor %}
@@ -232,10 +232,10 @@
                     <div class="custom-nav owl-nav"></div>
                 </div>
             </div>
-        </div>
-  </section>
+    </div>
+</section>
+{% endif %}
 
-    {% endif %}
     {% if recent %}
      <section class="container-fluid mt-0 pt-5 pb-5 bg-white">
          <h2 class="text-center">Recently uploaded documents</h2>
@@ -258,7 +258,7 @@
                      <small class="text-muted pt-2 btn-d-none">{{rec.description|safe|truncatechars:60}}</small>
                      <a href="{% url 'documents:document-view' rec.slug %}" class="btn btn-bg-theme border-radius-20 btn-d-none text-white mt-3 mb-3 pt-1 pb-1">View document</a>
                  </div></a>
-        </div>  
+        </div>
     </div>
                 {% endfor %}
             </div>
@@ -292,7 +292,7 @@
                     <a class="btn text-white btn-bg-theme btn-lg border-radius-40" href="{% url 'subscription' %}">Try Now</a>
                 </div>
     </section>
-	
+
 {% for subject in subjects %}
 <a href="{% url 'study:search' %}?selected_facets=subjects_exact:{{ subject.slug }}">{{ subject.name }}</a>
 {% endfor %}
