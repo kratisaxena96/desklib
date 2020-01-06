@@ -76,6 +76,7 @@ INSTALLED_APPS = [
     'storages',
     'django_countries',
     'review',
+    # 'admissions',
 ]
 
 SITE_ID = 1
