@@ -3,6 +3,10 @@ import os
 from django.contrib import admin
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin
+from post_office.admin import EmailAdmin
+from post_office.models import Email
 
 from documents.admin_forms import PublishedDateForm, ChangeAuthorForm
 from documents.models import Document, File, Page, Report, Issue
@@ -11,7 +15,9 @@ from django.db.models import F
 from subjects.utils import get_subjects
 from django.template.response import TemplateResponse
 from accounts.models import UserAccount
-
+from django.contrib.auth.models import Permission
+from django.contrib import admin
+admin.site.register(Permission)
 
 
 def publish_documents(modeladmin, request, queryset):
@@ -41,7 +47,7 @@ def change_author(modeladmin, request, queryset):
         messages.add_message(request, messages.INFO, 'Author of "%s" Documents has been updated'%(queryset.count()))
         return HttpResponseRedirect(request.get_full_path())
     else:
-        form = ChangeAuthorForm()
+        form = ChangeAuthorForm(user=request.user)
         return TemplateResponse(request, "admin/change_author_documents.html", context={'author_obj':queryset,'form': form})
 change_author.short_description = 'Change Author'
 
@@ -111,7 +117,25 @@ class SubjectListFilter(admin.SimpleListFilter):
         if self.value():
             return queryset.filter(subjects__id=int(self.value()))
         return queryset
-
+#
+# class ByAuthorFilter(admin.SimpleListFilter):
+#     title = 'Author'
+#     parameter_name = 'author'
+#     default_value = None
+#
+#     def lookups(self, request, model_admin):
+#         list_of_authors = []
+#         queryset = UserAccount.objects.filter(is_staff=True, is_superuser=False)
+#         for author in queryset:
+#             list_of_authors.append(
+#                 (str(author.username))
+#             )
+#         return list_of_authors
+#
+#     def queryset(self, request, queryset):
+#         if self.value():
+#             return queryset.filter(username=self.value())
+#         return queryset
 
 class FileInline(admin.TabularInline):
     raw_id_fields = ('document',)
@@ -126,6 +150,17 @@ class PageInline(admin.TabularInline):
     exclude = ['author']
     model = Page
 
+def sendmail(modeladmin, request, queryset):
+    """An admin action to send  emails on priority"""
+
+    for query in queryset:
+        query.dispatch()
+
+sendmail.short_description = 'Send Mail'
+
+admin.site._registry[Email].actions.append(sendmail)
+
+
 
 class DocumentAdmin(admin.ModelAdmin):
     readonly_fields = ('created', 'updated', 'key')
@@ -134,7 +169,7 @@ class DocumentAdmin(admin.ModelAdmin):
     raw_id_fields = ('author','subjects')
     search_fields = ['title', 'content','slug']
     list_display = ('title', 'published_date', 'is_published', 'is_visible', 'page', 'words', 'get_subjects')
-    list_filter = (SubjectListFilter, 'is_published', 'is_visible')
+    list_filter = (SubjectListFilter, 'is_published', 'is_visible' , 'author__username')
     actions = [publish_documents, un_publish_documents, soft_delete_documents, set_document_subject, restore_documents, hard_delete_documents, chage_publish_date, change_author]
 
     inlines = [
@@ -144,14 +179,13 @@ class DocumentAdmin(admin.ModelAdmin):
 
     def get_actions(self, request):
         actions = super().get_actions(request)
-        if not request.user.is_superuser:
-            if 'change_author' in actions:
-                del actions['change_author']
+        if not request.user.has_perm('documents.change_document_author'):
+            del actions['change_author']
         return actions
 
     def get_queryset(self, request):
         qs = super(DocumentAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
+        if request.user.is_superuser or request.user.has_perm('documents.change_document_author'):
             return qs
         return qs.filter(author=request.user)
 
@@ -162,7 +196,7 @@ class DocumentAdmin(admin.ModelAdmin):
         queryset = super(DocumentAdmin, self).get_queryset(request)
         queryset = queryset.prefetch_related('pages').prefetch_related('document_file').prefetch_related(
             'pages__author').prefetch_related('document_file__author')
-        if request.user.is_superuser:
+        if request.user.is_superuser  or request.user.has_perm('documents.change_document_author'):
             return queryset
         return queryset.filter(author=request.user)
 
@@ -183,6 +217,38 @@ class IssueAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
 
 
+@admin.register(User)
+class CustomUserAdmin(UserAdmin):
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        is_superuser = request.user.is_superuser
+        disabled_fields = set()  # type: Set[str]
+
+        if not is_superuser:
+            disabled_fields |= {
+                'username',
+                'is_superuser',
+                'user_permissions',
+            }
+
+            # Prevent non-superusers from editing their own permissions
+        if (
+                not is_superuser
+                and obj is not None
+                and obj == request.user
+        ):
+            disabled_fields |= {
+                'is_staff',
+                'is_superuser',
+                'groups',
+                'user_permissions',
+            }
+
+        for f in disabled_fields:
+            if f in form.base_fields:
+                form.base_fields[f].disabled = True
+
+        return form
 admin.site.register(Document, DocumentAdmin)
 
 admin.site.register(Issue, IssueAdmin)

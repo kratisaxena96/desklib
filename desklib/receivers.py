@@ -22,7 +22,7 @@ def show_me_the_money(sender, **kwargs):
             receiver_email = "info-facilitator@a2zservices.net"
             # action="https://www.sandbox.paypal.com/cgi-bin/webscr"
         else:
-            if ipn_obj.receiver_email == "info@desklib.com":
+            if ipn_obj.receiver_email == "info@a2zservices.net":
                 if ipn_obj.txn_id:
                     custom_str = ipn_obj.custom
                     custom_str_list = custom_str.split('_')
