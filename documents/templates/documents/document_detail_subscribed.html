@@ -379,10 +379,19 @@ opacity:0.9 !important;
                                 <article class="col-6 col-md-12 col-lg-6 mb-3">
                                     <a href="{% url 'documents:document-view' results.slug %}" class="text-decoration-none">
                                         <div>
-                                            <div class="card min-height-smilar-pages-card">
+                                            <div class="card h-100 border-radius-12 shadow pt-2">
                                                 <img class="card-img-top card-height" src="{{ results.cover_image }}" alt="{{ results.title }}">
                                                 <div class="card-body">
-                                                    <p class="card-text">{{results.title|truncatechars:25|title}}</p>
+                                                    <h6 class="card-text">{{results.title|truncatechars:20|title}}</h6>
+                                                    <span class="d-block d-md-inline d-lg-block">
+                                                    <small class="text-muted">{{results.no_of_pages}}</small>
+                                                    <small class="text-muted">pages</small>
+                                                    </span>
+                                                    <small class="text-muted">{{results.no_of_words}}</small>
+                                                    <small class="text-muted">words</small>
+                                                    <span class="d-block">
+                                                    <small class="text-muted">{{results.pub_date|date:"d M Y"}}</small>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
