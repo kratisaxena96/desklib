@@ -20,8 +20,8 @@ from django.urls import path, include
 from django.conf.urls import url
 from django.conf.urls.i18n import i18n_patterns
 
-# from admissions.forms import AspirantCountryDetailsForm, AspirantDetailsForm,DesiredQualificationForm
-# from admissions.views import AspirantDetailsView, ContactWizard
+from admissions.forms import AspirantCountryDetailsForm, AspirantDetailsForm,DesiredQualificationForm
+from admissions.views import AspirantDetailsView, ContactWizard
 from .sitemaps import DocumentSitemap, StaticViewSitemap, SampleSitemap  #, SubjectSitemap
 from django.views.decorators.cache import cache_page
 from django.contrib.sitemaps import views
@@ -54,7 +54,7 @@ urlpatterns = [
                   path('my-downloads/', MyDownloads.as_view(), name="my-downloads"),
                   path('about/', AboutPageView.as_view(), name='about'),
                   # path('homework/', include('homework.urls'), namespace="homework"),
-                  # path('homework/', include(('homework.urls','homework'), namespace="homeworks")),
+                  path('homework/', include(('homework.urls','homework'), namespace="homeworks")),
                   path('privacy-policy/', PrivacyPolicyView.as_view(), name='privacypolicy'),
                   path('copyright/', CopyrightPolicyView.as_view(), name='copyright'),
                   path('honor-code/', HonorCodeView.as_view(), name='honorcode'),
@@ -77,20 +77,20 @@ urlpatterns = [
                   path('subscribed/', AlreadySubscribedView.as_view(), name='already_subscribed'),
                   path('subjects/', include(('subjects.urls', 'subjects'), namespace="subjects")),
                   path('review/', include(('review.urls', 'review'), namespace="review")),
-                  # path('admission/', AdmissionsView.as_view(), name='admissions'),
+                  path('admission/', AdmissionsView.as_view(), name='admissions'),
                   path('api-auth/', include('rest_framework.urls')),
 
                   path('404-error/', Error404View.as_view(), name='404_error'),
                   path('500-error/', Error500View.as_view(), name='500_error'),
                   # path('payment/document',)
                   path('api/', include(('api.urls', 'api'), namespace="api")),
-                  # path('admissions/', include(('admissions.urls', 'admissions'), namespace="admissions")),
+                  path('admissions/', include(('admissions.urls', 'admissions'), namespace="admissions")),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += i18n_patterns(
     url(r'^$', HomePageView.as_view(), name='home'),
-    # url(r'^admissions/contacts/', ContactWizard.as_view([AspirantCountryDetailsForm, AspirantDetailsForm,DesiredQualificationForm]), name='admissions')
+    url(r'^admissions/contacts/', ContactWizard.as_view([AspirantCountryDetailsForm, AspirantDetailsForm,DesiredQualificationForm]), name='admissions')
 
 # url(r'^admin/', include(admin.site.urls)),
 )

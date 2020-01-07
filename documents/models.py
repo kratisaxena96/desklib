@@ -404,6 +404,11 @@ class Document(ModelMeta, models.Model):
                 page_obj.save()
                 page_count += 1
 
+            if self.pages == None:
+                self.is_published = False
+                self.is_visible = False
+                super(Document, self).save(update_fields=["is_published","is_visible"])
+
             # self.cover_image = get_thumbnail(self.pages.first().image_file, '80x112', quality=60, format='PNG',crop='center',).url
             # super(Document, self).save(update_fields=["cover_image"])
             # Adding predicted subjects to document
