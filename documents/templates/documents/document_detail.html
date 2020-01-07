@@ -324,7 +324,7 @@ opacity:0.9 !important;
             {% endcomment %}
         </div>
         <span class="d-inline-block d-sm-inline-block w-100 text-center text-md-left text-lg-center text-muted">Showing pages {{controlled_pages.count}} of {{object.pages.all.count}} </span>
-       
+
         <div id="viewer" class="documentViewer">
             {% comment %}
             {% for page in object.pages.all %}
@@ -345,20 +345,29 @@ opacity:0.9 !important;
         {% endif %}
 
     </article>
-     <aside class="col-md-4">
+ <aside class="col-md-4">
         {% if more_like_this %}
             <section class="similar-resource">
-                <h3>Similar Documents</h3>
+                <h3>Similar Resources</h3>
                 <div class="py-4">
                     <div class="row">
                         {% for results in more_like_this %}
                                 <article class="col-6 col-md-12 col-lg-6 mb-3">
                                     <a href="{% url 'documents:document-view' results.slug %}" class="text-decoration-none">
                                         <div>
-                                            <div class="card min-height-smilar-pages-card">
+                                            <div class="card h-100 border-radius-12 shadow pt-2">
                                                 <img class="card-img-top card-height" src="{{ results.cover_image }}" alt="{{ results.title }}">
                                                 <div class="card-body">
-                                                    <p class="card-text">{{results.title|truncatechars:25|title}}</p>
+                                                    <h6 class="card-text blue-theme">{{results.title|truncatechars:20|title}}</h6>
+                                                    <span class="d-block d-md-inline d-lg-block">
+                                                    <small class="text-muted">{{results.no_of_pages}}</small>
+                                                    <small class="text-muted">pages</small>
+                                                    </span>
+                                                    <small class="text-muted">{{results.no_of_words}}</small>
+                                                    <small class="text-muted">words</small>
+                                                    <span class="d-block">
+                                                    <small class="text-muted">{{results.pub_date|date:"d M Y"}}</small>
+                                                     </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -396,9 +405,9 @@ opacity:0.9 !important;
     <div class="text-center">
         <p>Subscribe or upgrade to access study resources for your class.</p>
         <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white border-radius-40 mb-3" rel="nofollow">Unlock this Document</a>
-        
-        <p class="pt-2">Already on Desklib? 
-        <a href="{% url 'account_login' %}">Log in</a> </p> 
+
+        <p class="pt-2">Already on Desklib?
+        <a href="{% url 'account_login' %}">Log in</a> </p>
     </div>
 </div>
 
@@ -418,11 +427,11 @@ $(document).ready(function(){
   });
 });
 </script> -->
-<script>  
-$(document).ready(function(){  
-  if($('#previewModal').is(':visible')){  
+<script>
+$(document).ready(function(){
+  if($('#previewModal').is(':visible')){
   $("body").addClass("modal-open");
-  }  
+  }
 });
 </script>
 <script>
