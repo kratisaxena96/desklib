@@ -1,7 +1,7 @@
 {% extends "desklib/base.html" %}
 {% load staticfiles %}
 {% load meta %}
-{% block content %}
+{% block content %}	
 <section>
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
@@ -80,19 +80,15 @@
   		{% for documents in recent %}
 		<div class="col-sm-6 col-md-4 col-lg-3 mb-3 mb-md-3">
 			<a href="{% url 'documents:document-view' documents.slug %}" class="text-decoration-none">
-			<div class="card h-100">
+			<div class="card border-radius-12 pt-2 shadow h-100">
 				<img class="card-img-top card-height" src="{{documents.cover_image}}" alt="icon">
 				<div class="card-body">
-					<p class="card-text black-font">{{documents.title|truncatechars:25}}</p>
-					<span class="border-right p-2">
-                        <span class="text-muted">{{documents.no_of_pages}}</span>
-                            <span class="text-muted">pages</span>
-                    </span>
-                    <span class="p-2">
-                        <span class="text-muted">{{documents.no_of_words}}</span>
-                        <span class="text-muted">words
-                        </span>
-                    </span>
+					<h6 class="card-text blue-theme">{{documents.title|truncatechars:40}}</h6>
+					 <small class="text-muted">{{documents.no_of_pages}}</small>
+					 <small class="text-muted">pages</small>
+					 <small class="text-muted">{{documents.no_of_words}}</small>
+					 <small class="text-muted">words</small>
+					 <small class="text-muted">{{documents.pub_date|date:"d M Y"}}</small>
 			</div>
 		</div>
 	</a>
@@ -105,19 +101,15 @@
 		{% for documents in top_results %}
 		<div class="col-sm-6 col-md-4 col-lg-3 mb-3 mb-md-3">
 			<a href="{% url 'documents:document-view' documents.slug %}" class="text-decoration-none">
-			<div class="card h-100">
+			<div class="card border-radius-12 pt-2 shadow h-100">
 				<img class="card-img-top card-height" src="{{documents.cover_image}}" alt="card">
 				<div class="card-body">
-					<p class="card-text black-font">{{documents.title|truncatechars:25}}</p>
-					<span class="border-right p-2">
-                        <span class="text-muted">{{documents.no_of_pages}}</span>
-                            <span class="text-muted">pages</span>
-                    </span>
-                    <span class="p-2">
-                        <span class="text-muted">{{documents.no_of_words}}</span>
-                        <span class="text-muted">words
-                        </span>
-                    </span>
+					<h6 class="card-text blue-theme">{{documents.title|truncatechars:40}}</h6>
+					 <small class="text-muted">{{documents.no_of_pages}}</small>
+					 <small class="text-muted">pages</small>
+					 <small class="text-muted">{{documents.no_of_words}}</small>
+					 <small class="text-muted">words</small>
+					 <small class="text-muted">{{documents.pub_date|date:"d M Y"}}</small>
 			</div>
 		</div>
 	</a>

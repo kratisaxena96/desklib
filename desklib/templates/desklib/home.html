@@ -103,7 +103,7 @@
         <div class="owl-carousel owl-theme mt-4">
          {% for results in top_results %}
             <div class="item  bg-white h-350">
-                <div class="main-div shadow mt-2 h-350 border-radius-12">
+                <div class="main-div box-shadow-3-3-5-5 mt-4 h-350 border-radius-12">
                     <a href="{% url 'documents:document-view' results.slug %}" class="h-350 d-inline-block w-100">
                     <img class="card-img-top" src="{{results.cover_image}}" alt="documents image">
                  </a>
