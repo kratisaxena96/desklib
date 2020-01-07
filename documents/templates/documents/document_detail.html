@@ -1,4 +1,4 @@
-{% extends 'desklib/base.html' %}
+  {% extends 'desklib/base.html' %}
 {% load meta %}
 {% block canonical %}
     {% if canonical %}
@@ -6,16 +6,10 @@
     {% endif %}
 {% endblock %}
 
-
-
-<!--    <link rel="stylesheet" href="https://rawgit.com/mozilla/pdf.js/master/web/viewer.css">-->
-<!--    <link rel="stylesheet" href="https://rawgit.com/mozilla/pdf.js/master/examples/mobile-viewer/viewer.css">-->
     {% if canonical %}
         <link rel="canonical" href="{{canonical}}"/>
     {% endif %}
     {% block extra_css %}
-
-<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">-->
 
     <style>
     .textLayer > span {
@@ -146,8 +140,6 @@ opacity:0.9 !important;
 }
 
     </style>
-<!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
-<!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>-->
     {% endblock %}
 
 {% block content %}
@@ -300,8 +292,6 @@ opacity:0.9 !important;
 
                 <button data-value="helpful" class="btn btn-light border submit-feedback mr-2">Yes</button>
                 <button data-value="not-helpful" class="btn btn-light border submit-feedback">No</button>
-                <!--<input type="submit" name="was_heplful" value="Yes">-->
-                <!--<input type="submit" name="not_heplful" value="No">-->
                 </form>
             </div>
             <div class="helpful" style="display:none;">
@@ -320,7 +310,6 @@ opacity:0.9 !important;
             <a href='{% url "documents:document-download-view"%}?doc={{object.slug}}' class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Download</a>
             <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Plans</a>
 
-<!--            <a href='{% url "documents:document-download-view"%}?doc={{object.slug}}&single=True' class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Pay Per Download</a>-->
             {% endcomment %}
         </div>
         <span class="d-inline-block d-sm-inline-block w-100 text-center text-md-left text-lg-center text-muted">Showing pages {{controlled_pages.count}} of {{object.pages.all.count}} </span>
@@ -345,29 +334,20 @@ opacity:0.9 !important;
         {% endif %}
 
     </article>
- <aside class="col-md-4">
+     <aside class="col-md-4">
         {% if more_like_this %}
             <section class="similar-resource">
-                <h3>Similar Resources</h3>
+                <h3>Similar Documents</h3>
                 <div class="py-4">
                     <div class="row">
                         {% for results in more_like_this %}
                                 <article class="col-6 col-md-12 col-lg-6 mb-3">
                                     <a href="{% url 'documents:document-view' results.slug %}" class="text-decoration-none">
                                         <div>
-                                            <div class="card h-100 border-radius-12 shadow pt-2">
+                                            <div class="card min-height-smilar-pages-card">
                                                 <img class="card-img-top card-height" src="{{ results.cover_image }}" alt="{{ results.title }}">
                                                 <div class="card-body">
-                                                    <h6 class="card-text blue-theme">{{results.title|truncatechars:20|title}}</h6>
-                                                    <span class="d-block d-md-inline d-lg-block">
-                                                    <small class="text-muted">{{results.no_of_pages}}</small>
-                                                    <small class="text-muted">pages</small>
-                                                    </span>
-                                                    <small class="text-muted">{{results.no_of_words}}</small>
-                                                    <small class="text-muted">words</small>
-                                                    <span class="d-block">
-                                                    <small class="text-muted">{{results.pub_date|date:"d M Y"}}</small>
-                                                     </span>
+                                                    <p class="card-text">{{results.title|truncatechars:25|title}}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -391,7 +371,7 @@ opacity:0.9 !important;
 {% if not pageviews_flag %}
 <!-- The Modal -->
 <!-- <div class="modal show" id="myModal" style="display: block;" aria-modal="true"> -->
-<div class="modal fade show" id="previewModal" style="display: block;">
+<div class="modal fade show" id="previewModal" style="padding-right: 10px; display: block;">
 <div class="modal-dialog">
 <div class="modal-content">
 
@@ -408,6 +388,8 @@ opacity:0.9 !important;
 
         <p class="pt-2">Already on Desklib?
         <a href="{% url 'account_login' %}">Log in</a> </p>
+        <!-- <a href="{% url 'subscription' %}" class="btn btn-bg-theme text-white">Subscribe</a> -->
+
     </div>
 </div>
 
