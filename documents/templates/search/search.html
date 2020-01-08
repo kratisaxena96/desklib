@@ -216,7 +216,7 @@
                   {% for result in page_obj.object_list %}
                   <div class="col-sm-6 col-12 col-md-2 justify-content-center">
                      <a href="{% url 'documents:document-view' result.slug %}">
-                         <div class="card shadow mr-1 mb-5 bg-white rounded">
+                         <div class="card shadow mb-5 rounded">
                              {% thumbnail result.cover_image_name "200x200" crop="80% top" as im %}
                                 <img class="card-img-top rounded img-fluid img-thumbnail" src="{{ im.url }}" alt="Card image cap">
                              {% empty %}
