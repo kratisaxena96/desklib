@@ -120,11 +120,6 @@
         {% for p in parent %}
     <div class="col-sm-6 col-md-4">
         {% if not p.parent_subject %}
-                {% if object.info_graphic_image %}
-                  <img src="{{ object.info_graphic_image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid width-50px h-auto">
-                   {% elif object.image %}
-                 <img src="{{ object.image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid width-50px h-auto">
-                  {% endif %}
                  <h4>
                  <a href="{% url 'subjects:parent-subject-view' p.slug %}" class="card-title black-font">{{ p }}</a> </h4>
 
@@ -164,9 +159,9 @@
                  <div class="card-body inner-div bg-light">
                      <h6 class="card-title blue-theme">{{results.title|truncatechars:40}}</h6>
                      <small class="text-muted">{{results.no_of_pages}}</small>
-                     <small class="text-muted">pages</small>
+                     <small class="text-muted add-dash">pages</small>
                      <small class="text-muted">{{results.no_of_words}}</small>
-                     <small class="text-muted">words</small>
+                     <small class="text-muted add-dash">words</small>
                      <small class="text-muted">{{results.pub_date|date:"d M Y"}}</small>
                      <small class="text-muted pt-2 btn-d-none">{{results.description|safe|truncatechars:60}}</small>
                      <a href="{% url 'documents:document-view' results.slug %}" class="btn btn-bg-theme border-radius-20 btn-d-none text-white mt-3 mb-3 pt-1 pb-1">View Document</a>
@@ -191,7 +186,7 @@
         <div class="main-content" id="main" >
             <div class="owl-carousel owl-theme mt-4 owl-carousel1 ">
               {% for rec in recent %}
-                <div class="item  bg-white h-350">
+                <div class="item bg-white h-350">
                     <div class="main-div shadow mt-2 h-350 border-radius-12">
                         <a href="{% url 'documents:document-view' rec.slug %}" class="h-350 d-inline-block w-100">
                         <img class="card-img-top" src="{{rec.cover_image}}" alt="documents image">
@@ -200,9 +195,9 @@
                         <div class="card-body inner-div bg-light">
                         <h6 class="card-title blue-theme">{{rec.title|truncatechars:40}}</h6>
                         <small class="text-muted">{{rec.no_of_pages}}</small>
-                        <small class="text-muted">pages</small>
+                        <small class="text-muted add-dash">pages</small>
                         <small class="text-muted">{{rec.no_of_words}}</small>
-                        <small class="text-muted">words</small>
+                        <small class="text-muted add-dash">words</small>
                         <small class="text-muted">{{rec.pub_date|date:"d M Y"}}</small>
                         <small class="text-muted pt-2 btn-d-none">{{rec.description|safe|truncatechars:60}}</small>
                         <a href="{% url 'documents:document-view' rec.slug %}" class="btn btn-bg-theme border-radius-20 btn-d-none text-white mt-3 mb-3 pt-1 pb-1">View Document</a>
