@@ -215,9 +215,9 @@
                  <div class="card-body inner-div bg-light">
                      <h6 class="card-title blue-theme">{{top.title|truncatechars:40}}</h6>
                      <small class="text-muted">{{top.no_of_pages}}</small>
-                     <small class="text-muted">pages</small>
+                     <small class="text-muted add-dash">pages</small>
                      <small class="text-muted">{{top.no_of_words}}</small>
-                     <small class="text-muted">words</small>
+                     <small class="text-muted add-dash">words</small>
                      <small class="text-muted">{{top.pub_date|date:"d M Y"}}</small>
                      <small class="text-muted pt-2 btn-d-none">{{top.description|safe|truncatechars:60}}</small>
                      <a href="{% url 'documents:document-view' top.slug %}" class="btn btn-bg-theme border-radius-20 btn-d-none text-white mt-3 mb-3 pt-1 pb-1">View document</a>
@@ -251,9 +251,9 @@
                  <div class="card-body inner-div bg-light">
                      <h6 class="card-title blue-theme">{{rec.title|truncatechars:40}}</h6>
                      <small class="text-muted">{{rec.no_of_pages}}</small>
-                     <small class="text-muted">pages</small>
+                     <small class="text-muted add-dash">pages</small>
                      <small class="text-muted">{{rec.no_of_words}}</small>
-                     <small class="text-muted">words</small>
+                     <small class="text-muted add-dash">words</small>
                      <small class="text-muted">{{rec.pub_date|date:"d M Y"}}</small>
                      <small class="text-muted pt-2 btn-d-none">{{rec.description|safe|truncatechars:60}}</small>
                      <a href="{% url 'documents:document-view' rec.slug %}" class="btn btn-bg-theme border-radius-20 btn-d-none text-white mt-3 mb-3 pt-1 pb-1">View document</a>
