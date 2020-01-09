@@ -161,7 +161,9 @@ body {
 }
 
 //------------------for upload-file page 01/11/2019---------//
-
+.add-dash::after {
+    content: ' -';
+}
 .select2-container--default .select2-selection--multiple{
  	border-radius: 2rem;
  	border-color: #ced4da;
