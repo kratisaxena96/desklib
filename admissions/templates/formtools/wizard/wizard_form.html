@@ -1,0 +1,47 @@
+{% extends "desklib/base.html" %}
+{% load i18n %}
+{% block extra_css %}
+<style>
+</style>
+{% endblock %}
+{% block content %}
+
+<div class="container">
+   <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+         <div class="card card-signin my-5 box-shadow-3-3-5-5 border">
+            <div class="card-body">
+               <h4 class="card-title text-center">Aspriant's Detail Form</h4>
+               <form class="form-signin" id="login_form" method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="form-label-group">
+                      {{ wizard.form.media }}
+                        {{ wizard.management_form }}
+                        {% if wizard.form.forms %}
+                            {{ wizard.form.management_form }}
+                            {% for form in wizard.form.forms %}
+                            {{form}}
+                                {{ form.as_p }}
+                            {% endfor %}
+                        {% else %}
+                            {{ wizard.form.as_p }}
+                        {% endif %}
+                        <input type="submit" class="btn btn-lg text-white btn-bg-theme w-100 btn-block text-uppercase mt-4" name="submit" value="{% trans "submit" %}" />
+                         {% if wizard.steps.prev %}
+                        <button name="wizard_goto_step" style="width: 49%;" class="btn btn-lg text-white btn-bg-theme  btn-block text-uppercase float-left" type="submit" value="{{ wizard.steps.first }}">{% trans "first step" %}</button>
+                        <button name="wizard_goto_step" style="width: 49%;" class="btn btn-lg text-white btn-bg-theme  btn-block text-uppercase float-right " type="submit" value="{{ wizard.steps.prev }}">{% trans "prev step" %}</button>
+                        {% endif %}
+                  </div>
+
+                   <!--              <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button>-->
+                  <!--              <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>-->
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+</div>
+
+{% endblock %}
+
