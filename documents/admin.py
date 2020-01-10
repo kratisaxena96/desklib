@@ -142,7 +142,7 @@ class EmployeeListFilter(admin.SimpleListFilter):
 
     def queryset(self, request, queryset):
         if self.value():
-            return queryset.filter(id=int(self.value()))
+            return queryset.filter(author__id=int(self.value()))
         return queryset
 #
 # class ByAuthorFilter(admin.SimpleListFilter):
