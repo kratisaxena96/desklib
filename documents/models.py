@@ -26,7 +26,6 @@ from pdf2image.exceptions import (PDFInfoNotInstalledError,PDFPageCountError,PDF
 from pdf2image import convert_from_path, convert_from_bytes
 from meta.models import ModelMeta
 from django.urls import reverse
-from autoslug import AutoSlugField
 
 
 
