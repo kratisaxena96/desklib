@@ -11,7 +11,7 @@ from post_office.admin import EmailAdmin
 from post_office.models import Email
 
 from documents.admin_forms import PublishedDateForm, ChangeAuthorForm, DocumentAdminForm
-from documents.models import Document, File, Page, Report, Issue
+from documents.models import Document, File, Page, Report, Issue, Course, College, Term, DocumentType
 from subjects.models import Subject
 from django.db.models import F
 from subjects.utils import get_subjects
@@ -193,7 +193,7 @@ class DocumentAdmin(admin.ModelAdmin):
     # prepopulated_fields = {'slug': ('title',)}
     form = DocumentAdminForm
     date_hierarchy = 'published_date'
-    raw_id_fields = ('author','subjects')
+    raw_id_fields = ('author','subjects','course','team','college')
     search_fields = ['title','slug','upload_file']
     list_display = ('title', 'published_date', 'is_published', 'is_visible', 'page', 'words', 'get_subjects')
     list_filter = (SubjectListFilter, 'is_published', 'is_visible' , EmployeeListFilter)
@@ -276,7 +276,35 @@ class CustomUserAdmin(UserAdmin):
                 form.base_fields[f].disabled = True
 
         return form
+class CourseAdmin(admin.ModelAdmin):
+    search_fields = ['code', 'title', 'slug',]
+    list_display = ('code', 'title', 'slug',)
+    prepopulated_fields = {'slug': ('code',)}
+
+
+class CollegeAdmin(admin.ModelAdmin):
+    search_fields = ['name', 'slug',]
+    list_display = ('name', 'slug',)
+    prepopulated_fields = {'slug': ('name', )}
+
+class TermAdmin(admin.ModelAdmin):
+    search_fields = ['name', 'year',]
+    list_display = ('name', 'year',)
+
+class DocumentTypeAdmin(admin.ModelAdmin):
+    search_fields = ['name', 'slug',]
+    list_display = ('name', 'slug',)
+    prepopulated_fields = {'slug': ('name', )}
+
+
 admin.site.register(Document, DocumentAdmin)
 
 admin.site.register(Issue, IssueAdmin)
 admin.site.register(Report, ReportAdmin)
+admin.site.register(Course, CourseAdmin)
+admin.site.register(College, CollegeAdmin)
+admin.site.register(Term,TermAdmin)
+admin.site.register(DocumentType, DocumentTypeAdmin)
+
+
+

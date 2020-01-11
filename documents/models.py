@@ -26,7 +26,7 @@ from pdf2image.exceptions import (PDFInfoNotInstalledError,PDFPageCountError,PDF
 from pdf2image import convert_from_path, convert_from_bytes
 from meta.models import ModelMeta
 from django.urls import reverse
-
+from autoslug import AutoSlugField
 
 
 
@@ -105,9 +105,30 @@ def cover_images(instance, filename):
         file_name,
     )
 
+class Term(models.Model):
+    name = models.CharField(_('name'), max_length=250)
+    year = models.IntegerField(_('year'))
+
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+class DocumentType(models.Model):
+    name = models.CharField(_('name'), max_length=250)
+    slug = models.SlugField(unique=True, max_length=60)
+
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+
 class College(models.Model):
     name = models.CharField(max_length=250)
-
+    slug = models.SlugField(unique=True, max_length=60)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -121,10 +142,8 @@ class College(models.Model):
 
 class Course(models.Model):
     code = models.CharField(max_length=100)
-    title = models.CharField(max_length=100)
-    college = models.ForeignKey(College, on_delete='PROTECT', related_name="college_course")
-    # subject = models.ForeignKey(Subject, on_delete='PROTECT', related_name="subject_course")
-    semester = models.IntegerField(null=True, blank=True)
+    title = models.CharField(max_length=100, null=True, blank=True)
+    slug = models.SlugField(unique=True, max_length=60)
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -135,6 +154,8 @@ class Course(models.Model):
 
     def __str__(self):
         return self.title
+
+TYPE_OF_DOCUMENT_ID = 1
 
 class Document(ModelMeta, models.Model):
     NOTES = 1
@@ -162,7 +183,8 @@ class Document(ModelMeta, models.Model):
     key = models.CharField(db_index=True, unique=True, max_length=10, default=key_generator, editable=False)
     title = models.CharField(_('Title'), db_index=True, max_length=200)
     slug = models.SlugField(_('Slug'), unique=True)
-    type = models.IntegerField(choices=TYPE_OF_DOCUMENT, default=SOLUTION, db_index=True)
+    type = models.ForeignKey(DocumentType,on_delete=models.SET_NULL,  default=TYPE_OF_DOCUMENT_ID, null=True, blank=True, db_index=True,  related_name='type_documents')
+    team = models.ForeignKey(Term, db_index=True, on_delete=models.SET_NULL ,blank=True, null=True, related_name='team_documents')
     subjects = models.ManyToManyField(Subject, db_index=True, blank=True, null=True, related_name='subject_documents')
     college = models.ForeignKey(College, db_index=True, on_delete=models.SET_NULL ,blank=True, null=True,  related_name='college_documents')
     course = models.ForeignKey(Course, db_index=True, on_delete=models.SET_NULL, blank=True, null=True, related_name='course_code_documents')
