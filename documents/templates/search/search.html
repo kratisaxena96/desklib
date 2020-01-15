@@ -212,29 +212,58 @@
 <!--                          </div>-->
 <!--                    </div>-->
                 </div>
-               <div class="row">
-                  {% for result in page_obj.object_list %}
-                  <div class="col-sm-6 col-12 col-md-2 justify-content-center">
-                     <a href="{% url 'documents:document-view' result.slug %}">
-                         <div class="card shadow mr-1 mb-5 bg-white rounded">
-                             {% thumbnail result.cover_image_name "200x200" crop="80% top" as im %}
-                                <img class="card-img-top rounded img-fluid img-thumbnail" src="{{ im.url }}" alt="Card image cap">
+<!--               <div class="row">-->
+<!--                  {% for result in page_obj.object_list %}-->
+<!--                  <div class="col-sm-6 col-12 col-md-2 justify-content-center">-->
+<!--                     <a href="{% url 'documents:document-view' result.slug %}">-->
+<!--                         <div class="card shadow mr-1 mb-5 bg-white rounded">-->
+<!--                             {% thumbnail result.cover_image_name "200x200" crop="80% top" as im %}-->
+<!--                                <img class="card-img-top rounded img-fluid img-thumbnail" src="{{ im.url }}" alt="Card image cap">-->
+<!--                             {% empty %}-->
+<!--                                <p>No image</p>-->
+<!--                             {% endthumbnail %}-->
+<!--                             <div>-->
+<!--                               <div class="card-text">-->
+<!--                                   <p>{% highlight result.title with query html_tag "span" css_class "highlight" max_length 27 %}</p>-->
+<!--                               </div>-->
+<!--                             </div>-->
+<!--                         </div>-->
+<!--                     </a>-->
+<!--                  </div>-->
+<!--                   {% endfor%}-->
+<!--                      {% if not page_obj.object_list %}-->
+<!--                 <h1>heeloo</h1>-->
+<!--                 {% endif %}-->
+<!--               </div>-->
+
+                <div class="row mb-5">
+                     {% for result in page_obj.object_list %}
+                    <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
+                        <div class="main-div shadow border-radius-12">
+                            <a href="{% url 'documents:document-view' result.slug %}" class="h-350 d-inline-block w-100">
+                                {% thumbnail result.cover_image_name "200x200" crop="80% top" as im %}
+                                <img class="card-img-top rounded img-fluid " src="{{ im.url }}" alt="documents image">
                              {% empty %}
                                 <p>No image</p>
                              {% endthumbnail %}
-                             <div>
-                               <div class="card-text">
-                                   <p>{% highlight result.title with query html_tag "span" css_class "highlight" max_length 27 %}</p>
-                               </div>
-                             </div>
-                         </div>
-                     </a>
-                  </div>
-                   {% endfor%}
-                      {% if not page_obj.object_list %}
-                 <h1>heeloo</h1>
-                 {% endif %}
-               </div>
+                            </a>
+                            <a href="{% url 'documents:document-view' result.slug %}" class="text-decoration-none">
+                                <div class="card-body inner-div bg-light text-left">
+                                     <h6 class="blue-theme">{{result.title|truncatechars:40}}</h6>
+                                     <small class="text-muted">{{result.no_of_pages}}</small>
+                                     <small class="text-muted add-dash">pages</small>
+                                     <small class="text-muted">{{result.no_of_words}}</small>
+                                     <small class="text-muted add-dash">words</small>
+                                     <small class="text-muted d-inline d-md-block">{{result.pub_date|date:"d M Y"}}</small>
+                                     <small class="text-muted pt-1 btn-d-none">{{result.description|safe|truncatechars:30}}</small>
+                                     <a href="{% url 'documents:document-view' result.slug %}" class="btn btn-bg-theme border-radius-20 btn-d-none text-white mt-3 mb-3 pt-1 pb-1">View Document</a>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                     {% endfor%}
+                </div>
+
             </div>
              <div class="d-flex justify-content-center mb-2">
                  <nav>

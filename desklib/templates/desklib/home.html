@@ -109,13 +109,13 @@
                  </a>
                  <a href="{% url 'documents:document-view' results.slug %}" class="text-decoration-none">
                  <div class="card-body inner-div bg-light">
-                     <h6 class="card-title blue-theme">{{results.title|truncatechars:40}}</h6>
+                     <h6 class="blue-theme">{{results.title|truncatechars:40}}</h6>
                      <small class="text-muted">{{results.no_of_pages}}</small>
                      <small class="text-muted add-dash">pages</small>
                      <small class="text-muted">{{results.no_of_words}}</small>
                      <small class="text-muted add-dash">words</small>
                      <small class="text-muted">{{results.pub_date|date:"d M Y"}}</small>
-                     <small class="text-muted pt-2 btn-d-none">{{results.description|safe|truncatechars:60}}</small>
+                     <small class="text-muted btn-d-none pt-1">{{results.description|safe|truncatechars:60}}</small>
                      <a href="{% url 'documents:document-view' results.slug %}" class="btn btn-bg-theme border-radius-20 btn-d-none text-white mt-3 mb-3 pt-1 pb-1">View Document</a>
                  </div></a>
         </div>  
