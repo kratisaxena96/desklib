@@ -21,9 +21,9 @@ FLAG_MAIL_TO_TEST = True
 
 INSTALLED_APPS += [
     'debug_toolbar',
-    'djcelery',
+    # 'djcelery',
     'formtools',
-    'homework',
+    # 'homework',
     'admissions',
     'channels'
     # 'django_celery_results',
