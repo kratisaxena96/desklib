@@ -6,8 +6,8 @@ from django.conf.urls import url
 
 urlpatterns = [
     url(r'^contacts/$', ContactWizard.as_view([AspirantCountryDetailsForm, AspirantDetailsForm,DesiredQualificationForm]), name="multi-form"),
-    path('admission-detail/', AdmissionDetailView.as_view(), name="admission-detail" )
-    # path('', AspirantDetailsView.as_view(), name='aspirant'),
+    path('admission-detail/', AdmissionDetailView.as_view(), name="admission-detail" ),
+    path('', AspirantDetailsView.as_view(), name='aspirant'),
 
 ]
 # urlpatterns += i18n_patterns(
