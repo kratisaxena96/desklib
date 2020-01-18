@@ -190,7 +190,6 @@ admin.site._registry[Email].actions.append(sendmail)
 
 class DocumentAdmin(admin.ModelAdmin):
     readonly_fields = ('created', 'updated', 'key')
-    # prepopulated_fields = {'slug': ('title',)}
     form = DocumentAdminForm
     date_hierarchy = 'published_date'
     raw_id_fields = ('author','subjects','course','term','college')

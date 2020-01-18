@@ -228,10 +228,15 @@ class Document(ModelMeta, models.Model):
     seo_description = models.TextField(max_length=160,
                                        help_text='Tip: Create concise and high-quality descriptions that accurately describe your page, Make sure each page on our website has a different description.')
     seo_keywords = models.CharField(max_length=140,
-                                    help_text='Recommended max.length of relevant seo keyword is 140 characters')
+                                    help_text='Recommended max.length of relevant seo keyword is 140 characters', null=True, blank=True)
     canonical_url= models.URLField(max_length=1024, blank=True, null=True)
 
     # cover_image = models.ImageField(verbose_name=_('Image'), upload_to=cover_images, max_length=1000, blank = True, null = True, help_text='Dimensions Should be 80x112 as per document ration')
+    __original_course = None
+
+    def __init__(self, *args, **kwargs):
+        super(Document, self).__init__(*args, **kwargs)
+        self.__original_course = self.course
 
     _metadata = {
             'use_og': 'True',
@@ -287,6 +292,12 @@ class Document(ModelMeta, models.Model):
         # First time save
         if not kwargs.get('ignore_timestamps'):
             self.updated = timezone.now()
+
+        if self.course != self.__original_course:
+            if self.seo_keywords:
+                self.seo_keywords = self.course.code + ',' + self.course.title + ',' + self.seo_keywords
+            else:
+                self.seo_keywords = self.course.code + ',' + self.course.title
 
         # We only autogenerate data at time of creation.
         if not self.id or self.require_recalculation:
@@ -405,7 +416,7 @@ class Document(ModelMeta, models.Model):
                 self.preview_to = 6
             elif self.page > 30:
                 self.preview_to = 8
-
+            self.__original_course = self.course
             super(Document, self).save(*args, **kwargs)
 
             # Extracting html of individual pages from pdf file
@@ -439,6 +450,7 @@ class Document(ModelMeta, models.Model):
 
         else:
             # print("qwertyuioiuytyuiu")
+            self.__original_course = self.course
             super(Document, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
