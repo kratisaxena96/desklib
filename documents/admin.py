@@ -11,7 +11,7 @@ from post_office.admin import EmailAdmin
 from post_office.models import Email
 
 from documents.admin_forms import PublishedDateForm, ChangeAuthorForm, DocumentAdminForm
-from documents.models import Document, File, Page, Report, Issue
+from documents.models import Document, File, Page, Report, Issue, Course, College, Term, DocumentType
 from subjects.models import Subject
 from django.db.models import F
 from subjects.utils import get_subjects
@@ -142,7 +142,7 @@ class EmployeeListFilter(admin.SimpleListFilter):
 
     def queryset(self, request, queryset):
         if self.value():
-            return queryset.filter(id=int(self.value()))
+            return queryset.filter(author__id=int(self.value()))
         return queryset
 #
 # class ByAuthorFilter(admin.SimpleListFilter):
@@ -190,11 +190,10 @@ admin.site._registry[Email].actions.append(sendmail)
 
 class DocumentAdmin(admin.ModelAdmin):
     readonly_fields = ('created', 'updated', 'key')
-    # prepopulated_fields = {'slug': ('title',)}
     form = DocumentAdminForm
     date_hierarchy = 'published_date'
-    raw_id_fields = ('author','subjects')
-    search_fields = ['title', 'content','slug']
+    raw_id_fields = ('author','subjects','course','term','college')
+    search_fields = ['title','slug','upload_file']
     list_display = ('title', 'published_date', 'is_published', 'is_visible', 'page', 'words', 'get_subjects')
     list_filter = (SubjectListFilter, 'is_published', 'is_visible' , EmployeeListFilter)
     actions = [publish_documents, un_publish_documents, visble_documents, soft_delete_documents, set_document_subject, restore_documents, hard_delete_documents, chage_publish_date, change_author]
@@ -276,7 +275,35 @@ class CustomUserAdmin(UserAdmin):
                 form.base_fields[f].disabled = True
 
         return form
+class CourseAdmin(admin.ModelAdmin):
+    search_fields = ['code', 'title', 'slug',]
+    list_display = ('code', 'title', 'slug',)
+    prepopulated_fields = {'slug': ('code',)}
+
+
+class CollegeAdmin(admin.ModelAdmin):
+    search_fields = ['name', 'slug',]
+    list_display = ('name', 'slug',)
+    prepopulated_fields = {'slug': ('name', )}
+
+class TermAdmin(admin.ModelAdmin):
+    search_fields = ['name', 'year',]
+    list_display = ('name', 'year',)
+
+class DocumentTypeAdmin(admin.ModelAdmin):
+    search_fields = ['name', 'slug',]
+    list_display = ('name', 'slug',)
+    prepopulated_fields = {'slug': ('name', )}
+
+
 admin.site.register(Document, DocumentAdmin)
 
 admin.site.register(Issue, IssueAdmin)
 admin.site.register(Report, ReportAdmin)
+admin.site.register(Course, CourseAdmin)
+admin.site.register(College, CollegeAdmin)
+admin.site.register(Term,TermAdmin)
+admin.site.register(DocumentType, DocumentTypeAdmin)
+
+
+
