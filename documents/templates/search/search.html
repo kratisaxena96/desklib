@@ -358,28 +358,59 @@
                                 </form>
                               </div>
                           </div>
-                <div class="container">
-                    <div class="row justijustifyfy-content-cen13ter align-self-center">
-                        <section class="container pt-5">
-                        <h2 class="text-center">Explore By Subjects</h2>
-                        <div class="card-columns">
-                        {% for p in parent %}
-                            <div class="card border-0">
-                              <div class="card-body">
-                                <h5 class="card-title">{{ p }}</h5>
-                                    {% for child in p.subject_set.all %}
-                                    <a class="card-link ml-0 mr-4" href="{% url 'study:search-results' %}?q=&amp;selected_facets=subjects_exact:{{child.slug}}">
-                                        {{child}}
-                                        </a>
-                                    {% endfor %}
 
-                              </div>
-                            </div>
+<section class="container pt-5 pb-4">
+    <h2 class="text-center pb-4">Explore By Subjects</h2>
+    <div class="row mb-3">
+        {% for p in parent %}
+    <div class="col-sm-6 col-md-4">
+        {% if not p.parent_subject %}
+                 <h4>
+                 <a href="{% url 'subjects:parent-subject-view' p.slug %}" class="card-title black-font">{{ p }}</a> </h4>
 
+                    {% for child in p.subject_set.all %}
+                    <h5>
+                    <a class="card-link blue-theme" href="{% url 'subjects:child-subject-view' p.slug child.slug %}">
+                        {{child}}
+                    </a>
+                </h5>
+                     <span class="d-block text-muted font-size-12 pb-4">
+                        {% for c in doc_count %}
+                            {% if c.name == child.name %}
+                                {{c.doc_subject}} documents
+                            {% endif %}
                         {% endfor %}
-                            </div>
-	                </section>
-                    </div>
-                </div>
+                    </span>
+                    {% endfor %}
+        {% endif %}
+
+    </div>
+    {% endfor %}
+</div>
+</section>
+<!--                <div class="container">-->
+<!--                    <div class="row justijustifyfy-content-cen13ter align-self-center">-->
+<!--                        <section class="container pt-5">-->
+<!--                        <h2 class="text-center">Explore By Subjects</h2>-->
+<!--                        <div class="card-columns">-->
+<!--                        {% for p in parent %}-->
+<!--                            <div class="card border-0">-->
+<!--                              <div class="card-body">-->
+<!--                                <h5 class="card-title">{{ p }}</h5>-->
+<!--                                    {% for child in p.subject_set.all %}-->
+<!--                                    <a class="card-link ml-0 mr-4" href="{% url 'study:search-results' %}?q=&amp;selected_facets=subjects_exact:{{child.slug}}">-->
+<!--                                        {{child}}-->
+<!--                                        </a>-->
+<!--                                    {% endfor %}-->
+
+<!--                              </div>-->
+<!--                            </div>-->
+
+<!--                        {% endfor %}-->
+<!--                            </div>-->
+<!--	                </section>-->
+<!--                    </div>-->
+<!--                </div>-->
              {% endif %}
+
             {% endblock %}

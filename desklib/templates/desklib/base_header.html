@@ -102,7 +102,7 @@
         <form class="form-inline" action="{% url 'study:search-results' %}">
 <!--          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
 <!--          <button class="btn btn-outline-secondary rounded-circle" type="submit"><i class="fa fa-search rounded-circle"></i></button>-->
-            <div class="input-group tt-input-group" id="">
+            <div class="input-group tt-input-group" >
                 {% if request.GET.q %}
                 <input type="search" name="q" class="sm-search typeahead form-control border-radius-30" placeholder="Search here..." value="{{request.GET.q}}">
                 {% else %}

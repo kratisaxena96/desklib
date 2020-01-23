@@ -361,26 +361,38 @@ opacity:0.9 !important;
         <div class="subscribe mt-3 mb-5">
             <div class="jumbotron p-4 mb-3 text-center">
                 <h6 class="mb-3">You’re reading a preview. To view complete document, subscribe to a plan</h6>
-                <a href="{% url 'subscription' %}" class="btn btn-bg-theme text-white border-radius-40">View subscription plan</a>
+                <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white border-radius-40">View subscription plan</a>
             </div>
         </div>
         {% endif %}
 
     </article>
-      <aside class="col-md-4">
+     <aside class="col-md-4">
         {% if more_like_this %}
             <section class="similar-resource">
-                <h3>Similar Resources</h3>
+                <h3>Similar Documents</h3>
                 <div class="py-4">
                     <div class="row">
                         {% for results in more_like_this %}
                                 <article class="col-6 col-md-12 col-lg-6 mb-3">
                                     <a href="{% url 'documents:document-view' results.slug %}" class="text-decoration-none">
                                         <div>
-                                            <div class="card min-height-smilar-pages-card">
-                                                <img class="card-img-top card-height" src="{{ results.cover_image }}" alt="{{ results.title }}">
-                                                <div class="card-body">
-                                                    <p class="card-text">{{results.title|truncatechars:25|title}}</p>
+                                            <div class="main-div border-radius-5 shadow document-similar-height">
+                                                <img class="card-img-top " src="{{ results.cover_image }}" alt="{{ results.title }}">
+                                                <div class="card-body bg-light hover-div">
+                                                    <h6 class="word-wrap blue-theme">{{results.title|truncatechars:20}}</h6>
+<!--                                                    <div class="btn-d-none">-->
+<!--                                                    <span class="d-block">-->
+<!--                                                    <small class="text-muted">{{results.no_of_pages}}</small>-->
+<!--                                                    <small class="text-muted add-dash">pages</small>-->
+<!--                                                    </span>-->
+<!--                                                    <span class="d-block">-->
+<!--                                                    <small class="text-muted">{{results.no_of_words}}</small>-->
+<!--                                                    <small class="text-muted add-dash">words</small>-->
+<!--                                                    </span>-->
+<!--                                                    <small class="text-muted d-block">{{results.pub_date|date:"d M Y"}}</small>-->
+<!--                                                    <a href="{% url 'documents:document-view' results.slug %}" class="btn btn-bg-theme text-white mt-3 mb-3 pt-1 pb-1 border-radius-20">View Document</a>-->
+<!--                                                    </div>-->
                                                 </div>
                                             </div>
                                         </div>
@@ -390,7 +402,7 @@ opacity:0.9 !important;
                                 </div>
                                 <div class="row">
                             {% endif %}
-                       
+
                         {% endfor %}
                     </div>
                 </div>
