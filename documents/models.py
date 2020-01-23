@@ -182,7 +182,7 @@ class Document(ModelMeta, models.Model):
     key = models.CharField(db_index=True, unique=True, max_length=10, default=key_generator, editable=False)
     title = models.CharField(_('Title'), db_index=True, max_length=200)
     slug = models.SlugField(_('Slug'), unique=True)
-    type = models.ForeignKey(DocumentType,on_delete=models.SET_NULL,  default=TYPE_OF_DOCUMENT_ID, null=True, blank=True, db_index=True,  related_name='type_documents')
+    type = models.ForeignKey(DocumentType,on_delete=models.SET_NULL, null=True, blank=True, db_index=True,  related_name='type_documents')
     term = models.ForeignKey(Term, db_index=True, on_delete=models.SET_NULL ,blank=True, null=True, related_name='team_documents')
     subjects = models.ManyToManyField(Subject, db_index=True, blank=True, null=True, related_name='subject_documents')
     college = models.ForeignKey(College, db_index=True, on_delete=models.SET_NULL ,blank=True, null=True,  related_name='college_documents')
