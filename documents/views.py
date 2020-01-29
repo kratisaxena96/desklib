@@ -3,6 +3,7 @@ import logging
 import os
 import tempfile
 from django.contrib import messages
+from django.core.mail import EmailMultiAlternatives, EmailMessage
 from paypal.standard.forms import PayPalPaymentsForm
 
 from desklib.mixins import CheckSubscriptionMixin
@@ -21,18 +22,11 @@ from subscription.models import Subscription
 from django.views import View
 from django.shortcuts import render
 from django.urls import reverse
-from django.template.loader import get_template
-from django.template import Context
-import simplejson as json
-from django.http import HttpResponse
+
 from haystack.query import SearchQuerySet
 from meta.views import Meta
 from django_json_ld.views import JsonLdContextMixin,settings,JsonLdSingleObjectMixin
-from django.utils.translation import gettext as _
-from haystack.generic_views import SearchMixin, SearchView
-from meta.views import MetadataMixin
-from django.views.generic.list import ListView
-from django.http import HttpResponseRedirect
+
 from post_office import mail
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
@@ -350,7 +344,7 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
 
                     attachments = {}
                     pdf_doc_name = myfile.name.split('/')[-1]
-                    attachments[pdf_doc_name] = ContentFile(myfile.file.read())
+                    attachments[pdf_doc_name] = file_to_be_send =  ContentFile(myfile.file.read())
 
 
                     context = {'document': document_obj}
@@ -365,15 +359,25 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
                     # msg.attach_alternative(htmly, "text/html")
                     # res = msg.send()
                     #
-                    mail.send(
-                        request.user.email,  # List of email addresses also accepted
-                        settings.DEFAULT_FROM_EMAIL,
-                        subject='Your downloaded document from desklib.com',
-                        # message=htmly,
-                        html_message=htmly,
-                        attachments=attachments,
-                        priority='now'
-                    )
+                    from django.core.mail import send_mail
+                    subject='Your downloaded document from desklib.com'
+                    message=''
+                    from_email=settings.DEFAULT_FROM_EMAIL
+                    recipient_list=[request.user.email],
+                    html_message = htmly
+                    mail = EmailMultiAlternatives(subject, message, from_email, recipient_list)
+                    mail.attach_alternative(html_message, 'text/html')
+                    mail.attach(filename="Document.pdf",content=file_to_be_send.read(),mimetype='application/text')
+                    mail.send(True)
+                    # mail.send(
+                    #     request.user.email,  # List of email addresses also accepted
+                    #     settings.DEFAULT_FROM_EMAIL,
+                    #     subject='Your downloaded document from desklib.com',
+                    #     # message=htmly,
+                    #     html_message=htmly,
+                    #     attachments=attachments,
+                    #     priority='now'
+                    # )
                     # mail.send(
                     #     request.user.email,  # List of email addresses also accepted
                     #     settings.DEFAULT_FROM_EMAIL,
