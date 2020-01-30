@@ -24,7 +24,7 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from haystack.query import SearchQuerySet
-from meta.views import Meta
+from meta.views import Meta, MetadataMixin
 from django_json_ld.views import JsonLdContextMixin,settings,JsonLdSingleObjectMixin
 
 from post_office import mail
@@ -401,9 +401,10 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
                 'form': form,
             })
 
-class DocumentPayment(LoginRequiredMixin, TemplateView):
+class DocumentPayment(LoginRequiredMixin,MetadataMixin, TemplateView):
     template_name = 'documents/doc-payment.html'
-    #
+    title = 'Homework Help Payment | Online Homework Help - Desklib'
+
     def get(self, request, *args, **kwargs):
         context = super(DocumentPayment, self).get(request, *args, **kwargs)
         subscription_obj = get_current_subscription(self.request.user)
