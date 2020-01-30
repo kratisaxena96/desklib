@@ -155,15 +155,74 @@ body {
 	float: none;
 }
 
-//------------------for base-header page 04/11/2019---------//
+//-----------------------------------for base-header page 04/11/2019-----------------//
 .hover-on-menu.dropdown:hover>.dropdown-menu {
   display: block;
 }
 
-//------------------for upload-file page 01/11/2019---------//
 .add-dash::after {
     content: ' -';
 }
+
+//---------------------------------For Admissions page form  (Menka Kumari)--------------------------//
+.stepper{
+    counter-reset: step;
+}
+ul.stepper .step {
+    position: relative;
+    list-style: none;
+ }
+ul.stepper .step-new-content.none{
+    display: none;
+ }
+ ul.stepper .step-title{
+     margin: 0 -1.3rem;
+     cursor: pointer;
+     padding: .9688rem 2.75rem 1.5rem 4rem;
+
+//     cursor: pointer;
+//     padding-top: 4px;
+//     padding-bottom: 20px;
+//     padding-left: 50px;
+//     margin-bottom: 20px;
+ }
+ul.stepper .step::before{
+    position: absolute;
+    counter-increment: step;
+    content: counter(step);
+    height: 30px;
+    width: 30px;
+    color: #fff;
+    border-radius: 50%;
+    font-weight: 400;
+    line-height: 0.70rem;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    background-color: lightgray;
+ }
+ul.stepper > .step:not(:last-of-type)::after{
+    content: '';
+    position: absolute;
+    top: 44px;
+    left: 15px;
+    width: 1px;
+    height: 28px;
+    height: calc(100% - 38px);
+    background-color: rgba(0,0,0,.1);
+    transition: all .4s;
+}
+ul.stepper .step-title:hover {
+     background-color: rgba(0,0,0,.06);
+}
+
+
+// ul.stepper > .step.active:not(:last-child)::after{
+//     height: 50%;
+//     height: calc(100% - 12px);
+// }
+
+//--------------------------For Upload-file page 01/11/2019  (Menka Kumari)---------------------//
 .select2-container--default .select2-selection--multiple{
  	border-radius: 2rem;
  	border-color: #ced4da;
@@ -186,7 +245,6 @@ body {
 .select2.select2-container.select2-container--default{
 	width: 100% !important;
 }
-
 #flag_id_country{
 	position: absolute;
 	left: 5px;
@@ -208,16 +266,14 @@ span.input-group-text{
 	background-color: #405fbd !important;
 }
 
-//-------404 Error Background Image 06/12/2019------//
-
+//-------------404 Error Background Image 06/12/2019  (Menka Kumari)------------//
 .error-404-bg-img{
 	background-image: url("/static/dist/assets/images/Error-404.jpg");
 	background-size: cover;
 	background-repeat: no-repeat;
 }
 
-//-------500 Error Background Image 06/12/2019------//
-
+//--------------500 Error Background Image 06/12/2019  (Menka Kumari)-------------//
 .error-500-bg-img{
 	background-image: url("/static/dist/assets/images/error-500.jpg");
 	background-size: cover;
@@ -227,11 +283,11 @@ span.input-group-text{
     color:  #f4aa5b;
 }
 
-//------payment section-------//
+//-------------------------payment section  (Menka Kumari)----------------------//
 .payment-card-box:hover {
- box-shadow: 1px 0px 18px 2px #CDCDCD;
- background-color: #405FBD !important;
- color: #fff;
+     box-shadow: 1px 0px 18px 2px #CDCDCD;
+     background-color: #405FBD !important;
+     color: #fff;
 }
 
 .bg-blue{
@@ -240,18 +296,18 @@ span.input-group-text{
 .word-wrap{
 	word-wrap:break-word;
 }
-//--hover effect on documents on home page 12/12/2019--//
 
+//--------------hover effect on documents on home page 12/12/2019  (Menka Kumari)-----------//
 .hover-div{
-position: absolute;
-bottom: 0;
-left: 0;
-right: 0;
-overflow: hidden;
-width: 100%;
-height: 80px;
-cursor: pointer;
-transition: .8s ease;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 80px;
+    cursor: pointer;
+    transition: .8s ease;
 }
 // .main-div:hover .hover-div{
 // height: 100%;
@@ -287,15 +343,15 @@ transition: .8s ease;
     overflow: hidden;
 }
 .document-similar-height{
-height: 250px;
+    height: 250px;
 }
 
-    //-----------------------admission page banner -image------------------------//
+//-----------------------admission page banner-image  (Menka Kumari)------------------------//
 .admission-page-banner-image{
-background-image: url("/static/dist/assets/images/Desklib banner4.png");
-background-size: cover;
-background-repeat: no-repeat;
-// height: 350px;
+    background-image: url("/static/dist/assets/images/Desklib banner4.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    // height: 350px;
 }
 
    //----------------------------------------  Study Page  ------------------------------------------//
