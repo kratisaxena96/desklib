@@ -1,3 +1,4 @@
+from django.core.mail import EmailMultiAlternatives
 from django.core.management.base import BaseCommand
 from documents.models import Document
 from django.conf import settings
@@ -37,10 +38,18 @@ class Command(BaseCommand):
             context = {'doc': email_doc}
 
             html_template = render_to_string('desklib/mail-templates/subscription_email_template.html', context)
-            mail.send(
-                emails,
-                settings.DEFAULT_FROM_EMAIL,
-                subject='Weekly Digest from desklib.com',
-                html_message=html_template,
-                priority='now'
-            )
+            subject = 'Weekly Digest from desklib.com'
+            message = ''
+            from_email = settings.DEFAULT_FROM_EMAIL
+            recipient_list = [emails],
+            html_message = html_template
+            mail = EmailMultiAlternatives(subject, message, from_email, recipient_list)
+            mail.attach_alternative(html_message, 'text/html')
+            mail.send(True)
+            # mail.send(
+            #     emails,
+            #     settings.DEFAULT_FROM_EMAIL,
+            #     subject='Weekly Digest from desklib.com',
+            #     html_message=html_template,
+            #     priority='now'
+            # )

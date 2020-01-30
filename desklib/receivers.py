@@ -1,3 +1,4 @@
+from django.core.mail import EmailMultiAlternatives
 from paypal.standard.models import ST_PP_COMPLETED
 from paypal.standard.ipn.signals import valid_ipn_received, invalid_ipn_received
 from subscription.models import Subscription, Plan, PayPerDocument
@@ -58,15 +59,23 @@ def show_me_the_money(sender, **kwargs):
 
                         htmly = render_to_string('desklib/mail-templates/payment_success_email_template.html',
                                                  context=contex, request=None)
-                        mail.send(
-                            user.email,
-                            settings.DEFAULT_FROM_EMAIL,
-                            subject='Payment Success Confirmation From Desklib',
-                            # message=htmly,
-                            html_message=htmly,
-                            # attachments=attachments,
-                            priority='now'
-                        )
+                        subject = 'Payment Success Confirmation From Desklib'
+                        message = ''
+                        from_email = settings.DEFAULT_FROM_EMAIL
+                        recipient_list = [user.email],
+                        html_message = htmly
+                        mail = EmailMultiAlternatives(subject, message, from_email, recipient_list)
+                        mail.attach_alternative(html_message, 'text/html')
+                        mail.send(True)
+                        # mail.send(
+                        #     user.email,
+                        #     settings.DEFAULT_FROM_EMAIL,
+                        #     subject='Payment Success Confirmation From Desklib',
+                        #     # message=htmly,
+                        #     html_message=htmly,
+                        #     # attachments=attachments,
+                        #     priority='now'
+                        # )
 
                     except Exception as e:
                         print("Payment Success Email Sending failed", e)

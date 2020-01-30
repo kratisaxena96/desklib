@@ -161,12 +161,13 @@ TEMPLATES = [
     },
 ]
 
-EMAIL_BACKEND = 'post_office.EmailBackend'
+# EMAIL_BACKEND = 'post_office.EmailBackend'
+# EMAIL_BACKEND = "mailer.backend.DbBackend"
 
 
-POST_OFFICE = {
-    'DEFAULT_PRIORITY': 'now'
-    }
+# POST_OFFICE = {
+#     'DEFAULT_PRIORITY': 'now'
+#     }
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of 'allauth'
