@@ -179,13 +179,35 @@ ul.stepper .step-new-content.none{
      margin: 0 -1.3rem;
      cursor: pointer;
      padding: .9688rem 2.75rem 1.5rem 4rem;
-
-//     cursor: pointer;
-//     padding-top: 4px;
-//     padding-bottom: 20px;
-//     padding-left: 50px;
-//     margin-bottom: 20px;
  }
+ .mt-n-1{
+    margin-top: -0.7rem! important;
+ }
+// #accordion.stepper{
+//     counter-reset: step;
+// }
+//  .card-header.step::before{
+//     position: absolute;
+//     counter-increment: step;
+//     content: counter(step);
+//     height: 30px;
+//     width: 30px;
+//     color: #fff;
+//     border-radius: 50%;
+//     font-weight: 400;
+//     line-height: 0.70rem;
+//     text-align: center;
+//     padding: 10px;
+//     cursor: pointer;
+//     background-color: lightgray;
+//  }
+ul.stepper .step.done::before {
+     content: '\f00c';
+    font-size: 1rem;
+    background-color: #00c851;
+    font-family: 'Font Awesome 5 free';
+    font-weight: 900;
+}
 ul.stepper .step::before{
     position: absolute;
     counter-increment: step;
@@ -201,14 +223,29 @@ ul.stepper .step::before{
     cursor: pointer;
     background-color: lightgray;
  }
+ul.stepper .step.active::before{
+    position: absolute;
+    counter-increment: step;
+    content: counter(step);
+    height: 30px;
+    width: 30px;
+    color: #fff;
+    border-radius: 50%;
+    font-weight: 400;
+    line-height: 0.70rem;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #405fbd;
+ }
 ul.stepper > .step:not(:last-of-type)::after{
     content: '';
     position: absolute;
-    top: 44px;
+    top: 37px;
     left: 15px;
     width: 1px;
     height: 28px;
-    height: calc(100% - 38px);
+    height: calc(100% - 20px);
     background-color: rgba(0,0,0,.1);
     transition: all .4s;
 }

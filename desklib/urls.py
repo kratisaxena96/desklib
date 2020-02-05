@@ -84,7 +84,7 @@ urlpatterns = [
                   path('500-error/', Error500View.as_view(), name='500_error'),
                   # path('payment/document',)
                   path('api/', include(('api.urls', 'api'), namespace="api")),
-                  # path('admissions/', include(('admissions.urls', 'admissions'), namespace="admissions")),
+                  path('admissions/', include(('admissions.urls', 'admissions'), namespace="admissions")),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
