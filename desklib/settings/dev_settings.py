@@ -22,6 +22,10 @@ FLAG_MAIL_TO_TEST = True
 INSTALLED_APPS += [
     'debug_toolbar',
     # 'djcelery',
+    'admissions',
+    'formtools',
+    # 'homework',
+    'channels'
     # 'django_celery_results',
     # 'kombu.transport.django'
 ]
