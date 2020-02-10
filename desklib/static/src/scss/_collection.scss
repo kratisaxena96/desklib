@@ -231,18 +231,16 @@ span.input-group-text{
 .payment-card-box:hover {
  box-shadow: 1px 0px 18px 2px #CDCDCD;
  background-color: #405FBD !important;
- color: #fff;
+ color: #ffffff !important;
+ cursor: pointer;
 }
-
 .bg-blue{
 	background-color: #87b5d2 !important;
 }
-	
-
-
 .word-wrap{
 	word-wrap:break-word;
 }
+
 //--hover effect on documents on home page 12/12/2019--//
 .main-div{
 	position: relative;
