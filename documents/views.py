@@ -341,7 +341,10 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
                         subscription_obj.documents.add(document_obj)
                         Download.objects.create(user=request.user, document=document_obj)
                         Document.objects.filter(pk=document_obj.pk).update(total_downloads=F('total_downloads') + 1)
+                except Exception as e:
+                    print(e)
 
+                try:
                     attachments = {}
                     pdf_doc_name = myfile.name.split('/')[-1]
                     attachments[pdf_doc_name] = file_to_be_send =  ContentFile(myfile.file.read())
