@@ -223,7 +223,7 @@ class Document(ModelMeta, models.Model):
     created = models.DateTimeField(editable=False)
     updated = models.DateTimeField()
     redirect_url = models.URLField(max_length=1024, blank=True, null=True)
-    seo_title = models.CharField(max_length=70,
+    seo_title = models.CharField(max_length=90,
                                  help_text='Tip: Start every main word in the title with a capital letter, Keep title brief and descriptive that is relevant to the content of your pages.')
     seo_description = models.TextField(max_length=160,
                                        help_text='Tip: Create concise and high-quality descriptions that accurately describe your page, Make sure each page on our website has a different description.')
