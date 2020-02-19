@@ -152,7 +152,7 @@ class Course(models.Model):
         verbose_name_plural = _('courses')
 
     def __str__(self):
-        return self.title
+        return self.code
 
 TYPE_OF_DOCUMENT_ID = 1
 
