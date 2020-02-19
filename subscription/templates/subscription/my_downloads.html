@@ -1,7 +1,7 @@
 {% extends "desklib/base.html" %}
 {% load staticfiles %}
+{% load l10n %}
 {% block content %}
-
 	{% block messages %}
 		{% if messages %}
 
@@ -19,7 +19,6 @@
 			</div>
 		{% endif %}
   	{% endblock %}
-
 <section class="pt-5">
       <div class="container">
       	 {% comment %}
@@ -52,7 +51,7 @@
             		   <tbody>
             		   	   <tr>
             		   	   	 <td scope="row">{{downloads.document | truncatechars:40}}</td>
-            		   	   	  <td scope="row">{{downloads.created_at}}</td>
+            		   	   	  <td scope="row">{{downloads.created_at | localize}}</td>
             		   	   </tr>
             		   </tbody>
             		   {% endfor %}
