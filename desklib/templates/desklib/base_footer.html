@@ -1,67 +1,97 @@
 {% load staticfiles %}
-<footer class="footer grey-theme">
-    <div class="container-fluid padding-top-20 padding-bottom-10">
-        <div class="row footer-row pt-3 pb-4">
-            <div class="col-md-3 col-sm-12 py-1">
-                <a class="white" href="/">
-                    <img class="img-responsive" src="{% static 'dist/assets/images/desklib-logo-trans.png' %}" alt="desklib-logo">
-                </a>
-            </div>
-            <div class="col-md-3 col-sm-4">
-                <ul class="footer-ul">
-                    <li class="font-size-20 white"><a class="white" href="{% url 'about' %}">About</a></li>
-<!--                    <li class="list-inline-item font-size-20 white px-5"><a class="white" href="{% url 'about' %}">About</a></li>-->
-                    <li class="font-size-20 white"><a class="white" href="{% url 'termsofuse' %}">Terms of use</a></li>
-                    <li class="font-size-20 white"><a class="white" href="{% url 'contact' %}">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="col-md-3 col-sm-4">
-                <ul class="footer-ul">
-                    <li class="font-size-20 white"><a class="white" href="{% url 'privacypolicy' %}">Privacy Policy</a></li>
-                    <li class="font-size-20 white"><a class="white" href="{% url 'honorcode' %}">Honor Code</a></li>
-                    <li class="font-size-20 white"><a class="white" href="{% url 'academicintegrity' %}">Academic Integrity</a></li>
-                    <li class="font-size-20 white"><a class="white" href="{% url 'copyright' %}">Copyright</a></li>
-                </ul>
-            </div>
+<footer class="bg_gray" >
+      <div class="container">
+        <div class="row footer-main">
+          <div class="col-lg-2 col-md-2 col-sm-6 footer_detail">
+			<h3>Subjects</h3>
+			  <div class="footer-heading">
+					<ul>
+						{% for sub in parent_subjects %}
+					  		<li><a href="{% url 'subjects:parent-subject-view' sub.slug %}">{{sub}}</a></li>
+						{% endfor %}
+					</ul>
+			  </div>
+		  </div>
+          <div class="col-lg-2 col-md-3 col-sm-6  footer_detail">
+			<h3>Pages</h3>
+			  <div class="footer-heading">
+					<ul>
+					  <li><a href="{% url 'home' %}" class="">Home</a></li>
+					  <li><a href="{% url 'study:study-search' %}" class="" onclick="ga('send', 'event', 'assignment_help', 'click', 'footer_assignment_help_clicks')">Study</a></li>
+					  <li><a href="{% url 'writing:writing' %}" class="" onclick="ga('send', 'event', 'homeschooling', 'click', 'footer_homeschooling_clicks')">Writing</a></li>
+					  <li><a href="{% url 'about' %}" class="">About US</a></li>
+<!--					  <li><a href="/school" class="">School</a></li>-->
+<!--					  <li><a href="/corporate" class="">Corporate</a></li>-->
+<!--					  <li><a href="/non-profit" class="">Non Profit</a></li>-->
+					</ul>
+			  </div>
+		  </div>
+          <div class="col-md-2 col-sm-6  footer_detail">
+		    <h3>Support</h3>
+			   	<div class="footer-heading">
+					<ul>
+					  <li><a href="{% url 'termsofuse' %}" class="">Terms of Use's</a></li>
+					  <li><a href="{% url 'privacypolicy' %}" class="">Privacy Policy</a></li>
+					  <li><a href="{% url 'copyright' %}" class="">Copyright</a></li>
+					</ul>
+				</div>
+		  </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 footer_detail">
+		    <h3>Utilities</h3>
+			   	<div class="footer-heading">
+					<ul>
+						<li><a href="{% url 'writing:grammar' %}" class="">Grammar Checker</a></li>
+						<li><a href="{% url 'writing:compare' %}" class="">Plagiarism Checker</a></li>
+						<li><a href="{% url 'writing:sample-list-view' %}" class="">Resume Writing</a></li>
+					</ul>
+				</div>
+		  </div>
+          <div class="col-md-2 col-sm-12 footer_detail">
+			<h3>Follow Us</h3>
+			   <div class="footer-heading last">
+					<ul>
+					 <li><a href="https://www.linkedin.com/company/desklib/" class="">Linked In</a></li>
+						<li><a href="https://www.facebook.com/desklib/" class="">Facebook</a></li>
+						<li><a href="https://www.instagram.com/desklib/" class="">Instagram</a></li>
+						<li><a href="https://www.pinterest.com/desklib/" class="">Pinterest</a></li>
+					</ul>
+			   </div>
+		  </div>
+          <div class="clearfix"></div>
 
-            <div class="col-md-3 col-sm-4">
-                <ul class="footer-ul">
-                    <li class="list-inline-item font-size-20 white pt-1"><a href="https://www.linkedin.com/company/desklib/"><img src="{% static 'dist/assets/images/Linkedin.png' %}" alt="linked_in icon"></a></li>
+		</div>
+        <!--row closed-->
+      </div>
+      <!--bg closed-->
+    </footer>
+<div class="page-last ">
+      <div class="container">
+        <div class="row">
+		    <div class="col-md-7 col-sm-6 subscribe_text ">
+				<div class="float-md-left">
+
+			</div>
+			</div>
+			<div class="col-md-5 col-sm-6 fsocial_icons">
+				<div class="social_icon list-inline center-block">
+					<ul class="list-inline">
+						  <li class="list-inline-item font-size-20 white pt-1"><a href="https://www.linkedin.com/company/desklib/"><img src="{% static 'dist/assets/images/Linkedin.png' %}" alt="linked_in icon"></a></li>
                     <li class="list-inline-item font-size-20 white pt-1"><a href="https://www.facebook.com/desklib/"><img src="{% static 'dist/assets/images/Facebook.png' %}" alt="facebook icon"></a></li>
                     {% comment %}
                     <li class="list-inline-item font-size-20 white pt-1"><a href="https://twitter.com/Desklibcom"><img src="{% static 'dist/assets/images/Twitter.png' %}" alt="twitter icon"></a></li>
                      {% endcomment %}
                     <li class="list-inline-item font-size-20 white pt-1"><a href="https://www.instagram.com/desklib/"><img src="{% static 'dist/assets/images/Instagram.png' %}" alt="instagram icon"></a></li>
-                </ul>
-            </div>
-        </div>
-        <hr class="border-white margin-top-0">
-        <div class="text-center">
-            <div class="font-size-12"><i class="far fa-copyright fa-x text-white">&nbsp;&nbsp;{% now "Y" %} A2ZSERVICES PTE LTD. All rights reserved.</i></div>
-        </div>
-    </div>
-</footer>
 
+						<ul>
 
-<!--<div class="col-md-2">-->
-<!--                <p class="font-size-20 text-center white">About</p>-->
-<!--            </div>-->
-<!--            <div class="col-md-2">-->
-<!--                <p class="font-size-20 text-center white">Support</p>-->
-<!--            </div>-->
-<!--            <div class="col-md-2">-->
-<!--                <p class="font-size-20 text-center white">Help</p>-->
-<!--            </div>-->
-<!--            <div class="col-md-2">-->
-<!--                <p class="font-size-20 text-center white">Contact Us</p>-->
-<!--            </div>-->
+<!--					<p class="develop_text">Design: <i>Trius Infotech</i></p>-->
+					<p class="develop_text"><i class="far fa-copyright fa-x text-white">&nbsp;&nbsp;2020 A2ZSERVICES PTE LTD. All rights reserved.</i></p>
 
-<!--            <div class="col-md-4">-->
-<!--                <div id="copyright" class="padding-top-10 text-center">-->
-<!--                    <a  class="footer-icon-img padding-10"  href="https://www.linkedin.com"><img src="{% static 'dist/assets/images/Linkedin.png' %}"></a>-->
-<!--                    &lt;!&ndash; <a  class="footer-icon-img" href="https://www.instagram.com"><img src="{% static 'dist/assets/images/search icon.png' %}"></a> &ndash;&gt;-->
-<!--                    <a  class="footer-icon-img padding-10" href="https://www.facebook.com"><img src="{% static 'dist/assets/images/Facebook.png' %}"></a>-->
-<!--                    <a  class="footer-icon-img padding-10" href="https://www.twitter.com"><img src="{% static 'dist/assets/images/Twitter.png' %}"></a>-->
-<!--                    &lt;!&ndash; <p class="copyright-c">© 2017-{% now 'y' %} Desklib. All rights reserved</p> &ndash;&gt;-->
-<!--                </div>-->
-<!--            </div>-->
+				</div>
+			</div>
+			<!-- <div class="col-md-12 col-sm-12 contct_text">
+		    	<p>TutorEye Inc. 12883 Carriage Heights Way, Poway, CA 92064 | +1 (858) 324-5481 | <a href="mailto:support@tutoreye.com">support@tutoreye.com</a></p>
+		    </div> -->
+		</div>
+	   </div>
+	</div>

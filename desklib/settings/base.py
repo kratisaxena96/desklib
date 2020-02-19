@@ -153,6 +153,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.template.context_processors.i18n',
                 'django.contrib.auth.context_processors.auth',
+                'desklib.context_preprocessor.get_subjects',
                 # 'allauth.account.context_processors.account',
                 # 'allauth.socialaccount.context_processors.socialaccount',
                 'django.contrib.messages.context_processors.messages',
