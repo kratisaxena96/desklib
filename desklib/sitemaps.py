@@ -21,6 +21,8 @@ class SampleSitemap(Sitemap):
 class DocumentSitemap(Sitemap):
     priority = 0.5
     changefreq = 'daily'
+    limit = 30000
+
 
     # limit = 50000
 
