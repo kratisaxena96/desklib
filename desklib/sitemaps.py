@@ -21,13 +21,11 @@ class SampleSitemap(Sitemap):
 class DocumentSitemap(Sitemap):
     priority = 0.5
     changefreq = 'daily'
-    limit = 30000
-
 
     # limit = 50000
 
     def items(self):
-        return Document.objects.filter(is_visible=True, is_published=True, published_date__lte=timezone.now()).only('published_date')
+        return Document.objects.filter(is_visible=True, is_published=True, published_date__lte=timezone.now()).only('published_date','slug')
 
     def lastmod(self, obj):
         return obj.published_date
