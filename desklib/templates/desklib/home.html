@@ -27,12 +27,12 @@
     {% endif %}
  {% endblock %}
 
-    <div class="row pl-5 pt-7rem pb-7rem pltb-0">
-        <div class="col-md-6">
+    <div class="row pl-5 pt-7rem pb-10rem pltb-0">
+        <div class="col-md-6 pt-5rem">
             <h1 class="blue-theme py-2">Get Online Homework Help</h1>
             <h2 class="pb-2 font-size-25">Avail The Best Online Homework Solutions & Secure Good Grades</h2>
             <div class="col-md-12 pl-0">
-                <form class="form-inline " action="{% url 'study:search-results' %}">
+                <form class="form-inline" action="{% url 'study:search-results' %}">
                     <div id="remote" class="input-group mb-3 w-100">
                       <input class=" form-control form-control-lg box-shadow-3-3-5-5 border-radius-30 typeahead" type="text" placeholder="Find subjects, homework solution and more..." name="q">
                         <div class="input-group-append">
@@ -56,49 +56,41 @@
         </div>
     </div>
 </section>
-<section class="container mt-5 mb-5">
+<section class="hm-mdl-1 col-lg-pt-40 col-lg-pb-50 col-md-pt-40 col-md-pb-50 col-sm-pt-30 col-sm-pb-40 col-xs-pt-30 col-xs-pb-40">
+    <div class="container">
         <div class="row">
-            <div class="col-md-6 mb-sm-3 mb-lg-0 mb-3">
-                <div class="yellow p-4 p-gl-5 p-15 rounded border-radius-12">
-                    <h2 class="font-40">Discover resources similar to your homework problems</h2>
-                    <a href="{%url 'study:study-search'%}">
-                    <button class="btn text-white btn-bg-theme mt-3 mt-lg-5 mb-lg-2 border-radius-40">
-                        Explore Resources
-                    </button>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-6 mb-lg-0">
-                <div class="green p-4 p-gl-5 p-15 rounded border-radius-12">
-                    <h2 class="font-40">Remove errors and improve your writing skills instantly</h2>
-                    <a href="{% url 'writing:grammar' %}">
-                    <button class="btn text-white btn-bg-theme mt-3 mt-lg-5 mb-lg-2 border-radius-40">
-                        Check my paper
-                    </button>
-                    </a>
-                </div>
-            </div>
-    </div>
-</section>
-<section class=" bg-light">
-    <div class="container pt-5 pb-5">
-        <div class="row  justify-content-md-center">
-            <div class="col-md-12">
-                <h2 class="text-center ">Why Choose Desklib</h2>
-                <div class="row  justify-content-md-center">
-                    <div class="col-md-10 text-center">
-                        <p class="">We at Desklib carefully select the best study material for your college homework help and solutions to assignments, essays, dissertations, and case studies. Our resources are diverse so they can be used by students studying in any college, enrolled in any course or pursuing any degree/level. Moreover, new documents are added regularly and content is updated as well with improvements. We are an online learning library developed for the students where anyone can learn, gain and contribute. Our resources are extremely useful for students working on writing solutions to their assignments helping them secure better grades. </p>
-                        <a href="{% url 'about' %}" class="btn text-white btn-bg-theme pl-2 pr-2 border-radius-40">Learn more</a>
-                    </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 white-text">
+                <h2 class="col-lg-ft-30">Get Homework Help Online Today And Secure Your Academic Grades Now! </h2>
+                <h3 class="ft-300">Desklib helps college students to complete their homework. The first thing that pops up in every college student's mind is homework and assignments. Professors nowadays provide dozens of assignments and homework and they expect a timely submission from you. If you are looking for the best homework help website Desklib is eager to assist you to complete your study. Getting the right education will bring you closer to your dreams and help you build the right kind of future that you want.</h3>
+                <div class="row mt-2">
+                    <ul class="ft-300 col-lg-mt-10 col-md-mt-10 col-sm-mt-10 col-xs-mt-10 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <li><img src="/static/dist/assets/images/top_home_work.png" alt="homework icon" width="45"/>All Subject Homework Help</li>
+                    </ul>
+                    <ul class="ft-300 col-lg-mt-10 col-md-mt-10 col-sm-mt-10 col-xs-mt-10 col-lg-4 col-md-4 col-sm-12 col-xs-12 custm-side-icon1">
+                        <li><img src="/static/dist/assets/images/securepaymentgateway.png" alt="payment Gateway icon" width="45"/>&nbsp;&nbsp;Secure Payment Gateway</li>
+                    </ul>
+                    <ul class="ft-300 col-lg-mt-10 col-md-mt-10 col-sm-mt-10 col-xs-mt-10 col-lg-4 col-md-4 col-sm-12 col-xs-12 custm-side-icon">
+                        <li><img src="/static/dist/assets/images/secure_grades.png" alt="bestgrade icon" width="45"/>&nbsp;&nbsp;Secure Best Grades</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
+<section class="why_choose_us trus_ted">
+   <div class="container">
+      <div class="row">
+	    <div class="col-md-6 col-sm-12 fee text-center">
+		  <h2>Why Choose US</h2>
+            <p class="text-left">We at Desklib carefully select the best study material for your college <b>homework help</b> and <b>solutions</b> to <b>assignments, essays, dissertations, </b> and <b>case studies</b>. Our resources are diverse so they can be used by students studying in any college, enrolled in any course or pursuing any degree/level. Moreover, new documents are added regularly and content is updated as well with improvements. We are a homework help website developed for the students where anyone can learn, gain and contribute.
+            </p>
+        </div>
+	  </div>
+  </div>
+</section>
 {% if top_results %}
 <section class="container-fluid pt-5 pb-5">
-    <h2 class="text-center">Top Viewed Homework Solutions</h2>
+    <h2 class="text-center">Top Viewed Homework Help Solutions</h2>
     <div class="main-content" id="main0">
         <div class="owl-carousel owl-theme mt-4">
          {% for results in top_results %}
@@ -131,48 +123,93 @@
     </div>
 </section>
 {% endif %}
+{% comment %}
+<!--<section class="container mt-5 mb-5">-->
+<!--        <div class="row">-->
+<!--            <div class="col-md-6 mb-sm-3 mb-lg-0 mb-3">-->
+<!--                <div class="yellow p-4 p-gl-5 p-15 rounded border-radius-12">-->
+<!--                    <h2 class="font-40">Discover resources similar to your homework problems</h2>-->
+<!--                    <a href="{%url 'study:study-search'%}">-->
+<!--                    <button class="btn text-white btn-bg-theme mt-3 mt-lg-5 mb-lg-2 border-radius-40">-->
+<!--                        Explore Resources-->
+<!--                    </button>-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-md-6 mb-lg-0">-->
+<!--                <div class="green p-4 p-gl-5 p-15 rounded border-radius-12">-->
+<!--                    <h2 class="font-40">Remove errors and improve your writing skills instantly</h2>-->
+<!--                    <a href="{% url 'writing:grammar' %}">-->
+<!--                    <button class="btn text-white btn-bg-theme mt-3 mt-lg-5 mb-lg-2 border-radius-40">-->
+<!--                        Check my paper-->
+<!--                    </button>-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--    </div>-->
+<!--</section>-->
+{% endcomment %}
+{% comment %}
+<!--<section class=" bg-light">-->
+<!--    <div class="container pt-5 pb-5">-->
+<!--        <div class="row  justify-content-md-center">-->
+<!--            <div class="col-md-12">-->
+<!--                <h2 class="text-center ">Why Choose Desklib</h2>-->
+<!--                <div class="row  justify-content-md-center">-->
+<!--                    <div class="col-md-10 text-center">-->
+<!--                        <p class="">We at Desklib carefully select the best study material for your college homework help and solutions to assignments, essays, dissertations, and case studies. Our resources are diverse so they can be used by students studying in any college, enrolled in any course or pursuing any degree/level. Moreover, new documents are added regularly and content is updated as well with improvements. We are an online learning library developed for the students where anyone can learn, gain and contribute. Our resources are extremely useful for students working on writing solutions to their assignments helping them secure better grades. </p>-->
+<!--                        <a href="{% url 'about' %}" class="btn text-white btn-bg-theme pl-2 pr-2 border-radius-40">Learn more</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+{% endcomment %}
 
-<section class="container-fluid bg-light">
-    <div class="py-sm-5 py-5">
-        <div class="row">
-            <div class="col-md-12">
-                <h2 class="text-center">Subscription Details</h2>
-                <p class="text-center">Access complete resources anytime - anywhere with complete document downloads</p>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-md-3 text-center">
-                <img src="{% static 'dist/assets/images/Documents icon.png' %}" alt="doc-img">
-                <p class="font-size-25 font-weight-600 padding-top-20">Explore Documents</p>
-                <p class="font-size-20 font-weight-400">Access complete document content from anywhere. Search easily related resources based on your needs</p>
-            </div>
-            <div class="col-md-3 text-center">
-                <img class="text-center" src="{% static 'dist/assets/images/Downloads icon.png' %}" alt="download-img">
-                <p class="font-size-25 font-weight-600 padding-top-20">Download Resources</p>
-                <p class="font-size-20 font-weight-400">Download resources directly and use them offline. Receive documents on your email address</p>
-            </div>
-            <div class="col-md-3 text-center">
-                <img class="text-center" src="{% static 'dist/assets/images/writing tools icon.png' %}" alt="write-img">
-                <p class="font-size-25 font-weight-600 padding-top-20">Improve Writing</p>
-                <p class="font-size-20 font-weight-400">Free tools to improve your writing and grammar. Get your content edited by our experienced writers</p>
-            </div>
-            <div class="col-md-3 text-center">
-                <img class="text-center" src="{% static 'dist/assets/images/upload icon.png' %}" alt="upload-img">
-                <p class="font-size-25 font-weight-600 padding-top-20">Upload Resources</p>
-                <p class="font-size-20 font-weight-400">Upload your resources and earn credits. Spread your knowledge and help many other students in need</p>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <a class="btn text-white btn-bg-theme py-3 px-4 border-radius-40" href="{% url 'subscription' %}">Subscribe us for an low as $60 a month</a>
-            <p class="pt-3">* Please read details about our subscription by clicking on the link above</p>
-            {% comment %}
-            <p class="font-size-20 blue-font"> <a href="{% url 'subscription' %}">Learn more</a></p>
-            {% endcomment %}
-        </div>
-    </div>
-</section>
+
+
+<!--<section class="container-fluid bg-light">-->
+<!--    <div class="py-sm-5 py-5">-->
+<!--        <div class="row">-->
+<!--            <div class="col-md-12">-->
+<!--                <h2 class="text-center">Subscription Details</h2>-->
+<!--                <p class="text-center">Access complete resources anytime - anywhere with complete document downloads</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row mt-5">-->
+<!--            <div class="col-md-3 text-center">-->
+<!--                <img src="{% static 'dist/assets/images/Documents icon.png' %}" alt="doc-img">-->
+<!--                <p class="font-size-25 font-weight-600 padding-top-20">Explore Documents</p>-->
+<!--                <p class="font-size-20 font-weight-400">Access complete document content from anywhere. Search easily related resources based on your needs</p>-->
+<!--            </div>-->
+<!--            <div class="col-md-3 text-center">-->
+<!--                <img class="text-center" src="{% static 'dist/assets/images/Downloads icon.png' %}" alt="download-img">-->
+<!--                <p class="font-size-25 font-weight-600 padding-top-20">Download Resources</p>-->
+<!--                <p class="font-size-20 font-weight-400">Download resources directly and use them offline. Receive documents on your email address</p>-->
+<!--            </div>-->
+<!--            <div class="col-md-3 text-center">-->
+<!--                <img class="text-center" src="{% static 'dist/assets/images/writing tools icon.png' %}" alt="write-img">-->
+<!--                <p class="font-size-25 font-weight-600 padding-top-20">Improve Writing</p>-->
+<!--                <p class="font-size-20 font-weight-400">Free tools to improve your writing and grammar. Get your content edited by our experienced writers</p>-->
+<!--            </div>-->
+<!--            <div class="col-md-3 text-center">-->
+<!--                <img class="text-center" src="{% static 'dist/assets/images/upload icon.png' %}" alt="upload-img">-->
+<!--                <p class="font-size-25 font-weight-600 padding-top-20">Upload Resources</p>-->
+<!--                <p class="font-size-20 font-weight-400">Upload your resources and earn credits. Spread your knowledge and help many other students in need</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="row">-->
+<!--        <div class="col-md-12 text-center">-->
+<!--            <a class="btn text-white btn-bg-theme py-3 px-4 border-radius-40" href="{% url 'subscription' %}">Subscribe us for an low as $60 a month</a>-->
+<!--            <p class="pt-3">* Please read details about our subscription by clicking on the link above</p>-->
+<!--            {% comment %}-->
+<!--            <p class="font-size-20 blue-font"> <a href="{% url 'subscription' %}">Learn more</a></p>-->
+<!--            {% endcomment %}-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
 
 {% comment %}
 <ul>

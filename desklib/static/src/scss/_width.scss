@@ -121,7 +121,6 @@ p.develop_text i {
 	list-style: none;
 	padding: 0;
 	margin: 0;
-	background: url(../images/social_icons.png) no-repeat;
 	width: 30px;
 	height: 30px;
 	display: inline-block
@@ -180,13 +179,16 @@ p.develop_text i {
 	.footer_detail:first-child {
 		padding-left: 0
 	}
+	.fee {
+	width:auto!important;
+	}
 }
 @media only screen and (max-width: 800px) {
 	.formdesign .social_btn {
 		padding: 0
 	}
 }
-@media only screen and (max-width: 736px) {
+@media only screen and (max-width: 767px) {
 
 	.social_links a span.signup_padding {
 		display: none!important
@@ -195,12 +197,9 @@ p.develop_text i {
 		float: none;
 		padding: 10px 0 0 0
 	}
-
-}
-
-@media only screen and (max-width: 416px) {
-
-
+	.fee {
+	width:auto!important;
+	}
 	.footer-main {
 		-webkit-column-count: 2;
 		-moz-column-count: 2;
@@ -238,10 +237,75 @@ p.develop_text i {
 	.footer_detail:first-child {
 		padding-left: 20px
 	}
+	.trus_ted {
+		height: auto
+	}
+	.fee {
+	width:auto!important;
+	}
 
 }
-@media only screen and (max-width: 385px) {
-	.footer-main .footer_detail:nth-child(3) {
-		bottom: 0
-	}
+
+.why_choose_us{
+	background: url('/static/dist/assets/images//choose-us-why.jpg') no-repeat center top;
+	max-height: 505px;
+}
+
+.choose_from.lazy_background {
+	background-image: none;
+	background-color: #f1f1fa
+}
+.choose_from {
+	background: url('/static/dist/assets/images/study.jpg') no-repeat center top
+}
+.check_my_paper {
+	background: url('/static/dist/assets/images/grammer.jpg') no-repeat center top
+}
+.trus_ted {
+	background-size: cover;
+	-moz-background-size: cover;
+	-webkit-background-size: cover;
+	height: 530px;
+	background-position: 27% 15%
+}
+.fee {
+    margin: 7% 0;
+	width: 40%;
+	border-radius: 25px;
+	padding: 27px;
+	opacity: 0.7;
+	background: ghostwhite;
+}
+.fee h2 {
+	color: black;
+	padding-bottom: 0;
+	margin: 0 0 20px 0;
+	line-height: 38px;
+	font-size: 32px;
+	font-weight: 400
+}
+.fee p {
+	color: black;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 30px
+}
+
+.hm-mdl-1 ul li{
+    list-style-type: none;
+}
+
+.hm-mdl-1{
+    padding:6%!important
+}
+@media screen and (max-width: 414px){
+.why_choose_us{
+    background:f8f8ff;
+    height:auto;
+}
+.fee{
+    height:auto;
+    padding:2%;
+
+}
 }
