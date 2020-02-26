@@ -37,8 +37,11 @@ class Question(models.Model):
     is_published = models.BooleanField(_('Is Published'), default=True)
     is_visible = models.BooleanField(_('Is Visible'), default=True)
 
-    created = models.DateTimeField(editable=False)
+    created = models.DateTimeField(editable=False, auto_now_add=True)
     updated = models.DateTimeField()
+
+    def __str__(self):
+        return self.slug
 
 
 class Order(models.Model):
@@ -61,7 +64,7 @@ class Order(models.Model):
     question = models.ForeignKey(Question, related_name='ordered_question', on_delete=models.PROTECT)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='user_order')
     status = models.IntegerField(choices=STATUS, default=STATUS_UNASSIGNED, db_index=True)
-    remarks = models.TextField(_('Question'), null=True, blank=True)
+    remarks = models.TextField(_('Remarks'), null=True, blank=True)
     budget = models.IntegerField(_('Budget'), null=True, blank=True)
     amount_paid = models.IntegerField(_('Amount Paid'), null=True, blank=True)
     order_id = models.CharField(unique=True, max_length=10, default=key_generator, editable=False)
@@ -70,6 +73,8 @@ class Order(models.Model):
     is_accepted = models.BooleanField(_('Is Accepted'), default=False)
     is_paid = models.BooleanField(_('Is Published'), default=False)
 
-    created = models.DateTimeField(editable=False)
+    created = models.DateTimeField(editable=False, auto_now_add=True)
     updated = models.DateTimeField()
 
+    def __str__(self):
+        return self.order_id
