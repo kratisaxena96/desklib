@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% include "meta/meta.html" %}
     <link rel="stylesheet" href='{% static "dist/css/bundle.css" %}'>
+
 {% get_available_languages as LANGUAGES %}
 {% for language_code, language_name in LANGUAGES %}
     <link
