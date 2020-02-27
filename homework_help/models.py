@@ -38,7 +38,7 @@ class Question(models.Model):
     is_visible = models.BooleanField(_('Is Visible'), default=True)
 
     created = models.DateTimeField(editable=False, auto_now_add=True)
-    updated = models.DateTimeField()
+    updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.slug
@@ -74,7 +74,7 @@ class Order(models.Model):
     is_paid = models.BooleanField(_('Is Published'), default=False)
 
     created = models.DateTimeField(editable=False, auto_now_add=True)
-    updated = models.DateTimeField()
+    updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.order_id
