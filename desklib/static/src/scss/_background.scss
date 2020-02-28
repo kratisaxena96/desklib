@@ -24,7 +24,16 @@
 }
 .transparent{
     background-color: transparent;
-} 
+}
+.bg-light-blue{
+    background-color: $bg-light-blue;
+}
+.text-light-black{
+    color: $light-black;
+}
+.bg-light-gray{
+    background-color: $bg-light-gray;
+}
 .min-height-smilar-pages-card{
     min-height:240px;
     }   

@@ -1,9 +1,12 @@
 import os
-
+import datetime
 from django import forms
 from .models import AspirantDetails
 from django.utils.translation import ugettext_lazy as _
 from phonenumber_field.formfields import PhoneNumberField
+def year_choices():
+    return [(r,r) for r in range(1984, datetime.date.today().year+1)]
+
 
 COUNTRY = (
     ('uk', _('United Kingdom')),
@@ -34,14 +37,13 @@ COURSES = (
 
 
 class AspirantDetailsForm(forms.Form):
-    name = forms.CharField(label=_('Name'), widget=forms.TextInput(attrs={'class': "form-control"}))
-    email = forms.EmailField(label=_('Email'), widget=forms.TextInput(attrs={'class': "form-control"}))
-    phone = PhoneNumberField(label=_('Phone'), widget=forms.TextInput(attrs={'class': "form-control"}))
+    name = forms.CharField(label=_('Name'), widget=forms.TextInput(attrs={'class': "form-control border-radius-20", 'id':"form_name"}))
+    email = forms.EmailField(label=_('Email'), widget=forms.TextInput(attrs={'class': "form-control border-radius-20", 'id':"form_email"}))
+    phone = PhoneNumberField(label=_('Phone'), widget=forms.TextInput(attrs={'class': "form-control border-radius-20", 'id':"form_phone"}))
     qualification = forms.ChoiceField(label=_('Qualification'), choices=QUALIFICATION,
-                                      widget=forms.Select(attrs={'class': "form-control  border-radius-20"}))
-    stream = forms.ChoiceField(label=_('Stream'), choices=STREAM, widget=forms.Select(attrs={'class': "form-control "
-                                                                                                      "border-radius-20"}))
-    resume = forms.FileField(label=_('Upload Resume'), widget=forms.FileInput(attrs={'class': "form-control pt-1"}))
+                                      widget=forms.Select(attrs={'class': "form-control border-radius-20", 'id':"form_qualification"}))
+    stream = forms.ChoiceField(label=_('Stream'), choices=STREAM, widget=forms.Select(attrs={'class': "form-control border-radius-20", 'id':"form_stream"}))
+    resume = forms.FileField(label=_('Upload Resume'), widget=forms.FileInput(attrs={'class': "form-control pt-1 custom-file-input", 'id':"inputGroupFile02"}))
 
     def clean(self):
         cleaned_data = super().clean()
@@ -61,12 +63,13 @@ class AspirantDetailsForm(forms.Form):
 
 
 class AspirantCountryDetailsForm(forms.Form):
-    country = forms.ChoiceField(label=_('Country'), widget=forms.RadioSelect, choices=COUNTRY)
+    country = forms.ChoiceField(label=_('Country'), choices=COUNTRY,widget=forms.RadioSelect(attrs={'class': "mr-3"}))
 
 
 class DesiredQualificationForm(forms.Form):
     lokking_for_stream = forms.ChoiceField(label=_('Stream Looking For'), choices=STREAM,
-                                           widget=forms.Select(attrs={'class': "form-control border-radius-20"}))
+                                           widget=forms.Select(attrs={'class': "form-control border-radius-20", 'id':"form_stream_for", 'placeholder': "Select Stream"}))
     lokking_for_course = forms.ChoiceField(label=_('Course Looking For'), choices=COURSES,
-                                           widget=forms.Select(attrs={'class': "form-control border-radius-20"}))
-    year = forms.IntegerField()
+                                           widget=forms.Select(attrs={'class': "form-control border-radius-20", 'id':"form_course_for", 'placeholder': "Select Course"}))
+    year = forms.TypedChoiceField(coerce=int, choices=year_choices,widget=forms.Select(attrs={'class': "form-control border-radius-20"}))
+
