@@ -78,3 +78,16 @@ class Order(models.Model):
 
     def __str__(self):
         return self.order_id
+
+
+class Comment(models.Model):
+    message = models.TextField(_('Message'))
+    reference_files = models.FileField(_('Reference File'), upload_to=upload_to, blank=True, null=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='comment_author')
+    order = models.ForeignKey(Order, on_delete=models.PROTECT, related_name='comment_author')
+
+    created = models.DateTimeField(editable=False, auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.message
