@@ -361,12 +361,16 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
                     # res = msg.send()
                     #
                     from django.core.mail import send_mail
-                    subject = 'Your downloaded document from desklib.com'
                     message = ''
                     from_email = settings.DEFAULT_FROM_EMAIL
                     recipient_list = [request.user.email],
                     html_message = htmly
-                    mail = EmailMultiAlternatives(subject, message, from_email, recipient_list)
+                    mail = EmailMultiAlternatives(
+                        subject='Your downloaded document from desklib.com',
+                        to=[request.user.email],
+                        body=''
+                    )
+                    # mail = EmailMultiAlternatives(subject, message, from_email, to=recipient_list)
                     mail.attach_alternative(html_message, 'text/html')
                     mail.attach(filename="Document.pdf", content=file_to_be_send.read(), mimetype='application/text')
                     mail.send(True)
