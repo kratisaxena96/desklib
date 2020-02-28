@@ -1,67 +1,76 @@
 {% load staticfiles %}
 <footer class="footer grey-theme">
-    <div class="container-fluid padding-top-20 padding-bottom-10">
+    <div class="container p-4">
         <div class="row footer-row pt-3 pb-4">
-            <div class="col-md-3 col-sm-12 py-1">
-                <a class="white" href="/">
-                    <img class="img-responsive" src="{% static 'dist/assets/images/desklib-logo-trans.png' %}" alt="desklib-logo">
-                </a>
+            <div class="col-md-3">
+                <h5 class="white">Subjects</h5>
+                  <div class="pt-3">
+                        <ul class="footer-ul">
+                            <li><a href="" class="text-light-black text-decoration-none">Business & Management</a></li>
+                            <li><a href="" class="text-light-black text-decoration-none">Art & Design</a></li>
+                            <li><a href="" class="text-light-black text-decoration-none">Computer Science</a></li>
+                            <li><a href="" class="text-light-black text-decoration-none">Education & Teaching</a></li>
+                            <li><a href="" class="text-light-black text-decoration-none">Engineering</a></li>
+                            <li><a href="" class="text-light-black text-decoration-none">Health & Medicine</a></li>
+                            <li><a href="" class="text-light-black text-decoration-none">Humanities</a></li>
+                            <li><a href="" class="text-light-black text-decoration-none">Mathematics</a></li>
+                            <li><a href="" class="text-light-black text-decoration-none">Programming</a></li>
+                            <li><a href="" class="text-light-black text-decoration-none">Science</a></li>
+                            <li><a href="" class="text-light-black text-decoration-none">Social Science</a></li>
+                        </ul>
+                  </div>
             </div>
             <div class="col-md-3 col-sm-4">
-                <ul class="footer-ul">
-                    <li class="font-size-20 white"><a class="white" href="{% url 'about' %}">About</a></li>
-<!--                    <li class="list-inline-item font-size-20 white px-5"><a class="white" href="{% url 'about' %}">About</a></li>-->
-                    <li class="font-size-20 white"><a class="white" href="{% url 'termsofuse' %}">Terms of use</a></li>
-                    <li class="font-size-20 white"><a class="white" href="{% url 'contact' %}">Contact Us</a></li>
-                </ul>
+                  <h5 class="white">Pages</h5>
+                  <div class="pt-3">
+                      <ul class="footer-ul">
+                            <li class=""><a class="text-light-black text-decoration-none" href="{% url 'home' %}">Home</a></li>
+                            <li class=""><a class="text-light-black text-decoration-none" href="{% url 'study:study-search' %}">Study</a></li>
+                            <li class=""><a class="text-light-black text-decoration-none" href="{% url 'writing:writing' %}">Writing</a></li>
+                      </ul>
+                  </div>
             </div>
             <div class="col-md-3 col-sm-4">
-                <ul class="footer-ul">
-                    <li class="font-size-20 white"><a class="white" href="{% url 'privacypolicy' %}">Privacy Policy</a></li>
-                    <li class="font-size-20 white"><a class="white" href="{% url 'honorcode' %}">Honor Code</a></li>
-                    <li class="font-size-20 white"><a class="white" href="{% url 'academicintegrity' %}">Academic Integrity</a></li>
-                    <li class="font-size-20 white"><a class="white" href="{% url 'copyright' %}">Copyright</a></li>
-                </ul>
+                  <h5 class="white">Support</h5>
+                  <div class="pt-3">
+                      <ul class="footer-ul">
+                        <li class=""><a class="text-light-black text-decoration-none" href="{% url 'termsofuse' %}">Terms Of Use</a></li>
+                        <li class=""><a class="text-light-black text-decoration-none" href="{% url 'privacypolicy' %}">Privacy Policy</a></li>
+                        <li class=""><a class="text-light-black text-decoration-none" href="{% url 'copyright' %}">Copyright</a></li>
+                        <li class=""><a class="text-light-black text-decoration-none" href="{% url 'about' %}">About Us</a></li>
+                      </ul>
+                  </div>
             </div>
-
             <div class="col-md-3 col-sm-4">
-                <ul class="footer-ul">
-                    <li class="list-inline-item font-size-20 white pt-1"><a href="https://www.linkedin.com/company/desklib/"><img src="{% static 'dist/assets/images/Linkedin.png' %}" alt="linked_in icon"></a></li>
-                    <li class="list-inline-item font-size-20 white pt-1"><a href="https://www.facebook.com/desklib/"><img src="{% static 'dist/assets/images/Facebook.png' %}" alt="facebook icon"></a></li>
-                    {% comment %}
-                    <li class="list-inline-item font-size-20 white pt-1"><a href="https://twitter.com/Desklibcom"><img src="{% static 'dist/assets/images/Twitter.png' %}" alt="twitter icon"></a></li>
-                     {% endcomment %}
-                    <li class="list-inline-item font-size-20 white pt-1"><a href="https://www.instagram.com/desklib/"><img src="{% static 'dist/assets/images/Instagram.png' %}" alt="instagram icon"></a></li>
-                </ul>
-            </div>
+                 <h5 class="white">Tools</h5>
+                 <div class="pt-3">
+                     <ul class="footer-ul">
+                        <li class=""><a class="text-light-black text-decoration-none" href="{% url 'writing:grammar' %}">Grammar Checker</a></li>
+                        <li class=""><a class="text-light-black text-decoration-none" href="{% url 'writing:compare' %}">Plagiarism Checker</a></li>
+                        <li class=""><a class="text-light-black text-decoration-none" href="{% url 'writing:sample-list-view' %}">Resume Writing</a></li>
+                     </ul>
+                 </div>
         </div>
-        <hr class="border-white margin-top-0">
-        <div class="text-center">
-            <div class="font-size-12"><i class="far fa-copyright fa-x text-white">&nbsp;&nbsp;{% now "Y" %} A2ZSERVICES PTE LTD. All rights reserved.</i></div>
+    </div>
+        <div class="row pt-5">
+            <div class="col-md-5">
+                <h5 class="white d-inline-block">Follow Us</h5>
+                <div class="white d-inline-block pl-4">
+                    <ul class="footer-ul ml-4">
+                         <li class="d-inline-block mr-5"><a href="https://www.linkedin.com/company/desklib/"><img src="{% static 'dist/assets/images/Linkedin.png' %}" alt="linked_in icon"></a></li>
+                         <li class="d-inline-block mr-5"><a href="https://www.facebook.com/desklib/"><img src="{% static 'dist/assets/images/Facebook.png' %}" alt="facebook icon"></a></li>
+                         <li class="d-inline-block mr-5"><a href="https://twitter.com/Desklibcom"><img src="{% static 'dist/assets/images/Twitter.png' %}" alt="twitter icon"></a></li>
+                         {% comment %}
+                        <li class="d-inline-block"><a href="https://www.instagram.com/desklib/"><img src="{% static 'dist/assets/images/Instagram.png' %}" alt="instagram icon"></a></li>
+					    {% endcomment %}
+                    </ul>
+            </div>
+            </div>
+            <div class="col-md-5">
+                <div class="text-light-black d-inline-block">
+                    <div class="font-size-12 d-inline-block"><i class="far fa-copyright fa-x text-white">&nbsp;&nbsp;{% now "Y" %} A2ZSERVICES PTE LTD. All rights reserved.</i></div>
+                </div>
+            </div>
         </div>
     </div>
 </footer>
-
-
-<!--<div class="col-md-2">-->
-<!--                <p class="font-size-20 text-center white">About</p>-->
-<!--            </div>-->
-<!--            <div class="col-md-2">-->
-<!--                <p class="font-size-20 text-center white">Support</p>-->
-<!--            </div>-->
-<!--            <div class="col-md-2">-->
-<!--                <p class="font-size-20 text-center white">Help</p>-->
-<!--            </div>-->
-<!--            <div class="col-md-2">-->
-<!--                <p class="font-size-20 text-center white">Contact Us</p>-->
-<!--            </div>-->
-
-<!--            <div class="col-md-4">-->
-<!--                <div id="copyright" class="padding-top-10 text-center">-->
-<!--                    <a  class="footer-icon-img padding-10"  href="https://www.linkedin.com"><img src="{% static 'dist/assets/images/Linkedin.png' %}"></a>-->
-<!--                    &lt;!&ndash; <a  class="footer-icon-img" href="https://www.instagram.com"><img src="{% static 'dist/assets/images/search icon.png' %}"></a> &ndash;&gt;-->
-<!--                    <a  class="footer-icon-img padding-10" href="https://www.facebook.com"><img src="{% static 'dist/assets/images/Facebook.png' %}"></a>-->
-<!--                    <a  class="footer-icon-img padding-10" href="https://www.twitter.com"><img src="{% static 'dist/assets/images/Twitter.png' %}"></a>-->
-<!--                    &lt;!&ndash; <p class="copyright-c">© 2017-{% now 'y' %} Desklib. All rights reserved</p> &ndash;&gt;-->
-<!--                </div>-->
-<!--            </div>-->
