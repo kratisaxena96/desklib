@@ -5,7 +5,7 @@ from . models import Question, Order, Comment
 class CommentAdmin(admin.ModelAdmin):
     readonly_fields = ['created', 'updated']
     raw_id_fields = ['author', 'order']
-    list_display = ['comment', 'author', 'created']
+    list_display = ['message', 'author', 'created']
 
 
 # Register your models here.
