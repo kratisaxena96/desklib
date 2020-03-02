@@ -22,10 +22,10 @@ FLAG_MAIL_TO_TEST = True
 INSTALLED_APPS += [
     'debug_toolbar',
     # 'djcelery',
+    'admissions',
     'formtools',
     # 'homework',
-    'admissions',
-    'channels'
+    # 'channels'
     # 'django_celery_results',
     # 'kombu.transport.django'
 ]
@@ -57,15 +57,15 @@ DEFAULT_FROM_EMAIL = 'vishakha.sharma@locusrags.com'
 # DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000*2
 #https://sorl-thumbnail.readthedocs.io/en/latest/requirements.html kindly satisfy requirements for sorl-thumbnail.
 # Channels
-ASGI_APPLICATION = 'desklib.routing.application'
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
-        },
-    },
-}
+# ASGI_APPLICATION = 'desklib.routing.application'
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#         'CONFIG': {
+#             "hosts": [('127.0.0.1', 6379)],
+#         },
+#     },
+# }
 
 THUMBNAIL_DEBUG = True
 MIDDLEWARE += [
@@ -86,4 +86,4 @@ META_USE_TITLE_TAG = True
 RECAPTCHA_PUBLIC_KEY= "6LeT_rYUAAAAACn413JJTLeX6FJShA3sCK3Tc5b4"
 RECAPTCHA_PRIVATE_KEY = "6LeT_rYUAAAAADYzTg-nkVC3eRv5KBUrbRPTkkxZ"
 
-ASGI_APPLICATION = "desklib.routing.application"
+# ASGI_APPLICATION = "desklib.routing.application"

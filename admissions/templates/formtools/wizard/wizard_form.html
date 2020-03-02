@@ -12,13 +12,10 @@
                             {% csrf_token %}
                             {{ wizard.form.media }}
                             {{ wizard.management_form }}
-<!--							 <h1> {{wizard.steps.current}}</h1>-->
 							<ul class="stepper" id="progressbar">
 								<li class="step active one">
 									<div class="bg-light-gray border-radius-20 pt-1">
 									<div class="step-title pt-2 pb-2">
-<!--										<span class="d-block mt-n-1" current-step="{{wizard.steps.current}}"><strong>Step&nbsp;&nbsp;{{wizard.steps.step1}}</strong></span>-->
-<!--										<span class="d-block mt-n-1"><strong>Step&nbsp;&nbsp;1</strong></span>-->
 										<span class="d-block mt-n-1"><strong>{% trans "Choose Your Country" %}</strong></span>
 									</div>
 									</div>
