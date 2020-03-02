@@ -38,7 +38,7 @@ sitemaps = {
     'documents': DocumentSitemap,
     'static': StaticViewSitemap,
     'samples': SampleSitemap,
-    'subjects': SubjectSitemap
+    # 'subjects': SubjectSitemap
 }
 
 urlpatterns = [
@@ -54,7 +54,7 @@ urlpatterns = [
                   path('my-downloads/', MyDownloads.as_view(), name="my-downloads"),
                   path('about/', AboutPageView.as_view(), name='about'),
                   # path('homework/', include('homework.urls'), namespace="homework"),
-                  path('homework/', include(('homework.urls','homework'), namespace="homeworks")),
+                  # path('homework/', include(('homework.urls','homework'), namespace="homeworks")),
                   path('privacy-policy/', PrivacyPolicyView.as_view(), name='privacypolicy'),
                   path('copyright/', CopyrightPolicyView.as_view(), name='copyright'),
                   path('honor-code/', HonorCodeView.as_view(), name='honorcode'),
@@ -86,7 +86,7 @@ urlpatterns = [
                   path('api/', include(('api.urls', 'api'), namespace="api")),
                   # path('admissions/', include(('admissions.urls', 'admissions'), namespace="admissions")),
                   path('admissions/', include(('admissions.urls', 'admissions'), namespace="admissions")),
-                  path('homework-help/', include(('homework_help.urls', 'homework_help'), namespace="homework_help")),
+                  # path('homework-help/', include(('homework_help.urls', 'homework_help'), namespace="homework_help")),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

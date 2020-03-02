@@ -77,6 +77,7 @@ INSTALLED_APPS = [
     'django_countries',
     'review',
     'admissions',
+    'homework_help'
 ]
 
 SITE_ID = 1

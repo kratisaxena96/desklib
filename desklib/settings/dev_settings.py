@@ -22,7 +22,7 @@ FLAG_MAIL_TO_TEST = True
 INSTALLED_APPS += [
     'debug_toolbar',
     # 'djcelery',
-    'admissions',
+    # 'admissions',
     'formtools',
     # 'homework',
     'channels'

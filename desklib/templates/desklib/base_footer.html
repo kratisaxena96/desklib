@@ -6,7 +6,9 @@
                 <h5 class="white">Subjects</h5>
                   <div class="pt-3">
                         <ul class="footer-ul">
-                            <li><a href="" class="text-light-black text-decoration-none">Business & Management</a></li>
+                            {% for sub in parent_subjects %}
+					  		<li><a class="text-light-black text-decoration-none" href="{% url 'subjects:parent-subject-view' sub.slug %}">{{sub}}</a></li>
+						{% endfor %}
                         </ul>
                   </div>
             </div>
