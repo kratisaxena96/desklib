@@ -1,6 +1,6 @@
 from django.urls import path
 
-from homework_help.api_view import QuestionCreateApiView, CommentCreateApiView
+from homework_help.api_views import QuestionCreateApiView, CommentCreateApiView
 
 urlpatterns = [
     path('create-question/', QuestionCreateApiView.as_view(), name='question-create-api'),
