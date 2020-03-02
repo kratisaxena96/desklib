@@ -22,6 +22,8 @@ from django.conf.urls.i18n import i18n_patterns
 
 # from admissions.forms import AspirantCountryDetailsForm, AspirantDetailsForm,DesiredQualificationForm
 # from admissions.views import AspirantDetailsView, ContactWizard
+from admissions.forms import AspirantCountryDetailsForm, AspirantDetailsForm, DesiredQualificationForm
+from admissions.views import ContactWizard
 from .sitemaps import DocumentSitemap, StaticViewSitemap, SampleSitemap, SubjectSitemap
 from django.views.decorators.cache import cache_page
 from django.contrib.sitemaps import views
@@ -90,7 +92,7 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(
     url(r'^$', HomePageView.as_view(), name='home'),
-    # url(r'^admissions/contacts/', ContactWizard.as_view([AspirantCountryDetailsForm, AspirantDetailsForm,DesiredQualificationForm]), name='admissions')
+    url(r'^admissions/contacts/', ContactWizard.as_view([AspirantCountryDetailsForm, AspirantDetailsForm,DesiredQualificationForm]), name='admissions')
 
 # url(r'^admin/', include(admin.site.urls)),
 )
