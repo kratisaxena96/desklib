@@ -1,22 +1,12 @@
 {% load staticfiles %}
 <footer class="footer grey-theme">
     <div class="container p-4">
-        <div class="row footer-row pt-3 pb-4">
+        <div class="row footer-row pt-3 pb-md-4 pb-2">
             <div class="col-md-3">
                 <h5 class="white">Subjects</h5>
                   <div class="pt-3">
                         <ul class="footer-ul">
                             <li><a href="" class="text-light-black text-decoration-none">Business & Management</a></li>
-                            <li><a href="" class="text-light-black text-decoration-none">Art & Design</a></li>
-                            <li><a href="" class="text-light-black text-decoration-none">Computer Science</a></li>
-                            <li><a href="" class="text-light-black text-decoration-none">Education & Teaching</a></li>
-                            <li><a href="" class="text-light-black text-decoration-none">Engineering</a></li>
-                            <li><a href="" class="text-light-black text-decoration-none">Health & Medicine</a></li>
-                            <li><a href="" class="text-light-black text-decoration-none">Humanities</a></li>
-                            <li><a href="" class="text-light-black text-decoration-none">Mathematics</a></li>
-                            <li><a href="" class="text-light-black text-decoration-none">Programming</a></li>
-                            <li><a href="" class="text-light-black text-decoration-none">Science</a></li>
-                            <li><a href="" class="text-light-black text-decoration-none">Social Science</a></li>
                         </ul>
                   </div>
             </div>
@@ -27,6 +17,8 @@
                             <li class=""><a class="text-light-black text-decoration-none" href="{% url 'home' %}">Home</a></li>
                             <li class=""><a class="text-light-black text-decoration-none" href="{% url 'study:study-search' %}">Study</a></li>
                             <li class=""><a class="text-light-black text-decoration-none" href="{% url 'writing:writing' %}">Writing</a></li>
+                            <li class=""><a class="text-light-black text-decoration-none" href="{% url 'subscription' %}">Plans</a></li>
+
                       </ul>
                   </div>
             </div>
@@ -52,13 +44,13 @@
                  </div>
         </div>
     </div>
-        <div class="row pt-5">
+        <div class="row pt-lg-5 pt-0">
             <div class="col-md-5">
-                <h5 class="white d-inline-block">Follow Us</h5>
-                <div class="white d-inline-block pl-4">
-                    <ul class="footer-ul ml-4">
-                         <li class="d-inline-block mr-5"><a href="https://www.linkedin.com/company/desklib/"><img src="{% static 'dist/assets/images/Linkedin.png' %}" alt="linked_in icon"></a></li>
-                         <li class="d-inline-block mr-5"><a href="https://www.facebook.com/desklib/"><img src="{% static 'dist/assets/images/Facebook.png' %}" alt="facebook icon"></a></li>
+                <h5 class="white d-md-inline-block">Follow Us</h5>
+                <div class="white d-inline-block pl-lg-4 pl-0 mt-md-3 mt-lg-0">
+                    <ul class="footer-ul ml-lg-4 ml-0">
+                         <li class="d-inline-block mr-3 mr-md-5 pt-3 pt-md-0"><a href="https://www.linkedin.com/company/desklib/"><img src="{% static 'dist/assets/images/Linkedin.png' %}" alt="linked_in icon"></a></li>
+                         <li class="d-inline-block mr-3 mr-md-5 pt-3 pt-md-0"><a href="https://www.facebook.com/desklib/"><img src="{% static 'dist/assets/images/Facebook.png' %}" alt="facebook icon"></a></li>
                          <li class="d-inline-block mr-5"><a href="https://twitter.com/Desklibcom"><img src="{% static 'dist/assets/images/Twitter.png' %}" alt="twitter icon"></a></li>
                          {% comment %}
                         <li class="d-inline-block"><a href="https://www.instagram.com/desklib/"><img src="{% static 'dist/assets/images/Instagram.png' %}" alt="instagram icon"></a></li>

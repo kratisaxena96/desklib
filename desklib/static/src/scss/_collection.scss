@@ -163,6 +163,12 @@ body {
 .add-dash::after {
     content: ' -';
 }
+.search-bar-border-none{
+    border-top: none;
+    border-left: none;
+    border-bottom: none;
+    border-right: none;
+}
 
 //---------------------------------For Admissions page form  (Menka Kumari)--------------------------//
 ul.stepper .step {
@@ -970,7 +976,7 @@ display:none;
 }
 .search-bg-body {
 	background-color: #405FBD;	
-	margin-left: -48px;
+	margin-left: -38px;
 	padding-left: 15px;
 	padding-right: 12px;
 }
