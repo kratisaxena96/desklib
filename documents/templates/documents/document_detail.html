@@ -21,8 +21,6 @@
 
     </style>
     <style>
-
-
 .textLayer {
   position: absolute;
   left: 0;
@@ -239,12 +237,10 @@ opacity:0.9 !important;
 
                                   <div class="form-group text-left">
                                     <p>{{form.issue.label}}</p>
-
-
                                         {% for x in form.fields.issue.choices %}
                                           <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" class="custom-control-input" id="{{x.1}}" name="issue" value="{{x.0}}" checked>
-                                            <label class="custom-control-label" for="{{x.1}}">{{x.1}}</label>
+                                            <input type="radio" class="custom-control-input" id="{{x.1|cut:' '}}" name="issue" value="{{x.0}}" checked>
+                                            <label class="custom-control-label" for="{{x.1|cut:' '}}">{{x.1}}</label>
                                           </div>
                                         {% endfor %}
 
@@ -324,6 +320,7 @@ opacity:0.9 !important;
             {% endfor %}
 
         </div>
+<!--        </div>-->
         {% if not payperdoc %}
         <div class="subscribe mt-3 mb-5">
             <div class="jumbotron p-4 mb-3 text-center">
@@ -334,7 +331,7 @@ opacity:0.9 !important;
         {% endif %}
 
     </article>
-     <aside class="col-md-4">
+ <aside class="col-md-4">
         {% if more_like_this %}
             <section class="similar-resource">
                 <h3>Similar Documents</h3>
@@ -344,10 +341,22 @@ opacity:0.9 !important;
                                 <article class="col-6 col-md-12 col-lg-6 mb-3">
                                     <a href="{% url 'documents:document-view' results.slug %}" class="text-decoration-none">
                                         <div>
-                                            <div class="card min-height-smilar-pages-card">
-                                                <img class="card-img-top card-height" src="{{ results.cover_image }}" alt="{{ results.title }}">
-                                                <div class="card-body">
-                                                    <p class="card-text">{{results.title|truncatechars:25|title}}</p>
+                                            <div class="main-div border-radius-5 shadow document-similar-height">
+                                                <img class="card-img-top " src="{{ results.cover_image }}" alt="{{ results.title }}">
+                                                <div class="card-body bg-light hover-div">
+                                                    <h6 class="word-wrap blue-theme">{{results.title|truncatechars:20}}</h6>
+<!--                                                    <div class="btn-d-none">-->
+<!--                                                    <span class="d-block">-->
+<!--                                                    <small class="text-muted">{{results.no_of_pages}}</small>-->
+<!--                                                    <small class="text-muted add-dash">pages</small>-->
+<!--                                                    </span>-->
+<!--                                                    <span class="d-block">-->
+<!--                                                    <small class="text-muted">{{results.no_of_words}}</small>-->
+<!--                                                    <small class="text-muted add-dash">words</small>-->
+<!--                                                    </span>-->
+<!--                                                    <small class="text-muted d-block">{{results.pub_date|date:"d M Y"}}</small>-->
+<!--                                                    <a href="{% url 'documents:document-view' results.slug %}" class="btn btn-bg-theme text-white mt-3 mb-3 pt-1 pb-1 border-radius-20">View Document</a>-->
+<!--                                                    </div>-->
                                                 </div>
                                             </div>
                                         </div>

@@ -1,9 +1,12 @@
 {% load staticfiles %}
 {% load meta %}
 {% load render_json_ld from json_ld %}
-
+{% load i18n %}
+{% load translate_url %}
+{% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="{{ LANGUAGE_CODE }}">
+
 <head {% meta_namespaces %}>
     <meta charset="utf-8">
 <!--  {%comment %}  <title>{% block title %}{% endblock %}{% endcomment %}</title>-->
@@ -11,6 +14,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% include "meta/meta.html" %}
     <link rel="stylesheet" href='{% static "dist/css/bundle.css" %}'>
+
+{% get_available_languages as LANGUAGES %}
+{% for language_code, language_name in LANGUAGES %}
+    <link
+        rel="alternate"
+        hreflang="{{ language_code }}"
+        href="{% translate_url  language_code %}" />
+{% endfor %}
+    <link
+    rel="alternate"
+    hreflang="x-default"
+    href="{% translate_url  LANGUAGE_CODE  %}" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     

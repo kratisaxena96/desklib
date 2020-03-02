@@ -162,11 +162,11 @@
                      <small class="text-muted add-dash">pages</small>
                      <small class="text-muted">{{results.no_of_words}}</small>
                      <small class="text-muted add-dash">words</small>
-                     <small class="text-muted d-md-block d-lg-inline">{{results.pub_date|date:"d M Y"}}</small>
+                     <small class="text-muted">{{results.pub_date|date:"d M Y"}}</small>
                      <small class="text-muted pt-1 btn-d-none">{{results.description|safe|truncatechars:60}}</small>
                      <a href="{% url 'documents:document-view' results.slug %}" class="btn btn-bg-theme border-radius-20 btn-d-none text-white mt-3 mb-3 pt-1 pb-1">View Document</a>
                  </div></a>
-        </div>
+        </div>  
     </div>
 
         {% endfor %}
@@ -178,7 +178,7 @@
             </div>
     </div>
 </section>
-{% endif %}
+{% endif %} 
 
     {% if recent %}
      <section class="container-fluid pt-5 pb-5 bg-white">
@@ -198,7 +198,7 @@
                         <small class="text-muted add-dash">pages</small>
                         <small class="text-muted">{{rec.no_of_words}}</small>
                         <small class="text-muted add-dash">words</small>
-                        <small class="text-muted d-md-block d-lg-inline">{{rec.pub_date|date:"d M Y"}}</small>
+                        <small class="text-muted">{{rec.pub_date|date:"d M Y"}}</small>
                         <small class="text-muted pt-1 btn-d-none">{{rec.description|safe|truncatechars:60}}</small>
                         <a href="{% url 'documents:document-view' rec.slug %}" class="btn btn-bg-theme border-radius-20 btn-d-none text-white mt-3 mb-3 pt-1 pb-1">View Document</a>
                  </div>
@@ -237,7 +237,7 @@
                     <a class="btn text-white btn-bg-theme btn-lg border-radius-40" href="{% url 'subscription' %}">Try Now</a>
                 </div>
     </section>
-
+    
 {% for subject in subjects %}
 <a href="{% url 'study:search' %}?selected_facets=subjects_exact:{{ subject.slug }}">{{ subject.name }}</a>
 {% endfor %}
@@ -313,7 +313,7 @@ $('#form').submit(function (event) {
          var el = '<input type="hidden" name="selected_facets" value=""></input>';
           $('.selected_facets').val($(this).val());
           $('#form').append(el);
-
+         
       tempArray.push('selected_facets=subjects_exact:'+$(this).val());
             });
 

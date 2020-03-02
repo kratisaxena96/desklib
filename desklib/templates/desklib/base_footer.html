@@ -1,97 +1,70 @@
 {% load staticfiles %}
-<footer class="bg_gray" >
-      <div class="container">
-        <div class="row footer-main">
-          <div class="col-lg-2 col-md-2 col-sm-6 footer_detail">
-			<h3>Subjects</h3>
-			  <div class="footer-heading">
-					<ul>
-						{% for sub in parent_subjects %}
-					  		<li><a href="{% url 'subjects:parent-subject-view' sub.slug %}">{{sub}}</a></li>
-						{% endfor %}
-					</ul>
-			  </div>
-		  </div>
-          <div class="col-lg-2 col-md-3 col-sm-6  footer_detail">
-			<h3>Pages</h3>
-			  <div class="footer-heading">
-					<ul>
-					  <li><a href="{% url 'home' %}" class="">Home</a></li>
-					  <li><a href="{% url 'study:study-search' %}" class="" onclick="ga('send', 'event', 'assignment_help', 'click', 'footer_assignment_help_clicks')">Study</a></li>
-					  <li><a href="{% url 'writing:writing' %}" class="" onclick="ga('send', 'event', 'homeschooling', 'click', 'footer_homeschooling_clicks')">Writing</a></li>
-<!--					  <li><a href="/school" class="">School</a></li>-->
-<!--					  <li><a href="/corporate" class="">Corporate</a></li>-->
-<!--					  <li><a href="/non-profit" class="">Non Profit</a></li>-->
-					</ul>
-			  </div>
-		  </div>
-          <div class="col-md-2 col-sm-6  footer_detail">
-		    <h3>Support</h3>
-			   	<div class="footer-heading">
-					<ul>
-					  <li><a href="{% url 'termsofuse' %}" class="">Terms of Use's</a></li>
-					  <li><a href="{% url 'privacypolicy' %}" class="">Privacy Policy</a></li>
-					  <li><a href="{% url 'copyright' %}" class="">Copyright</a></li>
-					  <li><a href="{% url 'about' %}" class="">About US</a></li>
-					</ul>
-				</div>
-		  </div>
-          <div class="col-lg-3 col-md-3 col-sm-6 footer_detail">
-		    <h3>Tools</h3>
-			   	<div class="footer-heading">
-					<ul>
-						<li><a href="{% url 'writing:grammar' %}" class="">Grammar Checker</a></li>
-						<li><a href="{% url 'writing:compare' %}" class="">Plagiarism Checker</a></li>
-						<li><a href="{% url 'writing:sample-list-view' %}" class="">Resume Writing</a></li>
-					</ul>
-				</div>
-		  </div>
-          <div class="col-md-2 col-sm-12 footer_detail">
-			<h3>Follow Us</h3>
-			   <div class="footer-heading last">
-					<ul>
-					 <li><a href="https://www.linkedin.com/company/desklib/" class="">Linked In</a></li>
-						<li><a href="https://www.facebook.com/desklib/" class="">Facebook</a></li>
-						<li><a href="https://www.instagram.com/desklib/" class="">Instagram</a></li>
-						<li><a href="https://www.pinterest.com/desklib/" class="">Pinterest</a></li>
-					</ul>
-			   </div>
-		  </div>
-          <div class="clearfix"></div>
+<footer class="footer grey-theme">
+    <div class="container p-4">
+        <div class="row footer-row pt-3 pb-md-4 pb-2">
+            <div class="col-md-3">
+                <h5 class="white">Subjects</h5>
+                  <div class="pt-3">
+                        <ul class="footer-ul">
+                            <li><a href="" class="text-light-black text-decoration-none">Business & Management</a></li>
+                        </ul>
+                  </div>
+            </div>
+            <div class="col-md-3 col-sm-4">
+                  <h5 class="white">Pages</h5>
+                  <div class="pt-3">
+                      <ul class="footer-ul">
+                            <li class=""><a class="text-light-black text-decoration-none" href="{% url 'home' %}">Home</a></li>
+                            <li class=""><a class="text-light-black text-decoration-none" href="{% url 'study:study-search' %}">Study</a></li>
+                            <li class=""><a class="text-light-black text-decoration-none" href="{% url 'writing:writing' %}">Writing</a></li>
+                            <li class=""><a class="text-light-black text-decoration-none" href="{% url 'subscription' %}">Plans</a></li>
 
-		</div>
-        <!--row closed-->
-      </div>
-      <!--bg closed-->
-    </footer>
-<div class="page-last ">
-      <div class="container">
-        <div class="row">
-		    <div class="col-md-7 col-sm-6 subscribe_text ">
-				<div class="float-md-left">
-
-			</div>
-			</div>
-			<div class="col-md-5 col-sm-6 fsocial_icons">
-				<div class="social_icon list-inline center-block">
-					<ul class="list-inline">
-						  <li class="list-inline-item font-size-20 white pt-1"><a href="https://www.linkedin.com/company/desklib/"><img src="{% static 'dist/assets/images/Linkedin.png' %}" alt="linked_in icon"></a></li>
-                    <li class="list-inline-item font-size-20 white pt-1"><a href="https://www.facebook.com/desklib/"><img src="{% static 'dist/assets/images/Facebook.png' %}" alt="facebook icon"></a></li>
-                    {% comment %}
-                    <li class="list-inline-item font-size-20 white pt-1"><a href="https://twitter.com/Desklibcom"><img src="{% static 'dist/assets/images/Twitter.png' %}" alt="twitter icon"></a></li>
-                     {% endcomment %}
-                    <li class="list-inline-item font-size-20 white pt-1"><a href="https://www.instagram.com/desklib/"><img src="{% static 'dist/assets/images/Instagram.png' %}" alt="instagram icon"></a></li>
-
-						<ul>
-
-<!--					<p class="develop_text">Design: <i>Trius Infotech</i></p>-->
-					<p class="develop_text"><i class="far fa-copyright fa-x text-white">2020 A2ZSERVICES PTE LTD. All rights reserved.</i></p>
-
-				</div>
-			</div>
-			<!-- <div class="col-md-12 col-sm-12 contct_text">
-		    	<p>TutorEye Inc. 12883 Carriage Heights Way, Poway, CA 92064 | +1 (858) 324-5481 | <a href="mailto:support@tutoreye.com">support@tutoreye.com</a></p>
-		    </div> -->
-		</div>
-	   </div>
-	</div>
+                      </ul>
+                  </div>
+            </div>
+            <div class="col-md-3 col-sm-4">
+                  <h5 class="white">Support</h5>
+                  <div class="pt-3">
+                      <ul class="footer-ul">
+                        <li class=""><a class="text-light-black text-decoration-none" href="{% url 'termsofuse' %}">Terms Of Use</a></li>
+                        <li class=""><a class="text-light-black text-decoration-none" href="{% url 'privacypolicy' %}">Privacy Policy</a></li>
+                        <li class=""><a class="text-light-black text-decoration-none" href="{% url 'copyright' %}">Copyright</a></li>
+                        <li class=""><a class="text-light-black text-decoration-none" href="{% url 'about' %}">About Us</a></li>
+                      </ul>
+                  </div>
+            </div>
+            <div class="col-md-3 col-sm-4">
+                 <h5 class="white">Tools</h5>
+                 <div class="pt-3">
+                     <ul class="footer-ul">
+                        <li class=""><a class="text-light-black text-decoration-none" href="{% url 'writing:grammar' %}">Grammar Checker</a></li>
+                        <li class=""><a class="text-light-black text-decoration-none" href="{% url 'writing:compare' %}">Plagiarism Checker</a></li>
+                        <li class=""><a class="text-light-black text-decoration-none" href="{% url 'writing:sample-list-view' %}">Resume Writing</a></li>
+                     </ul>
+                 </div>
+        </div>
+    </div>
+        <div class="row pt-lg-5 pt-0">
+            <div class="col-md-5">
+                <h5 class="white d-md-inline-block">Follow Us</h5>
+                <div class="white d-inline-block pl-lg-4 pl-0 mt-md-3 mt-lg-0">
+                    <ul class="footer-ul ml-lg-4 ml-0">
+                         <li class="d-inline-block mr-3 mr-md-5 pt-3 pt-md-0"><a href="https://www.linkedin.com/company/desklib/"><img src="{% static 'dist/assets/images/Linkedin.png' %}" alt="linked_in icon"></a></li>
+                         <li class="d-inline-block mr-3 mr-md-5 pt-3 pt-md-0"><a href="https://www.facebook.com/desklib/"><img src="{% static 'dist/assets/images/Facebook.png' %}" alt="facebook icon"></a></li>
+                         <li class="d-inline-block mr-5"><a href="https://twitter.com/Desklibcom"><img src="{% static 'dist/assets/images/Twitter.png' %}" alt="twitter icon"></a></li>
+                         {% comment %}
+                        <li class="d-inline-block"><a href="https://www.instagram.com/desklib/"><img src="{% static 'dist/assets/images/Instagram.png' %}" alt="instagram icon"></a></li>
+					    {% endcomment %}
+                    </ul>
+            </div>
+            </div>
+            <div class="col-md-5">
+                <div class="text-light-black d-inline-block">
+                    <div class="d-inline-block"><i class="far fa-copyright fa-x text-white">&nbsp;{% now "Y" %}</i>
+                        <span>A2ZSERVICES PTE LTD. All rights reserved.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

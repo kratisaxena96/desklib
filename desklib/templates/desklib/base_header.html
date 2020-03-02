@@ -41,7 +41,7 @@
   </div>
  </div>
 {% endcomment %}
-<nav class="navbar navbar-expand-md bg-light navbar-light">
+<nav class="navbar navbar-expand-md navbar-light bg-light-blue">
   <a class="navbar-brand" href="/"><img class="img-fluid" src="{% static 'dist/assets/images/desklib-logo-theme.png' %}" alt="desklib-logo"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -81,6 +81,11 @@
 <!--          <a class="dropdown-item" href="#">Something else here</a>-->
 
       </li>
+         <li class="nav-item">
+          <a class="nav-link writing" href="{% url 'subscription' %}" >
+          Plans
+        </a>
+         </li>
 <!--      <li class="nav-item">-->
 <!--        <a class="nav-link disabled" href="#">Disabled</a>-->
 <!--      </li>-->
@@ -102,11 +107,11 @@
         <form class="form-inline" action="{% url 'study:search-results' %}">
 <!--          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
 <!--          <button class="btn btn-outline-secondary rounded-circle" type="submit"><i class="fa fa-search rounded-circle"></i></button>-->
-            <div class="input-group tt-input-group" id="">
+            <div class="input-group tt-input-group" >
                 {% if request.GET.q %}
-                <input type="search" name="q" class="sm-search typeahead form-control border-radius-30" placeholder="Search here..." value="{{request.GET.q}}">
+                <input type="search" name="q" class="sm-search typeahead form-control border-radius-30 search-bar-border-none tt-hint-height" placeholder="Search here..." value="{{request.GET.q}}">
                 {% else %}
-                    <input type="search" name="q" class="sm-search typeahead form-control border-radius-30" placeholder="Search here..." value="{{request.GET.q}}">
+                    <input type="search" name="q" class="sm-search typeahead form-control border-radius-30 search-bar-border-none tt-hint-height" placeholder="Search here..." value="{{request.GET.q}}">
                 {% endif %}
                 <div class="input-group-append">
                   <button class="btn rounded-circle search-bg" type="submit"><i class="fa fa-search search-icon"></i></button>

@@ -1,48 +1,261 @@
 {% extends "desklib/base.html" %}
 {% load i18n %}
-{% block extra_css %}
-<style>
-</style>
-{% endblock %}
 {% block content %}
 
-<div class="container">
-   <div class="row">
-      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-         <div class="card card-signin my-5 box-shadow-3-3-5-5 border">
-            <div class="card-body">
-               <h4 class="card-title text-center">Aspriant's Detail Form</h4>
-               <form class="form-signin" id="login_form" method="POST" enctype="multipart/form-data">
-                  {% csrf_token %}
-                  <div class="form-label-group">
-                      {{ wizard.form.media }}
-                        {{ wizard.management_form }}
-                        {% if wizard.form.forms %}
-                            {{ wizard.form.management_form }}
-                            {% for form in wizard.form.forms %}
-                            {{form}}
-                                {{ form.as_p }}
-                            {% endfor %}
-                        {% else %}
-                            {{ wizard.form.as_p }}
-                            {{ wizard.steps.current }}
-                        {% endif %}
-                        <input type="submit" class="btn btn-lg text-white btn-bg-theme w-100 btn-block text-uppercase mt-4" name="submit" value="{% trans "submit" %}" />
-                         {% if wizard.steps.prev %}
-                        <button name="wizard_goto_step" style="width: 49%;" class="btn btn-lg text-white btn-bg-theme  btn-block text-uppercase float-left" type="submit" value="{{ wizard.steps.first }}">{% trans "first step" %}</button>
-                        <button name="wizard_goto_step" style="width: 49%;" class="btn btn-lg text-white btn-bg-theme  btn-block text-uppercase float-right " type="submit" value="{{ wizard.steps.prev }}">{% trans "prev step" %}</button>
-                        {% endif %}
-                  </div>
+<section>
+	<div class="container pt-5 pb-5">
+		<div class="row justify-content-center">
+			<div class="col-md-9">
+				<div class="card box-shadow-3-3-5-5">
+					<div class="p-5">
+                         <form class="form-signin" id="login_form" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ wizard.form.media }}
+                            {{ wizard.management_form }}
+<!--							 <h1> {{wizard.steps.current}}</h1>-->
+							<ul class="stepper" id="progressbar">
+								<li class="step active one">
+									<div class="bg-light-gray border-radius-5">
+									<div class="step-title">
+<!--										<span class="d-block mt-n-1" current-step="{{wizard.steps.current}}"><strong>Step&nbsp;&nbsp;{{wizard.steps.step1}}</strong></span>-->
+<!--										<span class="d-block mt-n-1"><strong>Step&nbsp;&nbsp;1</strong></span>-->
+										<span class="d-block mt-n-1"><strong>{% trans "Choose Your Country" %}</strong></span>
+									</div>
+									</div>
+									<div class="step-new-content first pt-5">
+										<div class="row">
+                                            <div class="col-md-11 col-sm-10 offset-sm-2 offset-md-1 offset-2">
+												{% if wizard.steps.current == "0" %}
+<!--												<h2 class="text-center mb-4">Choose Your Country</h2>-->
+<!--												<h2 class="text-center mb-4">{% trans "Choose Your Country" %}</h2>-->
+												<div class="row">
+<!--													<div class="col-sm-3">-->
+<!--														<div class="form-group">-->
+<!--															<label for="form_name" class="star"><strong>{{ wizard.form.country.label }}:</strong></label>-->
+<!--														</div>-->
+<!--													</div>-->
+													<div class="col-sm-3"></div>
+													<div class="col-sm-9">
+														<div class="form-group">
+															  {{ wizard.form.country }}
+														</div>
+													</div>
+												</div>
 
-                   <!--              <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button>-->
-                  <!--              <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>-->
-               </form>
-            </div>
-         </div>
-      </div>
-   </div>
-</div>
-</div>
+                                             {% if wizard.steps.prev %}
+                                                <button name="wizard_goto_step" class="btn btn-lg text-white btn-bg-theme  btn-block text-uppercase float-left" type="submit" value="{{ wizard.steps.first }}">{% trans "first step" %}</button>
+                                                <button name="wizard_goto_step" class="btn btn-lg text-white btn-bg-theme  btn-block text-uppercase float-right " type="submit" value="{{ wizard.steps.prev }}">{% trans "prev step" %}</button>
+                                            {% endif %}
+												<div class="row mb-4">
+													<div class="col-sm-4 offset-3">
+														<input type="submit" class="first-next btn text-white btn-bg-theme text-uppercase width-25 px-4 py-2" name="submit" value="{% trans 'next' %}" />
+													</div>
+												</div>
+											{% endif %}
+                                        </div>
+										</div>
+									</div>
+								</li>
+								<li class="step two">
+									<div class="bg-light-gray border-radius-5">
+									<div class="step-title">
+<!--										<span class="d-block mt-n-1"><strong>Step&nbsp;&nbsp;2</strong></span>-->
+										<span class="d-block mt-n-1"><strong>{% trans "Personal Details" %}</strong></span>
+									</div>
+									</div>
+									<div class="step-new-content second pt-5">
+										<div class="row">
+											<div class="col-md-11 col-sm-10 offset-sm-2 offset-md-1 offset-2">
+												{% if wizard.steps.current == "1" %}
+<!--												<h2 class="text-center mb-4">Personal Details</h2>-->
+<!--												<h2 class="text-center mb-4">{% trans "Personal Details" %}</h2>-->
+												<div class="row mb-sm-3">
+													<div class="col-sm-3">
+														<div class="form-group">
+															<label for="form_name" class="star"><strong>{{wizard.form.name.label}}:</strong></label>
+													</div>
+													</div>
+													<div class="col-sm-9">
+														<div class="form-group">
+															{{ wizard.form.name }}
+														</div>
+													</div>
+												</div>
+												<div class="row mb-sm-3">
+													<div class="col-sm-3">
+														<div class="form-group">
+															<label for="form_email" class="star"><strong>{{wizard.form.email.label}}:</strong></label>
+														</div>
+													</div>
+													<div class="col-sm-9">
+														<div class="form-group">
+															{{ wizard.form.email }}
+														</div>
+													</div>
+												</div>
+												<div class="row mb-sm-3">
+													<div class="col-sm-3">
+														<div class="form-group">
+															<label for="form_phone" class="star"><strong>{{wizard.form.phone.label}}:</strong></label>
+														</div>
+													</div>
+													<div class="col-sm-9">
+														<div class="form-group">
+															{{ wizard.form.phone }}
+														</div>
+													</div>
+												</div>
+												<div class="row mb-sm-3">
+													<div class="col-sm-3">
+														<div class="form-group">
+															<label for="form_qualification" class="star"><strong>{{wizard.form.qualification.label}}:</strong></label>
+														</div>
+													</div>
+													<div class="col-sm-9">
+														<div class="form-group">
+															{{ wizard.form.qualification }}
+														</div>
+													</div>
+												</div>
+												<div class="row mb-sm-3">
+													<div class="col-sm-3">
+														<div class="form-group">
+															<label for="form_stream" class="star"><strong>{{wizard.form.stream.label}}:</strong></label>
+														</div>
+													</div>
+													<div class="col-sm-9">
+														<div class="form-group">
+															{{ wizard.form.stream }}
+														</div>
+													</div>
+												</div>
+												<div class="row mb-sm-3">
+													<div class="col-sm-3 col-md-3">
+														<div class="form-group">
+															<label for="inputGroupFile02" class="star"><strong>{{wizard.form.resume.label}}:</strong></label>
+														</div>
+													</div>
+													<div class="col-sm-9">
+														<div class="form-group">
+															<div class="input-group">
+																<div class="custom-file">
+					  											{{ wizard.form.resume }}
+    																<label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+																</div>
+																<div class="input-group-append">
+    																<span class="input-group-text" id=""></span>
+  																</div>
+															</div>
+															{{ wizard.form.errors }}
+														</div>
+													</div>
+												</div>
+                                             {% if wizard.steps.prev %}
+												<div class="row mb-5">
+													<div class="col-md-12">
+<!--                                                <button name="wizard_goto_step" class="btn text-white btn-bg-theme text-uppercase width-25 px-4 py-2" type="submit" value="{{ wizard.steps.first }}">{% trans "first step" %}</button>-->
+                                                <button name="wizard_goto_step" formnovalidate="formnovalidate" class="btn text-white btn-bg-theme text-uppercase width-25 px-3 py-2 mr-3" type="submit" value="{{ wizard.steps.prev }}">{% trans "prev step" %}</button>
+                                            {% endif %}
+												<input type="submit" class="second-next btn text-white btn-bg-theme text-uppercase width-25 px-3 py-2 mt-3 mt-sm-0" name="submit" value="{% trans 'next' %}" />
+												</div>
+												</div>
+												{% endif %}
+                                        </div>
+										</div>
+									</div>
+								</li>
+								<li class="step three">
+									<div class="bg-light-gray border-radius-5">
+										<div class="step-title">
+<!--										<span class="d-block mt-n-1"><strong>Step&nbsp;&nbsp;3</strong></span>-->
+											<span class="d-block mt-n-1"><strong>{% trans "Stream Details" %}</strong></span>
+										</div>
+									</div>
+									<div class="step-new-content third pt-5">
+										<div class="row mb-3">
+											<div class="col-md-11 col-sm-10 offset-sm-2 offset-md-1">
+												{% if wizard.steps.current == "2" %}
+<!--												<h2 class="text-center mb-4">Stream Details</h2>-->
+<!--												<h2 class="text-center mb-4">{% trans "Stream Details" %}</h2>-->
+												<div class="row mb-sm-3">
+													<div class="col-sm-4">
+														<div class="form-group">
+															<label for="form_stream_for" class="star"><strong>{{wizard.form.lokking_for_stream.label}}:</strong></label>
+													</div>
+													</div>
+													<div class="col-sm-8">
+														<div class="form-group">
+															 {{ wizard.form.lokking_for_stream }}
+														</div>
+													</div>
+												</div>
+												<div class="row mb-sm-3">
+													<div class="col-sm-4">
+														<div class="form-group">
+															<label for="form_course_for" class="star"><strong>{{wizard.form.lokking_for_course.label}}:</strong></label>
+													</div>
+													</div>
+													<div class="col-sm-8">
+														<div class="form-group">
+															 {{ wizard.form.lokking_for_course}}
+														</div>
+													</div>
+												</div>
+												<div class="row mb-sm-3">
+													<div class="col-sm-4">
+														<div class="form-group">
+															<label for="year" class="star"><strong>{{wizard.form.year.label}}:</strong></label>
+													</div>
+													</div>
+													<div class="col-sm-8">
+														<div class="form-group">
+															 {{ wizard.form.year }}
+														</div>
+													</div>
+												</div>
+<!--                                                {{ wizard.form.as_p }}-->
+                                             	{% if wizard.steps.prev %}
+<!--                                                <button name="wizard_goto_step" class="btn text-white btn-bg-theme text-uppercase width-25 px-4 py-2" type="submit" value="{{ wizard.steps.first }}">{% trans "first step" %}</button>-->
+                                                <button name="wizard_goto_step" formnovalidate="formnovalidate" class="btn text-white btn-bg-theme text-uppercase width-25 mt-4 px-4 py-2 mr-3" type="submit" value="{{ wizard.steps.prev }}">{% trans "prev step" %}</button>
+                                            	{% endif %}
+												<input type="submit" class="btn text-white btn-bg-theme text-uppercase width-25 mt-4 px-4 py-2" name="submit" value="{% trans 'submit' %}" />
+												{% endif %}
+                                        </div>
+										</div>
+									</div>
+								</li>
+							</ul>
+                         </form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+$(document).ready(function(){
+	 var steps = parseInt({{wizard.steps.current}});
+		 if(steps == 0){
+		 	$(".stepper li.step.one").addClass('active');
+		 }
+		 else if(steps == 1){
+		 $(".stepper li.step.one").removeClass('active').addClass('done');
+		 	$(".stepper li.step.two").addClass('active');
+		 }
+		 else if(steps == 2){
+		 	 $(".stepper li.step.two").removeClass('active').addClass('done');
+		 	 	 $(".stepper li.step.one").removeClass('active').addClass('done');
+		 	 	 	$(".stepper li.step.three").addClass('active');
+		 }
+ });
+$(document).on('change', '.custom-file-input', function (event) {
+    $(this).next('.custom-file-label').html(event.target.files[0].name);
+})
+</script>
 {% endblock %}
 
