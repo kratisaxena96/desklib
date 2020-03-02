@@ -1,9 +1,18 @@
+from rest_framework.generics import CreateAPIView
+
+from homework_help.serializers import QuestionCreateSerializer
 from rest_framework.generics import CreateAPIView, GenericAPIView
 from homework_help.serializers import CommentCreateSerializer
 from desklib.mixins import RestrictIpMixin
 from rest_framework.response import Response
 from rest_framework import status
 from homework_help.models import Order
+
+
+
+
+class QuestionCreateApiView(CreateAPIView):
+    serializer_class = QuestionCreateSerializer
 
 
 class CommentCreateApiView(RestrictIpMixin, CreateAPIView):
