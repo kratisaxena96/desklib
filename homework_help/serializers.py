@@ -11,7 +11,7 @@ class QuestionCreateSerializer(serializers.ModelSerializer):
 
 
 class CommentCreateSerializer(serializers.ModelSerializer):
-    reference_files = serializers.FileField()
+    reference_files = serializers.FileField(required=False)
     message = serializers.CharField()
 
     class Meta:

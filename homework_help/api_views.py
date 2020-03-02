@@ -3,6 +3,7 @@ from homework_help.serializers import CommentCreateSerializer
 from desklib.mixins import RestrictIpMixin
 from rest_framework.response import Response
 from rest_framework import status
+from homework_help.models import Order
 
 
 class CommentCreateApiView(RestrictIpMixin, CreateAPIView):
@@ -11,10 +12,11 @@ class CommentCreateApiView(RestrictIpMixin, CreateAPIView):
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
 
-        if not serializer.is_valid(raise_exception=True):
-            return Response({'serializer': serializer})
-        print(serializer.validated_data['package'])
-
+        serializer.is_valid(raise_exception=True)
+        print(serializer.validated_data['message'])
+        order = Order.objects.get(order_id=self.kwargs['order_id'])
+        serializer.save(author=request.user, order=order)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
 

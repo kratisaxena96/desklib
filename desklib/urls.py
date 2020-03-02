@@ -87,6 +87,7 @@ urlpatterns = [
                   # path('payment/document',)
                   path('api/', include(('api.urls', 'api'), namespace="api")),
                   path('admissions/', include(('admissions.urls', 'admissions'), namespace="admissions")),
+                  path('homework-help/', include(('homework_help.urls', 'homework_help'), namespace="homework_help")),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
