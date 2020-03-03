@@ -154,7 +154,7 @@
 												<div class="row mb-5">
 													<div class="col-md-12">
 <!--                                                <button name="wizard_goto_step" class="btn text-white btn-bg-theme text-uppercase width-25 px-4 py-2" type="submit" value="{{ wizard.steps.first }}">{% trans "first step" %}</button>-->
-                                                <button name="wizard_goto_step" formnovalidate="formnovalidate" class="btn text-white btn-bg-theme text-uppercase width-25 px-3 py-2 mr-3" type="submit" value="{{ wizard.steps.prev }}">{% trans "prev step" %}</button>
+                                                <button name="wizard_goto_step" formnovalidate="formnovalidate" class="btn text-white btn-bg-theme text-uppercase width-25 px-3 py-2 mr-3 mt-3 mt-sm-0" type="submit" value="{{ wizard.steps.prev }}">{% trans "prev step" %}</button>
                                             {% endif %}
 												<input type="submit" class="second-next btn text-white btn-bg-theme text-uppercase width-25 px-3 py-2 mt-3 mt-sm-0" name="submit" value="{% trans 'next' %}" />
 												</div>
@@ -171,7 +171,7 @@
 											<span class="d-block mt-n-1"><strong>{% trans "Stream Details" %}</strong></span>
 										</div>
 									</div>
-									<div class="step-new-content third pt-5">
+									<div class="step-new-content third">
 										<div class="row mb-3">
 											<div class="col-md-11 col-sm-10 offset-sm-2 offset-md-1">
 												{% if wizard.steps.current == "2" %}
