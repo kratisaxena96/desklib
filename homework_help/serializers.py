@@ -1,6 +1,14 @@
 from django.core.validators import FileExtensionValidator
 from rest_framework import serializers
-from homework_help.models import Comment
+from homework_help.models import Comment, Question
+
+
+class QuestionCreateSerializer(serializers.ModelSerializer):
+    upload_file = serializers.FileField()
+
+    class Meta:
+        model = Question
+        fields = ('question', 'upload_file', 'subjects')
 
 
 class CommentCreateSerializer(serializers.ModelSerializer):

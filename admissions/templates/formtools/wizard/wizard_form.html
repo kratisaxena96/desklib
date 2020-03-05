@@ -15,14 +15,14 @@
 <!--							 <h1> {{wizard.steps.current}}</h1>-->
 							<ul class="stepper" id="progressbar">
 								<li class="step active one">
-									<div class="bg-light-gray border-radius-20 pt-1">
-									<div class="step-title pt-2 pb-2">
+									<div class="bg-light-gray border-radius-5">
+									<div class="step-title">
 <!--										<span class="d-block mt-n-1" current-step="{{wizard.steps.current}}"><strong>Step&nbsp;&nbsp;{{wizard.steps.step1}}</strong></span>-->
 <!--										<span class="d-block mt-n-1"><strong>Step&nbsp;&nbsp;1</strong></span>-->
 										<span class="d-block mt-n-1"><strong>{% trans "Choose Your Country" %}</strong></span>
 									</div>
 									</div>
-									<div class="step-new-content first pt-3">
+									<div class="step-new-content first pt-5">
 										<div class="row">
                                             <div class="col-md-11 col-sm-10 offset-sm-2 offset-md-1 offset-2">
 												{% if wizard.steps.current == "0" %}
@@ -46,7 +46,7 @@
                                                 <button name="wizard_goto_step" class="btn btn-lg text-white btn-bg-theme  btn-block text-uppercase float-left" type="submit" value="{{ wizard.steps.first }}">{% trans "first step" %}</button>
                                                 <button name="wizard_goto_step" class="btn btn-lg text-white btn-bg-theme  btn-block text-uppercase float-right " type="submit" value="{{ wizard.steps.prev }}">{% trans "prev step" %}</button>
                                             {% endif %}
-												<div class="row">
+												<div class="row mb-4">
 													<div class="col-sm-4 offset-3">
 														<input type="submit" class="first-next btn text-white btn-bg-theme text-uppercase width-25 px-4 py-2" name="submit" value="{% trans 'next' %}" />
 													</div>
@@ -56,14 +56,14 @@
 										</div>
 									</div>
 								</li>
-								<li class="step two mt-4 mb-4">
-									<div class="bg-light-gray border-radius-20 pt-1">
-									<div class="step-title pt-2 pb-2">
+								<li class="step two">
+									<div class="bg-light-gray border-radius-5">
+									<div class="step-title">
 <!--										<span class="d-block mt-n-1"><strong>Step&nbsp;&nbsp;2</strong></span>-->
 										<span class="d-block mt-n-1"><strong>{% trans "Personal Details" %}</strong></span>
 									</div>
 									</div>
-									<div class="step-new-content second pt-3">
+									<div class="step-new-content second pt-5">
 										<div class="row">
 											<div class="col-md-11 col-sm-10 offset-sm-2 offset-md-1 offset-2">
 												{% if wizard.steps.current == "1" %}
@@ -151,23 +151,27 @@
 													</div>
 												</div>
                                              {% if wizard.steps.prev %}
+												<div class="row mb-5">
+													<div class="col-md-12">
 <!--                                                <button name="wizard_goto_step" class="btn text-white btn-bg-theme text-uppercase width-25 px-4 py-2" type="submit" value="{{ wizard.steps.first }}">{% trans "first step" %}</button>-->
-                                                <button name="wizard_goto_step" formnovalidate="formnovalidate" class="btn text-white btn-bg-theme text-uppercase width-25 mt-4 px-4 py-2 mr-3" type="submit" value="{{ wizard.steps.prev }}">{% trans "prev step" %}</button>
+                                                <button name="wizard_goto_step" formnovalidate="formnovalidate" class="btn text-white btn-bg-theme text-uppercase width-25 px-3 py-2 mr-3" type="submit" value="{{ wizard.steps.prev }}">{% trans "prev step" %}</button>
                                             {% endif %}
-												<input type="submit" class="second-next btn text-white btn-bg-theme text-uppercase width-25 mt-4 px-4 py-2" name="submit" value="{% trans 'next' %}" />
-											{% endif %}
+												<input type="submit" class="second-next btn text-white btn-bg-theme text-uppercase width-25 px-3 py-2 mt-3 mt-sm-0" name="submit" value="{% trans 'next' %}" />
+												</div>
+												</div>
+												{% endif %}
                                         </div>
 										</div>
 									</div>
 								</li>
-								<li class="step three mt-4">
-									<div class="bg-light-gray border-radius-20 pt-1">
-										<div class="step-title pt-2 pb-2">
+								<li class="step three">
+									<div class="bg-light-gray border-radius-5">
+										<div class="step-title">
 <!--										<span class="d-block mt-n-1"><strong>Step&nbsp;&nbsp;3</strong></span>-->
 											<span class="d-block mt-n-1"><strong>{% trans "Stream Details" %}</strong></span>
 										</div>
 									</div>
-									<div class="step-new-content third pt-3">
+									<div class="step-new-content third pt-5">
 										<div class="row mb-3">
 											<div class="col-md-11 col-sm-10 offset-sm-2 offset-md-1">
 												{% if wizard.steps.current == "2" %}

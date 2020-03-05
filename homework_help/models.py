@@ -7,6 +7,7 @@ from django.db import models
 from django.utils import timezone
 from subjects.models import Subject
 from django.utils.translation import ugettext_lazy as _
+from django.utils.text import slugify
 
 
 # Create your models here.
@@ -22,6 +23,18 @@ def upload_to(instance, filename):
     # uid = instance.content_object.uuid
 
     return 'homework_help/{}/{}'.format(
+        now.strftime("%Y/%m/%d/"),
+        filename,
+    )
+
+
+def upload_solutions(instance, filename):
+    now = timezone.now()
+    # now = timezone.localtime(timezone.now())
+    # filename_base, filename_ext = os.path.splitext(filename)
+    # uid = instance.content_object.uuid
+
+    return 'solution/{}/{}'.format(
         now.strftime("%Y/%m/%d/"),
         filename,
     )
@@ -44,6 +57,11 @@ class Question(models.Model):
 
     def __str__(self):
         return self.slug
+
+    def save(self, *args, **kwargs):
+        value = self.question
+        self.slug = slugify(value, allow_unicode=True)
+        super().save(*args, **kwargs)
 
 
 class Order(models.Model):
@@ -80,6 +98,31 @@ class Order(models.Model):
 
     def __str__(self):
         return self.order_id
+
+
+class Answers(models.Model):
+    question = models.ForeignKey(Question, related_name='answer_question', on_delete=models.PROTECT)
+    solution = models.TextField(_('Solution'))
+    solution_files = models.FileField(verbose_name=_('Upload File'), upload_to=upload_solutions, max_length=1000)
+    answer_id = models.CharField(unique=True, max_length=10, default=key_generator, editable=False)
+
+    is_concise = models.BooleanField(_('Is Concise'), default=False)
+    is_detailed = models.BooleanField(_('Is Detailed'), default=False)
+    is_published = models.BooleanField(_('Is Published'), default=False)
+    is_visible = models.BooleanField(_('Is Visible'), default=False)
+
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='author_answer',
+                               blank=True, null=True)
+
+    created = models.DateTimeField(editable=False, auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.answer_id
+
+    class Meta:
+        verbose_name = "Answer"
+        verbose_name_plural = "Answers"
 
 
 class Comment(models.Model):

@@ -14,7 +14,7 @@
 }
 .tt-hint {
     width: 396px;
-    height: 30px;
+    height: 48px;
     padding: 8px 12px;
     font-size: 24px;
     line-height: 30px;
@@ -22,7 +22,9 @@
     border-radius: 8px;
     outline: none;
 }
-
+.tt-hint-height{
+    height: 37px;
+}
 .tt-hint {
     color: #999;
 }

@@ -1,0 +1,991 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#: admissions/templates/admissions/aspirant_details.html:3
+#: desklib/templates/desklib/subscription.html:4
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-03-02 10:38+0530\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
+
+#: accounts/forms.py:43
+msgid "Password"
+msgstr "Parola"
+
+#: accounts/forms.py:47
+msgid "Password (again)"
+msgstr ""
+
+#: accounts/forms.py:64
+msgid "E-mail address"
+msgstr ""
+
+#: accounts/forms.py:66
+msgid "E-mail"
+msgstr ""
+
+#: accounts/forms.py:71 accounts/forms.py:74
+msgid "Username"
+msgstr ""
+
+#: accounts/forms.py:81
+msgid "Username or e-mail"
+msgstr ""
+
+#: accounts/forms.py:84
+msgctxt "field label"
+msgid "Login"
+msgstr ""
+
+#: accounts/models.py:41
+msgid "username"
+msgstr ""
+
+#: accounts/models.py:42
+msgid "Required. 60 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+
+#: accounts/models.py:46
+msgid ""
+"Enter a valid username. This value may contain only letters, numbers and @/./"
+"+/-/_ characters."
+msgstr ""
+
+#: accounts/models.py:51
+msgid "A user with that username already exists."
+msgstr ""
+
+#: accounts/models.py:54
+msgid "email address"
+msgstr ""
+
+#: accounts/models.py:55
+msgid "first name"
+msgstr ""
+
+#: accounts/models.py:56
+msgid "last name"
+msgstr ""
+
+#: accounts/models.py:57
+msgid "contact number"
+msgstr ""
+
+#: accounts/models.py:59
+msgid "University"
+msgstr ""
+
+#: accounts/models.py:60
+msgid "College"
+msgstr ""
+
+#: accounts/models.py:62
+msgid "staff status"
+msgstr ""
+
+#: accounts/models.py:63
+msgid "Designates whether the user can log into this master site."
+msgstr ""
+
+#: accounts/models.py:65
+msgid "active"
+msgstr ""
+
+#: accounts/models.py:67
+msgid ""
+"Designates whether this user should be treated as active. Unselect this "
+"instead of deleting accounts."
+msgstr ""
+
+#: accounts/models.py:78
+msgid "user"
+msgstr ""
+
+#: accounts/models.py:79
+msgid "users"
+msgstr ""
+
+#: accounts/templates/account/account_inactive.html:5
+#: accounts/templates/account/account_inactive.html:13
+msgid "Account Inactive"
+msgstr ""
+
+#: accounts/templates/account/account_inactive.html:15
+msgid "This account is inactive."
+msgstr ""
+
+#: accounts/templates/account/email.html:5
+msgid "Account"
+msgstr ""
+
+#: accounts/templates/account/email.html:23
+msgid "E-mail Addresses"
+msgstr ""
+
+#: accounts/templates/account/email.html:27
+msgid "The following e-mail addresses are associated with your account:"
+msgstr ""
+
+#: accounts/templates/account/email.html:58
+msgid "Make Primary"
+msgstr ""
+
+#: accounts/templates/account/email.html:59
+msgid "Re-send Verification"
+msgstr ""
+
+#: accounts/templates/account/email.html:60
+#: accounts/templates/socialaccount/connections.html:35
+msgid "Remove"
+msgstr ""
+
+#: accounts/templates/account/email.html:68
+msgid "Warning:"
+msgstr ""
+
+#: accounts/templates/account/email.html:68
+msgid ""
+"You currently do not have any e-mail address set up. You should really add "
+"an e-mail address so you can receive notifications, reset your password, etc."
+msgstr ""
+
+#: accounts/templates/account/email.html:73
+msgid "Add E-mail Address"
+msgstr ""
+
+#: accounts/templates/account/email.html:78
+msgid "Add E-mail"
+msgstr ""
+
+#: accounts/templates/account/email.html:88
+msgid "Do you really want to remove the selected e-mail address?"
+msgstr ""
+
+#: accounts/templates/account/email/email_confirmation_signup_subject.html:3
+msgid "Confirm Your Registartion - Talkative"
+msgstr ""
+
+#: accounts/templates/account/email/password_reset_key_subject.html:3
+msgid "Reset Password talkative"
+msgstr ""
+
+#: accounts/templates/account/email_confirm.html:5
+#: accounts/templates/account/email_confirm.html:14
+msgid "Confirm E-mail Address"
+msgstr ""
+
+#: accounts/templates/account/email_confirm.html:20
+#, python-format
+msgid ""
+" Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+"address for user %(user_display)s."
+msgstr ""
+
+#: accounts/templates/account/email_confirm.html:25
+msgid "Confirm"
+msgstr ""
+
+#: accounts/templates/account/email_confirm.html:31
+#, python-format
+msgid ""
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>. You will be "
+"redirected to login page in 5 seconds."
+msgstr ""
+
+#: accounts/templates/account/login.html:10
+msgid "Sign In | desklib.com"
+msgstr ""
+
+#: accounts/templates/account/login.html:57
+msgid "Sign In"
+msgstr ""
+
+#: accounts/templates/account/logout.html:5
+#: accounts/templates/account/logout.html:10
+#: accounts/templates/account/logout.html:23
+msgid "Sign Out"
+msgstr ""
+
+#: accounts/templates/account/logout.html:12
+msgid "Are you sure you want to sign out?"
+msgstr ""
+
+#: accounts/templates/account/logout.html:24
+msgid "No"
+msgstr ""
+
+#: accounts/templates/account/messages/cannot_delete_primary_email.txt:2
+#, python-format
+msgid "You cannot remove your primary e-mail address (%(email)s)."
+msgstr ""
+
+#: accounts/templates/account/messages/email_confirmation_sent.txt:2
+#, python-format
+msgid "Confirmation e-mail sent to %(email)s."
+msgstr ""
+
+#: accounts/templates/account/messages/email_confirmed.txt:2
+#, python-format
+msgid "You have confirmed %(email)s."
+msgstr ""
+
+#: accounts/templates/account/messages/email_deleted.txt:2
+#, python-format
+msgid "Removed e-mail address %(email)s."
+msgstr ""
+
+#: accounts/templates/account/messages/logged_in.txt:4
+#, python-format
+msgid "Successfully signed in as %(name)s."
+msgstr ""
+
+#: accounts/templates/account/messages/logged_out.txt:2
+msgid "You have signed out."
+msgstr ""
+
+#: accounts/templates/account/messages/password_changed.txt:2
+msgid "Password successfully changed."
+msgstr ""
+
+#: accounts/templates/account/messages/password_set.txt:2
+msgid "Password successfully set."
+msgstr ""
+
+#: accounts/templates/account/messages/primary_email_set.txt:2
+msgid "Primary e-mail address set."
+msgstr ""
+
+#: accounts/templates/account/messages/unverified_primary_email.txt:2
+msgid "Your primary e-mail address must be verified."
+msgstr ""
+
+#: accounts/templates/account/password_change.html:5
+#: accounts/templates/account/password_change.html:29
+#: accounts/templates/account/password_change.html:45
+#: accounts/templates/account/password_reset_from_key.html:4
+#: accounts/templates/account/password_reset_from_key.html:13
+#: accounts/templates/account/password_reset_from_key.html:32
+#: accounts/templates/account/password_reset_from_key_done.html:4
+#: accounts/templates/account/password_reset_from_key_done.html:11
+msgid "Change Password"
+msgstr ""
+
+#: accounts/templates/account/password_reset.html:6
+#: accounts/templates/account/password_reset.html:20
+#: accounts/templates/account/password_reset_done.html:6
+#: desklib/templates/desklib/payment_success.html:6
+msgid "Password Reset"
+msgstr ""
+
+#: accounts/templates/account/password_reset.html:21
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll send you "
+"an e-mail allowing you to reset it."
+msgstr ""
+
+#: accounts/templates/account/password_reset.html:29
+msgid "Reset My Password"
+msgstr ""
+
+#: accounts/templates/account/password_reset.html:32
+msgid ""
+"Please contact us if you have any trouble resetting your password, click <a "
+"href=\"https://tawk.to/chat/5d52a62677aa790be32eb23b/default\" target="
+"\"_blank\">here</a> to chat."
+msgstr ""
+
+#: accounts/templates/account/password_reset_done.html:14
+msgid "Password Reset Email Sent."
+msgstr ""
+
+#: accounts/templates/account/password_reset_from_key.html:13
+msgid "Bad Token"
+msgstr ""
+
+#: accounts/templates/account/password_reset_from_key.html:17
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr ""
+
+#: accounts/templates/account/password_reset_from_key.html:35
+#: accounts/templates/account/password_reset_from_key_done.html:13
+msgid "Your password is now changed."
+msgstr ""
+
+#: accounts/templates/account/password_set.html:5
+#: accounts/templates/account/password_set.html:27
+#: accounts/templates/account/password_set.html:32
+msgid "Set Password"
+msgstr ""
+
+#: accounts/templates/account/signup.html:13
+msgid "Register | desklib.com"
+msgstr ""
+
+#: accounts/templates/account/signup_closed.html:5
+#: accounts/templates/account/signup_closed.html:13
+msgid "Sign Up Closed"
+msgstr ""
+
+#: accounts/templates/account/signup_closed.html:15
+msgid "We are sorry, but the sign up is currently closed."
+msgstr ""
+
+#: accounts/templates/account/verification_sent.html:5
+#: accounts/templates/account/verification_sent.html:11
+#: accounts/templates/account/verified_email_required.html:5
+#: accounts/templates/account/verified_email_required.html:13
+msgid "Verify Your E-mail Address"
+msgstr ""
+
+#: accounts/templates/account/verified_email_required.html:14
+msgid ""
+"This part of the site requires us to verify that\n"
+"\t\t\tyou are who you claim to be. For this purpose, we require that you\n"
+"\t\t\tverify ownership of your e-mail address. "
+msgstr ""
+
+#: accounts/templates/account/verified_email_required.html:18
+msgid ""
+"We have sent an e-mail to you for\n"
+"\t\t\tverification. Please click on the link inside this e-mail. Please\n"
+"\t\t\tcontact us if you do not receive it within a few minutes."
+msgstr ""
+
+#: accounts/templates/account/verified_email_required.html:22
+#, python-format
+msgid ""
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
+"mail address</a>."
+msgstr ""
+
+#: accounts/templates/openid/login.html:9
+msgid "OpenID Sign In"
+msgstr ""
+
+#: accounts/templates/socialaccount/authentication_error.html:5
+#: accounts/templates/socialaccount/authentication_error.html:10
+msgid "Social Network Login Failure"
+msgstr ""
+
+#: accounts/templates/socialaccount/authentication_error.html:12
+msgid ""
+"An error occurred while attempting to login via your social network account."
+msgstr ""
+
+#: accounts/templates/socialaccount/connections.html:5
+#: accounts/templates/socialaccount/connections.html:8
+msgid "Account Connections"
+msgstr ""
+
+#: accounts/templates/socialaccount/connections.html:11
+msgid ""
+"You can sign in to your account using any of the following third party "
+"accounts:"
+msgstr ""
+
+#: accounts/templates/socialaccount/connections.html:43
+msgid ""
+"You currently have no social network accounts connected to this account."
+msgstr ""
+
+#: accounts/templates/socialaccount/connections.html:46
+msgid "Add a 3rd Party Account"
+msgstr ""
+
+#: accounts/templates/socialaccount/login_cancelled.html:5
+#: accounts/templates/socialaccount/login_cancelled.html:9
+msgid "Login Cancelled"
+msgstr ""
+
+#: accounts/templates/socialaccount/login_cancelled.html:13
+#, python-format
+msgid ""
+"You decided to cancel logging in to our site using one of your existing "
+"accounts. If this was a mistake, please proceed to <a href=\"%(login_url)s"
+"\">sign in</a>."
+msgstr ""
+
+#: accounts/templates/socialaccount/messages/account_connected.txt:2
+msgid "The social account has been connected."
+msgstr ""
+
+#: accounts/templates/socialaccount/messages/account_connected_other.txt:2
+msgid "The social account is already connected to a different account."
+msgstr ""
+
+#: accounts/templates/socialaccount/messages/account_disconnected.txt:2
+msgid "The social account has been disconnected."
+msgstr ""
+
+#: accounts/templates/socialaccount/signup.html:3
+#: documents/templates/documents/download_success_page.html:5
+msgid "Signup"
+msgstr ""
+
+#: accounts/templates/socialaccount/signup.html:8
+#: accounts/templates/socialaccount/signup.html:20
+msgid "Sign Up"
+msgstr ""
+
+#: accounts/templates/socialaccount/signup.html:10
+#, python-format
+msgid ""
+"You are about to use your %(provider_name)s account to login to\n"
+"%(site_name)s. As a final step, please complete the following form:"
+msgstr ""
+
+#: admissions/forms.py:12
+msgid "United Kingdom"
+msgstr "Regatul Unit"
+
+#: admissions/forms.py:13
+msgid "Australia"
+msgstr "Australia"
+
+#: admissions/forms.py:16
+msgid "Under Graduate"
+msgstr "Sub absolvent"
+
+#: admissions/forms.py:17
+msgid "Graduate"
+msgstr "Absolvent"
+
+#: admissions/forms.py:18
+msgid "Post Graduate"
+msgstr "Post absolvent"
+
+#: admissions/forms.py:19
+msgid "Doctorate"
+msgstr "Doctorat"
+
+#: admissions/forms.py:22
+msgid "Arts"
+msgstr "Arte"
+
+#: admissions/forms.py:23
+msgid "Science"
+msgstr "Ştiinţă"
+
+#: admissions/forms.py:24
+msgid "Technology"
+msgstr "Tehnologie"
+
+#: admissions/forms.py:25
+msgid "Commerce"
+msgstr "Comerţ"
+
+#: admissions/forms.py:28
+msgid "Accounting & Finance"
+msgstr "Contabilitate și Finanțe"
+
+#: admissions/forms.py:29
+msgid "Aeronautical & Manufacturing Engineering"
+msgstr "Inginerie aeronautică și de fabricație"
+
+#: admissions/forms.py:30
+msgid "Agriculture & Forestry"
+msgstr "Agricultură și silvicultură"
+
+#: admissions/forms.py:31
+msgid "American Studies"
+msgstr "Studii americane"
+
+#: admissions/forms.py:32
+msgid "Anatomy & Physiology"
+msgstr "Anatomie și Fiziologie"
+
+#: admissions/forms.py:33
+msgid "Anthropology"
+msgstr "Antropologie"
+
+#: admissions/forms.py:34
+msgid "Architecture"
+msgstr "Arhitectură"
+
+#: admissions/forms.py:35
+msgid "Art & Design"
+msgstr "Design de arta"
+
+#: admissions/forms.py:40 admissions/models.py:72
+msgid "Name"
+msgstr "Nume"
+
+#: admissions/forms.py:41 admissions/models.py:73
+msgid "Email"
+msgstr "E-mail"
+
+#: admissions/forms.py:42
+msgid "Phone"
+msgstr "Telefon"
+
+#: admissions/forms.py:43 admissions/models.py:75
+msgid "Qualification"
+msgstr "Calificare"
+
+#: admissions/forms.py:45 admissions/models.py:76
+msgid "Stream"
+msgstr "Curent"
+
+#: admissions/forms.py:46 admissions/models.py:77
+msgid "Upload Resume"
+msgstr "Încărcați CV"
+
+#: admissions/forms.py:66 admissions/models.py:71
+msgid "Country"
+msgstr "Țară"
+
+#: admissions/forms.py:70
+msgid "Stream Looking For"
+msgstr "Stream căutând"
+
+#: admissions/forms.py:72
+msgid "Course Looking For"
+msgstr "Curs în căutare"
+
+#: admissions/models.py:74
+msgid "Phone No"
+msgstr "Telefon nr"
+
+#: admissions/models.py:78
+msgid "Looking For Stream"
+msgstr "În căutarea fluxului"
+
+#: admissions/models.py:79
+msgid "Looking for Course"
+msgstr "În căutarea cursului"
+
+#: admissions/models.py:80
+msgid "Session Year"
+msgstr "Anul sesiunii"
+
+#: admissions/models.py:86
+msgid "Aspirant Detail"
+msgstr "Detaliile aspiranților"
+
+#: admissions/models.py:87
+msgid "Aspirant Details"
+msgstr "Detalii despre aspirant"
+
+#: admissions/templates/formtools/wizard/wizard_form.html:19
+#: admissions/templates/formtools/wizard/wizard_form.html:27
+msgid "Choose Your Country"
+msgstr "Alege-ți țara"
+
+#: admissions/templates/formtools/wizard/wizard_form.html:43
+#: admissions/templates/formtools/wizard/wizard_form.html:151
+#: admissions/templates/formtools/wizard/wizard_form.html:211
+msgid "first step"
+msgstr "primul pas"
+
+#: admissions/templates/formtools/wizard/wizard_form.html:44
+#: admissions/templates/formtools/wizard/wizard_form.html:152
+#: admissions/templates/formtools/wizard/wizard_form.html:212
+msgid "prev step"
+msgstr "pas prev"
+
+#: admissions/templates/formtools/wizard/wizard_form.html:48
+#: admissions/templates/formtools/wizard/wizard_form.html:154
+msgid "next"
+msgstr "Următor →"
+
+#: admissions/templates/formtools/wizard/wizard_form.html:60
+#: admissions/templates/formtools/wizard/wizard_form.html:68
+msgid "Personal Details"
+msgstr "Detalii personale"
+
+#: admissions/templates/formtools/wizard/wizard_form.html:164
+#: admissions/templates/formtools/wizard/wizard_form.html:172
+msgid "Stream Details"
+msgstr "Detaliile fluxului"
+
+#: admissions/templates/formtools/wizard/wizard_form.html:214
+msgid "submit"
+msgstr "Trimite"
+
+#: desklib/settings/dev_settings.py:17
+msgid "Romanian"
+msgstr "Română"
+
+#: desklib/templates/desklib/payment_cancelled.html:6
+msgid "Subscription Page"
+msgstr "Pagina de abonament"
+
+#: desklib/views.py:42
+msgid "All study resources you will need to secure best grade."
+msgstr ""
+
+#: desklib/views.py:75 desklib/views.py:153
+msgid ""
+"Desklib is a single stop solution for all your academic needs. We provide "
+"millions of study documents which can be used for by students to obtain "
+"better grades."
+msgstr ""
+
+#: desklib/views.py:108
+msgid ""
+"Desklib online learning library provides you 24/7 Homework Help, Q&A help, "
+"and solutions to assignments, essays, dissertations, case studies and Best "
+"free writing tools for everyone to improve their writing skills."
+msgstr ""
+
+#: desklib/views.py:183
+msgid ""
+"Desklib provides a subscription based access to its resources at affordable "
+"price."
+msgstr ""
+
+#: desklib/views.py:215
+msgid ""
+"24X7 online support for our customers. Reach our customer support and get "
+"your queries answered instantly."
+msgstr ""
+
+#: documents/models.py:115
+msgid "college"
+msgstr ""
+
+#: documents/models.py:116
+msgid "colleges"
+msgstr ""
+
+#: documents/models.py:133
+msgid "course"
+msgstr ""
+
+#: documents/models.py:134
+msgid "courses"
+msgstr ""
+
+#: documents/models.py:163 documents/models.py:445 subjects/models.py:23
+msgid "Title"
+msgstr ""
+
+#: documents/models.py:164 documents/models.py:446 homework_help/models.py:44
+#: samples/models.py:42 subjects/models.py:24 subscription/models.py:11
+msgid "Slug"
+msgstr ""
+
+#: documents/models.py:169
+msgid "Keywords"
+msgstr ""
+
+#: documents/models.py:170 samples/models.py:44 subjects/models.py:27
+msgid "Description"
+msgstr ""
+
+#: documents/models.py:171
+msgid "Content"
+msgstr ""
+
+#: documents/models.py:173
+msgid "Summary"
+msgstr ""
+
+#: documents/models.py:174
+msgid "Initial Text"
+msgstr ""
+
+#: documents/models.py:175
+msgid "First Sentence"
+msgstr ""
+
+#: documents/models.py:176 homework_help/models.py:45
+#: homework_help/models.py:105
+msgid "Upload File"
+msgstr ""
+
+#: documents/models.py:177
+msgid " Main File"
+msgstr ""
+
+#: documents/models.py:179
+msgid "Total Words"
+msgstr ""
+
+#: documents/models.py:180
+msgid "Total pages"
+msgstr ""
+
+#: documents/models.py:181
+msgid "filename"
+msgstr ""
+
+#: documents/models.py:183
+msgid "Helpful"
+msgstr ""
+
+#: documents/models.py:184
+msgid "Not Helpful"
+msgstr ""
+
+#: documents/models.py:192
+msgid "Cover Page No."
+msgstr ""
+
+#: documents/models.py:195 homework_help/models.py:51
+#: homework_help/models.py:93 homework_help/models.py:110 samples/models.py:56
+msgid "Is Published"
+msgstr ""
+
+#: documents/models.py:196 homework_help/models.py:52
+#: homework_help/models.py:111 samples/models.py:57
+msgid "Is Visible"
+msgstr ""
+
+#: documents/models.py:197
+msgid "Featured"
+msgstr ""
+
+#: documents/models.py:199
+msgid "Require Recalculation"
+msgstr ""
+
+#: documents/models.py:201 samples/models.py:59
+msgid "Published Date"
+msgstr ""
+
+#: documents/models.py:251
+msgid "document"
+msgstr ""
+
+#: documents/models.py:252
+msgid "documents"
+msgstr ""
+
+#: documents/models.py:420
+msgid "File"
+msgstr ""
+
+#: documents/models.py:433 samples/models.py:160
+msgid "Image"
+msgstr ""
+
+#: documents/models.py:434
+msgid "Page html"
+msgstr ""
+
+#: documents/models.py:459
+msgid "Other Issues"
+msgstr ""
+
+#: documents/templates/admin/change_author_documents.html:29
+#: documents/templates/admin/change_published_date.html:27
+msgid "Yes, I'm sure"
+msgstr ""
+
+#: documents/templates/admin/change_author_documents.html:30
+#: documents/templates/admin/change_published_date.html:28
+msgid "No, take me back"
+msgstr ""
+
+#: documents/templates/documents/doc-payment.html:3
+msgid "payment"
+msgstr ""
+
+#: documents/templates/documents/download_success.html:5
+msgid "Download Success"
+msgstr ""
+
+#: documents/templates/documents/page_views_finish.html:5
+msgid "Subscribe"
+msgstr ""
+
+#: documents/templates/documents/page_views_finish.html:27
+msgid "You read a lot."
+msgstr ""
+
+#: homework_help/models.py:43
+msgid "Question"
+msgstr ""
+
+#: homework_help/models.py:86
+msgid "Remarks"
+msgstr ""
+
+#: homework_help/models.py:87
+msgid "Budget"
+msgstr ""
+
+#: homework_help/models.py:88
+msgid "Amount Paid"
+msgstr ""
+
+#: homework_help/models.py:92
+msgid "Is Accepted"
+msgstr ""
+
+#: homework_help/models.py:104
+msgid "Solution"
+msgstr ""
+
+#: homework_help/models.py:108
+msgid "Is Concise"
+msgstr ""
+
+#: homework_help/models.py:109
+msgid "Is Detailed"
+msgstr ""
+
+#: homework_help/models.py:128
+msgid "Message"
+msgstr ""
+
+#: homework_help/models.py:129
+msgid "Reference File"
+msgstr ""
+
+#: review/models.py:21
+msgid "Review"
+msgstr ""
+
+#: review/models.py:22
+msgid "Reviews"
+msgstr ""
+
+#: samples/models.py:47
+msgid "Upload Sample"
+msgstr ""
+
+#: samples/models.py:48
+msgid " Pdf converted file"
+msgstr ""
+
+#: samples/models.py:71
+msgid "sample"
+msgstr ""
+
+#: samples/models.py:72
+msgid "samples"
+msgstr ""
+
+#: study/views.py:32
+msgid ""
+"Desklib allows you to explore best resources for your study requirements. "
+"Search solutions, assignments, presentations, thesis, homework solutions "
+"from our library."
+msgstr ""
+
+#: study/views.py:139
+msgid "Search results for your query on desklib.com"
+msgstr ""
+
+#: subjects/models.py:32
+msgid "Introduction"
+msgstr ""
+
+#: subjects/models.py:33
+msgid "Short description"
+msgstr ""
+
+#: subjects/models.py:34
+msgid "Sub heading"
+msgstr ""
+
+#: subjects/models.py:47 uploads/models.py:69
+msgid "Is visible"
+msgstr ""
+
+#: subjects/models.py:75
+msgid "subject"
+msgstr ""
+
+#: subjects/models.py:76
+msgid "subjects"
+msgstr ""
+
+#: subscription/models.py:12
+msgid "Package Name"
+msgstr ""
+
+#: subscription/models.py:13
+msgid "Price"
+msgstr ""
+
+#: subscription/models.py:15
+msgid "Download Limit"
+msgstr ""
+
+#: subscription/models.py:16
+msgid "View Limit"
+msgstr ""
+
+#: subscription/models.py:17
+msgid "Plan Days"
+msgstr ""
+
+#: subscription/models.py:76
+msgid "Session Id"
+msgstr ""
+
+#: uploads/forms.py:39
+#, python-format
+msgid "Please keep filesize under %s. Current filesize %s"
+msgstr ""
+
+#: uploads/models.py:59
+msgid "Course Name"
+msgstr ""
+
+#: uploads/models.py:60
+msgid "Course Code"
+msgstr ""
+
+#: uploads/models.py:62
+msgid "University / College"
+msgstr ""
+
+#: uploads/models.py:66
+msgid " Upload File"
+msgstr ""
+
+#: uploads/models.py:75
+msgid "upload"
+msgstr ""
+
+#: uploads/models.py:76
+msgid "uploads"
+msgstr ""
+
+#: user_sessions/models.py:25
+msgid "user session"
+msgstr ""
+
+#: user_sessions/models.py:26
+msgid "user sessions"
+msgstr ""
+
+#: writing/views.py:35
+msgid ""
+"Desklib provides free writing tools for everyone to improve their writing "
+"skills. Hire top content writers and proofreaders for your content "
+"requirements."
+msgstr ""
+
+#: writing/views.py:69 writing/views.py:138
+msgid "A writing company."
+msgstr ""
+
+#: writing/views.py:160
+msgid ""
+"Check your text for grammar corrections and spelling mistakes using our "
+"trusted and free grammar checker tool. Get free writing tips and suggestions "
+"to improve your writing skills."
+msgstr ""
