@@ -1,1 +1,106 @@
-hello
+{% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="comments"></div>
+
+<form action="" method="post" id="comment-form" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock %}
+
+
+{% block extra_js %}
+
+<script>
+jQuery(document).ready(function() {
+
+
+
+
+    $.ajax({
+          type: 'GET',
+          url: "{% url 'api:homework-help-api:document-create-api' order.order_id %}",
+          success: function(data){
+            var catObj;
+            catObj={};
+    $(".comments").empty();
+
+
+            console.log(data);
+            var i = 0;
+            for(i=0; i<data.length; i++){
+
+                if(data[i]['message']){
+                    $(".comments").append( data[i]['message'] + "<br>");
+                  }
+                  else if(data[i]['reference_files']){
+                    $(".comments").append( data[i]['reference_files'] + "<br>");
+                  }
+
+
+            }
+
+          },
+          error: function(data) {
+              $(".faqQuesTab").hide();
+              $("#faqPreloader").hide();
+              $(".errorDiv").show();
+          }
+        });
+
+
+    $("#comment-form").submit(function(e) {
+        e.preventDefault();
+        $("span.has-error").empty();
+//        $(".form-group").removeClass("has-error");
+
+//        var data = $("#comment-form").serializeArray();
+
+        let myForm = document.getElementById('comment-form');
+        let data = new FormData(myForm);
+
+        //var data = new FormData("#comment-form");
+
+        $("div.error_file").text("");
+
+                $(".enquiry-form-popup").hide();
+                $(".form-icon-plane").hide();
+                $(".form-loader").show();
+
+        $.ajax({
+            type : "POST",
+            url : '{% url 'api:homework-help-api:document-create-api' order.order_id %}',
+            enctype: 'multipart/form-data',
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function(data){
+
+
+                if(data['message']){
+                $(".comments").append( data['message'] + "<br>");
+                  }
+                  else if(data['reference_files']){
+                    $(".comments").append( data['reference_files'] + "<br>");
+                  }
+
+
+                document.getElementById("comment-form").reset();
+            },
+            error: function(data){
+
+                if ($(".help-block.non_field_errors").hasClass("has-error")) {
+                  $(".help-block.non_field_errors").siblings(".person-information").find(".form-group").addClass("has-error");
+                }
+            }
+        });
+    });
+
+});
+</script>
+
+{% endblock extra_js %}
