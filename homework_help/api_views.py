@@ -1,12 +1,6 @@
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, ListCreateAPIView
 
-from homework_help.serializers import QuestionCreateSerializer
-from rest_framework.generics import CreateAPIView, GenericAPIView
-from rest_framework.generics import CreateAPIView, GenericAPIView, ListCreateAPIView
-from rest_framework.views import APIView
-
-from homework_help.serializers import CommentCreateSerializer
-from desklib.mixins import RestrictIpMixin
+from homework_help.serializers import CommentCreateSerializer, QuestionCreateSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from homework_help.models import Order, Comment
