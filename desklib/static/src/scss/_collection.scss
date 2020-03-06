@@ -235,6 +235,7 @@ ul.stepper > .step:not(:last-of-type)::after{
 }
 ul#id_0-country{
     list-style-type: none;
+     margin-right:0px !important;
 }
 input[type="submit"].btn-block.width-25 {
      width: 25%;
@@ -243,6 +244,12 @@ input[type="submit"].btn-block.width-25 {
 //     height: 50%;
 //     height: calc(100% - 12px);
 // }
+
+.custom-file-input:lang(en) ~ .custom-file-label.drag-drop-file::after {
+     content: "";
+     background-color: #ffffff;
+     cursor: pointer;
+}
 
 //--------------------------For Upload-file page 01/11/2019  (Menka Kumari)---------------------//
 .select2-container--default .select2-selection--multiple{
@@ -337,7 +344,7 @@ span.input-group-text{
 .main-div{
 	position: relative;
 	overflow: hidden;
-} 
+}
 .inner-div{
   position: absolute;
   bottom: 0;
@@ -526,7 +533,7 @@ card {
 	background-color: #405FBD;
 	color: white;
 	z-index: 3 !important;
-}	
+}
 
 .form-inline input {
 	border-radius: 15px;
@@ -970,12 +977,12 @@ display:none;
 .search-bg {
 	background-color: #405FBD;
 	//border-radius: 50% !important;
-	//line-height: 25px;	
+	//line-height: 25px;
 	margin-left: -35px;
 	padding: 0 10px;
 }
 .search-bg-body {
-	background-color: #405FBD;	
+	background-color: #405FBD;
 	margin-left: -38px;
 	padding-left: 15px;
 	padding-right: 12px;
@@ -996,7 +1003,7 @@ display:none;
 .absolute{
 	position: absolute !important;
 	right: 0;
-	top: 100%;	
+	top: 100%;
 	left: auto;
 }
 .nav-link{
@@ -1034,7 +1041,7 @@ display:none;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-	}	
+	}
 }
 
 			//------------	For Tablets ----------//
@@ -1086,17 +1093,11 @@ display:none;
 	.m-top-10{
 	margin-top: 10px !important;
 	}
-}	
+}
 
 		//	---------------  For Mobile ---------//
 
 @media only screen and (max-width: $breakpoint-mobile) {
-.font-17{
-    font-size:17px;
-}
-// .mt-240px{
-//    margin-top:-240px;
-//  }
 .main-div:hover .btn-d-none {
 		display: none;
 }
