@@ -1,7 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from meta.views import MetadataMixin
+from django_json_ld.views import JsonLdContextMixin
+from haystack.generic_views import SearchView
 from django.shortcuts import render
-from django.views.generic import TemplateView, FormView, ListView
-from homework_help.models import Order, Comment
+from django.views.generic import TemplateView, FormView, ListView, DetailView
+from homework_help.models import Order, Comment, Question
 from homework_help.forms import CommentForm, QuestionForm
 
 # Create your views here.
@@ -30,4 +33,48 @@ class AskQuestionView(FormView):
         return context
 
 
+class QuestionDetailView(DetailView):
+    model = Question
+    template_name = "homework_help/question_detail.html"
+    # template_name = "desklib/coming_soon.html"
+    # form_class = HomeSearchForm
+    # title = 'Desklib | homework help | online learning library | assignment solutions '
+    # # description = 'Desklib is your home for best study resources and educational documents. We have a large collection of homework answers, assignment solutions, reports, sample resume and presentations. Our study tools help you improve your writing skills and grammar.'
+    # description = 'Desklib online learning library provides you 24/7 Homework Help, Q&A help, and solutions to assignments, essays, dissertations, case studies and Best free writing tools for everyone to improve their writing skills.'
+    # keywords = [ 'assignment writing help', 'online learning library', 'uk assignment help', 'Q&A help', 'homework help', 'dissertation writing help', 'assignment help online', 'Case Study Help']
+    # twitter_title = 'All study resources you will need to secure best grades in your assignments'
+    # og_title = 'All study resources you will need to secure best grades in your assignments'
+    # gplus_title = 'All study resources you will need to secure best grades in your assignments'
+    #
+    #
+    # structured_data = {
+    #     "@type": "Organization",
+    #     "name": "Desklib | homework help | online learning library | assignment solutions",
+    #     "description": _("Desklib online learning library provides you 24/7 Homework Help, Q&A help, and solutions to assignments, essays, dissertations, case studies and Best free writing tools for everyone to improve their writing skills."),
+    #     "url": "https://desklib.com/",
+    #     "logo": "https://desklib.com/assets/img/desklib_logo.png",
+    #     "potentialAction": {
+    #         "@type": "SearchAction",
+    #         "target": "https://desklib.com/study/search/?q={search_term}",
+    #         "query-input": "required name=search_term"
+    #     },
+    #     "sameAs": [
+    #         "https://www.facebook.com/desklib",
+    #         "https://twitter.com/desklib",
+    #         "https://www.linkedin.com/company/desklib",
+    #         "https://www.instagram.com/desklib/"
+    #     ]
+    # }
+    #
+    # def get_structured_data(self):
+    #     sd = super(QuestionDetailView, self).get_structured_data()
+    #     return sd
 
+    def get_context_data(self, **kwargs):
+        context = super(QuestionDetailView, self).get_context_data(**kwargs)
+        # context[self.context_meta_name] = self.get_meta(context=context)
+        return context
+
+
+class OrderCreateView(TemplateView):
+    template_name = "homework_help/order_create.html"
