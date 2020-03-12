@@ -9,4 +9,3 @@ urlpatterns = [
     path('ask-question/', AskQuestionView.as_view(), name='download-info-view'),
     path('<order_id>/', OrderDetailView.as_view(), name='download-info-view'),
 ]
-
