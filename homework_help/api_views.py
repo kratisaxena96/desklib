@@ -16,7 +16,7 @@ class QuestionCreateApiView(CreateAPIView):
         serializer = self.get_serializer(data=request.data)
 
         serializer.is_valid(raise_exception=True)
-
+        data = request.POST['unique_id']
 
 
         serializer.save(author=request.user)

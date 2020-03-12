@@ -75,7 +75,7 @@
 
 <script>
 $(function () {
-var k = 1
+
     $('#fileupload').fileupload({
         url: '{% url 'api:homework-help-api:question-file-create-api' %}',
         dataType: 'json',
@@ -83,7 +83,7 @@ var k = 1
         done: function (e, data) {
             $.each(data.result.files, function (index, file) {
                 $('<p/>').text(file.name).appendTo(document.body);
-                $('form').append("<input type='hidden' value='" + data.unique_id + "' name='unique_id' >");
+                $('form').append("<input type='hidden' value='" + data.unique_id + "' name='unique_id[]' >");
             });
         },
         progressall: function (e, data) {
@@ -100,8 +100,8 @@ var k = 1
 		//	var response = xhr.responseJSON;
 		//	var key = response.key;
 		console.log(data);
-                $('form').append("<input type='hidden' value='" + data.result.unique_id + "' name='unique_id"+ k +"' >");
-                k = k+1;
+                $('form').append("<input type='hidden' value='" + data.result.unique_id + "' name='unique_id' >");
+
 
 		}).on('fileuploadfail', function (e, data) {
 			//alert(data);
@@ -145,8 +145,8 @@ var k = 1
 
 
 
-//        var myForm = document.getElementById('question-form');
-//        data = new FormData(myForm);
+        var myForm = document.getElementById('question-form');
+        data = new FormData(myForm);
 //        var d = data.unique_id
 
 
