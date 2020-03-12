@@ -1,12 +1,16 @@
 {% extends "desklib/base.html" %}
 {% load staticfiles %}
 {% block content %}
+{% load humanize %}
 
 <div class="comments"></div>
 
 <form action="" method="post" id="comment-form" enctype="multipart/form-data">
     {% csrf_token %}
     {{form.as_p}}
+
+    <span class="reference_files"></span>
+    <br>
     <input type="submit" value="Submit">
 </form>
 
@@ -23,7 +27,7 @@ jQuery(document).ready(function() {
 
     $.ajax({
           type: 'GET',
-          url: "{% url 'api:homework-help-api:document-create-api' order.order_id %}",
+          url: "{% url 'api:homework-help-api:comment-create-api' order.order_id %}",
           success: function(data){
             var catObj;
             catObj={};
@@ -31,18 +35,26 @@ jQuery(document).ready(function() {
 
 
             console.log(data);
-            var i = 0;
-            for(i=0; i<data.length; i++){
+//            console.log(data.size());
+//                $.each( data, function( key, value ) {
+                $.each( data, function( index, value ) {
 
-                if(data[i]['message']){
-                    $(".comments").append( data[i]['message'] + "<br>");
+
+                if(value['message'] && value['reference_files']){
+                $(".comments").append('<div class="current' + index + '"></div>');
+                $('.current' + index).text( value['message'] + ' ' + value['reference_files'] )
                   }
-                  else if(data[i]['reference_files']){
-                    $(".comments").append( data[i]['reference_files'] + "<br>");
+                else if(value['message']){
+                $(".comments").append('<div class="current' + index + '"></div>');
+                $('.current' + index ).text( value['message'] )
+                  }
+                  else if(value['reference_files']){
+                $(".comments").append('<div class="current' + index + '"></div>');
+                $('.current' + index ).text( value['reference_files'] )
                   }
 
 
-            }
+            });
 
           },
           error: function(data) {
@@ -56,14 +68,30 @@ jQuery(document).ready(function() {
     $("#comment-form").submit(function(e) {
         e.preventDefault();
         $("span.has-error").empty();
-//        $(".form-group").removeClass("has-error");
 
-//        var data = $("#comment-form").serializeArray();
+        var data = $("#comment-form").serializeArray();
 
-        let myForm = document.getElementById('comment-form');
-        let data = new FormData(myForm);
 
-        //var data = new FormData("#comment-form");
+                if(data['message'] && data['reference_files']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] + ' ' + data['reference_files'] )
+                  }
+                else if(data['message']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] )
+                  }
+                  else if(data['reference_files']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['reference_files'] )
+                  }
+
+
+
+
+
+        var myForm = document.getElementById('comment-form');
+        data = new FormData(myForm);
+
 
         $("div.error_file").text("");
 
@@ -73,7 +101,7 @@ jQuery(document).ready(function() {
 
         $.ajax({
             type : "POST",
-            url : '{% url 'api:homework-help-api:document-create-api' order.order_id %}',
+            url : '{% url 'api:homework-help-api:comment-create-api' order.order_id %}',
             enctype: 'multipart/form-data',
             data: data,
             processData: false,
@@ -81,11 +109,20 @@ jQuery(document).ready(function() {
             success: function(data){
 
 
-                if(data['message']){
-                $(".comments").append( data['message'] + "<br>");
+                if(data['message'] && data['reference_files']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] + ' ' + data['reference_files'] )
+                  }
+                else if(data['message']){
+//                $(".comments").append("<code>" + data['message'] + "</code><br>");
+
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] )
                   }
                   else if(data['reference_files']){
-                    $(".comments").append( data['reference_files'] + "<br>");
+//                    $(".comments").append( data['reference_files'] + "<br>");
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['reference_files'] )
                   }
 
 
@@ -93,9 +130,12 @@ jQuery(document).ready(function() {
             },
             error: function(data){
 
-                if ($(".help-block.non_field_errors").hasClass("has-error")) {
-                  $(".help-block.non_field_errors").siblings(".person-information").find(".form-group").addClass("has-error");
-                }
+            var response = data.responseJSON;
+            for (key in response) {
+              $("#comment-form ."+key).addClass("has-error");
+              $("#comment-form span." + key).text(response[key][0]);
+            }
+
             }
         });
     });

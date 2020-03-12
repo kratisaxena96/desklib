@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views.generic import TemplateView, FormView, ListView
 from homework_help.models import Order, Comment
-from homework_help.forms import CommentForm
+from homework_help.forms import CommentForm, QuestionForm
 
 # Create your views here.
 
@@ -17,4 +17,17 @@ class OrderDetailView(LoginRequiredMixin, FormView):
         order = Order.objects.get(order_id=self.kwargs['order_id'])
         context['order'] = order
         return context
+
+
+class AskQuestionView(FormView):
+    template_name = 'homework_help/ask_question.html'
+    form_class = QuestionForm
+
+    def get_context_data(self, **kwargs):
+        context = super(AskQuestionView, self).get_context_data(**kwargs)
+        # order = Order.objects.get(order_id=self.kwargs['order_id'])
+        # context['order'] = order
+        return context
+
+
 
