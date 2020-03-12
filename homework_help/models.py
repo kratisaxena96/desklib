@@ -2,6 +2,7 @@ import random
 import string
 
 from django.conf import settings
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.utils import timezone
 from subjects.models import Subject
@@ -126,7 +127,9 @@ class Answers(models.Model):
 
 class Comment(models.Model):
     message = models.TextField(_('Message'))
-    reference_files = models.FileField(_('Reference File'), upload_to=upload_to, blank=True, null=True)
+    reference_files = models.FileField(_('Reference File'), upload_to=upload_to, blank=True, null=True,
+                                       validators=[
+                                           FileExtensionValidator(allowed_extensions=['png', 'jpg', 'jpeg', 'gif'])])
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='comment_author')
     order = models.ForeignKey(Order, on_delete=models.PROTECT, related_name='comment_author')
 
