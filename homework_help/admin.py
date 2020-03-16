@@ -21,6 +21,7 @@ class QuestionFileAdmin(admin.TabularInline):
 
 class QuestionAdmin(admin.ModelAdmin):
     inlines = [QuestionFileAdmin, ]
+    readonly_fields = ['created', 'updated', 'uid']
 
 
 class OrderAdmin(admin.ModelAdmin):
@@ -29,6 +30,7 @@ class OrderAdmin(admin.ModelAdmin):
 
 class QuestionFileAdmin(admin.ModelAdmin):
     readonly_fields = ['created', 'updated', 'unique_id']
+    raw_id_fields = ['question', 'author']
 
 # Register your models here.
 admin.site.register(Question, QuestionAdmin)
