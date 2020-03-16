@@ -73,7 +73,7 @@ class QuestionDetailView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(QuestionDetailView, self).get_context_data(**kwargs)
 
-        question = Question.objects.get(uid=self.kwargs['uid'])
+        question = Question.objects.get(slug=self.kwargs['slug'])
         context['object'] = question
         # context[self.context_meta_name] = self.get_meta(context=context)
         return context
