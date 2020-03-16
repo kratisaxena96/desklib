@@ -24,7 +24,7 @@ class QuestionAdmin(admin.ModelAdmin):
 
 
 class OrderAdmin(admin.ModelAdmin):
-    readonly_fields = ['created', 'updated', 'uuid']
+    readonly_fields = ['created', 'updated', 'uuid', 'order_id']
 
 
 class QuestionFileAdmin(admin.ModelAdmin):
