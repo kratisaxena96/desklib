@@ -4,7 +4,7 @@ from subjects.models import Subject
 
 
 class CommentForm(forms.ModelForm):
-    message = forms.CharField(label='Message', widget=forms.Textarea(attrs={'placeholder':"Enter your message", 'class':"form-control"}), required=False)
+    message = forms.CharField(label='Message', widget=forms.Textarea(attrs={'placeholder':"Enter your question here...", 'class':"form-control"}), required=False)
     reference_files =forms.FileField(label='Reference Files', widget=forms.FileInput(attrs={'placeholder':"Enter first text to compare", 'class':"form-control", }), required=False)
 
     class Meta:
