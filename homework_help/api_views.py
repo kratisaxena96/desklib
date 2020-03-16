@@ -3,7 +3,7 @@ from rest_framework.generics import CreateAPIView, ListCreateAPIView
 from homework_help.serializers import CommentCreateSerializer, QuestionCreateSerializer, QuestionFileCreateSerializer
 from rest_framework.response import Response
 from rest_framework import status
-from homework_help.models import Order, Comment
+from homework_help.models import Order, Comment, QuestionFile, Question
 import simplejson as json
 
 
@@ -15,17 +15,26 @@ class QuestionCreateApiView(CreateAPIView):
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
 
+        data = request.POST.getlist('unique_id')
         serializer.is_valid(raise_exception=True)
-        data = request.POST['unique_id']
 
 
         serializer.save(author=request.user)
+        q = Question.objects.get(question=serializer.validated_data.get('question'))
+        # print(q.id)
+        for i in data:
+            qf = QuestionFile.objects.get(unique_id=i)
+            qf.question = q
+            qf.save()
+
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 class QuestionFileCreateApiView(CreateAPIView):
     serializer_class = QuestionFileCreateSerializer
+
+    # def create(self, request, *args, **kwargs):
 
 
 class CommentCreateApiView(ListCreateAPIView):

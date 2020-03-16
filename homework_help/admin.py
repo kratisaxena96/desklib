@@ -24,11 +24,12 @@ class QuestionAdmin(admin.ModelAdmin):
 
 
 class OrderAdmin(admin.ModelAdmin):
-    readonly_fields = ['created', 'updated', 'uuid']
+    readonly_fields = ['created', 'updated']
 
 
 class QuestionFileAdmin(admin.ModelAdmin):
     readonly_fields = ['created', 'updated', 'unique_id']
+    raw_id_fields = ['question', 'author']
 
 # Register your models here.
 admin.site.register(Question, QuestionAdmin)

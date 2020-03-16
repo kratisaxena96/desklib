@@ -61,6 +61,7 @@ class Question(models.Model):
     subjects = models.ForeignKey(Subject, db_index=True, blank=True, null=True, related_name='subject_question',
                                  on_delete=models.PROTECT, )
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='author_question')
+    uid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 
     is_published = models.BooleanField(_('Is Published'), default=True)
     is_visible = models.BooleanField(_('Is Visible'), default=True)
@@ -141,7 +142,7 @@ class Order(models.Model):
     budget = models.IntegerField(_('Budget'), null=True, blank=True)
     amount_paid = models.IntegerField(_('Amount Paid'), null=True, blank=True)
     order_id = models.CharField(unique=True, max_length=10, default=key_generator, editable=False)
-    uuid = models.CharField(unique=True, max_length=10, default=key_generator, editable=False)
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 
     is_accepted = models.BooleanField(_('Is Accepted'), default=False)
     is_paid = models.BooleanField(_('Is Published'), default=False)
