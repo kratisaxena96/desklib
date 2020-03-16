@@ -21,10 +21,11 @@ class QuestionFileAdmin(admin.TabularInline):
 
 class QuestionAdmin(admin.ModelAdmin):
     inlines = [QuestionFileAdmin, ]
+    readonly_fields = ['created', 'updated', 'uid']
 
 
 class OrderAdmin(admin.ModelAdmin):
-    readonly_fields = ['created', 'updated']
+    readonly_fields = ['created', 'updated', 'uuid']
 
 
 class QuestionFileAdmin(admin.ModelAdmin):
