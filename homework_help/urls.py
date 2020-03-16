@@ -11,4 +11,3 @@ urlpatterns = [
     path('question/<uid>/', QuestionDetailView.as_view(), name='question-detail-view'),
     path('<uuid>/', OrderDetailView.as_view(), name='order-detail-view'),
 ]
-

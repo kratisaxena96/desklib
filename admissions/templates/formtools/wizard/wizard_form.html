@@ -12,13 +12,10 @@
                             {% csrf_token %}
                             {{ wizard.form.media }}
                             {{ wizard.management_form }}
-<!--							 <h1> {{wizard.steps.current}}</h1>-->
-							<ul class="stepper" id="progressbar">
+							<ul class="stepper">
 								<li class="step active one">
 									<div class="bg-light-gray border-radius-5">
 									<div class="step-title">
-<!--										<span class="d-block mt-n-1" current-step="{{wizard.steps.current}}"><strong>Step&nbsp;&nbsp;{{wizard.steps.step1}}</strong></span>-->
-<!--										<span class="d-block mt-n-1"><strong>Step&nbsp;&nbsp;1</strong></span>-->
 										<span class="d-block mt-n-1"><strong>{% trans "Choose Your Country" %}</strong></span>
 									</div>
 									</div>
@@ -26,14 +23,7 @@
 										<div class="row">
                                             <div class="col-md-11 col-sm-10 offset-sm-2 offset-md-1 offset-2">
 												{% if wizard.steps.current == "0" %}
-<!--												<h2 class="text-center mb-4">Choose Your Country</h2>-->
-<!--												<h2 class="text-center mb-4">{% trans "Choose Your Country" %}</h2>-->
 												<div class="row">
-<!--													<div class="col-sm-3">-->
-<!--														<div class="form-group">-->
-<!--															<label for="form_name" class="star"><strong>{{ wizard.form.country.label }}:</strong></label>-->
-<!--														</div>-->
-<!--													</div>-->
 													<div class="col-sm-3"></div>
 													<div class="col-sm-9">
 														<div class="form-group">
@@ -59,7 +49,6 @@
 								<li class="step two">
 									<div class="bg-light-gray border-radius-5">
 									<div class="step-title">
-<!--										<span class="d-block mt-n-1"><strong>Step&nbsp;&nbsp;2</strong></span>-->
 										<span class="d-block mt-n-1"><strong>{% trans "Personal Details" %}</strong></span>
 									</div>
 									</div>
@@ -67,8 +56,6 @@
 										<div class="row">
 											<div class="col-md-11 col-sm-10 offset-sm-2 offset-md-1 offset-2">
 												{% if wizard.steps.current == "1" %}
-<!--												<h2 class="text-center mb-4">Personal Details</h2>-->
-<!--												<h2 class="text-center mb-4">{% trans "Personal Details" %}</h2>-->
 												<div class="row mb-sm-3">
 													<div class="col-sm-3">
 														<div class="form-group">
@@ -140,7 +127,7 @@
 															<div class="input-group">
 																<div class="custom-file">
 					  											{{ wizard.form.resume }}
-    																<label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+    																<label class="custom-file-label text-truncate" for="inputGroupFile02">Choose file</label>
 																</div>
 																<div class="input-group-append">
     																<span class="input-group-text" id=""></span>
@@ -154,7 +141,7 @@
 												<div class="row mb-5">
 													<div class="col-md-12">
 <!--                                                <button name="wizard_goto_step" class="btn text-white btn-bg-theme text-uppercase width-25 px-4 py-2" type="submit" value="{{ wizard.steps.first }}">{% trans "first step" %}</button>-->
-                                                <button name="wizard_goto_step" formnovalidate="formnovalidate" class="btn text-white btn-bg-theme text-uppercase width-25 px-3 py-2 mr-3" type="submit" value="{{ wizard.steps.prev }}">{% trans "prev step" %}</button>
+                                                <button name="wizard_goto_step" formnovalidate="formnovalidate" class="btn text-white btn-bg-theme text-uppercase width-25 px-3 py-2 mr-3 mt-3 mt-sm-0" type="submit" value="{{ wizard.steps.prev }}">{% trans "prev step" %}</button>
                                             {% endif %}
 												<input type="submit" class="second-next btn text-white btn-bg-theme text-uppercase width-25 px-3 py-2 mt-3 mt-sm-0" name="submit" value="{% trans 'next' %}" />
 												</div>
@@ -167,7 +154,6 @@
 								<li class="step three">
 									<div class="bg-light-gray border-radius-5">
 										<div class="step-title">
-<!--										<span class="d-block mt-n-1"><strong>Step&nbsp;&nbsp;3</strong></span>-->
 											<span class="d-block mt-n-1"><strong>{% trans "Stream Details" %}</strong></span>
 										</div>
 									</div>
@@ -175,8 +161,6 @@
 										<div class="row mb-3">
 											<div class="col-md-11 col-sm-10 offset-sm-2 offset-md-1">
 												{% if wizard.steps.current == "2" %}
-<!--												<h2 class="text-center mb-4">Stream Details</h2>-->
-<!--												<h2 class="text-center mb-4">{% trans "Stream Details" %}</h2>-->
 												<div class="row mb-sm-3">
 													<div class="col-sm-4">
 														<div class="form-group">
@@ -213,9 +197,7 @@
 														</div>
 													</div>
 												</div>
-<!--                                                {{ wizard.form.as_p }}-->
                                              	{% if wizard.steps.prev %}
-<!--                                                <button name="wizard_goto_step" class="btn text-white btn-bg-theme text-uppercase width-25 px-4 py-2" type="submit" value="{{ wizard.steps.first }}">{% trans "first step" %}</button>-->
                                                 <button name="wizard_goto_step" formnovalidate="formnovalidate" class="btn text-white btn-bg-theme text-uppercase width-25 mt-4 px-4 py-2 mr-3" type="submit" value="{{ wizard.steps.prev }}">{% trans "prev step" %}</button>
                                             	{% endif %}
 												<input type="submit" class="btn text-white btn-bg-theme text-uppercase width-25 mt-4 px-4 py-2" name="submit" value="{% trans 'submit' %}" />
@@ -255,7 +237,7 @@ $(document).ready(function(){
  });
 $(document).on('change', '.custom-file-input', function (event) {
     $(this).next('.custom-file-label').html(event.target.files[0].name);
-})
+});
 </script>
 {% endblock %}
 

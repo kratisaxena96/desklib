@@ -63,7 +63,7 @@ class AspirantDetailsForm(forms.Form):
 
 
 class AspirantCountryDetailsForm(forms.Form):
-    country = forms.ChoiceField(label=_('Country'), choices=COUNTRY,widget=forms.RadioSelect(attrs={'class': "mr-3"}))
+    country = forms.ChoiceField(label=_('Country'), choices=COUNTRY,widget=forms.RadioSelect(attrs={'class': "mr-sm-3 mr-2"}))
 
 
 class DesiredQualificationForm(forms.Form):
