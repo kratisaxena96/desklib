@@ -1,4 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from paypal.standard.forms import PayPalPaymentsForm
+from django.urls import reverse
+from django.conf import settings
 from meta.views import MetadataMixin
 from django_json_ld.views import JsonLdContextMixin
 from haystack.generic_views import SearchView
@@ -87,7 +90,24 @@ class OrderCreateView(LoginRequiredMixin, FormView):
 
         context = super(OrderCreateView, self).get_context_data(**kwargs)
         question = self.request.GET.get('question')
-        question_object = Question.objects.get(question=question)
+        question_object = Question.objects.get(slug=question)
+
+        if settings.PAYPAL_TEST:
+            receiver_email = "info-facilitator@a2zservices.net"
+        else:
+            receiver_email = "info@a2zservices.net"
+        paypal_dict = {
+            "business": receiver_email,
+            "item_name": "desklib subscription",
+            "notify_url": self.request.build_absolute_uri(reverse('paypal-ipn')),
+            "return": self.request.build_absolute_uri('../paypal/redirect/'+self.request.GET.get('question')),
+            "cancel_return": self.request.build_absolute_uri('../'+self.request.GET.get('question')),
+
+        }
+
+        form = PayPalPaymentsForm(initial=paypal_dict, button_type="subscribe")
+        context['form'] = form
+
         context['question'] = question_object
         return context
 
