@@ -100,8 +100,8 @@ class OrderCreateView(LoginRequiredMixin, FormView):
             "business": receiver_email,
             "item_name": "desklib subscription",
             "notify_url": self.request.build_absolute_uri(reverse('paypal-ipn')),
-            "return": self.request.build_absolute_uri('../paypal/redirect/'+self.request.GET.get('question')),
-            "cancel_return": self.request.build_absolute_uri('../'+self.request.GET.get('question')),
+            "return": self.request.build_absolute_uri(reverse('order-detail-view')),
+            "cancel_return": self.request.build_absolute_uri(reverse('your-cancel-view')),
 
         }
 

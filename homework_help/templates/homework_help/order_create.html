@@ -76,11 +76,11 @@
 	<input id="id_amount" name="amount" type="hidden"  value="3">
 	<div class="row justify-content-center mt-4">
 		<div class="col-md-9 col-lg-5">
-			<input type="radio" name="checkbox" id="consize" class="checkbox" required>
+			<input type="radio" name="radio" id="consize" class="answer_type" value="3" required selected>
             <label class="blue-theme d-sm-inline" for="consize" class="blue-theme">&nbsp;I want an consize answer</label>
 		</div>
 		<div class="col-md-9 col-lg-5">
-			<input type="radio" name="checkbox" id="detail" class="checkbox" required>
+			<input type="radio" name="radio" id="detail" class="answer_type" value="10" required>
             <label class="blue-theme d-sm-inline" for="detail" class="blue-theme">&nbsp;I want an detailed answer</label>
 		</div>
 		<div class="col-md-9 col-lg-5">
@@ -103,12 +103,11 @@
  {% block extra_js %}
 <script>
   $( document ).ready(function() {
-	$(".selected_plan").on("click", function(){
+	$(".answer_type").on("click", function(){
  	if ($("input[type='radio']").is(":checked")) {
 
- 	key= $(this).data("key");
 	value = $(this).val();
- 	$("#id_custom").val("{{ user }}_" + key +"_{{doc}}");
+// 	$("#id_custom").val("{{ user }}_" + key +"_{{doc}}");
 	$("#id_amount").val(value);
  }
 });
