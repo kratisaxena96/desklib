@@ -145,6 +145,7 @@ class Order(models.Model):
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 
     is_accepted = models.BooleanField(_('Is Accepted'), default=False)
+    is_detailed = models.BooleanField(_('Is Detailed'), default=False)
     is_paid = models.BooleanField(_('Is Published'), default=False)
 
     created = models.DateTimeField(editable=False, auto_now_add=True)

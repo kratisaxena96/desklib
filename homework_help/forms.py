@@ -1,5 +1,5 @@
 from django import forms
-from homework_help.models import Comment, Question
+from homework_help.models import Comment, Question, Order
 from subjects.models import Subject
 from django import forms
 from haystack.forms import SearchForm
@@ -43,3 +43,8 @@ class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
         fields = ['question', 'subjects']
+
+
+# class QuestionOrder(forms.Form):
+#     is_consize =
+#     is_detailed

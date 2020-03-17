@@ -79,5 +79,15 @@ class QuestionDetailView(LoginRequiredMixin, TemplateView):
         return context
 
 
-class OrderCreateView(TemplateView):
+class OrderCreateView(LoginRequiredMixin, FormView):
     template_name = "homework_help/order_create.html"
+    form_class = CommentForm
+
+    def get_context_data(self, **kwargs):
+
+        context = super(OrderCreateView, self).get_context_data(**kwargs)
+        question = self.request.GET.get('question')
+        question_object = Question.objects.get(question=question)
+        context['question'] = question_object
+        return context
+

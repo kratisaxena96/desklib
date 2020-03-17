@@ -34,7 +34,16 @@ class QuestionCreateApiView(CreateAPIView):
 class QuestionFileCreateApiView(CreateAPIView):
     serializer_class = QuestionFileCreateSerializer
 
-    # def create(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+
+        serializer.is_valid(raise_exception=True)
+        name = request.data.get('file').name
+
+        serializer.save(author=request.user, title=name)
+
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 class CommentCreateApiView(ListCreateAPIView):
