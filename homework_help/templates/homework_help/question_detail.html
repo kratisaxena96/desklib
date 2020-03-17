@@ -6,7 +6,7 @@
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="{% url 'homework_help:ask-question-view'%}">Homework</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{object.title}}</li>
+        <li class="breadcrumb-item active" aria-current="page">{{object}}</li>
   </ol>
 </nav>
 </section>
@@ -14,11 +14,13 @@
     <div class="container pt-5">
         <div class="row">
             <div class="col-md-12">
-                 <h2 class="text-center">How can students be affected by it? Please explain in detail</h2>
+                <h2 class="text-center">{{object.question}}</h2>
+<!--                 <h2 class="text-center">How can students be affected by it? Please explain in detail</h2>-->
             </div>
         </div>
         <div class="row mt-3 mb-3">
             <div class="col-md-6">
+<!--                <img class="card-img-top" src="{{object.file}}" alt="file image">-->
                 <img src="{% static 'dist/assets/images/Verify_email.png' %}" class="img-fluid mx-auto">
             </div>
             <div class="col-md-6">
@@ -80,4 +82,7 @@
 </section>
 
 {% endblock %}
+
+{% comment %}
 {{object}}
+{% endcomment %}
