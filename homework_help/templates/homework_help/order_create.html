@@ -4,74 +4,97 @@
 
 {% block content %}
 <section class="bg-light-grey">
-    <div class="container pt-5 pb-5">
-        <div class="row justify-content-center">
-            <div class="col-md-11">
-                <form action="" method="post"  enctype="multipart/form-data">
-<!--                    <div class="row">-->
-<!--                        <div class="col-md-12">-->
-<!--                            <div class="">-->
-<!--                                <button type="button" class="btn btn-bg-theme border-radius-20 px-4 white">Edit</button>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label><strong>Question</strong></label>
-                            </div>
-                        </div>
+    <div class="container pt-4 pb-4 pt-md-5 pb-md-5">
+        <div class="row">
+            <div class="col-md-12">
+                <label><strong>Your Question</strong></label>
+                <div class="card">
+                    <div class="card-body">
+                        <p>Who has been appointed as the acting Chairman of the Union Public Service Commission (UPSC)?</p>
                     </div>
-                    <div class="row">
-                        <div class="col-md-11">
-                            <div class="form-group">
-                                <textarea class="form-control" placeholder="Type Your Question Here..."></textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-1">
-                            <input type="reset" class="btn btn-bg-theme white border-radius-20 px-4" value="Edit">
-                        </div>
-                    </div>
-                     <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label><strong>Attachments</strong></label>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                               <input type="file" class="">
-                            </div>
-                        </div>
-                     </div>
-                </form>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <label><strong>Your  Attachments</strong></label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <img src="{% static 'dist/assets/images/Verify_email.png' %}" class="img-fluid">
+            </div>
+            <div class="col-sm-6">
+                <img src="{% static 'dist/assets/images/Verify_email.png' %}" class="img-fluid">
             </div>
         </div>
     </div>
 </section>
 
 <section class="">
-    <div class="container pt-5 pb-5">
+    <div class="container pt-4 pb-5 pt-md-5 pb-md-5">
         <div class="row">
             <div class="col-md-12">
                 <h2 class="text-center">Payment Details</h2>
-                <h5 class="text-center">Answer&nbsp;(detailed)&nbsp;-&nbsp;$10</h5>
-                <p class="text-center">By clicking the link you will be redirected to PayPal Payment Gateway</p>
-                <div class="text-center">
-                    <a href="" class="btn btn-bg-theme border-radius-20 px-4 white">Proceed With PayPal</a>
-                </div>
+                <h5 class="text-center">Answer&nbsp;(Available)&nbsp;-&nbsp;$10</h5>
+                <form action="{{form.get_endpoint}}" method="post" id="form-check">
+                     {% csrf_token %}
+                     {{form}}
+                    <div class="row mt-3">
+                        <div class="col-sm-6">
+                            <div class="card mb-2 mt-2 bg-light">
+					            <label class="d-block label mb-0">
+					            <div class="card-body">
+						            <span class="">
+                                        <input type="radio" name="radio" id="consize" class="answer_type" value="3" required selected>
+                                        <label class="d-sm-inline ml-3" for="consize" class="blue-theme">&nbsp;I want an consize answer</label>
+					                </span>
+                                </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card mb-2 mt-2 bg-light">
+					            <label class="d-block label mb-0">
+					            <div class="card-body">
+						            <span class="">
+                                        <input type="radio" name="radio" id="detail" class="answer_type" value="10" required>
+                                        <label class="d-sm-inline ml-3" for="detail" class="blue-theme">&nbsp;I want an detailed answer</label>
+					                </span>
+                                </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12 text-md-center">
+                            <input type="checkbox" name="checkbox" id="check-box" class="checkbox" required>
+                            <label class="d-inline" for="check-box" class="blue-theme">&nbsp;I agree to the <a href="{% url 'termsofuse' %}">terms & conditions</a>, <a href="{% url 'privacypolicy' %}"> privacy policy</a>, <a href="{% url 'academicintegrity' %}">Academic Integrity</a>, <a href="{% url 'honorcode' %}">Honor Code</a> and <a href="{% url 'copyright' %}">Copyright</a>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+	 	                <div class="col-md-12">
+                            <p class="text-md-center">By clicking the link below you will be redirected to PayPal Payment Gateway</p>
+                            <div class="text-center">
+			                <input type="submit" value="Proceed with Paypal" class="btn btn-bg-theme border-radius-20 text-white px-sm-5 px-4" id="submitButton">
+		                    </div>
+                        </div>
+	                </div>
+                            <input id="id_custom" name="custom" type="hidden" value="">
+                            <input id="id_amount" name="amount" type="hidden"  value="3">
+                </form>
             </div>
         </div>
     </div>
 </section>
 
-
-
-<form action="{{form.get_endpoint}}" method="post" id="form-check">
-{% csrf_token %}
-{{form}}
+{% comment %}
+<section>
+    <div class="container">
+        <form action="{{form.get_endpoint}}" method="post" id="form-check">
+        {% csrf_token %}
+        {{form}}
  	<input id="id_custom" name="custom" type="hidden" value="">
 	<input id="id_amount" name="amount" type="hidden"  value="3">
 	<div class="row justify-content-center mt-4">
@@ -95,6 +118,9 @@
 		</div>
 	</div>
 </form>
+    </div>
+</section>
+{% endcomment %}
 
 {% endblock %}
 
