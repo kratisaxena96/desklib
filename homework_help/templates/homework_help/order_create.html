@@ -39,6 +39,7 @@
                 <form action="{{form.get_endpoint}}" method="post" id="form-check">
                      {% csrf_token %}
                      {{form}}
+                            <input id="id_amount" name="amount" type="hidden"  value="3">
                     <div class="row mt-3">
                         <div class="col-sm-6">
                             <div class="card mb-2 mt-2 bg-light">
@@ -80,8 +81,7 @@
 		                    </div>
                         </div>
 	                </div>
-                            <input id="id_custom" name="custom" type="hidden" value="">
-                            <input id="id_amount" name="amount" type="hidden"  value="3">
+                            <!--<input id="id_custom" name="custom" type="hidden" value="">-->
                 </form>
             </div>
         </div>
@@ -94,7 +94,7 @@
         <form action="{{form.get_endpoint}}" method="post" id="form-check">
         {% csrf_token %}
         {{form}}
- 	<input id="id_custom" name="custom" type="hidden" value="">
+ 	<!--<input id="id_custom" name="custom" type="hidden" value="">-->
 	<input id="id_amount" name="amount" type="hidden"  value="3">
 	<div class="row justify-content-center mt-4">
 		<div class="col-md-9 col-lg-5">
