@@ -1,5 +1,7 @@
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from rest_framework.generics import CreateAPIView, ListCreateAPIView
-
+from django.http import HttpResponseRedirect
 from homework_help.serializers import CommentCreateSerializer, QuestionCreateSerializer, QuestionFileCreateSerializer
 from rest_framework.response import Response
 from rest_framework import status
@@ -27,8 +29,15 @@ class QuestionCreateApiView(CreateAPIView):
             qf.question = q
             qf.save()
 
+        o = Order(question=q, user=request.user)
+        o.save()
+        data = serializer.data
+        data['slug'] = q.slug
+        data['order'] = o.uuid
+
         headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        # return HttpResponseRedirect(reverse('homework_help:order-detail-view', {'uuid':o.uuid}))
+        return Response(data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 class QuestionFileCreateApiView(CreateAPIView):

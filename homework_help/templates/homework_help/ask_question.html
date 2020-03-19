@@ -352,6 +352,7 @@ var k = 1
 
 
                 document.getElementById("question-form").reset();
+                window.location.replace( '{% url 'homework_help:order-create-view' %}?question=' + data.slug +'&order=' + data.order );
             },
             error: function(data){
 
