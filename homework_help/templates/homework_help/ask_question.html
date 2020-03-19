@@ -40,6 +40,7 @@
 
 {% block content %}
 
+{% comment %}
 <section class="bg-light-grey">
 	<div class="container pt-5 pb-5">
 		<div class="row justify-content-center">
@@ -203,7 +204,7 @@
 </div>
 </section>
 
-{% comment %}
+{% endcomment %}
 <div class="comments"></div>
 
 <form action="" method="post" id="question-form" enctype="multipart/form-data">
@@ -227,7 +228,6 @@
     <br>
     <input type="submit" value="Submit">
 </form>
-{% endcomment %}
 {% endblock %}
 
 
@@ -309,8 +309,8 @@ var k = 1
 
 
 
-//        var myForm = document.getElementById('question-form');
-//        data = new FormData(myForm);
+        var myForm = document.getElementById('question-form');
+        data = new FormData(myForm);
 //        var d = data.unique_id
 
 
@@ -348,6 +348,7 @@ var k = 1
 
 
                 document.getElementById("question-form").reset();
+                window.location.replace( '{% url 'homework_help:order-create-view' %}?question=' + data.slug +'&order=' + data.order );
             },
             error: function(data){
 
