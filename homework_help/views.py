@@ -102,7 +102,7 @@ class OrderCreateView(LoginRequiredMixin, FormView):
             "notify_url": self.request.build_absolute_uri(reverse('paypal-ipn')),
             "return": self.request.build_absolute_uri(reverse('homework_help:order-detail-view', kwargs={'uuid': self.request.GET.get('order')})),
             "cancel_return": self.request.build_absolute_uri('?question='+self.request.GET.get('question')+'?order='+self.request.GET.get('order')),
-
+            "custom": self.request.GET.get('question') + "_"+ self.request.GET.get('order'),
         }
 
         form = PayPalPaymentsForm(initial=paypal_dict, button_type="subscribe")
