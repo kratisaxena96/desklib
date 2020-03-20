@@ -10,23 +10,22 @@
                 <label><strong>Your Question</strong></label>
                 <div class="card">
                     <div class="card-body">
-                        <p>Who has been appointed as the acting Chairman of the Union Public Service Commission (UPSC)?</p>
+                        <p>{{question}}</p>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row mt-4">
-            <div class="col-md-12">
+            <div class="col-sm-12">
                 <label><strong>Your  Attachments</strong></label>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-6">
-                <img src="{% static 'dist/assets/images/Verify_email.png' %}" class="img-fluid">
+             {% for question in question.user_questionfiles.all %}
+            <div class="col-sm-6 mb-3">
+                  <img class="img-fluid" src="{{question.file.url}}" />
             </div>
-            <div class="col-sm-6">
-                <img src="{% static 'dist/assets/images/Verify_email.png' %}" class="img-fluid">
-            </div>
+             {% endfor %}
         </div>
     </div>
 </section>
