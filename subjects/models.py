@@ -90,7 +90,7 @@ class Subject(ModelMeta, models.Model):
 
 
 class SubjectContent(models.Model):
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='course_code_documents')
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='subject_content')
     title = models.CharField(_('Title'), max_length=500)
     slug = models.SlugField(_('Slug'), unique=True)
     description = RichTextField(_('Description'))
