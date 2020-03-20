@@ -88,6 +88,7 @@ urlpatterns = [
                   path('api/', include(('api.urls', 'api'), namespace="api")),
                   path('admissions/', include(('admissions.urls', 'admissions'), namespace="admissions")),
                   path('homework-help/', include(('homework_help.urls', 'homework_help'), namespace="homework_help")),
+                  path('ckeditor/', include('ckeditor_uploader.urls')),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
