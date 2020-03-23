@@ -9,6 +9,7 @@ from django.utils import timezone
 from subjects.models import Subject
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import slugify
+from django.template.defaultfilters import truncatechars
 
 
 # Create your models here.
@@ -56,7 +57,7 @@ def upload_solutions(instance, filename):
 
 class Question(models.Model):
     question = models.TextField(_('Question'))
-    slug = models.SlugField(_('Slug'), unique=True)
+    slug = models.SlugField(_('Slug'), unique=True, max_length= 200)
     # upload_file = models.FileField(verbose_name=_('Upload File'), upload_to=upload_to, max_length=1000)
     subjects = models.ForeignKey(Subject, db_index=True, blank=True, null=True, related_name='subject_question',
                                  on_delete=models.PROTECT, )
@@ -74,7 +75,8 @@ class Question(models.Model):
 
     def save(self, *args, **kwargs):
         value = self.question
-        self.slug = slugify(value, allow_unicode=True)
+        self.slug = slugify(truncatechars(value, 50))
+
         super().save(*args, **kwargs)
 
 
