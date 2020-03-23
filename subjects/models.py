@@ -87,3 +87,17 @@ class Subject(ModelMeta, models.Model):
             return reverse('subjects:child-subject-view', kwargs={'parent_subject': self.parent_subject.slug, 'slug': self.slug})
         else:
             return reverse('subjects:parent-subject-view', kwargs={'slug': self.slug})
+
+
+class SubjectContent(models.Model):
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='subject_content')
+    title = models.CharField(_('Title'), max_length=500)
+    slug = models.SlugField(_('Slug'), unique=True)
+    description = RichTextField(_('Description'))
+
+    class Meta:
+        verbose_name = _('subject content')
+        verbose_name_plural = _('subject content')
+
+    def __str__(self):
+        return self.title

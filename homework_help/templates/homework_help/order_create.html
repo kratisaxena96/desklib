@@ -1,0 +1,156 @@
+{% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% load humanize %}
+
+{% block content %}
+<section class="bg-light-grey">
+    <div class="container pt-4 pb-4 pt-md-5 pb-md-5">
+        <div class="row">
+            <div class="col-md-12">
+                <label><strong>Your Question</strong></label>
+                <div class="card">
+                    <div class="card-body">
+                        <p>{{question}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-sm-12">
+                <label><strong>Your  Attachments</strong></label>
+            </div>
+        </div>
+        <div class="row">
+             {% for question in question.user_questionfiles.all %}
+            <div class="col-sm-6 mb-3">
+                  <img class="img-fluid" src="{{question.file.url}}" />
+            </div>
+             {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="">
+    <div class="container pt-4 pb-5 pt-md-5 pb-md-5">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center">Payment Details</h2>
+                <h5 class="text-center">Answer&nbsp;(Available)&nbsp;-&nbsp;$10</h5>
+                <form action="{{form.get_endpoint}}" method="post" id="form-check">
+                     {% csrf_token %}
+                     {{form}}
+                            <input id="id_amount" name="amount" type="hidden"  value="3">
+                    <div class="row mt-3">
+                        <div class="col-sm-6">
+                            <div class="card mb-2 mt-2 bg-light">
+					            <label class="d-block label mb-0">
+					            <div class="card-body">
+						            <span class="">
+                                        <input type="radio" name="radio" id="consize" class="answer_type" value="3" required selected>
+                                        <label class="d-sm-inline ml-3" for="consize" class="blue-theme">&nbsp;I want an consize answer</label>
+					                </span>
+                                </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card mb-2 mt-2 bg-light">
+					            <label class="d-block label mb-0">
+					            <div class="card-body">
+						            <span class="">
+                                        <input type="radio" name="radio" id="detail" class="answer_type" value="10" required>
+                                        <label class="d-sm-inline ml-3" for="detail" class="blue-theme">&nbsp;I want an detailed answer</label>
+					                </span>
+                                </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12 text-md-center">
+                            <input type="checkbox" name="checkbox" id="check-box" class="checkbox" required>
+                            <label class="d-inline" for="check-box" class="blue-theme">&nbsp;I agree to the <a href="{% url 'termsofuse' %}">terms & conditions</a>, <a href="{% url 'privacypolicy' %}"> privacy policy</a>, <a href="{% url 'academicintegrity' %}">Academic Integrity</a>, <a href="{% url 'honorcode' %}">Honor Code</a> and <a href="{% url 'copyright' %}">Copyright</a>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+	 	                <div class="col-md-12">
+                            <p class="text-md-center">By clicking the link below you will be redirected to PayPal Payment Gateway</p>
+                            <div class="text-center">
+			                <input type="submit" value="Proceed with Paypal" class="btn btn-bg-theme border-radius-20 text-white px-sm-5 px-4" id="submitButton">
+		                    </div>
+                        </div>
+	                </div>
+                            <!--<input id="id_custom" name="custom" type="hidden" value="">-->
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% comment %}
+<section>
+    <div class="container">
+        <form action="{{form.get_endpoint}}" method="post" id="form-check">
+        {% csrf_token %}
+        {{form}}
+ 	<!--<input id="id_custom" name="custom" type="hidden" value="">-->
+	<input id="id_amount" name="amount" type="hidden"  value="3">
+	<div class="row justify-content-center mt-4">
+		<div class="col-md-9 col-lg-5">
+			<input type="radio" name="radio" id="consize" class="answer_type" value="3" required selected>
+            <label class="blue-theme d-sm-inline" for="consize" class="blue-theme">&nbsp;I want an consize answer</label>
+		</div>
+		<div class="col-md-9 col-lg-5">
+			<input type="radio" name="radio" id="detail" class="answer_type" value="10" required>
+            <label class="blue-theme d-sm-inline" for="detail" class="blue-theme">&nbsp;I want an detailed answer</label>
+		</div>
+		<div class="col-md-9 col-lg-5">
+			<input type="checkbox" name="checkbox" id="check-box" class="checkbox" required>
+            <label class="blue-theme d-sm-inline" for="check-box" class="blue-theme">&nbsp;I agree to the <a href="{% url 'termsofuse' %}">terms & conditions</a>, <a href="{% url 'privacypolicy' %}"> privacy policy</a>, <a href="{% url 'academicintegrity' %}">Academic Integrity</a>, <a href="{% url 'honorcode' %}">Honor Code</a> and <a href="{% url 'copyright' %}">Copyright</a>
+            </label>
+		</div>
+    </div>
+	<div class="row justify-content-center mt-4">
+	 	<div class="col-lg-5 text-center">
+			<input type="submit" value="Proceed with Paypal" class="btn btn-bg-theme border-radius-20 text-white px-sm-5 px-4" id="submitButton">
+		</div>
+	</div>
+</form>
+    </div>
+</section>
+{% endcomment %}
+
+{% endblock %}
+
+
+
+ {% block extra_js %}
+<script>
+  $( document ).ready(function() {
+	$(".answer_type").on("click", function(){
+ 	if ($("input[type='radio']").is(":checked")) {
+
+	value = $(this).val();
+// 	$("#id_custom").val("{{ user }}_" + key +"_{{doc}}");
+	$("#id_amount").val(value);
+ }
+});
+
+  	$('.parent .payment-card-box').click(function() {
+    $('.parent .payment-card-box').removeClass("bg-blue");
+    $(this).addClass("bg-blue");
+  	})
+
+//  	$("#submitButton").click(function (e) {
+//            if (!$('input[name="radio"]').is(':checked')) {
+//            	alert("Please select one of the above options");
+//                e.preventDefault();
+//            }
+//        });
+ });
+
+</script>
+
+ {% endblock extra_js %}
+

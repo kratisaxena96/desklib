@@ -1,0 +1,82 @@
+{% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% block content %}
+<section>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'homework_help:ask-question-view'%}">Homework</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{object}}</li>
+  </ol>
+</nav>
+</section>
+<section class="">
+    <div class="container pt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+
+                <h2 class="border border-secondary p-3">{{object.question}}</h2>
+            </div>
+        </div>
+        <div class="row mt-4 mb-3 justify-content-center">
+            {% for object in object.user_questionfiles.all %}
+            <div class="col-md-10 mb-4">
+                <div class="border border-secondary">
+                    <img class="img-fluid" src="{{object.file.url}}" />
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<section class="bg-light">
+    <div class="container pt-5 pb-5">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center">Expert's Answers</h2>
+                 <h5 class="mb-3 text-center">2 Answers Are Available</h5>
+                 <div class="text-center">
+                    <a href="" class="btn btn-bg-theme white border-radius-20 px-4">View Answers</a>
+                 </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="">
+    <div class="container pt-5 pb-5">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center">More Questions From This Subjects</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 col-md-4">
+                <a href="" class="blue-font">Computer Science</a>
+            </div>
+            <div class="col-6 col-md-4">
+                <a href="" class="blue-font">Mathematics</a>
+            </div>
+            <div class="col-6 col-md-4">
+                 <a href="" class="blue-font">Finance</a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="bg-light-grey">
+    <div class="container pb-5 pt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center">Ask a Question</h2>
+                <div class="text-center">
+                    <a href="{% url 'homework_help:ask-question-view'%}" class="btn btn-bg-theme white border-radius-20 px-4 mt-3">Ask Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% comment %}
+{{object}}
+{% endcomment %}

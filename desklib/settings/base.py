@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.sitemaps',
     # 'accounts.apps.AccountsConfig',
+    'django.contrib.humanize',
     'haystack',
     'desklib',
     'accounts',
@@ -54,6 +55,7 @@ INSTALLED_APPS = [
     'taggit',
     'user_sessions',
     'ckeditor',
+    'ckeditor_uploader',
     'documents',
     'meta',
     'django_json_ld',
@@ -322,3 +324,25 @@ CACHES = {
 ASGI_APPLICATION = 'desklib.routing.application'
 
 COMING_SOON = False
+
+CKEDITOR_IMAGE_BACKEND = "pillow"
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
+CKEDITOR_JQUERY_URL = 'http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
+
+CKEDITOR_ALLOW_NONIMAGE_FILES = False
+
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+#         'width': 600,
+    },
+    'extraPlugins': ','.join([
+            'autolink', 'dialog',
+            'codesnippet','autogrow','placeholder',
+    ]),
+}
+
