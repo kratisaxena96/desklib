@@ -4,6 +4,7 @@ from subscription.models import Subscription, Plan, PayPerDocument
 from accounts.models import UserAccount
 from datetime import timedelta
 from django.template.loader import render_to_string
+from homework_help.models import Order
 from documents.models import Document
 from post_office import mail
 from django.conf import settings
@@ -21,6 +22,12 @@ def show_me_the_money(sender, **kwargs):
         if settings.PAYPAL_TEST:
             receiver_email = "info-facilitator@a2zservices.net"
             # action="https://www.sandbox.paypal.com/cgi-bin/webscr"
+            custom_list = ipn_obj.custom.split('_')
+            question = custom_list[0]
+            order =  custom_list[1]
+            o = Order.objects.get(uuid=order)
+            o.amount_paid = ipn_obj.payment_gross
+            o.save()
         else:
             if ipn_obj.receiver_email == "info@a2zservices.net":
                 if ipn_obj.txn_id:

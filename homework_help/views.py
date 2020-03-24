@@ -91,6 +91,7 @@ class OrderCreateView(LoginRequiredMixin, FormView):
         context = super(OrderCreateView, self).get_context_data(**kwargs)
         question = self.request.GET.get('question')
         question_object = Question.objects.get(slug=question)
+        order = Order.objects.get(uuid= self.request.GET.get('order'))
 
         if settings.PAYPAL_TEST:
             receiver_email = "info-facilitator@a2zservices.net"
@@ -98,10 +99,10 @@ class OrderCreateView(LoginRequiredMixin, FormView):
             receiver_email = "info@a2zservices.net"
         paypal_dict = {
             "business": receiver_email,
-            "item_name": "desklib subscription",
+            "item_name": "Order- " + order.order_id,
             "notify_url": self.request.build_absolute_uri(reverse('paypal-ipn')),
             "return": self.request.build_absolute_uri(reverse('homework_help:order-detail-view', kwargs={'uuid': self.request.GET.get('order')})),
-            "cancel_return": self.request.build_absolute_uri('?question='+self.request.GET.get('question')+'?order='+self.request.GET.get('order')),
+            "cancel_return": self.request.build_absolute_uri('?question='+self.request.GET.get('question')+'&order='+self.request.GET.get('order')),
             "custom": self.request.GET.get('question') + "_"+ self.request.GET.get('order'),
         }
 
