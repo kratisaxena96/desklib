@@ -267,8 +267,8 @@ var k = 1
 		//	var response = xhr.responseJSON;
 		//	var key = response.key;
 		console.log(data);
-                $('form').append("<input type='hidden' value='" + data.result.unique_id + "' name='unique_id"+ k +"' >");
-                k = k+1;
+                $('form').append("<input type='hidden' value='" + data.result.unique_id + "' name='unique_id' >");
+
 
 		}).on('fileuploadfail', function (e, data) {
 			//alert(data);
@@ -351,7 +351,7 @@ var k = 1
 
 
                 document.getElementById("question-form").reset();
-                window.location.replace( '{% url 'homework_help:order-create-view' %}?question=' + data.slug +'&order=' + data.order );
+                window.location.replace( "/homework-help/" + data.order) ;
             },
             error: function(data){
 
