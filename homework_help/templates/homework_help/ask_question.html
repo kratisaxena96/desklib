@@ -1,0 +1,514 @@
+{% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% load humanize %}
+
+{% block extra_css %}
+<style>
+.bar {
+    height: 18px;
+    background: green;
+}
+
+// add dropzone
+#dropzone {
+    background: palegreen;
+    width: 150px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-weight: bold;
+}
+#dropzone.in {
+    width: 600px;
+    height: 200px;
+    line-height: 200px;
+    font-size: larger;
+}
+#dropzone.hover {
+    background: lawngreen;
+}
+#dropzone.fade {
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    opacity: 1;
+}
+</style>
+{% endblock extra_css %}
+
+{% block content %}
+
+<section class="bg-light-grey">
+	<div class="container pt-5 pb-5">
+		<div class="row justify-content-center">
+			<div class="col-md-12">
+				<h1 class="text-center mb-4">Get step-by-step solutions from our subjects experts</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="comments"></div>
+				<form action="" method="post" id="question-form" enctype="multipart/form-data">
+					 {% csrf_token %}
+					<div class="bg-light-gray p-4 rounded-top">
+						<h2 class="pt-3 pb-2">Detailed explanation to all your questions</h2>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+							{{form.question}}
+                			</div>
+						</div>
+					</div>
+					<div class="row mt-2">
+            			<div class="col-md-7">
+							<label class=""><strong>Upload&nbsp;{{form.file.label}}</strong></label>
+                			<div class="form-group">
+                    			<div class="border-dashed bg-white">
+									<div class="input-group">
+            							<div class="custom-file text-truncate">
+<!--                							<input type="file" class="custom-file-input" id="inputGroupFile02"/>-->
+												{{form.file}}
+                								<label class="custom-file-label drag-drop-file border-0 text-center" for="inputGroupFile02">Drag and Drop Files Or Click here</label>
+            								</div>
+            							<div class="input-group-append">
+            							</div>
+        							</div>
+
+                    			</div>
+                			</div>
+						</div>
+						<div class="col-md-5">
+							<label class=""><strong>Select Your&nbsp;{{form.subjects.label}}</strong></label>
+							<div class="form-group">
+                     		{{form.subjects}}
+							</div>
+						</div>
+					</div>
+					  <div id="progress">
+    					<div class="bar" style="width: 0%;"></div>
+					  </div>
+    					<span class="reference_files"></span>
+
+    					<div class="row">
+							<div class="col-md-12">
+                     			<input type="submit" value="Get Answer" class="btn btn-bg-theme white border-radius-20 px-4" />
+							</div>
+						</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="">
+	<div class="container pt-5 pb-5">
+		<h2 class="text-center">How It Works</h2>
+		<div class="row">
+			<div class="col-md-4">
+				<img src="{% static 'dist/assets/images/Verify_email.png' %}" alt="image" class="card-img-top img-fluid">
+				<h5 class="text-center">Enter Question</h5>
+				<p class="mt-1 text-center">Add all relevant details & images</p>
+			</div>
+			<div class="col-md-4">
+				<img src="{% static 'dist/assets/images/Verify_email.png' %}" alt="image" class="card-img-top img-fluid">
+				<h5 class="text-center">Quick Payment</h5>
+				<p class="mt-1 text-center">Pay the amount using quick payment options</p>
+			</div>
+			<div class="col-md-4">
+				<img src="{% static 'dist/assets/images/Verify_email.png' %}" alt="image" class="card-img-top img-fluid">
+				<h5 class="text-center">Get Your Answer</h5>
+				<p class="mt-1 text-center">Get step-by-step solution & explanation to your question</p>
+			</div>
+		</div>
+		</div>
+</section>
+<section class="bg-light">
+	<div class="container pt-5 pb-5">
+		<div class="row">
+			<div class="col-md-12">
+				<h2 class="text-center">Looking For Previous Answer?</h2>
+				 <form class="" action="">
+					 <div class="form-group d-flex justify-content-center mt-4">
+                     <div id="remote" class="input-group w-50 width-100">
+                      	 <input class=" form-control form-control-lg shadow border-radius-30 typeahead search-bar-border-none" type="text" placeholder="Search Your Question" name="q">
+                         	<div class="input-group-append">
+                            	<button class="btn btn-lg rounded-circle search-bg-body" type="submit"><i class="fa fa-search rounded-circle search-icon"></i></button>
+                        	</div>
+                    	</div>
+						 </div>
+				 </form>
+			</div>
+	</div>
+	</div>
+</section>
+<section class="">
+	<div class="container pt-5 pb-5">
+		<div class="row">
+			<div class="col-md-6">
+				<h5 class="mb-4 mt-2">Get best help from our expert tutor</h5>
+				<ul class="">
+					<li class="mb-2">Detailed solution.</li>
+					<li class="mb-2">Explanation with figures.</li>
+					<li>Quick answers.</li>
+				</ul>
+			</div>
+			<div class="col-md-6 mb-3 mb-md-0">
+				<div class="p-4 bg-light-blue h-100 rounded">
+					<img src="{% static 'dist/assets/images/checked.png' %}" alt="image" class="card-img-top img-fluid width-40px">
+					<h6 class="mt-3">Good Question</h6>
+					<p>"What is the difference between an income statement and a cash flow statement? Please also explain how each are used."</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="bg-light">
+	<div class="container pt-5 pb-5">
+	<div class="row justify-content-center">
+		<div class="col-md-12">
+			<h2 class="text-center">Happy Students</h2>
+			<div class="main-content mt-4" id="main0">
+			<div class="owl-carousel homework-help-carousel">
+				<div>
+					<img src="{% static 'dist/assets/images/why_choose_us_img.png' %}" class="img-fluid w-25 mx-auto d-block">
+					<p class="text-center mt-3">Thanks for the help</p>
+				</div>
+				<div>
+					<img src="{% static 'dist/assets/images/why_choose_us_img.png' %}" class="img-fluid w-25 mx-auto d-block">
+					<p class="text-center mt-3">Thanks for the help</p>
+				</div>
+				<div>
+					<img src="{% static 'dist/assets/images/why_choose_us_img.png' %}" class="img-fluid w-25  mx-auto d-block">
+					<p class="text-center mt-3">Thanks for the help</p>
+				</div>
+				<div>
+					<img src="{% static 'dist/assets/images/why_choose_us_img.png' %}" class="img-fluid w-25  mx-auto d-block">
+					<p class="text-center mt-3">Thanks for the help</p>
+				</div>
+			</div>
+			<div class="owl-theme">
+                <div class="owl-controls">
+                    <div class="custom-nav owl-nav"></div>
+                </div>
+            </div>
+			</div>
+		</div>
+	</div>
+</div>
+</section>
+
+{% comment %}
+<div class="comments"></div>
+
+<form action="" method="post" id="question-form" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.question.label}}
+    {{form.question}}
+    {{form.question.errors.as_text}}
+    {{form.subjects.label}}
+    {{form.subjects}}
+    {{form.subjects.errors.as_text}}
+    {{form.file.label}}
+    {{form.file}}
+    {{form.file.errors.as_text}}
+
+    <div id="progress">
+    <div class="bar" style="width: 0%;"></div>
+</div>
+
+
+    <span class="reference_files"></span>
+    <br>
+    <input type="submit" value="Submit">
+</form>
+{% endcomment %}
+
+{% endblock %}
+
+
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/10.8.0/js/vendor/jquery.ui.widget.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/10.8.0/js/jquery.iframe-transport.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/10.8.0/js/jquery.fileupload.min.js"></script>
+
+
+{% comment %}
+<script src='{% static "src/js/jquery.ui.widget.js" %}'></script>
+<script src='{% static "src/js/jquery.iframe-transport.js" %}'></script>
+<script src='{% static "src/js/jquery.fileupload.js" %}" type="text/javascript'></script>
+{% endcomment %}
+
+<script>
+$(function () {
+var k = 1
+    $('#fileupload').fileupload({
+        url: '{% url 'api:homework-help-api:question-file-create-api' %}',
+        dataType: 'json',
+        dropZone: $('#dropzone'),
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('<p/>').text(file.name).appendTo(document.body);
+                $('form').append("<input type='hidden' value='" + data.unique_id + "' name='unique_id' >");
+            });
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progress .bar').css(
+                'width',
+                progress + '%'
+            );
+        }
+    }).on('fileuploaddone', function (e, data) {
+			//alert(data);
+			//uploadBtn.button('reset');
+		//	var xhr = data.response().jqXHR;
+		//	var response = xhr.responseJSON;
+		//	var key = response.key;
+		console.log(data);
+                $('form').append("<input type='hidden' value='" + data.result.unique_id + "' name='unique_id"+ k +"' >");
+                k = k+1;
+
+		}).on('fileuploadfail', function (e, data) {
+			//alert(data);
+
+			$(".loader-background").hide();
+			//uploadBtn.button('reset');
+			var xhr = data.response().jqXHR;
+			var response = xhr.responseJSON;
+			console.log(response);
+			// Begin for loop here
+			for (var key in response) {
+				console.log(key, response[key][0]);
+				$('.' + key).addClass('has-error');
+				$('span.' + key).text(response[key][0]);
+			}});
+});
+
+
+
+    $("#question-form").submit(function(e) {
+        e.preventDefault();
+        $("span.has-error").empty();
+
+        var data = $("#question-form").serializeArray();
+
+
+         //       if(data['message'] && data['reference_files']){
+         //       $(".comments").append('<div class="current"></div>');
+         //       $(".current").text( data['message'] + ' ' + data['reference_files'] )
+         //         }
+         //       else if(data['message']){
+         //       $(".comments").append('<div class="current"></div>');
+         //       $(".current").text( data['message'] )
+         //         }
+         //         else if(data['reference_files']){
+         //       $(".comments").append('<div class="current"></div>');
+         //       $(".current").text( data['reference_files'] )
+         //         }
+
+
+
+
+
+        var myForm = document.getElementById('question-form');
+       data = new FormData(myForm);
+       var d = data.unique_id
+
+
+        $("div.error_file").text("");
+
+                $(".enquiry-form-popup").hide();
+                $(".form-icon-plane").hide();
+                $(".form-loader").show();
+
+        $.ajax({
+            type : "POST",
+            url : '{% url 'api:homework-help-api:question-create-api' %}',
+            enctype: 'multipart/form-data',
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function(data){
+
+
+                if(data['message'] && data['reference_files']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] + ' ' + data['reference_files'] )
+                  }
+                else if(data['message']){
+//                $(".comments").append("<code>" + data['message'] + "</code><br>");
+
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] )
+                  }
+                  else if(data['reference_files']){
+//                    $(".comments").append( data['reference_files'] + "<br>");
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['reference_files'] )
+                  }
+
+
+                document.getElementById("question-form").reset();
+                window.location.replace( '{% url 'homework_help:order-create-view' %}?question=' + data.slug +'&order=' + data.order );
+            },
+            error: function(data){
+
+            var response = data.responseJSON;
+            for (key in response) {
+              $("#comment-form ."+key).addClass("has-error");
+              $("#comment-form span." + key).text(response[key][0]);
+            }
+
+            }
+        });
+    });
+
+
+$('.homework-help-carousel').owlCarousel({
+	items: 1,
+	loop: true,
+	autoplay: true,
+	margin: 10,
+	nav: true,
+	dots: false,
+	 navText: [
+        '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+        '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+    ],navContainer: '#main0 .custom-nav',
+
+});
+
+$(document).on('change', '.custom-file-input', function (event) {
+    $(this).next('.custom-file-label').html(event.target.files[0].name);
+});
+
+</script>
+
+{% comment %}
+<script>
+jQuery(document).ready(function() {
+
+
+
+
+    $.ajax({
+          type: 'GET',
+          url: "{% url 'api:homework-help-api:document-create-api' order.order_id %}",
+          success: function(data){
+            var catObj;
+            catObj={};
+    $(".comments").empty();
+
+
+            console.log(data);
+//            console.log(data.size());
+//                $.each( data, function( key, value ) {
+                $.each( data, function( index, value ) {
+
+
+                if(value['message'] && value['reference_files']){
+                $(".comments").append('<div class="current' + index + '"></div>');
+                $('.current' + index).text( value['message'] + ' ' + value['reference_files'] )
+                  }
+                else if(value['message']){
+                $(".comments").append('<div class="current' + index + '"></div>');
+                $('.current' + index ).text( value['message'] )
+                  }
+                  else if(value['reference_files']){
+                $(".comments").append('<div class="current' + index + '"></div>');
+                $('.current' + index ).text( value['reference_files'] )
+                  }
+
+
+            });
+
+          },
+          error: function(data) {
+              $(".faqQuesTab").hide();
+              $("#faqPreloader").hide();
+              $(".errorDiv").show();
+          }
+        });
+
+
+    $("#comment-form").submit(function(e) {
+        e.preventDefault();
+        $("span.has-error").empty();
+
+        var data = $("#comment-form").serializeArray();
+
+
+                if(data['message'] && data['reference_files']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] + ' ' + data['reference_files'] )
+                  }
+                else if(data['message']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] )
+                  }
+                  else if(data['reference_files']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['reference_files'] )
+                  }
+
+
+
+
+
+        var myForm = document.getElementById('comment-form');
+        data = new FormData(myForm);
+
+
+        $("div.error_file").text("");
+
+                $(".enquiry-form-popup").hide();
+                $(".form-icon-plane").hide();
+                $(".form-loader").show();
+
+        $.ajax({
+            type : "POST",
+            url : '{% url 'api:homework-help-api:document-create-api' order.order_id %}',
+            enctype: 'multipart/form-data',
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function(data){
+
+
+                if(data['message'] && data['reference_files']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] + ' ' + data['reference_files'] )
+                  }
+                else if(data['message']){
+//                $(".comments").append("<code>" + data['message'] + "</code><br>");
+
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] )
+                  }
+                  else if(data['reference_files']){
+//                    $(".comments").append( data['reference_files'] + "<br>");
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['reference_files'] )
+                  }
+
+
+                document.getElementById("comment-form").reset();
+            },
+            error: function(data){
+
+            var response = data.responseJSON;
+            for (key in response) {
+              $("#comment-form ."+key).addClass("has-error");
+              $("#comment-form span." + key).text(response[key][0]);
+            }
+
+            }
+        });
+    });
+
+});
+</script>
+{% endcomment %}
+{% endblock extra_js %}

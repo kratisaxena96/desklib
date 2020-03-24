@@ -52,3 +52,11 @@
     </div>
   </section>
 {% endblock %}
+
+{% block extra_js %}
+<script>
+    $(document).ready(function (){
+        $(".plans").addClass("active");
+    });
+</script>
+{% endblock %}

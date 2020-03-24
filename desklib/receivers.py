@@ -47,24 +47,27 @@ def show_me_the_money(sender, **kwargs):
                         # pay_doc = PayPerDocument.objects.filter(user=user, start_date=payment_date,documents=doc, expire_on=expire_on)
                         # if pay_doc :
                         #     pay_doc.documents.add(doc)
-                        payperdoc = PayPerDocument.objects.create(user=user,plan=plan,expire_on=expire_on,start_date=payment_date,is_current=True)
+                        payperdoc = PayPerDocument.objects.create(user=user, plan=plan, expire_on=expire_on,
+                                                                  start_date=payment_date, is_current=True)
                         payperdoc.documents.add(doc)
                     else:
                         contex = {'traction_id': ipn_obj.txn_id, 'currency': ipn_obj.mc_currency,
                                   'amount': ipn_obj.payment_gross, 'payment_date': payment_date, 'expiry': expire_on,
-                                  'plan': plan.package_name,}
-                        subscription =  Subscription.objects.create(user=user, plan=plan, expire_on=expire_on, author=user)
+                                  'plan': plan.package_name, }
+                        subscription = Subscription.objects.create(user=user, plan=plan, expire_on=expire_on,
+                                                                   author=user)
 
                     try:
 
                         htmly = render_to_string('desklib/mail-templates/payment_success_email_template.html',
                                                  context=contex, request=None)
-                        subject = 'Payment Success Confirmation From Desklib'
-                        message = ''
-                        from_email = settings.DEFAULT_FROM_EMAIL
-                        recipient_list = [user.email],
                         html_message = htmly
-                        mail = EmailMultiAlternatives(subject, message, from_email, recipient_list)
+                        mail = EmailMultiAlternatives(
+                            subject='Payment Success Confirmation From Desklib',
+                            to=[user.email],
+                            body=''
+                        )
+                        # mail = EmailMultiAlternatives(subject, message, from_email, recipient_list)
                         mail.attach_alternative(html_message, 'text/html')
                         mail.send(True)
                         # mail.send(
@@ -83,13 +86,13 @@ def show_me_the_money(sender, **kwargs):
     else:
         print("Payment Failed")
 
+
 valid_ipn_received.connect(show_me_the_money)
 
 
 def invalid_payment(sender, **kwargs):
     ipn_obj = sender
     print("Invalid Payment done")
-
 
 
 invalid_ipn_received.connect(invalid_payment)

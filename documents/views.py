@@ -47,7 +47,7 @@ from datetime import timedelta
 from subscription.utils import is_subscribed, get_current_subscription
 from django.core.files import File as DjangoFile
 from django.db.models import Q
-from django.http import HttpResponsePermanentRedirect
+from django.http import HttpResponsePermanentRedirect, Http404
 from documents.utils import merge_pdf
 from django.utils import timezone
 
@@ -238,10 +238,14 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super(DocumentDownloadDetailView, self).get_context_data(**kwargs)
+        document_obj = None
         try:
             document_obj = Document.objects.get(slug=self.request.GET.get('doc'))
         except:
             document_obj = Document.objects.get(slug=self.request.GET.get('slug'))
+        finally:
+            if document_obj is None:
+                raise Http404('"No document matches the given query.')
         try:
             pay_per_doc_sub = self.request.user.pay_per_download.all()
             pay_per_doc = pay_per_doc_sub.get(documents=document_obj, expire_on__gt=timezone.now())

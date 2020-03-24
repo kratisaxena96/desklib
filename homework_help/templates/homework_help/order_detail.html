@@ -1,1 +1,146 @@
-hello
+{% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% block content %}
+{% load humanize %}
+
+<div class="comments"></div>
+
+<form action="" method="post" id="comment-form" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+
+    <span class="reference_files"></span>
+    <br>
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock %}
+
+
+{% block extra_js %}
+
+<script>
+jQuery(document).ready(function() {
+
+
+
+
+    $.ajax({
+          type: 'GET',
+          url: "{% url 'api:homework-help-api:comment-create-api' order.order_id %}",
+          success: function(data){
+            var catObj;
+            catObj={};
+    $(".comments").empty();
+
+
+            console.log(data);
+//            console.log(data.size());
+//                $.each( data, function( key, value ) {
+                $.each( data, function( index, value ) {
+
+
+                if(value['message'] && value['reference_files']){
+                $(".comments").append('<div class="current' + index + '"></div>');
+                $('.current' + index).text( value['message'] + ' ' + value['reference_files'] )
+                  }
+                else if(value['message']){
+                $(".comments").append('<div class="current' + index + '"></div>');
+                $('.current' + index ).text( value['message'] )
+                  }
+                  else if(value['reference_files']){
+                $(".comments").append('<div class="current' + index + '"></div>');
+                $('.current' + index ).text( value['reference_files'] )
+                  }
+
+
+            });
+
+          },
+          error: function(data) {
+              $(".faqQuesTab").hide();
+              $("#faqPreloader").hide();
+              $(".errorDiv").show();
+          }
+        });
+
+
+    $("#comment-form").submit(function(e) {
+        e.preventDefault();
+        $("span.has-error").empty();
+
+        var data = $("#comment-form").serializeArray();
+
+
+                if(data['message'] && data['reference_files']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] + ' ' + data['reference_files'] )
+                  }
+                else if(data['message']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] )
+                  }
+                  else if(data['reference_files']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['reference_files'] )
+                  }
+
+
+
+
+
+        var myForm = document.getElementById('comment-form');
+        data = new FormData(myForm);
+
+
+        $("div.error_file").text("");
+
+                $(".enquiry-form-popup").hide();
+                $(".form-icon-plane").hide();
+                $(".form-loader").show();
+
+        $.ajax({
+            type : "POST",
+            url : '{% url 'api:homework-help-api:comment-create-api' order.order_id %}',
+            enctype: 'multipart/form-data',
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function(data){
+
+
+                if(data['message'] && data['reference_files']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] + ' ' + data['reference_files'] )
+                  }
+                else if(data['message']){
+//                $(".comments").append("<code>" + data['message'] + "</code><br>");
+
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] )
+                  }
+                  else if(data['reference_files']){
+//                    $(".comments").append( data['reference_files'] + "<br>");
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['reference_files'] )
+                  }
+
+
+                document.getElementById("comment-form").reset();
+            },
+            error: function(data){
+
+            var response = data.responseJSON;
+            for (key in response) {
+              $("#comment-form ."+key).addClass("has-error");
+              $("#comment-form span." + key).text(response[key][0]);
+            }
+
+            }
+        });
+    });
+
+});
+</script>
+
+{% endblock extra_js %}
