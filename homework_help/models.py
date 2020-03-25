@@ -121,25 +121,21 @@ class QuestionFile(models.Model):
 
 
 class Order(models.Model):
-    STATUS_UNASSIGNED = 1
-    STATUS_IN_PROGRESS = 2
-    STATUS_DONE = 3
-    STATUS_DELIVERED = 4
-    STATUS_FEEDBACK = 5
-    STATUS_CANCELLED = 6
+    STATUS_RECIEVED = 1
+    STATUS_PAYMENT_RECIEVED = 2
+    STATUS_EXPERT_WORKING = 3
+    STATUS_ANSWER_POSTED = 4
 
     STATUS = [
-        (STATUS_UNASSIGNED, 'Unassigned'),
-        (STATUS_IN_PROGRESS, 'In Progress'),
-        (STATUS_DONE, 'Completed'),
-        (STATUS_DELIVERED, 'Delivered'),
-        (STATUS_FEEDBACK, 'Feedback'),
-        (STATUS_CANCELLED, 'Cancelled'),
+        (STATUS_RECIEVED, 'Question Recieved'),
+        (STATUS_PAYMENT_RECIEVED, 'Payment Completed'),
+        (STATUS_EXPERT_WORKING, 'Expert Working on your Answer'),
+        (STATUS_ANSWER_POSTED, 'Answer is posted'),
     ]
 
     question = models.ForeignKey(Question, related_name='ordered_question', on_delete=models.PROTECT)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='user_order')
-    status = models.IntegerField(choices=STATUS, default=STATUS_UNASSIGNED, db_index=True)
+    status = models.IntegerField(choices=STATUS, default=STATUS_RECIEVED, db_index=True)
     remarks = models.TextField(_('Remarks'), null=True, blank=True)
     budget = models.IntegerField(_('Budget'), null=True, blank=True)
     amount_paid = models.IntegerField(_('Amount Paid'), null=True, blank=True)
