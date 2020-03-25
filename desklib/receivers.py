@@ -21,13 +21,16 @@ def show_me_the_money(sender, **kwargs):
         # that fields on the payment form before it goes to PayPal)
         if settings.PAYPAL_TEST:
             receiver_email = "info-facilitator@a2zservices.net"
-            # action="https://www.sandbox.paypal.com/cgi-bin/webscr"
-            custom_list = ipn_obj.custom.split('_')
-            question = custom_list[0]
-            order =  custom_list[1]
-            o = Order.objects.get(uuid=order)
-            o.amount_paid = ipn_obj.payment_gross
-            o.save()
+            # action="https://www.sandbox.paypal.com/cgi-bin/webscr
+
+            # homework help payment logic
+
+            # custom_list = ipn_obj.custom.split('_')
+            # question = custom_list[0]
+            # order =  custom_list[1]
+            # o = Order.objects.get(uuid=order)
+            # o.amount_paid = ipn_obj.payment_gross
+            # o.save()
         else:
             if ipn_obj.receiver_email == "info@a2zservices.net":
                 if ipn_obj.txn_id:
