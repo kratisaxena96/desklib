@@ -1,4 +1,4 @@
-{% extends 'desklib/base.html' %}
+  {% extends 'desklib/base.html' %}
 {% load meta %}
 {% block canonical %}
     {% if canonical %}
@@ -144,8 +144,6 @@ opacity:0.9 !important;
 }
 
     </style>
-<!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
-<!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>-->
     {% endblock %}
 
 {% block content %}
@@ -316,7 +314,6 @@ opacity:0.9 !important;
             <a href='{% url "documents:document-download-view"%}?doc={{object.slug}}' class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Download</a>
             <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Plans</a>
 
-<!--            <a href='{% url "documents:document-download-view"%}?doc={{object.slug}}&single=True' class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Pay Per Download</a>-->
             {% endcomment %}
         </div>
         <span class="d-inline-block d-sm-inline-block w-100 text-center text-md-left text-lg-center text-muted">Showing pages {{controlled_pages.count}} of {{object.pages.all.count}} </span>
@@ -391,7 +388,7 @@ opacity:0.9 !important;
 {% if not pageviews_flag %}
 <!-- The Modal -->
 <!-- <div class="modal show" id="myModal" style="display: block;" aria-modal="true"> -->
-<div class="modal fade show" id="previewModal" style="display: block;">
+<div class="modal fade show" id="previewModal" style="padding-right: 10px; display: block;">
 <div class="modal-dialog">
 <div class="modal-content">
 
@@ -405,9 +402,9 @@ opacity:0.9 !important;
     <div class="text-center">
         <p>Subscribe or upgrade to access study resources for your class.</p>
         <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white border-radius-40 mb-3" rel="nofollow">Unlock this Document</a>
-        
-        <p class="pt-2">Already on Desklib? 
-        <a href="{% url 'account_login' %}">Log in</a> </p> 
+
+        <p class="pt-2">Already on Desklib?
+        <a href="{% url 'account_login' %}">Log in</a> </p>
     </div>
 </div>
 
@@ -427,11 +424,11 @@ $(document).ready(function(){
   });
 });
 </script> -->
-<script>  
-$(document).ready(function(){  
-  if($('#previewModal').is(':visible')){  
+<script>
+$(document).ready(function(){
+  if($('#previewModal').is(':visible')){
   $("body").addClass("modal-open");
-  }  
+  }
 });
 </script>
 <script>
