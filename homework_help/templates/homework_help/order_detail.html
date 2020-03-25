@@ -1,8 +1,21 @@
 {% extends "desklib/base.html" %}
 {% load staticfiles %}
-{% block content %}
 {% load humanize %}
 
+{% block content %}
+<section>
+    <nav aria-label="breadcrumb mb-0">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'homework_help:ask-question-view'%}">Homework</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{object.question|truncatechars:35}}</li>
+  </ol>
+</nav>
+</section>
+
+
+
+{% comment %}
 <div class="comments"></div>
 
 <form action="" method="post" id="comment-form" enctype="multipart/form-data">
@@ -13,7 +26,7 @@
     <br>
     <input type="submit" value="Submit">
 </form>
-
+{% endcomment %}
 {% endblock %}
 
 
