@@ -33,11 +33,11 @@ class ReportDocumentApi(CreateAPIView):
         if not settings.DEBUG:
             locus_email = "info@desklib.com"
 
-        subject = reported_document+ ' reported'
-        message = reported_document+ ' reported!'
+        subject = reported_document.title+ ' reported'
+        message = reported_document.title+ ' reported!'
         from_email = settings.DEFAULT_FROM_EMAIL
         recipient_list = [request.user.email],
-        html_message = reported_document+' is reported by '+ reported_by+'.<br>Issue is '+reported_issue
+        html_message = reported_document.title+' is reported by '+ reported_by+'.<br>Issue is '+reported_issue
         mail = EmailMultiAlternatives(subject, message, from_email, recipient_list)
         mail.attach_alternative(html_message, 'text/html')
         mail.send(True)
