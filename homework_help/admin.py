@@ -13,7 +13,6 @@ class QuestionFileAdmin(admin.TabularInline):
     # form = SampleFileAdminForm
     model = QuestionFile
     extra = 1
-    min_num = 2
 
     # readonly_fields = ('author',)
     raw_id_fields = ('author',)
@@ -22,6 +21,7 @@ class QuestionFileAdmin(admin.TabularInline):
 class QuestionAdmin(admin.ModelAdmin):
     inlines = [QuestionFileAdmin, ]
     readonly_fields = ['created', 'updated', 'uid']
+    prepopulated_fields = {'slug': ('question', )}
 
 
 class OrderAdmin(admin.ModelAdmin):

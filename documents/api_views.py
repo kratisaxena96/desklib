@@ -48,7 +48,7 @@ class ReportDocumentApi(CreateAPIView):
         #     subject='{{reported_document|safe}} reported',
         #     message='{{reported_document|safe}} reported!',
         #     html_message='{{reported_document|safe}} is reported by {{reported_by}}.<br>Issue is {{reported_issue}}',
-        #     context={'reported_document': reported_document, 'reported_issue': reported_issue, 'reported_by': reported_by},
+        #     context={'reported_document': reported_document.title, 'reported_issue': reported_issue, 'reported_by': reported_by},
         #     priority='now',
         # )
         serializer.save()
