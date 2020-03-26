@@ -40,13 +40,11 @@ sitemaps = {
     'documents': DocumentSitemap,
     'static': StaticViewSitemap,
     'samples': SampleSitemap,
-    'subjects': SubjectSitemap
+    # 'subjects': SubjectSitemap
 }
 
 urlpatterns = [
                   path('admin/', admin.site.urls),
-
-
                   # path('accounts/', include('accounts.urls')),  # new
                   path('accounts/', include('accounts.urls')),
                   path('study/', include(('study.urls', 'study'), namespace="study")),
