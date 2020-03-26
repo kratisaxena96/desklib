@@ -1,3 +1,4 @@
+from django.core.mail import EmailMultiAlternatives
 from rest_framework.response import Response
 from rest_framework.generics import CreateAPIView, GenericAPIView
 from rest_framework import status
@@ -32,15 +33,24 @@ class ReportDocumentApi(CreateAPIView):
         if not settings.DEBUG:
             locus_email = "info@desklib.com"
 
-        mail.send(
-            locus_email,  # List of email addresses also accepted
-            #                 'from@example.com',
-            subject='{{reported_document|safe}} reported',
-            message='{{reported_document|safe}} reported!',
-            html_message='{{reported_document|safe}} is reported by {{reported_by}}.<br>Issue is {{reported_issue}}',
-            context={'reported_document': reported_document, 'reported_issue': reported_issue, 'reported_by': reported_by},
-            priority='now',
-        )
+        subject = reported_document.title+ ' reported'
+        message = reported_document.title+ ' reported!'
+        from_email = settings.DEFAULT_FROM_EMAIL
+        recipient_list = [request.user.email],
+        html_message = reported_document.title+' is reported by '+ reported_by+'.<br>Issue is '+reported_issue
+        mail = EmailMultiAlternatives(subject, message, from_email, recipient_list)
+        mail.attach_alternative(html_message, 'text/html')
+        mail.send(True)
+
+        # mail.send(
+        #     locus_email,  # List of email addresses also accepted
+        #     #                 'from@example.com',
+        #     subject='{{reported_document|safe}} reported',
+        #     message='{{reported_document|safe}} reported!',
+        #     html_message='{{reported_document|safe}} is reported by {{reported_by}}.<br>Issue is {{reported_issue}}',
+        #     context={'reported_document': reported_document.title, 'reported_issue': reported_issue, 'reported_by': reported_by},
+        #     priority='now',
+        # )
         serializer.save()
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)

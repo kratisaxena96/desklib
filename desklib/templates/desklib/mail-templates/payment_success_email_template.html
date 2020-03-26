@@ -28,7 +28,7 @@
 		h1, h2, h3, h4, h5, h6{display:block; Margin:0; padding:0;}
 		img, a img{border:0; height:auto; outline:none; text-decoration:none;}
 		body, #bodyTable, #bodyCell{height:100%; margin:0; padding:0; width:100%;}
-		
+
 		/*------ Client-Specific Style ------ */
 		@-ms-viewport{width:device-width;}
 		table{mso-table-lspace:0pt; mso-table-rspace:0pt;}
@@ -47,11 +47,11 @@
 
 		/*------ Column Layout Style ------ */
 		.oneColumn {text-align:center; font-size:0;}
-		
+
 		/*------ Images Style ------ */
-		
+
 		.imgHero img{ width:600px; height:auto; }
-		
+
 	</style>
 
 	<style type="text/css">
@@ -160,26 +160,39 @@
 								</p>
 							</td>
 						</tr>
-							<td height="10" style="font-size:1px;line-height:1px;">&nbsp;</td>
-						</tr>
 						{% if document_redirect %}
 						<tr>
-							<td align="center" valign="top" style="padding-bottom:20px;padding-left:20px;padding-right:20px;" class="productPrice">
-								<!-- Product Price Text // -->
-								<p mc:edit="productPrice" class="midText" style="color:#8D6CD1; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:16px; font-weight:400; font-style:normal; letter-spacing:normal; line-height:24px; text-align:center; padding:0; margin:0;">
-									View full document: <strong><a href="{{ request.get_host }}{% url 'documents:document-view' document_redirect %}"></strong>
-								</p>
+							<td style="padding-bottom:40px;padding-left:20px;padding-right:20px;" class="btnCard" valign="top" align="center">
+								<!-- Button Table // -->
+								<table cellspacing="0" cellpadding="0" border="0" align="center">
+									<tbody><tr>
+										<td class="postButton" style="background-color:#8D6CD1;padding-top:10px;padding-bottom:10px;padding-left:25px;padding-right:25px;border-radius:2px" align="center">
+											<!-- Button Link // -->
+											<a mc:edit="btnCard" href="{{ request.get_host }}{% url 'documents:document-view' document_redirect %}" target="_blank" style="color:#FFFFFF; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:12px; font-weight:600; letter-spacing:1px; line-height:20px; text-transform:uppercase; text-decoration:none; display:block;">
+												Goto Document
+											</a>
+										</td>
+									</tr>
+									</tbody>
+								</table>
 							</td>
-						</tr>
+						<tr>
 						{% else %}
 						<tr>
-							<td align="center" valign="top" style="padding-bottom:20px;padding-left:20px;padding-right:20px;" class="productPrice">
-								<!-- Product Price Text // -->
-								<p mc:edit="productPrice" class="midText" style="color:#8D6CD1; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:16px; font-weight:400; font-style:normal; letter-spacing:normal; line-height:24px; text-align:center; padding:0; margin:0;">
-									Go to website: <strong><a href="{{ request.get_host }}"></strong>
-								</p>
+							<td style="padding-bottom:40px;padding-left:20px;padding-right:20px;" class="btnCard" valign="top" align="center">
+								<!-- Button Table // -->
+								<table cellspacing="0" cellpadding="0" border="0" align="center">
+									<tbody><tr>
+										<td class="postButton" style="background-color:#8D6CD1;padding-top:10px;padding-bottom:10px;padding-left:25px;padding-right:25px;border-radius:2px" align="center">
+											<!-- Button Link // -->
+											<a mc:edit="btnCard" href="{{ request.get_host }}{% url 'home' %}" target="_blank" style="color:#FFFFFF; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:12px; font-weight:600; letter-spacing:1px; line-height:20px; text-transform:uppercase; text-decoration:none; display:block;">
+												Goto Website
+											</a>
+										</td>
+									</tr>
+									</tbody>
+								</table>
 							</td>
-						</tr>
 						{% endif %}
 
 					</table>

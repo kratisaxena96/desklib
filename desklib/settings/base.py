@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-
+from django.conf import global_settings
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(os.path.realpath(os.path.dirname(__file__) + "/.."))
@@ -78,7 +78,8 @@ INSTALLED_APPS = [
     'storages',
     'django_countries',
     'review',
-    'homework_help',
+    'admissions',
+    'homework_help'
 ]
 
 SITE_ID = 1
@@ -156,6 +157,7 @@ TEMPLATES = [
                 'django.template.context_processors.i18n',
                 'django.contrib.auth.context_processors.auth',
                 'desklib.context_processor.from_settings',
+                'desklib.context_preprocessor.get_subjects',
                 # 'allauth.account.context_processors.account',
                 # 'allauth.socialaccount.context_processors.socialaccount',
                 'django.contrib.messages.context_processors.messages',
@@ -164,12 +166,13 @@ TEMPLATES = [
     },
 ]
 
-EMAIL_BACKEND = 'post_office.EmailBackend'
+# EMAIL_BACKEND = 'post_office.EmailBackend'
+# EMAIL_BACKEND = "mailer.backend.DbBackend"
 
 
-POST_OFFICE = {
-    'DEFAULT_PRIORITY': 'now'
-    }
+# POST_OFFICE = {
+#     'DEFAULT_PRIORITY': 'now'
+#     }
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of 'allauth'
@@ -226,6 +229,12 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+global_settings.TIME_INPUT_FORMATS = [
+    '%H:%M:%S',
+]
+
+
 
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),

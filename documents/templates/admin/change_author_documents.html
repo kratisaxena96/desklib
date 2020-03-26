@@ -21,8 +21,8 @@
 	<form method="post" action="">{% csrf_token %}
         {{ form.user }}
 		{% for author in author_obj %}
-        <input type="hidden" name="_selected_action" value="{{ author.pk }}" />
-    {% endfor %}
+            <input type="hidden" name="_selected_action" value="{{ author.pk }}" />
+        {% endfor %}
         <br/>
         <br/>
 		<input type="hidden" name="action" value="change_author" />

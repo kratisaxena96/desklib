@@ -27,7 +27,7 @@
 			         <a class="list-group-item list-group-item-action bg-active white" href="{% url 'my-uploads' %}" role="tab" aria-controls="my-account">My Uploads</a>
                 <a class="list-group-item list-group-item-action" href="{% url 'upload-file' %}" role="tab" aria-controls="upload-files">Upload Files</a>
                 </div>
-	        </aside> 
+	        </aside>
             <div class="col-sm-8 mt-3 mt-md-0">
             	<h4 class="mb-3" style="display: inline-block;">My Uploads</h4><i class="fa fa-upload fa-4" aria-hidden="true" style="font-size:21px;color: #405fbd; padding-left: inherit;"></i>
             	 <div class="table-responsive-sm">
@@ -35,7 +35,7 @@
             		 	<thead>
             		 	 	<tr>
             		 	 	    <th scope="col">Course Name</th>
-                                <th scope="col">Course Code</th> 
+                                <th scope="col">Course Code</th>
                                 <th scope="col">University</th>
                                 <th scope="col">Document Type</th>
                                 <th scope="col">Upload Date</th>
@@ -46,15 +46,15 @@
                          {% for object in object_list %}
             		   	   <tr>
             		   	   	 <td scope="row">{{ object.course_name }}</td>
-            		   	   	 <td scope="row">{{ object.course_code }}</td>   	   	
+            		   	   	 <td scope="row">{{ object.course_code }}</td>
             		   	   	 <td scope="row">{{ object.university }}</td>
                              <td scope="row">{{ object.get_type_display }}</td>
                              <td scope="row">{{ object.created|date:"M d Y" }}</td>
-                             <td scope="row">{{ object.get_status_display }}</td>             
+                             <td scope="row">{{ object.get_status_display }}</td>
             		   	   </tr>
                              {% endfor %}
             		   </tbody>
-            		  
+
                     </table>
 
     {% comment %}

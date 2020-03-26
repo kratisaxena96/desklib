@@ -25,7 +25,7 @@ class DocumentSitemap(Sitemap):
     # limit = 50000
 
     def items(self):
-        return Document.objects.filter(is_visible=True, is_published=True, published_date__lte=timezone.now()).order_by('id')
+        return Document.objects.filter(is_visible=True, is_published=True, published_date__lte=timezone.now()).only('published_date','slug')
 
     def lastmod(self, obj):
         return obj.published_date

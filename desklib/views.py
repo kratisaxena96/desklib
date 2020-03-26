@@ -1,5 +1,5 @@
 import logging
-
+import Adyen
 from django.views.generic.base import TemplateView
 from haystack.query import SearchQuerySet
 from meta.views import MetadataMixin
@@ -18,6 +18,7 @@ from documents.models import Document
 from .forms import HomeSearchForm
 from subscription.models import Plan
 from django.utils import timezone
+
 from subscription.utils import get_current_subscription
 import pytz
 
@@ -91,21 +92,19 @@ class AdmissionsView(MetadataMixin, JsonLdContextMixin, TemplateView):
 
 class HomePageView(MetadataMixin, JsonLdContextMixin, SearchView):
     form_class = HomeSearchForm
-    title = 'Desklib | homework help | online learning library | assignment solutions '
+    title = 'Desklib | Online Homework Help | Homework Solutions'
     # description = 'Desklib is your home for best study resources and educational documents. We have a large collection of homework answers, assignment solutions, reports, sample resume and presentations. Our study tools help you improve your writing skills and grammar.'
-    description = 'Desklib online learning library provides you 24/7 Homework Help, Q&A help, and solutions to assignments, essays, dissertations, case studies and Best free writing tools for everyone to improve their writing skills.'
-    keywords = [ 'assignment writing help', 'online learning library', 'uk assignment help', 'Q&A help', 'homework help', 'dissertation writing help', 'assignment help online', 'Case Study Help']
-    twitter_title = 'All study resources you will need to secure best grades in your assignments'
-    og_title = 'All study resources you will need to secure best grades in your assignments'
-    gplus_title = 'All study resources you will need to secure best grades in your assignments'
+    description = 'Get homework solutions by desklib online homework help library. Avail math, science, english and all subjects college homework help at affordable prices.'
+    keywords = ['homework solutions', 'online homework help', 'College Homework Help', 'Homework Helper']
+    twitter_title = 'Desklib | Online Homework Help | Homework Solutions'
+    og_title = 'Desklib | Online Homework Help | Homework Solutions'
 
     template_name = "desklib/home.html"
-    # template_name = "desklib/coming_soon.html"
 
     structured_data = {
         "@type": "Organization",
-        "name": "Desklib | homework help | online learning library | assignment solutions",
-        "description": _("Desklib online learning library provides you 24/7 Homework Help, Q&A help, and solutions to assignments, essays, dissertations, case studies and Best free writing tools for everyone to improve their writing skills."),
+        "name": "Desklib | Online Homework Help | Homework Solutions",
+        "description": _("Get homework solutions by desklib online homework help library. Avail math, science, english and all subjects college homework help at affordable prices."),
         "url": "https://desklib.com/",
         "logo": "https://desklib.com/assets/img/desklib_logo.png",
         "potentialAction": {
@@ -378,5 +377,47 @@ class AlreadySubscribedView(LoginRequiredMixin,MetadataMixin, TemplateView):
 
 class Error404View(TemplateView):
     template_name = "desklib/error_404.html"
+
+
 class Error500View(TemplateView):
     template_name = "desklib/error_500.html"
+
+
+# class PaymentAdyenView(AdyenRedirectView):
+#     # template_name = "desklib/test-pages/adyen-payment.html"
+#     # model = MyModel
+#
+#     def get_form_kwargs(self):
+#         order = self.get_object()
+#         params = self.get_signed_order_params(order)
+#
+#         kwargs = super(PaymentAdyenView, self).get_form_kwargs()
+#         kwargs.update({'initial': params})
+#         return kwargs
+#
+#     def get_next_url(self):  # This is to populate the resURL
+#         order = self.get_object()
+#         return reverse('my_project:confirmation', kwargs={'pk': order.id})
+
+class PaymentAdyenView(TemplateView):
+    template_name = "desklib/test-pages/adyen-payment.html"
+    # model = MyModel
+
+    def get_context_data(self, **kwargs):
+        context = super(PaymentAdyenView, self).get_context_data(**kwargs)
+        adyen = Adyen.Adyen()
+        adyen.client.xapikey = 'AQEshmfuXNWTK0Qc+iSRwF4LovaNQYhIHqN+fUli4odx63oru/k2XmM2TREE46cQwV1bDb7kfNy1WIxIIkxgBw==-Nr4viY1nY6xr0zlkgqvXDBp8uUZapmKQ8DKhPWyls0k=-ez(54CQkNgz3J2j#'
+
+        request = {
+            'merchantAccount': 'ws@Company.A2ZServicesPTELTD',
+            'countryCode': 'NL',
+            'amount': {
+                'value': 1000,
+                'currency': 'EUR'
+            },
+            'channel': 'Web'
+        }
+
+        response = adyen.checkout.payment_methods(request)
+        return context
+        # Pass the response to your front end

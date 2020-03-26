@@ -36,11 +36,18 @@ class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
     def get_model(self):
         return Document
 
+    def prepare_content(self, obj):
+        content = ' '.join(map(str, obj.content.split()[:2000]))
+        return content
+
     def prepare_subjects(self, obj):
         return [(t.slug) for t in obj.subjects.all()]
 
     def prepare_p_subject(self, obj):
-        parent_sub = {(t.parent_subject.slug) for t in obj.subjects.all()}
+        try:
+            parent_sub = {(t.parent_subject.slug) for t in obj.subjects.all()}
+        except:
+            import pdb; pdb.set_trace()
         return list(parent_sub)
 
     def prepare_cover_image(self, obj):
