@@ -300,12 +300,12 @@ opacity:0.9 !important;
   </div>
   </div>
   <div class="row">
-    <div class="col-sm-6"> 
+    <div class="col-sm-6">
        <span>Subject:</span>
      {% for subject in object.subjects.all %}
         <span>{{subject.name}} </span>
       {% endfor %}
-     
+
     </div>
 </div>
 </div>
@@ -344,7 +344,7 @@ opacity:0.9 !important;
 <!--            <a href='{% url "documents:document-download-view"%}?doc={{object.slug}}&single=True' class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Pay Per Download</a>-->
             {% endcomment %}
         </div>
-          <span class="d-inline-block d-sm-inline-block w-100 text-center text-md-left text-lg-center text-muted">Showing pages {{object.pages.all.count}} of {{object.pages.all.count}} 
+          <span class="d-inline-block d-sm-inline-block w-100 text-center text-md-left text-lg-center text-muted">Showing pages {{object.pages.all.count}} of {{object.pages.all.count}}
           </span>
 
         <div id="viewer" class="documentViewer mb-5">
@@ -392,7 +392,7 @@ opacity:0.9 !important;
                                 </div>
                                 <div class="row">
                             {% endif %}
-                       
+
                         {% endfor %}
                     </div>
                 </div>
@@ -440,11 +440,11 @@ $(document).ready(function(){
   });
 });
 </script> -->
-<script>  
-$(document).ready(function(){  
-  if($('#previewModal').is(':visible')){  
+<script>
+$(document).ready(function(){
+  if($('#previewModal').is(':visible')){
   $("body").addClass("modal-open");
-  }  
+  }
 });
 </script>
 <script>

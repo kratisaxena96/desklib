@@ -92,21 +92,19 @@ class AdmissionsView(MetadataMixin, JsonLdContextMixin, TemplateView):
 
 class HomePageView(MetadataMixin, JsonLdContextMixin, SearchView):
     form_class = HomeSearchForm
-    title = 'Desklib | homework help | online learning library | assignment solutions '
+    title = 'Desklib | Online Homework Help | Homework Solutions'
     # description = 'Desklib is your home for best study resources and educational documents. We have a large collection of homework answers, assignment solutions, reports, sample resume and presentations. Our study tools help you improve your writing skills and grammar.'
-    description = 'Desklib online learning library provides you 24/7 Homework Help, Q&A help, and solutions to assignments, essays, dissertations, case studies and Best free writing tools for everyone to improve their writing skills.'
-    keywords = [ 'assignment writing help', 'online learning library', 'uk assignment help', 'Q&A help', 'homework help', 'dissertation writing help', 'assignment help online', 'Case Study Help']
-    twitter_title = 'All study resources you will need to secure best grades in your assignments'
-    og_title = 'All study resources you will need to secure best grades in your assignments'
-    gplus_title = 'All study resources you will need to secure best grades in your assignments'
+    description = 'Get homework solutions by desklib online homework help library. Avail math, science, english and all subjects college homework help at affordable prices.'
+    keywords = ['homework solutions', 'online homework help', 'College Homework Help', 'Homework Helper']
+    twitter_title = 'Desklib | Online Homework Help | Homework Solutions'
+    og_title = 'Desklib | Online Homework Help | Homework Solutions'
 
     template_name = "desklib/home.html"
-    # template_name = "desklib/coming_soon.html"
 
     structured_data = {
         "@type": "Organization",
-        "name": "Desklib | homework help | online learning library | assignment solutions",
-        "description": _("Desklib online learning library provides you 24/7 Homework Help, Q&A help, and solutions to assignments, essays, dissertations, case studies and Best free writing tools for everyone to improve their writing skills."),
+        "name": "Desklib | Online Homework Help | Homework Solutions",
+        "description": _("Get homework solutions by desklib online homework help library. Avail math, science, english and all subjects college homework help at affordable prices."),
         "url": "https://desklib.com/",
         "logo": "https://desklib.com/assets/img/desklib_logo.png",
         "potentialAction": {

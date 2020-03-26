@@ -2,18 +2,20 @@
 <footer class="footer grey-theme">
     <div class="container p-4">
         <div class="row footer-row pt-3 pb-md-4 pb-2">
-            <div class="col-md-3">
+            <div class="col-6 col-md-3 col-sm-6">
                 <h5 class="white">Subjects</h5>
                   <div class="pt-3">
-                        <ul class="footer-ul">
-                            <li><a href="" class="text-light-black text-decoration-none">Business & Management</a></li>
+                        <ul class="footer-ul font-size-15">
+                            {% for sub in parent_subjects %}
+					  		<li><a class="text-light-black text-decoration-none" href="{% url 'subjects:parent-subject-view' sub.slug %}">{{sub}}</a></li>
+						{% endfor %}
                         </ul>
                   </div>
             </div>
-            <div class="col-md-3 col-sm-4">
+            <div class="col-6 col-md-3 col-sm-6">
                   <h5 class="white">Pages</h5>
                   <div class="pt-3">
-                      <ul class="footer-ul">
+                      <ul class="footer-ul font-size-15">
                             <li class=""><a class="text-light-black text-decoration-none" href="{% url 'home' %}">Home</a></li>
                             <li class=""><a class="text-light-black text-decoration-none" href="{% url 'study:study-search' %}">Study</a></li>
                             <li class=""><a class="text-light-black text-decoration-none" href="{% url 'writing:writing' %}">Writing</a></li>
@@ -22,10 +24,10 @@
                       </ul>
                   </div>
             </div>
-            <div class="col-md-3 col-sm-4">
+            <div class="col-6 col-md-3 col-sm-6">
                   <h5 class="white">Support</h5>
                   <div class="pt-3">
-                      <ul class="footer-ul">
+                      <ul class="footer-ul font-size-15">
                         <li class=""><a class="text-light-black text-decoration-none" href="{% url 'termsofuse' %}">Terms Of Use</a></li>
                         <li class=""><a class="text-light-black text-decoration-none" href="{% url 'privacypolicy' %}">Privacy Policy</a></li>
                         <li class=""><a class="text-light-black text-decoration-none" href="{% url 'copyright' %}">Copyright</a></li>
@@ -33,10 +35,10 @@
                       </ul>
                   </div>
             </div>
-            <div class="col-md-3 col-sm-4">
+            <div class="col-6 col-md-3 col-sm-6 mt-240px">
                  <h5 class="white">Tools</h5>
                  <div class="pt-3">
-                     <ul class="footer-ul">
+                     <ul class="footer-ul font-size-15">
                         <li class=""><a class="text-light-black text-decoration-none" href="{% url 'writing:grammar' %}">Grammar Checker</a></li>
                         <li class=""><a class="text-light-black text-decoration-none" href="{% url 'writing:compare' %}">Plagiarism Checker</a></li>
                         <li class=""><a class="text-light-black text-decoration-none" href="{% url 'writing:sample-list-view' %}">Resume Writing</a></li>
@@ -44,22 +46,20 @@
                  </div>
         </div>
     </div>
-        <div class="row pt-lg-5 pt-0">
-            <div class="col-md-5">
-                <h5 class="white d-md-inline-block">Follow Us</h5>
-                <div class="white d-inline-block pl-lg-4 pl-0 mt-md-3 mt-lg-0">
-                    <ul class="footer-ul ml-lg-4 ml-0">
+        <div class="row pt-lg-2 pt-0">
+            <div class="col-md-6">
+                <h5 class="white d-md-inline-block d-sm-inline-block">Follow Us</h5>
+                <div class="white d-inline-block pl-lg-4 pl-0 mt-md-3 mt-lg-0 ml-sm-5 ml-md-0">
+                    <ul class="footer-ul ml-lg-4 ml-0 font-size-15">
                          <li class="d-inline-block mr-3 mr-md-5 pt-3 pt-md-0"><a href="https://www.linkedin.com/company/desklib/"><img src="{% static 'dist/assets/images/Linkedin.png' %}" alt="linked_in icon"></a></li>
                          <li class="d-inline-block mr-3 mr-md-5 pt-3 pt-md-0"><a href="https://www.facebook.com/desklib/"><img src="{% static 'dist/assets/images/Facebook.png' %}" alt="facebook icon"></a></li>
-                         <li class="d-inline-block mr-5"><a href="https://twitter.com/Desklibcom"><img src="{% static 'dist/assets/images/Twitter.png' %}" alt="twitter icon"></a></li>
-                         {% comment %}
-                        <li class="d-inline-block"><a href="https://www.instagram.com/desklib/"><img src="{% static 'dist/assets/images/Instagram.png' %}" alt="instagram icon"></a></li>
-					    {% endcomment %}
+                         <li class="d-inline-block mr-3 mr-md-5 pt-3 pt-md-0"><a href="https://twitter.com/Desklibcom"><img src="{% static 'dist/assets/images/Twitter.png' %}" alt="twitter icon"></a></li>
+                        <li class="d-inline-block mr-3 mr-md-5 pt-3 pt-md-0"><a href="https://www.pinterest.com/desklib/"><img src="{% static 'dist/assets/images/pinterest.png' %}" alt="instagram icon"></a></li>
                     </ul>
             </div>
             </div>
-            <div class="col-md-5">
-                <div class="text-light-black d-inline-block">
+            <div class="col-md-6">
+                <div class="text-light-black d-inline-block font-size-15">
                     <div class="d-inline-block"><i class="far fa-copyright fa-x text-white">&nbsp;{% now "Y" %}</i>
                         <span>A2ZSERVICES PTE LTD. All rights reserved.</span>
                     </div>

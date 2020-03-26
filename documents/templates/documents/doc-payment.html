@@ -11,31 +11,32 @@
 				</p>
 			</div>
 		</div>
-		
-		{% for plan in plan_qs %}	
+
+		{% for plan in plan_qs %}
 		<div class="row justify-content-center parent">
 			<div class="col-sm-12 col-md-9 col-lg-6">
-				<div class="card mb-2 mt-2 payment-card-box bg-light">
-					<label class="d-block label">
-					<div class="card-body">
-						<h5 class="">{{plan}}</h5>
+				<div class="card mb-2 mt-2 payment-card-box">
+					<label class="d-block label mt-2">
+					<div class="card-body p-4">
+<!--						<h5 class="">{{plan}}</h5>-->
 						<span class="">
-						<input class="selected_plan d-none" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}">
-					</span>
-						<span class="">		
-							<span class="">{{plan.view_limit}}</span>
+						<input class="selected_plan" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}">
+							<h5 class="ml-3 d-inline">{{plan}}</h5>
+						</span>
+						<span class="d-block ml-4">
+							<span class="ml-2">{{plan.view_limit}}</span>
 							<span class="">Views</span>
 						</span>
-						
-						<span class="d-block">
-							<span class="">{{plan.download_limit}}</span>
+
+						<span class="d-block ml-4">
+							<span class="ml-2">{{plan.download_limit}}</span>
 							<span class="">downloads</span>
 						</span>
 						<span class="float-right mt-n5">
 						<span>${{plan.price}} per</span>
 						<span>{{plan.days}}</span>
 						<span>days</span>
-						</span>	
+						</span>
 			</div>
 		</label>
 		</div>
@@ -48,7 +49,7 @@
 {{form}}
  	<input id="id_custom" name="custom" type="hidden" value=""/>
 	<input id="id_amount" name="amount" type="hidden"  value=""/>
-	<div class="row justify-content-center mt-4">	
+	<div class="row justify-content-center mt-4">
 		<div class="col-md-9 col-lg-5">
 			<input type="checkbox" name="checkbox" id="check-box" class="checkbox" id="check-box" required>
 				<label class="blue-theme d-sm-inline" for="check-box" class="blue-theme">&nbsp;I agree to the <a href="{% url 'termsofuse' %}">terms & conditions</a>, <a href="{% url 'privacypolicy' %}"> privacy policy</a>, <a href="{% url 'academicintegrity' %}">Academic Integrity</a>, <a href="{% url 'honorcode' %}">Honor Code</a> and <a href="{% url 'copyright' %}">Copyright</a>
@@ -57,13 +58,13 @@
 		</div>
 </div>
 	<div class="row justify-content-center mt-4">
-		
+
 	 	<div class="col-lg-5 text-center">
 			<input type="submit" value="Proceed with Paypal" class="btn btn-bg-theme border-radius-20 text-white px-sm-5 px-4" id="submitButton">
 		</div>
 	</div>
 	</form>
-	</div> 
+	</div>
 </section>
 
 {% endblock %}
@@ -80,7 +81,7 @@
 	$("#id_amount").val(value);
  }
 });
-	
+
   	$('.parent .payment-card-box').click(function() {
     $('.parent .payment-card-box').removeClass("bg-blue");
     $(this).addClass("bg-blue");

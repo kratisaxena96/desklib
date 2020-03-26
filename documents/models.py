@@ -29,7 +29,6 @@ from django.urls import reverse
 
 
 
-
 # Create your models here.
 from subjects.models import Subject
 from subjects.utils import get_subjects
@@ -105,9 +104,30 @@ def cover_images(instance, filename):
         file_name,
     )
 
+class Term(models.Model):
+    name = models.CharField(_('name'), max_length=250)
+    year = models.IntegerField(_('year'))
+
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+class DocumentType(models.Model):
+    name = models.CharField(_('name'), max_length=250)
+    slug = models.SlugField(unique=True, max_length=60)
+
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+
 class College(models.Model):
     name = models.CharField(max_length=250)
-
+    slug = models.SlugField(unique=True, max_length=60)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -121,10 +141,8 @@ class College(models.Model):
 
 class Course(models.Model):
     code = models.CharField(max_length=100)
-    title = models.CharField(max_length=100)
-    college = models.ForeignKey(College, on_delete='PROTECT', related_name="college_course")
-    # subject = models.ForeignKey(Subject, on_delete='PROTECT', related_name="subject_course")
-    semester = models.IntegerField(null=True, blank=True)
+    title = models.CharField(max_length=100, null=True, blank=True)
+    slug = models.SlugField(unique=True, max_length=60)
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -134,7 +152,9 @@ class Course(models.Model):
         verbose_name_plural = _('courses')
 
     def __str__(self):
-        return self.title
+        return self.code
+
+TYPE_OF_DOCUMENT_ID = 1
 
 class Document(ModelMeta, models.Model):
     NOTES = 1
@@ -162,7 +182,8 @@ class Document(ModelMeta, models.Model):
     key = models.CharField(db_index=True, unique=True, max_length=10, default=key_generator, editable=False)
     title = models.CharField(_('Title'), db_index=True, max_length=200)
     slug = models.SlugField(_('Slug'), unique=True)
-    type = models.IntegerField(choices=TYPE_OF_DOCUMENT, default=SOLUTION, db_index=True)
+    type = models.ForeignKey(DocumentType,on_delete=models.SET_NULL, null=True, blank=True, db_index=True,  related_name='type_documents')
+    term = models.ForeignKey(Term, db_index=True, on_delete=models.SET_NULL ,blank=True, null=True, related_name='team_documents')
     subjects = models.ManyToManyField(Subject, db_index=True, blank=True, null=True, related_name='subject_documents')
     college = models.ForeignKey(College, db_index=True, on_delete=models.SET_NULL ,blank=True, null=True,  related_name='college_documents')
     course = models.ForeignKey(Course, db_index=True, on_delete=models.SET_NULL, blank=True, null=True, related_name='course_code_documents')
@@ -202,15 +223,20 @@ class Document(ModelMeta, models.Model):
     created = models.DateTimeField(editable=False)
     updated = models.DateTimeField()
     redirect_url = models.URLField(max_length=1024, blank=True, null=True)
-    seo_title = models.CharField(max_length=70,
+    seo_title = models.CharField(max_length=90,
                                  help_text='Tip: Start every main word in the title with a capital letter, Keep title brief and descriptive that is relevant to the content of your pages.')
     seo_description = models.TextField(max_length=160,
                                        help_text='Tip: Create concise and high-quality descriptions that accurately describe your page, Make sure each page on our website has a different description.')
     seo_keywords = models.CharField(max_length=140,
-                                    help_text='Recommended max.length of relevant seo keyword is 140 characters')
+                                    help_text='Recommended max.length of relevant seo keyword is 140 characters', null=True, blank=True)
     canonical_url= models.URLField(max_length=1024, blank=True, null=True)
 
     # cover_image = models.ImageField(verbose_name=_('Image'), upload_to=cover_images, max_length=1000, blank = True, null = True, help_text='Dimensions Should be 80x112 as per document ration')
+    __original_course = None
+
+    def __init__(self, *args, **kwargs):
+        super(Document, self).__init__(*args, **kwargs)
+        self.__original_course = self.course
 
     _metadata = {
             'use_og': 'True',
@@ -254,6 +280,11 @@ class Document(ModelMeta, models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        permissions = [
+            ("change_document_author", "Staff Can Assign Document Author"),
+        ]
+
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''
         # Get the complete file path to obtain filename
@@ -261,6 +292,12 @@ class Document(ModelMeta, models.Model):
         # First time save
         if not kwargs.get('ignore_timestamps'):
             self.updated = timezone.now()
+
+        if self.course != self.__original_course:
+            if self.seo_keywords:
+                self.seo_keywords = self.course.code + ',' + self.course.title + ',' + self.seo_keywords
+            else:
+                self.seo_keywords = self.course.code + ',' + self.course.title
 
         # We only autogenerate data at time of creation.
         if not self.id or self.require_recalculation:
@@ -379,7 +416,7 @@ class Document(ModelMeta, models.Model):
                 self.preview_to = 6
             elif self.page > 30:
                 self.preview_to = 8
-
+            self.__original_course = self.course
             super(Document, self).save(*args, **kwargs)
 
             # Extracting html of individual pages from pdf file
@@ -399,6 +436,11 @@ class Document(ModelMeta, models.Model):
                 page_obj.save()
                 page_count += 1
 
+            if self.pages == None:
+                self.is_published = False
+                self.is_visible = False
+                super(Document, self).save(update_fields=["is_published","is_visible"])
+
             # self.cover_image = get_thumbnail(self.pages.first().image_file, '80x112', quality=60, format='PNG',crop='center',).url
             # super(Document, self).save(update_fields=["cover_image"])
             # Adding predicted subjects to document
@@ -408,6 +450,7 @@ class Document(ModelMeta, models.Model):
 
         else:
             # print("qwertyuioiuytyuiu")
+            self.__original_course = self.course
             super(Document, self).save(*args, **kwargs)
 
     def get_absolute_url(self):

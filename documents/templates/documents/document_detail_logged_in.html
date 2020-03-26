@@ -206,7 +206,7 @@ opacity:0.9 !important;
                 <div class="dropdown-menu">
                   <a class="dropdown-item" href="https://facebook.com/sharer.php?u=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank">Share on Facebook</a>
                   <a class="dropdown-item" href="https://twitter.com/intent/tweet?url=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank" >Share on Twitter</a>
-                  
+
                   <a class="dropdown-item" href="https://www.linkedin.com/shareArticle?mini=true&url=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}&title=LinkedIn%20Developer%20Network &summary=My%20favorite%20developer%20program&source=LinkedIn" target="_blank">Share on LinkedIn</a>
                    <a class="dropdown-item" href="https://web.whatsapp.com/send?text=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank">Share on Whatsapp</a>
                   <a class="dropdown-item" href="mailto:?subject=Read {{object.title}}  on Scribd&body=I am reading {{object.title}}  on Desklib: https://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank">Share on Mail</a>
@@ -300,12 +300,12 @@ opacity:0.9 !important;
   </div>
   </div>
   <div class="row">
-    <div class="col-sm-6"> 
+    <div class="col-sm-6">
        <span>Subject:</span>
      {% for subject in object.subjects.all %}
         <span>{{subject.name}} </span>
       {% endfor %}
-     
+
     </div>
 </div>
 </div>
@@ -316,7 +316,7 @@ opacity:0.9 !important;
             <div class="feedback">
                 <form class="feedback-form" action="." method="post" data-url="{% url 'api:documents-api:document-feedback-api' slug=object.slug %}">
                 {% csrf_token %}
-                
+
                    <label class="mr-2">{% if object.was_helpful %}
                   {{object.was_helpful}} people found this document helpful.
                   {% endif %} Did you find it helpful?</label>
@@ -343,7 +343,7 @@ opacity:0.9 !important;
             <a href='{% url "documents:document-download-view"%}?slug={{object.slug}}' class="btn btn-bg-theme btn-lg text-white border-radius-40" rel="nofollow">Download</a>
             <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Plans</a>
 <!--            <a href='{% url "documents:document-download-view"%}?doc={{object.slug}}&single=True' class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Pay Per Download</a>-->
-            {% endcomment %}            
+            {% endcomment %}
         </div>
           <span class="d-inline-block d-sm-inline-block w-100 text-center text-md-left text-lg-center text-muted">Showing pages {{controlled_pages.count}} of {{object.pages.all.count}} </span>
 
@@ -449,11 +449,11 @@ $(document).ready(function(){
   });
 });
 </script> -->
-<script>  
-$(document).ready(function(){  
-  if($('#previewModal').is(':visible')){  
+<script>
+$(document).ready(function(){
+  if($('#previewModal').is(':visible')){
   $("body").addClass("modal-open");
-  }  
+  }
 });
 </script>
 

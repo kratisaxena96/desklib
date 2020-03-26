@@ -3,6 +3,7 @@ import logging
 import os
 import tempfile
 from django.contrib import messages
+from django.core.mail import EmailMultiAlternatives, EmailMessage
 from paypal.standard.forms import PayPalPaymentsForm
 
 from desklib.mixins import CheckSubscriptionMixin
@@ -10,7 +11,7 @@ from documents.mixins import SubscriptionCheckMixin
 
 logger = logging.getLogger(__name__)
 from rest_framework.views import APIView
-from django.views.generic import TemplateView, DetailView,CreateView, FormView
+from django.views.generic import TemplateView, DetailView, CreateView, FormView
 from django.views.generic.base import RedirectView
 from .models import Document
 from subscription.models import Download, PageView, SessionPageView, PayPerDocument, Plan
@@ -22,18 +23,11 @@ from subscription.models import Subscription
 from django.views import View
 from django.shortcuts import render
 from django.urls import reverse
-from django.template.loader import get_template
-from django.template import Context
-import simplejson as json
-from django.http import HttpResponse
+
 from haystack.query import SearchQuerySet
-from meta.views import Meta
-from django_json_ld.views import JsonLdContextMixin,settings,JsonLdSingleObjectMixin
-from django.utils.translation import gettext as _
-from haystack.generic_views import SearchMixin, SearchView
-from meta.views import MetadataMixin
-from django.views.generic.list import ListView
-from django.http import HttpResponseRedirect
+from meta.views import Meta, MetadataMixin
+from django_json_ld.views import JsonLdContextMixin, settings, JsonLdSingleObjectMixin
+
 from post_office import mail
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
@@ -54,7 +48,7 @@ from datetime import timedelta
 from subscription.utils import is_subscribed, get_current_subscription
 from django.core.files import File as DjangoFile
 from django.db.models import Q
-from django.http import HttpResponsePermanentRedirect
+from django.http import HttpResponsePermanentRedirect, Http404
 from documents.utils import merge_pdf
 from django.utils import timezone
 
@@ -73,6 +67,7 @@ class DocumentView(JsonLdDetailView):
         Document.objects.filter(pk=entry.pk).update(views=F('views') + 1)
         if not self.request.user.is_anonymous:
             check_subscribed_status = is_subscribed(self.request.user)
+            PageView.objects.create(user=request.user, document=self.object)
         else:
             check_subscribed_status = False
 
@@ -81,10 +76,9 @@ class DocumentView(JsonLdDetailView):
             if pay_per_doc_sub:
                 if  pay_per_doc_sub.filter(documents=entry, expire_on__gt=timezone.now()):
                     self.payperdoc = True
-            pageviews_left = True
+                    pageviews_left = True
         except:
             pass
-
         if check_subscribed_status and not self.payperdoc:
             subscription_obj = get_current_subscription(self.request.user)
             expiry_date_subscription = subscription_obj.expire_on
@@ -99,7 +93,6 @@ class DocumentView(JsonLdDetailView):
             # print(remaining_page_view)
 
             if view_limit_count <= plan_view_limit:
-                PageView.objects.create(user=request.user, document=self.object)
                 pageviews_left = True
                 # context = self.get_context_data(object=self.object)
                 # return self.render_to_response(context)
@@ -155,8 +148,8 @@ class DocumentView(JsonLdDetailView):
         if subjects:
             s = "context['more_like_this'] = SearchQuerySet()"
             for sub in subjects:
-              s += ".filter_or(subjects='"+str(sub)+"',)"
-            s +="[:6]"
+                s += ".filter_or(subjects='" + str(sub) + "',)"
+            s += "[:6]"
             exec(s)
         # else:
         #     context['more_like_this'] = SearchQuerySet().more_like_this(entry)[:6]
@@ -166,10 +159,12 @@ class DocumentView(JsonLdDetailView):
         context['form'] = self.form
         # start_page = self.object.preview_from
         # end_page = self.object.preview_to
-        if self.payperdoc :
+        if self.payperdoc:
             context['controlled_pages'] = self.object.pages.filter(document=self.object)
         else:
-            context['controlled_pages'] = self.object.pages.filter(document=self.object,no__gte=self.object.preview_from,no__lte=self.object.preview_to)
+            context['controlled_pages'] = self.object.pages.filter(document=self.object,
+                                                                   no__gte=self.object.preview_from,
+                                                                   no__lte=self.object.preview_to)
 
         return context
 
@@ -244,10 +239,14 @@ class DocumentDownloadDetailView(LoginRequiredMixin, SubscriptionCheckMixin, For
 
     def get_context_data(self, **kwargs):
         context = super(DocumentDownloadDetailView, self).get_context_data(**kwargs)
+        document_obj = None
         try:
             document_obj = Document.objects.get(slug=self.request.GET.get('doc'))
         except:
             document_obj = Document.objects.get(slug=self.request.GET.get('slug'))
+        finally:
+            if document_obj is None:
+                raise Http404('"No document matches the given query.')
         try:
             pay_per_doc_sub = self.request.user.pay_per_download.all()
             pay_per_doc = pay_per_doc_sub.get(documents=document_obj, expire_on__gt=timezone.now())
@@ -264,12 +263,12 @@ class DocumentDownloadDetailView(LoginRequiredMixin, SubscriptionCheckMixin, For
             plan_days = plan.days
             startdate_subscription = expiry_date_subscription - timedelta(days=plan_days)
             download_count = Download.objects.filter(user=self.request.user, created_at__gte=startdate_subscription,
-                                                 created_at__lte=expiry_date_subscription).count()
+                                                     created_at__lte=expiry_date_subscription).count()
             remaining_downloads = plan_download_limit - download_count
             context['subscription'] = subscription_obj
             context['remaining_downloads'] = remaining_downloads
         if document_obj.cover_page_number:
-            context['image'] =  document_obj.pages.get(no=document_obj.cover_page_number).image_file
+            context['image'] = document_obj.pages.get(no=document_obj.cover_page_number).image_file
         else:
             context['image'] = document_obj.pages.first().image_file
         context['document'] = document_obj
@@ -279,7 +278,7 @@ class DocumentDownloadDetailView(LoginRequiredMixin, SubscriptionCheckMixin, For
     def post(self, request, *args, **kwargs):
 
         form = DownloadFileForm(self.request.POST)
-        slug =  request.POST['file']
+        slug = request.POST['file']
 
         # print(request.user)
         if form.is_valid():
@@ -303,7 +302,6 @@ class DocumentDownloadDetailView(LoginRequiredMixin, SubscriptionCheckMixin, For
             # convert the uploaded file to pdf file and save it
             os.system('soffice --headless --convert-to pdf --outdir ' + temp_dir.name + ' ' + temp.name)
 
-
             pre, ext = os.path.splitext(filename)
             file_with_pdf_ext = pre + ".pdf"
             # Changing file extension
@@ -311,7 +309,6 @@ class DocumentDownloadDetailView(LoginRequiredMixin, SubscriptionCheckMixin, For
             head, tail = os.path.split(temp.name)
             pre, ext = os.path.splitext(tail)
             pdf_converted_loc = os.path.join(temp_dir.name, pre + ".pdf")
-
 
             merge_pdf(input_pdf=pdf_converted_loc,
                       output=pdf_converted_loc,
@@ -337,9 +334,8 @@ class DocumentDownloadDetailView(LoginRequiredMixin, SubscriptionCheckMixin, For
                 plan_download_limit = plan.download_limit
                 startdate_subscription = expiry_date_subscription - timedelta(days=plan_days)
                 download_count = Download.objects.filter(user=self.request.user, created_at__gte=startdate_subscription,
-                                                         created_at__lte=expiry_date_subscription,).count()
+                                                         created_at__lte=expiry_date_subscription, ).count()
                 remaining_downloads = plan_download_limit - download_count
-
 
             if remaining_downloads > 0 or self.payperdoc:
                 slug = request.POST['file']
@@ -349,11 +345,13 @@ class DocumentDownloadDetailView(LoginRequiredMixin, SubscriptionCheckMixin, For
                         subscription_obj.documents.add(document_obj)
                         Download.objects.create(user=request.user, document=document_obj)
                         Document.objects.filter(pk=document_obj.pk).update(total_downloads=F('total_downloads') + 1)
+                except Exception as e:
+                    print(e)
 
+                try:
                     attachments = {}
                     pdf_doc_name = myfile.name.split('/')[-1]
-                    attachments[pdf_doc_name] = ContentFile(myfile.file.read())
-
+                    attachments[pdf_doc_name] = file_to_be_send = ContentFile(myfile.file.read())
 
                     context = {'document': document_obj}
                     htmly = render_to_string('desklib/mail-templates/document_download_email.html', context,
@@ -367,15 +365,29 @@ class DocumentDownloadDetailView(LoginRequiredMixin, SubscriptionCheckMixin, For
                     # msg.attach_alternative(htmly, "text/html")
                     # res = msg.send()
                     #
-                    mail.send(
-                        request.user.email,  # List of email addresses also accepted
-                        settings.DEFAULT_FROM_EMAIL,
+                    from django.core.mail import send_mail
+                    message = ''
+                    from_email = settings.DEFAULT_FROM_EMAIL
+                    recipient_list = [request.user.email],
+                    html_message = htmly
+                    mail = EmailMultiAlternatives(
                         subject='Your downloaded document from desklib.com',
-                        # message=htmly,
-                        html_message=htmly,
-                        attachments=attachments,
-                        priority='now'
+                        to=[request.user.email],
+                        body=''
                     )
+                    # mail = EmailMultiAlternatives(subject, message, from_email, to=recipient_list)
+                    mail.attach_alternative(html_message, 'text/html')
+                    mail.attach(filename="Document.pdf", content=file_to_be_send.read(), mimetype='application/text')
+                    mail.send(True)
+                    # mail.send(
+                    #     request.user.email,  # List of email addresses also accepted
+                    #     settings.DEFAULT_FROM_EMAIL,
+                    #     subject='Your downloaded document from desklib.com',
+                    #     # message=htmly,
+                    #     html_message=htmly,
+                    #     attachments=attachments,
+                    #     priority='now'
+                    # )
                     # mail.send(
                     #     request.user.email,  # List of email addresses also accepted
                     #     settings.DEFAULT_FROM_EMAIL,
@@ -391,7 +403,7 @@ class DocumentDownloadDetailView(LoginRequiredMixin, SubscriptionCheckMixin, For
                 except Exception as e:
                     print(e)
             if self.payperdoc:
-                return redirect('/document/download/success?doc=%s&pay-per-download=True'%(slug))
+                return redirect('/document/download/success?doc=%s&pay-per-download=True' % (slug))
             else:
                 return redirect('/document/download/success?doc=%s' % (slug))
         else:
@@ -399,9 +411,11 @@ class DocumentDownloadDetailView(LoginRequiredMixin, SubscriptionCheckMixin, For
                 'form': form,
             })
 
-class DocumentPayment(LoginRequiredMixin, TemplateView):
+
+class DocumentPayment(LoginRequiredMixin, MetadataMixin, TemplateView):
     template_name = 'documents/doc-payment.html'
-    #
+    title = 'Homework Help Payment | Online Homework Help - Desklib'
+
     def get(self, request, *args, **kwargs):
         context = super(DocumentPayment, self).get(request, *args, **kwargs)
         subscription_obj = get_current_subscription(self.request.user)
@@ -420,9 +434,9 @@ class DocumentPayment(LoginRequiredMixin, TemplateView):
             plan_days = plan.days
             startdate_subscription = expiry_date_subscription - timedelta(days=plan_days)
             download_count = Download.objects.filter(user=self.request.user, created_at__gte=startdate_subscription,
-                                                 created_at__lte=expiry_date_subscription).count()
+                                                     created_at__lte=expiry_date_subscription).count()
             remaining_downloads = plan_download_limit - download_count
-            if remaining_downloads > 0 :
+            if remaining_downloads > 0:
                 return redirect("%s?doc=%s" % (redirect('documents:download-info-view').url, doc.slug))
         elif pay_per_doc_obj:
             return redirect("%s?doc=%s" % (redirect('documents:download-info-view').url, doc.slug))
@@ -443,8 +457,8 @@ class DocumentPayment(LoginRequiredMixin, TemplateView):
             "business": receiver_email,
             "item_name": "desklib subscription",
             "notify_url": self.request.build_absolute_uri(reverse('paypal-ipn')),
-            "return": self.request.build_absolute_uri('../paypal/redirect/'+self.request.GET.get('doc')),
-            "cancel_return": self.request.build_absolute_uri('../'+self.request.GET.get('doc')),
+            "return": self.request.build_absolute_uri('../paypal/redirect/' + self.request.GET.get('doc')),
+            "cancel_return": self.request.build_absolute_uri('../' + self.request.GET.get('doc')),
 
         }
 
@@ -452,10 +466,13 @@ class DocumentPayment(LoginRequiredMixin, TemplateView):
         context['form'] = form
         return context
 
+
 class PaypalDocumentRedirect(RedirectView):
     def get(self, request, *args, **kwargs):
-        messages.success(request, 'Your payment is being processed. Please access your document once you recieve an email regarding your activation.')
-        return redirect(self.request.build_absolute_uri('../../%s'%(kwargs.get('slug'))))
+        messages.success(request,
+                         'Your payment is being processed. Please access your document once you recieve an email regarding your activation.')
+        return redirect(self.request.build_absolute_uri('../../%s' % (kwargs.get('slug'))))
+
 
 class DocumentDownloadView(LoginRequiredMixin, RedirectView):
 
@@ -502,7 +519,6 @@ class DownloadSuccessView(LoginRequiredMixin, TemplateView):
                 context['remaining_downloads'] = remaining_downloads
                 context['doc_slug'] = self.request.GET.get('doc')
 
-
                 if remaining_downloads < 0:
                     remaining_downloads_flag = False
                 else:
@@ -516,8 +532,10 @@ class DownloadSuccessView(LoginRequiredMixin, TemplateView):
 
         return context
 
+
 class PageViewsFinishView(LoginRequiredMixin, TemplateView):
     template_name = 'documents/page_views_finish.html'
+
 
 class FilterSimlar():
     def fiterSimilar(self):
@@ -534,7 +552,3 @@ class FilterSimlar():
             }
 
         )
-
-
-
-
