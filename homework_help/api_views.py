@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from rest_framework.generics import CreateAPIView, ListCreateAPIView
+from rest_framework.generics import CreateAPIView, ListCreateAPIView, RetrieveAPIView
 from django.http import HttpResponseRedirect
-from homework_help.serializers import CommentCreateSerializer, QuestionCreateSerializer, QuestionFileCreateSerializer
+from homework_help.serializers import CommentCreateSerializer, QuestionCreateSerializer, QuestionFileCreateSerializer, OrderStatusSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from homework_help.models import Order, Comment, QuestionFile, Question
@@ -143,4 +143,16 @@ class CommentCreateApiView(ListCreateAPIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+class OrderStatusApi(RetrieveAPIView):
+    lookup_field = 'uuid'
+    serializer_class = OrderStatusSerializer
+    queryset = Order.objects.all()
+
+    # def get_queryset(self):
+    #     data = {}
+    #     queryset = Order.objects.get(uuid=self.kwargs.get('uuid'))
+    #     data['status'] = queryset.status
+    #     data['budget'] = queryset.budget
+    #     return Response(data, content_type="application/json", status=status.HTTP_201_CREATED)
 

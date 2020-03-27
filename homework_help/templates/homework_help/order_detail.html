@@ -35,6 +35,22 @@
 <script>
 jQuery(document).ready(function() {
 
+setInterval(get_status, 10000);
+
+function get_status(){
+    var feedback = $.ajax({
+          type: 'GET',
+          url: "{% url 'api:homework-help-api:order-status-api' order.uuid %}",
+    }).success(function(data){
+
+        console.log(data)
+
+    })
+}
+
+
+
+
 
 
 
