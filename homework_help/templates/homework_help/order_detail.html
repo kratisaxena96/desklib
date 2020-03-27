@@ -4,16 +4,127 @@
 
 {% block content %}
 <section>
-    <nav aria-label="breadcrumb mb-0">
-      <ol class="breadcrumb">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="{% url 'homework_help:ask-question-view'%}">Homework</a></li>
         <li class="breadcrumb-item active" aria-current="page">{{object.question|truncatechars:35}}</li>
   </ol>
 </nav>
 </section>
-
-
+<section class="">
+    <div class="container pt-4 pb-4 pt-md-5">
+        <div class="row">
+            <div class="col-sm-12">
+                <h6><strong>Your Question</strong></h6>
+                <p>What is the expansion of COBOL? by plotting pixel spans is In an application program, to set line-type attributes the following statement is used. The basic attributes of a straight line segment are: Which day is celebrated as world Computer.</p>
+            </div>
+        </div>
+        <div class="">
+        <div class="row">
+            <div class="col-sm-12">
+               <h6 class="d-inline"><strong>Your  Attachments</strong></h6>
+            </div>
+        </div>
+            <div class="row mt-3">
+                <div class="col-sm-4 mb-3">
+                    <div class="p-3 bg-light">
+                        <span class="d-inline-block mr-2"><i class="fa fa-file"></i></span><a href="" class="blue-font">homework_help/question/2020/0</a>
+                </div>
+                </div>
+                 <div class="col-sm-4 mb-3">
+                    <div class="p-3 bg-light">
+                        <span class="d-inline-block mr-2"><i class="fa fa-file"></i></span><a href="" class="blue-font">homework_help/question/2020/0</a>
+                </div>
+                </div>
+                 <div class="col-sm-4 mb-3">
+                    <div class="p-3 bg-light">
+                        <span class="d-inline-block mr-2"><i class="fa fa-file"></i></span><a href="" class="blue-font">homework_help/question/2020/0</a>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container pt-1 pb-5">
+        <div class="row">
+            <div class="col-sm-12">
+                <h6><strong>Status Of Your Order</strong></h6>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-sm-12">
+                <ul class="stepper list-unstyled bg-light-gray p-3">
+                      <li class="d-inline-block step-bar first text-center">
+                          <div class="step-bar-title">
+                              <span class="d-inline-block" data-status="{{order.get_status_display}}"><strong>Question Received</strong></span>
+                          </div>
+                          <div class="step-bar-left"></div>
+                          <div class="step-bar-right"></div>
+                      </li>
+                       <li class="step-bar text-center d-inline-block">
+                          <div class="step-bar-title">
+                              <span class="d-inline-block"><strong>Payment Complete</strong></span>
+                          </div>
+                           <div class="step-bar-left"></div>
+                           <div class="step-bar-right"></div>
+                      </li>
+                      <li class="step-bar text-center d-inline-block">
+                          <div class="step-bar-title">
+                              <span class="d-inline-block"><strong>Expert Working On Your Answer</strong></span>
+                          </div>
+                          <div class="step-bar-left"></div>
+                          <div class="step-bar-right"></div>
+                      </li>
+                    <li class="step-bar text-center d-inline-block">
+                          <div class="step-bar-title">
+                              <span class="d-inline-block"><strong>Answer Is Posted</strong></span>
+                          </div>
+                          <div class="step-bar-left"></div>
+                          <div class="step-bar-right"></div>
+                      </li>
+                </ul>
+            </div>
+        </div>
+        <div class="status-one status-d-none">
+         <div class="row mt-4">
+             <div class="col-sm-12">
+                 <div class="card card-body">
+                    <p class="text-center mb-0"><strong>Your question is received by us</strong> </p>
+                 </div>
+             </div>
+         </div>
+        </div>
+        <div class="status-two status-d-none">
+        <div class="row mt-4">
+             <div class="col-sm-12">
+                 <div class="card card-body">
+                    <p class="text-center mb-0"><strong>Your Payment process has been completed</strong> </p>
+                 </div>
+             </div>
+         </div>
+        </div>
+         <div class="status-three status-d-none">
+         <div class="row mt-4">
+             <div class="col-sm-12">
+                 <div class="card card-body">
+                    <p class="text-center mb-0"><strong>Our expert team working on your questions related answers</strong> </p>
+                 </div>
+             </div>
+         </div>
+         </div>
+        <div class="status-four status-d-none">
+        <div class="row mt-4">
+             <div class="col-sm-12">
+                 <div class="card card-body">
+                    <p class="text-center mb-0"><strong>your answer is posted</strong> </p>
+                 </div>
+             </div>
+         </div>
+        </div>
+    </div>
+</section>
 
 {% comment %}
 <div class="comments"></div>
@@ -31,6 +142,18 @@
 
 
 {% block extra_js %}
+
+<script>
+ $(document).ready(function(){
+    var status = $("{{order.get_status_display}}");
+<!--var st = $(this).data('status');-->
+        if(status == "Question Recieved")
+           $("ul.stepper li.step-bar.first").addClass('active');
+           $('.status-one').css('display','block');
+              alert("success");
+
+   });
+</script>
 
 <script>
 jQuery(document).ready(function() {
