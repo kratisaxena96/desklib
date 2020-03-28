@@ -53,9 +53,96 @@
                 <h6><strong>Status Of Your Order</strong></h6>
             </div>
         </div>
+
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+
+                <div class="mt-element-step">
+                    <div class="row step-line">
+
+						<div class="col mt-step-col first pt-20 pb-20 {% if order.status > 1 %}done{% elif order.status == 1 %}active{% endif %} d-block text-center">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div>
+                                        <div class="mt-step-number m-0 bg-white assigned">
+                                            <!-- <i class="fa fa-user-circle "></i> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div>
+                                        <div class="mt-step-title uppercase theme-color-blue">Question Received</div>
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+
+						<div class="col mt-step-col first pt-20 pb-20 {% if order.status > 2 %}done{% elif order.status == 2 %}active{% endif %} d-block text-center">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div>
+                                        <div class="mt-step-number m-0 bg-white assigned">
+                                            <!-- <i class="fa fa-user-circle "></i> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div>
+                                        <div class="mt-step-title uppercase theme-color-blue">Payment Completed</div>
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+
+						<div class="col mt-step-col first pt-20 pb-20 {% if order.status > 3 %}done{% elif order.status == 3 %}active{% endif %} d-block text-center">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div>
+                                        <div class="mt-step-number m-0 bg-white assigned">
+                                            <!-- <i class="fa fa-user-circle "></i> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div>
+                                        <div class="mt-step-title uppercase theme-color-blue">Expert Working On Your Answer</div>
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+
+						<div class="col mt-step-col first pt-20 pb-20 {% if order.status > 4 %}done{% elif order.status == 4 %}active{% endif %} d-block text-center">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div>
+                                        <div class="mt-step-number m-0 bg-white assigned">
+                                            <!-- <i class="fa fa-user-circle "></i> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div>
+                                        <div class="mt-step-title uppercase theme-color-blue">Answer Is Posted</div>
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+					</div>
+
+                </div>
+        </div>
+
+        {% comment %}
         <div class="row mt-2">
             <div class="col-sm-12">
-                <ul class="stepper list-unstyled bg-light-gray p-3">
+                <ul class="stepper list-unstyled p-3">
                       <li class="d-inline-block step-bar first text-center">
                           <div class="step-bar-title">
                               <span class="d-inline-block" data-status="{{order.get_status_display}}"><strong>Question Received</strong></span>
@@ -87,6 +174,7 @@
                 </ul>
             </div>
         </div>
+        {% endcomment %}
         <div class="status-one status-d-none">
          <div class="row mt-4">
              <div class="col-sm-12">
@@ -126,6 +214,8 @@
     </div>
 </section>
 
+
+
 {% comment %}
 <div class="comments"></div>
 
@@ -146,11 +236,10 @@
 <script>
  $(document).ready(function(){
     var status = $("{{order.get_status_display}}");
-<!--var st = $(this).data('status');-->
+    // var st = $(this).data('status');
         if(status == "Question Recieved")
            $("ul.stepper li.step-bar.first").addClass('active');
            $('.status-one').css('display','block');
-              alert("success");
 
    });
 </script>
