@@ -175,7 +175,8 @@
             </div>
         </div>
         {% endcomment %}
-        <div class="status_1_content status-d-none">
+        <div class="content_section">
+        <div class="status_content status_1_content status-d-none">
          <div class="row mt-4">
              <div class="col-sm-12">
                  <div class="card card-body">
@@ -184,7 +185,7 @@
              </div>
          </div>
         </div>
-        <div class="status_2_content status-d-none">
+        <div class="status_content status_2_content status-d-none">
         <div class="row mt-4">
              <div class="col-sm-12">
                  <div class="card card-body">
@@ -193,7 +194,7 @@
              </div>
          </div>
         </div>
-         <div class="status_3_content status-d-none">
+         <div class="status_content status_3_content status-d-none">
          <div class="row mt-4">
              <div class="col-sm-12">
                  <div class="card card-body">
@@ -202,7 +203,7 @@
              </div>
          </div>
          </div>
-        <div class="status_4_content status-d-none">
+        <div class="status_content status_4_content status-d-none">
         <div class="row mt-4">
              <div class="col-sm-12">
                  <div class="card card-body">
@@ -210,6 +211,7 @@
                  </div>
              </div>
          </div>
+        </div>
         </div>
     </div>
 </section>
@@ -255,10 +257,17 @@ function get_status(){
           url: "{% url 'api:homework-help-api:order-status-api' order.uuid %}",
     success:function(data){
 
-        $(".status_" + data.status).addClass("done")
+        $(".status_" + data.status).siblings().removeClass("active")
+        $(".status_" + data.status).siblings().removeClass("done")
+        i = data.status
+        while(i>=1){
+        $(".status_" + i).addClass("done")
+        console.log(i)
+        i--;
+        }
+        $(".status_content").siblings().hide()
         $(".status_" + data.status + "_content").show()
-        console.log(data.status)
-
+        $(".status_" + data.status).addClass("active")
     }
 })
 }
