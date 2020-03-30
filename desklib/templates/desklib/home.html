@@ -29,12 +29,12 @@
 
     <div class="row pl-5 pt-7rem pb-7rem pltb-0 pt-10 pb-10">
         <div class="col-md-6">
-            <h1 class="blue-theme py-2">Get Online Homework Help</h1>
-            <h2 class="pb-2 font-size-25">Best Online Homework Help for College Students & Secure Your Academics Grades</h2>
+            <h1 class="blue-theme py-2">Online Homework Help</h1>
+            <p class="pb-2 ">You can access millions of study documents homework solutions at our online library</p>
             <div class="col-md-12 pl-0">
                    <form class="form-inline" action="{% url 'study:search-results' %}">
                     <div id="remote" class="input-group mb-5 mb-lg-3 w-100">
-                      <input class=" form-control form-control-lg shadow border-radius-30 typeahead search-bar-border-none" type="text" placeholder="Find subjects, homework solution and more..." name="q">
+                      <input class=" form-control form-control-lg shadow border-radius-30 typeahead search-bar-border-none" type="text" placeholder="" name="q">
                         <div class="input-group-append">
                             <button class="btn btn-lg rounded-circle search-bg-body" type="submit"><i class="fa fa-search rounded-circle search-icon"></i></button>
                         </div>
@@ -57,52 +57,64 @@
     </div>
 </section>
 <section class="container mt-md-5 mt-4">
+<!--        <div class="row">-->
+<!--            <div class="col-md-12 col-lg-12 mb-sm-3 mb-lg-0 mb-3">-->
+<!--                <h2>Avail homework help online today for college students and secure your academic grades</h2>-->
+<!--            </div>-->
+<!--        </div>-->
         <div class="row">
-            <div class="col-md-12 col-lg-6 mb-sm-3 mb-lg-0 mb-3">
-                <h2>Avail Online Homework Help Today And Secure Your Academic Grades</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 mb-sm-3 mb-lg-0 mb-3">
-<!--                <h2>Get Homework Help Online Today And Secure Your Academic Grades Now!</h2>-->
-                <p class="mt-lg-4">
-                    Desklib online homework help website for college students to complete their homework & assignemnt. The first thing that pops up in every college student's mind is homework and assignments. Professors nowadays provide dozens of homework and they expect a timely submission from you. If you are looking for the best homework help website Desklib is eager to assist you to complete your study. Getting the right homework help will bring you closer to your dreams and help you to boost your academics career and build the right kind of future that you want.
-                </p>
-            </div>
-            <div class="col-md-6 mb-lg-0">
-                <div class="p-0 mt-0 mt-lg-4 ml-lg-5 pl-lg-5">
-                    <div class="d-inline-block mb-md-4 mb-3 mt-lg-n1">
-                        <img src="{% static 'dist/assets/images/all_subject_h_h_icon.png' %}" class="width-40px">
-                        <h5 class="d-inline-block ml-3 ml-lg-4 ml-md-3">
-                            <a href="{% url 'study:study-search'%}" class="black-font">Get Homework Help</a>
-                        </h5>
-                        </div>
-                    <div class="d-inline-block mb-md-4 mb-3">
-                         <img src="{% static 'dist/assets/images/secure_payment_icon.png' %}" class="width-40px">
-                         <h5 class="d-inline-block ml-3 ml-lg-4 ml-md-3 black-font">Secure Payment Gateway</h5>
-                    </div>
-                    <div class="d-inline-block">
-                        <img src="{% static 'dist/assets/images/secure_best_grades_icon.png' %}" class="width-40px">
-                        <h5 class="d-inline-block ml-3 ml-lg-4 ml-md-3 black-font">Secure Best Grades</h5>
-                    </div>
+            <div class="col-md-6 ml-auto d-flex align-items-center order-md-1 order-2 mt-4 mt-md-0">
+                <div>
+                    <h2>Get Homework Help Online Today </h2>
+                    <p>
+                    Desklib is home to more than millions of study resources for your online homework help we offer you academic study solutions of every subject as per your requirement. We are fully capable to provide you help in various college homework or assignment solutions. Getting the right education will bring you closer to your dreams and help you to boost your academics career and build the right kind of future that you want.
+                    </p>
+                    <p>So, what are you waiting for now! choose our online service to make your study more interesting and make this your best year. </p>
                 </div>
+            </div>
+            <div class="col-md-6 order-md-2 order-1">
+                <div>
+                    <img src="{% static 'dist/assets/images/study-image.jpg' %}" class="img-fluid border-radius-12" alt="homework helper">
+                </div>
+ {% comment %}
+<!--                <div class="p-0 mt-0 mt-lg-4 ml-lg-5 pl-lg-5">-->
+<!--                    <div class="d-inline-block mb-md-4 mb-3 mt-lg-n1">-->
+<!--                        <img src="{% static 'dist/assets/images/all_subject_h_h_icon.png' %}" class="width-40px">-->
+<!--                        <h5 class="d-inline-block ml-3 ml-lg-4 ml-md-3">-->
+<!--                            <a href="{% url 'study:study-search'%}" class="black-font">Get Homework Help</a>-->
+<!--                        </h5>-->
+<!--                        </div>-->
+<!--                    <div class="d-inline-block mb-md-4 mb-3">-->
+<!--                         <img src="{% static 'dist/assets/images/secure_payment_icon.png' %}" class="width-40px">-->
+<!--                         <h5 class="d-inline-block ml-3 ml-lg-4 ml-md-3 black-font">Secure Payment Gateway</h5>-->
+<!--                    </div>-->
+<!--                    <div class="d-inline-block">-->
+<!--                        <img src="{% static 'dist/assets/images/secure_best_grades_icon.png' %}" class="width-40px">-->
+<!--                        <h5 class="d-inline-block ml-3 ml-lg-4 ml-md-3 black-font">Secure Best Grades</h5>-->
+<!--                    </div>-->
+<!--                </div>-->
+ {% endcomment %}
+
             </div>
     </div>
 </section>
-<hr>
+<hr class="mt-5 mb-4">
 <section class="container p-4 mb-md-3">
     <div class="row">
         <div class="col-md-6">
             <div>
-            <img src="{% static 'dist/assets/images/why_choose_us_img.png' %}" class="img-fluid" alt="homework helper">
+            <img src="{% static 'dist/assets/images/why_choose_us_img.png' %}" class="img-fluid border-radius-12" alt="homework helper">
             </div>
         </div>
          <div class="col-md-6 ml-auto d-flex align-items-center mt-4 mt-md-0">
              <div>
                 <h2>Homework Help For All Stream Subjects</h2>
                  <p>
-                     Desklib carefully select the best homework study material for your college homework help and solutions to assignments, essays, dissertations, and case studies. Our Homework Solutions resources are diverse so they can be used by students studying in any college, enrolled in any course or pursuing any degree/level. Moreover, new documents are added regularly and content is updated as well with improvements. We are an online homework help website developed for the students where anyone can learn, gain and contribute.
+                     We select the best study material for your college homework help and solutions to assignments, essays, dissertations, and case studies. Our Homework Solutions resources are diverse so they can be used by students studying in any college, enrolled in any course or pursuing any degree/level. Moreover, new documents are added regularly and content is updated as well with improvements. We are an online homework help website developed for the students where anyone can learn, gain and contribute.
                  </p>
+                 <div class="align-self-end ml-auto text-center">
+                     <a href="{% url 'study:study-search'%}" class="btn btn-bg-theme border-radius-20 white px-4">Get Homework Help </a>
+                 </div>
         </div>
          </div>
     </div>
@@ -111,6 +123,7 @@
 {% if top_results %}
 <section class="container-fluid pt-5 pb-5 bg-light">
     <h2 class="text-center">Most viewed Homework Solutions</h2>
+    <p class="text-center">Students who availed our services have higher chances of getting good grades. </p>
     <div class="main-content" id="main0">
         <div class="owl-carousel owl-theme mt-4">
          {% for results in top_results %}
@@ -143,7 +156,7 @@
     </div>
 </section>
 {% endif %}
-
+{% comment %}
 <!--<section class="container p-md-4 mt-md-3">-->
 <!--    <div class="row">-->
 <!--        <div class="col-md-6 ml-auto d-flex align-items-center order-md-1 order-2 mt-4 mt-md-0">-->
@@ -162,18 +175,20 @@
 <!--        </div>-->
 <!--</section>-->
 <!--<hr>-->
+{% endcomment %}
+
 <section class="container p-5">
     <div class="row">
         <div class="col-md-6">
              <div>
-                <img src="{% static 'dist/assets/images/study_img.jpg' %}" class="img-fluid" alt="college study">
+                <img src="{% static 'dist/assets/images/study_img.jpg' %}" class="img-fluid border-radius-12" alt="college study">
             </div>
         </div>
         <div class="col-md-6 ml-auto d-flex align-items-center mt-4 mt-md-0">
             <div>
-                <h2>Best Place to Get Homework Help Online</h2>
+                <h2>Homework Help Online</h2>
                  <p>
-                     We offer every stream's all subjects online assistance. College students can get 24/7 help with homework here with us. we have every kind of solution for your homework related help. you can find the number of sections which are generally designed for you to get your requirement.
+                     Access top quality study materials encompasses different study courses at universities all over the world and jump into the best homework help online service where you pick and choose your requirement and avail the solution in affordable prices. We offer every stream's all subjects online assistance for college students. They can get 24/7 help with homework here with us. we have every kind of solution for your homework related help. you can find the number of sections which are generally designed for you to get your requirement.
                  </p>
         </div>
         </div>
