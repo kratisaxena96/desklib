@@ -44,7 +44,7 @@
 	<div class="container pt-5 pb-5">
 		<div class="row justify-content-center">
 			<div class="col-md-12">
-				<h1 class="text-center mb-4">Get step-by-step solutions from our subjects experts</h1>
+				<h1 class="mb-4">Get step-by-step solutions from our subjects experts</h1>
 			</div>
 		</div>
 		<div class="row">
@@ -53,7 +53,7 @@
 				<form action="" method="post" id="question-form" enctype="multipart/form-data">
 					 {% csrf_token %}
 					<div class="bg-light-gray p-4 rounded-top">
-						<h2 class="pt-3 pb-2">Detailed explanation to all your questions</h2>
+						<h2 class="pt-3 pb-2 text-center">Detailed explanation to all your questions</h2>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
@@ -63,23 +63,32 @@
 						</div>
 					</div>
 					<div class="row mt-2">
-            			<div class="col-md-7">
+            			<div class="col-md-6">
 							<label class=""><strong>Upload&nbsp;{{form.file.label}}</strong></label>
-                			<div class="form-group">
-								<span class="btn btn-success fileinput-button">
+							<div class="form-group">
+<!--                			<div class="input-group mb-3">-->
+<!--								  <div class="custom-file">-->
+<!--									  <input type="file" class="custom-file-input" id="inputGroupFile02" multiple>-->
+<!--									  <label class="custom-file-label" for="inputGroupFile02">Choose file</label>-->
+<!--								  </div>-->
+<!--								  <div class="input-group-append">-->
+<!--									<span class="input-group-text" ></span>-->
+<!--								  </div>-->
+<!--								</div>-->
+								<span class="btn btn-bg-theme white border-radius-20 px-4 fileinput-button">
 								  <i class="fa fa-plus"></i>
 								  <span>Add files...</span>
 									{{form.file}}
 <!--								  <input type="file" name="files[]" multiple />-->
 								</span>
-                			</div>
+							</div>
 								<div id="progress">
     								<div class="bar" style="width: 0%;"></div>
 					  			</div>
 									<span class="reference_files"></span>
 
 						</div>
-						<div class="col-md-5">
+						<div class="col-md-6">
 							<label class=""><strong>Select Your&nbsp;{{form.subjects.label}}</strong></label>
 							<div class="form-group">
                      		{{form.subjects}}
@@ -222,10 +231,10 @@
 
 {% block extra_js %}
 
-<!--<script src='{% static "src/js/jquery.ui.widget.js" %}'></script>-->
-<!--<script src='{% static "src/js/jquery.iframe-transport.js" %}' ></script>-->
-<!--<script src='{% static "src/js/jquery.fileupload.js" %}' ></script>-->
-<!--<script src='{% static "src/js/jquery.fileupload-ui.js" %}' ></script>-->
+<script src='{% static "src/js/jquery.ui.widget.js" %}'></script>
+<script src='{% static "src/js/jquery.iframe-transport.js" %}' ></script>
+<script src='{% static "src/js/jquery.fileupload.js" %}' ></script>
+<script src='{% static "src/js/jquery.fileupload-ui.js" %}' ></script>
 
 
 <script>
