@@ -361,7 +361,8 @@ opacity:0.9 !important;
         <div class="subscribe mt-3 mb-5">
             <div class="jumbotron p-4 mb-3 text-center">
                 <h6 class="mb-3">You’re reading a preview. To view complete document, subscribe to a plan</h6>
-                <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white border-radius-40">View subscription plan</a>
+                <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white border-radius-40" rel="nofollow">Unlock this Document</a>
+
             </div>
         </div>
         {% endif %}
