@@ -7,7 +7,7 @@ from django_json_ld.views import JsonLdContextMixin
 from haystack.generic_views import SearchView
 from django.shortcuts import render
 from django.views.generic import TemplateView, FormView, ListView, DetailView
-from homework_help.models import Order, Comment, Question
+from homework_help.models import Order, Comment, Question, Answers
 from homework_help.forms import CommentForm, QuestionForm
 
 # Create your views here.
@@ -77,7 +77,11 @@ class QuestionDetailView(LoginRequiredMixin, TemplateView):
         context = super(QuestionDetailView, self).get_context_data(**kwargs)
 
         question = Question.objects.get(slug=self.kwargs['slug'])
+        answer = Answers.objects.filter(question=question)
+        similar_questions = Question.objects.filter(subjects=question.subjects)
         context['object'] = question
+        context['answer'] = answer.count()
+        context['similar_questions'] = similar_questions
         # context[self.context_meta_name] = self.get_meta(context=context)
         return context
 
