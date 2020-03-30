@@ -7,7 +7,7 @@ from django_json_ld.views import JsonLdContextMixin
 from haystack.generic_views import SearchView
 from django.shortcuts import render
 from django.views.generic import TemplateView, FormView, ListView, DetailView
-from homework_help.models import Order, Comment, Question
+from homework_help.models import Order, Comment, Question, Answers
 from homework_help.forms import CommentForm, QuestionForm
 
 # Create your views here.
@@ -77,7 +77,11 @@ class QuestionDetailView(LoginRequiredMixin, TemplateView):
         context = super(QuestionDetailView, self).get_context_data(**kwargs)
 
         question = Question.objects.get(slug=self.kwargs['slug'])
+        answer = Answers.objects.filter(question=question)
+        similar_questions = Question.objects.filter(subjects=question.subjects)
         context['object'] = question
+        context['answer'] = answer.count()
+        context['similar_questions'] = similar_questions
         # context[self.context_meta_name] = self.get_meta(context=context)
         return context
 
@@ -91,6 +95,7 @@ class OrderCreateView(LoginRequiredMixin, FormView):
         context = super(OrderCreateView, self).get_context_data(**kwargs)
         question = self.request.GET.get('question')
         question_object = Question.objects.get(slug=question)
+        order = Order.objects.get(uuid= self.request.GET.get('order'))
 
         if settings.PAYPAL_TEST:
             receiver_email = "info-facilitator@a2zservices.net"
@@ -98,10 +103,10 @@ class OrderCreateView(LoginRequiredMixin, FormView):
             receiver_email = "info@a2zservices.net"
         paypal_dict = {
             "business": receiver_email,
-            "item_name": "desklib subscription",
+            "item_name": "Order- " + order.order_id,
             "notify_url": self.request.build_absolute_uri(reverse('paypal-ipn')),
             "return": self.request.build_absolute_uri(reverse('homework_help:order-detail-view', kwargs={'uuid': self.request.GET.get('order')})),
-            "cancel_return": self.request.build_absolute_uri('?question='+self.request.GET.get('question')+'?order='+self.request.GET.get('order')),
+            "cancel_return": self.request.build_absolute_uri('?question='+self.request.GET.get('question')+'&order='+self.request.GET.get('order')),
             "custom": self.request.GET.get('question') + "_"+ self.request.GET.get('order'),
         }
 

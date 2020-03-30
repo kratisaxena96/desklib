@@ -7,6 +7,7 @@ from django.core.mail import EmailMultiAlternatives, EmailMessage
 from paypal.standard.forms import PayPalPaymentsForm
 
 from desklib.mixins import CheckSubscriptionMixin
+from documents.mixins import SubscriptionCheckMixin
 
 logger = logging.getLogger(__name__)
 from rest_framework.views import APIView
@@ -231,7 +232,7 @@ class DocumentView(JsonLdDetailView):
 #             return redirect('subscription')
 
 
-class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
+class DocumentDownloadDetailView(LoginRequiredMixin, SubscriptionCheckMixin, FormView):
     template_name = 'documents/download_info.html'
     form_class = DownloadFileForm
     payperdoc = False

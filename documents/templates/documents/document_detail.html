@@ -6,10 +6,16 @@
     {% endif %}
 {% endblock %}
 
+
+
+<!--    <link rel="stylesheet" href="https://rawgit.com/mozilla/pdf.js/master/web/viewer.css">-->
+<!--    <link rel="stylesheet" href="https://rawgit.com/mozilla/pdf.js/master/examples/mobile-viewer/viewer.css">-->
     {% if canonical %}
         <link rel="canonical" href="{{canonical}}"/>
     {% endif %}
     {% block extra_css %}
+
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">-->
 
     <style>
     .textLayer > span {
@@ -288,6 +294,8 @@ opacity:0.9 !important;
 
                 <button data-value="helpful" class="btn btn-light border submit-feedback mr-2">Yes</button>
                 <button data-value="not-helpful" class="btn btn-light border submit-feedback">No</button>
+                <!--<input type="submit" name="was_heplful" value="Yes">-->
+                <!--<input type="submit" name="not_heplful" value="No">-->
                 </form>
             </div>
             <div class="helpful" style="display:none;">
@@ -397,8 +405,6 @@ opacity:0.9 !important;
 
         <p class="pt-2">Already on Desklib?
         <a href="{% url 'account_login' %}">Log in</a> </p>
-        <!-- <a href="{% url 'subscription' %}" class="btn btn-bg-theme text-white">Subscribe</a> -->
-
     </div>
 </div>
 

@@ -251,6 +251,190 @@ input[type="submit"].btn-block.width-25 {
      cursor: pointer;
 }
 
+
+
+.mt-step-col{
+    display: flex;
+}
+.mt-step-number {
+    line-height: 60px;
+    margin-right: 20px;
+
+    display: inline-block;
+    position: relative;
+    z-index: 5;
+    height: 66px;
+    width: 72px;
+}
+.mt-element-step .step-line .mt-step-title {
+    font-size: 20px;
+    font-weight: 400;
+    position: relative;
+}
+.mt-element-step .step-line .mt-step-title::after, .mt-element-step .step-line .mt-step-title::before {
+    content: '';
+    height: 2px;
+    width: 100%;
+    position: absolute;
+    background-color: #e5e5e5;
+    left: 50%;
+    z-index: 4;
+    transform: translateY(-100%);
+}
+
+.mt-element-step .step-line .mt-step-col:last-child .mt-step-title::after, .mt-element-step .step-line .mt-step-title::before {
+    content: '';
+    height: 2px;
+    width: 0px;
+    position: absolute;
+    background-color: transparent;
+    left: 50%;
+    z-index: 4;
+    transform: translateY(-100%);
+}
+
+.mt-element-step .step-line .first .mt-step-title:before,.mt-element-step .step-line .last .mt-step-title:after {
+    content:none
+}
+.mt-element-step .step-line .mt-step-title::after {
+    top: -40px;
+}
+.mt-element-step .step-line .mt-step-title::before {
+    bottom: 0%;
+}
+.mt-element-step .step-line .done .mt-step-title::after, .mt-element-step .step-line .done .mt-step-title::before {
+    background-color: #405fbd;
+}
+.mt-element-step .step-line .done .mt-step-number {
+    color: #1f187f !important;
+    /* border-color: #405fbd !important; */
+    border: 2px solid transparent;
+    /* box-shadow: 0 0 7px 0 #ccc; */
+}
+.mt-element-step .step-line .active .mt-step-number {
+    color: #1f187f !important;
+    /* border-color: #405fbd !important; */
+    border: 2px solid transparent;
+    /* box-shadow: 0 0 7px 0 #ccc; */
+}
+.mt-element-step .step-line .active .mt-step-title::before {
+    background-color: #405fbd;
+}
+.mt-element-step .step-line .active .mt-step-title::after{
+    background-color: #e5e5e5;
+}
+.done .mt-step-number ,.active .mt-step-number, .mt-step-number {
+    height: 72px;
+}
+/* Assigned icon */
+.assigned:before{
+    content: '';
+    background-image: url('../images/Assigned_grey@1.5x.png');
+    width: 72px;
+    height: 66px;
+    top: 0;
+    left: 0;
+    position: absolute;
+    background-repeat: no-repeat;
+    margin-left: 5px;
+}
+.done .mt-step-number::before, .active .mt-step-number::before {
+    content: '';
+    background-color: #405fbd;
+    width: 32px;
+    height: 32px;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    position: absolute;
+    background-repeat: no-repeat;
+    margin: 20px;
+}
+.mt-step-number::before ,.mt-step-number::before {
+    content: '';
+    background-color: #e5e5e5;
+    width: 32px;
+    height: 32px;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    position: absolute;
+    background-repeat: no-repeat;
+    margin: 20px;
+}
+
+
+//--------------------------------------------Order_Detail page status bar---------------------------------//
+ul.stepper{
+counter-reset: step-bar;
+}
+ul.stepper .step-bar::before{
+    position: absolute;
+    content: '';
+    height: 30px;
+    width: 30px;
+    color: #fff;
+    border-radius: 50%;
+    font-weight: 400;
+    line-height: 0.70rem;
+    text-align: center;
+    padding: 10px;
+    margin-top: 12px;
+    background-color:#999999;
+    counter-increment: step-bar;
+    content: counter(step-bar);
+}
+ul.stepper .step-bar:first-child .step-bar-left,
+ul.stepper .step-bar:last-child .step-bar-right {
+	display:none;
+}
+ul.stepper .step-bar .step-bar-left,
+ul.stepper .step-bar .step-bar-right {
+	position:absolute;
+	top:43px;
+	height:1px;
+	border-top:1px solid #DDDDDD;
+}
+ul.stepper .step-bar .step-bar-right {
+	right:0;
+	left:45%;
+	margin-left:20px;
+}
+ul.stepper .step-bar .step-bar-left {
+	left:0;
+	right:50%;
+	margin-right:20px;
+}
+// ul.stepper > .step-bar:not(:last-of-type)::after{
+//     content: '';
+//     position: absolute;
+//     top: 40px;
+//     left: 30px;
+//     width: 1px;
+//     height: 28px;
+//     height: calc(100% - 20px);
+//     background-color: rgba(0,0,0,.1);
+//     transition: all .4s;
+// }
+.step-bar-title{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 35px;
+    padding-right: 35px;
+    margin-top: 35px;
+}
+ul.stepper .step-bar.active::before{
+    background-color: #405fbd;
+}
+
+
+.status-d-none{
+    display: none;
+}
+// .status-d-block{
+//     display: block;
+// }
+
 //--------------------------For Upload-file page 01/11/2019  (Menka Kumari)---------------------//
 .select2-container--default .select2-selection--multiple{
  	border-radius: 2rem;

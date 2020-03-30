@@ -25,7 +25,7 @@ INSTALLED_APPS += [
     # 'admissions',
     'formtools',
     # 'homework',
-    'channels'
+    # 'channels',
     # 'django_celery_results',
     # 'kombu.transport.django'
 ]

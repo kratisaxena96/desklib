@@ -1,8 +1,224 @@
 {% extends "desklib/base.html" %}
 {% load staticfiles %}
-{% block content %}
 {% load humanize %}
 
+{% block content %}
+<section>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'homework_help:ask-question-view'%}">Homework</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{object.question|truncatechars:35}}</li>
+  </ol>
+</nav>
+</section>
+<section class="">
+    <div class="container pt-4 pb-4 pt-md-5">
+        <div class="row">
+            <div class="col-sm-12">
+                <h6><strong>Your Question</strong></h6>
+                <p>What is the expansion of COBOL? by plotting pixel spans is In an application program, to set line-type attributes the following statement is used. The basic attributes of a straight line segment are: Which day is celebrated as world Computer.</p>
+            </div>
+        </div>
+        <div class="">
+        <div class="row">
+            <div class="col-sm-12">
+               <h6 class="d-inline"><strong>Your  Attachments</strong></h6>
+            </div>
+        </div>
+            <div class="row mt-3">
+                <div class="col-sm-4 mb-3">
+                    <div class="p-3 bg-light">
+                        <span class="d-inline-block mr-2"><i class="fa fa-file"></i></span><a href="" class="blue-font">homework_help/question/2020/0</a>
+                </div>
+                </div>
+                 <div class="col-sm-4 mb-3">
+                    <div class="p-3 bg-light">
+                        <span class="d-inline-block mr-2"><i class="fa fa-file"></i></span><a href="" class="blue-font">homework_help/question/2020/0</a>
+                </div>
+                </div>
+                 <div class="col-sm-4 mb-3">
+                    <div class="p-3 bg-light">
+                        <span class="d-inline-block mr-2"><i class="fa fa-file"></i></span><a href="" class="blue-font">homework_help/question/2020/0</a>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container pt-1 pb-5">
+        <div class="row">
+            <div class="col-sm-12">
+                <h6><strong>Status Of Your Order</strong></h6>
+            </div>
+        </div>
+
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+
+                <div class="mt-element-step">
+                    <div class="row step-line">
+<!--{% if order.status > 1 %}done{% elif order.status == 1 %}active{% endif %}-->
+						<div class="col mt-step-col status_1 pt-20 pb-20  d-block text-center">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div>
+                                        <div class="mt-step-number m-0 bg-white assigned">
+                                            <!-- <i class="fa fa-user-circle "></i> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div>
+                                        <div class="mt-step-title uppercase theme-color-blue">Question Received</div>
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+
+						<div class="col mt-step-col status_2 pt-20 pb-20  d-block text-center">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div>
+                                        <div class="mt-step-number m-0 bg-white assigned">
+                                            <!-- <i class="fa fa-user-circle "></i> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div>
+                                        <div class="mt-step-title uppercase theme-color-blue">Payment Completed</div>
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+
+						<div class="col mt-step-col status_3 pt-20 pb-20 d-block text-center">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div>
+                                        <div class="mt-step-number m-0 bg-white assigned">
+                                            <!-- <i class="fa fa-user-circle "></i> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div>
+                                        <div class="mt-step-title uppercase theme-color-blue">Expert Working On Your Answer</div>
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+
+						<div class="col mt-step-col status_4 pt-20 pb-20 d-block text-center">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div>
+                                        <div class="mt-step-number m-0 bg-white assigned">
+                                            <!-- <i class="fa fa-user-circle "></i> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div>
+                                        <div class="mt-step-title uppercase theme-color-blue">Answer Is Posted</div>
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+					</div>
+
+                </div>
+        </div>
+
+        {% comment %}
+        <div class="row mt-2">
+            <div class="col-sm-12">
+                <ul class="stepper list-unstyled p-3">
+                      <li class="d-inline-block step-bar first text-center">
+                          <div class="step-bar-title">
+                              <span class="d-inline-block" data-status="{{order.get_status_display}}"><strong>Question Received</strong></span>
+                          </div>
+                          <div class="step-bar-left"></div>
+                          <div class="step-bar-right"></div>
+                      </li>
+                       <li class="step-bar text-center d-inline-block">
+                          <div class="step-bar-title">
+                              <span class="d-inline-block"><strong>Payment Complete</strong></span>
+                          </div>
+                           <div class="step-bar-left"></div>
+                           <div class="step-bar-right"></div>
+                      </li>
+                      <li class="step-bar text-center d-inline-block">
+                          <div class="step-bar-title">
+                              <span class="d-inline-block"><strong>Expert Working On Your Answer</strong></span>
+                          </div>
+                          <div class="step-bar-left"></div>
+                          <div class="step-bar-right"></div>
+                      </li>
+                    <li class="step-bar text-center d-inline-block">
+                          <div class="step-bar-title">
+                              <span class="d-inline-block"><strong>Answer Is Posted</strong></span>
+                          </div>
+                          <div class="step-bar-left"></div>
+                          <div class="step-bar-right"></div>
+                      </li>
+                </ul>
+            </div>
+        </div>
+        {% endcomment %}
+        <div class="content_section">
+        <div class="status_content status_1_content status-d-none">
+         <div class="row mt-4">
+             <div class="col-sm-12">
+                 <div class="card card-body">
+                    <p class="text-center mb-0"><strong>Your question is received by us</strong> </p>
+                 </div>
+             </div>
+         </div>
+        </div>
+        <div class="status_content status_2_content status-d-none">
+        <div class="row mt-4">
+             <div class="col-sm-12">
+                 <div class="card card-body">
+                    <p class="text-center mb-0"><strong>Your Payment process has been completed</strong> </p>
+                 </div>
+             </div>
+         </div>
+        </div>
+         <div class="status_content status_3_content status-d-none">
+         <div class="row mt-4">
+             <div class="col-sm-12">
+                 <div class="card card-body">
+                    <p class="text-center mb-0"><strong>Our expert team working on your questions related answers</strong> </p>
+                 </div>
+             </div>
+         </div>
+         </div>
+        <div class="status_content status_4_content status-d-none">
+        <div class="row mt-4">
+             <div class="col-sm-12">
+                 <div class="card card-body">
+                    <p class="text-center mb-0"><strong>your answer is posted</strong> </p>
+                 </div>
+             </div>
+         </div>
+        </div>
+        </div>
+    </div>
+</section>
+
+
+
+{% comment %}
 <div class="comments"></div>
 
 <form action="" method="post" id="comment-form" enctype="multipart/form-data">
@@ -13,14 +229,51 @@
     <br>
     <input type="submit" value="Submit">
 </form>
-
+{% endcomment %}
 {% endblock %}
 
 
 {% block extra_js %}
 
 <script>
+ $(document).ready(function(){
+    var status = $("{{order.get_status_display}}");
+    // var st = $(this).data('status');
+        if(status == "Question Recieved")
+           $("ul.stepper li.step-bar.first").addClass('active');
+           $('.status-one').css('display','block');
+
+   });
+</script>
+
+<script>
 jQuery(document).ready(function() {
+
+setInterval(get_status, 10000);
+
+function get_status(){
+    var feedback = $.ajax({
+          type: 'GET',
+          url: "{% url 'api:homework-help-api:order-status-api' order.uuid %}",
+    success:function(data){
+
+        $(".status_" + data.status).siblings().removeClass("active")
+        $(".status_" + data.status).siblings().removeClass("done")
+        i = data.status
+        while(i>=1){
+        $(".status_" + i).addClass("done")
+        console.log(i)
+        i--;
+        }
+        $(".status_content").siblings().hide()
+        $(".status_" + data.status + "_content").show()
+        $(".status_" + data.status).addClass("active")
+    }
+})
+}
+
+
+
 
 
 

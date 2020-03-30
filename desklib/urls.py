@@ -40,13 +40,11 @@ sitemaps = {
     'documents': DocumentSitemap,
     'static': StaticViewSitemap,
     'samples': SampleSitemap,
-    'subjects': SubjectSitemap
+    # 'subjects': SubjectSitemap
 }
 
 urlpatterns = [
                   path('admin/', admin.site.urls),
-
-
                   # path('accounts/', include('accounts.urls')),  # new
                   path('accounts/', include('accounts.urls')),
                   path('study/', include(('study.urls', 'study'), namespace="study")),
@@ -87,7 +85,7 @@ urlpatterns = [
                   # path('payment/document',)
                   path('api/', include(('api.urls', 'api'), namespace="api")),
                   path('admissions/', include(('admissions.urls', 'admissions'), namespace="admissions")),
-                  # path('homework-help/', include(('homework_help.urls', 'homework_help'), namespace="homework_help")),
+                  path('homework-help/', include(('homework_help.urls', 'homework_help'), namespace="homework_help")),
                   path('ckeditor/', include('ckeditor_uploader.urls')),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

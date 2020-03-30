@@ -11,6 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 from taggit.managers import TaggableManager
 from django.urls import reverse
 from meta.models import ModelMeta
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 def get_file_path(instance, filename):
@@ -93,7 +94,7 @@ class SubjectContent(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='subject_content')
     title = models.CharField(_('Title'), max_length=500)
     slug = models.SlugField(_('Slug'), unique=True)
-    description = RichTextField(_('Description'))
+    description = RichTextUploadingField(_('Description'))
 
     class Meta:
         verbose_name = _('subject content')

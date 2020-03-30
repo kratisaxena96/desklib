@@ -9,6 +9,7 @@ from django.utils import timezone
 from subjects.models import Subject
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import slugify
+from django.template.defaultfilters import truncatechars
 
 
 # Create your models here.
@@ -56,7 +57,7 @@ def upload_solutions(instance, filename):
 
 class Question(models.Model):
     question = models.TextField(_('Question'))
-    slug = models.SlugField(_('Slug'), unique=True)
+    slug = models.SlugField(_('Slug'), unique=True, max_length= 200)
     # upload_file = models.FileField(verbose_name=_('Upload File'), upload_to=upload_to, max_length=1000)
     subjects = models.ForeignKey(Subject, db_index=True, blank=True, null=True, related_name='subject_question',
                                  on_delete=models.PROTECT, )
@@ -74,7 +75,8 @@ class Question(models.Model):
 
     def save(self, *args, **kwargs):
         value = self.question
-        self.slug = slugify(value, allow_unicode=True)
+        self.slug = slugify(truncatechars(value, 50))
+
         super().save(*args, **kwargs)
 
 
@@ -119,25 +121,21 @@ class QuestionFile(models.Model):
 
 
 class Order(models.Model):
-    STATUS_UNASSIGNED = 1
-    STATUS_IN_PROGRESS = 2
-    STATUS_DONE = 3
-    STATUS_DELIVERED = 4
-    STATUS_FEEDBACK = 5
-    STATUS_CANCELLED = 6
+    STATUS_RECIEVED = 1
+    STATUS_PAYMENT_RECIEVED = 2
+    STATUS_EXPERT_WORKING = 3
+    STATUS_ANSWER_POSTED = 4
 
     STATUS = [
-        (STATUS_UNASSIGNED, 'Unassigned'),
-        (STATUS_IN_PROGRESS, 'In Progress'),
-        (STATUS_DONE, 'Completed'),
-        (STATUS_DELIVERED, 'Delivered'),
-        (STATUS_FEEDBACK, 'Feedback'),
-        (STATUS_CANCELLED, 'Cancelled'),
+        (STATUS_RECIEVED, 'Question Recieved'),
+        (STATUS_PAYMENT_RECIEVED, 'Payment Completed'),
+        (STATUS_EXPERT_WORKING, 'Expert Working on your Answer'),
+        (STATUS_ANSWER_POSTED, 'Answer is posted'),
     ]
 
     question = models.ForeignKey(Question, related_name='ordered_question', on_delete=models.PROTECT)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='user_order')
-    status = models.IntegerField(choices=STATUS, default=STATUS_UNASSIGNED, db_index=True)
+    status = models.IntegerField(choices=STATUS, default=STATUS_RECIEVED, db_index=True)
     remarks = models.TextField(_('Remarks'), null=True, blank=True)
     budget = models.IntegerField(_('Budget'), null=True, blank=True)
     amount_paid = models.IntegerField(_('Amount Paid'), null=True, blank=True)

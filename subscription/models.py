@@ -40,7 +40,7 @@ class Subscription(models.Model):
 class PayPerDocument(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, blank=True, null=True, related_name = 'pay_per_download')
     plan = models.ForeignKey(Plan, on_delete=models.PROTECT)
-    documents =  models.ManyToManyField(Document, null=True, blank=True)
+    documents = models.ManyToManyField(Document, null=True, blank=True)
     is_current = models.BooleanField(default=True)
     # author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='pay_per_doc_author')
     start_date = models.DateTimeField()
