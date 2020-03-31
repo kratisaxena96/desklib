@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from rest_framework.generics import CreateAPIView, ListCreateAPIView, RetrieveAPIView
+from rest_framework.generics import CreateAPIView, ListCreateAPIView, RetrieveAPIView, ListAPIView
 from django.http import HttpResponseRedirect
-from homework_help.serializers import CommentCreateSerializer, QuestionCreateSerializer, QuestionFileCreateSerializer, OrderStatusSerializer
+from homework_help.serializers import CommentCreateSerializer, QuestionCreateSerializer, QuestionFileCreateSerializer, \
+    OrderStatusSerializer, QuestionAnswerSerializer
 from rest_framework.response import Response
 from rest_framework import status
-from homework_help.models import Order, Comment, QuestionFile, Question
+from homework_help.models import Order, Comment, QuestionFile, Question, Answers
 import simplejson as json
 
 
@@ -155,4 +156,34 @@ class OrderStatusApi(RetrieveAPIView):
     #     data['status'] = queryset.status
     #     data['budget'] = queryset.budget
     #     return Response(data, content_type="application/json", status=status.HTTP_201_CREATED)
+
+
+class GetAnswerApiView(ListAPIView):
+    lookup_field = 'uid'
+    serializer_class = QuestionAnswerSerializer
+
+    def get(self, request, *args, **kwargs):
+        question = Question.objects.get(uid=self.kwargs.get('uid'))
+        queryset = Answers.objects.filter(question=question)
+        data = {}
+        item = {}
+        i = 0
+
+        for answer in queryset:
+            try:
+                solution_files = answer.solution_files
+                item["solution_files"] = solution_files.url
+            except:
+                pass
+            try:
+                solution = answer.solution
+                item["solution"] = solution
+            except:
+                pass
+
+            data[i] = item
+            item = {}
+            i += 1
+
+        return Response(data, content_type="application/json", status=status.HTTP_201_CREATED)
 

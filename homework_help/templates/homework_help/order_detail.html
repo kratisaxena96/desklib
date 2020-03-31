@@ -51,8 +51,8 @@
 
                 <div class="mt-element-step">
                     <div class="row step-line">
-
-						<div class="col mt-step-col first pt-20 pb-20 {% if order.status > 1 %}done{% elif order.status == 1 %}active{% endif %} d-block text-center">
+<!--{% if order.status > 1 %}done{% elif order.status == 1 %}active{% endif %}-->
+						<div class="col mt-step-col status_1 pt-20 pb-20  d-block text-center">
                             <div class="row">
                                 <div class="col-12">
                                     <div>
@@ -71,7 +71,7 @@
                             </div>
 						</div>
 
-						<div class="col mt-step-col first pt-20 pb-20 {% if order.status > 2 %}done{% elif order.status == 2 %}active{% endif %} d-block text-center">
+						<div class="col mt-step-col status_2 pt-20 pb-20  d-block text-center">
                             <div class="row">
                                 <div class="col-12">
                                     <div>
@@ -90,7 +90,7 @@
                             </div>
 						</div>
 
-						<div class="col mt-step-col first pt-20 pb-20 {% if order.status > 3 %}done{% elif order.status == 3 %}active{% endif %} d-block text-center">
+						<div class="col mt-step-col status_3 pt-20 pb-20 d-block text-center">
                             <div class="row">
                                 <div class="col-12">
                                     <div>
@@ -109,7 +109,7 @@
                             </div>
 						</div>
 
-						<div class="col mt-step-col first pt-20 pb-20 {% if order.status > 4 %}done{% elif order.status == 4 %}active{% endif %} d-block text-center">
+						<div class="col mt-step-col status_4 pt-20 pb-20 d-block text-center">
                             <div class="row">
                                 <div class="col-12">
                                     <div>
@@ -168,7 +168,8 @@
             </div>
         </div>
         {% endcomment %}
-        <div class="status-one status-d-none">
+        <div class="content_section">
+        <div class="status_content status_1_content status-d-none">
          <div class="row mt-4">
              <div class="col-sm-12">
                  <div class="card card-body">
@@ -177,7 +178,7 @@
              </div>
          </div>
         </div>
-        <div class="status-two status-d-none">
+        <div class="status_content status_2_content status-d-none">
         <div class="row mt-4">
              <div class="col-sm-12">
                  <div class="card card-body">
@@ -186,7 +187,7 @@
              </div>
          </div>
         </div>
-         <div class="status-three status-d-none">
+         <div class="status_content status_3_content status-d-none">
          <div class="row mt-4">
              <div class="col-sm-12">
                  <div class="card card-body">
@@ -195,7 +196,7 @@
              </div>
          </div>
          </div>
-        <div class="status-four status-d-none">
+        <div class="status_content status_4_content status-d-none">
         <div class="row mt-4">
              <div class="col-sm-12">
                  <div class="card card-body">
@@ -203,6 +204,7 @@
                  </div>
              </div>
          </div>
+        </div>
         </div>
     </div>
 </section>
@@ -249,8 +251,34 @@ function get_status(){
           url: "{% url 'api:homework-help-api:order-status-api' order.uuid %}",
     success:function(data){
 
-        console.log(data)
+        $(".status_" + data.status).siblings().removeClass("active")
+        $(".status_" + data.status).siblings().removeClass("done")
+        i = data.status
+        while(i>=1){
+        $(".status_" + i).addClass("done")
+        if(i == 4){
+            get_answer()
+        }
+        console.log(i)
+        i--;
+        }
+        $(".status_content").siblings().hide()
+        $(".status_" + data.status + "_content").show()
+        $(".status_" + data.status).addClass("active")
+    }
+})
+}
 
+function get_answer(){
+    var feedback = $.ajax({
+          type: 'GET',
+          url: "{% url 'api:homework-help-api:get-answer-api' order.question.uid %}",
+    success:function(data){
+        $(".status_4_content").empty()
+        for (i in data){
+        console.log(data[i])
+            $(".status_4_content").append("<div>" + data[i].solution + "</div>" )
+        }
     }
 })
 }
