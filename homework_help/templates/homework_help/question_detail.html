@@ -14,7 +14,6 @@
     <div class="container pt-5">
         <div class="row justify-content-center">
             <div class="col-md-12">
-
                 <h2 class="">{{object.question|truncatechars:250}}</h2>
             </div>
         </div>
@@ -34,7 +33,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h2 class="text-center">Expert's Answers</h2>
-                 <h5 class="mb-3 text-center">2 Answers Are Available</h5>
+                 <h5 class="mb-3 text-center">{{answer}} Answers Are Available</h5>
                  <div class="text-center">
                     <a href="" class="btn btn-bg-theme white border-radius-20 px-4">View Answers</a>
                  </div>
@@ -50,42 +49,16 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-6 col-md-3">
+             {% for question in similar_questions %}
+            <div class="col-6 col-md-4">
                 <ul class="list-unstyled">
-                    <li class="mb-2"><a href="" class="blue-font">Who invented Compact Disc?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">Which day is celebrated as world Computer Literacy Day?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">Who invented Java?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">Longhorn was the code name of ?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">Who is known as the Human Computer of India?</a></li>
+                    <li class="mb-2">
+
+                         <a href="{% url 'homework_help:question-detail-view' slug=question.slug %}" class="blue-font">{{question.question|truncatechars:35}}</a>
+                    </li>
                 </ul>
             </div>
-            <div class="col-6 col-md-3">
-                <ul class="list-unstyled">
-                    <li class="mb-2"><a href="" class="blue-font d-block">What is mean by Liveware?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">Which computer engineer got Nobel Prize for literature in 2003?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">Weaving The Web' was written by...</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">What is Beta Test?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">First Indian cinema released through internet is .....</a></li>
-                </ul>
-            </div>
-            <div class="col-6 col-md-3">
-                <ul class="list-unstyled">
-                    <li class="mb-2"><a href="" class="blue-font d-block">What is the extension of PDF?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block"> What is the expansion of COBOL?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">Which IT company's nickname is ' The Big Blue ' ?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">What is the full form of  IEEE?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">Who developed COBOL?</a></li>
-                </ul>
-            </div>
-            <div class="col-6 col-md-3">
-                <ul class="list-unstyled">
-                    <li class="mb-2"><a href="" class="blue-font d-block">What is the expanded form of CMOS ?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">Who is Netizen ?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">What is Scareware?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">When was the first smart phone launched?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">What is the extension of PDF?</a></li>
-                </ul>
-            </div>
+             {% endfor %}
         </div>
     </div>
 </section>
