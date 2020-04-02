@@ -32,7 +32,7 @@ class DocumentAdminForm(forms.ModelForm):
                     raise forms.ValidationError(
                         "This Title is already associated with another Document Kindly Try again with another Title."
                     )
-            if len(title) < 30:
+            if len(title) < 24:
                 raise forms.ValidationError(
                     "Title should be greater than 30 characters"
                 )
