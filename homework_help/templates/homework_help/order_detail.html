@@ -228,6 +228,7 @@
 
 {% block extra_js %}
 
+{% comment %}
 <script>
  $(document).ready(function(){
     var status = $("{{order.get_status_display}}");
@@ -239,6 +240,7 @@
 
    });
 </script>
+{% endcomment %}
 
 <script>
 jQuery(document).ready(function() {
