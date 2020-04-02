@@ -5,11 +5,10 @@
 {% block content %}
 <section>
     <nav aria-label="breadcrumb">
-      <ol class="breadcrumb mb-0">
+       <ol class="breadcrumb mb-0">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="{% url 'homework_help:ask-question-view'%}">Homework</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{object.question|truncatechars:35}}</li>
-  </ol>
+       </ol>
 </nav>
 </section>
 <section class="">
@@ -17,32 +16,26 @@
         <div class="row">
             <div class="col-sm-12">
                 <h6><strong>Your Question</strong></h6>
-                <p>What is the expansion of COBOL? by plotting pixel spans is In an application program, to set line-type attributes the following statement is used. The basic attributes of a straight line segment are: Which day is celebrated as world Computer.</p>
+                <p>{{order.question.question}}</p>
             </div>
         </div>
         <div class="">
+             {% if order.question.user_questionfiles.all %}
         <div class="row">
             <div class="col-sm-12">
                <h6 class="d-inline"><strong>Your  Attachments</strong></h6>
             </div>
         </div>
             <div class="row mt-3">
+                 {% for order in order.question.user_questionfiles.all %}
                 <div class="col-sm-4 mb-3">
                     <div class="p-3 bg-light">
-                        <span class="d-inline-block mr-2"><i class="fa fa-file"></i></span><a href="" class="blue-font">homework_help/question/2020/0</a>
+                        <span class="d-inline-block mr-2"><i class="fa fa-file"></i></span><a href="{{order.file.url}}" class="blue-font">{{order.title|truncatechars:30}}</a>
                 </div>
                 </div>
-                 <div class="col-sm-4 mb-3">
-                    <div class="p-3 bg-light">
-                        <span class="d-inline-block mr-2"><i class="fa fa-file"></i></span><a href="" class="blue-font">homework_help/question/2020/0</a>
-                </div>
-                </div>
-                 <div class="col-sm-4 mb-3">
-                    <div class="p-3 bg-light">
-                        <span class="d-inline-block mr-2"><i class="fa fa-file"></i></span><a href="" class="blue-font">homework_help/question/2020/0</a>
-                </div>
-                </div>
+                 {% endfor %}
             </div>
+              {% endif %}
         </div>
     </div>
 </section>
@@ -242,6 +235,7 @@
         if(status == "Question Recieved")
            $("ul.stepper li.step-bar.first").addClass('active');
            $('.status-one').css('display','block');
+              alert("success");
 
    });
 </script>
@@ -262,12 +256,29 @@ function get_status(){
         i = data.status
         while(i>=1){
         $(".status_" + i).addClass("done")
+        if(i == 4){
+            get_answer()
+        }
         console.log(i)
         i--;
         }
         $(".status_content").siblings().hide()
         $(".status_" + data.status + "_content").show()
         $(".status_" + data.status).addClass("active")
+    }
+})
+}
+
+function get_answer(){
+    var feedback = $.ajax({
+          type: 'GET',
+          url: "{% url 'api:homework-help-api:get-answer-api' order.question.uid %}",
+    success:function(data){
+        $(".status_4_content").empty()
+        for (i in data){
+        console.log(data[i])
+            $(".status_4_content").append("<div>" + data[i].solution + "</div>" )
+        }
     }
 })
 }
