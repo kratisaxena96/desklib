@@ -94,7 +94,7 @@ class HomePageView(MetadataMixin, JsonLdContextMixin, SearchView):
     form_class = HomeSearchForm
     title = 'Desklib | Online Homework Help | Homework Solutions'
     # description = 'Desklib is your home for best study resources and educational documents. We have a large collection of homework answers, assignment solutions, reports, sample resume and presentations. Our study tools help you improve your writing skills and grammar.'
-    description = 'Get homework solutions by desklib online homework help library. Avail math, science, english and all subjects college homework help at affordable prices.'
+    description = 'Get affordable homework solutions or online homework help from our library. Avail math, science, english and all subjects college homework help at affordable prices.'
     keywords = ['homework solutions', 'online homework help', 'College Homework Help', 'Homework Helper']
     twitter_title = 'Desklib | Online Homework Help | Homework Solutions'
     og_title = 'Desklib | Online Homework Help | Homework Solutions'
