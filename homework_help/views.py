@@ -21,6 +21,24 @@ class OrderDetailView(LoginRequiredMixin, FormView):
     def get_context_data(self, **kwargs):
         context = super(OrderDetailView, self).get_context_data(**kwargs)
         order = Order.objects.get(uuid=self.kwargs['uuid'])
+
+
+        if settings.PAYPAL_TEST:
+            receiver_email = "info-facilitator@a2zservices.net"
+        else:
+            receiver_email = "info@a2zservices.net"
+        paypal_dict = {
+            "business": receiver_email,
+            "item_name": "Order- " + order.order_id,
+            "notify_url": self.request.build_absolute_uri(reverse('paypal-ipn')),
+            "return": self.request.build_absolute_uri(reverse('homework_help:order-detail-view', kwargs={'uuid': self.kwargs.get('uuid')})),
+            "cancel_return": self.request.build_absolute_uri(reverse('homework_help:order-detail-view', kwargs={'uuid': self.kwargs.get('uuid')})),
+            "custom": "homework-help_" + self.kwargs.get('uuid'),
+            "amount": order.budget,
+        }
+
+        paypalform = PayPalPaymentsForm(initial=paypal_dict, button_type="subscribe")
+        context['paypalform'] = paypalform
         context['order'] = order
         return context
 
@@ -108,6 +126,7 @@ class OrderCreateView(LoginRequiredMixin, FormView):
             "return": self.request.build_absolute_uri(reverse('homework_help:order-detail-view', kwargs={'uuid': self.request.GET.get('order')})),
             "cancel_return": self.request.build_absolute_uri('?question='+self.request.GET.get('question')+'&order='+self.request.GET.get('order')),
             "custom": "homework-help_" + self.request.GET.get('question') + "_"+ self.request.GET.get('order'),
+            "amount": order.budget,
         }
 
         form = PayPalPaymentsForm(initial=paypal_dict, button_type="subscribe")

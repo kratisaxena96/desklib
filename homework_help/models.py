@@ -5,6 +5,7 @@ import uuid
 from django.conf import settings
 from django.core.validators import FileExtensionValidator
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from subjects.models import Subject
 from django.utils.translation import ugettext_lazy as _
@@ -72,6 +73,9 @@ class Question(models.Model):
 
     def __str__(self):
         return self.slug
+
+    def get_absolute_url(self):
+        return reverse('homework_help:question-detail-view', kwargs={'slug': self.slug})
 
     def save(self, *args, **kwargs):
         value = self.question
@@ -151,6 +155,9 @@ class Order(models.Model):
 
     def __str__(self):
         return self.order_id
+
+    def get_absolute_url(self):
+        return reverse('homework_help:order-detail-view', kwargs={'uuid': self.uuid})
 
 
 
