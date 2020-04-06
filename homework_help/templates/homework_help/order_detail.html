@@ -243,6 +243,12 @@ function get_status(){
         $(".status_" + data.status).siblings().removeClass("active")
         $(".status_" + data.status).siblings().removeClass("done")
         i = data.status
+
+        if(i == 2){
+            $("input#id_amount").val(data.budget)
+            console.log(data.budget)
+        }
+
         while(i>=1){
         $(".status_" + i).addClass("done")
         if(i == 4){
