@@ -44,7 +44,7 @@
 	<div class="container pt-5 pb-5">
 		<div class="row justify-content-center">
 			<div class="col-md-12">
-				<h1 class="mb-4">Get step-by-step solutions from our subjects experts</h1>
+				<h1 class="mb-4 text-center">Get step-by-step solutions from our subjects experts</h1>
 			</div>
 		</div>
 		<div class="row">
@@ -53,7 +53,7 @@
 				<form action="" method="post" id="question-form" enctype="multipart/form-data">
 					 {% csrf_token %}
 					<div class="bg-light-gray p-4 rounded-top">
-						<h2 class="pt-3 pb-2 text-center">Detailed explanation to all your questions</h2>
+						<p class="pt-3 pb-2 text-center font-size-20">Detailed explanation to all your questions</p>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
@@ -123,7 +123,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h2 class="text-center">Looking For Previous Answer?</h2>
-				 <form class="" action="">
+				 <form class="" action="{% url 'study:search-results' %}">
 					 <div class="form-group d-flex justify-content-center mt-4">
                      <div id="remote" class="input-group w-50 width-100">
                       	 <input class=" form-control form-control-lg shadow border-radius-30 typeahead search-bar-border-none" type="text" placeholder="Search Your Question" name="q">
@@ -239,6 +239,7 @@ var k = 1
             $.each(data.result.files, function (index, file) {
                 $('<p/>').text(file.name).appendTo(document.body);
                 $('form').append("<input type='hidden' value='" + data.unique_id + "' name='unique_id' >");
+                 console.log('Selected file: ' + file.name);
             });
         },
         progressall: function (e, data) {
@@ -256,6 +257,7 @@ var k = 1
 		//	var key = response.key;
 		console.log(data);
                 $('form').append("<input type='hidden' value='" + data.result.unique_id + "' name='unique_id' >");
+
 
 
 		}).on('fileuploadfail', function (e, data) {
@@ -368,8 +370,12 @@ $('.homework-help-carousel').owlCarousel({
 
 });
 
-$(document).on('change', '.custom-file-input', function (event) {
-    $(this).next('.custom-file-label').html(event.target.files[0].name);
+<!--$(document).on('change', '.custom-file-input', function (event) {-->
+<!--    $(this).next('.custom-file-label').html(event.target.files[0].name);-->
+<!--});-->
+
+$(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
 });
 
 </script>

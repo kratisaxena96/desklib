@@ -30,7 +30,7 @@
                  {% for order in order.question.user_questionfiles.all %}
                 <div class="col-sm-4 mb-3">
                     <div class="p-3 bg-light">
-                        <span class="d-inline-block mr-2"><i class="fa fa-file"></i></span><a href="{{order.file.url}}" class="blue-font">{{order.title|truncatechars:30}}</a>
+                        <span class="d-inline-block mr-2"><i class="fa fa-file"></i></span><a href="{{order.file.url}}"  target = "_blank" class="blue-font">{{order.title|truncatechars:30}}</a>
                 </div>
                 </div>
                  {% endfor %}
@@ -131,43 +131,6 @@
 
                 </div>
         </div>
-
-        {% comment %}
-        <div class="row mt-2">
-            <div class="col-sm-12">
-                <ul class="stepper list-unstyled p-3">
-                      <li class="d-inline-block step-bar first text-center {{order.status}}{% if order.status > 1 %} active {% endif %}">
-                          <div class="step-bar-title">
-                              <span class="d-inline-block" data-status="{{order.get_status_display}}"><strong>Question Received</strong></span>
-                          </div>
-                          <div class="step-bar-left"></div>
-                          <div class="step-bar-right"></div>
-                      </li>
-                       <li class="step-bar text-center d-inline-block">
-                          <div class="step-bar-title">
-                              <span class="d-inline-block"><strong>Payment Complete</strong></span>
-                          </div>
-                           <div class="step-bar-left"></div>
-                           <div class="step-bar-right"></div>
-                      </li>
-                      <li class="step-bar text-center d-inline-block">
-                          <div class="step-bar-title">
-                              <span class="d-inline-block"><strong>Expert Working On Your Answer</strong></span>
-                          </div>
-                          <div class="step-bar-left"></div>
-                          <div class="step-bar-right"></div>
-                      </li>
-                    <li class="step-bar text-center d-inline-block">
-                          <div class="step-bar-title">
-                              <span class="d-inline-block"><strong>Answer Is Posted</strong></span>
-                          </div>
-                          <div class="step-bar-left"></div>
-                          <div class="step-bar-right"></div>
-                      </li>
-                </ul>
-            </div>
-        </div>
-        {% endcomment %}
         <div class="content_section">
         <div class="status_content status_1_content  status-d-none" style="display:{% if order.status == 1 %} block{% endif %}">
          <div class="row mt-4">
