@@ -43,7 +43,7 @@ class OrderDetailView(LoginRequiredMixin, FormView):
         return context
 
 
-class AskQuestionView(FormView):
+class AskQuestionView(LoginRequiredMixin, FormView):
     template_name = 'homework_help/ask_question.html'
     form_class = QuestionForm
 
@@ -54,7 +54,7 @@ class AskQuestionView(FormView):
         return context
 
 
-class QuestionDetailView(LoginRequiredMixin, TemplateView):
+class QuestionDetailView( TemplateView):
     model = Question
     template_name = "homework_help/question_detail.html"
     # template_name = "desklib/coming_soon.html"
