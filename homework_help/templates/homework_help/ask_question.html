@@ -70,9 +70,9 @@
 								  <i class="fa fa-plus"></i>
 								  <span>Add files...</span>
 									{{form.file}}
-<!--								  <input type="file" name="files[]" multiple />-->
 								</span>
 							</div>
+							<ul id="selected-files" class="list-unstyled"></ul>
 								<div id="progress">
     								<div class="bar" style="width: 0%;"></div>
 					  			</div>
@@ -230,16 +230,28 @@
 
 <script>
 $(function () {
+var ul = $('#selected-files');
+
 var k = 1
     $('#fileupload').fileupload({
         url: '{% url 'api:homework-help-api:question-file-create-api' %}',
         dataType: 'json',
         dropZone: $('#dropzone'),
+
+        add: function (e, data) {
+             var selectedFiles = $('<li class="file-name"><p></p></li>');
+             selectedFiles.find('p').text(data.files[0].name);
+             data.context = selectedFiles.appendTo(ul);
+
+             data.submit();
+         },
+
+
         done: function (e, data) {
             $.each(data.result.files, function (index, file) {
                 $('<p/>').text(file.name).appendTo(document.body);
                 $('form').append("<input type='hidden' value='" + data.unique_id + "' name='unique_id' >");
-                 console.log('Selected file: ' + file.name);
+<!--                 console.log('Selected file: ' + file.name);-->
             });
         },
         progressall: function (e, data) {
@@ -276,6 +288,25 @@ var k = 1
 			}});
 });
 
+$(document).bind('dragover', function (e) {
+    var dropZone = $('#dropzone'),
+        timeout = window.dropZoneTimeout;
+    if (timeout) {
+        clearTimeout(timeout);
+    } else {
+        dropZone.addClass('in');
+    }
+    var hoveredDropZone = $(e.target).closest(dropZone);
+    dropZone.toggleClass('hover', hoveredDropZone.length);
+    window.dropZoneTimeout = setTimeout(function () {
+        window.dropZoneTimeout = null;
+        dropZone.removeClass('in hover');
+    }, 100);
+});
+
+$(document).bind('drop dragover', function (e) {
+    e.preventDefault();
+});
 
 
     $("#question-form").submit(function(e) {
