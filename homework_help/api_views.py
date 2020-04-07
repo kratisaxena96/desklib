@@ -3,7 +3,7 @@ from django.urls import reverse
 from rest_framework.generics import CreateAPIView, ListCreateAPIView, RetrieveAPIView, ListAPIView
 from django.http import HttpResponseRedirect
 from homework_help.serializers import CommentCreateSerializer, QuestionCreateSerializer, QuestionFileCreateSerializer, \
-    OrderStatusSerializer, QuestionAnswerSerializer
+    OrderStatusSerializer, QuestionAnswerSerializer, OrderCreateSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from homework_help.models import Order, Comment, QuestionFile, Question, Answers
@@ -35,6 +35,22 @@ class QuestionCreateApiView(CreateAPIView):
         data = serializer.data
         data['slug'] = q.slug
         data['order'] = o.uuid
+
+        headers = self.get_success_headers(serializer.data)
+        # return HttpResponseRedirect(reverse('homework_help:order-detail-view', {'uuid':o.uuid}))
+        return Response(data, status=status.HTTP_201_CREATED, headers=headers)
+
+
+class OrderCreateApiView(CreateAPIView):
+    serializer_class = OrderCreateSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+
+        serializer.is_valid(raise_exception=True)
+
+        serializer.save(user=request.user)
+        data = serializer.data
 
         headers = self.get_success_headers(serializer.data)
         # return HttpResponseRedirect(reverse('homework_help:order-detail-view', {'uuid':o.uuid}))

@@ -4,11 +4,17 @@ from homework_help.models import Comment, Question, QuestionFile, Order, Answers
 
 
 class QuestionCreateSerializer(serializers.ModelSerializer):
-    # upload_file = serializers.FileField(required=False)
 
     class Meta:
         model = Question
         fields = ('question', 'subjects')
+
+
+class OrderCreateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Order
+        fields = ('question', 'uuid')
 
 
 class QuestionFileCreateSerializer(serializers.ModelSerializer):
