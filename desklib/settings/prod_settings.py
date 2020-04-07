@@ -177,4 +177,4 @@ FLAG_MAIL_TO_TEST = True
 #    'Cache-Control': 'max-age=94608000',
 #}
 
-
+AWS_QUERYSTRING_AUTH = False
