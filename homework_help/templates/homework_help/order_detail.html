@@ -30,7 +30,7 @@
                  {% for order in order.question.user_questionfiles.all %}
                 <div class="col-sm-4 mb-3">
                     <div class="p-3 bg-light">
-                        <span class="d-inline-block mr-2"><i class="fa fa-file"></i></span><a href="{{order.file.url}}" class="blue-font">{{order.title|truncatechars:30}}</a>
+                        <span class="d-inline-block mr-2"><i class="fa fa-file"></i></span><a href="{{order.file.url}}" target = "_blank" class="blue-font">{{order.title|truncatechars:30}}</a>
                 </div>
                 </div>
                  {% endfor %}
@@ -131,43 +131,6 @@
 
                 </div>
         </div>
-
-        {% comment %}
-        <div class="row mt-2">
-            <div class="col-sm-12">
-                <ul class="stepper list-unstyled p-3">
-                      <li class="d-inline-block step-bar first text-center {{order.status}}{% if order.status > 1 %} active {% endif %}">
-                          <div class="step-bar-title">
-                              <span class="d-inline-block" data-status="{{order.get_status_display}}"><strong>Question Received</strong></span>
-                          </div>
-                          <div class="step-bar-left"></div>
-                          <div class="step-bar-right"></div>
-                      </li>
-                       <li class="step-bar text-center d-inline-block">
-                          <div class="step-bar-title">
-                              <span class="d-inline-block"><strong>Payment Complete</strong></span>
-                          </div>
-                           <div class="step-bar-left"></div>
-                           <div class="step-bar-right"></div>
-                      </li>
-                      <li class="step-bar text-center d-inline-block">
-                          <div class="step-bar-title">
-                              <span class="d-inline-block"><strong>Expert Working On Your Answer</strong></span>
-                          </div>
-                          <div class="step-bar-left"></div>
-                          <div class="step-bar-right"></div>
-                      </li>
-                    <li class="step-bar text-center d-inline-block">
-                          <div class="step-bar-title">
-                              <span class="d-inline-block"><strong>Answer Is Posted</strong></span>
-                          </div>
-                          <div class="step-bar-left"></div>
-                          <div class="step-bar-right"></div>
-                      </li>
-                </ul>
-            </div>
-        </div>
-        {% endcomment %}
         <div class="content_section">
         <div class="status_content status_1_content  status-d-none" style="display:{% if order.status == 1 %} block{% endif %}">
          <div class="row mt-4">
@@ -221,13 +184,39 @@
          </div>
          </div>
         <div class="status_content status_4_content status-d-none" style="display:{% if order.status == 4 %} block{% endif %}">
-        <div class="row mt-4">
+            <div class="row mt-5">
+                <div class="col-sm-12">
+                    <h6><strong>Answer from your tutor:</strong></h6>
+                </div>
+            </div>
+            <div class="row mt-4">
              <div class="col-sm-12">
                  <div class="card card-body">
-                    <p class="text-center mb-0"><strong>your answer is posted</strong> </p>
+                     <h6><strong>Explanation:</strong></h6>
+                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<!--                     <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. </p>-->
                  </div>
              </div>
          </div>
+            <div class="row mt-4">
+                <div class="col-sm-12">
+<!--                    <h6><strong>See Another Answer</strong></h6>-->
+                    <div class="card card-body">
+<!--                        <h6><strong>See Another Answer</strong></h6>-->
+                        <h6><strong>Explanation:</strong></h6>
+                        <p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-sm-6">
+                   <span class="d-inline-block mr-2"><i class="fa fa-file"></i></span><a href="" target = "_blank" class="blue-font">/media/solution/2020/04/06/django_flow.png</a>
+                </div>
+                <div class="col-sm-6">
+                    <p>By clicking the button below you can download a file.</p>
+                    <a href="" class="btn btn-bg-theme border-radius-20 px-4 white" download>Download</a>
+                </div>
+            </div>
         </div>
         </div>
     </div>
@@ -256,12 +245,10 @@
 <script>
  $(document).ready(function(){
     var status = $("{{order.get_status_display}}");
-    // var st = $(this).data('status');
+     var st = $(this).data('status');
         if(status == "Question Recieved")
            $("ul.stepper li.step-bar.first").addClass('active');
            $('.status-one').css('display','block');
-              alert("success");
-
    });
 </script>
 {% endcomment %}
@@ -309,7 +296,8 @@ function get_answer(){
         $(".status_4_content").empty()
         for (i in data){
         console.log(data[i])
-            $(".status_4_content").append("<div>" + data[i].solution + "</div>" )
+           $(".status_4_content").append("<h6 class='mt-4'><strong>Answer from your tutor:</strong></h6>","<div class='mt-4'><div class='col-sm-12'><div class='card card-body'><h6><strong>Explanation:</strong></h6><p>" + data[i].solution + "</p></div></div></div>" );
+            $(".status_4_content").append("<div class='row mt-4'><div class='col-sm-6'><span class='d-inline-block mr-2 ml-4'><i class='fa fa-file'></i></span><a href=''>" + data[i].solution_files + "</a></div><div class='col-sm-6'><p>By clicking the button below you can download a file.</p><a href='' class='btn btn-bg-theme border-radius-20 px-4 white' download>Download</div></div>" )
         }
     }
 })

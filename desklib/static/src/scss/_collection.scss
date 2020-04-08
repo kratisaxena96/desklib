@@ -561,12 +561,29 @@ span.input-group-text{
 
 //-----------------------admission page banner-image  (Menka Kumari)------------------------//
 .admission-page-banner-image{
-    background-image: url("/static/dist/assets/images/Desklib banner.png");
+    background-image: url("/static/dist/assets/images/Contact-page-banner.png");
     background-size: cover;
     background-repeat: no-repeat;
     // height: 350px;
 }
-
+.admission-banner-img{
+    background-image: url("/static/dist/assets/images/why_choose_us_img.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    z-index: 1;
+    right: -73px;
+    left: 0;
+//     bottom: 0;
+}
+.cards-hover{
+    bottom: 0;
+    top: -144px;
+    z-index: 1;
+    right: 0;
+    left: 0;
+}
 
    //----------------------------------------  Study Page  ------------------------------------------//
 .top-image {
@@ -1157,6 +1174,12 @@ display:none;
 }
 .owl-theme .owl-item{
     padding-bottom: 20px;
+}
+.owl-theme.carousel-banner-image .owl-item{
+    padding-bottom: 0px;
+}
+.owl-theme.owl-carousel-admission .owl-item{
+    padding-bottom: 0px;
 }
 .search-bg {
 	background-color: #405FBD;

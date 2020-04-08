@@ -13,11 +13,17 @@
 .pb-7rem{
   padding-bottom:7rem;
 }
-.pb-10rem{
-  padding-bottom:10rem;
+.pb-12rem{
+  padding-bottom:12rem;
 }
 .pt-12rem{
   padding-top:12rem;
+}
+.pt-15rem{
+    padding-top: 15rem;
+}
+.pb-15rem{
+    padding-bottom: 15rem;
 }
 .padding-10{
     padding: 10px !important;
@@ -186,7 +192,9 @@
 }
 
         //-----------------------------------   Margin-Top  ------------------------------------------//
-
+.m-top-n6{
+    margin-top: -6rem !important;
+}
 .margin-top-40{
     margin-top: 40px !important;
 }
@@ -207,4 +215,8 @@
 }
 .margin-bottom-40{
     margin-bottom: 40px !important;
+}
+
+.line-height{
+    line-height: 30px;
 }

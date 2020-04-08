@@ -26,6 +26,7 @@
 }
 #dropzone.hover {
     background: lawngreen;
+    border: 3px dashed #405FBD;
 }
 #dropzone.fade {
     -webkit-transition: all 0.3s ease-out;
@@ -44,7 +45,7 @@
 	<div class="container pt-5 pb-5">
 		<div class="row justify-content-center">
 			<div class="col-md-12">
-				<h1 class="mb-4">Get step-by-step solutions from our subjects experts</h1>
+				<h1 class="mb-4 text-center">Get step-by-step solutions from our subjects experts</h1>
 			</div>
 		</div>
 		<div class="row">
@@ -53,7 +54,7 @@
 				<form action="" method="post" id="question-form" enctype="multipart/form-data">
 					 {% csrf_token %}
 					<div class="bg-light-gray p-4 rounded-top">
-						<h2 class="pt-3 pb-2 text-center">Detailed explanation to all your questions</h2>
+						<p class="pt-3 pb-2 text-center font-size-20">Detailed explanation to all your questions</p>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
@@ -70,9 +71,9 @@
 								  <i class="fa fa-plus"></i>
 								  <span>Add files...</span>
 									{{form.file}}
-<!--								  <input type="file" name="files[]" multiple />-->
 								</span>
 							</div>
+							<ul id="selected-files" class="list-unstyled"></ul>
 								<div id="progress">
     								<div class="bar" style="width: 0%;"></div>
 					  			</div>
@@ -123,7 +124,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h2 class="text-center">Looking For Previous Answer?</h2>
-				 <form class="" action="">
+				 <form class="" action="{% url 'study:search-results' %}">
 					 <div class="form-group d-flex justify-content-center mt-4">
                      <div id="remote" class="input-group w-50 width-100">
                       	 <input class=" form-control form-control-lg shadow border-radius-30 typeahead search-bar-border-none" type="text" placeholder="Search Your Question" name="q">
@@ -230,15 +231,28 @@
 
 <script>
 $(function () {
+var ul = $('#selected-files');
+
 var k = 1
     $('#fileupload').fileupload({
         url: '{% url 'api:homework-help-api:question-file-create-api' %}',
         dataType: 'json',
         dropZone: $('#dropzone'),
+
+        add: function (e, data) {
+             var selectedFiles = $('<li class="file-name"><p></p></li>');
+             selectedFiles.find('p').text(data.files[0].name);
+             data.context = selectedFiles.appendTo(ul);
+
+             data.submit();
+         },
+
+
         done: function (e, data) {
             $.each(data.result.files, function (index, file) {
                 $('<p/>').text(file.name).appendTo(document.body);
                 $('form').append("<input type='hidden' value='" + data.unique_id + "' name='unique_id' >");
+<!--                 console.log('Selected file: ' + file.name);-->
             });
         },
         progressall: function (e, data) {
@@ -258,6 +272,7 @@ var k = 1
                 $('form').append("<input type='hidden' value='" + data.result.unique_id + "' name='unique_id' >");
 
 
+
 		}).on('fileuploadfail', function (e, data) {
 			//alert(data);
 
@@ -274,6 +289,25 @@ var k = 1
 			}});
 });
 
+$(document).bind('dragover', function (e) {
+    var dropZone = $('#dropzone'),
+        timeout = window.dropZoneTimeout;
+    if (timeout) {
+        clearTimeout(timeout);
+    } else {
+        dropZone.addClass('in');
+    }
+    var hoveredDropZone = $(e.target).closest(dropZone);
+    dropZone.toggleClass('hover', hoveredDropZone.length);
+    window.dropZoneTimeout = setTimeout(function () {
+        window.dropZoneTimeout = null;
+        dropZone.removeClass('in hover');
+    }, 100);
+});
+
+$(document).bind('drop dragover', function (e) {
+    e.preventDefault();
+});
 
 
     $("#question-form").submit(function(e) {
@@ -368,8 +402,8 @@ $('.homework-help-carousel').owlCarousel({
 
 });
 
-$(document).on('change', '.custom-file-input', function (event) {
-    $(this).next('.custom-file-label').html(event.target.files[0].name);
+$(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
 });
 
 </script>
