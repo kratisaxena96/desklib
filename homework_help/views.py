@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
 from paypal.standard.forms import PayPalPaymentsForm
 from django.urls import reverse
 from django.conf import settings
@@ -17,6 +18,14 @@ class OrderDetailView(LoginRequiredMixin, FormView):
     model = Order
     template_name = 'homework_help/order_detail.html'
     form_class = CommentForm
+
+    def get(self, request, *args, **kwargs):
+
+        order = Order.objects.get(uuid=self.kwargs['uuid'])
+        if self.request.user == order.author    :
+            return super().get(request, *args, **kwargs)
+        else:
+            return render(request, 'desklib/error_404.html', status=404)
 
     def get_context_data(self, **kwargs):
         context = super(OrderDetailView, self).get_context_data(**kwargs)
@@ -43,7 +52,7 @@ class OrderDetailView(LoginRequiredMixin, FormView):
         return context
 
 
-class AskQuestionView(LoginRequiredMixin, FormView):
+class AskQuestionView(FormView):
     template_name = 'homework_help/ask_question.html'
     form_class = QuestionForm
 
@@ -54,7 +63,7 @@ class AskQuestionView(LoginRequiredMixin, FormView):
         return context
 
 
-class QuestionDetailView( TemplateView):
+class QuestionDetailView(TemplateView):
     model = Question
     template_name = "homework_help/question_detail.html"
     # template_name = "desklib/coming_soon.html"
@@ -108,30 +117,11 @@ class OrderCreateView(LoginRequiredMixin, FormView):
     template_name = "homework_help/order_create.html"
     form_class = CommentForm
 
-    def get_context_data(self, **kwargs):
+    def get(self, request, *args, **kwargs):
 
-        context = super(OrderCreateView, self).get_context_data(**kwargs)
-        question = self.request.GET.get('question')
-        question_object = Question.objects.get(slug=question)
-        order = Order.objects.get(uuid= self.request.GET.get('order'))
+        question = Question.objects.get(uid= self.kwargs.get('uid'))
+        order = Order(question=question, author=request.user)
+        order.save()
+        return HttpResponseRedirect(redirect_to=reverse('homework_help:order-detail-view', kwargs={'uuid': order.uuid}))
 
-        if settings.PAYPAL_TEST:
-            receiver_email = "info-facilitator@a2zservices.net"
-        else:
-            receiver_email = "info@a2zservices.net"
-        paypal_dict = {
-            "business": receiver_email,
-            "item_name": "Order- " + order.order_id,
-            "notify_url": self.request.build_absolute_uri(reverse('paypal-ipn')),
-            "return": self.request.build_absolute_uri(reverse('homework_help:order-detail-view', kwargs={'uuid': self.request.GET.get('order')})),
-            "cancel_return": self.request.build_absolute_uri('?question='+self.request.GET.get('question')+'&order='+self.request.GET.get('order')),
-            "custom": "homework-help_" + self.request.GET.get('question') + "_"+ self.request.GET.get('order'),
-            "amount": order.budget,
-        }
-
-        form = PayPalPaymentsForm(initial=paypal_dict, button_type="subscribe")
-        context['form'] = form
-
-        context['question'] = question_object
-        return context
 

@@ -62,7 +62,7 @@ class Question(models.Model):
     # upload_file = models.FileField(verbose_name=_('Upload File'), upload_to=upload_to, max_length=1000)
     subjects = models.ForeignKey(Subject, db_index=True, blank=True, null=True, related_name='subject_question',
                                  on_delete=models.PROTECT, )
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='author_question')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True, related_name='author_question')
     uid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 
     is_published = models.BooleanField(_('Is Published'), default=True)
@@ -138,7 +138,7 @@ class Order(models.Model):
     ]
 
     question = models.ForeignKey(Question, related_name='ordered_question', on_delete=models.PROTECT)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='user_order')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True, related_name='user_order')
     status = models.IntegerField(choices=STATUS, default=STATUS_RECIEVED, db_index=True)
     remarks = models.TextField(_('Remarks'), null=True, blank=True)
     budget = models.IntegerField(_('Budget'), null=True, blank=True)

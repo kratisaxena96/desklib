@@ -7,7 +7,7 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('', AskQuestionView.as_view(), name='ask-question-view'),
-    # path('order/', OrderCreateView.as_view(), name='order-create-view'),
     path('question/<slug>/', QuestionDetailView.as_view(), name='question-detail-view'),
+    path('order-create/<uid>/', OrderCreateView.as_view(), name='order-create-view'),
     path('order/<uuid>/', OrderDetailView.as_view(), name='order-detail-view'),
 ]
