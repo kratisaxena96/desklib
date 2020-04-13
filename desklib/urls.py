@@ -32,6 +32,7 @@ from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView
     AcademicIntegrityView, ComingSoonPageView, PaymentCancelledView, PaymentSuccessView, AlreadySubscribedView, \
     AdmissionsView, Error404View, Error500View
 from subscription.views import MyDownloads
+from blogs.views import BlogListPageView, BlogDetailPageView
 
 # if settings.DEBUG:
 #     import debug_toolbar
@@ -88,6 +89,9 @@ urlpatterns = [
                   path('admissions/', include(('admissions.urls', 'admissions'), namespace="admissions")),
                   path('homework-help/', include(('homework_help.urls', 'homework_help'), namespace="homework_help")),
                   path('ckeditor/', include('ckeditor_uploader.urls')),
+
+                  path('blog/', BlogListPageView.as_view(), name='blog'),
+                  path('<int:year>/<int:month>/<int:date>/<slug:slug>/', BlogDetailPageView.as_view(), name='blog_detail'),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

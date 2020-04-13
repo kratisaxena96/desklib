@@ -3,6 +3,7 @@ from django.db import models
 from django.urls import reverse
 from meta.models import ModelMeta
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 
 # Create your models here.
 
@@ -58,6 +59,7 @@ class BlogModel(ModelMeta,models.Model):
     short_description = models.TextField(max_length=200, blank=True, null=True)
     description = RichTextUploadingField(null=True, blank=True)
     author = models.CharField(max_length=20, null=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True, related_name='blog_author')
 
     is_published = models.BooleanField(default=False)
     is_visible = models.BooleanField(default=False)
