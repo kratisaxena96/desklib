@@ -52,6 +52,11 @@ class OrderDetailView(LoginRequiredMixin, FormView):
         return context
 
 
+class OrderListView(LoginRequiredMixin, ListView):
+    model = Order
+    template_name = 'homework_help/order_list.html'
+
+
 class AskQuestionView(FormView):
     template_name = 'homework_help/ask_question.html'
     form_class = QuestionForm
