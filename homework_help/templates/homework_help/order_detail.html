@@ -5,11 +5,10 @@
 {% block content %}
 <section>
     <nav aria-label="breadcrumb">
-      <ol class="breadcrumb mb-0">
+       <ol class="breadcrumb mb-0">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="{% url 'homework_help:ask-question-view'%}">Homework</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{object.question|truncatechars:35}}</li>
-  </ol>
+       </ol>
 </nav>
 </section>
 <section class="">
@@ -17,32 +16,26 @@
         <div class="row">
             <div class="col-sm-12">
                 <h6><strong>Your Question</strong></h6>
-                <p>What is the expansion of COBOL? by plotting pixel spans is In an application program, to set line-type attributes the following statement is used. The basic attributes of a straight line segment are: Which day is celebrated as world Computer.</p>
+                <p>{{order.question.question}}</p>
             </div>
         </div>
         <div class="">
+             {% if order.question.user_questionfiles.all %}
         <div class="row">
             <div class="col-sm-12">
                <h6 class="d-inline"><strong>Your  Attachments</strong></h6>
             </div>
         </div>
             <div class="row mt-3">
+                 {% for order in order.question.user_questionfiles.all %}
                 <div class="col-sm-4 mb-3">
                     <div class="p-3 bg-light">
-                        <span class="d-inline-block mr-2"><i class="fa fa-file"></i></span><a href="" class="blue-font">homework_help/question/2020/0</a>
+                        <span class="d-inline-block mr-2"><i class="fa fa-file"></i></span><a href="{{order.file.url}}" class="blue-font">{{order.title|truncatechars:30}}</a>
                 </div>
                 </div>
-                 <div class="col-sm-4 mb-3">
-                    <div class="p-3 bg-light">
-                        <span class="d-inline-block mr-2"><i class="fa fa-file"></i></span><a href="" class="blue-font">homework_help/question/2020/0</a>
-                </div>
-                </div>
-                 <div class="col-sm-4 mb-3">
-                    <div class="p-3 bg-light">
-                        <span class="d-inline-block mr-2"><i class="fa fa-file"></i></span><a href="" class="blue-font">homework_help/question/2020/0</a>
-                </div>
-                </div>
+                 {% endfor %}
             </div>
+              {% endif %}
         </div>
     </div>
 </section>
@@ -59,7 +52,7 @@
                 <div class="mt-element-step">
                     <div class="row step-line">
 <!--{% if order.status > 1 %}done{% elif order.status == 1 %}active{% endif %}-->
-						<div class="col mt-step-col status_1 pt-20 pb-20  d-block text-center">
+						<div class="col mt-step-col status_1 pt-20 pb-20 {% if order.status > 1 %} done {% elif order.status == 1 %} active{% endif %} d-block text-center">
                             <div class="row">
                                 <div class="col-12">
                                     <div>
@@ -78,7 +71,7 @@
                             </div>
 						</div>
 
-						<div class="col mt-step-col status_2 pt-20 pb-20  d-block text-center">
+						<div class="col mt-step-col status_2 pt-20 pb-20  {% if order.status > 2 %} done {% elif order.status == 2 %} active{% endif %} d-block text-center">
                             <div class="row">
                                 <div class="col-12">
                                     <div>
@@ -97,7 +90,7 @@
                             </div>
 						</div>
 
-						<div class="col mt-step-col status_3 pt-20 pb-20 d-block text-center">
+						<div class="col mt-step-col status_3 pt-20 pb-20 {% if order.status > 3 %} done {% elif order.status == 3 %} active{% endif %} d-block text-center">
                             <div class="row">
                                 <div class="col-12">
                                     <div>
@@ -116,7 +109,7 @@
                             </div>
 						</div>
 
-						<div class="col mt-step-col status_4 pt-20 pb-20 d-block text-center">
+						<div class="col mt-step-col status_4 pt-20 pb-20 {% if order.status > 4 %} done {% elif order.status == 4 %} active{% endif %} d-block text-center">
                             <div class="row">
                                 <div class="col-12">
                                     <div>
@@ -143,7 +136,7 @@
         <div class="row mt-2">
             <div class="col-sm-12">
                 <ul class="stepper list-unstyled p-3">
-                      <li class="d-inline-block step-bar first text-center">
+                      <li class="d-inline-block step-bar first text-center {{order.status}}{% if order.status > 1 %} active {% endif %}">
                           <div class="step-bar-title">
                               <span class="d-inline-block" data-status="{{order.get_status_display}}"><strong>Question Received</strong></span>
                           </div>
@@ -176,7 +169,7 @@
         </div>
         {% endcomment %}
         <div class="content_section">
-        <div class="status_content status_1_content status-d-none">
+        <div class="status_content status_1_content  status-d-none" style="display:{% if order.status == 1 %} block{% endif %}">
          <div class="row mt-4">
              <div class="col-sm-12">
                  <div class="card card-body">
@@ -185,16 +178,40 @@
              </div>
          </div>
         </div>
-        <div class="status_content status_2_content status-d-none">
+        <div class="status_content status_2_content status-d-none" style="display:{% if order.status == 2 %} block{% endif %}">
         <div class="row mt-4">
              <div class="col-sm-12">
                  <div class="card card-body">
-                    <p class="text-center mb-0"><strong>Your Payment process has been completed</strong> </p>
+                    <p class="text-center mb-0">
+
+                <form action="{{paypalform.get_endpoint}}" method="post" id="form-check">
+                     {% csrf_token %}
+                     {{paypalform}}
+
+                    <div class="row mt-3">
+                        <div class="col-md-12 text-md-center">
+                            <input type="checkbox" name="checkbox" id="check-box" class="checkbox" required>
+                            <label class="d-inline" for="check-box" class="blue-theme">&nbsp;I agree to the <a href="{% url 'termsofuse' %}">terms & conditions</a>, <a href="{% url 'privacypolicy' %}"> privacy policy</a>, <a href="{% url 'academicintegrity' %}">Academic Integrity</a>, <a href="{% url 'honorcode' %}">Honor Code</a> and <a href="{% url 'copyright' %}">Copyright</a>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+	 	                <div class="col-md-12">
+                            <p class="text-md-center">By clicking the link below you will be redirected to PayPal Payment Gateway</p>
+                            <div class="text-center">
+			                <input type="submit" value="Proceed with Paypal" class="btn btn-bg-theme border-radius-20 text-white px-sm-5 px-4" id="submitButton">
+		                    </div>
+                        </div>
+	                </div>
+<!--                    <input id="id_custom" name="custom" type="hidden" value="">-->
+                </form>
+
+                    </p>
                  </div>
              </div>
          </div>
         </div>
-         <div class="status_content status_3_content status-d-none">
+         <div class="status_content status_3_content status-d-none" style="display:{% if order.status == 3 %} block{% endif %}">
          <div class="row mt-4">
              <div class="col-sm-12">
                  <div class="card card-body">
@@ -203,7 +220,7 @@
              </div>
          </div>
          </div>
-        <div class="status_content status_4_content status-d-none">
+        <div class="status_content status_4_content status-d-none" style="display:{% if order.status == 4 %} block{% endif %}">
         <div class="row mt-4">
              <div class="col-sm-12">
                  <div class="card card-body">
@@ -235,6 +252,7 @@
 
 {% block extra_js %}
 
+{% comment %}
 <script>
  $(document).ready(function(){
     var status = $("{{order.get_status_display}}");
@@ -242,9 +260,11 @@
         if(status == "Question Recieved")
            $("ul.stepper li.step-bar.first").addClass('active');
            $('.status-one').css('display','block');
+              alert("success");
 
    });
 </script>
+{% endcomment %}
 
 <script>
 jQuery(document).ready(function() {
@@ -260,14 +280,37 @@ function get_status(){
         $(".status_" + data.status).siblings().removeClass("active")
         $(".status_" + data.status).siblings().removeClass("done")
         i = data.status
+
+        if(i == 2){
+            $("input#id_amount").val(data.budget)
+            console.log(data.budget)
+        }
+
         while(i>=1){
         $(".status_" + i).addClass("done")
+        if(i == 4){
+            get_answer()
+        }
         console.log(i)
         i--;
         }
         $(".status_content").siblings().hide()
         $(".status_" + data.status + "_content").show()
         $(".status_" + data.status).addClass("active")
+    }
+})
+}
+
+function get_answer(){
+    var feedback = $.ajax({
+          type: 'GET',
+          url: "{% url 'api:homework-help-api:get-answer-api' order.question.uid %}",
+    success:function(data){
+        $(".status_4_content").empty()
+        for (i in data){
+        console.log(data[i])
+            $(".status_4_content").append("<div>" + data[i].solution + "</div>" )
+        }
     }
 })
 }

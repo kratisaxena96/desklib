@@ -14,7 +14,6 @@
     <div class="container pt-5">
         <div class="row justify-content-center">
             <div class="col-md-12">
-
                 <h2 class="">{{object.question|truncatechars:250}}</h2>
             </div>
         </div>
@@ -34,9 +33,17 @@
         <div class="row">
             <div class="col-md-12">
                 <h2 class="text-center">Expert's Answers</h2>
-                 <h5 class="mb-3 text-center">2 Answers Are Available</h5>
+                 <h5 class="mb-3 text-center">{{answer}} Answers Are Available</h5>
                  <div class="text-center">
+
+    				 <form action="" method="post" id="question-form" enctype="multipart/form-data">
+                         {% csrf_token %}
+                         <input type="hidden" name="question" value="{{object.id}}">
+                         <input type="submit" value="View Answer" class="btn btn-bg-theme white border-radius-20 px-4">
+                     </form>
+                     {% comment %}
                     <a href="" class="btn btn-bg-theme white border-radius-20 px-4">View Answers</a>
+                     {% endcomment %}
                  </div>
             </div>
         </div>
@@ -50,42 +57,16 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-6 col-md-3">
+             {% for question in similar_questions %}
+            <div class="col-6 col-md-4">
                 <ul class="list-unstyled">
-                    <li class="mb-2"><a href="" class="blue-font">Who invented Compact Disc?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">Which day is celebrated as world Computer Literacy Day?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">Who invented Java?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">Longhorn was the code name of ?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">Who is known as the Human Computer of India?</a></li>
+                    <li class="mb-2">
+
+                         <a href="{% url 'homework_help:question-detail-view' slug=question.slug %}" class="blue-font">{{question.question|truncatechars:35}}</a>
+                    </li>
                 </ul>
             </div>
-            <div class="col-6 col-md-3">
-                <ul class="list-unstyled">
-                    <li class="mb-2"><a href="" class="blue-font d-block">What is mean by Liveware?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">Which computer engineer got Nobel Prize for literature in 2003?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">Weaving The Web' was written by...</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">What is Beta Test?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">First Indian cinema released through internet is .....</a></li>
-                </ul>
-            </div>
-            <div class="col-6 col-md-3">
-                <ul class="list-unstyled">
-                    <li class="mb-2"><a href="" class="blue-font d-block">What is the extension of PDF?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block"> What is the expansion of COBOL?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">Which IT company's nickname is ' The Big Blue ' ?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">What is the full form of  IEEE?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">Who developed COBOL?</a></li>
-                </ul>
-            </div>
-            <div class="col-6 col-md-3">
-                <ul class="list-unstyled">
-                    <li class="mb-2"><a href="" class="blue-font d-block">What is the expanded form of CMOS ?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">Who is Netizen ?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">What is Scareware?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">When was the first smart phone launched?</a></li>
-                    <li class="mb-2"><a href="" class="blue-font d-block">What is the extension of PDF?</a></li>
-                </ul>
-            </div>
+             {% endfor %}
         </div>
     </div>
 </section>
@@ -101,6 +82,75 @@
         </div>
     </div>
 </section>
+
+{% endblock %}
+
+{% block extra_js %}
+
+<script>
+
+    $("#question-form").submit(function(e) {
+        e.preventDefault();
+        $("span.has-error").empty();
+
+        var data = $("#question-form").serializeArray();
+
+
+         //       if(data['message'] && data['reference_files']){
+         //       $(".comments").append('<div class="current"></div>');
+         //       $(".current").text( data['message'] + ' ' + data['reference_files'] )
+         //         }
+         //       else if(data['message']){
+         //       $(".comments").append('<div class="current"></div>');
+         //       $(".current").text( data['message'] )
+         //         }
+         //         else if(data['reference_files']){
+         //       $(".comments").append('<div class="current"></div>');
+         //       $(".current").text( data['reference_files'] )
+         //         }
+
+
+
+
+
+        var myForm = document.getElementById('question-form');
+       data = new FormData(myForm);
+       var d = data.unique_id
+
+
+        $("div.error_file").text("");
+
+                $(".enquiry-form-popup").hide();
+                $(".form-icon-plane").hide();
+                $(".form-loader").show();
+
+        $.ajax({
+            type : "POST",
+            url : '{% url 'api:homework-help-api:order-create-api' %}',
+            enctype: 'multipart/form-data',
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function(data){
+
+
+
+                document.getElementById("question-form").reset();
+                window.location.replace( "/homework-help/order/" + data.uuid) ;
+            },
+            error: function(data){
+
+            var response = data.responseJSON;
+            for (key in response) {
+              $("#comment-form ."+key).addClass("has-error");
+              $("#comment-form span." + key).text(response[key][0]);
+            }
+
+            }
+        });
+    });
+
+</script>
 
 {% endblock %}
 
