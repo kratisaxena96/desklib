@@ -244,7 +244,7 @@ var k = 1
              var selectedFiles = $('<li class="d-inline-block w-50"><p></p></li><div class="d-inline-block w-50" id="progress"><div class="bar"></div></div>');
              selectedFiles.find('p').text(data.files[0].name);
              data.context = selectedFiles.appendTo(ul);
-<!--             data.submit();-->
+             data.submit();
          },
 
 
@@ -252,7 +252,6 @@ var k = 1
             $.each(data.result.files, function (index, file) {
                 $('<p/>').text(file.name).appendTo(document.body);
                 $('form').append("<input type='hidden' value='" + data.unique_id + "' name='unique_id' >");
-<!--                 console.log('Selected file: ' + file.name);-->
             });
         },
         progressall: function (e, data) {
