@@ -559,6 +559,12 @@ span.input-group-text{
     height: 250px;
 }
 
+.blog-banner-image{
+background-image: url("/static/dist/assets/images/study-temp2.jpg");
+background-size: cover;
+background-repeat: no-repeat;
+}
+
 //-----------------------admission page banner-image  (Menka Kumari)------------------------//
 .admission-page-banner-image{
     background-image: url("/static/dist/assets/images/Contact-page-banner.png");
@@ -575,7 +581,6 @@ span.input-group-text{
     z-index: 1;
     right: -73px;
     left: 0;
-//     bottom: 0;
 }
 .cards-hover{
     bottom: 0;
