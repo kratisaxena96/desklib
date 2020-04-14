@@ -1,12 +1,23 @@
 {% extends "desklib/base.html" %}
 {% load staticfiles %}
-
 {% block content %}
-<section class="blog-banner-image pt-2 pb-2">
-   <div class="container pt-15rem pb-15rem">
-       <div class="row">
-           <div class="col-sm-12"></div>
-       </div>
+<section>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+<!--        <li class="breadcrumb-item"><a href="{% url 'homework_help:ask-question-view'%}">Homework</a></li>-->
+        <li class="breadcrumb-item active" aria-current="page">{{object.title}}</li>
+  </ol>
+</nav>
+</section>
+
+<section class="">
+   <div class="">
+<!--       <div class="row">-->
+<!--           <div class="col-sm-12">-->
+               <img src="{{object.cover_image.url}}" class="img-fluid w-100" alt="blog-image">
+<!--           </div>-->
+<!--       </div>-->
    </div>
 </section>
 <section>
