@@ -56,6 +56,12 @@ class OrderListView(LoginRequiredMixin, ListView):
     model = Order
     template_name = 'homework_help/order_list.html'
 
+    def get_queryset(self):
+        queryset = super(OrderListView, self).get_queryset()
+        queryset = queryset.filter(author=self.request.user).order_by('created')
+        return queryset
+
+
 
 class AskQuestionView(FormView):
     template_name = 'homework_help/ask_question.html'
