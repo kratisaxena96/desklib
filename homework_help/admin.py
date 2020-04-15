@@ -22,6 +22,7 @@ class QuestionAdmin(admin.ModelAdmin):
     inlines = [QuestionFileAdmin, ]
     readonly_fields = ['created', 'updated', 'uid']
     prepopulated_fields = {'slug': ('question', )}
+    list_display = ['question', 'subjects', 'created']
 
 
 class OrderAdmin(admin.ModelAdmin):

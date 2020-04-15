@@ -10,6 +10,8 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, FormView, ListView, DetailView
 from homework_help.models import Order, Comment, Question, Answers
 from homework_help.forms import CommentForm, QuestionForm
+from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 
@@ -60,6 +62,22 @@ class OrderListView(LoginRequiredMixin, ListView):
         queryset = super(OrderListView, self).get_queryset()
         queryset = queryset.filter(author=self.request.user).order_by('created')
         return queryset
+
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(OrderListView, self).get_context_data(**kwargs)
+        paginator = Paginator(blog_list,self.paginate_by)
+        page = self.request.GET.get('page')
+
+        try:
+            blog_page = paginator.page(page)
+        except PageNotAnInteger:
+            blog_page = paginator.page(1)
+        except EmptyPage:
+            blog_page = paginator.page(paginator.num_pages)
+
+        context['object'] = blog_page
+        return context
 
 
 
