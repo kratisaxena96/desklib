@@ -22,7 +22,7 @@ class QuestionCreateApiView(CreateAPIView):
         serializer.is_valid(raise_exception=True)
 
 
-        serializer.save(author=request.user)
+        serializer.save()
         q = Question.objects.get(question=serializer.validated_data.get('question'))
         # print(q.id)
         for i in data:
@@ -30,11 +30,14 @@ class QuestionCreateApiView(CreateAPIView):
             qf.question = q
             qf.save()
 
-        o = Order(question=q, user=request.user)
-        o.save()
+        # if not request.user.username:
+        #     return HttpResponseRedirect(redirect_to=reverse('account_login'))
+
+        # o = Order(question=q, author=request.user)
+        # o.save()
         data = serializer.data
-        data['slug'] = q.slug
-        data['order'] = o.uuid
+        data['uid'] = q.uid
+        # data['order'] = o.uuid
 
         headers = self.get_success_headers(serializer.data)
         # return HttpResponseRedirect(reverse('homework_help:order-detail-view', {'uuid':o.uuid}))
@@ -66,7 +69,7 @@ class QuestionFileCreateApiView(CreateAPIView):
         serializer.is_valid(raise_exception=True)
         name = request.data.get('file').name
 
-        serializer.save(author=request.user, title=name)
+        serializer.save(title=name)
 
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)

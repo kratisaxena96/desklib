@@ -3,4 +3,7 @@ from accounts.models import UserAccount
 
 # Register your models here.
 
-admin.site.register(UserAccount)
+class UserAdmin(admin.ModelAdmin):
+    search_fields = ['email']
+
+admin.site.register(UserAccount, UserAdmin)
