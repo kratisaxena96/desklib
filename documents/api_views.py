@@ -37,7 +37,7 @@ class ReportDocumentApi(CreateAPIView):
         message = reported_document.title+ ' reported!'
         from_email = settings.DEFAULT_FROM_EMAIL
         recipient_list = [locus_email],
-        html_message = reported_document.title+' is reported by '+ reported_by+'.<br>Issue is '+reported_issue
+        html_message = reported_document.title+' is reported by '+ reported_by.email+'.<br>Issue is '+reported_issue
         mail = EmailMultiAlternatives(subject, message, from_email, recipient_list)
         mail.attach_alternative(html_message, 'text/html')
         mail.send(True)
