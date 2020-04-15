@@ -88,6 +88,11 @@
 							</div>
 						</div>
 					</div>
+					<div class="row">
+						<div class="col-sm-6">
+							<span class="error-msg text-danger"></span>
+						</div>
+					</div>
     					<div class="row mt-3">
 							<div class="col-md-6">
                      			<input type="submit" value="Get Answer" class="btn btn-bg-theme white border-radius-20 px-4">
@@ -241,12 +246,11 @@ var k = 1
         dropZone: $('#dropzone'),
 
         add: function (e, data) {
-             var selectedFiles = $('<li class="d-inline-block w-50"><p></p></li><div class="d-inline-block w-50" id="progress"><div class="bar"></div></div>');
+             var selectedFiles = $('<li class="d-inline-block w-50"><p></p></li><div class="no-display d-inline-block w-50" id="progress"><div class="bar"></div></div>');
              selectedFiles.find('p').text(data.files[0].name);
              data.context = selectedFiles.appendTo(ul);
              data.submit();
          },
-
 
         done: function (e, data) {
             $.each(data.result.files, function (index, file) {
@@ -261,6 +265,15 @@ var k = 1
                 progress + '%'
             );
         }
+
+ }).on('fileuploadadd', function (e, data) {
+  var fileTypeAllowed = /.\.(gif|jpg|png|jpeg)$/i;
+  	 var fileName = data.originalFiles[0]['name'];
+  		 if (!fileTypeAllowed.test(fileName))
+  			$('.error-msg').html('File extension '+ fileName +' is not allowed. Allowed extensions are: png, jpg, jpeg, gif');
+  				$('ul#selected-files #progress .no-display').addClass('d-none');
+
+
     }).on('fileuploaddone', function (e, data) {
 			//alert(data);
 			//uploadBtn.button('reset');
