@@ -1,6 +1,7 @@
 from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include
-from .views import OrderDetailView, AskQuestionView, QuestionDetailView, OrderCreateView, OrderListView
+from .views import OrderDetailView, AskQuestionView, QuestionDetailView, OrderCreateView, OrderListView, \
+    CustomSearchQuestionView
 from django.views.generic import TemplateView
 # from .sitemaps import all_sitemaps as sitemaps
 
@@ -11,4 +12,6 @@ urlpatterns = [
     path('order-create/<uid>/', OrderCreateView.as_view(), name='order-create-view'),
     path('order/', OrderListView.as_view(), name='order-list-view'),
     path('order/<uuid>/', OrderDetailView.as_view(), name='order-detail-view'),
+    path('search/', CustomSearchQuestionView.as_view(), name='search-question'),
+
 ]

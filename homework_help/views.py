@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
+from haystack.query import SearchQuerySet
 from paypal.standard.forms import PayPalPaymentsForm
 from django.urls import reverse
 from django.conf import settings
@@ -92,6 +93,16 @@ class AskQuestionView(FormView):
         # order = Order.objects.get(order_id=self.kwargs['order_id'])
         # context['order'] = order
         return context
+from haystack.generic_views import SearchView
+
+class CustomSearchQuestionView(JsonLdContextMixin, MetadataMixin, SearchView):
+    model = Question
+    queryset = SearchQuerySet().models(Question)
+    extra_context = {"questionsearch":"True"}
+
+    def get_queryset(self):
+        queryset = super(CustomSearchQuestionView, self).get_queryset()
+        return queryset
 
 
 class QuestionDetailView(TemplateView):
