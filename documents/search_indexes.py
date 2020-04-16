@@ -1,20 +1,8 @@
 from haystack import indexes
-from .models import Document,Page
-from haystack.query import SearchQuerySet
-from meta.views import MetadataMixin
-from django_json_ld.views import JsonLdContextMixin
-from django.views.generic.base import TemplateView
+from .models import Document
 from django.utils import timezone
-from django.contrib.sites.shortcuts import get_current_site
-from haystack.query import SearchQuerySet
+from homework_help.models import Question
 
-# class search(SearchQuerySet):
-#     sqs = SearchQuerySet().filter(content='foo').highlight()
-#     import pdb; pdb.set_trace()
-#     result = sqs[0]
-#     result.highlighted['text'][0]  # u'Two computer scientists walk into a bar. The bartender says "<em>Foo</em>!".'
-
-import pytz
 
 class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True, template_name="search/book_text.txt")
@@ -85,3 +73,10 @@ class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
         return self.get_model().objects.filter(is_visible=True, is_published=True, published_date__lte=timezone.now())
 
 
+class QuestionIndex(indexes.SearchIndex, indexes.Indexable):
+    text = indexes.CharField(document=True, use_template=True, template_name="search/question.txt")
+    slug = indexes.CharField(model_attr='slug')
+    created_date = indexes.DateTimeField(model_attr='created')
+
+    def get_model(self):
+        return Question

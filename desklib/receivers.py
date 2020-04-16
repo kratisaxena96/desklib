@@ -1,3 +1,4 @@
+from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
 from paypal.standard.models import ST_PP_COMPLETED
 from paypal.standard.ipn.signals import valid_ipn_received, invalid_ipn_received
@@ -53,11 +54,12 @@ def show_me_the_money(sender, **kwargs):
                     payment_date = ipn_obj.payment_date
                     expire_on = payment_date + timedelta(days=plan_days)
                     user = UserAccount.objects.get(username=username)
+                    site_url = Site.objects.get_current().domain
 
                     if plan.is_pay_per_download:
                         contex = {'traction_id': ipn_obj.txn_id, 'currency': ipn_obj.mc_currency,
                                   'amount': ipn_obj.payment_gross, 'payment_date': payment_date, 'expiry': expire_on,
-                                  'plan': plan.package_name, 'document_redirect': doc_slug, 'SITE_URL': "https://desklib.com",}
+                                  'plan': plan.package_name, 'document_redirect': doc_slug, 'SITE_URL': site_url,}
                         # pay_doc = PayPerDocument.objects.filter(user=user, start_date=payment_date,documents=doc, expire_on=expire_on)
                         # if pay_doc :
                         #     pay_doc.documents.add(doc)
@@ -67,7 +69,7 @@ def show_me_the_money(sender, **kwargs):
                     else:
                         contex = {'traction_id': ipn_obj.txn_id, 'currency': ipn_obj.mc_currency,
                                   'amount': ipn_obj.payment_gross, 'payment_date': payment_date, 'expiry': expire_on,
-                                  'plan': plan.package_name, }
+                                  'plan': plan.package_name, 'SITE_URL': site_url, }
                         subscription = Subscription.objects.create(user=user, plan=plan, expire_on=expire_on,
                                                                    author=user)
 
