@@ -123,6 +123,7 @@ def autocomplete(request):
 class CustomSearchView(JsonLdContextMixin, MetadataMixin, FacetedSearchView):
     template_name = 'search/search.html'
     model = Document
+    queryset = SearchQuerySet().models(Document)
     form_class = CustomFacetedSearchForm
     facet_fields = ['subjects']
     paginate_by = 18
