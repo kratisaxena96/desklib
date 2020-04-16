@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
+from haystack.query import SearchQuerySet
 from paypal.standard.forms import PayPalPaymentsForm
 from django.urls import reverse
 from django.conf import settings
@@ -10,6 +11,8 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, FormView, ListView, DetailView
 from homework_help.models import Order, Comment, Question, Answers
 from homework_help.forms import CommentForm, QuestionForm
+from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 
@@ -55,11 +58,29 @@ class OrderDetailView(LoginRequiredMixin, FormView):
 class OrderListView(LoginRequiredMixin, ListView):
     model = Order
     template_name = 'homework_help/order_list.html'
+    paginate_by = 6
 
     def get_queryset(self):
         queryset = super(OrderListView, self).get_queryset()
         queryset = queryset.filter(author=self.request.user).order_by('created')
         return queryset
+
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(OrderListView, self).get_context_data(**kwargs)
+        order_list = Order.objects.filter(author=self.request.user).order_by('created')
+        paginator = Paginator(order_list, self.paginate_by)
+        page = self.request.GET.get('page')
+
+        try:
+            blog_page = paginator.page(page)
+        except PageNotAnInteger:
+            blog_page = paginator.page(1)
+        except EmptyPage:
+            blog_page = paginator.page(paginator.num_pages)
+
+        context['object'] = blog_page
+        return context
 
 
 
@@ -72,6 +93,16 @@ class AskQuestionView(FormView):
         # order = Order.objects.get(order_id=self.kwargs['order_id'])
         # context['order'] = order
         return context
+from haystack.generic_views import SearchView
+
+class CustomSearchQuestionView(JsonLdContextMixin, MetadataMixin, SearchView):
+    model = Question
+    queryset = SearchQuerySet().models(Question)
+    extra_context = {"questionsearch":"True"}
+
+    def get_queryset(self):
+        queryset = super(CustomSearchQuestionView, self).get_queryset()
+        return queryset
 
 
 class QuestionDetailView(TemplateView):

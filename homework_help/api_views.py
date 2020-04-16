@@ -52,7 +52,7 @@ class OrderCreateApiView(CreateAPIView):
 
         serializer.is_valid(raise_exception=True)
 
-        serializer.save(user=request.user)
+        serializer.save(author=request.user)
         data = serializer.data
 
         headers = self.get_success_headers(serializer.data)
