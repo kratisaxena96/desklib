@@ -58,6 +58,7 @@ class OrderDetailView(LoginRequiredMixin, FormView):
 class OrderListView(LoginRequiredMixin, ListView):
     model = Order
     template_name = 'homework_help/order_list.html'
+    paginate_by = 6
 
     def get_queryset(self):
         queryset = super(OrderListView, self).get_queryset()
@@ -67,7 +68,8 @@ class OrderListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(OrderListView, self).get_context_data(**kwargs)
-        paginator = Paginator(blog_list,self.paginate_by)
+        order_list = Order.objects.filter(author=self.request.user).order_by('created')
+        paginator = Paginator(order_list, self.paginate_by)
         page = self.request.GET.get('page')
 
         try:
