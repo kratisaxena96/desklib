@@ -54,7 +54,7 @@ def show_me_the_money(sender, **kwargs):
                     payment_date = ipn_obj.payment_date
                     expire_on = payment_date + timedelta(days=plan_days)
                     user = UserAccount.objects.get(username=username)
-                    site_url = Site.objects.get_current()
+                    site_url = Site.objects.get_current().domain
 
                     if plan.is_pay_per_download:
                         contex = {'traction_id': ipn_obj.txn_id, 'currency': ipn_obj.mc_currency,
@@ -69,7 +69,7 @@ def show_me_the_money(sender, **kwargs):
                     else:
                         contex = {'traction_id': ipn_obj.txn_id, 'currency': ipn_obj.mc_currency,
                                   'amount': ipn_obj.payment_gross, 'payment_date': payment_date, 'expiry': expire_on,
-                                  'plan': plan.package_name, }
+                                  'plan': plan.package_name, 'SITE_URL': site_url, }
                         subscription = Subscription.objects.create(user=user, plan=plan, expire_on=expire_on,
                                                                    author=user)
 
