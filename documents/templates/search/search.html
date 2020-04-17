@@ -236,23 +236,38 @@
 <!--                 {% endif %}-->
 <!--               </div>-->
                 {% if questionsearch %}
-                <div class="row mb-5">
-                     {% for result in page_obj.object_list %}
-                    <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
-                        <div class="main-div shadow border-radius-12">
-                            <a href="{% url 'homework_help:question-detail-view' result.slug %}" class="h-350 d-inline-block w-100">
-                            </a>
-                            <a href="{% url 'homework_help:question-detail-view' result.slug %}" class="text-decoration-none">
-                                <div class="card-body inner-div bg-light text-left">
-                                     <h6 class="blue-theme">{{result.text|truncatechars:40}}</h6>
-                                     <small class="text-muted d-inline d-md-block">{{result.created_date|date:"d M Y"}}</small>
-                                     <a href="{% url 'homework_help:question-detail-view' result.slug %}" class="btn btn-bg-theme border-radius-20 btn-d-none text-white mt-3 mb-3 pt-1 pb-1">View Question</a>
+                <div class="row">
+                    {% for result in page_obj.object_list %}
+                    <div class="col-sm-12 mb-4">
+                        <a href="{% url 'homework_help:question-detail-view' result.slug %}" class="text-decoration-none h-100">
+                            <div class="card h-100 question-search-hover">
+                                <div class="card-body">
+                                    <h6 class="black-font line-height-26 text-left"><strong>Q:</strong>&nbsp;&nbsp;{{result.text|truncatechars:120}}</h6>
+<!--                                    <p class="text-left mb-0"><span class="black-font"><strong>A:</strong></span>&nbsp;&nbsp;<span class="text-dark">{{result.answer|truncatechars:20}}</span></p>-->
+<!--                                    <hr>-->
                                 </div>
-                            </a>
-                        </div>
+                            </div>
+                        </a>
                     </div>
-                     {% endfor%}
+                    {% endfor%}
                 </div>
+<!--                <div class="row mb-5">-->
+<!--                     {% for result in page_obj.object_list %}-->
+<!--                    <div class="col-sm-6 col-md-4 col-lg-3 mb-3">-->
+<!--                        <div class="main-div shadow border-radius-12">-->
+<!--                            <a href="{% url 'homework_help:question-detail-view' result.slug %}" class="h-350 d-inline-block w-100">-->
+<!--                            </a>-->
+<!--                            <a href="{% url 'homework_help:question-detail-view' result.slug %}" class="text-decoration-none">-->
+<!--                                <div class="card-body inner-div bg-light text-left">-->
+<!--                                     <h6 class="blue-theme">{{result.text|truncatechars:40}}</h6>-->
+<!--                                     <small class="text-muted d-inline d-md-block">{{result.created_date|date:"d M Y"}}</small>-->
+<!--                                     <a href="{% url 'homework_help:question-detail-view' result.slug %}" class="btn btn-bg-theme border-radius-20 btn-d-none text-white mt-3 mb-3 pt-1 pb-1">View Question</a>-->
+<!--                                </div>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                     {% endfor%}-->
+<!--                </div>-->
                 {% else %}
                 <div class="row mb-5">
                      {% for result in page_obj.object_list %}

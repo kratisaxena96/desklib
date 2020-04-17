@@ -365,75 +365,10 @@ input[type="submit"].btn-block.width-25 {
 
 
 //--------------------------------------------Order_Detail page status bar---------------------------------//
-ul.stepper{
-counter-reset: step-bar;
-}
-ul.stepper .step-bar::before{
-    position: absolute;
-    content: '';
-    height: 30px;
-    width: 30px;
-    color: #fff;
-    border-radius: 50%;
-    font-weight: 400;
-    line-height: 0.70rem;
-    text-align: center;
-    padding: 10px;
-    margin-top: 12px;
-    background-color:#999999;
-    counter-increment: step-bar;
-    content: counter(step-bar);
-}
-ul.stepper .step-bar:first-child .step-bar-left,
-ul.stepper .step-bar:last-child .step-bar-right {
-	display:none;
-}
-ul.stepper .step-bar .step-bar-left,
-ul.stepper .step-bar .step-bar-right {
-	position:absolute;
-	top:43px;
-	height:1px;
-	border-top:1px solid #DDDDDD;
-}
-ul.stepper .step-bar .step-bar-right {
-	right:0;
-	left:45%;
-	margin-left:20px;
-}
-ul.stepper .step-bar .step-bar-left {
-	left:0;
-	right:50%;
-	margin-right:20px;
-}
-// ul.stepper > .step-bar:not(:last-of-type)::after{
-//     content: '';
-//     position: absolute;
-//     top: 40px;
-//     left: 30px;
-//     width: 1px;
-//     height: 28px;
-//     height: calc(100% - 20px);
-//     background-color: rgba(0,0,0,.1);
-//     transition: all .4s;
-// }
-.step-bar-title{
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 35px;
-    padding-right: 35px;
-    margin-top: 35px;
-}
-ul.stepper .step-bar.active::before{
-    background-color: #405fbd;
-}
-
 
 .status-d-none{
     display: none;
 }
-// .status-d-block{
-//     display: block;
-// }
 
 //--------------------------For Upload-file page 01/11/2019  (Menka Kumari)---------------------//
 .select2-container--default .select2-selection--multiple{
