@@ -1266,7 +1266,9 @@ display:none;
 .inner-div{
 		height: 130px;
 }
-
+.modal-open{
+     position: fixed !important;
+}
 	.top-image {
 		height: 80vh;
 		min-height: 250px;
