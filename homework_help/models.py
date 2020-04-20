@@ -164,7 +164,7 @@ class Order(models.Model):
 class Answers(models.Model):
     question = models.ForeignKey(Question, related_name='answer_question', on_delete=models.PROTECT)
     solution = models.TextField(_('Solution'))
-    solution_files = models.FileField(verbose_name=_('Upload File'), upload_to=upload_solutions, max_length=1000)
+    # solution_files = models.FileField(verbose_name=_('Upload File'), upload_to=upload_solutions, max_length=1000)
     answer_id = models.CharField(unique=True, max_length=10, default=key_generator, editable=False)
 
     is_concise = models.BooleanField(_('Is Concise'), default=False)
@@ -184,6 +184,38 @@ class Answers(models.Model):
     class Meta:
         verbose_name = "Answer"
         verbose_name_plural = "Answers"
+
+
+class AnswerFile(models.Model):
+    """
+    File attached to a Answer.
+    """
+
+    unique_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    title = models.TextField(_('title'), max_length=500, null=True, blank=True)
+    # slug = models.SlugField(prepopulate_from=("title",))
+    file = models.FileField(verbose_name=_('Answer File'), upload_to=upload_question_to, max_length=1000)
+    answer = models.ForeignKey(Answers, related_name='user_answerfiles', on_delete=models.CASCADE)
+
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
+    created = models.DateTimeField(editable=False, auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        # return os.path.join(settings.MEDIA_URL,  self.file.url)
+        return self.file.url
+
+    def save(self, *args, **kwargs):
+        # ''' On save, update timestamps '''
+        if not self.id:
+            self.created = timezone.now()
+        self.updated = timezone.now()
+        self.title = self.file.name
+        return super(AnswerFile, self).save(*args, **kwargs)
+
 
 
 class Comment(models.Model):

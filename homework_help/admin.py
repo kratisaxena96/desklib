@@ -1,5 +1,5 @@
 from django.contrib import admin
-from . models import Question, Order, Comment, Answers, QuestionFile
+from . models import Question, Order, Comment, Answers, QuestionFile, AnswerFile
 
 
 class CommentAdmin(admin.ModelAdmin):
@@ -18,11 +18,26 @@ class QuestionFileAdmin(admin.TabularInline):
     raw_id_fields = ('author',)
 
 
+class AnswerFileAdmin(admin.TabularInline):
+    # form = SampleFileAdminForm
+    model = AnswerFile
+    extra = 1
+
+    # readonly_fields = ('author',)
+    raw_id_fields = ('author',)
+
+
 class QuestionAdmin(admin.ModelAdmin):
     inlines = [QuestionFileAdmin, ]
     readonly_fields = ['created', 'updated', 'uid']
     prepopulated_fields = {'slug': ('question', )}
     list_display = ['question', 'subjects', 'created']
+
+
+class AnswerAdmin(admin.ModelAdmin):
+    inlines = [AnswerFileAdmin, ]
+    readonly_fields = ['created', 'updated', 'answer_id']
+    list_display = ['question', 'created']
 
 
 class OrderAdmin(admin.ModelAdmin):
@@ -35,8 +50,9 @@ class QuestionFileAdmin(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register(Question, QuestionAdmin)
-admin.site.register(QuestionFile, QuestionFileAdmin)
+admin.site.register(QuestionFile)
+admin.site.register(AnswerFile)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Comment, CommentAdmin)
-admin.site.register(Answers)
+admin.site.register(Answers, AnswerAdmin)
 
