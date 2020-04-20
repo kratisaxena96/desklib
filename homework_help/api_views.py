@@ -187,13 +187,16 @@ class GetAnswerApiView(ListAPIView):
         answer_files = AnswerFile.objects.filter(answer=queryset)
         data = {}
         item = {}
+        answer_file = []
         i = 0
 
         for answer in queryset:
             try:
-                answer_files = AnswerFile.objects.get(answer=answer)
-                solution_files = answer_files.file
-                item["solution_files"] = solution_files.url
+                answer_files = AnswerFile.objects.filter(answer=answer)
+                for file in answer_files:
+                    solution_files = file.file
+                    answer_file.append(solution_files.url)
+                item["solution_files"] = answer_file
             except:
                 pass
             try:
@@ -204,6 +207,7 @@ class GetAnswerApiView(ListAPIView):
 
             data[i] = item
             item = {}
+            answer_files = []
             i += 1
 
         return Response(data, content_type="application/json", status=status.HTTP_201_CREATED)
