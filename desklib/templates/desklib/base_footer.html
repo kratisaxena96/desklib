@@ -4,7 +4,7 @@
         <div class="row footer-row pt-3 pb-md-4 pb-2">
             <div class="col-6 col-md-3 col-sm-6">
                 <h5 class="white">Subjects</h5>
-                  <div class="pt-3">
+                  <div class="pt-3 border-right-gray h-75">
                         <ul class="footer-ul font-size-15">
                             {% for sub in parent_subjects %}
 					  		<li><a class="text-light-black text-decoration-none" href="{% url 'subjects:parent-subject-view' sub.slug %}">{{sub}}</a></li>
@@ -14,9 +14,10 @@
             </div>
             <div class="col-6 col-md-3 col-sm-6">
                   <h5 class="white">Pages</h5>
-                  <div class="pt-3">
+                  <div class="pt-3 border-right-gray h-75">
                       <ul class="footer-ul font-size-15">
                             <li class=""><a class="text-light-black text-decoration-none" href="{% url 'home' %}">Home</a></li>
+                            <li class=""><a class="text-light-black text-decoration-none" href="{% url 'about' %}">About</a></li>
                             <li class=""><a class="text-light-black text-decoration-none" href="{% url 'study:study-search' %}">Study</a></li>
                             <li class=""><a class="text-light-black text-decoration-none" href="{% url 'writing:writing' %}">Writing</a></li>
                             <li class=""><a class="text-light-black text-decoration-none" href="{% url 'subscription' %}">Plans</a></li>
@@ -26,7 +27,7 @@
             </div>
             <div class="col-6 col-md-3 col-sm-6">
                   <h5 class="white">Support</h5>
-                  <div class="pt-3">
+                  <div class="pt-3 border-right-gray h-75">
                       <ul class="footer-ul font-size-15">
                         <li class=""><a class="text-light-black text-decoration-none" href="{% url 'termsofuse' %}">Terms Of Use</a></li>
                         <li class=""><a class="text-light-black text-decoration-none" href="{% url 'privacypolicy' %}">Privacy Policy</a></li>

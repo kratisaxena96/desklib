@@ -1,7 +1,7 @@
 from haystack import indexes
 from .models import Document
 from django.utils import timezone
-from homework_help.models import Question
+from homework_help.models import Question, Answers
 
 
 class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
@@ -77,6 +77,17 @@ class QuestionIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True, template_name="search/question.txt")
     slug = indexes.CharField(model_attr='slug')
     created_date = indexes.DateTimeField(model_attr='created')
+    subjects = indexes.MultiValueField(faceted=True)
+    no_of_answers = indexes.IntegerField()
+    uid = indexes.CharField()
 
     def get_model(self):
         return Question
+
+    def prepare_no_of_answers(self, obj):
+        answers_count = Answers.objects.filter(question=obj).count()
+        return answers_count
+
+    def prepare_uid(self, obj):
+        uid = obj.uid
+        return uid

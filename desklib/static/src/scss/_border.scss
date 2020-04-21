@@ -37,9 +37,10 @@
 .border-dark-black{
   border: 1px solid #404b57 !important;
 }
-// .border-light-black{
-//     border: 1px solid #e8e5e5 !important;
-// }
+.border-right-gray{
+    border-right: 1px solid $border-gray;
+}
+
 .circle-icon{
     background: #ffc0c0;
     width: 100px;

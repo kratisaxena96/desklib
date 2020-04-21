@@ -1,3 +1,154 @@
-list page
+{% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% block content %}
 
+{% comment %}
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <aside class="col-sm-4 border-right">
+                <div class="list-group" role="tablist">
+                    <a class="list-group-item list-group-item-action" href="{% url 'my-profile' %}" role="tab" aria-controls="my-profile">My Profile</a>
+                    <a class="list-group-item list-group-item-action" href="{% url 'my-downloads' %}" role="tab" aria-controls="my-downloads">My Downloads</a>
+                    <a class="list-group-item list-group-item-action" href="{% url 'my-uploads' %}" role="tab" aria-controls="my-account">My Uploads</a>
+                    <a class="list-group-item list-group-item-action" href="{% url 'upload-file' %}" role="tab" aria-controls="upload-files">Upload Files</a>
+                    <a class="list-group-item list-group-item-action bg-active white" href="{% url 'homework_help:order-list-view' %}" role="tab" aria-controls="upload-files">My Orders</a>
+                </div>
+	        </aside>
+            <div class="col-sm-8 mt-3 mt-md-0">
+            	<h4 class="mb-3" style="display: inline-block;">My Orders</h4><i class="fa fa-first-order fa-4" aria-hidden="true" style="font-size:21px;color: #405fbd; padding-left: inherit;"></i>
+            	 <div class="table-responsive-sm">
+            		<table class="table table-bordered table-sm">
+            		 	<thead>
+            		 	 	<tr>
+            		 	 	    <th scope="col">Question</th>
+                                <th scope="col">Order Id</th>
+                                <th scope="col">Order Date</th>
+                                <th scope="col">Order Status</th>
+            		 	 </tr>
+            		 </thead>
+            		   <tbody>
+                         {% for order in object_list %}
+            		   	   <tr>
+            		   	   	   <td scope="row">{{order.question.question|truncatechars:30}}</td>
+                               <td scope="row">{{order.order_id}}</td>
+            		   	   	   <td scope="row">{{order.created|date:"d M Y"}}</td>
+            		   	   	   <td scope="row">{{order.get_status_display}}</td>
+            		   	   </tr>
+                             {% endfor %}
+            		   </tbody>
+
+                    </table>
+
+{% if object.has_other_pages %}
+    <div class="container d-flex justify-content-center">
+      <div class="row">
+        <div class="col-md-12">
+              <ul class="pagination" id="uploads">
+                <li class="page-item p-3">
+                {% if object.has_previous %}
+                    <a class="previous" href="?page={{ object.previous_page_number }}">
+               <span aria-hidden="true"><i class='fas fa-angle-left fafa-nav-active'></i></span></a>
+                {% else %}
+                <a class="previous"><i class='fas fa-angle-left fafa-nav-in-active'></i></a>
+                {% endif %}
+                </li>
+                {% for page in object.paginator.page_range %}
+                    {% if object.number == page %}
+                    <li class="page-item active p-3"><a class="rounded-circle page-link" href="?page={{page}}">{{page}}</a></li>
+                    {% elif page > object.number|add:'-3' and page < object.number|add:'3' %}
+                    <li class="page-item p-3"><a class="rounded-circle page-link" href="?page={{page}}">{{page}}</a></li>
+                    {% endif %}
+                {% endfor %}
+                <li class="page-item p-3">
+                {% if object.has_next %}
+                    <a class="previous" href="?page={{ object.next_page_number }}"><span aria-hidden="true"><i class='fas fa-angle-right fafa-nav-in-active'></i></span></a>
+                {% else %}
+                  <a class="next"><i class='fas fa-angle-right fafa-nav-in-active'></i></a>
+                {% endif %}
+                </li>
+              </ul>
+        </div>
+      </div>
+    </div>
+                     {% endif %}
+</div>
+</div>
+</div>
+</div>
+</section>
+{% endcomment %}
+
+
+<section>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+<!--        <li class="breadcrumb-item active" aria-current="page">{{order.title}}</li>-->
+  </ol>
+</nav>
+</section>
+<section class="bg-light">
+    <div class="container pt-5">
+        <div class="row mb-3">
+            <div class="col-sm-12">
+                <h2 class="text-center">List Of Orders</h2>
+            </div>
+        </div>
+        <div class="row">
+             {% for order in object_list %}
+            <div class="col-sm-4 mb-5">
+                <a href="{% url 'homework_help:order-detail-view' uuid=order.uuid %}" class="text-decoration-none h-100">
+                    <div class="card border-0 shadow h-100">
+<!--                        <img src="{% static 'dist/assets/images/Verify_email.png' %}" class="card-img-top img-fluid" alt="order-image">-->
+                        <div class="card-body">
+                            <h6 class="blue-theme line-height-26">{{order.question.question|truncatechars:70}}</h6>
+                            <small class="text-muted">Order-id:</small>
+                            <small class="text-muted add-dash">&nbsp;{{order.order_id}}</small>
+                            <small class="text-muted add-dash">{{order.created|date:"d M Y"}}</small>
+                            <p><small class="text-muted">status:</small>
+                                <small class="text-muted">{{order.get_status_display}}</small>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row ">
+            <div class="col-md-12">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item p-3">
+                {% if object.has_previous %}
+                        <a class="previous" href="?page={{ object.previous_page_number }}">
+                            <span aria-hidden="true"><i class='fas fa-angle-left fafa-nav-active'></i></span></a>
+                {% else %}
+                        <a class="previous"><i class='fas fa-angle-left fafa-nav-in-active'></i></a>
+                {% endif %}
+                    </li>
+                {% for page in object.paginator.page_range %}
+                    {% if object.number == page %}
+                    <li class="page-item active p-3"><a class="rounded-circle page-link" href="?page={{page}}">{{page}}</a></li>
+                    {% elif page > object.number|add:'-3' and page < object.number|add:'3' %}
+                    <li class="page-item p-3"><a class="rounded-circle page-link" href="?page={{page}}">{{page}}</a></li>
+                    {% endif %}
+                {% endfor %}
+                <li class="page-item p-3">
+                {% if object.has_next %}
+                    <a class="previous" href="?page={{ object.next_page_number }}"><span aria-hidden="true"><i class='fas fa-angle-right fafa-nav-in-active'></i></span></a>
+                {% else %}
+                  <a class="next"><i class='fas fa-angle-right fafa-nav-in-active'></i></a>
+                {% endif %}
+                </li>
+              </ul>
+        </div>
+      </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% comment %}
+{{object}}
 {{ object_list }}
+{%  endcomment %}

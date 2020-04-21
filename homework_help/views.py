@@ -99,7 +99,7 @@ class CustomSearchQuestionView(JsonLdContextMixin, MetadataMixin, SearchView):
     model = Question
     queryset = SearchQuerySet().models(Question)
     extra_context = {"questionsearch":"True"}
-
+    paginate_by = 4
     def get_queryset(self):
         queryset = super(CustomSearchQuestionView, self).get_queryset()
         return queryset
