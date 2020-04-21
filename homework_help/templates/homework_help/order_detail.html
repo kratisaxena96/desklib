@@ -211,12 +211,14 @@
                  </div>
              </div>
          </div>
+            {% for answers in answer.user_answerfiles.all %}
             <div class="row mt-4">
                 <div class="col-sm-12">
-                    <span class="d-inline-block mr-2"><i class="fa fa-file"></i></span><a href="{{answer.solution_files.url}}" class="" download>{{answer.solution_files}}</a>
+                    <span class="d-inline-block mr-2"><i class="fa fa-file"></i></span><a href="{{answers.file.url}}" class="" download>{{answers.title}}</a>
                     <p class="mt-2">By clicking on the link you can download a file.</p>
                 </div>
             </div>
+              {% endfor %}
             {% endfor %}
         </div>
 </section>
@@ -294,10 +296,21 @@ function get_answer(){
         $(".status_4_content").empty()
         for (i in data){
         console.log(data[i])
-           $(".status_4_content").append("<h6 class='mt-4'><strong>Answer from your tutor:</strong></h6>","<div class='mt-4'><div class='col-sm-12'><div class='card card-body'><h6><strong>Explanation:</strong></h6><p>" + data[i].solution + "</p></div></div></div>" );
-                var str = data[i].solution_files;
-                var res = str.split("/");
-            $(".status_4_content").append("<div class='row mt-4'><div class='col-sm-12'><span class='d-inline-block mr-2 ml-4'><i class='fa fa-file'></i></span><a href='" + data[i].solution_files + "' download>" + res[6] + "</a><p class='ml-4 mt-2'>By clicking on the link you can download a file.</p></div></div>" )
+        $(".status_4_content").append("<h6 class='mt-4'><strong>Answer from your tutor:</strong></h6>","<div class='mt-4'><div class='col-sm-12'><div class='card card-body'><h6><strong>Explanation:</strong></h6><p>" + data[i].solution + "</p></div></div></div>" );
+
+        $(".status_4_content").each(function() {
+//      for( var i=1; i<=2; i++){
+       $(this).append("<a href=''>" + data[i].solution_files + "</a>")
+        console.log('hello');
+//      }
+        });
+
+
+
+//          $(".status_4_content").append("<h6 class='mt-4'><strong>Answer from your tutor:</strong></h6>","<div class='mt-4'><div class='col-sm-12'><div class='card card-body'><h6><strong>Explanation:</strong></h6><p>" + data[i].solution + "</p></div></div></div>" );
+//                var str = data[i].solution_files;
+//                var res = str.split("/");
+//           $(".status_4_content").append("<div class='row mt-4'><div class='col-sm-12'><span class='d-inline-block mr-2 ml-4'><i class='fa fa-file'></i></span><a href='" + data[i].solution_files + "' download>" + res[6] + "</a><p class='ml-4 mt-2'>By clicking on the link you can download a file.</p></div></div>" )
         }
     }
 })
