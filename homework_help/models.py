@@ -44,6 +44,18 @@ def upload_question_to(instance, filename):
     )
 
 
+def upload_answer_to(instance, filename):
+    now = timezone.now()
+    # now = timezone.localtime(timezone.now())
+    # filename_base, filename_ext = os.path.splitext(filename)
+    # uid = instance.content_object.uuid
+
+    return 'homework_help/answer/{}/{}'.format(
+        now.strftime("%Y/%m/%d/"),
+        filename,
+    )
+
+
 def upload_solutions(instance, filename):
     now = timezone.now()
     # now = timezone.localtime(timezone.now())
@@ -194,7 +206,7 @@ class AnswerFile(models.Model):
     unique_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     title = models.TextField(_('title'), max_length=500, null=True, blank=True)
     # slug = models.SlugField(prepopulate_from=("title",))
-    file = models.FileField(verbose_name=_('Answer File'), upload_to=upload_question_to, max_length=1000)
+    file = models.FileField(verbose_name=_('Answer File'), upload_to=upload_answer_to, max_length=1000)
     answer = models.ForeignKey(Answers, related_name='user_answerfiles', on_delete=models.CASCADE)
 
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)

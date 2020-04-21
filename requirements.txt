@@ -1,3 +1,6 @@
+Adyen==2.2.0
+amqp==1.4.9
+anyjson==0.3.3
 argcomplete==1.8.2
 asgiref==3.2.1
 asn1crypto==0.24.0
@@ -6,9 +9,11 @@ autobahn==19.8.1
 Automat==0.7.0
 Babel==2.7.0
 beautifulsoup4==4.5.3
+billiard==3.3.0.23
 boto==2.49.0
 boto3==1.9.165
 botocore==1.12.165
+celery==3.1.26.post2
 certifi==2019.3.9
 cffi==1.12.3
 channels==2.2.0
@@ -22,10 +27,12 @@ daphne==2.3.0
 defusedxml==0.6.0
 Django==2.2.2
 django-allauth==0.39.1
-django-ckeditor==5.7.1
+django-celery==3.3.1
+django-ckeditor==5.9.0
 django-countries==5.5
 django-debug-toolbar==2.0
 django-filter==2.2.0
+django-formtools==2.2
 django-haystack==2.8.1
 django-htmlmin==0.11.0
 django-js-asset==1.2.2
@@ -52,9 +59,11 @@ html5lib==1.0.1
 hyperlink==19.0.0
 idna==2.8
 incremental==17.5.0
+iptools==0.6.1
 jmespath==0.9.4
 joblib==0.14.0
 jsonfield==2.0.2
+kombu==3.0.37
 lxml==4.3.3
 Markdown==3.1.1
 maxminddb==1.4.1
@@ -100,5 +109,3 @@ webencodings==0.5.1
 xlrd==1.0.0
 XlsxWriter==1.1.8
 zope.interface==4.6.0
-django-formtools==2.2
-Adyen==2.2.0
