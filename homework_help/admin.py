@@ -31,13 +31,17 @@ class QuestionAdmin(admin.ModelAdmin):
     inlines = [QuestionFileAdmin, ]
     readonly_fields = ['created', 'updated', 'uid']
     prepopulated_fields = {'slug': ('question', )}
-    list_display = ['question', 'subjects', 'created']
+    list_display = ['question', 'subjects', 'is_visible', 'is_published', 'created']
+    list_filter = ('is_visible',  'is_published', 'subjects',)
+    search_fields = ['question',]
 
 
 class AnswerAdmin(admin.ModelAdmin):
     inlines = [AnswerFileAdmin, ]
     readonly_fields = ['created', 'updated', 'answer_id']
-    list_display = ['question', 'created']
+    list_display = ['question', 'is_visible', 'is_published', 'created']
+    list_filter = ('is_visible',  'is_published',)
+    search_fields = ['question__question',]
 
 
 class OrderAdmin(admin.ModelAdmin):
