@@ -4,10 +4,10 @@
 <section>
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb mb-0">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'homework_help:ask-question-view'%}">Homework</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{object.question|truncatechars:35}}</li>
-  </ol>
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'homework_help:ask-question-view'%}">Homework</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{object.question|truncatechars:35}}</li>
+      </ol>
 </nav>
 </section>
 <section class="">
@@ -21,7 +21,7 @@
             {% for object in object.user_questionfiles.all %}
             <div class="col-md-12 mb-4">
                 <div class="border border-secondary">
-                    <img class="img-fluid mx-auto d-block" src="{{object.file.url}}" />
+                    <img class="img-fluid mx-auto d-block" alt="question image" src="{{object.file.url}}" />
                 </div>
             </div>
             {% endfor %}
@@ -60,7 +60,6 @@
             <div class="col-6 col-md-4">
                 <ul class="list-unstyled">
                     <li class="mb-2">
-
                          <a href="{% url 'homework_help:question-detail-view' slug=question.slug %}" class="blue-font">{{question.question|truncatechars:35}}</a>
                     </li>
                 </ul>
