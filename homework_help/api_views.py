@@ -207,7 +207,7 @@ class GetAnswerApiView(ListAPIView):
 
             data[i] = item
             item = {}
-            answer_files = []
+            answer_file = []
             i += 1
 
         return Response(data, content_type="application/json", status=status.HTTP_201_CREATED)
