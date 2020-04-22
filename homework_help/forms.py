@@ -36,8 +36,8 @@ class CommentForm(forms.ModelForm):
 
 class QuestionForm(forms.ModelForm):
     question = forms.CharField(label='Question', widget=forms.Textarea(attrs={'placeholder':"Type Your Question here...", 'class': "form-control rounded-0 fade well", 'id': "dropzone"}), required=True)
-    subjects =forms.ModelChoiceField(queryset=Subject.objects.filter(is_parent=False), label='Subject', widget=forms.Select(attrs={'placeholder':"Enter first text to compare", 'class':"form-control js-example-basic-multiple border-radius-20", }), required=True)
-    file =forms.FileField(label='Files', widget=forms.FileInput(attrs={'placeholder': "Enter first text to compare", 'class': "form-control", 'id': "fileupload"}), required=False)
+    subjects =forms.ModelChoiceField(queryset=Subject.objects.filter(is_parent=False), label='Subject', widget=forms.Select(attrs={'class':"form-control js-example-basic-multiple border-radius-20", }), required=True)
+    file =forms.FileField(label='Files', widget=forms.FileInput(attrs={'class': "form-control", 'id': "fileupload"}), required=False)
 
 
     class Meta:

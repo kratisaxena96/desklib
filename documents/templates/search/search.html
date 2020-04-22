@@ -236,23 +236,44 @@
 <!--                 {% endif %}-->
 <!--               </div>-->
                 {% if questionsearch %}
-                <div class="row mb-5">
-                     {% for result in page_obj.object_list %}
-                    <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
-                        <div class="main-div shadow border-radius-12">
-                            <a href="{% url 'homework_help:question-detail-view' result.slug %}" class="h-350 d-inline-block w-100">
-                            </a>
-                            <a href="{% url 'homework_help:question-detail-view' result.slug %}" class="text-decoration-none">
-                                <div class="card-body inner-div bg-light text-left">
-                                     <h6 class="blue-theme">{{result.text|truncatechars:40}}</h6>
-                                     <small class="text-muted d-inline d-md-block">{{result.created_date|date:"d M Y"}}</small>
-                                     <a href="{% url 'homework_help:question-detail-view' result.slug %}" class="btn btn-bg-theme border-radius-20 btn-d-none text-white mt-3 mb-3 pt-1 pb-1">View Question</a>
+                <div class="row">
+                    {% for result in page_obj.object_list %}
+                    <div class="col-sm-12 mb-4">
+                        <a href="{% url 'homework_help:question-detail-view' result.slug %}" class="text-decoration-none h-100">
+                            <div class="card question-search-hover">
+                                <div class="card-body text-left">
+                                    <h6 class="black-font"><strong>Q:</strong>&nbsp;&nbsp;{{result.text|truncatechars:120}}</h6>
+                                    <p class="mb-0">
+                                        <span class="black-font"><strong>A:</strong></span>&nbsp;&nbsp;<span class="text-dark">{{result.no_of_answers}}</span>
+                                        <span class="text-dark">Answers Available</span>
+                                    </p>
+                                    <a href="{% url 'homework_help:order-create-view' uid=result.uid %}" class="padding-left-30">Get Answer</a>
                                 </div>
-                            </a>
-                        </div>
+                            </div>
+                        </a>
                     </div>
-                     {% endfor%}
+                    {% endfor%}
                 </div>
+{% comment %}
+<!--                <div class="row mb-5">-->
+<!--                     {% for result in page_obj.object_list %}-->
+<!--                    <div class="col-sm-6 col-md-4 col-lg-3 mb-3">-->
+<!--                        <div class="main-div shadow border-radius-12">-->
+<!--                            <a href="{% url 'homework_help:question-detail-view' result.slug %}" class="h-350 d-inline-block w-100">-->
+<!--                            </a>-->
+<!--                            <a href="{% url 'homework_help:question-detail-view' result.slug %}" class="text-decoration-none">-->
+<!--                                <div class="card-body inner-div bg-light text-left">-->
+<!--                                     <h6 class="blue-theme">{{result.text|truncatechars:40}}</h6>-->
+<!--                                     <small class="text-muted d-inline d-md-block">{{result.created_date|date:"d M Y"}}</small>-->
+<!--                                     <a href="{% url 'homework_help:question-detail-view' result.slug %}" class="btn btn-bg-theme border-radius-20 btn-d-none text-white mt-3 mb-3 pt-1 pb-1">View Question</a>-->
+<!--                                </div>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                     {% endfor%}-->
+<!--                </div>-->
+{% endcomment %}
+
                 {% else %}
                 <div class="row mb-5">
                      {% for result in page_obj.object_list %}
@@ -286,7 +307,7 @@
              <div class="d-flex justify-content-center mb-2">
                  <nav>
                      {% if is_paginated %}
-                       <ul class="pagination  pagination-sm">
+                       <ul class="pagination">
                            <!--                    <img class="img-responsive" src="{% static 'dist/assets/images/search icon.png' %}" alt="search" height="70px" style="margin-top: -11px; margin-left: -50px;">-->
                       {% if page_obj.has_previous %}
                         <li class="page-item p-3">

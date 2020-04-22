@@ -6,7 +6,7 @@ from homework_help.serializers import CommentCreateSerializer, QuestionCreateSer
     OrderStatusSerializer, QuestionAnswerSerializer, OrderCreateSerializer
 from rest_framework.response import Response
 from rest_framework import status
-from homework_help.models import Order, Comment, QuestionFile, Question, Answers
+from homework_help.models import Order, Comment, QuestionFile, Question, Answers, AnswerFile
 import simplejson as json
 
 
@@ -184,14 +184,19 @@ class GetAnswerApiView(ListAPIView):
     def get(self, request, *args, **kwargs):
         question = Question.objects.get(uid=self.kwargs.get('uid'))
         queryset = Answers.objects.filter(question=question)
+        answer_files = AnswerFile.objects.filter(answer=queryset)
         data = {}
         item = {}
+        answer_file = []
         i = 0
 
         for answer in queryset:
             try:
-                solution_files = answer.solution_files
-                item["solution_files"] = solution_files.url
+                answer_files = AnswerFile.objects.filter(answer=answer)
+                for file in answer_files:
+                    solution_files = file.file
+                    answer_file.append(solution_files.url)
+                item["solution_files"] = answer_file
             except:
                 pass
             try:
@@ -202,6 +207,7 @@ class GetAnswerApiView(ListAPIView):
 
             data[i] = item
             item = {}
+            answer_file = []
             i += 1
 
         return Response(data, content_type="application/json", status=status.HTTP_201_CREATED)

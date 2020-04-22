@@ -13,6 +13,7 @@ from homework_help.models import Order, Comment, Question, Answers
 from homework_help.forms import CommentForm, QuestionForm
 from django.core.paginator import Paginator
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from haystack.generic_views import SearchView
 
 # Create your views here.
 
@@ -90,15 +91,17 @@ class AskQuestionView(FormView):
 
     def get_context_data(self, **kwargs):
         context = super(AskQuestionView, self).get_context_data(**kwargs)
+        queryset = Question.objects.all().order_by('-created')[:6]
         # order = Order.objects.get(order_id=self.kwargs['order_id'])
-        # context['order'] = order
+        context['question'] = queryset
         return context
-from haystack.generic_views import SearchView
+
 
 class CustomSearchQuestionView(JsonLdContextMixin, MetadataMixin, SearchView):
     model = Question
     queryset = SearchQuerySet().models(Question)
     extra_context = {"questionsearch":"True"}
+    paginate_by = 4
 
     def get_queryset(self):
         queryset = super(CustomSearchQuestionView, self).get_queryset()
