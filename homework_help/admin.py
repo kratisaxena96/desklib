@@ -34,6 +34,7 @@ class QuestionAdmin(admin.ModelAdmin):
     list_display = ['question', 'subjects', 'is_visible', 'is_published', 'created']
     list_filter = ('is_visible',  'is_published', 'subjects',)
     search_fields = ['question',]
+    raw_id_fields = ['subjects', 'author']
 
 
 class AnswerAdmin(admin.ModelAdmin):
@@ -42,6 +43,7 @@ class AnswerAdmin(admin.ModelAdmin):
     list_display = ['question', 'is_visible', 'is_published', 'created']
     list_filter = ('is_visible',  'is_published',)
     search_fields = ['question__question',]
+    raw_id_fields = ['question', 'author']
 
 
 class OrderAdmin(admin.ModelAdmin):
@@ -52,10 +54,15 @@ class QuestionFileAdmin(admin.ModelAdmin):
     readonly_fields = ['created', 'updated', 'unique_id']
     raw_id_fields = ['question', 'author']
 
+
+class AnswerFileAdmin(admin.ModelAdmin):
+    readonly_fields = ['created', 'updated', 'unique_id']
+    raw_id_fields = ['answer', 'author']
+
 # Register your models here.
 admin.site.register(Question, QuestionAdmin)
-admin.site.register(QuestionFile)
-admin.site.register(AnswerFile)
+admin.site.register(QuestionFile, QuestionFileAdmin)
+admin.site.register(AnswerFile, AnswerFileAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Answers, AnswerAdmin)
