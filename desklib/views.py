@@ -399,25 +399,3 @@ class Error500View(TemplateView):
 #         order = self.get_object()
 #         return reverse('my_project:confirmation', kwargs={'pk': order.id})
 
-class PaymentAdyenView(TemplateView):
-    template_name = "desklib/test-pages/adyen-payment.html"
-    # model = MyModel
-
-    def get_context_data(self, **kwargs):
-        context = super(PaymentAdyenView, self).get_context_data(**kwargs)
-        adyen = Adyen.Adyen()
-        adyen.client.xapikey = 'AQEshmfuXNWTK0Qc+iSRwF4LovaNQYhIHqN+fUli4odx63oru/k2XmM2TREE46cQwV1bDb7kfNy1WIxIIkxgBw==-Nr4viY1nY6xr0zlkgqvXDBp8uUZapmKQ8DKhPWyls0k=-ez(54CQkNgz3J2j#'
-
-        request = {
-            'merchantAccount': 'ws@Company.A2ZServicesPTELTD',
-            'countryCode': 'NL',
-            'amount': {
-                'value': 1000,
-                'currency': 'EUR'
-            },
-            'channel': 'Web'
-        }
-
-        response = adyen.checkout.payment_methods(request)
-        return context
-        # Pass the response to your front end

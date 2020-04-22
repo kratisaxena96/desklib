@@ -1,7 +1,10 @@
+import os
 import random
 import string
+import tempfile
 import uuid
 
+import textract
 from django.conf import settings
 from django.core.validators import FileExtensionValidator
 from django.db import models
@@ -64,7 +67,6 @@ class Question(models.Model):
                                  on_delete=models.PROTECT, )
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True, related_name='author_question')
     uid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-
     is_published = models.BooleanField(_('Is Published'), default=True)
     is_visible = models.BooleanField(_('Is Visible'), default=True)
 
@@ -95,7 +97,7 @@ class QuestionFile(models.Model):
     file = models.FileField(verbose_name=_('Question File'), upload_to=upload_question_to, max_length=1000)
     question = models.ForeignKey(Question, related_name='user_questionfiles', on_delete=models.CASCADE, null=True, blank=True)
     # visible = models.BooleanField(default=True)
-
+    content = models.TextField(_('content'), null=True, blank=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
     created = models.DateTimeField(editable=False, auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -121,6 +123,12 @@ class QuestionFile(models.Model):
         if not self.id:
             self.created = timezone.now()
         self.updated = timezone.now()
+        filename = self.file.name
+        filename = os.path.basename(filename)
+        filename = filename.replace(' ', '_')
+        f1 = self.file.file
+        temp = tempfile.NamedTemporaryFile(suffix=filename)
+        self.content = textract.process(temp.name).decode("utf-8")
         return super(QuestionFile, self).save(*args, **kwargs)
 
 
