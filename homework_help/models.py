@@ -140,6 +140,9 @@ class QuestionFile(models.Model):
         filename = filename.replace(' ', '_')
         f1 = self.file.file
         temp = tempfile.NamedTemporaryFile(suffix=filename)
+        with open(temp.name, 'wb') as f2:
+            f2.write(f1.read())
+        f2.close()
         self.content = textract.process(temp.name).decode("utf-8")
         return super(QuestionFile, self).save(*args, **kwargs)
 
