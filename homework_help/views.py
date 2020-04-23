@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Count
 from django.http import HttpResponseRedirect
 from haystack.query import SearchQuerySet
 from paypal.standard.forms import PayPalPaymentsForm
@@ -16,6 +17,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from haystack.generic_views import SearchView
 
 # Create your views here.
+from subjects.models import Subject
 
 
 class OrderDetailView(LoginRequiredMixin, FormView):
@@ -92,8 +94,10 @@ class AskQuestionView(FormView):
     def get_context_data(self, **kwargs):
         context = super(AskQuestionView, self).get_context_data(**kwargs)
         queryset = Question.objects.all().order_by('-created')[:6]
+        subject = Subject.objects.all()[:12]
         # order = Order.objects.get(order_id=self.kwargs['order_id'])
         context['question'] = queryset
+        context['subject'] = subject
         return context
 
 

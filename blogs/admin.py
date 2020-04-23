@@ -8,7 +8,14 @@ class BlogModelAdmin(admin.ModelAdmin):
     list_display = ('title', 'is_visible',  'is_published', 'is_featured','published_date', 'created')
     filter_horizontal = ['category']
     list_filter = ('is_featured', 'is_visible',  'is_published', 'category',)
-    search_fields = ['title',]
+    search_fields = ['title', ]
+    raw_id_fields = ['author', ]
+
+    def save_model(self, request, obj, form, change):
+        if getattr(obj, 'author', None) is None:
+            obj.author = request.user
+        obj.save()
+
 
 class BlogCategoryModelAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',), }

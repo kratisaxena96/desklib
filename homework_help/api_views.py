@@ -21,8 +21,10 @@ class QuestionCreateApiView(CreateAPIView):
         data = request.POST.getlist('unique_id')
         serializer.is_valid(raise_exception=True)
 
-
-        serializer.save()
+        try:
+            serializer.save(author=request.user)
+        except:
+            serializer.save()
         q = Question.objects.get(question=serializer.validated_data.get('question'))
         # print(q.id)
         for i in data:
@@ -69,7 +71,10 @@ class QuestionFileCreateApiView(CreateAPIView):
         serializer.is_valid(raise_exception=True)
         name = request.data.get('file').name
 
-        serializer.save(title=name)
+        try:
+            serializer.save(title=name, author=request.user)
+        except:
+            serializer.save(title=name)
 
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
