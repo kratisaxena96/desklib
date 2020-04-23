@@ -47,17 +47,6 @@ def upload_question_to(instance, filename):
     )
 
 
-def upload_answer_to(instance, filename):
-    now = timezone.now()
-    # now = timezone.localtime(timezone.now())
-    # filename_base, filename_ext = os.path.splitext(filename)
-    # uid = instance.content_object.uuid
-
-    return 'homework_help/answer/{}/{}'.format(
-        now.strftime("%Y/%m/%d/"),
-        filename,
-    )
-
 
 def upload_solutions(instance, filename):
     now = timezone.now()
@@ -204,38 +193,6 @@ class Answers(models.Model):
     class Meta:
         verbose_name = "Answer"
         verbose_name_plural = "Answers"
-
-
-class AnswerFile(models.Model):
-    """
-    File attached to a Answer.
-    """
-
-    unique_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    title = models.TextField(_('title'), max_length=500, null=True, blank=True)
-    # slug = models.SlugField(prepopulate_from=("title",))
-    file = models.FileField(verbose_name=_('Answer File'), upload_to=upload_answer_to, max_length=1000)
-    answer = models.ForeignKey(Answers, related_name='user_answerfiles', on_delete=models.CASCADE)
-
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
-    created = models.DateTimeField(editable=False, auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.title
-
-    def get_absolute_url(self):
-        # return os.path.join(settings.MEDIA_URL,  self.file.url)
-        return self.file.url
-
-    def save(self, *args, **kwargs):
-        # ''' On save, update timestamps '''
-        if not self.id:
-            self.created = timezone.now()
-        self.updated = timezone.now()
-        self.title = self.file.name
-        return super(AnswerFile, self).save(*args, **kwargs)
-
 
 
 class Comment(models.Model):
