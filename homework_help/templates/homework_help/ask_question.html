@@ -45,8 +45,8 @@
 	<div class="container pt-5 pb-5">
 		<div class="row justify-content-center">
 			<div class="col-md-12">
-				<h1 class="text-center">Get step-by-step solutions from our subjects experts</h1>
-				<h2 class="text-center">Detailed explanation to all your questions</h2>
+				<h1 class="text-center">Homework Help</h1>
+				<h4 class="text-center">Avail the huge online collection of your homework help or solutions to your assignments</h4>
 			</div>
 		</div>
 		<div class="row">
@@ -57,7 +57,7 @@
 <!--					<div class="">-->
 <!--						<h2 class="text-center">Detailed explanation to all your questions</h2>-->
 <!--					</div>-->
-					<div class="row mt-5">
+					<div class="row mt-4">
 						<div class="col-md-12">
 							<div class="form-group">
 							{{form.question}}
@@ -105,7 +105,7 @@
 </section>
 <section>
 	<div class="container pt-5 pb-5">
-		<h2 class="text-center">Follow These Steps To Get Help With Your Homework</h2>
+		<h2 class="text-center">Steps To Get Help With Your Homework</h2>
 		<div class="row">
 			<div class="col-md-4">
 				<img src="{% static 'dist/assets/images/Enter question.jpg' %}" alt="enter question" class="card-img-top img-fluid">
@@ -145,41 +145,240 @@
 	</div>
 </section>
 <section>
-	<div class="container pt-5 pb-5">
+	<div class="container pt-5 pb-4">
 		<h2 class="text-center">Recently Asked Questions</h2>
-
 		<div class="row mt-4">
-
+			{% for object in question %}
 			<div class="col-sm-12 mb-4">
 				<a href="" class="text-decoration-none h-100">
 					<div class="card question-search-hover">
 						<div class="card-body text-left">
-							<h6 class="black-font"><strong>Q:</strong>&nbsp;&nbsp;{{question}}</h6>
-							<p class="mb-0">
-								<span class="black-font"><strong>A:</strong></span>&nbsp;&nbsp;<span class="text-dark"></span>
-								<span class="text-dark">Answers Available</span>
-							</p>
-							<a href="" class="padding-left-30">Get Answer</a>
+							<div class="d-flex">
+                    			<div class="d-inline-block">
+                        			<div class="black-font">
+										<strong>Q:</strong>
+                        			</div>
+                    			</div>
+                    			<div class="d-inline-block ml-2 black-font">
+                        			<span>{{object.question|truncatechars:200}}</span>
+                    			</div>
+                 			</div>
+							{% comment %}
+							<div class="d-flex">
+								<div class="d-inline-block">
+									<div class="black-font">
+										<strong>A:</strong>
+                        			</div>
+								</div>
+								<div class="d-inline-block ml-2 black-font">
+									<span class="text-dark">1</span>
+									<span class="text-dark">Answers Available</span>
+								</div>
+							</div>
+							{% endcomment %}
+							<div class="d-flex mt-2">
+								<div class="d-inline-block">
+									<div class="black-font">
+										<strong>A:</strong>
+                        			</div>
+								</div>
+								<div class="d-inline-block ml-2 black-font">
+									<a href="" class="">Get Answer</a>
+								</div>
+							</div>
 						</div>
 					</div>
 				</a>
 			</div>
-
+		{% endfor %}
 		</div>
+	</div>
+</section>
+<section class="bg-light">
+	<div class="container pt-5 pb-5">
+		<h2 class="text-center">Avail homework help by subjects </h2>
+		<div class="row mt-4 mb-4">
+			<div class="col-sm-3">
+				<a href="" class="">
+					<div class="d-flex mt-2">
+						<div class="d-inline-block">
+							<div>
+								<img src="{% static 'dist/assets/images/Business management.svg' %}" alt="" class="img-fluid width-25">
+							</div>
+						</div>
+						<div class="d-inline-block ml-2 black-font">
+							<span><strong>Business Management</strong></span>
+						</div>
+					</div>
+				</a>
+			</div>
+<!--			<div class="col-sm-3">-->
+<!--				<a href="" class="">-->
+<!--					<div class="d-flex mt-2">-->
+<!--						<div class="d-inline-block">-->
+<!--							<div>-->
+<!--								<img src="{% static 'dist/assets/images/Art and design.svg' %}" alt="" class="img-fluid width-25">-->
+<!--							</div>-->
+<!--						</div>-->
+<!--						<div class="d-inline-block ml-2 black-font">-->
+<!--							<span><strong>Art & Design</strong></span>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</a>-->
+<!--			</div>-->
+<!--			<div class="col-sm-3">-->
+<!--				<a href="" class="">-->
+<!--					<div class="d-flex mt-2">-->
+<!--						<div class="d-inline-block">-->
+<!--							<div>-->
+<!--								<img src="{% static 'dist/assets/images/Computer Science.svg' %}" alt="" class="img-fluid width-25">-->
+<!--							</div>-->
+<!--						</div>-->
+<!--						<div class="d-inline-block ml-2 black-font">-->
+<!--							<span><strong>Computer Science</strong></span>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</a>-->
+<!--			</div>-->
+<!--			<div class="col-sm-3">-->
+<!--				<a href="" class="">-->
+<!--					<div class="d-flex mt-2">-->
+<!--						<div class="d-inline-block">-->
+<!--							<div>-->
+<!--								<img src="{% static 'dist/assets/images/Education & Teaching.svg' %}" alt="" class="img-fluid width-25">-->
+<!--							</div>-->
+<!--						</div>-->
+<!--						<div class="d-inline-block ml-2 black-font">-->
+<!--							<span><strong>Education & Teaching</strong></span>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</a>-->
+<!--			</div>-->
+		</div>
+<!--		<div class="row mb-4">-->
+<!--			<div class="col-sm-3">-->
+<!--				<a href="" class="">-->
+<!--					<div class="d-flex mt-2">-->
+<!--						<div class="d-inline-block">-->
+<!--							<div>-->
+<!--								<img src="{% static 'dist/assets/images/Engineering.svg' %}" alt="" class="img-fluid width-25">-->
+<!--&lt;!&ndash;								<span class="blue-theme"><i class="fas fa-briefcase"></i></span>&ndash;&gt;-->
+<!--							</div>-->
+<!--						</div>-->
+<!--						<div class="d-inline-block ml-2 black-font">-->
+<!--							<span><strong>Engineering</strong></span>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</a>-->
+<!--			</div>-->
+<!--			<div class="col-sm-3">-->
+<!--				<a href="" class="">-->
+<!--					<div class="d-flex mt-2">-->
+<!--						<div class="d-inline-block">-->
+<!--							<div>-->
+<!--								<img src="{% static 'dist/assets/images/Health & Medicine.svg' %}" alt="" class="img-fluid width-25">-->
+<!--&lt;!&ndash;								<span class="blue-theme"><i class="fas fa-briefcase"></i></span>&ndash;&gt;-->
+<!--							</div>-->
+<!--						</div>-->
+<!--						<div class="d-inline-block ml-2 black-font">-->
+<!--							<span><strong>Health & Medicine</strong></span>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</a>-->
+<!--			</div>-->
+<!--			<div class="col-sm-3">-->
+<!--				<a href="" class="">-->
+<!--					<div class="d-flex mt-2">-->
+<!--						<div class="d-inline-block">-->
+<!--							<div>-->
+<!--								<img src="{% static 'dist/assets/images/Humanities.svg' %}" alt="" class="img-fluid width-25">-->
+<!--&lt;!&ndash;								<span class="blue-theme"><i class="fas fa-briefcase"></i></span>&ndash;&gt;-->
+<!--							</div>-->
+<!--						</div>-->
+<!--						<div class="d-inline-block ml-2 black-font">-->
+<!--							<span><strong>Humanities</strong></span>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</a>-->
+<!--			</div>-->
+<!--			<div class="col-sm-3">-->
+<!--				<a href="" class="">-->
+<!--					<div class="d-flex mt-2">-->
+<!--						<div class="d-inline-block">-->
+<!--							<div>-->
+<!--								<img src="{% static 'dist/assets/images/Mathematics.svg' %}" alt="" class="img-fluid width-25">-->
+<!--							</div>-->
+<!--						</div>-->
+<!--						<div class="d-inline-block ml-2 black-font">-->
+<!--							<span><strong>Mathematics</strong></span>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</a>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--		<div class="row mb-4">-->
+<!--			<div class="col-sm-3">-->
+<!--				<a href="" class="">-->
+<!--					<div class="d-flex mt-2">-->
+<!--						<div class="d-inline-block">-->
+<!--							<div>-->
+<!--								<img src="{% static 'dist/assets/images/Programming.svg' %}" alt="" class="img-fluid width-25">-->
+<!--							</div>-->
+<!--						</div>-->
+<!--						<div class="d-inline-block ml-2 black-font">-->
+<!--							<span><strong>Programming</strong></span>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</a>-->
+<!--			</div>-->
+<!--			<div class="col-sm-3">-->
+<!--				<a href="" class="">-->
+<!--					<div class="d-flex mt-2">-->
+<!--						<div class="d-inline-block">-->
+<!--							<div>-->
+<!--								<img src="{% static 'dist/assets/images/Science.svg' %}" alt="" class="img-fluid width-25">-->
+<!--&lt;!&ndash;								<span class="blue-theme"><i class="fas fa-briefcase"></i></span>&ndash;&gt;-->
+<!--							</div>-->
+<!--						</div>-->
+<!--						<div class="d-inline-block ml-2 black-font">-->
+<!--							<span><strong>Science</strong></span>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</a>-->
+<!--			</div>-->
+<!--			<div class="col-sm-3">-->
+<!--				<a href="" class="">-->
+<!--					<div class="d-flex mt-2">-->
+<!--						<div class="d-inline-block">-->
+<!--							<div>-->
+<!--								<img src="{% static 'dist/assets/images/Social Science.svg' %}" alt="" class="img-fluid width-25">-->
+<!--&lt;!&ndash;								<span class="blue-theme"><i class="fas fa-briefcase"></i></span>&ndash;&gt;-->
+<!--							</div>-->
+<!--						</div>-->
+<!--						<div class="d-inline-block ml-2 black-font">-->
+<!--							<span><strong>Social Science </strong></span>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</a>-->
+<!--			</div>-->
+<!--		</div>-->
 	</div>
 </section>
 <section>
 	<div class="container pt-5 pb-5">
-		<h2 class="text-center">Homework Help Online</h2>
-		<div class="row">
+		<h2 class="text-center">Get Homework help online </h2>
+		<div class="row mt-4">
 			<div class="col-sm-12">
-				<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p>
-				<p>Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
-				<h4>Get Help With Homework Online In Any Subject</h4>
-				<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.  If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
-				<h6>Have a glance at few of the homework help service we provide:</h6>
-				<p>Math Homework Help, Physics Homework Help, Chemistry Homework Help, Statistics Homework Help, Algebra Homework Help, Geometry Homework Help</p>
-			</div>
+				<p>Education is the most important part of one's life and with growing competition in the world, everyone is working hard to ace their studies and homework. There is so much work to do and often so little time and when it comes to college and school studies, managing work and assignments together becomes too much of a burden for students. You came to the right place, Desklib is here to assist you to provide the best homework help or solutions.</p>
+				<p>Students can get the help of the teachers but they cannot be available for everything and whenever needed, the reason why homework help websites come to students' service. These homework helper websites help students with their studies and assignments by providing online assistance and study material to students across the world. </p>
+				<h2>Why you should use our online homework help service </h2>
+				<p>Desklib is one such website that started with the aim to help students with their studies by creating an online library with more than two million documents and study material on various subjects which students can refer to for their exams and assignments. Desklib is the homework helper that is designed in the form of an online library that students can use from anywhere in the world by just logging in. Students can get online homework help and study material for all their assignments, projects, dissertations, research, exams, etc. </p>
+				<h2> Get help with homework online for all subjects </h2>
+				<p>Our online tool is accessible by any student from anywhere and the students can get the study material on any subject regardless of the college they are enrolled in or the course or degree they are pursuing.  </p>
+				<p>Desklib has over two million documents for your assistance which include all the subjects from all the streams like management, art & design, computer science, education & training, engineering, health & medicine, humanities, mathematics, programming, science, and social science. Solutions, explanations, and assistance to all the literary explanations, mathematical formulas, scientific solutions, difficult medical terminologies, coding, etc will be easily available to the students in one place so that they do not have to search and refer to hundreds of books. </p>
+				<p>Getting help with homework online is the savior from the last minute rote memorization because it makes you understand and complete your concepts and assignments deeply and timely so that you don't have to just mug everything up at the last moment. </p>
+				<h2> Access the finest collection of online homework solutions </h2>
+				<p>To get help with homework by using an online platform like Desklib is like an all-inclusive education portal which not only provides the students with world-class study material for their academics but also assists them with their documents and assignments so that they don't make mistakes or be average in their performance, Desklib homework help for students to perform excellently in their studies and get closer to their dreams. </p>
 		</div>
 	</div>
 </section>
