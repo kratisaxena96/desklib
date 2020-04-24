@@ -45,6 +45,11 @@ class AnswerAdmin(admin.ModelAdmin):
     search_fields = ['question__question',]
     raw_id_fields = ['question', 'author']
 
+    def save_model(self, request, obj, form, change):
+        if getattr(obj, 'author', None) is None:
+            obj.author = request.user
+        obj.save()
+
 
 class OrderAdmin(admin.ModelAdmin):
     readonly_fields = ['created', 'updated', 'uuid']
@@ -58,6 +63,11 @@ class QuestionFileAdmin(admin.ModelAdmin):
 class AnswerFileAdmin(admin.ModelAdmin):
     readonly_fields = ['created', 'updated', 'unique_id']
     raw_id_fields = ['answer', 'author']
+
+    def save_model(self, request, obj, form, change):
+        if getattr(obj, 'author', None) is None:
+            obj.author = request.user
+        obj.save()
 
 # Register your models here.
 admin.site.register(Question, QuestionAdmin)
