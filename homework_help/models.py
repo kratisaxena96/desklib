@@ -94,6 +94,8 @@ class Question(models.Model):
     def save(self, *args, **kwargs):
         value = self.question
         self.slug = slugify(truncatechars(value, 50))
+        super(Question, self).save(*args, **kwargs)
+        self.slug = slugify(truncatechars(value, 50)+str(self.pk))
 
         super().save(*args, **kwargs)
 
