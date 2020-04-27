@@ -57,7 +57,7 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
             "return": self.request.build_absolute_uri(reverse('homework_help:order-detail-view', kwargs={'uuid': self.kwargs.get('uuid')})),
             "cancel_return": self.request.build_absolute_uri(reverse('homework_help:order-detail-view', kwargs={'uuid': self.kwargs.get('uuid')})),
             "custom": "homework-help_" + self.kwargs.get('uuid'),
-            "amount": order.budget,
+            # "amount": order.budget,
         }
 
         paypalform = PayPalPaymentsForm(initial=paypal_dict, button_type="subscribe")

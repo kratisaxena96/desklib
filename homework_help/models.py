@@ -164,6 +164,7 @@ class QuestionFile(models.Model):
     # slug = models.SlugField(prepopulate_from=("title",))
     file = models.FileField(verbose_name=_('Question File'), upload_to=upload_question_to, max_length=1000)
     question = models.ForeignKey(Question, related_name='user_questionfiles', on_delete=models.CASCADE, null=True, blank=True)
+    require_recalculation = models.BooleanField(_('Require Recalculation'), default=False)
     # visible = models.BooleanField(default=True)
     content = models.TextField(_('content'), null=True, blank=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
@@ -191,15 +192,16 @@ class QuestionFile(models.Model):
         if not self.id:
             self.created = timezone.now()
         self.updated = timezone.now()
-        filename = self.file.name
-        filename = os.path.basename(filename)
-        filename = filename.replace(' ', '_')
-        f1 = self.file.file
-        temp = tempfile.NamedTemporaryFile(suffix=filename)
-        with open(temp.name, 'wb') as f2:
-            f2.write(f1.read())
-        f2.close()
-        self.content = textract.process(temp.name).decode("utf-8")
+        if self.require_recalculation:
+            filename = self.file.name
+            filename = os.path.basename(filename)
+            filename = filename.replace(' ', '_')
+            f1 = self.file.file
+            temp = tempfile.NamedTemporaryFile(suffix=filename)
+            with open(temp.name, 'wb') as f2:
+                f2.write(f1.read())
+            f2.close()
+            self.content = textract.process(temp.name).decode("utf-8")
         return super(QuestionFile, self).save(*args, **kwargs)
 
 
@@ -221,7 +223,7 @@ class Order(ModelMeta, models.Model):
     status = models.IntegerField(choices=STATUS, default=STATUS_RECIEVED, db_index=True)
     remarks = models.TextField(_('Remarks'), null=True, blank=True)
     budget = models.IntegerField(_('Budget'), null=True, blank=True)
-    amount_paid = models.IntegerField(_('Amount Paid'), null=True, blank=True)
+    amount_paid = models.IntegerField(_('Amount Paid'), default=0, null=True, blank=True)
     order_id = models.CharField(unique=True, max_length=10, default=key_generator, editable=False)
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 
