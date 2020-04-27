@@ -8,6 +8,8 @@
        <ol class="breadcrumb mb-0">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="{% url 'homework_help:ask-question-view'%}">Homework</a></li>
+           <li class="breadcrumb-item"><a href="{% url 'homework_help:order-list-view'%}">Order</a></li>
+
        </ol>
 </nav>
 </section>
@@ -178,7 +180,7 @@
 		                    </div>
                         </div>
 	                </div>
-<!--                    <input id="id_custom" name="custom" type="hidden" value="">-->
+                    <input id="id_amount" name="amount" type="hidden" value="">
                 </form>
 
                     </p>
@@ -270,7 +272,7 @@ function get_status(){
 
         if(i == 2){
             $("input#id_amount").val(data.budget)
-            console.log(data.budget)
+//            console.log(data.budget)
         }
 
         while(i>=1){
@@ -278,7 +280,7 @@ function get_status(){
         if(i == 4){
             get_answer()
         }
-        console.log(i)
+//        console.log(i)
         i--;
         }
         $(".status_content").siblings().hide()
