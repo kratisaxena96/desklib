@@ -16,7 +16,7 @@ from .forms import CustomFacetedSearchForm
 # Create your views here.
 
 class StudyPageView(MetadataMixin, JsonLdContextMixin, SearchView):
-    title = 'Get Homework Help With desklib | desklib.com'
+    title = 'Desklib | Online Study Library'
     description = 'Get homework help fast! Desklib allows you to explore the best resources for your study requirements. Search solutions, assignments, presentations, thesis, homework solutions from our online learning library.'
     keywords = ['homework writing services', 'online homework help', 'best online homework help website',
                 'statistics homework help', 'engineering homework help', 'computer science homework help',

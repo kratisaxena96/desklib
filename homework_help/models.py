@@ -3,6 +3,7 @@ import random
 import string
 import tempfile
 import uuid
+import itertools
 
 import textract
 from django.conf import settings
@@ -14,6 +15,7 @@ from subjects.models import Subject
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import slugify
 from django.template.defaultfilters import truncatechars
+from meta.models import ModelMeta
 
 
 # Create your models here.
@@ -71,7 +73,7 @@ def upload_solutions(instance, filename):
     )
 
 
-class Question(models.Model):
+class Question(ModelMeta, models.Model):
     question = models.TextField(_('Question'))
     slug = models.SlugField(_('Slug'), unique=True, max_length= 200)
     # upload_file = models.FileField(verbose_name=_('Upload File'), upload_to=upload_to, max_length=1000)
@@ -84,6 +86,12 @@ class Question(models.Model):
 
     created = models.DateTimeField(editable=False, auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    seo_title = models.CharField(max_length=90,
+                                 help_text='Tip: Start every main word in the title with a capital letter, Keep title brief and descriptive that is relevant to the content of your pages.', null=True, blank=True)
+    seo_description = models.TextField(max_length=160,
+                                       help_text='Tip: Create concise and high-quality descriptions that accurately describe your page, Make sure each page on our website has a different description.', null=True, blank=True)
+    seo_keywords = models.CharField(max_length=140,
+                                    help_text='Recommended max.length of relevant seo keyword is 140 characters', null=True, blank=True)
 
     def __str__(self):
         return self.slug
@@ -93,9 +101,57 @@ class Question(models.Model):
 
     def save(self, *args, **kwargs):
         value = self.question
-        self.slug = slugify(truncatechars(value, 50))
+        # self.slug = slugify(truncatechars(value, 50))
+        # super(Question, self).save(*args, **kwargs)
+        # self.slug = slugify(truncatechars(value, 50)+str(self.pk))
 
+        slug_question = slug_original = slugify(truncatechars(value, 50))
+
+        for i in itertools.count(1):
+            if not Question.objects.filter(slug=slug_question).exists():
+                break
+            slug_question = '{}-{}'.format(slug_original, i)
+
+        self.slug = slug_question
+        self.seo_title = truncatechars(value, 50)
+        self.seo_description = value
         super().save(*args, **kwargs)
+
+
+    _metadata = {
+            'use_og': 'True',
+            'use_facebook': 'True',
+            'use_twitter': 'True',
+            'use_title_tag': 'False',
+            'use_googleplus': 'True',
+            'use_sites': 'True',
+            'keywords': 'seo_keywords',
+            'title': 'seo_title',
+            'description': 'seo_description',
+            'canonical_url': 'canonical_url',
+            # 'image': settings.DEFAULT_IMAGE,
+            # 'object_type': 'settings.DEFAULT_TYPE',
+            # 'og_type': 'settings.FB_TYPE',
+            # 'og_app_id': 'settings.FB_APPID',
+            # 'og_profile_id': 'settings.FB_PROFILE_ID',
+            # 'og_publisher': 'settings.FB_PUBLISHER',
+            # 'og_author_url': 'settings.FB_AUTHOR_URL',
+            # 'fb_pages': 'settings.FB_PAGES',
+            # 'twitter_type': 'settings.TWITTER_TYPE',
+            # 'twitter_site': 'settings.TWITTER_SITE',
+            # 'twitter_author': 'settings.TWITTER_AUTHOR',
+            # 'gplus_type': 'settings.GPLUS_TYPE',
+            # 'gplus_author': 'settings.GPLUS_AUTHOR',
+            # 'gplus_publisher': 'settings.GPLUS_PUBLISHER',
+        }
+
+    # @property
+    # def sd(self):
+    #     return {
+    #         "@type": 'Document',
+    #         "description": self.seo_description,
+    #         "name": self.seo_title,
+    #     }
 
 
 class QuestionFile(models.Model):
@@ -147,7 +203,7 @@ class QuestionFile(models.Model):
         return super(QuestionFile, self).save(*args, **kwargs)
 
 
-class Order(models.Model):
+class Order(ModelMeta, models.Model):
     STATUS_RECIEVED = 1
     STATUS_PAYMENT_RECIEVED = 2
     STATUS_EXPERT_WORKING = 3
@@ -171,7 +227,7 @@ class Order(models.Model):
 
     is_accepted = models.BooleanField(_('Is Accepted'), default=False)
     is_detailed = models.BooleanField(_('Is Detailed'), default=False)
-    is_paid = models.BooleanField(_('Is Published'), default=False)
+    is_paid = models.BooleanField(_('Is Paid'), default=False)
 
     created = models.DateTimeField(editable=False, auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -182,6 +238,32 @@ class Order(models.Model):
     def get_absolute_url(self):
         return reverse('homework_help:order-detail-view', kwargs={'uuid': self.uuid})
 
+    _metadata = {
+            'use_og': 'True',
+            'use_facebook': 'True',
+            'use_twitter': 'True',
+            'use_title_tag': 'False',
+            'use_googleplus': 'True',
+            'use_sites': 'True',
+            # 'keywords': 'seo_keywords',
+            'title': 'order_id',
+            # 'description': 'seo_description',
+            'canonical_url': 'canonical_url',
+            # 'image': settings.DEFAULT_IMAGE,
+            # 'object_type': 'settings.DEFAULT_TYPE',
+            # 'og_type': 'settings.FB_TYPE',
+            # 'og_app_id': 'settings.FB_APPID',
+            # 'og_profile_id': 'settings.FB_PROFILE_ID',
+            # 'og_publisher': 'settings.FB_PUBLISHER',
+            # 'og_author_url': 'settings.FB_AUTHOR_URL',
+            # 'fb_pages': 'settings.FB_PAGES',
+            # 'twitter_type': 'settings.TWITTER_TYPE',
+            # 'twitter_site': 'settings.TWITTER_SITE',
+            # 'twitter_author': 'settings.TWITTER_AUTHOR',
+            # 'gplus_type': 'settings.GPLUS_TYPE',
+            # 'gplus_author': 'settings.GPLUS_AUTHOR',
+            # 'gplus_publisher': 'settings.GPLUS_PUBLISHER',
+        }
 
 
 class Answers(models.Model):
