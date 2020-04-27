@@ -52,7 +52,10 @@ class AnswerAdmin(admin.ModelAdmin):
 
 
 class OrderAdmin(admin.ModelAdmin):
-    readonly_fields = ['created', 'updated', 'uuid']
+    readonly_fields = ['created', 'updated', 'uuid', 'order_id']
+    search_fields = ['uuid', 'order_id']
+    list_display = ['order_id', 'status', 'created', 'is_paid', ]
+    raw_id_fields = ['question', 'author']
 
 
 class QuestionFileAdmin(admin.ModelAdmin):

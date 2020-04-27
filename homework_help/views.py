@@ -20,15 +20,23 @@ from haystack.generic_views import SearchView
 from subjects.models import Subject
 
 
-class OrderDetailView(LoginRequiredMixin, FormView):
+class OrderDetailView(LoginRequiredMixin, DetailView):
     model = Order
+    slug_field = 'uuid'
+    slug_url_kwarg = 'uuid'
     template_name = 'homework_help/order_detail.html'
     form_class = CommentForm
+    title = 'Desklib | homework help | online learning library | assignment solutions '
+    description = 'Desklib online learning library provides you 24/7 Homework Help, Q&A help, and solutions to assignments, essays, dissertations, case studies and Best free writing tools for everyone to improve their writing skills.'
+    keywords = [ 'assignment writing help', 'online learning library', 'uk assignment help', 'Q&A help', 'homework help', 'dissertation writing help', 'assignment help online', 'Case Study Help']
+    # twitter_title = 'All study resources you will need to secure best grades in your assignments'
+    # og_title = 'All study resources you will need to secure best grades in your assignments'
+    # gplus_title = 'All study resources you will need to secure best grades in your assignments'
 
     def get(self, request, *args, **kwargs):
 
         order = Order.objects.get(uuid=self.kwargs['uuid'])
-        if self.request.user == order.author    :
+        if self.request.user == order.author:
             return super().get(request, *args, **kwargs)
         else:
             return render(request, 'desklib/error_404.html', status=404)
@@ -54,14 +62,21 @@ class OrderDetailView(LoginRequiredMixin, FormView):
 
         paypalform = PayPalPaymentsForm(initial=paypal_dict, button_type="subscribe")
         context['paypalform'] = paypalform
+        context['meta'] = self.get_object().as_meta(self.request)
         context['order'] = order
         return context
 
 
-class OrderListView(LoginRequiredMixin, ListView):
+class OrderListView(LoginRequiredMixin, MetadataMixin, ListView):
     model = Order
     template_name = 'homework_help/order_list.html'
     paginate_by = 6
+    title = 'Orders'
+    description = 'Desklib online learning library provides you 24/7 Homework Help, Q&A help, and solutions to assignments, essays, dissertations, case studies and Best free writing tools for everyone to improve their writing skills.'
+    keywords = [ 'assignment writing help', 'online learning library', 'uk assignment help', 'Q&A help', 'homework help', 'dissertation writing help', 'assignment help online', 'Case Study Help']
+    # twitter_title = 'All study resources you will need to secure best grades in your assignments'
+    # og_title = 'All study resources you will need to secure best grades in your assignments'
+    # gplus_title = 'All study resources you will need to secure best grades in your assignments'
 
     def get_queryset(self):
         queryset = super(OrderListView, self).get_queryset()
@@ -86,10 +101,16 @@ class OrderListView(LoginRequiredMixin, ListView):
         return context
 
 
-
-class AskQuestionView(FormView):
+class AskQuestionView(MetadataMixin, FormView):
     template_name = 'homework_help/ask_question.html'
     form_class = QuestionForm
+    title = 'Desklib | Homework Help | Ask Q&A from online experts'
+    description = 'Access quality study resources and get homework help and solutions to your assignments. Click here to ask question from our experts.'
+    keywords = [ 'help with homework ', 'homework help']
+    twitter_title = 'Homework Help - Ask Q&A from Online experts - Desklib'
+    og_title = 'Homework Help - Ask Q&A from Online experts - Desklib'
+    gplus_title = 'Homework Help - Ask Q&A from Online experts - Desklib'
+
 
     def get_context_data(self, **kwargs):
         context = super(AskQuestionView, self).get_context_data(**kwargs)
@@ -98,7 +119,9 @@ class AskQuestionView(FormView):
         # order = Order.objects.get(order_id=self.kwargs['order_id'])
         context['question'] = queryset
         context['subject'] = subject
+        context[self.context_meta_name] = self.get_meta(context=context)
         return context
+
 
 
 class CustomSearchQuestionView(JsonLdContextMixin, MetadataMixin, SearchView):
@@ -112,10 +135,9 @@ class CustomSearchQuestionView(JsonLdContextMixin, MetadataMixin, SearchView):
         return queryset
 
 
-class QuestionDetailView(TemplateView):
+class QuestionDetailView(DetailView):
     model = Question
     template_name = "homework_help/question_detail.html"
-    # template_name = "desklib/coming_soon.html"
     # form_class = HomeSearchForm
     # title = 'Desklib | homework help | online learning library | assignment solutions '
     # # description = 'Desklib is your home for best study resources and educational documents. We have a large collection of homework answers, assignment solutions, reports, sample resume and presentations. Our study tools help you improve your writing skills and grammar.'
@@ -155,6 +177,7 @@ class QuestionDetailView(TemplateView):
         question = Question.objects.get(slug=self.kwargs['slug'])
         answer = Answers.objects.filter(question=question)
         similar_questions = Question.objects.filter(subjects=question.subjects)
+        context['meta'] = self.get_object().as_meta(self.request)
         context['object'] = question
         context['answer'] = answer.count()
         context['similar_questions'] = similar_questions
