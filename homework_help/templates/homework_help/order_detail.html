@@ -9,7 +9,7 @@
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="{% url 'homework_help:ask-question-view'%}">Homework</a></li>
            <li class="breadcrumb-item"><a href="{% url 'homework_help:order-list-view'%}">Order</a></li>
-
+           <li class="breadcrumb-item active" aria-current="page">{{object.order_id}}</li>
        </ol>
 </nav>
 </section>
@@ -30,11 +30,13 @@
         </div>
             <div class="row mt-3">
                  {% for order in order.question.user_questionfiles.all %}
+                {% comment %}
 <!--                <div class="col-sm-4 mb-3">-->
 <!--                    <div class="p-3 bg-light">-->
 <!--                        <span class="d-inline-block mr-2"><i class="fa fa-file"></i></span><a href="{{order.file.url}}" target = "_blank" class="blue-font">{{order.title|truncatechars:30}}</a>-->
 <!--                </div>-->
 <!--                </div>-->
+                {% endcomment %}
                 <div class="col-sm-4">
                     <div class="p-3 bg-light">
                         <div class="d-flex">
@@ -71,7 +73,6 @@
                                 <div class="col-12">
                                     <div>
                                         <div class="mt-step-number m-0 bg-white assigned">
-                                            <!-- <i class="fa fa-user-circle "></i> -->
                                         </div>
                                     </div>
                                 </div>
@@ -90,7 +91,6 @@
                                 <div class="col-12">
                                     <div>
                                         <div class="mt-step-number m-0 bg-white assigned">
-                                            <!-- <i class="fa fa-user-circle "></i> -->
                                         </div>
                                     </div>
                                 </div>
@@ -98,7 +98,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div>
-                                        <div class="mt-step-title uppercase theme-color-blue">Payment Completed</div>
+                                        <div class="mt-step-title uppercase theme-color-blue">Payment Updated </div>
                                     </div>
                                 </div>
                             </div>
@@ -109,7 +109,6 @@
                                 <div class="col-12">
                                     <div>
                                         <div class="mt-step-number m-0 bg-white assigned">
-                                            <!-- <i class="fa fa-user-circle "></i> -->
                                         </div>
                                     </div>
                                 </div>
@@ -122,13 +121,11 @@
                                 </div>
                             </div>
 						</div>
-
 						<div class="col mt-step-col status_4 pt-20 pb-20 {% if order.status > 4 %} done {% elif order.status == 4 %} active{% endif %} d-block text-center">
                             <div class="row">
                                 <div class="col-12">
                                     <div>
                                         <div class="mt-step-number m-0 bg-white assigned">
-                                            <!-- <i class="fa fa-user-circle "></i> -->
                                         </div>
                                     </div>
                                 </div>
@@ -142,7 +139,6 @@
                             </div>
 						</div>
 					</div>
-
                 </div>
         </div>
         <div class="content_section">
@@ -150,7 +146,7 @@
          <div class="row mt-4">
              <div class="col-sm-12">
                  <div class="card card-body">
-                    <p class="text-center mb-0"><strong>Your question is received by us</strong> </p>
+                     <p class="text-center mb-0"><strong>Your question is being analyzed by our experts. A quote will be provided shortly maximum wait time: 2 minutes </strong></p>
                  </div>
              </div>
          </div>
@@ -192,7 +188,7 @@
          <div class="row mt-4">
              <div class="col-sm-12">
                  <div class="card card-body">
-                    <p class="text-center mb-0"><strong>Our expert team working on your questions related answers</strong> </p>
+                    <p class="text-center mb-0"><strong>Your payment has been received. Our expert is working on your query. You will be provided with solution shortly. </strong> </p>
                  </div>
              </div>
          </div>

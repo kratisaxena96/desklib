@@ -11,31 +11,43 @@
 </nav>
 </section>
 <section class="">
-    <div class="container pt-5">
+    <div class="container pt-5 pb-5">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <h2 class="">{{object.question|truncatechars:250}}</h2>
+                <h1 class="font-size-25">{{object.question|truncatechars:250}}</h1>
             </div>
         </div>
         <div class="row mt-4 mb-3 justify-content-center">
             {% for object in object.user_questionfiles.all %}
             <div class="col-md-12 mb-4">
-                <div class="border border-secondary">
+                <div class="">
                     <img class="img-fluid mx-auto d-block" alt="question image" src="{{object.file.url}}" />
-                    <span>{{object.content}}</span>
                 </div>
+                {% if object.content %}
+                <p class="p-4">{{object.content}}</p>
+                 {% endif  %}
             </div>
             {% endfor %}
         </div>
     </div>
 </section>
-<section class="bg-light">
-    <div class="container pt-5 pb-5">
+<section class="">
+    <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <h2 class="text-center">Expert's Answers</h2>
-                 <h5 class="mb-3 text-center">{{answer}} Answers Are Available</h5>
-                 <div class="text-center">
+                {% comment %}
+<!--            <h5 class="mb-3 text-center">{{answer}} Answers Are Available</h5>-->
+                {% endcomment %}
+                <div class="blur-image position-relative">
+                <div class="card position-absolute blur-image-position">
+                    <div class="card-body p-5 text-center">
+                    <h5><strong>This question has been solved!</strong></h5>
+                    <a href="{% url 'homework_help:order-create-view' uid=object.uid %}" class="btn btn-bg-theme white border-radius-20 px-4 mt-2">View Answers</a>
+                    </div>
+                </div>
+                </div>
+                <div class="text-center">
                      {% comment %}
     				 <form action="" method="post" id="question-form" enctype="multipart/form-data">
                          {% csrf_token %}
@@ -43,32 +55,70 @@
                          <input type="submit" value="View Answer" class="btn btn-bg-theme white border-radius-20 px-4">
                      </form>
                      {% endcomment %}
-                    <a href="{% url 'homework_help:order-create-view' uid=object.uid %}" class="btn btn-bg-theme white border-radius-20 px-4">View Answers</a>
                  </div>
             </div>
         </div>
     </div>
 </section>
-<section class="">
-    <div class="container pt-5 pb-5">
-        <div class="row">
-            <div class="col-md-12">
-                <h2 class="text-center">More Questions From This Subjects</h2>
-            </div>
-        </div>
-        <div class="row">
-             {% for question in similar_questions %}
-            <div class="col-6 col-md-4">
-                <ul class="list-unstyled">
-                    <li class="mb-2">
-                         <a href="{% url 'homework_help:question-detail-view' slug=question.slug %}" class="blue-font">{{question.question|truncatechars:35}}</a>
-                    </li>
-                </ul>
-            </div>
-             {% endfor %}
-        </div>
-    </div>
+<section>
+	<div class="container pt-5 pb-4">
+		<h2 class="text-center">Q & A Related To {{question.subjects}}</h2>
+		<div class="row mt-4">
+			{% for question in similar_questions %}
+			<div class="col-sm-12 mb-4">
+				<a href="{% url 'homework_help:question-detail-view' slug=question.slug %}" class="text-decoration-none h-100">
+					<div class="card question-search-hover">
+						<div class="card-body text-left">
+							<div class="d-flex">
+                    			<div class="d-inline-block">
+                        			<div class="black-font">
+										<strong>Q:</strong>
+                        			</div>
+                    			</div>
+                    			<div class="d-inline-block ml-2 black-font">
+                        			<span>{{question.question|truncatechars:200}}</span>
+                    			</div>
+                 			</div>
+							<div class="d-flex mt-2">
+								<div class="d-inline-block">
+									<div class="black-font">
+										<strong>A:</strong>
+                        			</div>
+								</div>
+								<div class="d-inline-block ml-2 black-font">
+									<a href="{% url 'homework_help:question-detail-view' slug=question.slug %}" class="">Get Answer</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		{% endfor %}
+		</div>
+	</div>
 </section>
+{% comment %}
+<!--<section class="">-->
+<!--    <div class="container pt-5 pb-5">-->
+<!--        <div class="row">-->
+<!--            <div class="col-md-12">-->
+<!--                <h2 class="text-center">Q & A Related To This Subject</h2>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row">-->
+<!--             {% for question in similar_questions %}-->
+<!--            <div class="col-6 col-md-4">-->
+<!--                <ul class="list-unstyled">-->
+<!--                    <li class="mb-2">-->
+<!--                         <a href="{% url 'homework_help:question-detail-view' slug=question.slug %}" class="blue-font">{{question.question|truncatechars:35}}</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--             {% endfor %}-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+{% endcomment %}
 <section class="bg-light-grey">
     <div class="container pb-5 pt-5">
         <div class="row">

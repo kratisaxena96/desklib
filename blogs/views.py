@@ -51,4 +51,6 @@ class BlogDetailPageView(JsonLdDetailView, DetailView):
     def get_context_data(self, **kwargs):
         context = super(BlogDetailPageView, self).get_context_data(**kwargs)
         context['meta'] = self.get_object().as_meta(self.request)
+        featured_blog = BlogModel.objects.filter(is_published=True, is_featured=True, is_visible=True, published_date__lte=timezone.now())[:4]
+        context['featured_blog'] = featured_blog
         return context
