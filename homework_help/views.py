@@ -176,7 +176,7 @@ class QuestionDetailView(DetailView):
 
         question = Question.objects.get(slug=self.kwargs['slug'])
         answer = Answers.objects.filter(question=question)
-        similar_questions = Question.objects.filter(subjects=question.subjects)
+        similar_questions = Question.objects.filter(subjects=question.subjects)[:6]
         context['meta'] = self.get_object().as_meta(self.request)
         context['object'] = question
         context['answer'] = answer.count()
