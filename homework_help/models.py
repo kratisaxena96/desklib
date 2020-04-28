@@ -191,6 +191,17 @@ class QuestionFile(models.Model):
         # ''' On save, update timestamps '''
         if not self.id:
             self.created = timezone.now()
+
+            filename = self.file.name
+            filename = os.path.basename(filename)
+            filename = filename.replace(' ', '_')
+            f1 = self.file.file
+            temp = tempfile.NamedTemporaryFile(suffix=filename)
+            with open(temp.name, 'wb') as f2:
+                f2.write(f1.read())
+            f2.close()
+            self.content = textract.process(temp.name).decode("utf-8")
+
         self.updated = timezone.now()
         if self.require_recalculation:
             filename = self.file.name
@@ -207,13 +218,13 @@ class QuestionFile(models.Model):
 
 class Order(ModelMeta, models.Model):
     STATUS_RECIEVED = 1
-    STATUS_PAYMENT_RECIEVED = 2
+    STATUS_PAYMENT_UPDATED = 2
     STATUS_EXPERT_WORKING = 3
     STATUS_ANSWER_POSTED = 4
 
     STATUS = [
         (STATUS_RECIEVED, 'Question Recieved'),
-        (STATUS_PAYMENT_RECIEVED, 'Payment Completed'),
+        (STATUS_PAYMENT_UPDATED, 'Payment Updated'),
         (STATUS_EXPERT_WORKING, 'Expert Working on your Answer'),
         (STATUS_ANSWER_POSTED, 'Answer is posted'),
     ]

@@ -53,7 +53,7 @@ class BlogModel(ModelMeta,models.Model):
 
     title = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
-    cover_image = models.ImageField(blank=True, null=True, upload_to="photos")
+    cover_image = models.ImageField(upload_to="photos")
     # category = models.CharField(_('Category'), max_length=100, choices=CATEGORY, blank=True, null=True)
     category = models.ManyToManyField(BlogCategoryModel, max_length=100, blank=True, null=True, related_name='category_blog')
     short_description = models.TextField(max_length=200, blank=True, null=True)
@@ -65,7 +65,7 @@ class BlogModel(ModelMeta,models.Model):
     is_visible = models.BooleanField(default=False)
     is_featured = models.BooleanField(default=False)
 
-    published_date = models.DateTimeField(blank=True, null=True)
+    published_date = models.DateTimeField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
