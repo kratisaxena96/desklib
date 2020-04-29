@@ -54,11 +54,9 @@ class BlogModel(ModelMeta,models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
     cover_image = models.ImageField(upload_to="photos")
-    # category = models.CharField(_('Category'), max_length=100, choices=CATEGORY, blank=True, null=True)
     category = models.ManyToManyField(BlogCategoryModel, max_length=100, blank=True, null=True, related_name='category_blog')
     short_description = models.TextField(max_length=200, blank=True, null=True)
     description = RichTextUploadingField(null=True, blank=True)
-    author = models.CharField(max_length=20, null=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True, related_name='blog_author')
 
     is_published = models.BooleanField(default=False)
