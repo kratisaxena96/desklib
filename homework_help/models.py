@@ -160,7 +160,7 @@ class QuestionFile(models.Model):
     """
 
     unique_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    title = models.TextField(_('title'), max_length=500)
+    title = models.TextField(_('title'), max_length=500, null=True, blank=True)
     # slug = models.SlugField(prepopulate_from=("title",))
     file = models.FileField(verbose_name=_('Question File'), upload_to=upload_question_to, max_length=1000)
     question = models.ForeignKey(Question, related_name='user_questionfiles', on_delete=models.CASCADE, null=True, blank=True)
@@ -191,6 +191,8 @@ class QuestionFile(models.Model):
         # ''' On save, update timestamps '''
         if not self.id:
             self.created = timezone.now()
+
+            self.title = self.file.name
 
             filename = self.file.name
             filename = os.path.basename(filename)
