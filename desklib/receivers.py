@@ -33,8 +33,7 @@ def show_me_the_money(sender, **kwargs):
 
                 custom_list = ipn_obj.custom.split('_')
                 if custom_list[0] == "homework-help":
-                    question = custom_list[1]
-                    order = custom_list[2]
+                    order = custom_list[1]
                     o = Order.objects.get(uuid=order)
                     o.amount_paid = o.amount_paid + ipn_obj.payment_gross
                     o.status = 3

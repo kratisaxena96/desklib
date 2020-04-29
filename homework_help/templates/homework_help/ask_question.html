@@ -46,7 +46,7 @@
 		<div class="row justify-content-center">
 			<div class="col-md-12">
 				<h1 class="text-center">Homework Help</h1>
-				<h4 class="text-center">Avail the huge online collection of your homework help or solutions to your assignments</h4>
+				<p class="text-center">Avail the huge online collection of your homework help or solutions to your assignments</p>
 			</div>
 		</div>
 		<div class="row">
@@ -407,6 +407,11 @@
 <script src='{% static "src/js/jquery.fileupload.js" %}' ></script>
 <!--<script src='{% static "src/js/jquery.fileupload-ui.js" %}' ></script>-->
 
+<script>
+    $(document).ready(function (){
+        $(".homework").addClass("active");
+    });
+</script>
 
 <script>
 $(function () {
@@ -427,7 +432,7 @@ var k = 1
 
         done: function (e, data) {
             $.each(data.result.files, function (index, file) {
-                $('<p/>').text(file.name).appendTo(document.body);
+                $('<p><p/>').text(file.name).appendTo(document.body);
                 $('form').append("<input type='hidden' value='" + data.unique_id + "' name='unique_id' >");
             });
         },

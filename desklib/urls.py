@@ -42,7 +42,7 @@ sitemaps = {
     'static': StaticViewSitemap,
     'samples': SampleSitemap,
     'subjects': SubjectSitemap,
-    # 'questions': QuestionSitemap
+    'questions': QuestionSitemap
 }
 
 urlpatterns = [

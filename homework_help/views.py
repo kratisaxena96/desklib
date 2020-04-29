@@ -57,7 +57,7 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
             "return": self.request.build_absolute_uri(reverse('homework_help:order-detail-view', kwargs={'uuid': self.kwargs.get('uuid')})),
             "cancel_return": self.request.build_absolute_uri(reverse('homework_help:order-detail-view', kwargs={'uuid': self.kwargs.get('uuid')})),
             "custom": "homework-help_" + self.kwargs.get('uuid'),
-            "amount": order.budget,
+            # "amount": order.budget,
         }
 
         paypalform = PayPalPaymentsForm(initial=paypal_dict, button_type="subscribe")
@@ -176,7 +176,7 @@ class QuestionDetailView(DetailView):
 
         question = Question.objects.get(slug=self.kwargs['slug'])
         answer = Answers.objects.filter(question=question)
-        similar_questions = Question.objects.filter(subjects=question.subjects)
+        similar_questions = Question.objects.filter(subjects=question.subjects)[:6]
         context['meta'] = self.get_object().as_meta(self.request)
         context['object'] = question
         context['answer'] = answer.count()
