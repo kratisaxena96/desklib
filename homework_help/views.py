@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import EmailMultiAlternatives
 from django.db.models import Count
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from haystack.query import SearchQuerySet
 from paypal.standard.forms import PayPalPaymentsForm
 from django.urls import reverse
@@ -16,10 +16,19 @@ from homework_help.forms import CommentForm, QuestionForm
 from django.core.paginator import Paginator
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from haystack.generic_views import SearchView
+import simplejson as json
 
 # Create your views here.
 from subjects.models import Subject
 
+def autocomplete(request):
+    sqs = SearchQuerySet().models(Question).filter(content_auto=request.GET.get('q', ''))[:5]
+    suggestions = [result.text for result in sqs]
+    the_data = json.dumps({
+        'results': suggestions
+    })
+
+    return HttpResponse(the_data, content_type='application/json')
 
 class OrderDetailView(LoginRequiredMixin, DetailView):
     model = Order
