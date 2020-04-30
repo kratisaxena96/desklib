@@ -4,10 +4,11 @@ from homework_help.models import Comment, Question, QuestionFile, Order, Answers
 
 
 class QuestionCreateSerializer(serializers.ModelSerializer):
+    slug = serializers.CharField(required=False)
 
     class Meta:
         model = Question
-        fields = ('question', 'subjects')
+        fields = ('question', 'subjects', 'slug')
 
 
 class OrderCreateSerializer(serializers.ModelSerializer):

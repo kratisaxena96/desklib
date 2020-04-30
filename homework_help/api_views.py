@@ -25,7 +25,7 @@ class QuestionCreateApiView(CreateAPIView):
             serializer.save(author=request.user)
         except:
             serializer.save()
-        q = Question.objects.get(question=serializer.validated_data.get('question'))
+        q = Question.objects.get(slug=serializer.data.get('slug'))
         # print(q.id)
         for i in data:
             qf = QuestionFile.objects.get(unique_id=i)
