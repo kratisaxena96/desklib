@@ -73,7 +73,8 @@ class StudyPageView(MetadataMixin, JsonLdContextMixin, SearchView):
 
 
 def autocomplete(request):
-    sqs = SearchQuerySet().autocomplete(content_auto=request.GET.get('q', ''))[:5]
+    # sqs = SearchQuerySet().autocomplete(content_auto=request.GET.get('q', ''))[:5]
+    sqs = SearchQuerySet().models(Document).filter(content_auto=request.GET.get('q', ''))[:5]
     # suggestions = [result.title for result in sqs]
     # slugs = [result.slug for result in sqs]
     # cover_imgage = [result.cover_image for result in sqs]
