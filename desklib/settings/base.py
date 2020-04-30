@@ -80,7 +80,8 @@ INSTALLED_APPS = [
     'review',
     'admissions',
     'homework_help',
-    'blogs'
+    'blogs',
+    'contact'
 ]
 
 SITE_ID = 1

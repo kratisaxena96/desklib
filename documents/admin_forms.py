@@ -2,6 +2,7 @@ from django.contrib.admin.widgets import AdminSplitDateTime
 from django import forms
 from accounts.models import UserAccount
 from documents.models import Document
+from datetime import datetime
 
 
 class PublishedDateForm(forms.Form):
@@ -19,6 +20,17 @@ class DocumentAdminForm(forms.ModelForm):
     class Meta:
         model = Document
         exclude = ()
+
+    def __init__(self, *args, **kwargs):
+        super(DocumentAdminForm, self).__init__(*args, **kwargs)
+        is_published = self.initial.get('is_published')
+        published_date = self.initial.get("published_date")
+        # date = str(published_date.day) + "/" + str(published_date.month) + "/" + str(published_date.year)
+        # today_date = str(datetime.today().day) + "/" + str(datetime.today().month) + "/" + str(datetime.today().year)
+
+        if is_published and published_date.day <= datetime.today().day and published_date.month <= datetime.today().month and published_date.year <= datetime.today().year:
+            # self.fields['slug'] = forms.CharField(widget = forms.TextInput(attrs={'readonly':'readonly'}))
+            self.fields['slug'].widget.attrs['readonly'] = True
 
     def clean(self):
         cleaned_data = super().clean()
