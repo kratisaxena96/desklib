@@ -79,6 +79,7 @@ class QuestionIndex(indexes.SearchIndex, indexes.Indexable):
     created_date = indexes.DateTimeField(model_attr='created')
     subjects = indexes.MultiValueField(faceted=True)
     no_of_answers = indexes.IntegerField()
+    content_auto = indexes.EdgeNgramField(model_attr='question')
     uid = indexes.CharField()
 
     def get_model(self):
