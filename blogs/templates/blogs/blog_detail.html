@@ -14,10 +14,9 @@
   </ol>
 </nav>
 </section>
-
 <section>
     <div class="pt-15rem pb-12rem position-relative" style="background-image:url('{{object.cover_image.url}}');background-size: cover;background-repeat:none;"></div>
-        <div class="position-absolute bottom pt-12rem">
+        <div class="container position-absolute bottom pt-12rem">
             <p class="text-uppercase text-center">
                 <span class="pr-3 border-right-black">{{object.published_date|date:"d M Y"}}</span>
                 <span class="pl-3 pr-3 border-right-black">{{object.author}}</span>
@@ -31,98 +30,72 @@
 <section>
     <div class="container pb-5 pt-5">
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col-md-8">
                 <div class="pr-4">
                     <h3>{{object.short_description}}</h3>
                     <p>{{object.description|safe}}</p>
                 </div>
             </div>
-            <div class="col-sm-4 mt-5">
-                <div class="card">
-                    <div class="p-2 shadow">
-                        <h6 class="mb-0">Social Connect</h6>
+            <div class="col-md-4">
+                <div class="border">
+                <div class="row">
+                    <div class="col-md-12">
+                            <div class="p-2 shadow">
+                                <h6 class="mb-0">Social Connect</h6>
+                            </div>
                     </div>
-                    <div class="d-inline-block">
-                        <div class="d-inline-block border-right py-3 px-3">
+                </div>
+                <div class="row">
+                    <div class="col-6 col-md-3 border-right py-3">
                             <a href="https://facebook.com/sharer.php?u=http://{{request.get_host}}" target="_blank">
-                               <img src="{% static 'dist/assets/images/Social media-facebook.png' %}" alt="" class="img-fluid">
+                                <img src="{% static 'dist/assets/images/Social media-facebook.png' %}" alt="" class="img-fluid mx-auto d-block padding-left-10">
                             </a>
-                        </div>
-                        <div class="d-inline-block border-right py-3 px-3">
+                    </div>
+                    <div class="col-6 col-md-3 border-right py-3">
                             <a href="https://twitter.com/intent/tweet?url=http://{{request.get_host}}" target="_blank">
-                               <img src="{% static 'dist/assets/images/Social media-twitter.png' %}" alt="" class="img-fluid">
+                                <img src="{% static 'dist/assets/images/Social media-twitter.png' %}" alt="" class="img-fluid mx-auto d-block">
                             </a>
-                        </div>
-                        <div class="d-inline-block border-right py-3 px-3">
+                    </div>
+                    <div class="col-6 col-md-3 border-right py-3">
                             <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://{{request.get_host}}&title=LinkedIn%20Developer%20Network &summary=My%20favorite%20developer%20program&source=LinkedIn" target="_blank">
-                               <img src="{% static 'dist/assets/images/Social media-linkedin.png' %}" alt="" class="img-fluid">
+                                <img src="{% static 'dist/assets/images/Social media-linkedin.png' %}" alt="" class="img-fluid mx-auto d-block">
                             </a>
-                        </div>
-                        <div class="d-inline-block py-3 px-3">
+                    </div>
+                    <div class="col-6 col-md-3 py-3">
                             <a href="https://web.whatsapp.com/send?text=http://{{request.get_host}}" target="_blank">
-                               <img src="{% static 'dist/assets/images/Social media-whatsapp.png' %}" alt="" class="img-fluid">
+                                <img src="{% static 'dist/assets/images/Social media-whatsapp.png' %}" alt="" class="img-fluid mx-auto d-block padding-right-10">
                             </a>
-                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="border mt-5">
+                   <div class="row">
+                    <div class="col-md-12">
+                        <div class="p-2 shadow">
+                            <h6 class="mb-0">Featured Posts</h6>
                         </div>
                     </div>
-                <div class="card mt-5">
-                    <div class="p-2 shadow">
-                        <h6 class="mb-0">Featured Posts</h6>
-                    </div>
+                </div>
                     <div class="row">
+                         {% for featured_blog in featured_blog %}
                         <div class="col-md-4">
                             <div class="pt-3 pl-2">
-                                <img src="{% static 'dist/assets/images/Featured-posts.png' %}" alt="" class="img-fluid border-radius-5  border border-left-0 border-top-0 px-2 pb-2">
+                                <img src="{% static 'dist/assets/images/Featured-posts.png' %}" alt="" class="img-fluid border-radius-5  border border-left-0 border-top-0 px-2 pb-2 mx-auto d-block">
                             </div>
                         </div>
                         <div class="col-md-8">
-                            <div class="pt-3">
-                                <h6><strong>How To Start Writing</strong></h6>
-                                <p>There are many variations of passages of Lorem Ipsum available</p>
+                            <div class="pt-3 px-3 px-md-0">
+                                <h6><strong>{{featured_blog.title|truncatechars:20}}</strong></h6>
+                                <p>{{featured_blog.description|safe|truncatechars:35}}</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="pl-2 pt-3">
-                                <img src="{% static 'dist/assets/images/Featured-posts.png' %}" alt="" class="img-fluid border-radius-5  border border-left-0 px-2 pt-2 pb-2">
-                            </div>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="pt-3">
-                                <h6><strong>How To Start Writing</strong></h6>
-                                <p>There are many variations of passages of Lorem Ipsum available</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="pl-2 pt-3">
-                                <img src="{% static 'dist/assets/images/Featured-posts.png' %}" alt="" class="img-fluid border-radius-5  border border-left-0 border-bottom-0 px-2 pt-2">
-                            </div>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="pt-3">
-                                <h6><strong>How To Start Writing</strong></h6>
-                                <p>There are many variations of passages of Lorem Ipsum available</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="pl-2 pt-3">
-                                <img src="{% static 'dist/assets/images/Featured-posts.png' %}" alt="" class="img-fluid border-radius-5  border border-left-0 border-bottom-0 px-2 pt-2">
-                            </div>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="pt-3">
-                                <h6><strong>How To Start Writing</strong></h6>
-                                <p>There are many variations of passages of Lorem Ipsum available</p>
-                            </div>
-                        </div>
+                          {% endfor %}
                     </div>
                 </div>
+<!--                </div>-->
+                    </div>
                 </div>
+            </div>
                 </div>
             </div>
         </div>
