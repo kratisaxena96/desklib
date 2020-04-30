@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.mail import EmailMultiAlternatives
 from django.db.models import Count
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from haystack.query import SearchQuerySet
 from paypal.standard.forms import PayPalPaymentsForm
 from django.urls import reverse
@@ -15,10 +16,19 @@ from homework_help.forms import CommentForm, QuestionForm
 from django.core.paginator import Paginator
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from haystack.generic_views import SearchView
+import simplejson as json
 
 # Create your views here.
 from subjects.models import Subject
 
+def autocomplete(request):
+    sqs = SearchQuerySet().models(Question).filter(content_auto=request.GET.get('q', ''))[:5]
+    suggestions = [result.text for result in sqs]
+    the_data = json.dumps({
+        'results': suggestions
+    })
+
+    return HttpResponse(the_data, content_type='application/json')
 
 class OrderDetailView(LoginRequiredMixin, DetailView):
     model = Order
@@ -194,6 +204,23 @@ class OrderCreateView(LoginRequiredMixin, FormView):
         question = Question.objects.get(uid= self.kwargs.get('uid'))
         order = Order(question=question, author=request.user)
         order.save()
+
+        locus_email = "kushagra.goel@locusrags.com"
+        if not settings.DEBUG:
+            locus_email = "info@desklib.com"
+
+        subject = order.order_id + ' added'
+        message = question.question + ' added!'
+        from_email = settings.DEFAULT_FROM_EMAIL
+        recipient_list = [locus_email],
+        html_message = order.order_id +' is added by '+ order.author.email +'.<br>Question is '+ question.question
+        mail = EmailMultiAlternatives(subject, message, from_email, recipient_list)
+        for i in question.user_questionfiles.all():
+            mail.attach_file(i.file.file.name)
+        mail.attach_alternative(html_message, 'text/html')
+        mail.send(True)
+
+
         return HttpResponseRedirect(redirect_to=reverse('homework_help:order-detail-view', kwargs={'uuid': order.uuid}))
 
 
