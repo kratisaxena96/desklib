@@ -1,0 +1,84 @@
+{% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% block content %}
+<section>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+<!--        <li class="breadcrumb-item"><a href="{% url 'blog'%}">blog</a></li>-->
+  </ol>
+</nav>
+</section>
+<section>
+    <div class="">
+        <img src="{% static 'dist/assets/images/study.jpg' %}" alt="Desklib blog banner" class="img-fluid">
+    </div>
+</section>
+<section>
+    <div class="container pb-5 pt-5">
+        <div class="row">
+            <div class="col-md-4">
+                <a href="" class="text-decoration-none" target="_blank">
+                    <div class="card border-0 h-100 shadow">
+                        <img src="{% static 'dist/assets/images/Verify_email.png' %}" alt="" class="img-fluid">
+                        <div class="card-body bg-light">
+                            <h6>What is user interface design </h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="" class="text-decoration-none" target="_blank">
+                    <div class="card border-0 h-100 shadow">
+                        <img src="{% static 'dist/assets/images/Verify_email.png' %}" alt="" class="img-fluid">
+                        <div class="card-body bg-light">
+                            <h6>What is user interface design </h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <div class="">
+                    <h2 class="text-center mb-3 mt-3 mt-md-3">Contact Us</h2>
+                    <form method="POST">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="name" class=""><strong>Name:</strong></label>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <input type="text" id="name" placeholder="Enter Name..">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="email" class=""><strong>Email:</strong></label>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <input type="email" id="email" placeholder="Enter Email..">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+    $('.js-example-basic-single').select2();
+});
+</script>
+
+{% endblock %}

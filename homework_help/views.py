@@ -216,7 +216,7 @@ class OrderCreateView(LoginRequiredMixin, FormView):
         html_message = order.order_id +' is added by '+ order.author.email +'.<br>Question is '+ question.question
         mail = EmailMultiAlternatives(subject, message, from_email, recipient_list)
         for i in question.user_questionfiles.all():
-            mail.attach_file(i.file.file.name)
+            mail.attach_file(i.file.path)
         mail.attach_alternative(html_message, 'text/html')
         mail.send(True)
 
