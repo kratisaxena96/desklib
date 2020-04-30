@@ -70,7 +70,7 @@ class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
                 return name
 
     def index_queryset(self, using=None):
-        return self.get_model().objects.filter(is_visible=True, is_published=True, published_date__lte=timezone.now())
+        return self.get_model().objects.filter(pages__isnull=False, is_visible=True, is_published=True, published_date__lte=timezone.now())
 
 
 class QuestionIndex(indexes.SearchIndex, indexes.Indexable):
