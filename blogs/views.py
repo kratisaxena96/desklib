@@ -36,6 +36,8 @@ class BlogListPageView(MetadataMixin, JsonLdListView, ListView):
         except EmptyPage:
             blog_page = paginator.page(paginator.num_pages)
 
+        featured_blog = BlogModel.objects.filter(is_published=True, is_featured=True, is_visible=True, published_date__lte=timezone.now())[:4]
+        context['featured_blog'] = featured_blog
         context['object'] = blog_page
         return context
 
