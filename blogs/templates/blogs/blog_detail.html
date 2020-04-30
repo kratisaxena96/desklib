@@ -20,9 +20,11 @@
             <p class="text-uppercase text-center">
                 <span class="pr-3 border-right-black">{{object.published_date|date:"d M Y"}}</span>
                 <span class="pl-3 pr-3 border-right-black">{{object.author}}</span>
+                {% if object.category.all %}
                 {% for category in object.category.all %}
                 <span class="pl-3">{{category}}</span>
                 {% endfor %}
+                {% endif %}
             </p>
             <h1 class="text-uppercase text-center blue-theme">{{object.title}}</h1>
         </div>
@@ -32,8 +34,12 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="pr-4">
+                    {% if object.short_description %}
                     <h3>{{object.short_description}}</h3>
+                     {% endif %}
+                    {% if object.description %}
                     <p>{{object.description|safe}}</p>
+                     {% endif %}
                 </div>
             </div>
             <div class="col-md-4">

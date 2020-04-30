@@ -11,74 +11,185 @@
 </section>
 <section>
     <div class="">
-        <img src="{% static 'dist/assets/images/study.jpg' %}" alt="Desklib blog banner" class="img-fluid">
+        <img src="{% static 'dist/assets/images/blog-list-banner-image.png' %}" alt="Desklib blog list banner" class="img-fluid">
     </div>
 </section>
 <section>
-    <div class="container pb-5 pt-5">
+    <div class="container pt-5">
         <div class="row">
-            <div class="col-md-4">
-                <a href="" class="text-decoration-none" target="_blank">
-                    <div class="card border-0 h-100 shadow">
-                        <img src="{% static 'dist/assets/images/Verify_email.png' %}" alt="" class="img-fluid">
-                        <div class="card-body bg-light">
-                            <h6>What is user interface design </h6>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-4">
-                <a href="" class="text-decoration-none" target="_blank">
-                    <div class="card border-0 h-100 shadow">
-                        <img src="{% static 'dist/assets/images/Verify_email.png' %}" alt="" class="img-fluid">
-                        <div class="card-body bg-light">
-                            <h6>What is user interface design </h6>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <div class="">
-                    <h2 class="text-center mb-3 mt-3 mt-md-3">Contact Us</h2>
-                    <form method="POST">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="name" class=""><strong>Name:</strong></label>
+                    <div class="row">
+                    {% for blog in object_list %}
+                        <div class="col-md-6 mb-5">
+                            <a href="{% url 'blog_detail' year=blog.published_date|date:'Y' month=blog.published_date|date:'m' date=blog.published_date|date:'d' slug=blog.slug %}" class="text-decoration-none">
+                                <div class="card border-0 h-100 shadow">
+                                    <img src="{{ blog.cover_image.url }}" alt="" class="img-fluid">
+                                        <div class="card-body bg-light">
+                                        <h6 class="black-font">{{blog.title}}</h6>
+                                        {% if blog.short_description %}
+                                            <small class="text-muted">{{blog.short_description}}</small>
+                                        {% endif %}
+                                            <p class="border-bottom py-2"></p>
+                                            <small class="border-right text-muted pr-3">{{blog.author}}</small>
+                                            <small class="text-muted pl-2">{{blog.published_date|date:"d M Y"}}</small>
+                                        </div>
+                                </div>
+                            </a>
+                        </div>
+                     {% endfor %}
+                </div>
+            </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card shadow p-4">
+                        <h2 class="text-center mb-3 mt-3 mt-md-3">Contact Us</h2>
+                        <form method="POST">
+                            <div class="row mt-2">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="name" class="star"><strong>Name:</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <input type="text" id="name" class="form-control border-radius-20" placeholder="Enter Name..">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-9">
-                                <div class="form-group">
-                                    <input type="text" id="name" placeholder="Enter Name..">
+                            <div class="row mt-3">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="email" class="star"><strong>Email:</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <input type="email" class="form-control border-radius-20" id="email" placeholder="Enter Email..">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="message" class=""><strong>Message:</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <textarea class="form-control" id="message" placeholder="Type Message"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-md-9 offset-3">
+                                    <input type="submit" value="Submit" class="w-100 btn btn-bg-theme white border-radius-20">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="p-2 shadow">
+                                <h6 class="mb-0">Featured Posts</h6>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="pt-3 pl-2">
+                                        <img src="{% static 'dist/assets/images/Featured-posts.png' %}" alt="" class="img-fluid border-radius-5  border border-left-0 border-top-0 px-2 pb-2">
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="pt-3">
+                                        <h6><strong>How To Start Writing</strong></h6>
+                                        <p>There are many variations of passages of Lorem Ipsum available</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="pl-2 pt-3">
+                                        <img src="{% static 'dist/assets/images/Featured-posts.png' %}" alt="" class="img-fluid border-radius-5  border border-left-0 px-2 pt-2 pb-2">
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="pt-3">
+                                        <h6><strong>How To Start Writing</strong></h6>
+                                        <p>There are many variations of passages of Lorem Ipsum available</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="pl-2 pt-3">
+                                        <img src="{% static 'dist/assets/images/Featured-posts.png' %}" alt="" class="img-fluid border-radius-5  border border-left-0 border-bottom-0 px-2 pt-2">
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="pt-3">
+                                        <h6><strong>How To Start Writing</strong></h6>
+                                        <p>There are many variations of passages of Lorem Ipsum available</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="pl-2 pt-3">
+                                        <img src="{% static 'dist/assets/images/Featured-posts.png' %}" alt="" class="img-fluid border-radius-5  border border-left-0 border-bottom-0 px-2 pt-2">
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="pt-3">
+                                        <h6><strong>How To Start Writing</strong></h6>
+                                        <p>There are many variations of passages of Lorem Ipsum available</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="email" class=""><strong>Email:</strong></label>
-                                </div>
-                            </div>
-                            <div class="col-md-9">
-                                <div class="form-group">
-                                    <input type="email" id="email" placeholder="Enter Email..">
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-{% endblock %}
+<section>
+    <div class="container pb-5">
+         <div class="row ">
+            <div class="col-md-12">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item p-3">
+                {% if object.has_previous %}
+                        <a class="previous" href="?page={{ object.previous_page_number }}">
+                            <span aria-hidden="true"><i class='fas fa-angle-left fafa-nav-active'></i></span></a>
+                {% else %}
+                        <a class="previous"><i class='fas fa-angle-left fafa-nav-in-active'></i></a>
+                {% endif %}
+                    </li>
+                {% for page in object.paginator.page_range %}
+                    {% if object.number == page %}
+                    <li class="page-item active p-3"><a class="rounded-circle page-link" href="?page={{page}}">{{page}}</a></li>
+                    {% elif page > object.number|add:'-3' and page < object.number|add:'3' %}
+                    <li class="page-item p-3"><a class="rounded-circle page-link" href="?page={{page}}">{{page}}</a></li>
+                    {% endif %}
+                {% endfor %}
+                <li class="page-item p-3">
+                {% if object.has_next %}
+                    <a class="previous" href="?page={{ object.next_page_number }}"><span aria-hidden="true"><i class='fas fa-angle-right fafa-nav-in-active'></i></span></a>
+                {% else %}
+                  <a class="next"><i class='fas fa-angle-right fafa-nav-in-active'></i></a>
+                {% endif %}
+                </li>
+              </ul>
+        </div>
+      </div>
+    </div>
+</section>
 
-{% block extra_js %}
-<script>
-$(document).ready(function() {
-    $('.js-example-basic-single').select2();
-});
-</script>
 
 {% endblock %}
