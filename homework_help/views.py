@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.mail import EmailMultiAlternatives
 from django.db.models import Count
 from django.http import HttpResponseRedirect, HttpResponse
 from haystack.query import SearchQuerySet
@@ -203,6 +204,23 @@ class OrderCreateView(LoginRequiredMixin, FormView):
         question = Question.objects.get(uid= self.kwargs.get('uid'))
         order = Order(question=question, author=request.user)
         order.save()
+
+        locus_email = "kushagra.goel@locusrags.com"
+        if not settings.DEBUG:
+            locus_email = "info@desklib.com"
+
+        subject = order.order_id + ' added'
+        message = question.question + ' added!'
+        from_email = settings.DEFAULT_FROM_EMAIL
+        recipient_list = [locus_email],
+        html_message = order.order_id +' is added by '+ order.author.email +'.<br>Question is '+ question.question
+        mail = EmailMultiAlternatives(subject, message, from_email, recipient_list)
+        for i in question.user_questionfiles.all():
+            mail.attach_file(i.file.file.name)
+        mail.attach_alternative(html_message, 'text/html')
+        mail.send(True)
+
+
         return HttpResponseRedirect(redirect_to=reverse('homework_help:order-detail-view', kwargs={'uuid': order.uuid}))
 
 
