@@ -39,7 +39,7 @@ CELERY_RESULT_BACKEND = 'django-db'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'desklib_dev_db',
+        'NAME': 'desklib_dev_db2',
         'USER': 'root',
         'PASSWORD': 'locus123',
     }
