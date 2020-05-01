@@ -12,7 +12,7 @@ from django.contrib.auth.admin import UserAdmin
 from post_office.admin import EmailAdmin
 from post_office.models import Email
 
-from documents.admin_forms import PublishedDateForm, ChangeAuthorForm, DocumentAdminForm, GetDocumentForm
+from documents.admin_forms import PublishedDateForm, ChangeAuthorForm, DocumentAdminForm
 from documents.models import Document, File, Page, Report, Issue, Course, College, Term, DocumentType
 from documents.utils import merge_pdf
 from subjects.models import Subject
