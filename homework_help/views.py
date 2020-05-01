@@ -1,3 +1,6 @@
+from email.header import Header
+from email.mime.image import MIMEImage
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import EmailMultiAlternatives
 from django.db.models import Count
@@ -215,11 +218,18 @@ class OrderCreateView(LoginRequiredMixin, FormView):
         recipient_list = [locus_email],
         html_message = order.order_id +' is added by '+ order.author.email +'.<br>Question is '+ question.question
         mail = EmailMultiAlternatives(subject, message, from_email, recipient_list)
+
+        # if image:
         for i in question.user_questionfiles.all():
-            mail.attach_file(i.file.path)
+
+            mime_image = MIMEImage(i.file.read())
+            mime_image.add_header('Content-ID', '<image>', filename=i.title)
+            mail.attach(mime_image)
+
+
+            # mail.attach_file(.path)
         mail.attach_alternative(html_message, 'text/html')
         mail.send(True)
-
 
         return HttpResponseRedirect(redirect_to=reverse('homework_help:order-detail-view', kwargs={'uuid': order.uuid}))
 
