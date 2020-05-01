@@ -1,7 +1,9 @@
 import os
+import tempfile
 
 from django.contrib import admin
-from django.http import HttpResponseRedirect
+from django.core.files.base import ContentFile
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
@@ -10,8 +12,9 @@ from django.contrib.auth.admin import UserAdmin
 from post_office.admin import EmailAdmin
 from post_office.models import Email
 
-from documents.admin_forms import PublishedDateForm, ChangeAuthorForm, DocumentAdminForm
+from documents.admin_forms import PublishedDateForm, ChangeAuthorForm, DocumentAdminForm, GetDocumentForm
 from documents.models import Document, File, Page, Report, Issue, Course, College, Term, DocumentType
+from documents.utils import merge_pdf
 from subjects.models import Subject
 from django.db.models import F
 from subjects.utils import get_subjects
@@ -33,6 +36,41 @@ def visble_documents(modeladmin, request, queryset):
 
 
 visble_documents.short_description = 'Visible Documents'
+
+def get_document_download(modeladmin, request, queryset):
+    for query in queryset:
+        filename = query.upload_file.name
+        filename = os.path.basename(filename)
+        filename = filename.replace(' ', '_')
+        f1 = query.upload_file.file
+        temp = tempfile.NamedTemporaryFile(suffix=filename)
+
+        with open(temp.name, 'wb') as f2:
+            f2.write(f1.read())
+
+        f2.close()
+
+        pre, ext = os.path.splitext(filename)
+        temp_dir = tempfile.TemporaryDirectory(prefix=pre)
+
+        os.system('soffice --headless --convert-to pdf --outdir ' + temp_dir.name + ' ' + temp.name)
+
+        pre, ext = os.path.splitext(filename)
+        file_with_pdf_ext = pre + ".pdf"
+        head, tail = os.path.split(temp.name)
+        pre, ext = os.path.splitext(tail)
+        pdf_converted_loc = os.path.join(temp_dir.name, pre + ".pdf")
+
+        merge_pdf(input_pdf=pdf_converted_loc,
+                  output=pdf_converted_loc,
+                  watermark='desklib/static/pdf/watermark-desklib.pdf')
+
+        f = open(pdf_converted_loc, 'rb')
+        response = HttpResponse(f.read(), content_type = 'application/pdf')
+        return response
+
+get_document_download.short_description = 'Download Document'
+
 
 def chage_publish_date(modeladmin, request, queryset):
     if 'date_time_1' and 'date_time_0' in request.POST:
@@ -196,7 +234,7 @@ class DocumentAdmin(admin.ModelAdmin):
     search_fields = ['title','slug','upload_file']
     list_display = ('title', 'published_date', 'is_published', 'is_visible', 'page', 'words', 'get_subjects')
     list_filter = (SubjectListFilter, 'is_published', 'is_visible' , EmployeeListFilter)
-    actions = [publish_documents, un_publish_documents, visble_documents, soft_delete_documents, set_document_subject, restore_documents, hard_delete_documents, chage_publish_date, change_author]
+    actions = [publish_documents, un_publish_documents, visble_documents, soft_delete_documents, set_document_subject, restore_documents, hard_delete_documents, chage_publish_date, change_author, get_document_download]
 
     inlines = [
         FileInline,
@@ -216,6 +254,7 @@ class DocumentAdmin(admin.ModelAdmin):
         return qs.filter(author=request.user)
 
     def get_subjects(self, obj):
+        # obj.select_related('vendor')
         return "\n".join([sub.name for sub in obj.subjects.all()])
 
     def get_queryset(self, request):
