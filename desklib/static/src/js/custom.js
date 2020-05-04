@@ -44,6 +44,9 @@ $('.sm-search').typeahead(null,{
 });
 
 
+
+
+
 //$( document ).ready(function() {
 //        var stocks = new Bloodhound({
 //            datumTokenizer: function (datum) {Bloodhound.tokenizers.obj.whitespace(datum.tokens);},

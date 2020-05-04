@@ -10,62 +10,175 @@
 </nav>
 </section>
 <section>
-    <div class="">
-        <img src="{% static 'dist/assets/images/study.jpg' %}" alt="Desklib blog banner" class="img-fluid">
-    </div>
+    <div class="blog-list-banner "></div>
 </section>
 <section>
-    <div class="container pb-5 pt-5">
+    <div class="container pt-5">
         <div class="row">
-            <div class="col-md-4">
-                <a href="" class="text-decoration-none" target="_blank">
-                    <div class="card border-0 h-100 shadow">
-                        <img src="{% static 'dist/assets/images/Verify_email.png' %}" alt="" class="img-fluid">
-                        <div class="card-body bg-light">
-                            <h6>What is user interface design </h6>
+            <div class="col-md-12">
+                <h3 class="font-weight-bold">OUR BLOGS</h3>
+                <hr>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-8">
+                <div class="pr-md-4">
+                    <div class="row">
+                    {% for blog in object_list %}
+                        <div class="col-md-6 mb-5">
+                            <a href="{% url 'blog_detail' year=blog.published_date|date:'Y' month=blog.published_date|date:'m' date=blog.published_date|date:'d' slug=blog.slug %}" class="text-decoration-none">
+                                <div class="card border-0 h-100 shadow">
+                                    <img src="{{ blog.cover_image.url }}" alt="" class="img-fluid">
+                                        <div class="card-body bg-light">
+                                        <h6 class="black-font">{{blog.title}}</h6>
+                                        {% if blog.short_description %}
+                                            <small class="text-muted">{{blog.short_description}}</small>
+                                        {% endif %}
+                                            <p class="border-bottom py-2"></p>
+                                            <small class="border-right text-muted pr-3">{{blog.author}}</small>
+                                            <small class="text-muted pl-2">{{blog.published_date|date:"d M Y"}}</small>
+                                        </div>
+                                </div>
+                            </a>
                         </div>
-                    </div>
-                </a>
+                     {% endfor %}
+                </div>
+            </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item p-3">
+                            {% if object.has_previous %}
+                            <a class="previous" href="?page={{ object.previous_page_number }}">
+                            <span aria-hidden="true"><i class='fas fa-angle-left fafa-nav-active'></i></span></a>
+                {% else %}
+                        <a class="previous"><i class='fas fa-angle-left fafa-nav-in-active'></i></a>
+                {% endif %}
+                    </li>
+                {% for page in object.paginator.page_range %}
+                    {% if object.number == page %}
+                    <li class="page-item active p-3"><a class="rounded-circle page-link" href="?page={{page}}">{{page}}</a></li>
+                    {% elif page > object.number|add:'-3' and page < object.number|add:'3' %}
+                    <li class="page-item p-3"><a class="rounded-circle page-link" href="?page={{page}}">{{page}}</a></li>
+                    {% endif %}
+                {% endfor %}
+                <li class="page-item p-3">
+                {% if object.has_next %}
+                    <a class="previous" href="?page={{ object.next_page_number }}"><span aria-hidden="true"><i class='fas fa-angle-right fafa-nav-in-active'></i></span></a>
+                {% else %}
+                  <a class="next"><i class='fas fa-angle-right fafa-nav-in-active'></i></a>
+                {% endif %}
+                </li>
+              </ul>
+        </div>
+      </div>
             </div>
             <div class="col-md-4">
-                <a href="" class="text-decoration-none" target="_blank">
-                    <div class="card border-0 h-100 shadow">
-                        <img src="{% static 'dist/assets/images/Verify_email.png' %}" alt="" class="img-fluid">
-                        <div class="card-body bg-light">
-                            <h6>What is user interface design </h6>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card shadow p-4">
+                        <h2 class="text-center mb-3 mt-3 mt-md-3">Contact Us</h2>
+                        <form method="POST" id="signup" novalidate="novalidate">
+                             {% csrf_token %}
+                            <div class="row mt-2">
+                                <div class="col-md-5 col-lg-4">
+                                    <div class="form-group">
+                                        <label for="username" class="star"><strong>Name:</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-7 col-lg-8">
+                                    <div class="form-group">
+                                        <input type="text" id="username" name="name" class="form-control border-radius-20" placeholder="Enter Name..">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-5 col-lg-4">
+                                    <div class="form-group">
+                                        <label for="newemail" class="star"><strong>Email:</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-7 col-lg-8">
+                                    <div class="form-group">
+                                        <input type="text" name="email" class="form-control border-radius-20" id="newemail" placeholder="Enter Email..">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-5 col-lg-4">
+                                    <div class="form-group">
+                                        <label for="message" class="star"><strong>Message:</strong></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-7 col-lg-8">
+                                    <div class="form-group">
+                                        <textarea name="message" class="form-control" id="message" placeholder="Type Message"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-4 mb-4">
+                                <div class="col-md-12 col-lg-9 offset-lg-3">
+                                    <input type="submit" value="Submit" class="w-100 btn btn-bg-theme white border-radius-20">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+                 <div class="border mt-5">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="p-2 shadow">
+                            <h6 class="mb-0">Social Connect</h6>
                         </div>
                     </div>
-                </a>
+                </div>
+                <div class="row">
+                    <div class="col-3 col-md-6 col-lg-3 py-3 border-lg-right border-sm-right border-mob-right">
+                            <a href="https://facebook.com/sharer.php?u=http://{{request.get_host}}" target="_blank">
+                                <img src="{% static 'dist/assets/images/Social media-facebook.png' %}" alt="" class="img-fluid mx-auto d-block padding-left-10">
+                            </a>
+                    </div>
+                    <div class="col-3 col-md-6 col-lg-3 py-3 border-lg-right border-mob-right border-sm-right border-md-right">
+                            <a href="https://twitter.com/intent/tweet?url=http://{{request.get_host}}" target="_blank">
+                                <img src="{% static 'dist/assets/images/Social media-twitter.png' %}" alt="" class="img-fluid mx-auto d-block">
+                            </a>
+                    </div>
+                    <div class="col-3 col-md-6 col-lg-3 py-3 border-lg-right border-sm-right border-mob-right">
+                            <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://{{request.get_host}}&title=LinkedIn%20Developer%20Network &summary=My%20favorite%20developer%20program&source=LinkedIn" target="_blank">
+                                <img src="{% static 'dist/assets/images/Social media-linkedin.png' %}" alt="" class="img-fluid mx-auto d-block">
+                            </a>
+                    </div>
+                    <div class="col-3 col-md-6 col-lg-3 py-3">
+                            <a href="https://web.whatsapp.com/send?text=http://{{request.get_host}}" target="_blank">
+                                <img src="{% static 'dist/assets/images/Social media-whatsapp.png' %}" alt="" class="img-fluid mx-auto d-block padding-right-10">
+                            </a>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4">
-                <div class="">
-                    <h2 class="text-center mb-3 mt-3 mt-md-3">Contact Us</h2>
-                    <form method="POST">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="name" class=""><strong>Name:</strong></label>
-                                </div>
-                            </div>
-                            <div class="col-md-9">
-                                <div class="form-group">
-                                    <input type="text" id="name" placeholder="Enter Name..">
-                                </div>
+                  <div class="border mt-5 mb-5">
+                   <div class="row">
+                    <div class="col-md-12">
+                        <div class="p-2 shadow">
+                            <h6 class="mb-0">Featured Posts</h6>
+                        </div>
+                    </div>
+                </div>
+                    <div class="row">
+                         {% for featured_blog in featured_blog %}
+                        <div class="col-md-4">
+                            <div class="pt-3 pl-2">
+                                <img src="{% static 'dist/assets/images/Featured-posts.png' %}" alt="" class="img-fluid border-radius-5  border border-left-0 border-top-0 px-2 pb-2 mx-auto d-block">
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="email" class=""><strong>Email:</strong></label>
-                                </div>
-                            </div>
-                            <div class="col-md-9">
-                                <div class="form-group">
-                                    <input type="email" id="email" placeholder="Enter Email..">
-                                </div>
+                        <div class="col-md-8">
+                            <div class="pt-3 px-3 px-lg-0">
+                                <h6><strong>{{featured_blog.title|truncatechars:20}}</strong></h6>
+                                <p>{{featured_blog.description|safe|truncatechars:35}}</p>
                             </div>
                         </div>
-                    </form>
+                          {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -76,9 +189,29 @@
 
 {% block extra_js %}
 <script>
-$(document).ready(function() {
-    $('.js-example-basic-single').select2();
-});
+ jQuery(document).ready(function() {
+       $('#signup').submit(function(e){
+       $("#signup_data").text("");
+           e.preventDefault();
+           var data = $("#signup").serializeArray();
+           $.ajax({
+               url : "{% url 'api:contact-api:query-create-api' %}",
+               data: data,
+               type : "POST",
+               success : function(data){
+                   $("#username").val("");
+                   $("#newemail").val("");
+                   $("#message").val("");
+
+               },
+             //  error: function(data){
+              //    console.log(data.responseJSON);
+              //    $('#comment_data').text(data.responseJSON.email[0]);
+              // }
+           });
+       });
+   });
+
 </script>
 
 {% endblock %}

@@ -17,9 +17,9 @@
                 <h1 class="font-size-25">{{object.question|truncatechars:250}}</h1>
             </div>
         </div>
-        <div class="row mt-4 mb-3 justify-content-center">
+        <div class="row mt-4 mb-md-3 justify-content-center">
             {% for object in object.user_questionfiles.all %}
-            <div class="col-md-12 mb-4">
+            <div class="col-md-12 mb-md-4">
                 <div class="">
                     <img class="img-fluid mx-auto d-block" alt="question image" src="{{object.file.url}}" />
                 </div>
@@ -37,7 +37,6 @@
             <div class="col-md-12">
                 <h2 class="text-center">Expert's Answers</h2>
                 {% comment %}
-<!--            <h5 class="mb-3 text-center">{{answer}} Answers Are Available</h5>-->
                 {% endcomment %}
                 <div class="blur-image position-relative">
                 <div class="card position-absolute blur-image-position">
@@ -61,7 +60,7 @@
     </div>
 </section>
 <section>
-	<div class="container pt-5 pb-4">
+	<div class="container pt-md-5 pb-4">
 		<h2 class="text-center">Q & A Related To {{question.subjects}}</h2>
 		<div class="row mt-4">
 			{% for question in similar_questions %}
