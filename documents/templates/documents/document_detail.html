@@ -352,19 +352,19 @@ opacity:0.9 !important;
                                             <div class="main-div border-radius-5 shadow document-similar-height">
                                                 <img class="card-img-top " src="{{ results.cover_image }}" alt="{{ results.title }}">
                                                 <div class="card-body bg-light hover-div">
-                                                    <h6 class="word-wrap blue-theme">{{results.title|truncatechars:20}}</h6>
-<!--                                                    <div class="btn-d-none">-->
-<!--                                                    <span class="d-block">-->
-<!--                                                    <small class="text-muted">{{results.no_of_pages}}</small>-->
-<!--                                                    <small class="text-muted add-dash">pages</small>-->
-<!--                                                    </span>-->
-<!--                                                    <span class="d-block">-->
-<!--                                                    <small class="text-muted">{{results.no_of_words}}</small>-->
-<!--                                                    <small class="text-muted add-dash">words</small>-->
-<!--                                                    </span>-->
-<!--                                                    <small class="text-muted d-block">{{results.pub_date|date:"d M Y"}}</small>-->
-<!--                                                    <a href="{% url 'documents:document-view' results.slug %}" class="btn btn-bg-theme text-white mt-3 mb-3 pt-1 pb-1 border-radius-20">View Document</a>-->
-<!--                                                    </div>-->
+                                                    <h6 class="word-wrap blue-theme">{{results.title|truncatechars:30}}</h6>
+                                                    <div class="btn-d-none">
+                                                    <span class="d-block">
+                                                    <small class="text-muted">{{results.no_of_pages}}</small>
+                                                    <small class="text-muted add-dash">pages</small>
+                                                    </span>
+                                                    <span class="d-block">
+                                                    <small class="text-muted">{{results.no_of_words}}</small>
+                                                    <small class="text-muted add-dash">words</small>
+                                                    </span>
+                                                    <small class="text-muted d-block">{{results.pub_date|date:"d M Y"}}</small>
+                                                    <a href="{% url 'documents:document-view' results.slug %}" class="btn btn-bg-theme text-white mt-3 mb-3 pt-1 pb-1 border-radius-20 w-100">View</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
