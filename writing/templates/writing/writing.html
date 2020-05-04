@@ -30,14 +30,14 @@
         </div>
     {% endif %}
   {% endblock %}
-        <div class="row pl-5 pb-5 pltb-0">
-            <div class="col-md-6 mt-8 pt-md-5 ">
-                <h1 class="blue-theme py-1">Proofread your grammatical mistakes</h1>
+        <div class="row pl-0 pl-md-5 py-5">
+            <div class="col-md-6">
+                <h1 class="blue-theme">Proofread your grammatical mistakes</h1>
                 <h3 class="pb-2">Desklib trusted and free grammar checker <br>
                     helps you in finding mistakes</h3>
-                <a href="{% url 'writing:grammar' %}" class="btn text-white bg-blue-theme mt-md-3 mb-3 border-radius-30 px-4 py-2">
+                <a href="{% url 'writing:grammar' %}" class="btn text-white bg-blue-theme mt-md-3 border-radius-30 px-4 py-2 mb-4 mb-md-0">
                         Check Grammar
-                    </a>
+                </a>
             </div>
             <div class="col-md-6">
                 <img class="img-fluid pt-3 width-100
@@ -45,11 +45,11 @@
             </div>
         </div>
 </section>
-<section class="container pb-4 pt-2">
-    <h2 class="text-center py-4">Best proofreading and content editing service </h2>
-    <p class="text-center font-size-20">We make sure to help you improve your writing and get better results. Get an edge with error free and superior content</p>
-    <div class="row px-sm-5 py-sm-4 px-0 py-0">
-        <div class="col-md-4 pt-4 d-flex align-items-stretch">
+<section class="container pb-4 pt-5">
+    <h2 class="text-center">Best proofreading and content editing service </h2>
+    <p class="text-center">We make sure to help you improve your writing and get better results. Get an edge with error free and superior content</p>
+    <div class="row mt-4 px-0 py-0">
+        <div class="col-md-4">
             <div class="card border-0">
                 <img class="card-img-top" src="{% static 'dist/assets/images/Check_for_grammar.png' %}" alt="random1">
                 <div class="card-body">
@@ -60,7 +60,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 pt-4 d-flex align-items-stretch">
+        <div class="col-md-4">
             <div class="card border-0">
                 <img class="card-img-top" src="{% static 'dist/assets/images/Compare_texts_for_similarity.png' %}" alt="random2">
                 <div class="card-body">
@@ -71,7 +71,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 pt-4 d-flex align-items-stretch">
+        <div class="col-md-4">
            <div class="card border-0">
             
                 <img class="card-img-top" src="{% static 'dist/assets/images/Expert_help_in_proofreading.png' %}" alt="random3">
@@ -88,9 +88,9 @@
 </section>
 <section class="bg-light-grey">
     <div class="container py-5">
-        <h2 class="text-center py-2">Professional resume writing service</h2>
-        <p class="text-center py-2 font-size-20">Our free sample formats can be downloaded and used to create an excellent resume based on your requirements. We also have highly-experienced resume writers that can create a perfect resume for you.</p>
-        <div class="col text-center py-2">
+        <h2 class="text-center">Professional resume writing service</h2>
+        <p class="text-center">Our free sample formats can be downloaded and used to create an excellent resume based on your requirements. We also have highly-experienced resume writers that can create a perfect resume for you.</p>
+        <div class="col text-center pt-2">
               <a href="{% url 'writing:sample-list-view' %}" class="btn text-white bg-blue-theme border-radius-30 px-4 py-2">Explore samples</a>
         </div>
     </div>

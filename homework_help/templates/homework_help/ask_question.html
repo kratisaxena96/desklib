@@ -104,12 +104,12 @@
 	<div class="container pt-5 pb-5">
 		<h2 class="text-center">Steps To Get Help With Your Homework</h2>
 		<div class="row mt-5">
-			<div class="col-md-4">
+			<div class="col-md-4 mb-4 mb-md-0">
 				<img src="{% static 'dist/assets/images/Enter question.svg' %}" alt="enter question" class="img-fluid mx-auto d-block width-200">
 				<h5 class="text-center mt-2">ENTER QUESTION</h5>
 				<p class="mt-1 text-center">Add all relevant details & images</p>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-4 mb-4 mb-md-0">
 				<img src="{% static 'dist/assets/images/Quick payment.svg' %}" alt="quick payment" class="img-fluid mx-auto d-block width-200">
 				<h5 class="text-center mt-2">QUICK PAYMENT</h5>
 				<p class="mt-1 text-center">Pay the amount using quick payment options</p>
@@ -129,7 +129,7 @@
 				<h2 class="text-center">Looking For Previous Answer?</h2>
 				 <form class="" action="{% url 'homework_help:search-question' %}">
 					 <div class="form-group d-flex justify-content-center mt-4">
-                     <div id="remote" class="input-group w-50 width-100">
+                     <div id="question" class="input-group w-50 width-100">
                       	 <input class=" form-control form-control-lg shadow border-radius-30 typeahead search-bar-border-none" type="text" placeholder="Search Your Question" name="q">
                          	<div class="input-group-append">
                             	<button class="btn btn-lg rounded-circle search-bg-body" type="submit"><i class="fa fa-search rounded-circle search-icon"></i></button>
@@ -277,7 +277,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-4 mt-4 mt-md-0">
                 <ul class="list-group sticky-top">
                     <li class="list-group-item"><a href="#cardOne">Get Homework help online</a></li>
                     <li class="list-group-item"><a href="#cardTwo">Why you should use our online homework help service</a></li>
@@ -722,5 +722,7 @@ jQuery(document).ready(function() {
 
 });
 </script>
+
 {% endcomment %}
+
 {% endblock extra_js %}
