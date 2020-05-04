@@ -52,7 +52,7 @@ class QuestionSitemap(Sitemap):
     # limit = 50000
 
     def items(self):
-        return Question.objects.filter(is_published=True, is_visible=True, updated__lte=timezone.now()).order_by('question')
+        return Question.objects.filter(is_published=True, is_visible=True, published_date__lte=timezone.now()).order_by('question')
 
     def lastmod(self, obj):
         return obj.updated

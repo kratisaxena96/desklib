@@ -1,3 +1,4 @@
+from django.utils import timezone
 from email.header import Header
 from email.mime.image import MIMEImage
 
@@ -127,7 +128,7 @@ class AskQuestionView(MetadataMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super(AskQuestionView, self).get_context_data(**kwargs)
-        queryset = Question.objects.all().order_by('-created')[:6]
+        queryset = Question.objects.filter(is_published=True, is_visible=True, published_date__lte=timezone.now()).order_by('-published_date')[:6]
         subject = Subject.objects.all()[:12]
         # order = Order.objects.get(order_id=self.kwargs['order_id'])
         context['question'] = queryset

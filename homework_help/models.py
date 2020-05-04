@@ -40,12 +40,12 @@ def upload_to(instance, filename):
 def upload_question_to(instance, filename):
     now = timezone.now()
     # now = timezone.localtime(timezone.now())
-    # filename_base, filename_ext = os.path.splitext(filename)
+    # filename_base, filename_ext = os.path.splitext(instance.title)
     # uid = instance.content_object.uuid
 
     return 'homework_help/question/{}/{}'.format(
         now.strftime("%Y/%m/%d/"),
-        filename,
+        instance.title
     )
 
 
@@ -84,6 +84,7 @@ class Question(ModelMeta, models.Model):
     is_published = models.BooleanField(_('Is Published'), default=True)
     is_visible = models.BooleanField(_('Is Visible'), default=True)
 
+    published_date = models.DateTimeField(_('Published Date'), default=timezone.now)
     created = models.DateTimeField(editable=False, auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     seo_title = models.CharField(max_length=90,
@@ -192,7 +193,7 @@ class QuestionFile(models.Model):
         if not self.id:
             self.created = timezone.now()
 
-            self.title = self.file.name
+            # self.title = self.file.name
 
             filename = self.file.name
             filename = os.path.basename(filename)
@@ -203,6 +204,10 @@ class QuestionFile(models.Model):
                 f2.write(f1.read())
             f2.close()
             self.content = textract.process(temp.name).decode("utf-8")
+
+
+            filename_base, filename_ext = os.path.splitext(self.file.name)
+            self.title = str(uuid.uuid4()) + filename_ext
 
         self.updated = timezone.now()
         if self.require_recalculation:
