@@ -232,7 +232,7 @@ class DocumentView(JsonLdDetailView):
 #             return redirect('subscription')
 
 
-class DocumentDownloadDetailView(LoginRequiredMixin, SubscriptionCheckMixin, FormView):
+class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
     template_name = 'documents/download_info.html'
     form_class = DownloadFileForm
     payperdoc = False

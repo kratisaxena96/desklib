@@ -133,10 +133,10 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    # 'django.middleware.cache.UpdateCacheMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.cache.FetchFromCacheMiddleware',
-    # 'django.middleware.http.ConditionalGetMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
+    'django.middleware.http.ConditionalGetMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -154,25 +154,24 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        'APP_DIRS': True,
         'OPTIONS': {
-        # 'loaders': [
-        #         ('django.template.loaders.cached.Loader', [
-        #             'django.template.loaders.filesystem.Loader',
-        #             'django.template.loaders.app_directories.Loader',
-        #         ]),
-        #     ],
-        'context_processors': [
-            'django.template.context_processors.debug',
-            'django.template.context_processors.request',
-            'django.template.context_processors.i18n',
-            'django.contrib.auth.context_processors.auth',
-            'desklib.context_processor.from_settings',
-            'desklib.context_preprocessor.get_subjects',
-            # 'allauth.account.context_processors.account',
-            # 'allauth.socialaccount.context_processors.socialaccount',
-            'django.contrib.messages.context_processors.messages',
-        ],
+        'loaders': [
+                ('django.template.loaders.cached.Loader', [
+                    'django.template.loaders.filesystem.Loader',
+                    'django.template.loaders.app_directories.Loader',
+                ]),
+            ],
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.template.context_processors.i18n',
+                'django.contrib.auth.context_processors.auth',
+                'desklib.context_processor.from_settings',
+                'desklib.context_preprocessor.get_subjects',
+                # 'allauth.account.context_processors.account',
+                # 'allauth.socialaccount.context_processors.socialaccount',
+                'django.contrib.messages.context_processors.messages',
+            ],
         },
     },
 ]
@@ -321,24 +320,24 @@ ROBOTS_USE_SCHEME_IN_HOST = True
 
 
 # for chaced db run command "python manage.py createcachetable" for first time sorl-thumbnail required it
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'my_table',
-    }
-}
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+#         'LOCATION': 'my_table',
+#     }
+# }
 # CACHES = {
 #     'default': {
 #         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
 #         'LOCATION': '127.0.0.1:11211',
 #     }
 # }
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-#         'LOCATION': '/var/tmp/django_cache',
-#     }
-# }
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/var/tmp/django_cache',
+    }
+}
 # DATA_UPLOAD_MAX_MEMORY_SIZE = 2621440*4
 # DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000*2
 #https://sorl-thumbnail.readthedocs.io/en/latest/requirements.html kindly satisfy requirements for sorl-thumbnail.
