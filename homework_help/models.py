@@ -105,17 +105,17 @@ class Question(ModelMeta, models.Model):
         # self.slug = slugify(truncatechars(value, 50))
         # super(Question, self).save(*args, **kwargs)
         # self.slug = slugify(truncatechars(value, 50)+str(self.pk))
+        if not self.id:
+            slug_question = slug_original = slugify(truncatechars(value, 50))
 
-        slug_question = slug_original = slugify(truncatechars(value, 50))
+            for i in itertools.count(1):
+                if not Question.objects.filter(slug=slug_question).exists():
+                    break
+                slug_question = '{}-{}'.format(slug_original, i)
 
-        for i in itertools.count(1):
-            if not Question.objects.filter(slug=slug_question).exists():
-                break
-            slug_question = '{}-{}'.format(slug_original, i)
-
-        self.slug = slug_question
-        self.seo_title = truncatechars(value, 50)
-        self.seo_description = value
+            self.slug = slug_question
+            self.seo_title = truncatechars(value, 50)
+            self.seo_description = value
         super().save(*args, **kwargs)
 
 
