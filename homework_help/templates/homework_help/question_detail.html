@@ -26,7 +26,7 @@
             </div>
             {% endfor %}
              <div class="w-100">
-                 <a href="#image-content" class="content">Show transcribed image text</a>
+                 <a href="#image-content" class="content text-muted">Show transcribed image text</a>
              </div>
         </div>
     </div>
@@ -59,12 +59,12 @@
         </div>
     </div>
 </section>
-<section>
+<section id="image-content">
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
                 {% for object in object.user_questionfiles.all %}
-               <p id="image-content" class="">{{object.content}}</p>
+               <p  class="">{{object.content}}</p>
                 {% endfor %}
             </div>
             {% comment %}
@@ -127,14 +127,17 @@
 {% endblock %}
 
 {% block extra_js %}
+<script>
 $(document).ready(function(){
-    $('.content').on('click', function() {
-        e.preventDefault();
-     $('html, body').animate({scrollTop: $(this.hash).offset().top - 50}, 500);
-    return false;
-})
-});
+  $('a[href*="#image-content"]').on('click', function (e) {
+    e.preventDefault();
 
+    $('html, body').animate({
+    scrollTop: $($(this).attr('href')).offset().top
+    }, 800, 'linear');
+});
+});
+</script>
 <script>
 
     $("#question-form").submit(function(e) {
