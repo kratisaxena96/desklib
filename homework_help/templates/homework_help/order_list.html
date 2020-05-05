@@ -42,21 +42,26 @@
                     <li class="page-item p-3">
                 {% if object.has_previous %}
                         <a class="previous" href="?page={{ object.previous_page_number }}">
-                            <span aria-hidden="true"><i class='fas fa-angle-left fafa-nav-active'></i></span></a>
+                            <span aria-hidden="true"><i class='fas fa-angle-left fafa-nav-active blue-theme'></i></span>
+                        </a>
                 {% else %}
                         <a class="previous"><i class='fas fa-angle-left fafa-nav-in-active'></i></a>
                 {% endif %}
                     </li>
                 {% for page in object.paginator.page_range %}
                     {% if object.number == page %}
-                    <li class="page-item active p-3"><a class="rounded-circle page-link" href="?page={{page}}">{{page}}</a></li>
+                    <li class="page-item active p-3">
+                        <a class="rounded-circle page-link border-color bg-blue-theme" href="?page={{page}}">{{page}}</a>
+                    </li>
                     {% elif page > object.number|add:'-3' and page < object.number|add:'3' %}
-                    <li class="page-item p-3"><a class="rounded-circle page-link" href="?page={{page}}">{{page}}</a></li>
+                    <li class="page-item p-3">
+                        <a class="rounded-circle page-link page-link blue-theme" href="?page={{page}}">{{page}}</a>
+                    </li>
                     {% endif %}
                 {% endfor %}
                 <li class="page-item p-3">
                 {% if object.has_next %}
-                    <a class="previous" href="?page={{ object.next_page_number }}"><span aria-hidden="true"><i class='fas fa-angle-right fafa-nav-in-active'></i></span></a>
+                    <a class="previous blue-theme" href="?page={{ object.next_page_number }}"><span aria-hidden="true"><i class='fas fa-angle-right fafa-nav-in-active'></i></span></a>
                 {% else %}
                   <a class="next"><i class='fas fa-angle-right fafa-nav-in-active'></i></a>
                 {% endif %}
