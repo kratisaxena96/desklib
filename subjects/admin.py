@@ -28,7 +28,7 @@ class SubjectAdmin(admin.ModelAdmin):
     inlines = [SubjectContentInlineAdmin, ]
 
     def tag_list(self, obj):
-        return u", ".join(o.name for o in obj.keywords.all())
+        return u", ".join(list(obj.keywords.all().values_list('name',flat=True)))
 
 
 admin.site.register(Subject, SubjectAdmin)

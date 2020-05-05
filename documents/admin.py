@@ -254,8 +254,7 @@ class DocumentAdmin(admin.ModelAdmin):
         return qs.filter(author=request.user)
 
     def get_subjects(self, obj):
-        # obj.select_related('vendor')
-        return "\n".join([sub.name for sub in obj.subjects.all()])
+        return "\n".join(list(obj.subjects.all().values_list('name',flat=True)))
 
     def get_queryset(self, request):
         queryset = super(DocumentAdmin, self).get_queryset(request)
