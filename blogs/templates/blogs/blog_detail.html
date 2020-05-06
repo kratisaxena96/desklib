@@ -16,18 +16,44 @@
 </section>
 <section>
     <div class="pt-15rem pb-15rem position-relative" style="background-image:url('{{object.cover_image.url}}');background-size: cover; background-repeat: no-repeat; height:70vh;"></div>
-        <div class="container position-absolute bottom pt-12rem">
-            <p class="text-uppercase text-center">
-                <span class="pr-3 border-right-black">{{object.published_date|date:"d M Y"}}</span>
-                <span class="pl-3 pr-3 border-right-black">{{object.author}}</span>
-                {% if object.category.all %}
-                {% for category in object.category.all %}
-                <span class="pl-3">{{category}}</span>
-                {% endfor %}
-                {% endif %}
-            </p>
-            <h1 class="text-uppercase text-center blue-theme">{{object.title}}</h1>
+    <div class="container">
+         <div class="row mt-4">
+<!--             <div class="col-sm-3"></div>-->
+             <div class="col-sm-4">
+                 <span><strong>By:</strong></span>&nbsp;<span class="">{{object.author}}</span>
+             </div>
+             <div class="col-sm-4">
+            {% if object.category.all %}
+            {% for category in object.category.all %}
+                <span class="">{{category}}</span>
+             {% endfor %}
+            {% endif %}
+            </div>
+            <div class="col-sm-4">
+                <span class="">{{object.published_date|date:"d M Y"}}</span>
+            </div>
         </div>
+        <div class="row mt-4">
+            <div class="col-sm-12">
+                <h1 class="text-center">{{object.title}}</h1>
+            </div>
+        </div>
+    </div>
+
+{% comment %}
+<!--        <div class="container position-absolute bottom pt-12rem">-->
+<!--            <p class="text-uppercase text-center">-->
+<!--                <span class="pr-3 border-right-black">{{object.published_date|date:"d M Y"}}</span>-->
+<!--                <span class="pl-3 pr-3 border-right-black">{{object.author}}</span>-->
+<!--                {% if object.category.all %}-->
+<!--                {% for category in object.category.all %}-->
+<!--                <span class="pl-3">{{category}}</span>-->
+<!--                {% endfor %}-->
+<!--                {% endif %}-->
+<!--            </p>-->
+<!--            <h1 class="text-uppercase text-center blue-theme">{{object.title}}</h1>-->
+<!--        </div>-->
+  {% endcomment %}
 </section>
 <section>
     <div class="container pb-5 pt-5">

@@ -135,14 +135,47 @@
 						 {% if page_obj.has_previous or page_obj.has_next %}
                         <div class="float-right">
                             {% if selected %}
-                                    {% if page_obj.has_previous %}<a href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ page_obj.previous_page_number }}"/> <i class='fas fa-angle-left fafa-nav-active'></i></a>{% endif %}{% if not page_obj.has_previous %} <i class='fas fa-angle-left fafa-nav-in-active'></i>{% endif %}
+                                    {% if page_obj.has_previous %}
+                            <a href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ page_obj.previous_page_number }}"/>
+                                <i class='fas fa-angle-left fafa-nav-active'></i>
+                            </a>
+                            {% endif %}
+                            {% if not page_obj.has_previous %}
+                            <i class='fas fa-angle-left fafa-nav-in-active'>
+                            </i>
+                            {% endif %}
                                          &nbsp; &nbsp; &nbsp;
-                                    {% if page_obj.has_next %}<a href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ page_obj.next_page_number }}"><i class='fas fa-angle-right fafa-nav-active' ></i></a>{% endif %}{% if not page_obj.has_next %}<i class='fas fa-angle-right fafa-nav-in-active' ></i>{% endif %}
+                            {% if page_obj.has_next %}
+                            <a href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ page_obj.next_page_number }}">
+                                <i class='fas fa-angle-right fafa-nav-active'></i>
+                            </a>
+                            {% endif %}
+
+                            {% if not page_obj.has_next %}
+                            <i class='fas fa-angle-right fafa-nav-in-active'>
+                            </i>
+                            {% endif %}
                             {% else %}
-                                     {% if page_obj.has_previous %}<a href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}"/> <i class='fas fa-angle-left fafa-nav-active'></i></a>{% endif %}{% if not page_obj.has_previous %} <i class='fas fa-angle-left fafa-nav-in-active'></i>{% endif %}
+                                     {% if page_obj.has_previous %}
+                            <a href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}"/>
+                                <i class='fas fa-angle-left fafa-nav-active blue-theme'></i>
+                            </a>
+                            {% endif %}
+                            {% if not page_obj.has_previous %}
+                            <i class='fas fa-angle-left fafa-nav-in-active'>
+                            </i>
+                            {% endif %}
                                          &nbsp; &nbsp; &nbsp;
-                                    {% if page_obj.has_next %}<a href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}"><i class='fas fa-angle-right fafa-nav-active' ></i></a>{% endif %}{% if not page_obj.has_next %}<i class='fas fa-angle-right fafa-nav-in-active' ></i>{% endif %}
-                                 {% endif %}
+                            {% if page_obj.has_next %}
+                            <a href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}">
+                                <i class='fas fa-angle-right fafa-nav-active blue-theme'>
+                                </i>
+                            </a>
+                            {% endif %}{% if not page_obj.has_next %}
+                            <i class='fas fa-angle-right fafa-nav-in-active'>
+                            </i>
+                            {% endif %}
+                            {% endif %}
                             {% endif %}
 					 </div>
 				 </div>
@@ -255,23 +288,7 @@
                     {% endfor%}
                 </div>
 {% comment %}
-<!--                <div class="row mb-5">-->
-<!--                     {% for result in page_obj.object_list %}-->
-<!--                    <div class="col-sm-6 col-md-4 col-lg-3 mb-3">-->
-<!--                        <div class="main-div shadow border-radius-12">-->
-<!--                            <a href="{% url 'homework_help:question-detail-view' result.slug %}" class="h-350 d-inline-block w-100">-->
-<!--                            </a>-->
-<!--                            <a href="{% url 'homework_help:question-detail-view' result.slug %}" class="text-decoration-none">-->
-<!--                                <div class="card-body inner-div bg-light text-left">-->
-<!--                                     <h6 class="blue-theme">{{result.text|truncatechars:40}}</h6>-->
-<!--                                     <small class="text-muted d-inline d-md-block">{{result.created_date|date:"d M Y"}}</small>-->
-<!--                                     <a href="{% url 'homework_help:question-detail-view' result.slug %}" class="btn btn-bg-theme border-radius-20 btn-d-none text-white mt-3 mb-3 pt-1 pb-1">View Question</a>-->
-<!--                                </div>-->
-<!--                            </a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                     {% endfor%}-->
-<!--                </div>-->
+
 {% endcomment %}
 
                 {% else %}
@@ -312,10 +329,16 @@
                       {% if page_obj.has_previous %}
                         <li class="page-item p-3">
                             {% if selected %}
-                                <span class=""><a href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ page_obj.previous_page_number }}"><i class='fas fa-angle-left fafa-nav-active'></i></a>
+                                <span class="">
+                                    <a href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ page_obj.previous_page_number }}">
+                                        <i class='fas fa-angle-left fafa-nav-active blue-theme'></i>
+                                    </a>
                                 </span>
                             {% else %}
-                                <span class=""><a href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}"><i class='fas fa-angle-left fafa-nav-active'></i></a>
+                                <span class="">
+                                    <a href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}">
+                                        <i class='fas fa-angle-left fafa-nav-active blue-theme'></i>
+                                    </a>
                                 </span>
                             {% endif %}
                         </li>
@@ -327,14 +350,15 @@
                               {% for num in page_obj.paginator.page_range %}
                             {% if page_obj.number == num %}
                                     <li class="page-item active p-3">
-                                        <a class="rounded-circle page-link" href="#">{{ num }}<span class="sr-only">(current)</span></a>
+                                        <a class="rounded-circle page-link border-color bg-blue-theme" href="#">{{ num }}<span class="sr-only">(current)</span>
+                                        </a>
                                     </li>
                                 {%  elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
                                     <li class="page-item p-3">
                                         {% if selected %}
-                                            <a class="rounded-circle page-link" href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ num }}">{{ num }}</a>
+                                            <a class="rounded-circle page-link  blue-theme" href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ num }}">{{ num }}</a>
                                         {% else %}
-                                            <a class="rounded-circle page-link" href="?q={{ query }}&amp;page={{ num }}">{{ num }}</a>
+                                            <a class="rounded-circle page-link  blue-theme" href="?q={{ query }}&amp;page={{ num }}">{{ num }}</a>
                                         {% endif %}
                                     </li>
                                 {% endif %}
@@ -342,9 +366,13 @@
                               {% if page_obj.has_next %}
                             <li class="page-item p-3">
                                 {% if selected %}
-                                    <a href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ page_obj.next_page_number }}"><i class='fas fa-angle-right fafa-nav-active'></i></a>
+                                    <a class="blue-theme" href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ page_obj.next_page_number }}">
+                                        <i class='fas fa-angle-right fafa-nav-active blue-theme'></i>
+                                    </a>
                                 {% else %}
-                                    <a href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}"><i class='fas fa-angle-right fafa-nav-active'></i></a>
+                                    <a class="blue-theme" href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}">
+                                        <i class='fas fa-angle-right fafa-nav-active blue-theme'></i>
+                                    </a>
                                 {% endif %}
                             </li>
                             {% else %}

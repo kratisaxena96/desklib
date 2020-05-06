@@ -44,34 +44,42 @@
                      {% endfor %}
                 </div>
             </div>
+{% if object.has_other_pages %}
                 <div class="row">
                     <div class="col-md-12">
                         <ul class="pagination justify-content-center">
                             <li class="page-item p-3">
                             {% if object.has_previous %}
-                            <a class="previous" href="?page={{ object.previous_page_number }}">
-                            <span aria-hidden="true"><i class='fas fa-angle-left fafa-nav-active'></i></span></a>
-                {% else %}
-                        <a class="previous"><i class='fas fa-angle-left fafa-nav-in-active'></i></a>
-                {% endif %}
-                    </li>
-                {% for page in object.paginator.page_range %}
-                    {% if object.number == page %}
-                    <li class="page-item active p-3"><a class="rounded-circle page-link" href="?page={{page}}">{{page}}</a></li>
-                    {% elif page > object.number|add:'-3' and page < object.number|add:'3' %}
-                    <li class="page-item p-3"><a class="rounded-circle page-link" href="?page={{page}}">{{page}}</a></li>
-                    {% endif %}
-                {% endfor %}
-                <li class="page-item p-3">
-                {% if object.has_next %}
-                    <a class="previous" href="?page={{ object.next_page_number }}"><span aria-hidden="true"><i class='fas fa-angle-right fafa-nav-in-active'></i></span></a>
-                {% else %}
-                  <a class="next"><i class='fas fa-angle-right fafa-nav-in-active'></i></a>
-                {% endif %}
-                </li>
-              </ul>
-        </div>
-      </div>
+                                <a class="previous" href="?page={{ object.previous_page_number }}">
+                                    <span aria-hidden="true"><i class='fas fa-angle-left fafa-nav-active blue-theme'></i></span>
+                                </a>
+                            {% else %}
+                            <a class="previous"><i class='fas fa-angle-left fafa-nav-in-active'></i></a>
+                            {% endif %}
+                            </li>
+                        {% for page in object.paginator.page_range %}
+                            {% if object.number == page %}
+                            <li class="page-item active p-3">
+                                <a class="rounded-circle page-link border-color bg-blue-theme" href="?page={{page}}">{{page}}</a>
+                            </li>
+                            {% elif page > object.number|add:'-3' and page < object.number|add:'3' %}
+                            <li class="page-item p-3">
+                                <a class="rounded-circle page-link page-link blue-theme" href="?page={{page}}">{{page}}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                            <li class="page-item p-3">
+                            {% if object.has_next %}
+                                <a class="previous blue-theme" href="?page={{ object.next_page_number }}"><span aria-hidden="true"><i class='fas fa-angle-right fafa-nav-in-active'></i></span></a>
+                            {% else %}
+                                <a class="next"><i class='fas fa-angle-right fafa-nav-in-active'></i></a>
+                            {% endif %}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+{% endif %}
+
             </div>
             <div class="col-md-4">
                 <div class="row">
@@ -156,6 +164,7 @@
                     </div>
                 </div>
             </div>
+                        {% if featured_blog %}
                   <div class="border mt-5 mb-5">
                    <div class="row">
                     <div class="col-md-12">
@@ -180,6 +189,7 @@
                           {% endfor %}
                     </div>
                 </div>
+                        {% endif %}
             </div>
         </div>
     </div>
