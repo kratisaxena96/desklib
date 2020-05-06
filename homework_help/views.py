@@ -31,7 +31,7 @@ def autocomplete(request):
     item = {}
     i = 0
     for result in sqs:
-        item["question"] = result.question
+        item["question"] = result.text
         item["slug"] = result.slug
         data[i] = item
         item = {}
