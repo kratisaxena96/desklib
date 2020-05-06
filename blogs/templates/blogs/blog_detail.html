@@ -100,6 +100,7 @@
                     </div>
                 </div>
             </div>
+                  {% if featured_blog %}
                 <div class="border mt-5">
                    <div class="row">
                     <div class="col-md-12">
@@ -124,7 +125,7 @@
                           {% endfor %}
                     </div>
                 </div>
-<!--                </div>-->
+                {% endif %}
                     </div>
                 </div>
             </div>
@@ -133,6 +134,7 @@
         </div>
     </div>
 </section>
+
 
 {% comment %}
 {{object.title}}
