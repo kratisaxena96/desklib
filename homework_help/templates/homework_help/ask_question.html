@@ -122,6 +122,7 @@
 		</div>
 		</div>
 </section>
+
 <section class="bg-light">
 	<div class="container pt-5 pb-5">
 		<div class="row">
@@ -141,6 +142,7 @@
 	</div>
 	</div>
 </section>
+
 {% if question %}
 <section>
 	<div class="container pt-5 pb-4">
@@ -595,8 +597,43 @@ $('.homework-help-carousel').owlCarousel({
 $(document).ready(function() {
     $('.js-example-basic-multiple').select2();
 });
-
 </script>
+
+<script>
+$(document).ready(function() {
+ var search = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('question'),
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  // `states` is an array of state names defined in "The Basics"
+//  prefetch: '/homework-help/autocomplete/?q=com',
+
+   remote: {
+    url: '/homework-help/autocomplete/?q=%QUERY',
+    wildcard: '%QUERY'
+  }
+});
+
+$('#question .typeahead').typeahead(null,{
+  name: 'search',
+  display: 'question',
+  source: search,
+  templates: {
+    empty: [
+      '<div class="empty-message">',
+        'No results found',
+      '</div>'
+    ].join('\n'),
+
+		suggestion: Handlebars.compile('<a href="">{{object.question}}</a>')
+  }
+});
+});
+</script>
+
+
+
+
+
 
 {% comment %}
 <script>

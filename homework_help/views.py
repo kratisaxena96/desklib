@@ -27,11 +27,16 @@ from subjects.models import Subject
 
 def autocomplete(request):
     sqs = SearchQuerySet().models(Question).filter(content_auto=request.GET.get('q', ''))[:5]
-    suggestions = [result.text for result in sqs]
-    the_data = json.dumps({
-        'results': suggestions
-    })
-
+    data = {}
+    item = {}
+    i = 0
+    for result in sqs:
+        item["question"] = result.text
+        item["slug"] = result.slug
+        data[i] = item
+        item = {}
+        i += 1
+    the_data = json.dumps(data)
     return HttpResponse(the_data, content_type='application/json')
 
 class OrderDetailView(LoginRequiredMixin, DetailView):
