@@ -18,9 +18,10 @@
     <div class="pt-15rem pb-15rem" style="background-image:url('{{object.cover_image.url}}');background-size: cover; background-repeat: no-repeat; height:70vh;"></div>
     <div class="container">
          <div class="row mt-4">
-             <div class="col-sm-4">
+             <div class="col-sm-6">
                  <span><strong>By:</strong></span>&nbsp;<span class="">{{object.author.first_name}} </span>
              </div>
+             {% comment %}
              <div class="col-sm-4">
             {% if object.category.all %}
             {% for category in object.category.all %}
@@ -28,7 +29,8 @@
              {% endfor %}
             {% endif %}
             </div>
-            <div class="col-sm-4">
+             {% endcomment %}
+            <div class="col-sm-6">
                 <span class="">{{object.published_date|date:"d M Y"}}</span>
             </div>
         </div>

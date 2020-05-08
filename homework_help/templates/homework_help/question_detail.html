@@ -25,7 +25,7 @@
                 </div>
             </div>
             {% endfor %}
-             <div class="w-100">
+             <div class="w-100 container mt-4 mt-md-0">
                  <a href="#image-content" class="content text-muted">Show transcribed image text</a>
              </div>
         </div>
@@ -36,8 +36,6 @@
         <div class="row">
             <div class="col-md-12">
                 <h2 class="text-center">Expert's Answers</h2>
-                {% comment %}
-                {% endcomment %}
                 <div class="blur-image position-relative">
                 <div class="card position-absolute blur-image-position">
                     <div class="card-body p-5 text-center">
@@ -59,7 +57,8 @@
         </div>
     </div>
 </section>
-<section id="image-content">
+ {% if object.content %}
+<section id="image-content" class="mb-4 mt-3 mb-md-0 mt-md-0">
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
@@ -67,13 +66,10 @@
                <p  class="">{{object.content}}</p>
                 {% endfor %}
             </div>
-            {% comment %}
-                {% if object.content %}
-                 {% endif  %}
-            {% endcomment %}
         </div>
     </div>
 </section>
+{% endif  %}
 <section>
 	<div class="container pt-md-5 pb-4">
 		<h2 class="text-center">Q & A Related To {{question.subjects}}</h2>
