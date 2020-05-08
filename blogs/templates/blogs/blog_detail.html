@@ -18,9 +18,10 @@
     <div class="pt-15rem pb-15rem" style="background-image:url('{{object.cover_image.url}}');background-size: cover; background-repeat: no-repeat; height:70vh;"></div>
     <div class="container">
          <div class="row mt-4">
-             <div class="col-sm-4">
-                 <span><strong>By:</strong></span>&nbsp;<span class="">{{object.author}}</span>
+             <div class="col-sm-6">
+                 <span><strong>By:</strong></span>&nbsp;<span class="">{{object.author.first_name}} </span>
              </div>
+             {% comment %}
              <div class="col-sm-4">
             {% if object.category.all %}
             {% for category in object.category.all %}
@@ -28,7 +29,8 @@
              {% endfor %}
             {% endif %}
             </div>
-            <div class="col-sm-4">
+             {% endcomment %}
+            <div class="col-sm-6">
                 <span class="">{{object.published_date|date:"d M Y"}}</span>
             </div>
         </div>
@@ -38,21 +40,6 @@
             </div>
         </div>
     </div>
-
-{% comment %}
-<!--        <div class="container position-absolute bottom pt-12rem">-->
-<!--            <p class="text-uppercase text-center">-->
-<!--                <span class="pr-3 border-right-black">{{object.published_date|date:"d M Y"}}</span>-->
-<!--                <span class="pl-3 pr-3 border-right-black">{{object.author}}</span>-->
-<!--                {% if object.category.all %}-->
-<!--                {% for category in object.category.all %}-->
-<!--                <span class="pl-3">{{category}}</span>-->
-<!--                {% endfor %}-->
-<!--                {% endif %}-->
-<!--            </p>-->
-<!--            <h1 class="text-uppercase text-center blue-theme">{{object.title}}</h1>-->
-<!--        </div>-->
-  {% endcomment %}
 </section>
 <section>
     <div class="container pb-5 pt-5">
@@ -69,45 +56,45 @@
             </div>
             <div class="col-md-4">
                 <div class="border">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="p-2 shadow">
-                            <h6 class="mb-0">Social Connect</h6>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="p-2 shadow">
+                                <h6 class="mb-0">Social Connect</h6>
+                            </div>
                         </div>
                     </div>
-                </div>
-                  <div class="row">
-                    <div class="col-3 col-md-6 col-lg-3 py-3 border-lg-right border-sm-right border-mob-right">
+                    <div class="row">
+                        <div class="col-3 col-md-6 col-lg-3 py-3 border-lg-right border-sm-right border-mob-right">
                             <a href="https://facebook.com/sharer.php?u=http://{{request.get_host}}" target="_blank">
-                                <img src="{% static 'dist/assets/images/Social media-facebook.png' %}" alt="" class="img-fluid mx-auto d-block padding-left-10">
+                                <img src="{% static 'dist/assets/images/Social media-03-facebook.png' %}" alt="" class="img-fluid mx-auto d-block padding-left-10">
                             </a>
-                    </div>
-                    <div class="col-3 col-md-6 col-lg-3 py-3 border-lg-right border-mob-right border-sm-right border-md-right">
+                        </div>
+                        <div class="col-3 col-md-6 col-lg-3 py-3 border-lg-right border-mob-right border-sm-right border-md-right">
                             <a href="https://twitter.com/intent/tweet?url=http://{{request.get_host}}" target="_blank">
-                                <img src="{% static 'dist/assets/images/Social media-twitter.png' %}" alt="" class="img-fluid mx-auto d-block">
+                                <img src="{% static 'dist/assets/images/Social media-02-twitter.png' %}" alt="" class="img-fluid mx-auto d-block">
                             </a>
-                    </div>
-                    <div class="col-3 col-md-6 col-lg-3 py-3 border-lg-right border-sm-right border-mob-right">
+                        </div>
+                        <div class="col-3 col-md-6 col-lg-3 py-3 border-lg-right border-sm-right border-mob-right">
                             <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://{{request.get_host}}&title=LinkedIn%20Developer%20Network &summary=My%20favorite%20developer%20program&source=LinkedIn" target="_blank">
-                                <img src="{% static 'dist/assets/images/Social media-linkedin.png' %}" alt="" class="img-fluid mx-auto d-block">
+                                <img src="{% static 'dist/assets/images/Social media-06-linkedin.png' %}" alt="" class="img-fluid mx-auto d-block">
                             </a>
-                    </div>
-                    <div class="col-3 col-md-6 col-lg-3 py-3">
+                        </div>
+                        <div class="col-3 col-md-6 col-lg-3 py-3">
                             <a href="https://web.whatsapp.com/send?text=http://{{request.get_host}}" target="_blank">
-                                <img src="{% static 'dist/assets/images/Social media-whatsapp.png' %}" alt="" class="img-fluid mx-auto d-block padding-right-10">
+                                <img src="{% static 'dist/assets/images/Social media-04-whatsapp.png' %}" alt="" class="img-fluid mx-auto d-block padding-right-10">
                             </a>
-                    </div>
-                </div>
-            </div>
-                  {% if featured_blog %}
-                <div class="border mt-5">
-                   <div class="row">
-                    <div class="col-md-12">
-                        <div class="p-2 shadow">
-                            <h6 class="mb-0">Featured Posts</h6>
                         </div>
                     </div>
                 </div>
+                {% if featured_blog %}
+                <div class="border mt-5">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="p-2 shadow">
+                                <h6 class="mb-0">Featured Posts</h6>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                          {% for featured_blog in featured_blog %}
                         <div class="col-md-4">
@@ -125,21 +112,10 @@
                     </div>
                 </div>
                 {% endif %}
-                    </div>
-                </div>
-            </div>
-                </div>
             </div>
         </div>
     </div>
 </section>
 
-
-{% comment %}
-{{object.title}}
-<img src="{{object.cover_image.url}}">
-{{object.short_description}}
-{{object.description}}
-{% endcomment %}
 
 {% endblock %}
