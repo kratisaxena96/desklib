@@ -35,7 +35,7 @@
                                             <small class="text-muted">{{blog.short_description}}</small>
                                         {% endif %}
                                             <p class="border-bottom py-2"></p>
-                                            <small class="border-right text-muted pr-3">{{blog.author}}</small>
+                                            <small class="border-right text-muted pr-3">{{blog.author.first_name}}</small>
                                             <small class="text-muted pl-2">{{blog.published_date|date:"d M Y"}}</small>
                                         </div>
                                 </div>
@@ -194,6 +194,8 @@
         </div>
     </div>
 </section>
+
+
 
 {% endblock %}
 
