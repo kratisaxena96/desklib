@@ -154,8 +154,8 @@ PAYPAL_TEST = True
 RECAPTCHA_PUBLIC_KEY = os.environ['RECAPTCHA_PUBLIC_KEY']
 RECAPTCHA_PRIVATE_KEY = os.environ['RECAPTCHA_PRIVATE_KEY']
 
-DEFAULT_FILE_STORAGE = 'desklib.storages.CustomUploadsRootS3BotoStorage'
-STATICFILES_STORAGE = 'desklib.storages.CustomStaticRootS3BotoStorage'
+# DEFAULT_FILE_STORAGE = 'desklib.storages.CustomUploadsRootS3BotoStorage'
+# STATICFILES_STORAGE = 'desklib.storages.CustomStaticRootS3BotoStorage'
 # storage
 # AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 # AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
@@ -168,13 +168,13 @@ MEDIAFILES_LOCATION = 'media'
 
 #STATIC_URL = '%s/%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_STORAGE_BUCKET_NAME,  STATICFILES_LOCATION)
 #STATIC_URL = 'https://desklib.com/static/'
-AWS_S3_CUSTOM_DOMAIN = 'desklib.com'
-
-AWS_S3_SECURE_URLS = True
+# AWS_S3_CUSTOM_DOMAIN = 'desklib.com'
+#
+# AWS_S3_SECURE_URLS = True
 FLAG_MAIL_TO_TEST = True
 #AWS_HEADERS = {
 #   'Expires': 'Thu, 25 Nov 2016 21:00:00 GMT',
 #    'Cache-Control': 'max-age=94608000',
 #}
 
-AWS_QUERYSTRING_AUTH = False
+# AWS_QUERYSTRING_AUTH = False
