@@ -328,6 +328,7 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
                     self.payperdoc = True
                     remaining_downloads = 1
             except:
+                remaining_downloads = 0
                 if subscription_obj:
                     expiry_date_subscription = subscription_obj.expire_on
                     plan = subscription_obj.plan
