@@ -25,7 +25,7 @@ class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
         return Document
 
     def prepare_content(self, obj):
-        content = ' '.join(map(str, obj.content.split()[:2000]))
+        content = ' '.join(map(str, obj.content.split()[:500]))
         return content
 
     def prepare_subjects(self, obj):

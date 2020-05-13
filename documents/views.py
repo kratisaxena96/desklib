@@ -328,14 +328,16 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
                     self.payperdoc = True
                     remaining_downloads = 1
             except:
-                expiry_date_subscription = subscription_obj.expire_on
-                plan = subscription_obj.plan
-                plan_days = plan.days
-                plan_download_limit = plan.download_limit
-                startdate_subscription = expiry_date_subscription - timedelta(days=plan_days)
-                download_count = Download.objects.filter(user=self.request.user, created_at__gte=startdate_subscription,
-                                                         created_at__lte=expiry_date_subscription, ).count()
-                remaining_downloads = plan_download_limit - download_count
+                remaining_downloads = 0
+                if subscription_obj:
+                    expiry_date_subscription = subscription_obj.expire_on
+                    plan = subscription_obj.plan
+                    plan_days = plan.days
+                    plan_download_limit = plan.download_limit
+                    startdate_subscription = expiry_date_subscription - timedelta(days=plan_days)
+                    download_count = Download.objects.filter(user=self.request.user, created_at__gte=startdate_subscription,
+                                                             created_at__lte=expiry_date_subscription, ).count()
+                    remaining_downloads = plan_download_limit - download_count
 
             if remaining_downloads > 0 or self.payperdoc:
                 slug = request.POST['file']
