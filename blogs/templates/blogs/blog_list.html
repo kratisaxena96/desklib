@@ -1,19 +1,20 @@
 {% extends "desklib/base.html" %}
 {% load staticfiles %}
 {% block content %}
+
 <section>
     <nav aria-label="breadcrumb">
-      <ol class="breadcrumb mb-0">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-<!--        <li class="breadcrumb-item"><a href="{% url 'blog'%}">blog</a></li>-->
+      <ol class="breadcrumb mb-0 bg-blue-theme rounded-0">
+        <li class="breadcrumb-item"><a href="/" class="white">Home</a></li>
+        <li class="breadcrumb-item active white" aria-current="page">blog</li>
   </ol>
 </nav>
 </section>
 <section>
-    <div class="blog-list-banner "></div>
+    <div class="blog-list-banner"></div>
 </section>
 <section>
-    <div class="container pt-5">
+    <div class="container pt-5 pb-5">
         <div class="row">
             <div class="col-md-12">
                 <h3 class="font-weight-bold">OUR BLOGS</h3>
@@ -25,7 +26,7 @@
                 <div class="pr-md-4">
                     <div class="row">
                     {% for blog in object_list %}
-                        <div class="col-md-6 mb-5">
+                        <div class="col-md-6 mb-5 mb-md-0">
                             <a href="{% url 'blog_detail' year=blog.published_date|date:'Y' month=blog.published_date|date:'m' date=blog.published_date|date:'d' slug=blog.slug %}" class="text-decoration-none">
                                 <div class="card border-0 h-100 shadow">
                                     <img src="{{ blog.cover_image.url }}" alt="" class="img-fluid">
@@ -85,7 +86,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card shadow p-4">
-                        <h2 class="text-center mb-3 mt-3 mt-md-3">Contact Us</h2>
+                            <h5 class="mb-3 mt-3 mt-md-3"><strong>Contact Us Form</strong></h5>
                         <form method="POST" id="signup" novalidate="novalidate">
                              {% csrf_token %}
                             <div class="row mt-2">
@@ -96,7 +97,8 @@
                                 </div>
                                 <div class="col-md-7 col-lg-8">
                                     <div class="form-group">
-                                        <input type="text" id="username" name="name" class="form-control border-radius-20" placeholder="Enter Name..">
+                                        <input type="text" id="username" name="name" class="mb-2 form-control border-radius-20" placeholder="Enter Name.." aria-required="true">
+                                            <span class="subs_name text-danger"></span>
                                     </div>
                                 </div>
                             </div>
@@ -108,7 +110,8 @@
                                 </div>
                                 <div class="col-md-7 col-lg-8">
                                     <div class="form-group">
-                                        <input type="text" name="email" class="form-control border-radius-20" id="newemail" placeholder="Enter Email..">
+                                        <input type="text" name="email" class="mb-2 form-control border-radius-20" id="newemail" placeholder="Enter Email.." aria-required="true">
+                                            <span class="subs_email text-danger"></span>
                                     </div>
                                 </div>
                             </div>
@@ -120,56 +123,29 @@
                                 </div>
                                 <div class="col-md-7 col-lg-8">
                                     <div class="form-group">
-                                        <textarea name="message" class="form-control" id="message" placeholder="Type Message"></textarea>
+                                        <textarea name="message" class="mb-2 form-control" id="message" placeholder="Type Message" aria-required="true"></textarea>
+                                            <span class="subs_message text-danger"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row mt-4 mb-4">
-                                <div class="col-md-12 col-lg-9 offset-lg-3">
-                                    <input type="submit" value="Submit" class="w-100 btn btn-bg-theme white border-radius-20">
+                                <div class="col-md-5 col-lg-4"></div>
+                                <div class="col-lg-12">
+                                    <div class="text-center">
+                                        <input type="submit" value="Submit"class="btn btn-bg-theme white border-radius-20 w-50">
+                                    </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                     </div>
                 </div>
-                 <div class="border mt-5">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="p-2 shadow">
-                            <h6 class="mb-0">Social Connect</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-3 col-md-6 col-lg-3 py-3 border-lg-right border-sm-right border-mob-right">
-                            <a href="https://facebook.com/sharer.php?u=http://{{request.get_host}}" target="_blank">
-                                <img src="{% static 'dist/assets/images/Social media-03-facebook.png' %}" alt="" class="img-fluid mx-auto d-block padding-left-10">
-                            </a>
-                    </div>
-                    <div class="col-3 col-md-6 col-lg-3 py-3 border-lg-right border-mob-right border-sm-right border-md-right">
-                            <a href="https://twitter.com/intent/tweet?url=http://{{request.get_host}}" target="_blank">
-                                <img src="{% static 'dist/assets/images/Social media-02-twitter.png' %}" alt="" class="img-fluid mx-auto d-block">
-                            </a>
-                    </div>
-                    <div class="col-3 col-md-6 col-lg-3 py-3 border-lg-right border-sm-right border-mob-right">
-                            <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://{{request.get_host}}&title=LinkedIn%20Developer%20Network &summary=My%20favorite%20developer%20program&source=LinkedIn" target="_blank">
-                                <img src="{% static 'dist/assets/images/Social media-06-linkedin.png' %}" alt="" class="img-fluid mx-auto d-block">
-                            </a>
-                    </div>
-                    <div class="col-3 col-md-6 col-lg-3 py-3">
-                            <a href="https://web.whatsapp.com/send?text=http://{{request.get_host}}" target="_blank">
-                                <img src="{% static 'dist/assets/images/Social media-04-whatsapp.png' %}" alt="" class="img-fluid mx-auto d-block padding-right-10">
-                            </a>
-                    </div>
-                </div>
-            </div>
                         {% if featured_blog %}
-                  <div class="border mt-5 mb-5">
+                  <div class="border mt-5">
                    <div class="row">
                     <div class="col-md-12">
                         <div class="p-2 shadow">
-                            <h6 class="mb-0">Featured Posts</h6>
+                            <h5 class="mb-0"><strong>Featured Posts</strong></h5>
                         </div>
                     </div>
                 </div>
@@ -195,6 +171,20 @@
     </div>
 </section>
 
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content bg-dark">
+      <div class="">
+        <h4 class="modal-title p-5 white" id="exampleModalLongTitle">Your form has been Successfully submitted.</h4>
+      </div>
+      <div class="modal-body py-5 pt-0">
+          <img src="{% static 'dist/assets/images/checked.png' %}" class="mx-auto d-block width-100">
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 
 {% endblock %}
@@ -212,20 +202,25 @@
                data: data,
                type : "POST",
                success : function(data){
+                   $(".modal").modal("show");
                    $("#username").val("");
                    $("#newemail").val("");
                    $("#message").val("");
 
                },
-             //  error: function(data){
-              //    console.log(data.responseJSON);
-              //    $('#comment_data').text(data.responseJSON.email[0]);
-              // }
+               error: function(data){
+               // $('.subs_name').text('This field may not be blank.');
+              //  $('.subs_email').text('This field may not be blank.');
+              // $('.subs_message').text('This field may not be blank.');
+
+                 $('.subs_name').text(data.responseJSON.name[0]);
+                 $('.subs_email').text(data.responseJSON.email[0]);
+                 $('.subs_message').text(data.responseJSON.message[0]);
+               }
            });
        });
    });
 
 </script>
-
 
 {% endblock extra_js %}

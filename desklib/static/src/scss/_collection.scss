@@ -378,6 +378,13 @@ input[type="submit"].btn-block.width-25 {
     padding-bottom: 15rem;
     height: 70vh;
 }
+
+.blog-detail-banner{
+    background-image:url('{{object.cover_image.url}}');
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    height:70vh;
+ }
 #custom-templates .empty-message {
   padding: 5px 10px;
  text-align: center;
@@ -1238,8 +1245,16 @@ display:none;
 
 @media only screen and (max-width: $breakpoint-tablet) {
 .blog-list-banner{
-    padding-bottom: 3rem;
+    padding-bottom: 7rem;
+    height: 20vh;
 }
+
+
+// .blog-detail-banner{
+//    height:32vh !important;
+//    padding-bottom: 0px;
+//    padding-top: 11rem;
+//  }
 	.img-top-text {
 		position: absolute;
 		z-index: 30;
@@ -1283,9 +1298,23 @@ display:none;
 
 }
 
+
+
 		//	---------------  For Mobile ---------//
 
 @media only screen and (max-width: $breakpoint-mobile) {
+.blog-list-banner{
+    height: 20vh;
+    padding-top: 7rem;
+    padding-bottom: 2rem;
+}
+.blog-detail-banner{
+   height:32vh !important;
+   padding-bottom: 0px;
+   padding-top: 11rem;
+ }
+
+
 .main-div:hover .btn-d-none {
 		display: none;
 }
@@ -1355,10 +1384,6 @@ display:none;
 // .bottom{
 //	    top: 0px;
 //	}
-.blog-list-banner{
-        padding-bottom: 7rem;
-        padding-top: 5rem;
-	}
 .blur-image-position{
     left: 0;
     right: 0;
@@ -1373,6 +1398,15 @@ display:none;
 }
 
 @media only screen and (min-width: $breakpoint-mobile){
+.blog-list-banner{
+    height: 20vh;
+    padding-bottom: 2rem;
+}
+.blog-detail-banner{
+    padding-bottom: 0px;
+    height: 36vh !important;
+}
+
 	#profile-table {
 		background-color: white !important;
 	}
@@ -1388,10 +1422,31 @@ display:none;
 .border-sm-right {
    border-right: 1px solid $border-gray;
   }
+}
+
+@media only screen and (min-width: $breakpoint-tablet){
+.blog-list-banner{
+    padding-bottom: 7rem;
+    height: 20vh;
+}
+.blog-detail-banner{
+    padding-bottom: 0px;
+    height: 36vh !important;
+}
 
 }
 
 @media only screen and (min-width: $breakpoint-laptop) {
+.blog-list-banner{
+    padding-bottom: 15rem;
+    height: 20vh;
+}
+.blog-detail-banner{
+   height:70vh !important;
+   padding-bottom: 15rem;
+   padding-top: 15rem;
+ }
+
 .main-div:hover .btn-d-none {
 		display: block;
 }
@@ -1406,6 +1461,8 @@ display:none;
  }
 
 }
+
+
 
 		//--------- For mobile(576)	---------//
 /*

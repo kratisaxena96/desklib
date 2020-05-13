@@ -7,19 +7,26 @@
 {% block content %}
 <section>
     <nav aria-label="breadcrumb">
-      <ol class="breadcrumb mb-0">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'blog' %}">blog</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{object.title}}</li>
+      <ol class="breadcrumb mb-0 bg-blue-theme rounded-0">
+        <li class="breadcrumb-item"><a href="/" class="white">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'blog' %}" class="white">blog</a></li>
+        <li class="breadcrumb-item active white" aria-current="page">{{object.title}}</li>
   </ol>
 </nav>
 </section>
 <section>
-    <div class="pt-15rem pb-15rem" style="background-image:url('{{object.cover_image.url}}');background-size: cover; background-repeat: no-repeat; height:70vh;"></div>
-    <div class="container">
-         <div class="row mt-4">
-             <div class="col-sm-6">
-                 <span><strong>By:</strong></span>&nbsp;<span class="">{{object.author.first_name}} </span>
+    <div class="pt-15rem pb-15rem blog-detail-banner" style="background-image:url('{{object.cover_image.url}}');background-size: 100% auto; background-repeat: no-repeat; height:70vh;"></div>
+    <div class="container pt-5">
+         <div class="row">
+             <div class="col-sm-12">
+                 <div class="text-center">
+                     <div class="d-inline-block">
+                         <span><strong>By:</strong></span>&nbsp;<span class="">{{object.author.first_name}} </span>
+                     </div>
+                     <div class="d-inline-block ml-5">
+                         <span class="">{{object.published_date|date:"d M Y"}}</span>
+                     </div>
+                 </div>
              </div>
              {% comment %}
              <div class="col-sm-4">
@@ -30,9 +37,6 @@
             {% endif %}
             </div>
              {% endcomment %}
-            <div class="col-sm-6">
-                <span class="">{{object.published_date|date:"d M Y"}}</span>
-            </div>
         </div>
         <div class="row mt-4">
             <div class="col-sm-12">
@@ -59,30 +63,34 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="p-2 shadow">
-                                <h6 class="mb-0">Social Connect</h6>
+                                <h5 class="mb-0"><strong>Share on social media</strong></h5>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-3 col-md-6 col-lg-3 py-3 border-lg-right border-sm-right border-mob-right">
-                            <a href="https://facebook.com/sharer.php?u=http://{{request.get_host}}" target="_blank">
-                                <img src="{% static 'dist/assets/images/Social media-03-facebook.png' %}" alt="" class="img-fluid mx-auto d-block padding-left-10">
-                            </a>
-                        </div>
-                        <div class="col-3 col-md-6 col-lg-3 py-3 border-lg-right border-mob-right border-sm-right border-md-right">
-                            <a href="https://twitter.com/intent/tweet?url=http://{{request.get_host}}" target="_blank">
-                                <img src="{% static 'dist/assets/images/Social media-02-twitter.png' %}" alt="" class="img-fluid mx-auto d-block">
-                            </a>
-                        </div>
-                        <div class="col-3 col-md-6 col-lg-3 py-3 border-lg-right border-sm-right border-mob-right">
-                            <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://{{request.get_host}}&title=LinkedIn%20Developer%20Network &summary=My%20favorite%20developer%20program&source=LinkedIn" target="_blank">
-                                <img src="{% static 'dist/assets/images/Social media-06-linkedin.png' %}" alt="" class="img-fluid mx-auto d-block">
-                            </a>
-                        </div>
-                        <div class="col-3 col-md-6 col-lg-3 py-3">
-                            <a href="https://web.whatsapp.com/send?text=http://{{request.get_host}}" target="_blank">
-                                <img src="{% static 'dist/assets/images/Social media-04-whatsapp.png' %}" alt="" class="img-fluid mx-auto d-block padding-right-10">
-                            </a>
+                        <div class="col-sm-12">
+<!--                            <div class="">-->
+                                <div class="d-inline-block pt-3 pb-2 border-right padding-left-17 padding-right-17 w-25 h-100">
+                                    <a href="https://facebook.com/sharer.php?u=http://{{request.get_host}}" target="_blank">
+                                        <img src="{% static 'dist/assets/images/Social media-03-facebook.png' %}" alt="" class="img-fluid mx-auto d-block width-40px">
+                                    </a>
+                                </div>
+                                <div class="d-inline-block pt-3 pb-2 border-right padding-left-17 padding-right-17 w-25 h-100">
+                                    <a href="https://twitter.com/intent/tweet?url=http://{{request.get_host}}" target="_blank">
+                                        <img src="{% static 'dist/assets/images/Social media-02-twitter.png' %}" alt="" class="img-fluid mx-auto d-block width-40px">
+                                    </a>
+                                </div>
+                                <div class="d-inline-block pt-3 pb-2 border-right padding-left-17 padding-right-17 w-25 h-100">
+                                    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://{{request.get_host}}&title=LinkedIn%20Developer%20Network &summary=My%20favorite%20developer%20program&source=LinkedIn" target="_blank">
+                                        <img src="{% static 'dist/assets/images/Social media-06-linkedin.png' %}" alt="" class="img-fluid mx-auto d-block width-40px">
+                                    </a>
+                                </div>
+                                <div class="d-inline-block pt-3 pb-2 padding-left-17 padding-right-17 w-25 h-100">
+                                    <a href="https://web.whatsapp.com/send?text=http://{{request.get_host}}" target="_blank">
+                                        <img src="{% static 'dist/assets/images/Social media-04-whatsapp.png' %}" alt="" class="img-fluid mx-auto d-block width-40px">
+                                    </a>
+                                </div>
+<!--                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -91,7 +99,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="p-2 shadow">
-                                <h6 class="mb-0">Featured Posts</h6>
+                                <h5 class="mb-0"><strong>Featured Posts</strong></h5>
                             </div>
                         </div>
                     </div>
