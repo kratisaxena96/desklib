@@ -71,13 +71,14 @@ class QuestionModelTest(TestCase):
         self.assertEquals(self.question1.slug, 'question-1')
 
 
-# class AnswerModelTest(TestCase):
-#
-#     def setUp(self):
-#         self.answer1 = Answers.objects.create(solution='this is a test answer', question_id=1)
-#
-#     def test(self):
-#         self.assertEquals(self.answer1.solution, 'this is a test answer')
+class AnswerModelTest(TestCase):
+
+    def setUp(self):
+        self.question1 = Question.objects.create(question='hsgsh gkjhfkjgh kjhfgjk dfhkgjh dfjk hgkjdfhgk jdfhgj hdfgh')
+        self.answer1 = Answers.objects.create(solution='this is a test answer', question=self.question1)
+
+    def test(self):
+        self.assertEquals(self.answer1.solution, 'this is a test answer')
 
 
 class DocumentModelTest(TestCase):
