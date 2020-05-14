@@ -268,7 +268,7 @@ class Document(ModelMeta, models.Model):
     @property
     def sd(self):
         return {
-            "@type": 'Document',
+            "@type": 'Organization',
             "description": self.title,
             "name": self.title,
         }

@@ -4,6 +4,9 @@ from rest_framework import status
 
 # Create your tests here.
 from subjects.models import Subject
+from documents.models import Document
+from homework_help.models import Question, Answers
+from subscription.models import Subscription
 
 
 class TestCalls(TestCase):
@@ -48,13 +51,44 @@ class TestCalls(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-class TestModel(TestCase):
+class SubjectModelTest(TestCase):
 
     def setUp(self):
         self.subject1 = Subject.objects.create(name='subject 1', slug='subject-1', description='this is for testing')
 
     def test(self):
         self.assertEquals(self.subject1.slug, 'subject-1')
+
+
+class QuestionModelTest(TestCase):
+
+    def setUp(self):
+        self.question1 = Question.objects.create(question='hsgsh gkjhfkjgh kjhfgjk dfhkgjh dfjk hgkjdfhgk jdfhgj hdfgh')
+        self.question1.slug = 'question-1'
+        self.question1.save()
+
+    def test(self):
+        self.assertEquals(self.question1.slug, 'question-1')
+
+
+# class AnswerModelTest(TestCase):
+#
+#     def setUp(self):
+#         self.answer1 = Answers.objects.create(solution='this is a test answer', question_id=1)
+#
+#     def test(self):
+#         self.assertEquals(self.answer1.solution, 'this is a test answer')
+
+
+class DocumentModelTest(TestCase):
+
+    def setUp(self):
+        self.document1 = Document.objects.create(upload_file='document/2020/05/11/190302637925517docx-1748_5kJgYpQ.docx')
+        self.document1.slug = 'document-1'
+        self.document1.save()
+
+    def test(self):
+        self.assertEquals(self.document1.slug, 'document-1')
 
 
     #
