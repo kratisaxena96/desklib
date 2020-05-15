@@ -33,10 +33,12 @@
     <link rel="shortcut icon" href="{% static 'dist/assets/images/favicon.ico' %}">
     {% block canonical %}
     {% endblock %}
+    {% comment %}
     <title>
     {% block head_title %}
     {% endblock %}
         </title>
+    {% endcomment %}
     {% if sd %}
     {% render_json_ld sd %}
     {% endif %}
@@ -62,8 +64,8 @@
     {% block footer %}
         {% include 'desklib/base_footer.html' %}
     {% endblock %}
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://twitter.github.io/typeahead.js/js/handlebars.js"></script>
+
+    <script src='{% static "src/js/handlebars.js" %}'></script>
     <script src='{% static "dist/js/bundle.js" %}'></script>
 
     {% block extra_js %}
