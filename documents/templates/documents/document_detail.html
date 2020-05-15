@@ -8,15 +8,11 @@
 
 
 
-<!--    <link rel="stylesheet" href="https://rawgit.com/mozilla/pdf.js/master/web/viewer.css">-->
-<!--    <link rel="stylesheet" href="https://rawgit.com/mozilla/pdf.js/master/examples/mobile-viewer/viewer.css">-->
     {% if canonical %}
         <link rel="canonical" href="{{canonical}}"/>
     {% endif %}
+
     {% block extra_css %}
-
-<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">-->
-
     <style>
     .textLayer > span {
         color: black;
@@ -38,7 +34,6 @@
 }
 
 .textLayer > span {
-  // color: black;
   color: transparent;
   position: absolute;
   white-space: pre;
@@ -74,8 +69,6 @@
 background: rgba(0,0,255,0.3);
 
 }
-
-// ::selection { background: rgba(0,0,255,0.3); }
 
 
 .textLayer .highlight.selected {
@@ -150,10 +143,10 @@ opacity:0.9 !important;
 
 <section>
     <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'study:study-search'%}">Study</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{object.title}}</li>
+      <ol class="breadcrumb mb-0 bg-blue-theme rounded-0">
+        <li class="breadcrumb-item"><a href="/" class="white">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'study:study-search'%}" class="white">Study</a></li>
+        <li class="breadcrumb-item active white" aria-current="page">{{object.title}}</li>
   </ol>
 </nav>
 </section>
@@ -261,7 +254,7 @@ opacity:0.9 !important;
                                       {{form.other_issue}}
                                   </div>
 
-                                    <input type="submit" value="report" class="btn btn-bg-theme text-white">
+                                    <input type="submit" value="Report" class="btn btn-bg-theme text-white">
                                 </form>
                             </div>
 
@@ -316,7 +309,7 @@ opacity:0.9 !important;
 
             {% endcomment %}
         </div>
-        <span class="d-inline-block d-sm-inline-block w-100 text-center text-md-left text-lg-center text-muted">Showing pages {{controlled_pages.count}} of {{object.pages.all.count}} </span>
+        <span class="d-inline-block d-sm-inline-block w-100 text-center text-md-left text-lg-center text-muted">Showing pages {{object.preview_from}} to {{object.preview_to}} of {{object.pages.all.count}} pages</span>
 
         <div id="viewer" class="documentViewer">
             {% comment %}
