@@ -268,9 +268,15 @@ class Document(ModelMeta, models.Model):
     @property
     def sd(self):
         return {
-            "@type": 'Organization',
+            "@type": 'Article',
             "description": self.title,
             "name": self.title,
+            "author": self.author.first_name,
+            "publisher": self.author.first_name,
+            "datePublished": self.published_date,
+            "headline": self.title,
+            "image": Page.objects.get(document=self,no=self.cover_page_number).image_file.url,
+            "dateModified": self.updated
         }
 
     class Meta:
