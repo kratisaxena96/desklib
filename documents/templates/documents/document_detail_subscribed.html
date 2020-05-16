@@ -150,10 +150,10 @@ opacity:0.9 !important;
 {% block content %}
 <section>
     <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'study:study-search'%}">Study</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{object.title}}</li>
+      <ol class="breadcrumb mb-0 bg-blue-theme rounded-0">
+        <li class="breadcrumb-item"><a href="/" class="white">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'study:study-search'%}" class="white">Study</a></li>
+        <li class="breadcrumb-item active white" aria-current="page">{{object.title}}</li>
   </ol>
 </nav>
 </section>
@@ -262,7 +262,7 @@ opacity:0.9 !important;
                                       {{form.other_issue}}
                                   </div>
 
-                                    <input type="submit" value="report" class="btn btn-bg-theme text-white">
+                                    <input type="submit" value="Report" class="btn btn-bg-theme text-white">
                                 </form>
                             </div>
 
@@ -344,8 +344,7 @@ opacity:0.9 !important;
 <!--            <a href='{% url "documents:document-download-view"%}?doc={{object.slug}}&single=True' class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Pay Per Download</a>-->
             {% endcomment %}
         </div>
-          <span class="d-inline-block d-sm-inline-block w-100 text-center text-md-left text-lg-center text-muted">Showing pages {{object.pages.all.count}} of {{object.pages.all.count}}
-          </span>
+          <span class="d-inline-block d-sm-inline-block w-100 text-center text-md-left text-lg-center text-muted">Showing pages {{object.pages.all.count}} of {{object.pages.all.count}}</span>
 
         <div id="viewer" class="documentViewer mb-5">
 
