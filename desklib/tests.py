@@ -12,6 +12,7 @@ from subscription.models import Subscription
 class TestCalls(TestCase):
     def test_call_view_working_successfully(self):
         response = self.client.get(reverse('home'))
+        response.content
         self.assertEqual(response.status_code, 200)
         response = self.client.get(reverse('study:study-search'))
         self.assertEqual(response.status_code, 200)
