@@ -157,13 +157,15 @@
              <div class="col-sm-12">
                  <div class="card card-body">
                     <p class="text-center mb-0">
-
                 <form action="{{paypalform.get_endpoint}}" method="post" id="form-check">
                      {% csrf_token %}
                      {{paypalform}}
 
                     <div class="row mt-3">
                         <div class="col-md-12 text-md-center">
+                             {% if order.budget %}
+                     <p class=""><strong>You have to pay ${{order.budget}} to get answer</strong></p>
+                             {% endif %}
                             <input type="checkbox" name="checkbox" id="check-box" class="checkbox" required>
                             <label class="d-inline" for="check-box" class="blue-theme">&nbsp;I agree to the <a href="{% url 'termsofuse' %}">terms & conditions</a>, <a href="{% url 'privacypolicy' %}"> privacy policy</a>, <a href="{% url 'academicintegrity' %}">Academic Integrity</a>, <a href="{% url 'honorcode' %}">Honor Code</a> and <a href="{% url 'copyright' %}">Copyright</a>
                             </label>
