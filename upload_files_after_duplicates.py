@@ -8,7 +8,7 @@ from termcolor import colored
 import sqlite3
 from sqlite3 import Error
 from classifier import get_text, get_clean_text, predict
-
+print ("hello")
 # command to run the file
 # exec(open("./upload_files_after_duplicates.py").read())
 

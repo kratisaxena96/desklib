@@ -125,7 +125,7 @@ class AskQuestionView(MetadataMixin, FormView):
     form_class = QuestionForm
     title = 'Desklib | Homework Help | Ask Q&A from online experts'
     description = 'Access quality study resources and get homework help and solutions to your assignments. Click here to ask question from our experts.'
-    keywords = [ 'help with homework ', 'homework help']
+    keywords = ['help with homework ', 'homework help']
     twitter_title = 'Homework Help - Ask Q&A from Online experts - Desklib'
     og_title = 'Homework Help - Ask Q&A from Online experts - Desklib'
     gplus_title = 'Homework Help - Ask Q&A from Online experts - Desklib'
@@ -225,7 +225,7 @@ class OrderCreateView(LoginRequiredMixin, FormView):
         html_message = order.order_id +' is added by '+ order.author.email +'.<br>Question is '+ question.question
         mail = EmailMultiAlternatives(subject, message, from_email, recipient_list)
 
-        # if image:
+        # if question.user_questionfiles:
         for i in question.user_questionfiles.all():
 
             mime_image = MIMEImage(i.file.read())

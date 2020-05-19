@@ -81,8 +81,8 @@ class Question(ModelMeta, models.Model):
                                  on_delete=models.PROTECT, )
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True, related_name='author_question')
     uid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    is_published = models.BooleanField(_('Is Published'), default=True)
-    is_visible = models.BooleanField(_('Is Visible'), default=True)
+    is_published = models.BooleanField(_('Is Published'), default=False)
+    is_visible = models.BooleanField(_('Is Visible'), default=False)
 
     published_date = models.DateTimeField(_('Published Date'), default=timezone.now)
     created = models.DateTimeField(editable=False, auto_now_add=True)
