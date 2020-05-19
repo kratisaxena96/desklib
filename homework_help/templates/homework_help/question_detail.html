@@ -39,7 +39,9 @@
                 <div class="blur-image position-relative">
                 <div class="card position-absolute blur-image-position">
                     <div class="card-body p-5 text-center">
+                       {% if answer %}
                     <h5><strong>This question has been solved!</strong></h5>
+                        {% endif %}
                     <a href="{% url 'homework_help:order-create-view' uid=object.uid %}" class="btn btn-bg-theme white border-radius-20 px-4 mt-2">View Answers</a>
                     </div>
                 </div>
