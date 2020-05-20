@@ -17,7 +17,7 @@
                 <h1 class="font-size-25">{{object.question|truncatechars:250}}</h1>
             </div>
         </div>
-        <div class="row mt-4 mb-md-3 justify-content-center">
+        <div class="row mt-3 mb-md-3 justify-content-center">
             {% for object in object.user_questionfiles.all %}
             <div class="col-md-12 mb-md-4">
                 <div>
@@ -25,9 +25,11 @@
                 </div>
             </div>
             {% endfor %}
-             <div class="w-100 container mt-4 mt-md-0">
+
+             <div class="w-100 container mt-3 mt-md-0">
                  <a href="#image-content" class="content text-muted">Show transcribed image text</a>
              </div>
+
         </div>
     </div>
 </section>
@@ -37,8 +39,8 @@
             <div class="col-md-12">
                 <h2 class="text-center">Expert's Answers</h2>
                 <div class="blur-image position-relative">
-                <div class="card position-absolute blur-image-position">
-                    <div class="card-body p-5 text-center">
+                <div class="card position-absolute blur-image-position width-452">
+                    <div class="card-body p-4 p-md-5 text-center">
                        {% if answer %}
                     <h5><strong>This question has been solved!</strong></h5>
                         {% endif %}

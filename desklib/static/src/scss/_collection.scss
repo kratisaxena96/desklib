@@ -393,7 +393,7 @@ input[type="submit"].btn-block.width-25 {
 
 .blur-image-position{
     bottom:120px;
-    left:340px;
+    left:320px;
 }
 .display-none{
     display: $display;
@@ -1238,6 +1238,14 @@ display:none;
     padding-bottom: 7rem;
     height: 20vh;
 }
+ .blur-image{
+        background-size: cover;
+    }
+   .blur-image-position{
+        left: 110px;
+        right: 0;
+       bottom: 120px;
+    }
 
 	.img-top-text {
 		position: absolute;
@@ -1289,13 +1297,13 @@ display:none;
     padding-top: 7rem;
     padding-bottom: 2rem;
 }
-.blog-detail-banner{
-   height:32vh !important;
-   padding-bottom: 0px;
-   padding-top: 11rem;
- }
-
-
+.blur-image-position{
+    left: 20px;
+    right: 20px;
+}
+.blur-image{
+    background-size: cover;
+}
 .main-div:hover .btn-d-none {
 		display: none;
 }
@@ -1327,8 +1335,7 @@ display:none;
 		padding-bottom: 0px !important;
 	}
 .font-40{
-        width: 80% !important;
-       // font-weight: 380;
+     width: 80% !important;
     }
 .p-15{
         padding: 15px !important;
@@ -1360,19 +1367,12 @@ display:none;
     }
 
 #profile-table {
-		background-color: #f5f8fd !important;
-	}
-// .bottom{
-//	    top: 0px;
-//	}
-.blur-image-position{
-    left: 0;
-    right: 0;
-    bottom: 106px;
+    background-color: #f5f8fd !important;
 }
-.blur-image{
-    background-size: cover;
+.blur-image-position.width-452{
+    width: auto;
 }
+
 .border-mob-right {
    border-right: 1px solid $border-gray;
   }
@@ -1383,11 +1383,10 @@ display:none;
     height: 20vh;
     padding-bottom: 2rem;
 }
-.blog-detail-banner{
-    padding-bottom: 0px;
-    height: 36vh !important;
+.blur-image-position{
+    left: 20px;
+    right: 0;
 }
-
 	#profile-table {
 		background-color: white !important;
 	}
@@ -1410,24 +1409,27 @@ display:none;
     padding-bottom: 7rem;
     height: 20vh;
 }
-.blog-detail-banner{
-    padding-bottom: 0px;
-    height: 36vh !important;
+.blur-image-position{
+    left: 100px;
+    right: 0;
+}
+.blur-image{
+    background-size: cover;
+}
 }
 
-}
 
 @media only screen and (min-width: $breakpoint-laptop) {
 .blog-list-banner{
     padding-bottom: 15rem;
     height: 20vh;
 }
-.blog-detail-banner{
-   height:70vh !important;
-   padding-bottom: 15rem;
-   padding-top: 15rem;
- }
-
+.blur-image{
+    background-size: contain;
+}
+.blur-image-position{
+    left: 310px;
+}
 .main-div:hover .btn-d-none {
 		display: block;
 }
