@@ -240,10 +240,7 @@ ul#id_0-country{
 input[type="submit"].btn-block.width-25 {
      width: 25%;
 }
-// ul.stepper > .step.active:not(:last-child)::after{
-//     height: 50%;
-//     height: calc(100% - 12px);
-// }
+
 
 .custom-file-input:lang(en) ~ .custom-file-label.drag-drop-file::after {
      content: "";
@@ -369,7 +366,11 @@ input[type="submit"].btn-block.width-25 {
 	background-repeat: no-repeat;
 	height: 400px;
 	background-position: center center;
+    display:flex;
+   justify-content:center;
+   align-items:center;
 }
+
 .blog-list-banner{
     background-image: url("/static/dist/assets/images/New Project.png");
     background-size: 100% auto;
@@ -390,11 +391,6 @@ input[type="submit"].btn-block.width-25 {
  text-align: center;
 }
 
-
-.blur-image-position{
-    bottom:120px;
-    left:320px;
-}
 .display-none{
     display: $display;
 }
@@ -1241,12 +1237,6 @@ display:none;
  .blur-image{
         background-size: cover;
     }
-   .blur-image-position{
-        left: 110px;
-        right: 0;
-       bottom: 120px;
-    }
-
 	.img-top-text {
 		position: absolute;
 		z-index: 30;
@@ -1297,10 +1287,7 @@ display:none;
     padding-top: 7rem;
     padding-bottom: 2rem;
 }
-.blur-image-position{
-    left: 20px;
-    right: 20px;
-}
+
 .blur-image{
     background-size: cover;
 }
@@ -1383,10 +1370,6 @@ display:none;
     height: 20vh;
     padding-bottom: 2rem;
 }
-.blur-image-position{
-    left: 20px;
-    right: 0;
-}
 	#profile-table {
 		background-color: white !important;
 	}
@@ -1409,10 +1392,6 @@ display:none;
     padding-bottom: 7rem;
     height: 20vh;
 }
-.blur-image-position{
-    left: 100px;
-    right: 0;
-}
 .blur-image{
     background-size: cover;
 }
@@ -1426,9 +1405,6 @@ display:none;
 }
 .blur-image{
     background-size: contain;
-}
-.blur-image-position{
-    left: 310px;
 }
 .main-div:hover .btn-d-none {
 		display: block;
