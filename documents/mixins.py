@@ -3,6 +3,8 @@ from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils import timezone
+from documents.models import Document
+from subscription.models import PayPerDocument
 
 from desklib.utils import get_client_ip
 from subscription.utils import get_current_subscription
@@ -11,8 +13,10 @@ from subscription.utils import get_current_subscription
 class SubscriptionCheckMixin(object):
     def dispatch(self, request, *args, **kwargs):
         subscription = get_current_subscription(self.request.user)
+        doc = Document.objects.get(slug=request.GET.get('doc'))
+        pay_per_doc = PayPerDocument.objects.get(documents=doc)
 
-        if subscription:
+        if subscription or pay_per_doc:
             return super(SubscriptionCheckMixin, self).dispatch(request, *args, **kwargs)
         else:
             return HttpResponseRedirect(reverse('subscription'))
