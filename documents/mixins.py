@@ -14,7 +14,10 @@ class SubscriptionCheckMixin(object):
     def dispatch(self, request, *args, **kwargs):
         subscription = get_current_subscription(self.request.user)
         doc = Document.objects.get(slug=request.GET.get('doc'))
-        pay_per_doc = PayPerDocument.objects.get(documents=doc)
+        try:
+            pay_per_doc = PayPerDocument.objects.get(documents=doc)
+        except:
+            pay_per_doc = None
 
         if subscription or pay_per_doc:
             return super(SubscriptionCheckMixin, self).dispatch(request, *args, **kwargs)
