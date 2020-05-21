@@ -370,6 +370,11 @@ input[type="submit"].btn-block.width-25 {
    justify-content:center;
    align-items:center;
 }
+ul.social-icons li{
+//     width: calc(100% / 6.4);
+//     box-sizing: border-box;
+  //  float: left;
+}
 
 .blog-list-banner{
     background-image: url("/static/dist/assets/images/New Project.png");
@@ -380,12 +385,6 @@ input[type="submit"].btn-block.width-25 {
     height: 70vh;
 }
 
-.blog-detail-banner{
-    background-image:url('{{object.cover_image.url}}');
-    background-size: 100% auto;
-    background-repeat: no-repeat;
-    height:70vh;
- }
 #custom-templates .empty-message {
   padding: 5px 10px;
  text-align: center;
@@ -1291,6 +1290,11 @@ display:none;
 .blur-image{
     background-size: cover;
 }
+// ul.social-icons li{
+//     width: calc(100% / 7);
+//     box-sizing: border-box;
+//     float: left;
+// }
 .main-div:hover .btn-d-none {
 		display: none;
 }
