@@ -11,7 +11,7 @@
 </nav>
 </section>
 <section class="">
-    <div class="container pt-5 pb-5">
+    <div class="container pt-5 pb-4 pb-md-5">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <h1 class="font-size-25">{{object.question|truncatechars:250}}</h1>
@@ -24,12 +24,12 @@
                     <img class="img-fluid mx-auto d-block" alt="question image" src="{{object.file.url}}" />
                 </div>
             </div>
-            {% endfor %}
-
+                {% if object.content %}
              <div class="w-100 container mt-3 mt-md-0">
                  <a href="#image-content" class="content text-muted">Show transcribed image text</a>
              </div>
-
+                {% endif %}
+             {% endfor %}
         </div>
     </div>
 </section>
@@ -61,19 +61,21 @@
         </div>
     </div>
 </section>
- {% if object.content %}
+
 <section id="image-content" class="mb-4 mt-3 mb-md-0 mt-md-0">
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
                 {% for object in object.user_questionfiles.all %}
-               <p  class="">{{object.content}}</p>
+                    {% if object.content %}
+                    <p  class="">{{object.content}}</p>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>
     </div>
 </section>
-{% endif  %}
+
 <section>
 	<div class="container pt-md-5 pb-4">
 		<h2 class="text-center">Q & A Related To {{question.subjects}}</h2>
