@@ -246,13 +246,10 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
             pay_per_doc = None
 
         if subscription or pay_per_doc:
-            return super(DocumentDownloadDetailView, self).dispatch(request, *args, **kwargs)
+            # return super(DocumentDownloadDetailView, self).dispatch(request, *args, **kwargs)
+            return self.render_to_response(self.get_context_data())
         else:
-
-            # url = reverse('blog')
-            # number = request
-            # return HttpResponseRedirect(url + "?page=%s" % number)
-            return HttpResponseRedirect(reverse('documents:document-pay')+ "?doc=" + request.GET.get('doc'))
+            return HttpResponseRedirect(reverse('documents:document-pay') + "?doc=" + request.GET.get('doc'))
 
     def get_context_data(self, **kwargs):
         context = super(DocumentDownloadDetailView, self).get_context_data(**kwargs)
