@@ -48,7 +48,7 @@ from datetime import timedelta
 from subscription.utils import is_subscribed, get_current_subscription
 from django.core.files import File as DjangoFile
 from django.db.models import Q
-from django.http import HttpResponsePermanentRedirect, Http404
+from django.http import HttpResponsePermanentRedirect, Http404, HttpResponseRedirect
 from documents.utils import merge_pdf
 from django.utils import timezone
 
@@ -236,6 +236,23 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
     template_name = 'documents/download_info.html'
     form_class = DownloadFileForm
     payperdoc = False
+
+    def get(self, request, *args, **kwargs):
+        subscription = get_current_subscription(self.request.user)
+        doc = Document.objects.get(slug=request.GET.get('doc'))
+        try:
+            pay_per_doc = PayPerDocument.objects.get(documents=doc)
+        except:
+            pay_per_doc = None
+
+        if subscription or pay_per_doc:
+            return super(DocumentDownloadDetailView, self).dispatch(request, *args, **kwargs)
+        else:
+
+            # url = reverse('blog')
+            # number = request
+            # return HttpResponseRedirect(url + "?page=%s" % number)
+            return HttpResponseRedirect(reverse('documents:document-pay')+ "?doc=" + request.GET.get('doc'))
 
     def get_context_data(self, **kwargs):
         context = super(DocumentDownloadDetailView, self).get_context_data(**kwargs)
