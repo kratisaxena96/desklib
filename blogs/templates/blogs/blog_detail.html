@@ -7,123 +7,273 @@
 {% block content %}
 <section>
     <nav aria-label="breadcrumb">
-      <ol class="breadcrumb mb-0 bg-blue-theme rounded-0">
-        <li class="breadcrumb-item"><a href="/" class="white">Home</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'blog' %}" class="white">blog</a></li>
-        <li class="breadcrumb-item active white" aria-current="page">{{object.title}}</li>
+      <ol class="breadcrumb mb-0 rounded-0 bg-light-grey">
+        <li class="breadcrumb-item"><a href="/" class="">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'blog' %}" class="">blog</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{object.title}}</li>
   </ol>
 </nav>
 </section>
-<section>
-    <div class="pt-15rem pb-15rem blog-detail-banner" style="background-image:url('{{object.cover_image.url}}');background-size: 100% auto; background-repeat: no-repeat; height:70vh;"></div>
-    <div class="container pt-5">
-         <div class="row">
-             <div class="col-sm-12">
-                 <div class="text-center">
-                     <div class="d-inline-block">
-                         <span><strong>By:</strong></span>&nbsp;<span class="">{{object.author.first_name}} </span>
-                     </div>
-                     <div class="d-inline-block ml-5">
-                         <span class="">{{object.published_date|date:"d M Y"}}</span>
-                     </div>
-                 </div>
-             </div>
-             {% comment %}
-             <div class="col-sm-4">
-            {% if object.category.all %}
-            {% for category in object.category.all %}
-                <span class="">{{category}}</span>
-             {% endfor %}
-            {% endif %}
-            </div>
-             {% endcomment %}
-        </div>
-        <div class="row mt-4">
-            <div class="col-sm-12">
-                <h1 class="text-center">{{object.title}}</h1>
-            </div>
-        </div>
-    </div>
-</section>
-<section>
+<section class="bg-light-grey">
     <div class="container pb-5 pt-5">
         <div class="row">
-            <div class="col-md-8 mb-4 mb-md-0">
-                <div class="pr-4">
-                    {% if object.short_description %}
-                    <h3>{{object.short_description}}</h3>
-                     {% endif %}
-                    {% if object.description %}
-                    <p>{{object.description|safe}}</p>
-                     {% endif %}
+            <div class="col-md-8">
+                <div class="card p-4 rounded-0">
+                    <div class="">
+                        <img src="{{object.cover_image.url}}" class="img-fluid">
+                    </div>
+                    <div class="mt-4">
+                        <h2 class="">{{object.title}}</h2>
+                    </div>
+                    <div class="mt-3 mt-md-4">
+                        <span class="text-muted"><i class="fa fa-user" aria-hidden="true"></i></span>
+                        <span class="mr-4 text-muted">{{object.author.first_name}}</span>
+                        <span class="text-muted"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                        <span class="text-muted">{{object.published_date|date:"d M Y"}}</span>
+                    </div>
+                {% if object.description %}
+                    <div class="mt-3 mt-md-4">
+                        <p>{{object.description|safe}}</p>
+                    </div>
+                 {% endif %}
+                </div>
+                <div class="card p-4 rounded-bottom rounded-0 border-top-0">
+<!--                    <ul class="list-unstyled mb-0 social-icons">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-4 col-sm-2">-->
+<!--                                <li class="facebook-bg-color text-center d-inline-block py-2 px-3 rounded">-->
+<!--                                    <a class="py-1 px-4" href="https://facebook.com/sharer.php?u=http://{{request.get_host}}{% url 'blog_detail' year=object.published_date|date:'Y' month=object.published_date|date:'m' date=object.published_date|date:'d' slug=object.slug %}" target="_blank">-->
+<!--                                        <i class="fa fa-facebook white"></i>-->
+<!--                                    </a>-->
+<!--                                </li>-->
+<!--                            </div>-->
+<!--                            <div class="col-4 col-sm-2">-->
+<!--                        <li class="twitter-bg-color text-center d-inline-block py-2 px-3 rounded">-->
+<!--                            <a class="py-1 px-4" href="https://twitter.com/intent/tweet?url=http://{{request.get_host}}{% url 'blog_detail' year=object.published_date|date:'Y' month=object.published_date|date:'m' date=object.published_date|date:'d' slug=object.slug %}" target="_blank">-->
+<!--                                <i class="fa fa-twitter white"></i>-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                            </div>-->
+<!--                            <div class="col-4 col-sm-2">-->
+<!--                        <li class="d-inline-block pinterest-bg-color text-center py-2 px-3 rounded">-->
+<!--                            <a class="py-1 px-4" href="https://pinterest.com/pin/create/link/?url=http//{{request.get_host}}{% url 'blog_detail' year=object.published_date|date:'Y' month=object.published_date|date:'m' date=object.published_date|date:'d' slug=object.slug %}" target="_blank">-->
+<!--                                <i class="fa fa-pinterest white"></i>-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                            </div>-->
+<!--                            <div class="col-4 col-sm-2">-->
+<!--                        <li class="d-inline-block reddit-bg-color text-center py-2 px-3 rounded">-->
+<!--                            <a class="py-1 px-4" href="https://reddit.com/submit?url=http//{{request.get_host}}{% url 'blog_detail' year=object.published_date|date:'Y' month=object.published_date|date:'m' date=object.published_date|date:'d' slug=object.slug %}" target="_blank">-->
+<!--                                <i class="fa fa-reddit white"></i>-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                            </div>-->
+<!--                            <div class="col-4 col-sm-2">-->
+<!--                        <li class="d-inline-block linkedin-bg-color py-2 px-3 text-center rounded">-->
+<!--                            <a class="py-1 px-4" href="https://www.linkedin.com/shareArticle?mini=true&url=http://{{request.get_host}}{% url 'blog_detail' year=object.published_date|date:'Y' month=object.published_date|date:'m' date=object.published_date|date:'d' slug=object.slug %}" target="_blank">-->
+<!--                                <i class="fa fa-linkedin white"></i>-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                            </div>-->
+<!--                            <div class="col-4 col-sm-2">-->
+<!--                        <li class="d-inline-block whatsapp-bg-color py-2 px-3 text-center rounded">-->
+<!--                            <a class="py-1 px-4" href="https://web.whatsapp.com/send?text=http://{{request.get_host}}{% url 'blog_detail' year=object.published_date|date:'Y' month=object.published_date|date:'m' date=object.published_date|date:'d' slug=object.slug %}" target="_blank">-->
+<!--                                <i class="fa fa-whatsapp white"></i>-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </ul>-->
+
+
+                    <ul class="list-unstyled mb-0">
+                        <li class="d-inline-block facebook-bg-color py-1 padding-right-21 padding-left-21 mr-2 mb-3 mb-lg-0 rounded font-size-20">
+                            <a class="py-1 px-4" href="https://facebook.com/sharer.php?u=http://{{request.get_host}}{% url 'blog_detail' year=object.published_date|date:'Y' month=object.published_date|date:'m' date=object.published_date|date:'d' slug=object.slug %}" target="_blank">
+                                <i class="fa fa-facebook white"></i>
+                            </a>
+                        </li>
+                                 <li class="d-inline-block twitter-bg-color py-1 padding-right-21 padding-left-21 mr-2 mb-3 mb-lg-0 rounded font-size-20">
+                                    <a class="py-1 px-4" href="https://twitter.com/intent/tweet?url=http://{{request.get_host}}{% url 'blog_detail' year=object.published_date|date:'Y' month=object.published_date|date:'m' date=object.published_date|date:'d' slug=object.slug %}" target="_blank">
+                                        <i class="fa fa-twitter white"></i>
+                                     </a>
+                                </li>
+                                <li class="d-inline-block pinterest-bg-color py-1 padding-right-21 padding-left-21 mr-2 mb-3 mb-lg-0 rounded font-size-20">
+                                <a class="py-1 px-4" href="https://pinterest.com/pin/create/link/?url=http//{{request.get_host}}{% url 'blog_detail' year=object.published_date|date:'Y' month=object.published_date|date:'m' date=object.published_date|date:'d' slug=object.slug %}" target="_blank">
+                                    <i class="fa fa-pinterest white"></i>
+                                </a>
+                            </li>
+                                 <li class="d-inline-block reddit-bg-color py-1 padding-right-21 padding-left-21 mr-2 mb-3 mb-md-0 rounded font-size-20">
+                                <a class="py-1 px-4" href="https://reddit.com/submit?url=http//{{request.get_host}}{% url 'blog_detail' year=object.published_date|date:'Y' month=object.published_date|date:'m' date=object.published_date|date:'d' slug=object.slug %}" target="_blank">
+                                    <i class="fa fa-reddit white"></i>
+                                </a>
+                            </li>
+                                <li class="d-inline-block linkedin-bg-color py-1 padding-right-21 padding-left-21 mr-2 rounded font-size-20">
+                                <a class="py-1 px-4" href="https://www.linkedin.com/shareArticle?mini=true&url=http://{{request.get_host}}{% url 'blog_detail' year=object.published_date|date:'Y' month=object.published_date|date:'m' date=object.published_date|date:'d' slug=object.slug %}" target="_blank">
+                                   <i class="fa fa-linkedin white"></i>
+                                </a>
+                            </li>
+                                <li class="d-inline-block whatsapp-bg-color py-1 padding-left-20 padding-right-20 rounded font-size-20">
+                                <a class="py-1 px-4" href="https://web.whatsapp.com/send?text=http://{{request.get_host}}{% url 'blog_detail' year=object.published_date|date:'Y' month=object.published_date|date:'m' date=object.published_date|date:'d' slug=object.slug %}" target="_blank">
+                                    <i class="fa fa-whatsapp white"></i>
+                                </a>
+                                </li>
+                            </ul>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="border">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="p-2 shadow">
-                                <h5 class="mb-0"><strong>Share on social media</strong></h5>
-                            </div>
+            <div class="col-md-4 mt-4 mt-md-0">
+                <div class="row">
+                    <div class="col-md-12">
+                       <div class="card pt-3 pl-3 pb-2 rounded-bottom rounded-0">
+                            <h5 class="mt-3 mt-md-0 blue-theme"><strong>Contact Form</strong></h5>
+                       </div>
+                        <div class="card pt-3 pl-3 pb-3 pr-3 rounded-bottom rounded-0 border-top-0">
+                            <form method="POST" id="signup" novalidate="novalidate">
+                                {% csrf_token %}
+                                <div class="row mt-2">
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <input type="text" id="username" name="name" class="mb-2 form-control border-radius-20" placeholder="Enter Name..">
+                                            <span class="errors subs_name text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <input type="text" name="email" class="mb-2 form-control border-radius-20" id="newemail" placeholder="Enter Email..">
+                                                <span class="errors subs_email text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <textarea name="message" class="mb-2 form-control" id="message" placeholder="Type Message"></textarea>
+                                                <span class="errors subs_message text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="loader" class="display-none">
+                                    <img src="{% static 'dist/assets/images/loader.gif' %}" class="img-fluid mx-auto d-block">
+                                </div>
+                                <div class="row mt-2 mb-2">
+                                    <div class="col-lg-12">
+                                        <input id="submit-button" type="submit" value="Submit"class="btn btn-bg-theme white border-radius-20 d-block w-100">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-<!--                            <div class="">-->
-                                <div class="d-inline-block pt-3 pb-2 border-right padding-left-17 padding-right-17 w-25 h-100">
-                                    <a href="https://facebook.com/sharer.php?u=http://{{request.get_host}}" target="_blank">
-                                        <img src="{% static 'dist/assets/images/Social media-03-facebook.png' %}" alt="" class="img-fluid mx-auto d-block width-40px">
-                                    </a>
-                                </div>
-                                <div class="d-inline-block pt-3 pb-2 border-right padding-left-17 padding-right-17 w-25 h-100">
-                                    <a href="https://twitter.com/intent/tweet?url=http://{{request.get_host}}" target="_blank">
-                                        <img src="{% static 'dist/assets/images/Social media-02-twitter.png' %}" alt="" class="img-fluid mx-auto d-block width-40px">
-                                    </a>
-                                </div>
-                                <div class="d-inline-block pt-3 pb-2 border-right padding-left-17 padding-right-17 w-25 h-100">
-                                    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://{{request.get_host}}&title=LinkedIn%20Developer%20Network &summary=My%20favorite%20developer%20program&source=LinkedIn" target="_blank">
-                                        <img src="{% static 'dist/assets/images/Social media-06-linkedin.png' %}" alt="" class="img-fluid mx-auto d-block width-40px">
-                                    </a>
-                                </div>
-                                <div class="d-inline-block pt-3 pb-2 padding-left-17 padding-right-17 w-25 h-100">
-                                    <a href="https://web.whatsapp.com/send?text=http://{{request.get_host}}" target="_blank">
-                                        <img src="{% static 'dist/assets/images/Social media-04-whatsapp.png' %}" alt="" class="img-fluid mx-auto d-block width-40px">
-                                    </a>
-                                </div>
-<!--                            </div>-->
-                        </div>
-                    </div>
-                </div>
                 {% if featured_blog %}
-                <div class="border mt-5">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="p-2 shadow">
-                                <h5 class="mb-0"><strong>Featured Posts</strong></h5>
+                    <div class="mt-4 mt-md-5">
+                        <div class="card card pt-3 pl-3 pb-3 pr-3 rounded-bottom rounded-0">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h5 class="blue-theme mb-0"><strong>Featured Posts</strong></h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card card pt-3 pl-3 pr-3 rounded-bottom rounded-0 border-top-0">
+                            <div class="row">
+                            {% for featured_blog in featured_blog %}
+                                <div class="col-md-4">
+                                    <a href="{% url 'blog_detail' year=featured_blog.published_date|date:'Y' month=featured_blog.published_date|date:'m' date=featured_blog.published_date|date:'d' slug=featured_blog.slug %}" class="text-decoration-none">
+                                        <div class="">
+                                            <img src="{{object.cover_image.url}}" alt="" class="img-fluid">
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-md-8 mt-3 mt-md-0">
+                                    <a href="{% url 'blog_detail' year=featured_blog.published_date|date:'Y' month=featured_blog.published_date|date:'m' date=featured_blog.published_date|date:'d' slug=featured_blog.slug %}" class="text-decoration-none">
+                                        <div class="px-3 px-md-0">
+                                            <p class="black-font">{{featured_blog.title}}</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        </div>
+                    {% endif %}
+
+                <div class="mt-4 mt-md-5">
+                    <div class="card pt-3 pl-3 pb-2 pr-3 rounded-bottom rounded-0">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5 class="blue-theme"><strong>Facebook</strong></h5>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                         {% for featured_blog in featured_blog %}
-                        <div class="col-md-4">
-                            <div class="pt-3 pl-2">
-                                <img src="{% static 'dist/assets/images/Featured-posts.png' %}" alt="" class="img-fluid border-radius-5  border border-left-0 border-top-0 px-2 pb-2 mx-auto d-block">
+                     <div class="card pt-3 pl-3 pb-2 pr-3 rounded-bottom rounded-0 border-top-0">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="facebook-post">
+<!--                                <center>-->
+                                    <div class="fb-page" data-href="https://www.facebook.com/desklib" data-width="380" data-hide-cover="false" data-show-facepile="false">
+                                        <iframe src="https://www.facebook.com/plugins/page.php?href=https://www.facebook.com/desklib&tabs&width=340&height=181&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="340" height="181" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+                                    </div>
+<!--                                </center>-->
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-8">
-                            <div class="pt-3 px-3 px-md-0">
-                                <h6><strong>{{featured_blog.title|truncatechars:20}}</strong></h6>
-                                <p>{{featured_blog.description|safe|truncatechars:35}}</p>
-                            </div>
-                        </div>
-                          {% endfor %}
+                     </div>
                     </div>
                 </div>
-                {% endif %}
             </div>
         </div>
-    </div>
 </section>
-
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content bg-dark">
+      <div class="modal-header border-bottom-0">
+        <h4 class="modal-title pt-4 pl-4 pr-4 pb-3 white" id="exampleModalLongTitle">Your form has been Successfully submitted.</h4>
+           <button type="button" class="close white" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+           </button>
+      </div>
+      <div class="modal-body pb-5 pt-0">
+          <img src="{% static 'dist/assets/images/checked.png' %}" class="mx-auto d-block width-100">
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
+
+{% block extra_js %}
+<script>
+
+ jQuery(document).ready(function() {
+       $('#signup').submit(function(e){
+        //   $("#signup_data").text("");
+           e.preventDefault();
+           var data = $("#signup").serializeArray();
+           $("#loader").show();
+
+           $.ajax({
+               url : "{% url 'api:contact-api:query-create-api' %}",
+               data: data,
+               type : "POST",
+               success : function(data){
+                   $(".modal").modal("show");
+                   $("#username").val("");
+                   $("#newemail").val("");
+                   $("#message").val("");
+                   $(".errors").hide();
+                     $("#loader").hide();
+               },
+               error: function(data){
+                   $("#loader").hide();
+                    $('.subs_name').text(data.responseJSON.name[0]);
+                    $('.subs_email').text(data.responseJSON.email[0]);
+                    $('.subs_message').text(data.responseJSON.message[0]);
+               }
+           });
+       });
+   });
+
+</script>
+
+{% endblock extra_js %}
+
