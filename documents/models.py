@@ -280,7 +280,7 @@ class Document(ModelMeta, models.Model):
         try:
             data["image"] = Page.objects.get(document=self, no=self.cover_page_number).image_file.url,
         except:
-            data["image"]: None
+            data["image"] = None
         return data
 
     class Meta:
