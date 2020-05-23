@@ -278,7 +278,7 @@ class Document(ModelMeta, models.Model):
             "dateModified": self.updated
         }
         try:
-            data["image"] =  Page.objects.get(document=self, no=self.cover_page_number).image_file.url,
+            data["image"] = Page.objects.get(document=self, no=self.cover_page_number).image_file.url,
         except:
             data["image"]: None
         return data
@@ -446,7 +446,7 @@ class Document(ModelMeta, models.Model):
                 page_obj.save()
                 page_count += 1
 
-            if self.pages == None:
+            if not self.pages.exists():
                 self.is_published = False
                 self.is_visible = False
                 super(Document, self).save(update_fields=["is_published","is_visible"])
