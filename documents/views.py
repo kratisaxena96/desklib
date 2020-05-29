@@ -263,7 +263,7 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
                 raise Http404('"No document matches the given query.')
         try:
             pay_per_doc_sub = self.request.user.pay_per_download.all()
-            pay_per_doc = pay_per_doc_sub.get(documents=document_obj, expire_on__gt=timezone.now())
+            pay_per_doc = pay_per_doc_sub.get(documents=document_obj, expire_on__gt=timezone.now(), is_current=True )
             if pay_per_doc:
                 plan = pay_per_doc.plan
                 context['subscription'] = pay_per_doc
