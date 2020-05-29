@@ -548,12 +548,17 @@ $(document).ready(function(){
 
                         // Begin for loop here
                         for (var key in response) {
-                            console.log(key, response[key][0]);
+                            if(response[key] == "Authentication credentials were not provided." ){
+
+                window.location.replace( "{% url 'account_login' %}?next={% url 'documents:document-view' slug=object.slug %}" ) ;
+                            }
+
                             jQuery('#report-form .'+key).addClass('has-error');
                             jQuery('#report-form span.' + key).text(response[key][0]);
                         }
                       jQuery(".report-form-popup").show();
                       jQuery(".loader-container").hide();
+
                     }
                 });
 
