@@ -17,6 +17,7 @@
                 <h1 class="font-size-25">{{object.question|truncatechars:250}}</h1>
             </div>
         </div>
+ {% if object.user_questionfiles.all %}
         <div class="row mt-3 mb-md-3 justify-content-center">
             {% for object in object.user_questionfiles.all %}
             <div class="col-md-12 mb-md-4">
@@ -24,13 +25,16 @@
                     <img class="img-fluid mx-auto d-block" alt="question image" src="{{object.file.url}}" />
                 </div>
             </div>
-                {% if object.content %}
-             <div class="w-100 container mt-3 mt-md-0">
-                 <a href="#image-content" class="content text-muted">Show transcribed image text</a>
-             </div>
-                {% endif %}
              {% endfor %}
         </div>
+        {% endif %}
+        {% if object.user_questionfiles.all %}
+             <div class="row mt-3 mt-md-0">
+                 <div class="col-sm-12">
+                    <a href="#image-content" class="content text-muted">Show transcribed image text</a>
+                 </div>
+             </div>
+        {% endif %}
     </div>
 </section>
 <section class="">
@@ -42,7 +46,9 @@
                 <div class="card position-absolute blur-image-position width-452">
                     <div class="card-body p-4 p-md-5 text-center">
                        {% if answer %}
-                    <h5><strong>This question has been solved!</strong></h5>
+                        <h5>
+                            <strong>This question has been solved!</strong>
+                        </h5>
                         {% endif %}
                     <a href="{% url 'homework_help:order-create-view' uid=object.uid %}" class="btn btn-bg-theme white border-radius-20 px-4 mt-2">View Answers</a>
                     </div>
