@@ -9,6 +9,8 @@ from .serializers import DocumentCreateSerializer, ReportDocumentSerializer, Doc
 from desklib.mixins import RestrictIpMixin
 from samples.models import Sample
 from documents.models import Issue
+from rest_framework.permissions import IsAuthenticated
+
 
 class DocumentCreateApiView(RestrictIpMixin, CreateAPIView):
     serializer_class = DocumentCreateSerializer
@@ -16,6 +18,7 @@ class DocumentCreateApiView(RestrictIpMixin, CreateAPIView):
 
 class ReportDocumentApi(CreateAPIView):
     serializer_class = ReportDocumentSerializer
+    permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

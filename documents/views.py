@@ -241,18 +241,15 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
         subscription = get_current_subscription(self.request.user)
         doc = Document.objects.get(slug=request.GET.get('doc'))
         try:
-            pay_per_doc = PayPerDocument.objects.get(documents=doc)
+            pay_per_doc = PayPerDocument.objects.get(documents=doc, expire_on__gt=timezone.now(), is_current=True)
         except:
             pay_per_doc = None
 
         if subscription or pay_per_doc:
-            return super(DocumentDownloadDetailView, self).dispatch(request, *args, **kwargs)
+            # return super(DocumentDownloadDetailView, self).dispatch(request, *args, **kwargs)
+            return self.render_to_response(self.get_context_data())
         else:
-
-            # url = reverse('blog')
-            # number = request
-            # return HttpResponseRedirect(url + "?page=%s" % number)
-            return HttpResponseRedirect(reverse('documents:document-pay')+ "?doc=" + request.GET.get('doc'))
+            return HttpResponseRedirect(reverse('documents:document-pay') + "?doc=" + request.GET.get('doc'))
 
     def get_context_data(self, **kwargs):
         context = super(DocumentDownloadDetailView, self).get_context_data(**kwargs)
@@ -266,7 +263,7 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
                 raise Http404('"No document matches the given query.')
         try:
             pay_per_doc_sub = self.request.user.pay_per_download.all()
-            pay_per_doc = pay_per_doc_sub.get(documents=document_obj, expire_on__gt=timezone.now())
+            pay_per_doc = pay_per_doc_sub.get(documents=document_obj, expire_on__gt=timezone.now(), is_current=True )
             if pay_per_doc:
                 plan = pay_per_doc.plan
                 context['subscription'] = pay_per_doc
