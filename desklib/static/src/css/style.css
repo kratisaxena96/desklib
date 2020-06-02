@@ -1477,6 +1477,12 @@ a.tt-suggestion.tt-selectable {
     border-right: 0 !important; } }
 
 @media only screen and (max-width: 576px) {
+  .fb-page,
+  .fb-page span,
+  .fb-page span iframe[style] {
+    width: 100% !important; }
+  .height-50 {
+    height: 100%; }
   .blur-image {
     background-size: cover; }
   .main-div:hover .btn-d-none {
