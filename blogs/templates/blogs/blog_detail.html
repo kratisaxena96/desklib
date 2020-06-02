@@ -77,7 +77,7 @@
             <div class="col-lg-8">
                 <div class="card p-4 rounded-0">
                     <div class="">
-                        <img src="{{object.cover_image.url}}" class="card d-flex align-items-stretch align-self-center img-fluid card-img-top rounded-0" alt="blog-detail-page-banner">
+                        <img src="{{object.cover_image.url}}" class="card-img-top rounded-0" alt="blog-detail-page-banner">
                     </div>
                     <div class="mt-4">
                         <h2 class="">{{object.title}}</h2>
@@ -186,7 +186,7 @@
                                 <div class="col-md-4 mb-md-3 mb-lg-0">
                                     <a href="{% url 'blog_detail' year=featured_blog.published_date|date:'Y' month=featured_blog.published_date|date:'m' date=featured_blog.published_date|date:'d' slug=featured_blog.slug %}" class="text-decoration-none">
                                         <div class="">
-                                            <img src="{{object.cover_image.url}}" alt="" class="card d-flex align-items-stretch align-self-center rounded-0 card-img-top img-fluid">
+                                            <img src="{{object.cover_image.url}}" alt="" class="rounded-0 card-img-top img-fluid">
                                         </div>
                                     </a>
                                 </div>
