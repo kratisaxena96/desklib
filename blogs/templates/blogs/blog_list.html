@@ -89,7 +89,7 @@
                         <div class="col-md-6 mb-4 mb-md-0">
                             <a href="{% url 'blog_detail' year=blog.published_date|date:'Y' month=blog.published_date|date:'m' date=blog.published_date|date:'d' slug=blog.slug %}" class="text-decoration-none">
                                 <div class="card border-0 h-100 shadow">
-                                    <img src="{{ blog.cover_image.url }}" alt="" class="height-200 img-fluid card-img-top">
+                                    <img src="{{ blog.cover_image.url }}" alt="" class="height-200 img-fluid card-img-top rounded-0">
                                         <div class="card-body bg-light">
                                         <h6 class="black-font">{{blog.title}}</h6>
                                         {% if blog.short_description %}
