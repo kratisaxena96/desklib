@@ -1267,11 +1267,7 @@ display:none;
 		//	---------------  For Mobile ---------//
 
 @media only screen and (max-width: $breakpoint-mobile) {
-.fb-page,
-.fb-page span,
-.fb-page span iframe[style] {
-    width: 100% !important;
-}
+
 .height-50{
 height: 100%;
 }

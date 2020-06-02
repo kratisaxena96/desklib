@@ -1,14 +1,70 @@
 {% extends "desklib/base.html" %}
 {% load staticfiles %}
 {% load humanize %}
-
+{% block canonical %}
+<link rel="canonical" href=" https://desklib.com/homework-help" />
+{% endblock %}
 {% block extra_css %}
 <style>
-	.bar {
-    height: 18px;
-    background: green;
+.show-loader{
+   display: none;
 }
-
+.loading:before {
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: .5;
+  z-index: 99;
+}
+.loader-container{
+  position: fixed;
+  z-index: 999;
+  height: 249px;
+  max-width: 500px;
+  margin: 1.75rem auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+.loader {
+  margin-left: auto;
+  margin-right: auto;
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 3s linear infinite;
+}
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+    }
+}
+.loader-open {
+  overflow: hidden !important;
+}
+.bar {
+   height: 18px;
+   background: green;
+}
 // add dropzone
 #dropzone {
     background: palegreen;
@@ -51,7 +107,7 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<form method="post" id="question-form" class="form-submit" enctype="multipart/form-data">
+				<form method="post" id="question-form" enctype="multipart/form-data">
 					 {% csrf_token %}
 					<div class="row mt-4">
 						<div class="col-md-12">
@@ -70,8 +126,7 @@
 									{{form.file}}
 								</span>
 							</div>
-							<ul id="selected-files" class="list-unstyled">
-							</ul>
+							<ul id="selected-files" class="list-unstyled"></ul>
 							{% comment %}
 <!--								<div id="progress">-->
 <!--    								<div class="bar" style="width: 0%;"></div>-->
@@ -89,14 +144,14 @@
 					<div class="row">
 						<div class="col-sm-6">
 							<span class="error-msg text-danger"></span>
-							<div id="loader" class="display-none">
-								<img src="{% static 'dist/assets/images/loader.gif' %}" class="img-fluid mx-auto d-block">
-							</div>
 						</div>
 					</div>
     					<div class="row mt-3">
 							<div class="col-md-6">
-                     			<input type="submit" value="Get Answer" class="btn btn-bg-theme white border-radius-20 px-4">
+								<div id="loader" style="display:none;">
+                                    <img src="{% static 'dist/assets/images/loader.gif' %}" class="img-fluid mx-auto d-block">
+                                </div>
+                     			<input id="submit-button" type="submit" value="Get Answer" class="btn btn-bg-theme white border-radius-20 px-4">
 							</div>
 						</div>
 				</form>
@@ -206,6 +261,7 @@
 		<div class="row mt-4">
 			{% for object in subject %}
 			<div class="col-md-3 mb-4">
+<!--				<a href="" class="">-->
 					<div class="d-flex mt-2">
 						<div class="d-inline-block">
 							<div>
@@ -218,6 +274,7 @@
 							<span><strong>{{object}}</strong></span>
 						</div>
 					</div>
+<!--				</a>-->
 			</div>
 			{% endfor %}
 		</div>
@@ -393,7 +450,7 @@
     {{form.file}}
     {{form.file.errors.as_text}}
 
-	<div>
+    <div id="progress">
     <div class="bar" style="width: 0%;"></div>
 </div>
     <span class="reference_files"></span>
@@ -402,21 +459,31 @@
 </form>
 {% endcomment %}
 
+<div class="loading show-loader" id="previewModal">
+    <div class="loader-container jumbotron bg-white">
+        <div class="loader"></div>
+    </div>
+</div>
+
 {% endblock %}
 
 {% block extra_js %}
-
-
 <script src='{% static "src/js/jquery.ui.widget.js" %}'></script>
 <script src='{% static "src/js/jquery.fileupload.js" %}' ></script>
+<!--<script src='{% static "src/js/handlebars.js" %}'></script>-->
 
 <script>
-    $(document).ready(function (){
-        $(".homework").addClass("active");
-    });
+$(document).ready(function (){
+    $(".homework").addClass("active");
+ });
 </script>
 
 <script>
+$(document).ready(function (){
+	$('#question-form').submit(function() {
+    	$('.show-loader').show();
+	});
+});
 $(function () {
 
 var k = 1
@@ -433,17 +500,15 @@ var k = 1
         },
         progressall: function (e, data) {
             var progress = parseInt(data.loaded / data.total * 100, 10);
-            $('#progress .bar').css(
-                'width',
-                progress + '%'
-            );
+            $('#progress .bar').css('width',progress + '%');
         }
 
 }).on('fileuploaddone', function (e, data) {
 	var ul = $('#selected-files');
-	var selectedFiles = $('<li class="d-inline-block w-50"><p></p></li><div class="d-inline-block w-50" id="progress"><div class="bar" style="width: 0%;"></div></div>');
+	var selectedFiles = $('<li class="d-inline-block w-50"><p></p></li><div class="d-inline-block w-50" id="progress"><div class="bar"></div></div>');
 	selectedFiles.find('p').text(data.files[0].name);
 	data.context = selectedFiles.appendTo(ul);
+//	$('.show-loader').hide();
 //	data.submit();
 
  }).on('fileuploadfail', function (e, data) {
@@ -451,13 +516,11 @@ var k = 1
 	  var fileName = data.originalFiles[0]['name'];
   		 if (!fileTypeAllowed.test(fileName))
   			$('.error-msg').html('File extension '+ fileName +' is not allowed. Allowed extensions are: png, jpg, jpeg, gif');
- 		//	$('ul#selected-files #progress').addClass('d-none');
+		//	  $(".show-loader").hide();
 
-
-}).on('fileuploadsubmit', function (e, data) {
- $('form.form-submit').submit(function(e){
- $("#loader").show();
-});
+//}).on('fileuploadstop', function (e, data) {
+// alert('Processing');
+// jQuery(".show-loader").show();
 
     }).on('fileuploaddone', function (e, data) {
 			//alert(data);
