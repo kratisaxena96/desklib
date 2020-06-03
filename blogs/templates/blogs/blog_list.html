@@ -86,15 +86,15 @@
                 <div class="pr-md-4">
                     <div class="row">
                     {% for blog in object_list %}
-                        <div class="col-md-6 mb-4 mb-md-0">
+                        <div class="col-md-6 mb-4">
                             <a href="{% url 'blog_detail' year=blog.published_date|date:'Y' month=blog.published_date|date:'m' date=blog.published_date|date:'d' slug=blog.slug %}" class="text-decoration-none">
-                                <div class="card border-0 h-100 shadow">
-                                    <img src="{{ blog.cover_image.url }}" alt="" class="height-200 img-fluid card-img-top rounded-0">
+                                <div class="card border-0 shadow h-100">
+                                    <img src="{{ blog.cover_image.url }}" alt="" class="img-height img-fluid card-img-top rounded-0">
                                         <div class="card-body bg-light">
-                                        <h6 class="black-font">{{blog.title}}</h6>
-                                        {% if blog.short_description %}
+                                            <h6 class="black-font">{{blog.title}}</h6>
+                                            {% if blog.short_description %}
                                             <small class="text-muted">{{blog.short_description}}</small>
-                                        {% endif %}
+                                            {% endif %}
                                             <p class="border-bottom py-2"></p>
                                             <small class="border-right text-muted pr-3">{{blog.author.first_name}}</small>
                                             <small class="text-muted pl-2">{{blog.published_date|date:"d M Y"}}</small>
@@ -198,7 +198,7 @@
                                 <div class="col-md-4 mb-md-3 mb-lg-0">
                                     <a href="{% url 'blog_detail' year=featured_blog.published_date|date:'Y' month=featured_blog.published_date|date:'m' date=featured_blog.published_date|date:'d' slug=featured_blog.slug %}" class="">
                                         <div class="">
-                                            <img src="{{featured_blog.cover_image.url}}" alt="" class="height-50 rounded-0 card-img-top img-fluid">
+                                            <img src="{{featured_blog.cover_image.url}}" alt="featured-post-image" class="rounded-0 card-img-top img-fluid">
                                         </div>
                                     </a>
                                 </div>

@@ -376,12 +376,12 @@ ul.social-icons li{
    float: left;
    padding: 0 2.5px;
 }
-.widget-content{
-    float: left;
-    width: 100%;
-    box-sizing: border-box;
-    margin: 0;
-}
+//.widget-content{
+//    float: left;
+//    width: 100%;
+//    box-sizing: border-box;
+//    margin: 0;
+// }
 
 .blog-list-banner{
     background-image: url("/static/dist/assets/images/New Project.png");
@@ -392,7 +392,12 @@ ul.social-icons li{
     padding-bottom: 15rem;
     height: 70vh;
 }
-
+.img-height{
+height: 45%;
+//height: 200px;
+//object-fit: cover;
+//  height: 40vh;
+ }
 #custom-templates .empty-message {
   padding: 5px 10px;
  text-align: center;
@@ -1219,6 +1224,9 @@ display:none;
 			//------------	For Tablets ----------//
 
 @media only screen and (max-width: $breakpoint-tablet) {
+ .img-height{
+ height: auto;
+ }
  .blur-image{
         background-size: cover;
     }
@@ -1267,17 +1275,11 @@ display:none;
 		//	---------------  For Mobile ---------//
 
 @media only screen and (max-width: $breakpoint-mobile) {
-.fb-page,
-.fb-page span,
-.fb-page span iframe[style] {
-    width: 100% !important;
-}
-.height-50{
-height: 100%;
-}
+ .img-height{
+ height: auto;
 // .blog-list-banner{
 //     height: auto;
-// }
+ }
 .blur-image{
     background-size: cover;
 }
