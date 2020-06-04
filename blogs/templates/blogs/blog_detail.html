@@ -186,11 +186,11 @@
                                 <div class="col-md-4 mb-md-3 mb-lg-0">
                                     <a href="{% url 'blog_detail' year=featured_blog.published_date|date:'Y' month=featured_blog.published_date|date:'m' date=featured_blog.published_date|date:'d' slug=featured_blog.slug %}" class="text-decoration-none">
                                         <div class="">
-                                            <img src="{{object.cover_image.url}}" alt="" class="rounded-0 card-img-top img-fluid">
+                                            <img src="{{object.cover_image.url}}" class="featured-post-img rounded-0 card-img-top img-fluid" alt="">
                                         </div>
                                     </a>
                                 </div>
-                                <div class="col-md-8 mt-3 mt-md-3 mt-lg-3 mt-xl-0">
+                                <div class="col-md-8 mt-3 mt-xl-0">
                                     <a href="{% url 'blog_detail' year=featured_blog.published_date|date:'Y' month=featured_blog.published_date|date:'m' date=featured_blog.published_date|date:'d' slug=featured_blog.slug %}" class="text-decoration-none">
                                         <div class="px-3 px-md-0">
                                             <p class="black-font">{{featured_blog.title}}</p>
