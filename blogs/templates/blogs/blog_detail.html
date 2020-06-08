@@ -1,6 +1,6 @@
 {% extends "desklib/base.html" %}
 {% load staticfiles %}
-
+{% load thumbnail %}
 {% block extra_css %}
 <style>
 .show-loader{
@@ -76,8 +76,11 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="card p-4 rounded-0">
-                    <div class="">
-                        <img src="{{object.cover_image.url}}" class="card-img-top rounded-0" alt="blog-detail-page-banner">
+                    <div class="h-100 overflow-hidden">
+                        {% thumbnail object.cover_image "700x500" as im %}
+                        <img src="{{ im.url }}" alt="{{blog.title}}">
+                         {% endthumbnail %}
+<!--                        <img src="{{object.cover_image.url}}" class="card-img-top rounded-0" alt="blog-detail-page-banner">-->
                     </div>
                     <div class="mt-4">
                         <h2 class="">{{object.title}}</h2>

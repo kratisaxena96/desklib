@@ -385,6 +385,7 @@ ul.social-icons li{
     padding-bottom: 15rem;
     height: 70vh;
 }
+
 .img-height{
 height: 169px;
 object-fit: cover;
@@ -1273,6 +1274,9 @@ display:none;
 		//	---------------  For Mobile ---------//
 
 @media only screen and (max-width: $breakpoint-mobile) {
+// .img-width{
+// width: 100%;
+// }
 // .img-height{
 // height: auto;
 // .blog-list-banner{
