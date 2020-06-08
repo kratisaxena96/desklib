@@ -19,15 +19,15 @@
   height: 100%;
   background-color: #000;
   opacity: .5;
-  z-index: 99;
+  z-index: 9999;
 }
 .loader-container{
   position: fixed;
-  z-index: 999;
+  z-index: 9999;
   height: 249px;
   max-width: 500px;
   margin: 1.75rem auto;
-  top: 0;
+  top: 35%;
   left: 0;
   bottom: 0;
   right: 0;
@@ -431,8 +431,8 @@
 </form>
 {% endcomment %}
 
-<div class="loading show-loader" id="previewModal">
-    <div class="loader-container jumbotron bg-white">
+<div class="loading show-loader">
+    <div class="loader-container">
         <div class="loader"></div>
     </div>
 </div>
@@ -479,7 +479,7 @@ var k = 1
 	var selectedFiles = $('<li class="d-inline-block w-50 text-truncate"><p class="d-inline"></p></li><div class="d-inline-block w-50" id="progress"><div class="bar"></div></div>');
 	selectedFiles.find('p').text(data.files[0].name);
 	data.context = selectedFiles.appendTo(ul);
-//	$('.show-loader').hide();
+	$('.show-loader').hide();
 //	data.submit();
 
  }).on('fileuploadfail', function (e, data) {
@@ -487,11 +487,10 @@ var k = 1
 	  var fileName = data.originalFiles[0]['name'];
   		 if (!fileTypeAllowed.test(fileName))
   			$('#selected-files span.error-msg').html('File extension '+ fileName +' is not allowed. Allowed extensions are: png, jpg, jpeg, gif');
-		//	  $(".show-loader").hide();
+			  $(".show-loader").hide();
 
-//}).on('fileuploadstart', function (e, data) {
-// alert('Processing');
-// jQuery(".show-loader").show();
+}).on('fileuploadstart', function (e, data) {
+ jQuery(".show-loader").show();
 
     }).on('fileuploaddone', function (e, data) {
 			//alert(data);
