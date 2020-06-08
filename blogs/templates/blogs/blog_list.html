@@ -88,8 +88,8 @@
                   <div class="col-md-6 mb-4">
                      <a href="{% url 'blog_detail' year=blog.published_date|date:'Y' month=blog.published_date|date:'m' date=blog.published_date|date:'d' slug=blog.slug %}" class="text-decoration-none">
                         <div class="card border-0 h-100 shadow">
-                           {% thumbnail blog.cover_image "476x203" as im %}
-                           <img src="{{ im.url }}" alt="{{blog.title}}">
+                           {% thumbnail blog.cover_image "1349x480" crop="top" as im %}
+                           <img src="{{ im.url }}" alt="{{blog.title}}" class="img-fluid">
                            {% endthumbnail %}
                            <div class="card-body bg-light">
                               <h6 class="black-font">{{blog.title}}</h6>
@@ -196,20 +196,25 @@
                <div class="card pt-3 pl-3 pr-3 rounded-bottom rounded-0 border-top-0 shadow">
                   <div class="row">
                      {% for featured_blog in featured_blog %}
-                     <div class="col-md-4 mb-md-3 mb-lg-0">
+                     <div class="col-4 col-md-4 mb-3">
                         <a href="{% url 'blog_detail' year=featured_blog.published_date|date:'Y' month=featured_blog.published_date|date:'m' date=featured_blog.published_date|date:'d' slug=featured_blog.slug %}" class="">
                            <div class="">
-                              {% thumbnail featured_blog.cover_image "100x100" as im %}
-                              <img src="{{ im.url }}" alt="{{featured_blog.title}}">
+                              {% thumbnail featured_blog.cover_image "304x304" crop="top" as im %}
+                              <img src="{{ im.url }}" alt="{{featured_blog.title}}" class="img-fluid">
                                {% endthumbnail %}
 <!--                              <img src="{{featured_blog.cover_image.url}}" class="rounded-0 card-img-top img-fluid" alt="featured-post-image">-->
                            </div>
                         </a>
                      </div>
-                     <div class="col-md-8 mt-3 mt-md-3 mt-lg-3 mt-xl-0">
+                     <div class="col-8 col-md-8 mt-3 mt-md-3 mt-lg-3 mt-xl-0">
                         <a href="{% url 'blog_detail' year=featured_blog.published_date|date:'Y' month=featured_blog.published_date|date:'m' date=featured_blog.published_date|date:'d' slug=featured_blog.slug %}" class="text-decoration-none">
                            <div class="px-3 px-md-0">
                               <p class="black-font">{{featured_blog.title}}</p>
+                              <p class="black-font">
+
+                              <small class="border-right text-muted pr-3">{{featured_blog.author.first_name}}</small>
+                              <small class="text-muted pl-2">{{featured_blog.published_date|date:"d M Y"}}</small>
+                              </p>
                            </div>
                         </a>
                      </div>
