@@ -22,7 +22,13 @@ from django.template.response import TemplateResponse
 from accounts.models import UserAccount
 from django.contrib.auth.models import Permission
 from django.contrib import admin
+from datetime import datetime
+from datetime import timedelta
+from django.utils import timezone
+
+
 admin.site.register(Permission)
+
 
 
 def publish_documents(modeladmin, request, queryset):
@@ -260,9 +266,14 @@ class DocumentAdmin(admin.ModelAdmin):
         queryset = super(DocumentAdmin, self).get_queryset(request)
         queryset = queryset.prefetch_related('pages').prefetch_related('document_file').prefetch_related(
             'pages__author').prefetch_related('document_file__author')
-        if request.user.is_superuser  or request.user.has_perm('documents.change_document_author'):
+        if request.user.is_superuser or request.user.has_perm('documents.change_document_author'):
             return queryset
-        return queryset.filter(author=request.user)
+
+
+        # published_date = self.initial.get("published_date")
+        # today_date = datetime.today()
+        # published_date.day <= datetime.today().day and published_date.month <= datetime.today().month and published_date.year <= datetime.today().year
+        return queryset.filter(author=request.user, published_date__gte=datetime.now() - timedelta(days=15))
 
     def get_form(self, request, obj=None, **kwargs):
         # Proper kwargs are form, fields, exclude, formfield_callback
