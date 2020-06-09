@@ -16,15 +16,15 @@
   height: 100%;
   background-color: #000;
   opacity: .5;
-  z-index: 99;
+  z-index: 9999;
 }
 .loader-container{
   position: fixed;
-  z-index: 999;
+  z-index: 9999;
   height: 249px;
   max-width: 500px;
   margin: 1.75rem auto;
-  top: 0;
+  top: 35%;
   left: 0;
   bottom: 0;
   right: 0;
@@ -64,7 +64,7 @@
 {% block content %}
 <section>
     <nav aria-label="breadcrumb">
-      <ol class="breadcrumb mb-0 rounded-0 bg-light-grey">
+      <ol class="breadcrumb mb-0 rounded-0 bg-light-grey border-bottom">
         <li class="breadcrumb-item"><a href="/" class="">Home</a></li>
         <li class="breadcrumb-item"><a href="{% url 'blog' %}" class="">blog</a></li>
         <li class="breadcrumb-item active" aria-current="page">{{object.title}}</li>
@@ -80,7 +80,6 @@
                         {% thumbnail object.cover_image "680" as im %}
                         <img src="{{ im.url }}" alt="{{blog.title}}" class="img-fluid">
                          {% endthumbnail %}
-<!--                        <img src="{{object.cover_image.url}}" class="card-img-top rounded-0" alt="blog-detail-page-banner">-->
                     </div>
                     <div class="mt-4">
                         <h2 class="">{{object.title}}</h2>
@@ -249,7 +248,7 @@
   </div>
 </div>
 <div class="loading show-loader" id="previewModal">
-    <div class="loader-container jumbotron bg-white">
+    <div class="loader-container">
         <div class="loader"></div>
     </div>
 </div>

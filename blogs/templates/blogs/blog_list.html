@@ -16,15 +16,15 @@
    height: 100%;
    background-color: #000;
    opacity: .5;
-   z-index: 99;
+   z-index: 9999;
    }
    .loader-container{
    position: fixed;
-   z-index: 999;
+   z-index: 9999;
    height: 249px;
    max-width: 500px;
    margin: 1.75rem auto;
-   top: 0;
+   top: 35%;
    left: 0;
    bottom: 0;
    right: 0;
@@ -202,7 +202,6 @@
                               {% thumbnail featured_blog.cover_image "304x304" crop="top" as im %}
                               <img src="{{ im.url }}" alt="{{featured_blog.title}}" class="img-fluid">
                                {% endthumbnail %}
-<!--                              <img src="{{featured_blog.cover_image.url}}" class="rounded-0 card-img-top img-fluid" alt="featured-post-image">-->
                            </div>
                         </a>
                      </div>
@@ -242,7 +241,7 @@
    </div>
 </div>
 <div class="loading show-loader" id="previewModal">
-   <div class="loader-container jumbotron bg-white">
+   <div class="loader-container">
       <div class="loader"></div>
    </div>
 </div>
