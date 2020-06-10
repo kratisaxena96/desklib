@@ -75,7 +75,7 @@
     <div class="container pb-5 pt-4 pt-md-5">
         <div class="row">
             <div class="col-lg-8">
-                <div class="card p-4 rounded-0">
+                <div class="card p-4 rounded-bottom-0">
                     <div class="h-100 overflow-hidden">
                         {% thumbnail object.cover_image "680" as im %}
                         <img src="{{ im.url }}" alt="{{blog.title}}" class="img-fluid">
@@ -96,7 +96,7 @@
                     </div>
                  {% endif %}
                 </div>
-                <div class="card p-4 rounded-bottom rounded-0 border-top-0">
+                <div class="card p-4 rounded-top-0 border-top-0">
                     <ul class="list-unstyled mb-0 social-icons">
                         <li class="">
                             <a class="facebook-bg-color w-100 d-inline-block text-center rounded py-1 font-size-20" href="https://facebook.com/sharer.php?u=http://{{request.get_host}}{% url 'blog_detail' year=object.published_date|date:'Y' month=object.published_date|date:'m' date=object.published_date|date:'d' slug=object.slug %}" target="_blank">
@@ -134,10 +134,10 @@
             <div class="col-lg-4 mt-4 mt-lg-0">
                 <div class="row">
                     <div class="col-md-12">
-                       <div class="card pt-3 pl-3 pb-2 rounded-bottom rounded-0 shadow">
+                       <div class="card pt-3 pl-3 pb-2 rounded-bottom-0 shadow">
                            <p class="mt-3 mt-md-0"><strong>Contact Form</strong></p>
                        </div>
-                        <div class="card pt-3 pl-3 pb-3 pr-3 rounded-bottom rounded-0 border-top-0 shadow">
+                        <div class="card pt-3 pl-3 pb-3 pr-3 rounded-top-0 border-top-0 shadow">
                             <form method="POST" id="signup" novalidate="novalidate">
                                 {% csrf_token %}
                                 <div class="row mt-2">
@@ -175,14 +175,14 @@
                     </div>
                 {% if featured_blog %}
                     <div class="mt-4 mt-lg-5">
-                        <div class="card card pt-3 pl-3 pb-3 pr-3 rounded-bottom rounded-0 shadow">
+                        <div class="card card pt-3 pl-3 pb-3 pr-3 rounded-bottom-0 shadow">
                             <div class="row">
                                 <div class="col-md-12">
                                     <p class="mt-3 mt-md-0"><strong>Featured Posts</strong></p>
                                 </div>
                             </div>
                         </div>
-                        <div class="card card pt-3 pl-3 pr-3 rounded-bottom rounded-0 border-top-0 shadow">
+                        <div class="card card pt-3 pl-3 pr-3 rounded-top-0 border-top-0 shadow">
                             <div class="row">
                             {% for featured_blog in featured_blog %}
                                 <div class="col-4 col-md-4 mb-3">
@@ -209,14 +209,14 @@
                     {% endif %}
 
                 <div class="mt-4 mt-md-5">
-                    <div class="card pt-3 pl-3 pb-2 pr-3 rounded-bottom rounded-0 shadow">
+                    <div class="card pt-3 pl-3 pb-2 pr-3 rounded-bottom-0 shadow">
                         <div class="row">
                             <div class="col-md-12">
                                 <p class="mt-3 mt-md-0"><strong>Facebook</strong></p>
                             </div>
                         </div>
                     </div>
-                     <div class="card pt-3 pl-3 pb-2 pr-3 rounded-bottom rounded-0 border-top-0 shadow">
+                     <div class="card pt-3 pl-3 pb-2 pr-3 rounded-top-0 border-top-0 shadow">
                          <div class="row">
                              <div class="col-md-12">
                                  <div id="container" style="width:100%;">
