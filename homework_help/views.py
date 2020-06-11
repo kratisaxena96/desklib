@@ -1,3 +1,5 @@
+from django.contrib.sites.models import Site
+from django.template.loader import render_to_string
 from django.utils import timezone
 from email.header import Header
 from email.mime.image import MIMEImage
@@ -214,6 +216,9 @@ class OrderCreateView(LoginRequiredMixin, FormView):
         order = Order(question=question, author=request.user)
         order.save()
 
+        ip = "https://"+ Site.objects.get_current().domain
+
+
         locus_email = "kushagra.goel@locusrags.com"
         if not settings.DEBUG:
             locus_email = "info@desklib.com"
@@ -221,9 +226,9 @@ class OrderCreateView(LoginRequiredMixin, FormView):
         subject = order.order_id + ' added'
         message = question.question + ' added!'
         from_email = settings.DEFAULT_FROM_EMAIL
-        recipient_list = [locus_email],
-        html_message = order.order_id +' is added by '+ order.author.email +'.<br>Question is '+ question.question
-        mail = EmailMultiAlternatives(subject, message, from_email, recipient_list)
+        to = locus_email,
+        html_message = order.order_id +' is added by '+ order.author.email +'.<br>Question is '+ question.question + '<br>Link for the admin is: ' + ip + reverse('admin:homework_help_order_change', args=(order.id,))
+        mail = EmailMultiAlternatives(subject, message, from_email, to)
 
         # if question.user_questionfiles:
         for i in question.user_questionfiles.all():
@@ -231,6 +236,27 @@ class OrderCreateView(LoginRequiredMixin, FormView):
             mime_image = MIMEImage(i.file.read())
             mime_image.add_header('Content-ID', '<image>', filename=i.title)
             mail.attach(mime_image)
+
+
+            # mail.attach_file(.path)
+        mail.attach_alternative(html_message, 'text/html')
+        mail.send(True)
+
+
+
+        subject = order.order_id + ' added'
+        message = question.question + ' added!'
+        from_email = settings.DEFAULT_FROM_EMAIL
+        to = order.author.email,
+        contex = {'first_name': order.author.first_name, 'order_id': order.order_id,
+                  'question': question.question, 'SITE_URL': ip, }
+        htmly = render_to_string('homework_help/mail-templates/order_added.html',
+                                 context=contex, request=None)
+        html_message = htmly
+        # html_message = "Hello " + order.author.first_name + ",<br>Your order " + order.order_id + " is added.<br>Question is " + question.question + "<br>"
+        mail = EmailMultiAlternatives(subject, message, from_email, to)
+
+        # if question.user_questionfiles:
 
 
             # mail.attach_file(.path)
