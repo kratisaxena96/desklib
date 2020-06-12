@@ -15,16 +15,23 @@
     {% include "meta/meta.html" %}
     <link rel="stylesheet" href='{% static "dist/css/bundle.css" %}'>
 {% get_available_languages as LANGUAGES %}
+
+    {% comment %}
 {% for language_code, language_name in LANGUAGES %}
-    <link
-        rel="alternate"
-        hreflang="{{ language_code }}"
-        href="{% translate_url  language_code %}" />
+    <link rel="alternate" hreflang="{{ language_code }}" href="{% translate_url  language_code %}" />
 {% endfor %}
-    <link
-    rel="alternate"
-    hreflang="x-default"
-    href="{% translate_url  LANGUAGE_CODE  %}" />
+    <link rel="alternate" hreflang="x-default" href="{% translate_url  LANGUAGE_CODE  %}" />
+<link rel="canonical" href="https://{{request.get_host}}" />
+{% endcomment %}
+
+{% if LANGUAGES %}
+<link rel="alternate" hreflang="x-default" href="https://{{request.get_host}}" />
+{% for language_code, language_name in LANGUAGES %}
+<link rel="alternate" href="{% translate_url  language_code %}" hreflang="{{ language_code }}"   />
+{% endfor %}
+{% endif %}
+
+
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
