@@ -22,7 +22,6 @@
 {% endfor %}
     <link rel="alternate" hreflang="x-default" href="{% translate_url  LANGUAGE_CODE  %}" />
 <link rel="canonical" href="https://{{request.get_host}}" />
-{% endcomment %}
 
 {% if LANGUAGES %}
 <link rel="alternate" hreflang="x-default" href="https://{{request.get_host}}" />
@@ -30,6 +29,7 @@
 <link rel="alternate" href="{% translate_url  language_code %}" hreflang="{{ language_code }}"   />
 {% endfor %}
 {% endif %}
+{% endcomment %}
 
 
 
