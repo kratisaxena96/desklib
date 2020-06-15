@@ -35,9 +35,20 @@ class CommentForm(forms.ModelForm):
 
 
 class QuestionForm(forms.ModelForm):
-    question = forms.CharField(label='Question', widget=forms.Textarea(attrs={'placeholder':"Type Your Question here...", 'class': "form-control rounded-0 fade well", 'id': "dropzone"}), required=True)
+    question = forms.CharField(label='Question', widget=forms.Textarea(attrs={'placeholder':"Type Your Question here...", 'class': "form-control rounded-0 fade well", 'id': "dropzone" }), required=True)
     subjects =forms.ModelChoiceField(queryset=Subject.objects.filter(is_parent=False), label='Subject', widget=forms.Select(attrs={'class':"form-control js-example-basic-multiple border-radius-20", }), required=True)
-    file =forms.FileField(label='Files', widget=forms.FileInput(attrs={'class': "form-control", 'id': "fileupload"}), required=False)
+    file =forms.FileField(label='Files', widget=forms.FileInput(attrs={'class': "form-control", 'id': "fileupload", 'data-multiple-caption':"{count} files selected"}), required=False)
+
+
+    class Meta:
+        model = Question
+        fields = ['question', 'subjects']
+
+
+class QuestionHomeForm(forms.ModelForm):
+    question = forms.CharField(label='Question', widget=forms.Textarea(attrs={'placeholder':"Type Your Question here...", 'class': "form-control rounded-0 ", 'id': "dropzone" ,'rows':"5"}), required=True)
+    subjects =forms.ModelChoiceField(queryset=Subject.objects.filter(is_parent=False), label='Subject', widget=forms.Select(attrs={'class':"form-control js-example-basic-multiple border-radius-20", }), required=True)
+    file =forms.FileField(label='Files', widget=forms.FileInput(attrs={'class': "form-control", 'id': "fileupload", 'multiple':"true"}), required=False)
 
 
     class Meta:
