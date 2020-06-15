@@ -164,8 +164,8 @@
 							<td align="center" valign="top" style="padding-bottom:40px;padding-left:20px;padding-right:20px;" class="description">
 								<!-- Description Text // -->
 								<p class="midText" style="color:#919191; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:14px; font-weight:400; line-height:22px; text-align:center; padding:0; margin:0;">
-									Your order id {{order_id}} has been successfully solved by our experts.
-									<br>Tap to know your order details.
+									Your order id <strong>{{order_id}}</strong> has been successfully solved by our experts.
+									<br> To check your answer click the given link below.
 								</p>
 							</td>
 						</tr>
@@ -177,7 +177,7 @@
 									<tr>
 										<td align="center" class="postButton" style="background-color:#8D6CD1;padding-top:10px;padding-bottom:10px;padding-left:25px;padding-right:25px;border-radius:2px">
 											<!-- Button Link // -->
-											<a href="https://{{ SITE_URL }}{% url 'homework_help:ask-question-view' %}" target="_blank" style="color:#FFFFFF; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:12px; font-weight:600; letter-spacing:1px; line-height:20px; text-transform:uppercase; text-decoration:none; display:block;" >
+											<a href="{{ SITE_URL }}{% url 'homework_help:order-detail-view' uuid=uuid %}" target="_blank" style="color:#FFFFFF; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:12px; font-weight:600; letter-spacing:1px; line-height:20px; text-transform:uppercase; text-decoration:none; display:block;" >
 												Check Answer
 											</a>
 										</td>

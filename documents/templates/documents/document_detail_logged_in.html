@@ -1,5 +1,6 @@
 {% extends 'desklib/base.html' %}
 {% load meta %}
+{% load staticfiles %}
 {% block canonical %}
     {% if canonical %}
         <link rel="canonical" href="{{canonical}}"/>
@@ -210,7 +211,7 @@ opacity:0.9 !important;
                   <a class="dropdown-item" href="https://twitter.com/intent/tweet?url=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank" >Share on Twitter</a>
                    <a class="dropdown-item" href="https://www.linkedin.com/shareArticle?mini=true&url=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank">Share on LinkedIn</a>
                    <a class="dropdown-item" href="https://web.whatsapp.com/send?text=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank">Share on Whatsapp</a>
-                  <a class="dropdown-item" href="mailto:?subject=Read {{object.title}}  on Scribd&body=I am reading {{object.title}}  on Desklib: https://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank">Share on Mail</a>
+                  <a class="dropdown-item" href="mailto:?subject=Read{{object.title}}on Scribd&body=I am reading{{object.title}}on Desklib: https://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank">Share on Mail</a>
                   <a class="dropdown-item copy_text" href="https://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank">Copy Link</a>
                 </div>
               </div>
@@ -359,13 +360,44 @@ opacity:0.9 !important;
 
         </div>
         {% if not pay_per_view %}
-        <div class="subscribe mt-3 mb-5">
-            <div class="jumbotron p-4 mb-3 text-center">
-                <h6 class="mb-3">You’re reading a preview. To view complete document, subscribe to a plan</h6>
-                <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white border-radius-40" rel="nofollow">Unlock this Document</a>
+<!--        <div class="subscribe mt-3 mb-5">-->
+<!--            <div class="jumbotron p-4 mb-3 text-center">-->
+<!--                <h6 class="mb-3">You’re reading a preview. To view complete document, subscribe to a plan</h6>-->
+<!--                <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white border-radius-40" rel="nofollow">Unlock this Document</a>-->
 
-            </div>
-        </div>
+<!--            </div>-->
+<!--        </div>-->
+        <section class="pb-10 page">
+<div class="container">
+<div class="row">
+<div class="col-md-12">
+<!--<h2 class="text-center">Expert's Answers</h2>-->
+<div class="blur-content position-relative">
+<div class="card position-absolute card-position width-68 card-border">
+<div class="card-body text-center card-padding">
+    <img class="img-fluid pb-2" src="{% static 'dist/assets/images/deskliblogo.png' %}" alt="desklib-logo"><br>
+ <h5 class="pb-2"><strong>You’re reading a preview</strong></h5>
+     <img class="img-fluid pb-2" src="{% static 'dist/assets/images/cardimage.png' %}" alt="card-image"><br>
+    <p>To View Complete Document</p>
+    <p>Become a Desklib Library Member.<br>Subscribe to our plans</p>
+<a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme white border-radius-20 px-4 mt-2">Unlock This Document</a>
+</div>
+</div>
+</div>
+<div class="text-center">
+{% comment %}
+<form action="" method="post" id="question-form" enctype="multipart/form-data">
+{% csrf_token %}
+<input type="hidden" name="question" value="{{object.id}}">
+<input type="submit" value="View Answer" class="btn btn-bg-theme white border-radius-20 px-4">
+</form>
+{% endcomment %}
+</div>
+</div>
+</div>
+</div>
+</section>
+
         {% endif %}
 
     </article>

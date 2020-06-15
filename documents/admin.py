@@ -170,6 +170,7 @@ class SubjectListFilter(admin.SimpleListFilter):
             return queryset.filter(subjects__id=int(self.value()))
         return queryset
 
+
 class EmployeeListFilter(admin.SimpleListFilter):
     title = 'employee'
     parameter_name = 'emp'
@@ -238,7 +239,7 @@ class DocumentAdmin(admin.ModelAdmin):
     date_hierarchy = 'published_date'
     raw_id_fields = ('author','subjects','course','term','college')
     search_fields = ['title','slug','upload_file']
-    list_display = ('title', 'published_date', 'is_published', 'is_visible', 'page', 'words', 'get_subjects')
+    list_display = ('title', 'published_date', 'is_published', 'is_visible', 'page', 'words')
     list_filter = (SubjectListFilter, 'is_published', 'is_visible' , EmployeeListFilter)
     actions = [publish_documents, un_publish_documents, visble_documents, soft_delete_documents, set_document_subject, restore_documents, hard_delete_documents, chage_publish_date, change_author, get_document_download]
 
@@ -259,8 +260,8 @@ class DocumentAdmin(admin.ModelAdmin):
             return qs
         return qs.filter(author=request.user)
 
-    def get_subjects(self, obj):
-        return "\n".join(list(obj.subjects.all().values_list('name',flat=True)))
+    # def get_subjects(self, obj):
+    #     return "\n".join(list(obj.subjects.all().values_list('name',flat=True)))
 
     def get_queryset(self, request):
         queryset = super(DocumentAdmin, self).get_queryset(request)
