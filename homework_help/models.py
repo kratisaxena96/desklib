@@ -305,7 +305,7 @@ class Order(ModelMeta, models.Model):
             from_email = settings.DEFAULT_FROM_EMAIL
             recipient_list = [self.author.email],
             contex = {'first_name': self.author.first_name, 'order_id': self.order_id, 'budget': self.budget,
-                      'SITE_URL': ip, }
+                      'SITE_URL': ip, 'uuid': self.uuid }
             htmly = render_to_string('homework_help/mail-templates/budget_for_order_added.html',
                                      context=contex, request=None)
             html_message = htmly
@@ -322,7 +322,7 @@ class Order(ModelMeta, models.Model):
             from_email = settings.DEFAULT_FROM_EMAIL
             recipient_list = [self.author.email],
             contex = {'first_name': self.author.first_name, 'order_id': self.order_id,
-                      'SITE_URL': ip, }
+                      'SITE_URL': ip, 'uuid': self.uuid }
             htmly = render_to_string('homework_help/mail-templates/answer_for_order_added.html',
                                      context=contex, request=None)
             html_message = htmly
