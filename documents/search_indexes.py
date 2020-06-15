@@ -89,6 +89,14 @@ class QuestionIndex(indexes.SearchIndex, indexes.Indexable):
         answers_count = Answers.objects.filter(question=obj).count()
         return answers_count
 
+    def prepare_subjects(self, obj):
+        subject = obj.subjects.slug
+        return subject
+
+    def prepare_p_subject(self, obj):
+        parent_sub = obj.subjects.parent_subject.slug
+        return list(parent_sub)
+
     def prepare_uid(self, obj):
         uid = obj.uid
         return uid

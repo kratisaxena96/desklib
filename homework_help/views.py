@@ -23,6 +23,7 @@ from django.core.paginator import Paginator
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from haystack.generic_views import SearchView
 import simplejson as json
+from haystack.generic_views import SearchView, FacetedSearchView
 
 # Create your views here.
 from subjects.models import Subject
@@ -145,15 +146,46 @@ class AskQuestionView(MetadataMixin, FormView):
 
 
 
-class CustomSearchQuestionView(JsonLdContextMixin, MetadataMixin, SearchView):
+class CustomSearchQuestionView(JsonLdContextMixin, MetadataMixin, FacetedSearchView):
     model = Question
     queryset = SearchQuerySet().models(Question)
     extra_context = {"questionsearch":"True"}
+    facet_fields = ['subjects']
     paginate_by = 4
+    selected_facets = ['subjects', 'p_subject']
+    suggestions = {}
 
     def get_queryset(self):
         queryset = super(CustomSearchQuestionView, self).get_queryset()
         return queryset
+
+    def get_context_data(self, **kwargs):
+        sqs = SearchQuerySet().facet('subjects')
+        sqs_count = sqs.facet_counts()
+        context = super(CustomSearchQuestionView, self).get_context_data(**kwargs)
+        # context[settings.CONTEXT_ATTRIBUTE] = self.get_structured_data()
+        # context['sqs'] = sqs_count
+        slug_list = []
+        for sub_filter in sqs_count.get('fields').get('subjects'):
+            slug_list.append(sub_filter[0])
+        context['slug_faceit'] = Subject.objects.filter(slug__in=slug_list)
+        context['parent'] = Subject.objects.filter(parent_subject__isnull=True).prefetch_related('subject_set')
+        context['subject_facet'] = Subject.objects.all()
+        suggest_string = SearchQuerySet().spelling_suggestion(self.request.GET.get('q', ''))
+        if self.request.GET.get('q', '') != suggest_string:
+            context['suggestion'] = suggest_string
+        context['selected'] = self.request.GET.get('selected_facets')
+        if not self.request.GET.get('q') and not self.request.GET.get('selected_facets'):
+            context['is_empty'] = True
+        # context.update({'object_list': SearchQuerySet().filter(no_of_pages__range=[1, 5])})
+        # self.searchqueryset = SearchQuerySet().order_by('-pub_date')[:5]
+
+        # if self.suggestions:
+        #     context['suggestion'] = self.suggestions
+        # """Insert the form into the context dict."""
+        # if 'form' not in kwargs:
+        #     kwargs['form'] = self.get_form()
+        return context
 
 
 class QuestionDetailView(DetailView):
@@ -249,7 +281,7 @@ class OrderCreateView(LoginRequiredMixin, FormView):
         from_email = settings.DEFAULT_FROM_EMAIL
         to = order.author.email,
         contex = {'first_name': order.author.first_name, 'order_id': order.order_id,
-                  'question': question.question, 'SITE_URL': ip, }
+                  'question': question.question, 'SITE_URL': ip,  'uuid': self.uuid }
         htmly = render_to_string('homework_help/mail-templates/order_added.html',
                                  context=contex, request=None)
         html_message = htmly
