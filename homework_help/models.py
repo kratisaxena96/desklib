@@ -294,7 +294,7 @@ class Order(ModelMeta, models.Model):
         # super(Question, self).save(*args, **kwargs)
         # self.slug = slugify(truncatechars(value, 50)+str(self.pk))
         ip = "https://" + Site.objects.get_current().domain
-        if value:
+        if value and self.status == 2:
 
             locus_email = "kushagra.goel@locusrags.com"
             if not settings.DEBUG:

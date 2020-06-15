@@ -1,5 +1,6 @@
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
+from django.urls import reverse
 from paypal.standard.models import ST_PP_COMPLETED
 from paypal.standard.ipn.signals import valid_ipn_received, invalid_ipn_received
 from subscription.models import Subscription, Plan, PayPerDocument
@@ -38,6 +39,44 @@ def show_me_the_money(sender, **kwargs):
                     o.amount_paid = o.amount_paid + ipn_obj.payment_gross
                     o.status = 3
                     o.save()
+
+                    ip = "https://" + Site.objects.get_current().domain
+
+                    locus_email = "kushagra.goel@locusrags.com"
+                    if not settings.DEBUG:
+                        locus_email = "info@desklib.com"
+
+                    subject = 'payment for ' + o.order_id + ' recieved'
+                    message = 'payment for ' + o.order_id + ' recieved'
+                    from_email = settings.DEFAULT_FROM_EMAIL
+                    to = locus_email,
+                    html_message = 'Hello<br>Payment for ' + o.order_id + ' recieved' + '<br>Link for the admin is: ' + ip + reverse(
+                        'admin:homework_help_order_change', args=(o.id,))
+                    mail = EmailMultiAlternatives(subject, message, from_email, to)
+
+                    # if question.user_questionfiles:
+
+                        # mail.attach_file(.path)
+                    mail.attach_alternative(html_message, 'text/html')
+                    mail.send(True)
+
+                    subject = 'payment for ' + o.order_id + ' completed'
+                    message = 'payment for ' + o.order_id + ' recieved'
+                    from_email = settings.DEFAULT_FROM_EMAIL
+                    to = o.author.email,
+                    contex = {'first_name': o.author.first_name, 'order_id': o.order_id, 'SITE_URL': ip, 'uuid': o.uuid }
+                    htmly = render_to_string('homework_help/mail-templates/order_payment_completed.html',
+                                             context=contex, request=None)
+                    html_message = htmly
+                    # html_message = "Hello " + o.author.first_name + ",<br>Your order " + o.order_id + " is added.<br>Question is <br>"
+                    mail = EmailMultiAlternatives(subject, message, from_email, to)
+
+                    # if question.user_questionfiles:
+
+                    # mail.attach_file(.path)
+                    mail.attach_alternative(html_message, 'text/html')
+                    mail.send(True)
+
                 else:
                     custom_str = ipn_obj.custom
                     custom_str_list = custom_str.split('_')

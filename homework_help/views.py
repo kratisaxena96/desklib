@@ -281,7 +281,7 @@ class OrderCreateView(LoginRequiredMixin, FormView):
         from_email = settings.DEFAULT_FROM_EMAIL
         to = order.author.email,
         contex = {'first_name': order.author.first_name, 'order_id': order.order_id,
-                  'question': question.question, 'SITE_URL': ip,  'uuid': self.uuid }
+                  'question': question.question, 'SITE_URL': ip,  'uuid': order.uuid }
         htmly = render_to_string('homework_help/mail-templates/order_added.html',
                                  context=contex, request=None)
         html_message = htmly
