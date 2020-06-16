@@ -488,6 +488,8 @@ var k = 1
   		 if (!fileTypeAllowed.test(fileName))
   			$('#selected-files span.error-msg').html('File extension '+ fileName +' is not allowed. Allowed extensions are: png, jpg, jpeg, gif');
 			  $(".show-loader").hide();
+			   var files = data.jqXHR.responseJSON.files;
+    			console.log(files);
 
 }).on('fileuploadstart', function (e, data) {
  jQuery(".show-loader").show();
