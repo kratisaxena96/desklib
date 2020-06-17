@@ -23,7 +23,7 @@
 				 {% endif %}
 				</div>
 				<div class="d-inline-block">
-				<h1 class="d-inline ml-md-2">{{object.name}}</h1>
+				<h2 class="d-inline ml-md-2">{{object.name}}</h2>
 				</div>
 				{% if object.sub_heading %}
                 <p class="pt-2">{{object.sub_heading}}</p>
@@ -34,7 +34,7 @@
 			<div class="col-sm-5"></div>
 		</div>
 		<div class="row mt-4 mb-4">
-			 {% for child in child_subject %}
+			  {% for child in object.subject_set.all %}
 			<div class="col-sm-4 mb-3">
 				<h5>
 					<a href="{% url 'subjects:child-subject-view' object.slug child.slug %}" class="blue-theme">{{child}}</a> </h5>
@@ -57,7 +57,7 @@
 		<div class="row mt-md-4 mb-md-4 mb-3 mt-3 border-bottom pb-2">
 			<div class="col-sm-4 mb-md-2 mb-4">
 				<form class="form-inline" action="{% url 'study:search-results' %}">
-            	<div class="input-group tt-input-group" id="">
+            	<div class="input-group tt-input-group">
                 {% if request.GET.q %}
                 	<input type="search" name="q" class="sm-search typeahead form-control border-radius-30" placeholder="Search here..." value="{{request.GET.q}}">
                 {% else %}
