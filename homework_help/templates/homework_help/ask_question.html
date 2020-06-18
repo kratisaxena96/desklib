@@ -72,8 +72,9 @@
 								</span>
 							</div>
 							<ul id="selected-files" class="list-unstyled">
-								<li class="error">
-									<span class="error-msg text-danger"></span>
+								<li class="">
+									<span class="error-msg text-danger d-block"></span>
+									<span class="error text-danger d-block"></span>
 								</li>
 							</ul>
 							{% comment %}
@@ -90,11 +91,13 @@
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-sm-6">
-							<span class="error-msg text-danger"></span>
-						</div>
-					</div>
+					{% comment %}
+<!--					<div class="row">-->
+<!--						<div class="col-sm-6">-->
+<!--							<span class="error-msg text-danger"></span>-->
+<!--						</div>-->
+<!--					</div>-->
+					{% endcomment %}
     					<div class="row mt-3">
 							<div class="col-md-6">
                      			<input id="submit-button" type="submit" value="Get Answer" class="btn btn-bg-theme white border-radius-20 px-4">
@@ -430,11 +433,15 @@ var k = 1
  }).on('fileuploadfail', function (e, data) {
 	var fileTypeAllowed = /.\.(gif|jpg|png|jpeg)$/i;
 	  var fileName = data.originalFiles[0]['name'];
+	  var status = 500;
   		 if (!fileTypeAllowed.test(fileName))
   			$('#selected-files span.error-msg').html('File extension '+ fileName +' is not allowed. Allowed extensions are: png, jpg, jpeg, gif');
+
+			 else if (status)
+			   $('#selected-files span.error').html('Your file has not uploaded, Please upload another file');
+			//	console.log("Your file has not uploaded, Please upload another file");
 			  $(".show-loader").hide();
-			   var files = data.jqXHR.responseJSON.files;
-    			console.log(files);
+
 
 }).on('fileuploadstart', function (e, data) {
  jQuery(".show-loader").show();
