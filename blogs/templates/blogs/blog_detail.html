@@ -1,6 +1,6 @@
 {% extends "desklib/base.html" %}
 {% load staticfiles %}
-
+{% load thumbnail %}
 {% block extra_css %}
 <style>
 .show-loader{
@@ -16,15 +16,15 @@
   height: 100%;
   background-color: #000;
   opacity: .5;
-  z-index: 99;
+  z-index: 9999;
 }
 .loader-container{
   position: fixed;
-  z-index: 999;
+  z-index: 9999;
   height: 249px;
   max-width: 500px;
   margin: 1.75rem auto;
-  top: 0;
+  top: 35%;
   left: 0;
   bottom: 0;
   right: 0;
@@ -64,7 +64,7 @@
 {% block content %}
 <section>
     <nav aria-label="breadcrumb">
-      <ol class="breadcrumb mb-0 rounded-0 bg-light-grey">
+      <ol class="breadcrumb mb-0 rounded-0 bg-light-grey border-bottom">
         <li class="breadcrumb-item"><a href="/" class="">Home</a></li>
         <li class="breadcrumb-item"><a href="{% url 'blog' %}" class="">blog</a></li>
         <li class="breadcrumb-item active" aria-current="page">{{object.title}}</li>
@@ -76,8 +76,10 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="card p-4 rounded-0">
-                    <div class="">
-                        <img src="{{object.cover_image.url}}" class="card-img-top rounded-0" alt="blog-detail-page-banner">
+                    <div class="h-100 overflow-hidden">
+                        {% thumbnail object.cover_image "680" as im %}
+                        <img src="{{ im.url }}" alt="{{blog.title}}" class="img-fluid">
+                         {% endthumbnail %}
                     </div>
                     <div class="mt-4">
                         <h2 class="">{{object.title}}</h2>
@@ -183,17 +185,20 @@
                         <div class="card card pt-3 pl-3 pr-3 rounded-bottom rounded-0 border-top-0 shadow">
                             <div class="row">
                             {% for featured_blog in featured_blog %}
-                                <div class="col-md-4 mb-md-3 mb-lg-0">
+                                <div class="col-4 col-md-4 mb-3">
                                     <a href="{% url 'blog_detail' year=featured_blog.published_date|date:'Y' month=featured_blog.published_date|date:'m' date=featured_blog.published_date|date:'d' slug=featured_blog.slug %}" class="text-decoration-none">
-                                        <div class="">
-                                            <img src="{{object.cover_image.url}}" class="featured-post-img rounded-0 card-img-top img-fluid" alt="">
-                                        </div>
+                              {% thumbnail object.cover_image "75x75" crop="top" as im %}
+                                            <img src="{{im.url}}" class="featured-post-img rounded-0 card-img-top img-fluid" alt="{{ object.title }}">
+                               {% endthumbnail %}
                                     </a>
                                 </div>
-                                <div class="col-md-8 mt-3 mt-xl-0">
+                                <div class="col-8 col-md-8 mt-3 mt-md-3 mt-lg-3 mt-xl-0">
                                     <a href="{% url 'blog_detail' year=featured_blog.published_date|date:'Y' month=featured_blog.published_date|date:'m' date=featured_blog.published_date|date:'d' slug=featured_blog.slug %}" class="text-decoration-none">
                                         <div class="px-3 px-md-0">
                                             <p class="black-font">{{featured_blog.title}}</p>
+                                            <p class="black-font">
+                              <small class="border-right text-muted pr-2">{{featured_blog.author.first_name}}</small><small class="text-muted pl-2">{{featured_blog.published_date|date:"d M Y"}}</small>
+                                            </p>
                                         </div>
                                     </a>
                                 </div>
@@ -243,7 +248,7 @@
   </div>
 </div>
 <div class="loading show-loader" id="previewModal">
-    <div class="loader-container jumbotron bg-white">
+    <div class="loader-container">
         <div class="loader"></div>
     </div>
 </div>

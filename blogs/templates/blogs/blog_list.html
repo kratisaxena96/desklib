@@ -1,290 +1,293 @@
 {% extends "desklib/base.html" %}
 {% load staticfiles %}
-
+{% load thumbnail %}
 {% block extra_css %}
 <style>
-.show-loader{
+   .show-loader{
    display: none;
-}
-.loading:before {
-  content: '';
-  display: block;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #000;
-  opacity: .5;
-  z-index: 99;
-}
-.loader-container{
-  position: fixed;
-  z-index: 999;
-  height: 249px;
-  max-width: 500px;
-  margin: 1.75rem auto;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-}
-.loader {
-  margin-left: auto;
-  margin-right: auto;
-  border: 16px solid #f3f3f3;
-  border-top: 16px solid #3498db;
-  border-radius: 50%;
-  width: 120px;
-  height: 120px;
-  animation: spin 3s linear infinite;
-}
-@keyframes spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg);
-    }
-}
-.loader-open {
-  overflow: hidden !important;
-}
+   }
+   .loading:before {
+   content: '';
+   display: block;
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: #000;
+   opacity: .5;
+   z-index: 9999;
+   }
+   .loader-container{
+   position: fixed;
+   z-index: 9999;
+   height: 249px;
+   max-width: 500px;
+   margin: 1.75rem auto;
+   top: 35%;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   }
+   .loader {
+   margin-left: auto;
+   margin-right: auto;
+   border: 16px solid #f3f3f3;
+   border-top: 16px solid #3498db;
+   border-radius: 50%;
+   width: 120px;
+   height: 120px;
+   animation: spin 3s linear infinite;
+   }
+   @keyframes spin {
+   0% {
+   -webkit-transform: rotate(0deg);
+   -moz-transform: rotate(0deg);
+   -ms-transform: rotate(0deg);
+   -o-transform: rotate(0deg);
+   transform: rotate(0deg);
+   }
+   100% {
+   -webkit-transform: rotate(360deg);
+   -moz-transform: rotate(360deg);
+   -ms-transform: rotate(360deg);
+   -o-transform: rotate(360deg);
+   transform: rotate(360deg);
+   }
+   }
+   .loader-open {
+   overflow: hidden !important;
+   }
 </style>
 {% endblock extra_css %}
-
 {% block content %}
 <section>
-    <nav aria-label="breadcrumb">
+   <nav aria-label="breadcrumb">
       <ol class="breadcrumb mb-0 rounded-0 bg-light-grey">
-        <li class="breadcrumb-item"><a href="/" class="">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">blog</li>
-  </ol>
-</nav>
+         <li class="breadcrumb-item"><a href="/" class="">Home</a></li>
+         <li class="breadcrumb-item active" aria-current="page">blog</li>
+      </ol>
+   </nav>
 </section>
 <section>
-    <div class="blog-list-banner"></div>
+   <div class="blog-list-banner"></div>
 </section>
 <section class="bg-light-grey">
-    <div class="container pt-5 pb-5">
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="font-weight-bold">OUR BLOGS</h3>
-                <hr>
-            </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col-lg-8">
-                <div class="pr-md-4">
-                    <div class="row">
-                    {% for blog in object_list %}
-                        <div class="col-md-6 mb-4">
-                            <a href="{% url 'blog_detail' year=blog.published_date|date:'Y' month=blog.published_date|date:'m' date=blog.published_date|date:'d' slug=blog.slug %}" class="text-decoration-none">
-                                <div class="card border-0 shadow h-100">
-                                    <img src="{{ blog.cover_image.url }}" alt="" class="img-height img-fluid card-img-top rounded-0">
-                                        <div class="card-body bg-light">
-                                            <h6 class="black-font">{{blog.title}}</h6>
-                                            {% if blog.short_description %}
-                                            <small class="text-muted">{{blog.short_description}}</small>
-                                            {% endif %}
-                                            <p class="border-bottom py-2"></p>
-                                            <small class="border-right text-muted pr-3">{{blog.author.first_name}}</small>
-                                            <small class="text-muted pl-2">{{blog.published_date|date:"d M Y"}}</small>
-                                        </div>
-                                </div>
-                            </a>
+   <div class="container pt-5 pb-5">
+      <div class="row">
+         <div class="col-md-12">
+            <h3 class="font-weight-bold">OUR BLOGS</h3>
+            <hr>
+         </div>
+      </div>
+      <div class="row mt-4">
+         <div class="col-md-8">
+            <div class="pr-md-4">
+               <div class="row">
+                  {% for blog in object_list %}
+                  <div class="col-md-6 mb-4">
+                     <a href="{% url 'blog_detail' year=blog.published_date|date:'Y' month=blog.published_date|date:'m' date=blog.published_date|date:'d' slug=blog.slug %}" class="text-decoration-none">
+                        <div class="card border-0 h-100 shadow">
+                           {% thumbnail blog.cover_image "1349x480" crop="top" as im %}
+                           <img src="{{ im.url }}" alt="{{blog.title}}" class="img-fluid">
+                           {% endthumbnail %}
+                           <div class="card-body bg-light">
+                              <h6 class="black-font">{{blog.title}}</h6>
+                              {% if blog.short_description %}
+                              <small class="text-muted">{{blog.short_description}}</small>
+                              {% endif %}
+                              <p class="border-bottom py-2"></p>
+                              <small class="border-right text-muted pr-3">{{blog.author.first_name}}</small>
+                              <small class="text-muted pl-2">{{blog.published_date|date:"d M Y"}}</small>
+                           </div>
                         </div>
-                     {% endfor %}
-                </div>
+                     </a>
+                  </div>
+                  {% endfor %}
+               </div>
             </div>
-{% if object.has_other_pages %}
-                <div class="row">
-                    <div class="col-md-12">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item p-3">
-                            {% if object.has_previous %}
-                                <a class="previous" href="?page={{ object.previous_page_number }}">
-                                    <span aria-hidden="true"><i class='fas fa-angle-left fafa-nav-active blue-theme'></i></span>
-                                </a>
-                            {% else %}
-                            <a class="previous"><i class='fas fa-angle-left fafa-nav-in-active'></i></a>
-                            {% endif %}
-                            </li>
-                        {% for page in object.paginator.page_range %}
-                            {% if object.number == page %}
-                            <li class="page-item active p-3">
-                                <a class="rounded-circle page-link border-color bg-blue-theme" href="?page={{page}}">{{page}}</a>
-                            </li>
-                            {% elif page > object.number|add:'-3' and page < object.number|add:'3' %}
-                            <li class="page-item p-3">
-                                <a class="rounded-circle page-link page-link blue-theme" href="?page={{page}}">{{page}}</a>
-                            </li>
+            {% if object.has_other_pages %}
+            <div class="row">
+               <div class="col-md-12">
+                  <ul class="pagination justify-content-center">
+                     <li class="page-item p-3">
+                        {% if object.has_previous %}
+                        <a class="previous" href="?page={{ object.previous_page_number }}">
+                        <span aria-hidden="true"><i class='fas fa-angle-left fafa-nav-active blue-theme'></i></span>
+                        </a>
+                        {% else %}
+                        <a class="previous"><i class='fas fa-angle-left fafa-nav-in-active'></i></a>
                         {% endif %}
-                    {% endfor %}
-                            <li class="page-item p-3">
-                            {% if object.has_next %}
-                                <a class="previous blue-theme" href="?page={{ object.next_page_number }}"><span aria-hidden="true"><i class='fas fa-angle-right fafa-nav-in-active'></i></span></a>
-                            {% else %}
-                                <a class="next"><i class='fas fa-angle-right fafa-nav-in-active'></i></a>
-                            {% endif %}
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-{% endif %}
+                     </li>
+                     {% for page in object.paginator.page_range %}
+                     {% if object.number == page %}
+                     <li class="page-item active p-3">
+                        <a class="rounded-circle page-link border-color bg-blue-theme" href="?page={{page}}">{{page}}</a>
+                     </li>
+                     {% elif page > object.number|add:'-3' and page < object.number|add:'3' %}
+                     <li class="page-item p-3">
+                        <a class="rounded-circle page-link page-link blue-theme" href="?page={{page}}">{{page}}</a>
+                     </li>
+                     {% endif %}
+                     {% endfor %}
+                     <li class="page-item p-3">
+                        {% if object.has_next %}
+                        <a class="previous blue-theme" href="?page={{ object.next_page_number }}"><span aria-hidden="true"><i class='fas fa-angle-right fafa-nav-in-active'></i></span></a>
+                        {% else %}
+                        <a class="next"><i class='fas fa-angle-right fafa-nav-in-active'></i></a>
+                        {% endif %}
+                     </li>
+                  </ul>
+               </div>
             </div>
-            <div class="col-lg-4 mt-4 mt-lg-0">
-                 <div class="row">
-                    <div class="col-md-12">
-                       <div class="card pt-3 pl-3 pb-2 rounded-bottom rounded-0 shadow">
-                           <p class="mt-3 mt-md-0"><strong>Contact Form</strong></p>
-                       </div>
-                        <div class="card pt-3 pl-3 pb-3 pr-3 rounded-bottom rounded-0 border-top-0 shadow">
-                            <form method="POST" id="signup" novalidate="novalidate">
-                                {% csrf_token %}
-                                <div class="row mt-2">
-                                    <div class="col-md-12 col-lg-12">
-                                        <div class="form-group">
-                                            <input type="text" id="username" name="name" class="mb-2 form-control border-radius-20" placeholder="Enter Name..">
-                                            <span class="name text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-md-12 col-lg-12">
-                                        <div class="form-group">
-                                            <input type="text" name="email" class="mb-2 form-control border-radius-20" id="newemail" placeholder="Enter Email..">
-                                                <span class="email text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-md-12 col-lg-12">
-                                        <div class="form-group">
-                                            <textarea name="message" class="mb-2 form-control" id="message" placeholder="Type Message"></textarea>
-                                                <span class="message text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-2 mb-2">
-                                    <div class="col-lg-12">
-                                        <input id="submit-button" type="submit" value="Submit"class="btn btn-bg-theme white border-radius-20 d-block w-100">
-                                    </div>
-                                </div>
-                            </form>
+            {% endif %}
+         </div>
+         <div class="col-lg-4">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="card pt-3 pl-3 pb-2 rounded-bottom rounded-0 shadow">
+                     <p class="mt-3 mt-md-0"><strong>Contact Form</strong></p>
+                  </div>
+                  <div class="card pt-3 pl-3 pb-3 pr-3 rounded-bottom rounded-0 border-top-0 shadow">
+                     <form method="POST" id="signup" novalidate="novalidate">
+                        {% csrf_token %}
+                        <div class="row mt-2">
+                           <div class="col-md-12 col-lg-12">
+                              <div class="form-group">
+                                 <input type="text" id="username" name="name" class="mb-2 form-control border-radius-20" placeholder="Enter Name..">
+                                 <span class="name text-danger"></span>
+                              </div>
+                           </div>
                         </div>
+                        <div class="row mt-2">
+                           <div class="col-md-12 col-lg-12">
+                              <div class="form-group">
+                                 <input type="text" name="email" class="mb-2 form-control border-radius-20" id="newemail" placeholder="Enter Email..">
+                                 <span class="email text-danger"></span>
+                              </div>
+                           </div>
                         </div>
-                    </div>
-                {% if featured_blog %}
-                    <div class="mt-4 mt-lg-5">
-                        <div class="card pt-3 pl-3 pb-3 pr-3 rounded-bottom rounded-0 shadow">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <p class="mt-3 mt-md-0"><strong>Featured Posts</strong></p>
-                                </div>
-                            </div>
+                        <div class="row mt-2">
+                           <div class="col-md-12 col-lg-12">
+                              <div class="form-group">
+                                 <textarea name="message" class="mb-2 form-control" id="message" placeholder="Type Message"></textarea>
+                                 <span class="message text-danger"></span>
+                              </div>
+                           </div>
                         </div>
-                         <div class="card pt-3 pl-3 pr-3 rounded-bottom rounded-0 border-top-0 shadow">
-                            <div class="row">
-                            {% for featured_blog in featured_blog %}
-                                <div class="col-md-4 mb-md-3 mb-lg-0">
-                                    <a href="{% url 'blog_detail' year=featured_blog.published_date|date:'Y' month=featured_blog.published_date|date:'m' date=featured_blog.published_date|date:'d' slug=featured_blog.slug %}" class="">
-                                        <div class="">
-                                            <img src="{{featured_blog.cover_image.url}}" class="featured-post-img rounded-0 card-img-top img-fluid" alt="featured-post-image">
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-md-8 mt-3 mt-md-3 mt-lg-3 mt-xl-0">
-                                    <a href="{% url 'blog_detail' year=featured_blog.published_date|date:'Y' month=featured_blog.published_date|date:'m' date=featured_blog.published_date|date:'d' slug=featured_blog.slug %}" class="text-decoration-none">
-                                        <div class="px-3 px-md-0">
-                                            <p class="black-font">{{featured_blog.title}}</p>
-                                        </div>
-                                    </a>
-                                </div>
-                                {% endfor %}
-                            </div>
-                         </div>
+                        <div class="row mt-2 mb-2">
+                           <div class="col-lg-12">
+                              <input id="submit-button" type="submit" value="Submit"class="btn btn-bg-theme white border-radius-20 d-block w-100">
+                           </div>
                         </div>
-                    </div>
-                    {% endif %}
+                     </form>
+                  </div>
+               </div>
             </div>
-        </div>
+            {% if featured_blog %}
+            <div class="mt-4 mt-lg-5">
+               <div class="card pt-3 pl-3 pb-3 pr-3 rounded-bottom rounded-0 shadow">
+                  <div class="row">
+                     <div class="col-md-12">
+                        <p class="mt-3 mt-md-0"><strong>Featured Posts</strong></p>
+                     </div>
+                  </div>
+               </div>
+               <div class="card pt-3 pl-3 pr-3 rounded-bottom rounded-0 border-top-0 shadow">
+                  <div class="row">
+                     {% for featured_blog in featured_blog %}
+                     <div class="col-4 col-md-4 mb-3">
+                        <a href="{% url 'blog_detail' year=featured_blog.published_date|date:'Y' month=featured_blog.published_date|date:'m' date=featured_blog.published_date|date:'d' slug=featured_blog.slug %}" class="">
+                           <div class="">
+                              {% thumbnail featured_blog.cover_image "304x304" crop="top" as im %}
+                              <img src="{{ im.url }}" alt="{{featured_blog.title}}" class="img-fluid">
+                               {% endthumbnail %}
+                           </div>
+                        </a>
+                     </div>
+                     <div class="col-8 col-md-8 mt-3 mt-md-3 mt-lg-3 mt-xl-0">
+                        <a href="{% url 'blog_detail' year=featured_blog.published_date|date:'Y' month=featured_blog.published_date|date:'m' date=featured_blog.published_date|date:'d' slug=featured_blog.slug %}" class="text-decoration-none">
+                           <div class="px-3 px-md-0">
+                              <p class="black-font">{{featured_blog.title}}</p>
+                              <p class="black-font">
+
+                              <small class="border-right text-muted pr-2">{{featured_blog.author.first_name}}</small>   <small class="text-muted pl-2">{{featured_blog.published_date|date:"d M Y"}}</small>
+                              </p>
+                           </div>
+                        </a>
+                     </div>
+                     {% endfor %}
+                  </div>
+               </div>
+            </div>
+         </div>
+         {% endif %}
+      </div>
+   </div>
 </section>
 <div class="modal success-modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content bg-dark">
-      <div class="modal-header border-bottom-0">
-        <h4 class="modal-title pt-4 pl-4 pr-4 pb-3 white" id="exampleModalCenterTitle">Your form has been Successfully submitted.</h4>
-           <button type="button" class="close white" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true">&times;</span>
-           </button>
+   <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content bg-dark">
+         <div class="modal-header border-bottom-0">
+            <h4 class="modal-title pt-4 pl-4 pr-4 pb-3 white" id="exampleModalCenterTitle">Your form has been Successfully submitted.</h4>
+            <button type="button" class="close white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body pb-5 pt-0">
+            <img src="{% static 'dist/assets/images/checked.png' %}" class="mx-auto d-block width-100" alt="checked-image">
+         </div>
       </div>
-      <div class="modal-body pb-5 pt-0">
-          <img src="{% static 'dist/assets/images/checked.png' %}" class="mx-auto d-block width-100" alt="checked-image">
-      </div>
-    </div>
-  </div>
+   </div>
 </div>
 <div class="loading show-loader" id="previewModal">
-    <div class="loader-container jumbotron bg-white">
-        <div class="loader"></div>
-    </div>
+   <div class="loader-container">
+      <div class="loader"></div>
+   </div>
 </div>
 {% endblock %}
-
-
 {% block extra_js %}
 <script>
-$(document).ready(function(){
-  if($('#previewModal').is(':visible')){
-  $("body").addClass("loader-open");
-  }
-});
- jQuery(document).ready(function() {
-       $('#signup').submit(function(e){
-           e.preventDefault();
-            jQuery(".show-loader").show();
-            jQuery(".modal.success-modal").modal("hide");
-
-           jQuery('span.has-error').empty();
-           jQuery('.form-group').removeClass('has-error');
-           var data = $('#signup').serializeArray();
-           $.ajax({
-               url : "{% url 'api:contact-api:query-create-api' %}",
-               data: data,
-               type : "POST",
-
-              success : function(data){
-                  jQuery(".modal.success-modal").modal("show");
-                  jQuery(".show-loader").hide();
-                   $("#username").val("");
-                   $("#newemail").val("");
-                   $("#message").val("");
-
-               },
-               error: function(data){
-                    var response = data.responseJSON;
-                        for (var key in response) {
-                          //  console.log(key, response[key][0]);
-                            $('#signup span.'+key).addClass('has-error');
-                            $('#signup span.' + key).text(response[key][0]);
-                        }
-                            jQuery(".show-loader").hide();
-                            jQuery(".modal.success-modal").modal("hide");
-               }
-           });
-       });
+   $(document).ready(function(){
+     if($('#previewModal').is(':visible')){
+     $("body").addClass("loader-open");
+     }
    });
+    jQuery(document).ready(function() {
+          $('#signup').submit(function(e){
+              e.preventDefault();
+               jQuery(".show-loader").show();
+               jQuery(".modal.success-modal").modal("hide");
+
+              jQuery('span.has-error').empty();
+              jQuery('.form-group').removeClass('has-error');
+              var data = $('#signup').serializeArray();
+              $.ajax({
+                  url : "{% url 'api:contact-api:query-create-api' %}",
+                  data: data,
+                  type : "POST",
+
+                 success : function(data){
+                     jQuery(".modal.success-modal").modal("show");
+                     jQuery(".show-loader").hide();
+                      $("#username").val("");
+                      $("#newemail").val("");
+                      $("#message").val("");
+
+                  },
+                  error: function(data){
+                       var response = data.responseJSON;
+                           for (var key in response) {
+                             //  console.log(key, response[key][0]);
+                               $('#signup span.'+key).addClass('has-error');
+                               $('#signup span.' + key).text(response[key][0]);
+                           }
+                               jQuery(".show-loader").hide();
+                               jQuery(".modal.success-modal").modal("hide");
+                  }
+              });
+          });
+      });
 
 </script>
-
 {% endblock extra_js %}
-
