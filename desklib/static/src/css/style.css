@@ -1573,6 +1573,28 @@ a.tt-suggestion.tt-selectable {
     width: 100% !important; }
   .img-height {
     height: auto; }
+  .fb-page,
+  .fb-page span,
+  .fb-page span iframe[style] {
+    width: 100% !important; }
+  .height-50 {
+    height: 100%; }
+  .img-height {
+    height: auto; }
+  .fb-page,
+  .fb-page span,
+  .fb-page span iframe[style] {
+    width: 100% !important; }
+  .height-50 {
+    height: 100%; }
+  .img-height {
+    height: auto; }
+  .fb-page,
+  .fb-page span,
+  .fb-page span iframe[style] {
+    width: 100% !important; }
+  .height-50 {
+    height: 100%; }
   .blur-image {
     background-size: cover; }
   .main-div:hover .btn-d-none {
@@ -1606,6 +1628,8 @@ a.tt-suggestion.tt-selectable {
     max-width: 100% !important; }
   .p-t-0 {
     padding-top: 0px !important; }
+  .width-100per {
+    width: 100% !important; }
   .plr {
     padding-left: 0px !important;
     padding-right: 0px !important; }
