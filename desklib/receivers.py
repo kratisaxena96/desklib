@@ -42,6 +42,27 @@ def show_me_the_money(sender, **kwargs):
 
                     ip = "https://" + Site.objects.get_current().domain
 
+
+
+                    subject = 'payment for ' + o.order_id + ' completed'
+                    message = 'payment for ' + o.order_id + ' completed'
+                    from_email = settings.DEFAULT_FROM_EMAIL
+                    to = o.author.email,
+                    contex = {'first_name': o.author.first_name, 'order_id': o.order_id, 'SITE_URL': ip, 'uuid': o.uuid, 'amount': ipn_obj.payment_gross }
+                    htmly = render_to_string('homework_help/mail-templates/order_payment_completed.html',
+                                             context=contex, request=None)
+                    html_message = htmly
+                    # html_message = "Hello " + o.author.first_name + ",<br>Your order " + o.order_id + " is added.<br>Question is <br>"
+                    mail = EmailMultiAlternatives(subject, message, from_email, to)
+
+                    # if question.user_questionfiles:
+
+                    # mail.attach_file(.path)
+                    mail.attach_alternative(html_message, 'text/html')
+                    mail.send(True)
+
+
+
                     locus_email = "kushagra.goel@locusrags.com"
                     if not settings.DEBUG:
                         locus_email = "info@desklib.com"
@@ -60,22 +81,6 @@ def show_me_the_money(sender, **kwargs):
                     mail.attach_alternative(html_message, 'text/html')
                     mail.send(True)
 
-                    subject = 'payment for ' + o.order_id + ' completed'
-                    message = 'payment for ' + o.order_id + ' recieved'
-                    from_email = settings.DEFAULT_FROM_EMAIL
-                    to = o.author.email,
-                    contex = {'first_name': o.author.first_name, 'order_id': o.order_id, 'SITE_URL': ip, 'uuid': o.uuid }
-                    htmly = render_to_string('homework_help/mail-templates/order_payment_completed.html',
-                                             context=contex, request=None)
-                    html_message = htmly
-                    # html_message = "Hello " + o.author.first_name + ",<br>Your order " + o.order_id + " is added.<br>Question is <br>"
-                    mail = EmailMultiAlternatives(subject, message, from_email, to)
-
-                    # if question.user_questionfiles:
-
-                    # mail.attach_file(.path)
-                    mail.attach_alternative(html_message, 'text/html')
-                    mail.send(True)
 
                 else:
                     custom_str = ipn_obj.custom

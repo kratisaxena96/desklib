@@ -14,7 +14,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title>Budget Email</title>
+	<title>Privacy - Notify Email Newsletter</title>
 
 	<!-- Google Fonts Link -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -84,7 +84,7 @@
 		<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px;" width="100%" class="wrapperTable">
 			<tr>
 				<td align="center" valign="top">
-					<!-- Content Table Open// -->
+					<!-- Content Table Open // -->
 					<table border="0" cellpadding="0" cellspacing="0" width="100%">
 						<tr>
 							<td align="right" valign="middle" style="padding-top:10px;padding-right:20px;" class="preHeader">
@@ -95,7 +95,7 @@
 							</td>
 						</tr>
 					</table>
-					<!-- Content Table Close// -->
+					<!-- Content Table Close // -->
 				</td>
 			</tr>
 		</table>
@@ -138,7 +138,7 @@
 							<td align="center" valign="top" style="padding-bottom:40px" class="imgHero">
 								<!-- Hero Image // -->
 								<a href="#" target="_blank" style="text-decoration:none;">
-									<img src="{% static 'dist/assets/images/Budget updated.png'%}" width="600" alt="budget-image" border="0" style="width:100%; max-width:600px; height:auto; display:block;" />
+									<img src="{% static 'dist/assets/images/Payment completed.png'%}" width="600" alt="payment-image" border="0" style="width:100%; max-width:600px; height:auto; display:block;" />
 								</a>
 							</td>
 						</tr>
@@ -147,15 +147,18 @@
 							<td align="center" valign="top" style="padding-bottom:20px;padding-left:20px;padding-right:20px;" class="title">
 								<!-- Main Title Text // -->
 								<h2 class="bigTitle" style="color:#313131; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:26px; font-weight:600; font-style:normal; letter-spacing:normal; line-height:34px; text-align:center; padding:0; margin:0;">
-									Hi {{first_name}} <br>Your budget has been updated.
+									Hi {{first_name}} <br>Thank you for your payment.<br>
+									 Your transaction has been completed.
 								</h2>
 							</td>
 						</tr>
+
 						<tr>
-							<td align="center" valign="top" style="padding-bottom:20px;padding-left:20px;padding-right:20px;" class="title">
-								<!-- Main Title Text // -->
-								<p style="color:#919191; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:18px; font-weight:400; line-height:20px; text-align:center; padding:0; margin:0;">
-									Your budget: {{budget}}</p>
+							<td align="center" valign="top" style="padding-bottom:20px;padding-left:20px;padding-right:20px;" class="subTitle">
+								<!-- Sub Title Text // -->
+								<h4 class="midTitle" style="color:#919191; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:18px; font-weight:400; font-style:normal; letter-spacing:normal; line-height:26px; text-align:center; padding:0; margin:0;">
+									Your Amount: {{amount_paid}}
+								</h4>
 							</td>
 						</tr>
 						<tr>
@@ -166,41 +169,25 @@
 								</p>
 							</td>
 						</tr>
-						<tr>
-							<td align="center" valign="top" style="padding-bottom:20px;padding-left:20px;padding-right:20px;" class="subTitle">
-								<!-- Sub Title Text // -->
-								<p class="midTitle" style="color:#919191; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:18px; font-weight:400; font-style:normal; letter-spacing:normal; line-height:28px; text-align:center; padding:0; margin:0;">
-									 Click the link below to check your order budget and details.
-								</p>
-							</td>
-						</tr>
 
 						<tr>
-							<td align="center" valign="top" style="padding-bottom:20px;padding-left:20px;padding-right:20px;" class="subTitle">
-								<!-- Sub Title Text // -->
-<!--								<h4 class="midTitle" style="color:#919191; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:18px; font-weight:400; font-style:normal; letter-spacing:normal; line-height:28px; text-align:center; padding:0; margin:0;">-->
-<!--									Get your free $20 Credit-->
-<!--								</h4>-->
-							</td>
-						</tr>
-
-<!--						<tr>-->
-<!--							<td align="center" valign="top" style="padding-bottom:40px;padding-left:20px;padding-right:20px;" class="description">-->
+							<td align="center" valign="top" style="padding-bottom:40px;padding-left:20px;padding-right:20px;" class="description">
 								<!-- Description Text// -->
-<!--								<p class="midText" style="color:#919191; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:14px; font-weight:400; line-height:20px; text-align:center; padding:0; margin:0;">-->
-<!--								</p>-->
-<!--							</td>-->
-<!--						</tr>-->
+								<p class="midText" style="color:#919191; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:14px; font-weight:400; line-height:20px; text-align:center; padding:0; margin:0;">
+                                     Click the link below to check your Payment details.
+                                </p>
+							</td>
+						</tr>
 
 						<tr>
 							<td align="center" valign="top" style="padding-bottom:40px;padding-left:20px;padding-right:20px;" class="btnCard">
 								<!-- Button Table // -->
 								<table align="center" border="0" cellpadding="0" cellspacing="0">
 									<tr>
-										<td align="center" class="postButton" style="background-color:#405fbd;padding-top:10px;padding-bottom:10px;padding-left:25px;padding-right:25px;">
+										<td align="center" class="postButton" style="background-color:#405fbd;padding-top:10px;padding-bottom:10px;padding-left:25px;padding-right:25px;border-radius:2px">
 											<!-- Button Link // -->
-											<a href="{{ SITE_URL }}{% url 'homework_help:order-detail-view' uuid=uuid %}" target="_blank" style="color:#FFFFFF; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:12px; font-weight:600; letter-spacing:1px; line-height:20px; text-transform:uppercase; text-decoration:none; display:block;" >
-												Check Budget
+											<a href="#" target="_blank" style="color:#FFFFFF; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:12px; font-weight:600; letter-spacing:1px; line-height:20px; text-transform:uppercase; text-decoration:none; display:block;" >
+												View Details
 											</a>
 										</td>
 									</tr>
@@ -211,6 +198,7 @@
 						<tr>
 							<td height="10" style="font-size:1px;line-height:1px;">&nbsp;</td>
 						</tr>
+
 					</table>
 					<!-- Card Table Close// -->
 
@@ -239,7 +227,7 @@
 									<img mc:edit="social-1" src="{% static 'dist/assets/images/facebook.png'%}" alt="facebook-icon" width="40" border="0" style="height:auto;margin:2px" />
 								</a>
 								<!-- Social Links (Twitter)// -->
-								<a href="https://twitter.com/Desklibcom" target="_blank" style="display:inline-block;" class="twitter">
+								<a href="https://twitter.com/Desklib.com" target="_blank" style="display:inline-block;" class="twitter">
 									<img mc:edit="social-2" src="{% static 'dist/assets/images/twitter.png'%}" alt="twitter-icon" width="40" border="0" style="height:auto;margin:2px" />
 								</a>
 								<!-- Social Links (Instagram)// -->
@@ -271,6 +259,19 @@
 								</p>
 							</td>
 						</tr>
+
+<!--						<tr>-->
+<!--							<td align="center" valign="top" style="padding-top:10px;padding-bottom:10px;padding-left:10px;padding-right:10px;" class="appLinks">-->
+								<!-- App Links (Anroid)// -->
+<!--								<a href="#Play-Store-Link" target="_blank" style="display:inline-block;" class="play-store">-->
+<!--									<img src="img/play-store.png" alt="" width="120" border="0" style="height:auto;margin:5px" />-->
+<!--								</a>-->
+								<!-- App Links (IOs)// -->
+<!--								<a href="#App-Store-Link" target="_blank" style="display:inline-block;" class="app-store">-->
+<!--									<img src="img/app-store.png" alt="" width="120" border="0" style="height:auto;margin:5px" />-->
+<!--								</a>-->
+<!--							</td>-->
+<!--						</tr>-->
 					</table>
 					<!-- Content Table Close// -->
 				</td>
@@ -287,6 +288,7 @@
 		</td>
 	</tr>
 </table>
+
 </center>
 </body>
 </html>

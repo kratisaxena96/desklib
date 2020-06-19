@@ -300,8 +300,8 @@ class Order(ModelMeta, models.Model):
             if not settings.DEBUG:
                 locus_email = "info@desklib.com"
 
-            subject = 'Budget for ' + truncatechars(self.question.question, 20) + '... updated'
-            message = 'Budget for ' + truncatechars(self.question.question, 20) + '... updated'
+            subject = 'Budget for ' + self.order_id + '... updated'
+            message = 'Budget for ' + self.order_id + '... updated'
             from_email = settings.DEFAULT_FROM_EMAIL
             recipient_list = [self.author.email],
             contex = {'first_name': self.author.first_name, 'order_id': self.order_id, 'budget': self.budget,
@@ -317,8 +317,8 @@ class Order(ModelMeta, models.Model):
 
         if self.status == 4:
 
-            subject = 'Answer for ' + truncatechars(self.question.question, 20) + '... updated'
-            message = 'Answer for ' + truncatechars(self.question.question, 20) + '... updated'
+            subject = 'Answer for ' + self.order_id + '... updated'
+            message = 'Answer for ' + self.order_id + '... updated'
             from_email = settings.DEFAULT_FROM_EMAIL
             recipient_list = [self.author.email],
             contex = {'first_name': self.author.first_name, 'order_id': self.order_id,
