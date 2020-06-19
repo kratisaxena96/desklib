@@ -24,7 +24,7 @@ from django.conf.urls.i18n import i18n_patterns
 # from admissions.views import AspirantDetailsView, ContactWizard
 from admissions.forms import AspirantCountryDetailsForm, AspirantDetailsForm, DesiredQualificationForm
 from admissions.views import ContactWizard
-from .sitemaps import DocumentSitemap, StaticViewSitemap, SampleSitemap, SubjectSitemap, QuestionSitemap
+from .sitemaps import DocumentSitemap, StaticViewSitemap, SampleSitemap, SubjectSitemap, QuestionSitemap, BlogSitemap
 from django.views.decorators.cache import cache_page
 from django.contrib.sitemaps import views
 from .views import HomePageView, AboutPageView, PricingPageView, ContactPageView, TestPageView, \
@@ -42,7 +42,8 @@ sitemaps = {
     'static': StaticViewSitemap,
     'samples': SampleSitemap,
     'subjects': SubjectSitemap,
-    'questions': QuestionSitemap
+    'questions': QuestionSitemap,
+    'blogs': BlogSitemap
 }
 
 urlpatterns = [

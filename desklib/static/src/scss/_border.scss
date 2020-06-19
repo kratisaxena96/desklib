@@ -57,3 +57,12 @@
     vertical-align: middle;
     padding: 30px;
 }
+
+.rounded-bottom-0{
+    border-bottom-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+.rounded-top-0{
+    border-top-right-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+}
