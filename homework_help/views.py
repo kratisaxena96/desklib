@@ -1,3 +1,5 @@
+from django.contrib.sites.models import Site
+from django.template.loader import render_to_string
 from django.utils import timezone
 from email.header import Header
 from email.mime.image import MIMEImage
@@ -21,6 +23,7 @@ from django.core.paginator import Paginator
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from haystack.generic_views import SearchView
 import simplejson as json
+from haystack.generic_views import SearchView, FacetedSearchView
 
 # Create your views here.
 from subjects.models import Subject
@@ -143,15 +146,46 @@ class AskQuestionView(MetadataMixin, FormView):
 
 
 
-class CustomSearchQuestionView(JsonLdContextMixin, MetadataMixin, SearchView):
+class CustomSearchQuestionView(JsonLdContextMixin, MetadataMixin, FacetedSearchView):
     model = Question
     queryset = SearchQuerySet().models(Question)
     extra_context = {"questionsearch":"True"}
+    facet_fields = ['subjects']
     paginate_by = 4
+    selected_facets = ['subjects', 'p_subject']
+    suggestions = {}
 
     def get_queryset(self):
         queryset = super(CustomSearchQuestionView, self).get_queryset()
         return queryset
+
+    def get_context_data(self, **kwargs):
+        sqs = SearchQuerySet().facet('subjects')
+        sqs_count = sqs.facet_counts()
+        context = super(CustomSearchQuestionView, self).get_context_data(**kwargs)
+        # context[settings.CONTEXT_ATTRIBUTE] = self.get_structured_data()
+        # context['sqs'] = sqs_count
+        slug_list = []
+        for sub_filter in sqs_count.get('fields').get('subjects'):
+            slug_list.append(sub_filter[0])
+        context['slug_faceit'] = Subject.objects.filter(slug__in=slug_list)
+        context['parent'] = Subject.objects.filter(parent_subject__isnull=True).prefetch_related('subject_set')
+        context['subject_facet'] = Subject.objects.all()
+        suggest_string = SearchQuerySet().spelling_suggestion(self.request.GET.get('q', ''))
+        if self.request.GET.get('q', '') != suggest_string:
+            context['suggestion'] = suggest_string
+        context['selected'] = self.request.GET.get('selected_facets')
+        if not self.request.GET.get('q') and not self.request.GET.get('selected_facets'):
+            context['is_empty'] = True
+        # context.update({'object_list': SearchQuerySet().filter(no_of_pages__range=[1, 5])})
+        # self.searchqueryset = SearchQuerySet().order_by('-pub_date')[:5]
+
+        # if self.suggestions:
+        #     context['suggestion'] = self.suggestions
+        # """Insert the form into the context dict."""
+        # if 'form' not in kwargs:
+        #     kwargs['form'] = self.get_form()
+        return context
 
 
 class QuestionDetailView(DetailView):
@@ -214,6 +248,9 @@ class OrderCreateView(LoginRequiredMixin, FormView):
         order = Order(question=question, author=request.user)
         order.save()
 
+        ip = "https://"+ Site.objects.get_current().domain
+
+
         locus_email = "kushagra.goel@locusrags.com"
         if not settings.DEBUG:
             locus_email = "info@desklib.com"
@@ -221,9 +258,9 @@ class OrderCreateView(LoginRequiredMixin, FormView):
         subject = order.order_id + ' added'
         message = question.question + ' added!'
         from_email = settings.DEFAULT_FROM_EMAIL
-        recipient_list = [locus_email],
-        html_message = order.order_id +' is added by '+ order.author.email +'.<br>Question is '+ question.question
-        mail = EmailMultiAlternatives(subject, message, from_email, recipient_list)
+        to = locus_email,
+        html_message = order.order_id +' is added by '+ order.author.email +'.<br>Question is '+ question.question + '<br>Link for the admin is: ' + ip + reverse('admin:homework_help_order_change', args=(order.id,))
+        mail = EmailMultiAlternatives(subject, message, from_email, to)
 
         # if question.user_questionfiles:
         for i in question.user_questionfiles.all():
@@ -231,6 +268,27 @@ class OrderCreateView(LoginRequiredMixin, FormView):
             mime_image = MIMEImage(i.file.read())
             mime_image.add_header('Content-ID', '<image>', filename=i.title)
             mail.attach(mime_image)
+
+
+            # mail.attach_file(.path)
+        mail.attach_alternative(html_message, 'text/html')
+        mail.send(True)
+
+
+
+        subject = order.order_id + ' added'
+        message = question.question + ' added!'
+        from_email = settings.DEFAULT_FROM_EMAIL
+        to = order.author.email,
+        contex = {'first_name': order.author.first_name, 'order_id': order.order_id,
+                  'question': question.question, 'SITE_URL': ip,  'uuid': order.uuid }
+        htmly = render_to_string('homework_help/mail-templates/order_added.html',
+                                 context=contex, request=None)
+        html_message = htmly
+        # html_message = "Hello " + order.author.first_name + ",<br>Your order " + order.order_id + " is added.<br>Question is " + question.question + "<br>"
+        mail = EmailMultiAlternatives(subject, message, from_email, to)
+
+        # if question.user_questionfiles:
 
 
             # mail.attach_file(.path)

@@ -5,6 +5,7 @@ from meta.views import MetadataMixin
 from django_json_ld.views import JsonLdContextMixin
 
 # Create your views here.
+from homework_help.models import Question
 from subjects.models import Subject
 from documents.models import Document
 from django.db.models import Count
@@ -40,10 +41,19 @@ class ParentSubjectPageView(MetadataMixin, JsonLdContextMixin, DetailView):
         document = Document.objects.filter(subjects=parent_subject.id)
         doc = Subject.objects.filter(parent_subject=parent_subject.id).annotate(doc_subject=Count('subject_documents'))
 
+
         all = SearchQuerySet().filter(p_subject=parent_subject)[:20]
         recent = SearchQuerySet().filter(p_subject=parent_subject).order_by('-pub_date')[:20]
         top_results = SearchQuerySet().filter(p_subject=parent_subject).order_by('-views')[:20]
         # print(doc[0].doc_subject)
+
+        question = Question.objects.filter(subjects=parent_subject.id)
+
+        for i in child_subject:
+            ques = Question.objects.filter(subjects=i.id)
+            question = question | ques
+
+        question = question.order_by('-published_date')[:5]
 
         context['meta'] = self.get_object().as_meta(self.request)
         context['child_subject'] = child_subject
@@ -51,6 +61,7 @@ class ParentSubjectPageView(MetadataMixin, JsonLdContextMixin, DetailView):
         context['recent'] = recent
         context['top_results'] = top_results
         context['doc_count'] = doc
+        context['question'] = question
         return context
 
 
@@ -63,9 +74,13 @@ class ChildSubjectPageView(MetadataMixin, JsonLdContextMixin, DetailView):
         child_subject = Subject.objects.get(slug=self.kwargs['slug'])
         recent = SearchQuerySet().filter(subjects=child_subject).order_by('-pub_date')[:20]
         top_results = SearchQuerySet().filter(subjects=child_subject).order_by('-views')[:20]
+
+        question = Question.objects.filter(subjects=child_subject.id).order_by('-published_date')[:5]
+
         # context['child'] = child_subject
         context['meta'] = self.get_object().as_meta(self.request)
         context['document'] = Document.objects.filter(subjects=child_subject.id)
         context['recent'] = recent
         context['top_results'] = top_results
+        context['question'] = question
         return context

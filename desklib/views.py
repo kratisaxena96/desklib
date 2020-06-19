@@ -18,6 +18,7 @@ from documents.models import Document
 from .forms import HomeSearchForm
 from subscription.models import Plan
 from django.utils import timezone
+from homework_help.forms import QuestionForm, QuestionHomeForm
 
 from subscription.utils import get_current_subscription
 import pytz
@@ -92,6 +93,7 @@ class AdmissionsView(MetadataMixin, JsonLdContextMixin, TemplateView):
 
 class HomePageView(MetadataMixin, JsonLdContextMixin, SearchView):
     form_class = HomeSearchForm
+    form_class2 = QuestionHomeForm
     title = 'Desklib | Online Homework Help | Homework Solutions'
     # description = 'Desklib is your home for best study resources and educational documents. We have a large collection of homework answers, assignment solutions, reports, sample resume and presentations. Our study tools help you improve your writing skills and grammar.'
     description = 'Get affordable homework solutions or online homework help from our library. Avail math, science, english and all subjects college homework help at affordable prices.'
@@ -135,7 +137,10 @@ class HomePageView(MetadataMixin, JsonLdContextMixin, SearchView):
         # context['cover_image'] = cover_image
         if 'form' not in kwargs:
             kwargs['form'] = self.get_form()
+        if 'form2' not in context:
+            context['form2'] = QuestionHomeForm
         return context
+
 
 
 class AboutPageView(MetadataMixin, JsonLdContextMixin, TemplateView):
