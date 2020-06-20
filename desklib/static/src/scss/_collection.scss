@@ -1533,6 +1533,7 @@ display:none;
 
 	//	---------------  For UI ---------//
 
+
 .home-banner {
 	//height: 100vh;
 	min-height: 500px;
@@ -1703,6 +1704,10 @@ border-radius: 12px 12px 0px 0px;
    background: green;
 }
 
-.width-45px{
-    width: 45px!important;
+.form-input-group {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 110%;
 }
