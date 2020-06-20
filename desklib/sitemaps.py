@@ -3,6 +3,7 @@ from django.contrib.sitemaps import GenericSitemap
 from subjects.models import Subject
 from documents.models import Document
 from homework_help.models import Question
+from blogs.models import BlogModel
 from samples.models import Sample
 from django.urls import reverse
 from django.utils import timezone
@@ -53,6 +54,19 @@ class QuestionSitemap(Sitemap):
 
     def items(self):
         return Question.objects.filter(is_published=True, is_visible=True, published_date__lte=timezone.now()).order_by('question')
+
+    def lastmod(self, obj):
+        return obj.updated
+
+
+class BlogSitemap(Sitemap):
+    priority = 0.5
+    changefreq = 'daily'
+
+    # limit = 50000
+
+    def items(self):
+        return BlogModel.objects.filter(is_published=True, is_visible=True, published_date__lte=timezone.now()).order_by('published_date')
 
     def lastmod(self, obj):
         return obj.updated
