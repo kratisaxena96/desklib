@@ -95,6 +95,8 @@ class SubjectContent(models.Model):
     title = models.CharField(_('Title'), max_length=500)
     slug = models.SlugField(_('Slug'), unique=True)
     description = RichTextUploadingField(_('Description'))
+    short_description = models.TextField(null=True, blank=True)
+
 
     class Meta:
         verbose_name = _('subject content')

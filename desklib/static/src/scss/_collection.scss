@@ -1386,9 +1386,6 @@ display:none;
 		//	---------------  For Mobile ---------//
 
 @media only screen and (max-width: $breakpoint-mobile) {
-.width-100per{
- width: $width-100per !important;
-}
  .img-height{
  height: auto;
 // .blog-list-banner{
@@ -1442,9 +1439,9 @@ display:none;
 .p-t-0{
     padding-top: 0px !important;
     }
-// .width-100{
-//     width:$width-100px;
-//  }
+.width-100{
+    width:100% !important;
+    }
 .plr{
     padding-left: 0px !important;
     padding-right: 0px !important;
@@ -1707,7 +1704,6 @@ border-radius: 12px 12px 0px 0px;
 .form-input-group {
     position: relative;
     display: flex;
-    flex-wrap: wrap;
     align-items: stretch;
-    width: 110%;
+    width: 100%;
 }

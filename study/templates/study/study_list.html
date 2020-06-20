@@ -63,7 +63,7 @@
        <div class="text-justify">
            {% for sub in p.subject_content.all %}
 
-        {{ sub.description|safe }}
+           <p class="para">{{ sub.short_description }}</p>
 
            {% endfor %}</div>
 
