@@ -1539,7 +1539,12 @@ display:none;
 	background-image: url("/static/dist/assets/images/bbanner.jpg");
 	background-size: cover;
 	background-repeat: no-repeat;
-	height: 120vh;
+	height: 130vh;
+}
+@media (max-width: 600px){
+.home-banner {
+  height: 140vh;
+}
 }
 
 .para {
@@ -1592,6 +1597,7 @@ font-size: 0.98rem;
 
 .bottom-radius{
 border-radius: 0px 0px 12px 12px;
+border: 1px solid rgba(170, 170, 170, 0.2);
 }
 
 .border-radius-topl{
@@ -1695,4 +1701,8 @@ border-radius: 12px 12px 0px 0px;
 .bar {
    height: 18px;
    background: green;
+}
+
+.width-45px{
+    width: 45px!important;
 }
