@@ -437,9 +437,9 @@ var k = 1
   		 if (!fileTypeAllowed.test(fileName))
   			$('#selected-files span.error-msg').html('File extension '+ fileName +' is not allowed. Allowed extensions are: png, jpg, jpeg, gif');
 
-		//	 else if (status)
-		//	   $('#selected-files span.error').html('Your file has not uploaded, Please upload another file');
-		//		console.log("Your file has not uploaded, Please upload another file");
+			 else if (status)
+			   $('#selected-files span.error').html('Your file has not uploaded, Please upload another file');
+				console.log("Your file has not uploaded, Please upload another file");
 			  $(".show-loader").hide();
 
 }).on('fileuploadstart', function (e, data) {
