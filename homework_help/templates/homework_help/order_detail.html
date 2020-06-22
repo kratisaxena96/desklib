@@ -62,9 +62,37 @@
                 <h6><strong>Status Of Your Order</strong></h6>
             </div>
         </div>
-
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-
+<ul class="stepper d-md-none">
+    <li class="step one bg-gray  {% if order.status > 1 %} done {% elif order.status == 1 %} active{% endif %}">
+        <div class="">
+            <div class="step-title font-size-20">
+                <span class="d-block mt-n-2">Question Received</span>
+            </div>
+        </div>
+    </li>
+    <li class="step two bg-gray  {% if order.status > 2 %} done {% elif order.status == 2 %} active{% endif %}">
+        <div class="">
+            <div class="step-title font-size-20">
+                <span class="d-block mt-n-2">Payment Updated</span>
+            </div>
+        </div>
+    </li>
+    <li class="step three bg-gray {% if order.status > 3 %} done {% elif order.status == 3 %} active{% endif %}">
+        <div class="">
+            <div class="step-title font-size-20">
+                <span class="d-block mt-n-2">Expert Working On Your Answer</span>
+            </div>
+        </div>
+    </li>
+    <li class="step four bg-gray {% if order.status > 4 %} done {% elif order.status == 4 %} active{% endif %}">
+        <div class="">
+            <div class="step-title font-size-20">
+                <span class="d-block mt-n-2">Answer Is Posted</span>
+            </div>
+        </div>
+    </li>
+</ul>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-none d-md-block">
                 <div class="mt-element-step">
                     <div class="row step-line">
 <!--{% if order.status > 1 %}done{% elif order.status == 1 %}active{% endif %}-->

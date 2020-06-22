@@ -188,7 +188,6 @@ ul.stepper .step-new-content.none{
  }
 ul.stepper .step.done::before {
     background-color: #00c851;
-//     border: none;
 }
 ul.stepper .step::before{
     position: absolute;
@@ -204,8 +203,6 @@ ul.stepper .step::before{
     margin-top: 12px;
     margin-left: 15px;
     border: 5px solid lightgray;
-//     background-color: lightgray;
-
  }
 ul.stepper .step.active::before{
     position: absolute;
@@ -227,11 +224,31 @@ ul.stepper > .step:not(:last-of-type)::after{
     position: absolute;
     top: 40px;
     left: 30px;
-    width: 1px;
+    width: 2px;
     height: 28px;
     height: calc(100% - 20px);
     background-color: rgba(0,0,0,.1);
     transition: all .4s;
+}
+ul.stepper .step.bg-gray::before{
+ background-color: #e5e5e5;
+ border: 0px;
+ height: 32px;
+ width: 32px;
+}
+ul.stepper .step.bg-gray.active::before{
+    background-color: #405fbd;
+    box-shadow: 0 0 7px 1px #405fbd;
+    border: 0px;
+}
+ul.stepper .step.bg-gray.done::before {
+   background-color: #405fbd;
+}
+ul.stepper > .step.done:not(:last-of-type)::after{
+    background-color: #405fbd;
+}
+.mt-n-2{
+    margin-top: -0.9rem! important;
 }
 ul#id_0-country{
     list-style-type: none;
@@ -240,10 +257,6 @@ ul#id_0-country{
 input[type="submit"].btn-block.width-25 {
      width: 25%;
 }
-// ul.stepper > .step.active:not(:last-child)::after{
-//     height: 50%;
-//     height: calc(100% - 12px);
-// }
 
 .custom-file-input:lang(en) ~ .custom-file-label.drag-drop-file::after {
      content: "";
@@ -252,14 +265,12 @@ input[type="submit"].btn-block.width-25 {
 }
 
 
-
 .mt-step-col{
     display: flex;
 }
 .mt-step-number {
     line-height: 60px;
     margin-right: 20px;
-
     display: inline-block;
     position: relative;
     z-index: 5;
@@ -433,13 +444,6 @@ ul.social-icons li{
    float: left;
    padding: 0 2.5px;
 }
-//.widget-content{
-//    float: left;
-//    width: 100%;
-//    box-sizing: border-box;
-//    margin: 0;
-// }
-
 .blog-list-banner{
     background-image: url("/static/dist/assets/images/New Project.png");
   //  background-size: 100% auto;
@@ -594,18 +598,6 @@ height: 100%;
 .document-similar-height{
     height: 250px;
 }
-
-// .order-list-banner-image{
-//     background-image: url("/static/dist/assets/images/study-temp2.jpg");
-//     background-size: cover;
-//     background-repeat: no-repeat;
-// }
-
-// .blog-banner-image{
-// background-image: url("{{object.cover_image.url}}/static/dist/assets/images/study-temp2.jpg");
-// background-size: cover;
-// background-repeat: no-repeat;
-// }
 
 .blog-banner-image{
 background-image: url("/static/dist/assets/images/study-temp2.jpg");
