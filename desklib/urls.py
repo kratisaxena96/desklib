@@ -97,7 +97,7 @@ urlpatterns = [
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += i18n_patterns(
-    url(r'^$', HomePageView.as_view(), name='home'),
+    # url(r'^$', HomePageView.as_view(), name='home'),
     url(r'^admissions/contacts/', ContactWizard.as_view([AspirantCountryDetailsForm, AspirantDetailsForm,DesiredQualificationForm]), name='admissions')
 
 # url(r'^admin/', include(admin.site.urls)),

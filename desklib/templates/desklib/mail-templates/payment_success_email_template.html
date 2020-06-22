@@ -133,7 +133,7 @@
 								</h2>
 							</td>
 						</tr>
-
+					{% if traction_id %}
 						<tr>
 							<td align="center" valign="top" style="padding-bottom:20px;padding-left:20px;padding-right:20px;" class="subTitle">
 								<!-- Order Info Text // -->
@@ -143,6 +143,8 @@
 								</h4>
 							</td>
 						</tr>
+						{% endif %}
+						{% if plan %}
 						<tr>
 							<td align="center" valign="top" style="padding-bottom:10px;padding-left:20px;padding-right:20px;" class="productName">
 								<!-- Product Name Text // -->
@@ -151,7 +153,9 @@
 								</p>
 							</td>
 						</tr>
+						{% endif %}
 
+						{% if amount %}
 						<tr>
 							<td align="center" valign="top" style="padding-bottom:20px;padding-left:20px;padding-right:20px;" class="productPrice">
 								<!-- Product Price Text // -->
@@ -160,6 +164,7 @@
 								</p>
 							</td>
 						</tr>
+						{% endif %}
 						{% if document_redirect %}
 						<tr>
 							<td style="padding-bottom:40px;padding-left:20px;padding-right:20px;" class="btnCard" valign="top" align="center">
@@ -169,7 +174,7 @@
 										<td class="postButton" style="background-color:#8D6CD1;padding-top:10px;padding-bottom:10px;padding-left:25px;padding-right:25px;border-radius:2px" align="center">
 											<!-- Button Link // -->
 											<a href="https://{{ SITE_URL }}{% url 'documents:document-view' document_redirect %}" target="_blank" style="color:#FFFFFF; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:12px; font-weight:600; letter-spacing:1px; line-height:20px; text-transform:uppercase; text-decoration:none; display:block;">
-												Goto Document
+												Go to Document
 											</a>
 										</td>
 									</tr>
