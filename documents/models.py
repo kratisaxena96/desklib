@@ -275,12 +275,17 @@ class Document(ModelMeta, models.Model):
             "publisher": self.author.first_name,
             "datePublished": self.published_date,
             "headline": self.title,
-            "dateModified": self.updated
+            "dateModified": self.updated,
+
         }
         try:
             data["image"] = Page.objects.get(document=self, no=self.cover_page_number).image_file.url,
+            data["college"] = Document.objects.get(college=self.college),
+            data["course"] = Document.objects.get(course=self.course)
         except:
             data["image"] = None
+            data["college"] = None
+            data["course"] = None
         return data
 
     class Meta:
@@ -443,6 +448,7 @@ class Document(ModelMeta, models.Model):
                 page_obj.html = page_html_data[page_count]
                 page_obj.document = self
                 page_obj.author = self.author
+                page_obj.college = self.college
                 page_obj.save()
                 page_count += 1
 
