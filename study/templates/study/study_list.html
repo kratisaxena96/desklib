@@ -61,11 +61,10 @@
         <hr class="mt-3 mb-3">
 
        <div class="text-justify">
-           {% for sub in p.subject_content.all %}
 
-           <p class="para">{{ sub.short_description }}</p>
+           <p class="para">{{ p.study_short_description }}</p>
 
-           {% endfor %}</div>
+       </div>
 
                     {% for child in p.subject_set.all %}
                     <ul style="margin-bottom:0.30rem">
