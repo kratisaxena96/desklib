@@ -317,10 +317,15 @@ def merge_pdf(input_pdf, output, watermark):
     pdf_reader = PdfFileReader(input_pdf)
     pdf_writer = PdfFileWriter()
 
+    NUM_OF_PAGES = pdf_reader.getNumPages()
+    page0 = pdf_reader.getPage(0)
+    h = page0.mediaBox.getHeight()
+
     # Watermark all the pages
-    for page in range(pdf_reader.getNumPages()):
-        page = pdf_reader.getPage(page)
-        page.mergePage(watermark_page)
+    for i in range(pdf_reader.getNumPages()):
+        page = pdf_reader.getPage(i)
+        # page.mergePage(watermark_page)
+        page.mergeScaledPage(watermark_page, 0.90)
         pdf_writer.addPage(page)
 
     with open(output, 'wb') as out:

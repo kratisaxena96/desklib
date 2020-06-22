@@ -1378,9 +1378,6 @@ display:none;
 		//	---------------  For Mobile ---------//
 
 @media only screen and (max-width: $breakpoint-mobile) {
-.width-100per{
- width: $width-100per !important;
-}
  .img-height{
  height: auto;
 // .blog-list-banner{
@@ -1434,9 +1431,9 @@ display:none;
 .p-t-0{
     padding-top: 0px !important;
     }
-// .width-100{
-//     width:$width-100px;
-//  }
+.width-100{
+    width:100% !important;
+    }
 .plr{
     padding-left: 0px !important;
     padding-right: 0px !important;
@@ -1525,13 +1522,19 @@ display:none;
 
 	//	---------------  For UI ---------//
 
+
 .home-banner {
 	//height: 100vh;
 	min-height: 500px;
 	background-image: url("/static/dist/assets/images/bbanner.jpg");
 	background-size: cover;
 	background-repeat: no-repeat;
-	height: 120vh;
+	height: 130vh;
+}
+@media (max-width: 600px){
+.home-banner {
+  height: 140vh;
+}
 }
 
 .para {
@@ -1584,6 +1587,7 @@ font-size: 0.98rem;
 
 .bottom-radius{
 border-radius: 0px 0px 12px 12px;
+border: 1px solid rgba(170, 170, 170, 0.2);
 }
 
 .border-radius-topl{
@@ -1687,4 +1691,15 @@ border-radius: 12px 12px 0px 0px;
 .bar {
    height: 18px;
    background: green;
+}
+
+.form-input-group {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    width: 110%;
+}
+
+.testimonial-height{
+height: 340px;
 }

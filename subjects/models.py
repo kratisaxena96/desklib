@@ -40,6 +40,7 @@ class Subject(ModelMeta, models.Model):
     seo_title = models.CharField(max_length=150, help_text='Tip: Start every main word in the title with a capital letter, Keep title brief and descriptive that is relevant to the content of your pages.', null=True, blank=True)
     seo_description = models.TextField(max_length=500, help_text='Tip: Create concise and high-quality descriptions that accurately describe your page, Make sure each page on our website has a different description.', null=True, blank=True)
     seo_keywords = models.CharField(max_length=500, help_text='Recommended max.length of relevant seo keyword is 140 characters', null=True, blank=True)
+    study_short_description = models.TextField(null=True, blank=True)
 
     canonical_url = models.URLField(max_length=2048, blank=True, null=True, help_text='Search Engine like max. 2048 characters of url')
 
@@ -95,6 +96,8 @@ class SubjectContent(models.Model):
     title = models.CharField(_('Title'), max_length=500)
     slug = models.SlugField(_('Slug'), unique=True)
     description = RichTextUploadingField(_('Description'))
+
+
 
     class Meta:
         verbose_name = _('subject content')
