@@ -101,7 +101,9 @@
             <div class="item h-350">
                 <div class="main-div shadow mt-2 h-350 border-radius-5">
                     <a href="{% url 'documents:document-view' results.slug %}" class="h-350 d-inline-block w-100">
-                    <img class="card-img-top" src="{{results.cover_image}}" alt="documents image">
+                     {% thumbnail results.cover_image_name "290x205" as im %}
+                                <img class="card-img-top" src="{{ im.url  }}" alt="documents image">
+                             {% endthumbnail %}
                  </a>
                  <a href="{% url 'documents:document-view' results.slug %}" class="text-decoration-none">
                  <div class="card-body inner-div bg-light">
@@ -137,7 +139,9 @@
                 <div class="item bg-white h-350">
                     <div class="main-div shadow mt-2 h-350 border-radius-5">
                         <a href="{% url 'documents:document-view' rec.slug %}" class="h-350 d-inline-block w-100">
-                        <img class="card-img-top" src="{{rec.cover_image}}" alt="documents image">
+                         {% thumbnail rec.cover_image_name "290x205" as im %}
+                                <img class="card-img-top" src="{{ im.url  }}" alt="documents image">
+                             {% endthumbnail %}
                         </a>
                         <a href="{% url 'documents:document-view' rec.slug %}" class="text-decoration-none">
                         <div class="card-body inner-div bg-light">
