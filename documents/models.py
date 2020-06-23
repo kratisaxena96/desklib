@@ -298,6 +298,7 @@ class Document(ModelMeta, models.Model):
     class Meta:
         permissions = [
             ("change_document_author", "Staff Can Assign Document Author"),
+            ("document_download_from_admin", "Document Download From Admin"),
         ]
 
     def save(self, *args, **kwargs):
