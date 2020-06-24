@@ -52,7 +52,6 @@
     <div class="row mb-2">
         {% for p in parent %}
     <div class="col-sm-6 col-md-4 mt-4">
-        {% if not p.parent_subject %}
                  <h5>
                      {% comment %}
 <!--                 <a href="{% url 'subjects:parent-subject-view' p.slug %}" class="card-title black-font font-weight-normal blue-theme"> <img src="{{ p.image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid pr-2" style="width:12%">{{ p }}</a> </h5>-->
@@ -81,14 +80,10 @@
 
                     </ul>
         {% endfor %}
-        {% endif %}
 
     </div>
     {% endfor %}
-        {% for object in subject.subject_content.all %}
 
-{{object.title}}
-{% endfor %}
 </div>
 </section>
 
