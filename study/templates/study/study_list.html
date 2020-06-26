@@ -61,7 +61,11 @@
 
        <div class="text-justify">
 
-           <p class="para">{{ p.study_short_description }}</p>
+{% if p.study_short_description %}
+   <p class="para">  {{ p.study_short_description }}</p>
+{% endif %}
+
+
 
        </div>
 
