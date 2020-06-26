@@ -1,6 +1,5 @@
 {% extends "desklib/base.html" %}
 {% load staticfiles %}
-{% load thumbnail %}
 {% load meta %}
 {% block content %}
 <section>
@@ -138,9 +137,7 @@
 		<div class="col-sm-6 col-md-4 col-lg-3 mb-3 mb-md-3">
 			 <div class="main-div shadow h-350 border-radius-5">
 				<a href="{% url 'documents:document-view' documents.slug %}" class="text-decoration-none">
-				             {% thumbnail documents.cover_image_name "290x205" as im %}
-                                <img class="card-img-top" src="{{ im.url  }}" alt="icon">
-                             {% endthumbnail %}
+				 <img class="card-img-top" src="{{documents.cover_image}}" alt="icon">
 				<div class="card-body inner-div bg-light">
 					<h6 class="card-text blue-theme">{{documents.title|truncatechars:35}}</h6>
 					 <small class="text-muted">{{documents.no_of_pages}}</small>
@@ -163,9 +160,7 @@
 		<div class="col-sm-6 col-md-4 col-lg-3 mb-3 mb-md-3">
 			 <div class="main-div shadow h-350 border-radius-5">
 				<a href="{% url 'documents:document-view' documents.slug %}" class="text-decoration-none">
-					 {% thumbnail documents.cover_image_name "290x205" as im %}
-                                <img class="card-img-top" src="{{ im.url  }}" alt="icon">
-					 {% endthumbnail %}
+					 <img class="card-img-top" src="{{documents.cover_image}}" alt="documents image">
 					<div class="card-body inner-div bg-light">
 					<h6 class="card-text blue-theme">{{documents.title|truncatechars:35}}</h6>
 					<small class="text-muted">{{documents.no_of_pages}}</small>
