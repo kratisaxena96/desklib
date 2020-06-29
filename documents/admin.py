@@ -252,6 +252,8 @@ class DocumentAdmin(admin.ModelAdmin):
         actions = super().get_actions(request)
         if not request.user.has_perm('documents.change_document_author'):
             del actions['change_author']
+        if not request.user.has_perm('documents.document_download_from_admin'):
+            del actions['get_document_download']
         return actions
 
     def get_queryset(self, request):

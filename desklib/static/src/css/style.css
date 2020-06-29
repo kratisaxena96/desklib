@@ -448,6 +448,14 @@ p-0 {
   vertical-align: middle;
   padding: 30px; }
 
+.rounded-bottom-0 {
+  border-bottom-right-radius: 0 !important;
+  border-bottom-left-radius: 0 !important; }
+
+.rounded-top-0 {
+  border-top-right-radius: 0 !important;
+  border-top-left-radius: 0 !important; }
+
 .box-shadow-3-3-5-5 {
   -moz-box-shadow: 1px 0px 18px 2px #CDCDCD;
   -webkit-box-shadow: 1px 0px 18px 2px #CDCDCD;
@@ -1566,6 +1574,8 @@ a.tt-suggestion.tt-selectable {
     border-right: 0 !important; } }
 
 @media only screen and (max-width: 576px) {
+  .width-100per {
+    width: 100% !important; }
   .img-height {
     height: auto; }
   .blur-image {
@@ -1808,6 +1818,7 @@ a.tt-suggestion.tt-selectable {
 .form-input-group {
   position: relative;
   display: flex;
+  flex-wrap: wrap;
   align-items: stretch;
   width: 110%; }
 

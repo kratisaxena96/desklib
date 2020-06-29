@@ -22,6 +22,7 @@ class Plan(models.Model):
     def __str__(self):
         return self.package_name
 
+
 class Subscription(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, blank=True, null=True, related_name = 'subscriptions')
     plan = models.ForeignKey(Plan, on_delete=models.PROTECT)
@@ -37,6 +38,7 @@ class Subscription(models.Model):
     def __str__(self):
         return self.plan.package_name
 
+
 class PayPerDocument(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, blank=True, null=True, related_name = 'pay_per_download')
     plan = models.ForeignKey(Plan, on_delete=models.PROTECT)
@@ -47,6 +49,7 @@ class PayPerDocument(models.Model):
     expire_on = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
 
 class Download(models.Model):
     document = models.ForeignKey(Document,on_delete=models.CASCADE, related_name='downloads')
