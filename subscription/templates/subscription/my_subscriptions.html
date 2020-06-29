@@ -25,59 +25,68 @@
               <aside class="col-sm-4 border-right">
 		 	 	<div class="list-group" role="tablist">
 			         <a class="list-group-item list-group-item-action" href="{% url 'my-profile' %}" role="tab" aria-controls="my-profile">My Profile</a>
-               <a class="list-group-item list-group-item-action bg-active white" href="{% url 'my-downloads' %}" role="tab" aria-controls="my-downloads">My Downloads</a>
+               <a class="list-group-item list-group-item-action" href="{% url 'my-downloads' %}" role="tab" aria-controls="my-downloads">My Downloads</a>
                <a class="list-group-item list-group-item-action" href="{% url 'my-uploads' %}" role="tab" aria-controls="my-uploads">My Uploads</a>
                 <a class="list-group-item list-group-item-action" href="{% url 'upload-file' %}" role="tab" aria-controls="upload-files">Upload Files</a>
-					<a class="list-group-item list-group-item-action" href="{% url 'my-subscription' %}" role="tab" aria-controls="my-subscriptions">My Subscriptions</a>
+                    <a class="list-group-item list-group-item-action bg-active white" href="{% url 'my-subscription' %}" role="tab" aria-controls="my-subscriptions">My Subscriptions</a>
         </div>
-	</aside> 
+	</aside>
 
             <div class="col-sm-8 mt-3 mt-md-0">
-                <h4 class="text-center mb-3 d-inline-block">My Downloads</h4><i class="fa fa-download fa-4 font-size-20 blue-theme pl-3" aria-hidden="true"></i>
-            		<table class="table table-bordered table-sm">            			
+                <div class="mt-5 mt-md-0">
+                <h4 class="text-center mb-3 d-inline-block">My Subscriptions</h4><i class="fa fa-money fa-4 font-size-20 blue-theme pl-3" aria-hidden="true"></i>
+            		<table class="table table-bordered table-sm">
             		 	<thead>
             		 	 	<tr>
-            		 	 	   <th scope="col">Title</th>
-            		 	 	    <th scope="col">Date</th>
+            		 	 	   <th scope="col">Plan Name</th>
+                                <th scope="col">View Limit</th>
+                                <th scope="col">Download Limit</th>
+                                <th scope="col">Expiry On</th>
             		 	 </tr>
             		 </thead>
-            		 {% for downloads in user_downloads %}
+
+                       {% for subs in subscribed_doc %}
+
             		   <tbody>
             		   	   <tr>
-            		   	   	 <td scope="row">{{downloads.document | truncatechars:40}}</td>
-            		   	   	  <td scope="row">{{downloads.created_at | localize}}</td>
+            		   	   	 <td scope="row">{{subs.plan}}</td>
+                               <td scope="row">{{subs.plan.view_limit}}</td>
+                                 <td scope="row">{{subs.plan.download_limit}}</td>
+            		   	   	  <td scope="row">{{subs.expire_on| localize}}</td>
             		   	   </tr>
             		   </tbody>
-            		   {% endfor %}
+
+                        {% endfor %}
+
             	</table>
-{% if user_downloads.has_other_pages %}
+{% if subscribed_doc.has_other_pages %}
 <div class="container d-flex justify-content-center">
   <div class="row">
     <div class="col-md-12">
         <ul class="pagination" id="user_download">
           <li class="page-item p-3">
-          {% if user_downloads.has_previous %}
-              <a class="previous" href="?page1={{ user_downloads.previous_page_number }}">
+          {% if subscribed_doc.has_previous %}
+              <a class="previous" href="?page1={{ subscribed_doc.previous_page_number }}">
          <span aria-hidden="true"><i class='fas fa-angle-left fafa-nav-active blue-theme'></i></span></a></li>
           {% else %}
           <li class="page-item disabled p-3">
           <a class="previous"><i class='fas fa-angle-left fafa-nav-in-active'></i></a>
           </li>
           {% endif %}
-          {% for page in user_downloads.paginator.page_range %}
-              {% if user_downloads.number == page %}
+          {% for page in subscribed_doc.paginator.page_range %}
+              {% if subscribed_doc.number == page %}
               <li class="page-item active p-3">
 				  <a class="rounded-circle page-link border-color bg-blue-theme" href="?page1={{page}}">{{page}}</a>
               </li>
-              {% elif page > user_downloads.number|add:'-3' and page < user_downloads.number|add:'3' %}
+              {% elif page > subscribed_doc.number|add:'-3' and page < subscribed_doc.number|add:'3' %}
               <li class="page-item p-3"><a class="rounded-circle page-link blue-theme" href="?page1={{page}}">{{page}}</a>
               </li>
               {% endif %}
           {% endfor %}
           <li class="page-item p-3">
-          {% if user_downloads.has_next %}         
+          {% if subscribed_doc.has_next %}
 
-             <a class="previous blue-theme" href="?page1={{ user_downloads.next_page_number }}"><span aria-hidden="true"><i class='fas fa-angle-right fafa-nav-in-active'></i></span></a></li>
+             <a class="previous blue-theme" href="?page1={{ subscribed_doc.next_page_number }}"><span aria-hidden="true"><i class='fas fa-angle-right fafa-nav-in-active'></i></span></a></li>
           {% else %}
            <li class="page-item disabled p-3">
             <a class="next"><i class='fas fa-angle-right fafa-nav-in-active'></i></a>
@@ -89,65 +98,62 @@
 </div>
 				{% endif %}
 </div>
-</div>
-</div>
-</section>
-<section class="mb-5">
-	 <div class="container">
-	 	<div class="row">
-	 		<div class="col-sm-4"></div>
-	 		<div class="col-sm-8">
-        		<h4 class="text-center mb-3 d-inline-block">My page view</h4>
-					<i class="fas fa-book-open fa-4 font-size-20 blue-theme pl-3" aria-hidden="true"></i>
+          	 		<div class="mt-5 mb-5">
+        		<h4 class="text-center mb-3 d-inline-block">My Pay Per Documents</h4>
+					<i class="fas fa-credit-card fa-4 font-size-20 blue-theme pl-3" aria-hidden="true"></i>
 	 				<table class="table table-bordered table-sm">
 	 				 	<thead>
 	 				 	 	<tr>
-	 				 	 		<th scope="col">Pages</th>
-	 				 	 		<th scope="col">Date</th>
+	 				 	 		<th scope="col">Plan Name</th>
+                                <th scope="col">Document Name</th>
+                                <th scope="col">Expiry On</th>
 	 				 	 	</tr>
 	 				 	</thead>
-	 				 	{% for pages in page_view %}
+         {% for paydoc in pay_per_download %}
 	 				    <tbody>
 	 				   	 	<tr>
 	 				   	 	 	<td scope="row">
-	 				   	 	 	{{pages.document | truncatechars:40}}
+	 				   	 	 	{{paydoc.plan | truncatechars:40}}
 								</td>
-	 				   	 	  	<td scope="row">
-	 				   	 	  	{{pages.created_at}}
+                                 <td scope="row">
+                                     {% for obj_name in paydoc.documents.all %}<a href="{% url 'documents:document-view' obj_name.slug %}">{{obj_name.title |truncatechars:40}} </a> {% endfor %}
+	 				   	 	  	</td>
+                                <td scope="row">
+	 				   	 	  	{{paydoc.expire_on| localize}}
 	 				   	 	  	</td>
 	 				   	 	</tr>
 	 				    </tbody>
-	 				   {% endfor %}
+                     {% endfor %}
 	 			    </table>
 <!-- pagination 12-11-2019 -->
-{% if page_view.has_other_pages %}
+{% if pay_per_download.has_other_pages %}
 <div class="d-flex justify-content-center mb-2">
-  <nav aria-label="Page navigation">   
+  <nav aria-label="Page navigation">
     <ul class="pagination">
-{% if page_view.has_previous %}
+{% if pay_per_download.has_previous %}
 <li class="page-item p-3">
-  <a class="previous" href="?page2={{ page_view.previous_page_number }}">
+  <a class="previous" href="?page2={{ pay_per_download.previous_page_number }}">
     <span aria-hidden="true"><i class='fas fa-angle-left fafa-nav-active blue-theme'></i></span></a>
   </li>
   {% else %}
    <li class="page-item disabled p-3">
     <a class="next">
       <span aria-hidden="true"><i class='fas fa-angle-left fafa-nav-in-active'></i></span></a>
-</li>   
+</li>
 {% endif %}
 
-{% for page in page_view.paginator.page_range %}
-  {% if page_view.number == page %}
+{% for page in pay_per_download.paginator.page_range %}
+  {% if pay_per_download.number == page %}
     <li class="page-item active p-3">
       <a class="rounded-circle page-link border-color bg-blue-theme" href="?page2={{page}}">{{ page }}<span class="sr-only">(current)</span></a>
     </li>
-  {% elif page > page_view.number|add:'-3' and page < page_view.number|add:'3' %}
+  {% elif page > pay_per_download.number|add:'-3' and page < pay_per_download.number|add:'3' %}
     <li class="page-item p-3"><a class="page-link rounded-circle blue-theme" href="?page2={{ page }}">{{ page }}</a></li>
   {% endif %}
 {% endfor %}
   <li class="page-item p-3">
-    {% if page_view.has_next %}
-    <a class="previous blue-theme" href="?page2={{ page_view.next_page_number }}">
+    {% if pay_per_download.has_next %}
+    <a class="previous blue-theme" href="?page2={{ pay_per_download.next_page_number }}">
 		<span aria-hidden="true"><i class='fas fa-angle-right fafa-nav-in-active'></i></span>
 	</a>
   </li>
@@ -155,14 +161,14 @@
     <li class="page-item disabled p-3">
       <span class=""><i class='fas fa-angle-right fafa-nav-in-active'></i></span>
     </li>
-  {% endif %}   
-</ul> 
+  {% endif %}
+</ul>
 </nav>
 </div>
 				 {% endif %}
 	 		</div>
 	 	</div>
 	 </div>
-</section>
+      </div></section>
 
 {% endblock %}
