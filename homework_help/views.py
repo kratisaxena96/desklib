@@ -128,7 +128,7 @@ class AskQuestionView(MetadataMixin, FormView):
     form_class = QuestionForm
     title = 'Desklib | Homework Help | Ask Q&A from online experts'
     description = 'Access quality study resources and get homework help and solutions to your assignments. Click here to ask question from our experts.'
-    keywords = ['help with homework ', 'homework help']
+    keywords = ['help with homework ', 'Online Homework Help', 'Homework Help', 'College Homework Help', 'homework online']
     twitter_title = 'Homework Help - Ask Q&A from Online experts - Desklib'
     og_title = 'Homework Help - Ask Q&A from Online experts - Desklib'
     gplus_title = 'Homework Help - Ask Q&A from Online experts - Desklib'
