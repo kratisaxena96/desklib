@@ -263,8 +263,6 @@ input[type="submit"].btn-block.width-25 {
      background-color: #ffffff;
      cursor: pointer;
 }
-
-
 .mt-step-col{
     display: flex;
 }
@@ -454,7 +452,7 @@ ul.social-icons li{
     height: 70vh;
 }
 .img-height{
-height: 45%;
+//height: 45%;
 //height: 200px;
 //object-fit: cover;
 //  height: 40vh;
@@ -467,6 +465,12 @@ height: 45%;
 .display-none{
     display: $display;
 }
+// .fb-page,
+// .fb-page span,
+// .fb-page span iframe[style] {
+//     width: 100% !important;
+// }
+
 
 //--------------------------------------------Order_Detail page status bar---------------------------------//
 
@@ -1430,9 +1434,6 @@ display:none;
     }
 .p-t-0{
     padding-top: 0px !important;
-    }
-.width-100{
-    width:100% !important;
     }
 .plr{
     padding-left: 0px !important;

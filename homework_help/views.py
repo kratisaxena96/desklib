@@ -25,6 +25,9 @@ from haystack.generic_views import SearchView
 import simplejson as json
 from haystack.generic_views import SearchView, FacetedSearchView
 
+from django_json_ld import settings as setting
+from django.utils.translation import gettext as _
+
 # Create your views here.
 from subjects.models import Subject
 
@@ -123,19 +126,40 @@ class OrderListView(LoginRequiredMixin, MetadataMixin, ListView):
         return context
 
 
-class AskQuestionView(MetadataMixin, FormView):
+class AskQuestionView(JsonLdContextMixin, MetadataMixin, FormView):
     template_name = 'homework_help/ask_question.html'
     form_class = QuestionForm
     title = 'Desklib | Homework Help | Ask Q&A from online experts'
     description = 'Access quality study resources and get homework help and solutions to your assignments. Click here to ask question from our experts.'
-    keywords = ['help with homework ', 'homework help']
+    keywords = ['help with homework ', 'Online Homework Help', 'Homework Help', 'College Homework Help', 'homework online']
     twitter_title = 'Homework Help - Ask Q&A from Online experts - Desklib'
     og_title = 'Homework Help - Ask Q&A from Online experts - Desklib'
     gplus_title = 'Homework Help - Ask Q&A from Online experts - Desklib'
 
+    structured_data = {
+        "@type": "Organization",
+        "name": "Desklib | Homework Help | Ask Q&A from online experts",
+        "description": _(
+            'Access quality study resources and get homework help and solutions to your assignments. Click here to ask question from our experts.'),
+        "url": "https://desklib.com/homework-help/",
+        "logo": "https://desklib.com/static/dist/assets/images/desklib-logo-theme.png",
+        "sameAs": [
+            "https://www.facebook.com/desklib",
+            "https://twitter.com/desklib",
+            "https://www.linkedin.com/company/desklib",
+            "https://www.instagram.com/desklib/"
+        ]
+    }
+
+    def get_structured_data(self):
+        sd = super(AskQuestionView, self).get_structured_data()
+        return sd
+
 
     def get_context_data(self, **kwargs):
-        context = super(AskQuestionView, self).get_context_data(**kwargs)
+        # context = super(AskQuestionView, self).get_context_data(**kwargs)
+        context = super(JsonLdContextMixin, self).get_context_data(**kwargs)
+        context[setting.CONTEXT_ATTRIBUTE] = self.get_structured_data()
         queryset = Question.objects.filter(is_published=True, is_visible=True, published_date__lte=timezone.now()).order_by('-published_date')[:6]
         subject = Subject.objects.all()[:12]
         # order = Order.objects.get(order_id=self.kwargs['order_id'])
