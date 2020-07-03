@@ -23,8 +23,9 @@ $('#remote .typeahead').typeahead(null,{
         'No results found',
       '</div>'
     ].join('\n'),
+     suggestion: Handlebars.compile('<a href="/document/{{slug}}">{{title}}</a>')
 //    suggestion: Handlebars.compile('<a href="/document/{{slug}}"><div>{{title}}</div></a>')
-    suggestion: Handlebars.compile('<a href="/document/{{slug}}" class="border-bottom text-dark"><div class="row"><div class="col-2"><img src="{{image}}" alt="{{title}}" class="img-fluid border"></div><div class="col-10"><h4 class="word-wrap">{{title}}</h4><p class="word-wrap">{{description}}</p><div class="w-100"><span>words: </span><b><span>{{words}}</b></span><span>&nbsp;pages: </span><b><span>{{pages}}</b></span></div></div> </div></a>')
+//    suggestion: Handlebars.compile('<a href="/document/{{slug}}" class="border-bottom text-dark"><div class="row"><div class="col-2"><img src="{{image}}" alt="{{title}}" class="img-fluid border"></div><div class="col-10"><h4 class="word-wrap">{{title}}</h4><p class="word-wrap">{{description}}</p><div class="w-100"><span>words: </span><b><span>{{words}}</b></span><span>&nbsp;pages: </span><b><span>{{pages}}</b></span></div></div> </div></a>')
   }
 });
 
