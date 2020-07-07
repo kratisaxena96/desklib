@@ -362,7 +362,7 @@
                             {% else %}
                                 <span class="">
                                     <a href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}">
-                                        <i class='fas fa-angle-left fafa-nav-active blue-theme'></i>Prev
+                                        <i class='fas fa-angle-left fafa-nav-active blue-theme'></i>
                                     </a>
                                 </span>
                             {% endif %}
@@ -382,29 +382,28 @@
 
                            {%  elif num > page_obj.number|add:'8' %}
                            <li class="page-item p-3">
-                                        {% if selected %}
-                                            <a class="rounded-circle page-link  blue-theme" href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ num }}">{{ num|add:'-5' }}</a>
-                                        {% else %}
-                                            <a class="rounded-circle page-link  blue-theme" href="?q={{ query }}&amp;page={{ num }}">{{ num|add:'-5' }}</a>
-                                        {% endif %}
-                                    </li>
-
-                                {%  elif num > page_obj.number|add:'-4' and num < page_obj.number|add:'4' %}
-                                    <li class="page-item p-3">
-                                        {% if selected %}
-                                            <a class="rounded-circle page-link  blue-theme" href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ num }}">{{ num }}</a>
-                                        {% else %}
-                                            <a class="rounded-circle page-link  blue-theme" href="?q={{ query }}&amp;page={{ num }}">{{ num }}</a>
-                                        {% endif %}
-                                    </li>
+                               {% if selected %}
+                               <a class="rounded-circle page-link  blue-theme" href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ num }}">{{ num|add:'-5' }}</a>
+                               {% else %}
+                               <a class="rounded-circle page-link  blue-theme" href="?q={{ query }}&amp;page={{ num }}">{{ num|add:'-5' }}</a>
+                               {% endif %}
+                           </li>
+                           {%  elif num > page_obj.number|add:'-4' and num < page_obj.number|add:'4' %}
+                           <li class="page-item p-3">
+                               {% if selected %}
+                               <a class="rounded-circle page-link  blue-theme" href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ num }}">{{ num }}</a>
+                               {% else %}
+                               <a class="rounded-circle page-link  blue-theme" href="?q={{ query }}&amp;page={{ num }}">{{ num }}</a>
+                               {% endif %}
+                           </li>
                                 {% endif %}
-                            {% endfor %}
+                           {% endfor %}
 
                               {% if page_obj.has_next %}
                             <li class="page-item p-3">
                                 {% if selected %}
                                     <a class="blue-theme" href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ page_obj.next_page_number }}">
-                                        Next<i class='fas fa-angle-right fafa-nav-active blue-theme'></i>
+                                        <i class='fas fa-angle-right fafa-nav-active blue-theme'></i>
                                     </a>
                                 {% else %}
                                     <a class="blue-theme d-inline-block" href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}">
