@@ -28,7 +28,7 @@ def show_me_the_money(sender, **kwargs):
 
             # homework help payment logic
         else:
-            receiver_email = "info@a2zservices.net"
+            receiver_email = "payment@locusrags.com"
         if ipn_obj.receiver_email == receiver_email:
             if ipn_obj.txn_id:
 
