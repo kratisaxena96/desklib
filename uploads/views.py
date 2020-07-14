@@ -35,7 +35,7 @@ class MyUploads(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         queryset = super(MyUploads, self).get_queryset()
-        queryset = queryset.filter(author=self.request.user).order_by('created')
+        queryset = queryset.filter(author=self.request.user).order_by('-created')
         return queryset
 
 

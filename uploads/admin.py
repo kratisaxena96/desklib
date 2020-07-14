@@ -1,5 +1,5 @@
 from django.contrib import admin
-from uploads.models import Upload
+from uploads.models import Upload, UploadForDocument
 from subjects.models import Subject
 
 # Register your models here.
@@ -24,8 +24,24 @@ from subjects.models import Subject
 #             return queryset.filter(subjects__id=int(self.value()))
 #         return queryset
 
-class UplaodAdmin(admin.ModelAdmin):
+
+class UploadInlineAdmin(admin.TabularInline):
+    # form = SampleFileAdminForm
+    model = Upload
+    extra = 1
+
+    exclude = ['course_name', 'course_code', 'country', 'university', 'type', 'is_published']
+    raw_id_fields = ('author', 'subjects')
+
+
+class UploadForDocumentAdmin(admin.ModelAdmin):
+    inlines =[UploadInlineAdmin]
+    raw_id_fields = ['required_document', 'author']
     readonly_fields = ('created', 'updated')
+
+
+class UplaodAdmin(admin.ModelAdmin):
+    readonly_fields = ('created', 'updated', 'unique_id')
     raw_id_fields = ('author','subjects','author')
     search_fields = ['course_name', 'university']
     list_display = ('course_name', 'type', 'is_published', 'get_subjects')
@@ -35,3 +51,4 @@ class UplaodAdmin(admin.ModelAdmin):
         return "\n".join([sub.name for sub in obj.subjects.all()])
 
 admin.site.register(Upload, UplaodAdmin)
+admin.site.register(UploadForDocument, UploadForDocumentAdmin)

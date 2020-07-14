@@ -287,9 +287,6 @@
                     </div>
                     {% endfor%}
                 </div>
-{% comment %}
-
-{% endcomment %}
 
                 {% else %}
                 <div class="row mb-5">
@@ -338,12 +335,11 @@
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-4 col-lg-3">
-                                <a href="https://tawk.to/chat/5d52a62677aa790be32eb23b/default" class="btn blue-theme px-4 border-color mt-3" target="_blank">Chat With Us</a>
+                                <a href="https://tawk.to/chat/5d52a62677aa790be32eb23b/default" class="btn btn-bg-theme text-white px-4 border-color mt-3" target="_blank">Chat With Us</a>
                             </div>
                         </div>
                     </div>
                 </div>
-
 
             </div>
              <div class="d-flex justify-content-center mb-5">
@@ -352,7 +348,7 @@
                        <ul class="pagination">
                            <!--                    <img class="img-responsive" src="{% static 'dist/assets/images/search icon.png' %}" alt="search" height="70px" style="margin-top: -11px; margin-left: -50px;">-->
                            {% if page_obj.has_previous %}
-                        <li class="page-item p-3">
+                            <li class="page-item p-3">
                             {% if selected %}
                                 <span class="">
                                     <a href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ page_obj.previous_page_number }}">
@@ -367,28 +363,42 @@
                                 </span>
                             {% endif %}
                         </li>
+                           <li class="page-item pt-4 pr-3">
+                               <a class="blue-theme d-inline-block" href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}">Prev</a>
+                           </li>
+
                            {% else %}
                            <li class="page-item disabled p-3">
                                <span><i class='fas fa-angle-left fafa-nav-in-active'></i></span>
                            </li>
                             {% endif %}
-
-                              {% for num in page_obj.paginator.page_range %}
-                                {% if page_obj.number == num %}
-                                    <li class="page-item active p-3">
-                                        <a class="rounded-circle page-link border-color bg-blue-theme" href="#">{{ num }}<span class="sr-only">(current)</span>
-                                        </a>
-                                    </li>
-
-                           {%  elif num > page_obj.number|add:'8' %}
+                            {% comment %}
+                           {% if page_obj.number < 5 %}
+                           {% for num in '123456789'|make_list %}
                            <li class="page-item p-3">
-                               {% if selected %}
-                               <a class="rounded-circle page-link  blue-theme" href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ num }}">{{ num|add:'-5' }}</a>
-                               {% else %}
-                               <a class="rounded-circle page-link  blue-theme" href="?q={{ query }}&amp;page={{ num }}">{{ num|add:'-5' }}</a>
-                               {% endif %}
+                               <a class="rounded-circle page-link  blue-theme" href="?q={{ query }}&amp;page={{ num }}">{{ num }}</a>
                            </li>
-                           {%  elif num > page_obj.number|add:'-4' and num < page_obj.number|add:'4' %}
+                           {% endfor %}
+                             {% if page_obj.has_next %}
+                            <li class="page-item pt-4 pl-3">
+                               <a class="blue-theme d-inline-block" href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}">Next</a>
+                            </li>
+                           <li class="page-item p-3">
+                               <a class="blue-theme d-inline-block" href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}">
+                                   <i class='fas fa-angle-right fafa-nav-active blue-theme'></i>
+                               </a>
+                           </li>
+                           {% endif %}
+                           {% else %}
+                            {% endcomment %}
+
+                           {% for num in page_obj.paginator.page_range %}
+                           {% if page_obj.number == num %}
+                           <li class="page-item active p-3">
+                               <a class="rounded-circle page-link border-color bg-blue-theme" href="#">{{ num }}<span class="sr-only">(current)</span>
+                               </a>
+                           </li>
+                           {%  elif num > page_obj.number|add:'-5' and num < page_obj.number|add:'5' %}
                            <li class="page-item p-3">
                                {% if selected %}
                                <a class="rounded-circle page-link  blue-theme" href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ num }}">{{ num }}</a>
@@ -397,9 +407,12 @@
                                {% endif %}
                            </li>
                                 {% endif %}
-                           {% endfor %}
+                                {% endfor %}
 
                               {% if page_obj.has_next %}
+                            <li class="page-item pt-4 pl-3">
+                               <a class="blue-theme d-inline-block" href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}">Next</a>
+                            </li>
                             <li class="page-item p-3">
                                 {% if selected %}
                                     <a class="blue-theme" href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ page_obj.next_page_number }}">
@@ -408,7 +421,7 @@
                                 {% else %}
                                     <a class="blue-theme d-inline-block" href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}">
                                         <i class='fas fa-angle-right fafa-nav-active blue-theme'></i>
-                                </a>
+                                    </a>
                                 {% endif %}
                             </li>
                             {% else %}
@@ -418,6 +431,7 @@
                             {% endif %}
                         {% endif %}
                     </ul>
+                      {% endif %}
                     </nav>
 
  <!--  pagination for responsive devices  -->
@@ -462,12 +476,6 @@
            </li>
            {% endif %}
            {% endfor %}
-
-           {% comment %}
-           <li class="page-item p-3 mt-1">
-               <a href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}" class="blue-theme font-size-18">Next</a>
-           </li>
-           {% endcomment %}
            {% if page_obj.has_next %}
            <li class="page-item p-3">
                {% if selected %}
@@ -492,7 +500,7 @@
             {% endif %}
              </div>
             </div>
-             {% endif %}
+
 
          </div>
              {% if not page_obj.object_list and not is_empty %}
@@ -581,6 +589,10 @@
 <!--	                </section>-->
 <!--                    </div>-->
 <!--                </div>-->
-             {% endif %}
 
-            {% endblock %}
+{% endif %}
+
+
+{% endblock %}
+
+
