@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from documents.models import Document
 from documents.models import Report
+from uploads.models import Upload, UploadForDocument
+from django_countries.serializer_fields import CountryField
 
 
 class DocumentCreateSerializer(serializers.ModelSerializer):
@@ -24,3 +26,25 @@ class ReportDocumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Report
         fields = ['issue', 'other_issue', 'document', 'author']
+
+
+class UploadDocumentSerializer(serializers.ModelSerializer):
+    author = serializers.CharField(required=False)
+    upload_file = serializers.FileField(required=True)
+    # required_document = serializers.CharField(required=False)
+    course_code = serializers.CharField(required=False)
+    country = CountryField(required= False)
+    university = serializers.CharField(required=False)
+
+    class Meta:
+        model = Upload
+        fields = ['course_code', 'country', 'university', 'upload_file', 'author', 'unique_id', 'course_name', 'subjects', 'type']
+
+
+class UploadForDocumentSerializer(serializers.ModelSerializer):
+    uid = serializers.CharField(required=False)
+    required_document = serializers.CharField(required=False)
+
+    class Meta:
+        model = UploadForDocument
+        fields = ('required_document', 'uid')

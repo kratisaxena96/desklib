@@ -125,7 +125,7 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, FacetedSearchView):
     queryset = SearchQuerySet().models(Document)
     form_class = CustomFacetedSearchForm
     facet_fields = ['subjects']
-    paginate_by = 20
+    paginate_by = 1
     title = 'Search Page | desklib.com'
     description = 'Search results for your query on desklib.com'
     keywords = ['Study resources', 'study notes search', 'study documents', 'study material search']
