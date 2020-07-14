@@ -57,7 +57,7 @@ class AnswerAdmin(admin.ModelAdmin):
 
 
 def send_budget_details(modeladmin, request, queryset):
-    queryset.update(status=2)
+    # queryset.update(status=2)
     for query in queryset:
         value = query.budget
         ip = "https://" + Site.objects.get_current().domain
@@ -79,7 +79,7 @@ def send_budget_details(modeladmin, request, queryset):
             mail.send(True)
 
 def send_answer_posted(modeladmin, request, queryset):
-    queryset.update(status=4)
+    # queryset.update(status=4)
     for query in queryset:
         ip = "https://" + Site.objects.get_current().domain
 
