@@ -30,6 +30,8 @@ from django.utils.translation import gettext as _
 
 # Create your views here.
 from subjects.models import Subject
+from django.shortcuts import redirect, render
+from desklib.utils import get_timezone
 
 def autocomplete(request):
     sqs = SearchQuerySet().models(Question).filter(content_auto=request.GET.get('q', ''))[:5]
@@ -270,6 +272,7 @@ class OrderCreateView(LoginRequiredMixin, FormView):
 
         question = Question.objects.get(uid= self.kwargs.get('uid'))
         order = Order(question=question, author=request.user)
+        order.client_timezone = get_timezone(self.request)
         order.save()
 
         ip = "https://"+ Site.objects.get_current().domain

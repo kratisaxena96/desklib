@@ -247,6 +247,9 @@ class Order(ModelMeta, models.Model):
     amount_paid = models.IntegerField(_('Amount Paid'), default=0, null=True, blank=True)
     order_id = models.CharField(unique=True, max_length=10, default=key_generator, editable=False)
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    client_timezone = models.CharField(_('Client TimeZone'),max_length=200, blank=True, null=True)
+    expected_hours = models.IntegerField(_('Expected Time'), null=True, blank=True)
+    deadline_datetime = models.DateTimeField(_('Deadline Time'), blank=True, null=True)
 
     is_accepted = models.BooleanField(_('Is Accepted'), default=False)
     is_detailed = models.BooleanField(_('Is Detailed'), default=False)
