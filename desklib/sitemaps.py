@@ -23,7 +23,7 @@ class SampleSitemap(Sitemap):
 class DocumentSitemap(Sitemap):
     priority = 0.5
     changefreq = 'daily'
-    limit = 50
+    limit = 50000
 
 
     def items(self):
