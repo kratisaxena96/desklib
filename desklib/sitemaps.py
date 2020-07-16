@@ -24,7 +24,7 @@ class DocumentSitemap(Sitemap):
     priority = 0.5
     changefreq = 'daily'
 
-    # limit = 50000
+    limit = 20000
 
     def items(self):
         return Document.objects.filter(is_visible=True, is_published=True, published_date__lte=timezone.now()).only('published_date','slug')

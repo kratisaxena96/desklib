@@ -86,7 +86,7 @@
                <div class="row">
                   {% for blog in object_list %}
                   <div class="col-md-6 mb-4">
-                     <a href="{% url 'blog_detail' year=blog.published_date|date:'Y' month=blog.published_date|date:'n' date=blog.published_date|date:'j' slug=blog.slug %}" class="text-decoration-none">
+                     <a href="{{ blog.get_absolute_url }}" class="text-decoration-none">
                         <div class="card border-0 h-100 shadow">
                            {% thumbnail blog.cover_image "1349x480" crop="top" as im %}
                            <img src="{{ im.url }}" alt="{{blog.title}}" class="img-fluid">
