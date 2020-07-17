@@ -313,23 +313,23 @@
 			<div class="row mb-sm-3">
 				<div class="col-sm-4 col-md-4">
 					<div class="form-group">
-					 	  		<label for="id_country" class=""><strong>{{form1.country.label}}:</strong></label>
+					 	  		<label for="id_country" class="" ><strong>{{form1.country.label}}:</strong></label>
 				</div>
 			</div>
+
 				<div class="col-sm-8">
 					<div class="form-group position-relative">
 						{% get_countries as countries %}
-						<select class="form-control js-example-basic-single">
+						<select class="form-control js-example-basic-single" name="country">
 						{% for country in countries %}
 							{% if country.code == location %}
 								<option value="{{ country.code }}" selected>{{ country.name }}</option>
 							{% else %}
-								<option value="{{ country.code }}">{{ country.name }}</option>
+							    <option value="{{ country.code }}" >{{ country.name }}</option>
 							{% endif %}
 						{% endfor %}
 						</select>
 						<span  class="country form-text text-danger ">{{form1.country.errors}}</span>
-
 					</div>
 				</div>
 			</div>
@@ -458,20 +458,19 @@
 					 	  		<label for="id_country_2" class=""><strong>{{form2.country.label}}:</strong></label>
 				</div>
 			</div>
-				<div class="col-sm-8">
+					<div class="col-sm-8">
 					<div class="form-group position-relative">
 						{% get_countries as countries %}
-						<select class="form-control js-example-basic-single">
+						<select class="form-control js-example-basic-single" name="country">
 						{% for country in countries %}
-							{% if country.name == location %}
+							{% if country.code == location %}
 								<option value="{{ country.code }}" selected>{{ country.name }}</option>
 							{% else %}
-								<option value="{{ country.code }}">{{ country.name }}</option>
+							    <option value="{{ country.code }}" >{{ country.name }}</option>
 							{% endif %}
 						{% endfor %}
 						</select>
 						<span  class="country form-text text-danger ">{{form2.country.errors}}</span>
-
 					</div>
 				</div>
 			</div>
@@ -539,7 +538,7 @@
 			</form>
 			{% comment %}
 
-			<form action="." method="post" id="upload-form1">
+			<form action="." method="post" id="upload-form2">
 				{% csrf_token %}
 				{{form1.as_p}}
 
