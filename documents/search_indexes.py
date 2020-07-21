@@ -38,36 +38,36 @@ class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
             import pdb; pdb.set_trace()
         return list(parent_sub)
 
-    # def prepare_cover_image(self, obj):
-    #     if obj.cover_page_number:
-    #         url = obj.pages.get(no=obj.cover_page_number).image_file.url
-    #         return url
-    #     else:
-    #         if obj.pages.count() >=2:
-    #             # full_url = ''.join(['http://', get_current_site(obj).domain, obj.pages.first().image_file.url])
-    #             url = obj.pages.all()[1].image_file.url
-    #             # print(url)
-    #             return url
-    #         elif obj.pages.count() == 1:
-    #             url = obj.pages.first().image_file.url
-    #             return url
-    #
-    # def prepare_cover_image_name(self, obj):
-    #     if obj.cover_page_number:
-    #         name = obj.pages.get(no=obj.cover_page_number).image_file.name
-    #         return name
-    #
-    #     else:
-    #         if obj.pages.count() >=2:
-    #             # full_url = ''.join(['http://', get_current_site(obj).domain, obj.pages.first().image_file.url])
-    #             name = obj.pages.all()[1].image_file.name
-    #             # print(url)
-    #             return name
-    #         elif obj.pages.first():
-    #             # full_url = ''.join(['http://', get_current_site(obj).domain, obj.pages.first().image_file.url])
-    #             name = obj.pages.first().image_file.name
-    #             # print(url)
-    #             return name
+    def prepare_cover_image(self, obj):
+        if obj.cover_page_number:
+            url = obj.pages.get(no=obj.cover_page_number).image_file.url
+            return url
+        else:
+            if obj.pages.count() >=2:
+                # full_url = ''.join(['http://', get_current_site(obj).domain, obj.pages.first().image_file.url])
+                url = obj.pages.all()[1].image_file.url
+                # print(url)
+                return url
+            elif obj.pages.count() == 1:
+                url = obj.pages.first().image_file.url
+                return url
+
+    def prepare_cover_image_name(self, obj):
+        if obj.cover_page_number:
+            name = obj.pages.get(no=obj.cover_page_number).image_file.name
+            return name
+
+        else:
+            if obj.pages.count() >=2:
+                # full_url = ''.join(['http://', get_current_site(obj).domain, obj.pages.first().image_file.url])
+                name = obj.pages.all()[1].image_file.name
+                # print(url)
+                return name
+            elif obj.pages.first():
+                # full_url = ''.join(['http://', get_current_site(obj).domain, obj.pages.first().image_file.url])
+                name = obj.pages.first().image_file.name
+                # print(url)
+                return name
 
     def index_queryset(self, using=None):
         return self.get_model().objects.filter(pages__isnull=False, is_visible=True, is_published=True, published_date__lte=timezone.now())
