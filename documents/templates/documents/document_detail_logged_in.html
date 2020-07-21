@@ -183,7 +183,7 @@ opacity:0.9 !important;
         <p>Added on - {{object.created|date:"d M Y"}}</p>
         <ul class="p-0 d-inline-block">
            <li class="d-inline-block p-2 text-center border-right">
-                <p class="mb-1">{{object.course}}</p>
+                <p class="mb-1">{% if object.course %}{{object.course}}{% endif %}</p>
                 <p class="mb-0 blue-theme">course code</p>
             </li>
             {% comment %}
@@ -193,23 +193,23 @@ opacity:0.9 !important;
 <!--            </li>-->
             {% endcomment %}
              <li class="d-inline-block p-2 text-center border-right">
-                <p class="mb-1">{{object.type}}</p>
+                <p class="mb-1">{% if object.type %}{{object.type}}{% endif %}</p>
                 <p class="mb-0 blue-theme">type</p>
             </li>
             <li class="d-inline-block p-2 text-center border-right">
-                <p class="mb-1">{{object.pages.all.count}}</p>
+                <p class="mb-1">{% if object.pages.all.count %}{{object.pages.all.count}}{% endif %}</p>
                 <p class="mb-0 blue-theme">pages</p>
             </li>
             <li class="d-inline-block p-2 text-center border-right">
-                <p class="mb-1">{{object.words}}</p>
+                <p class="mb-1">{% if object.words %}{{object.words}}{% endif %}</p>
                 <p class="mb-0 blue-theme">words</p>
             </li>
             <li class="d-inline-block p-2 text-center border-right">
-                <p class="mb-1">{{object.views}}</p>
+                <p class="mb-1">{% if object.views %}{{object.views}}{% endif %}</p>
                 <p class="mb-0 blue-theme">views</p>
             </li>
             <li class="d-inline-block text-center p-2">
-                <p class="mb-1">{{object.total_downloads}}</p>
+                <p class="mb-1">{% if object.total_downloads %}{{object.total_downloads}}{% endif %}</p>
                 <p class="mb-0 blue-theme">downloads</p>
             </li>
         </ul>
