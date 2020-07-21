@@ -4,50 +4,6 @@
 {% block canonical %}
 <link rel="canonical" href="https://desklib.com/writing/compare/" />
 {% endblock %}
-{% block extra_css %}
-  <style>
-          body #stage .inner #editor .inner {
-            -webkit-box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.30);
-            -moz-box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.30);
-            box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.30);
-          }
-          .editorHeader {
-            background: rgba(188, 192, 207, 0.34);
-          }
-          body #editor_controls {
-                background-color: rgba(188, 192, 207, 0.34);
-            }
-
-            .hiddenGrammarError{
-                background-color: #FFD4B0;
-            }
-            .hiddenSpellError{
-                background-color: #BCCDFF;
-            }
-            .editorHeader h3 {
-    margin: 0;
-    line-height: 32px;
-    font-weight: bold;
-    font-size: 20px;
-}
-.editorHeader p {
-    margin: 0;
-    font-size: 16px;
-    line-height: 24px;
-}
-.editorHeader {
-    -webkit-font-smoothing: antialiased;
-    display: flex;
-    padding: 26px 28px;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    color: #fff;
-    justify-content: space-between;
-    align-items: center;
-}
-      </style>
-
-{% endblock %}
 {% block content %}
 
 <section class="container-fluid bg-light-grey pt-5">
@@ -71,7 +27,7 @@
      <div class="container mb-5 pb-5">
        <div class="editorHeader">
             <div class="editorHeaderLeft text-body">
-           <h3 class="blue-theme text-center">Compare plagiarism similarity of two documents</h3>
+           <h2 class="blue-theme text-center pb-2">Compare plagiarism similarity of two documents</h2>
     <p class="text-center">Desklib offers you to ensure the originality of a text by comparing two documents and recognizing possible duplicate plagiarisms with percentage. </p>
             </div> </div> <br>
     <form action="." method="POST">
@@ -93,9 +49,9 @@
      </div>
 </section>
 
-<section class="container pt-5 pb-5 pl-5 pr-5 border-radius-12 text-center check-grammar-box">
-    <h3 class="blue-theme py-2 font">Now, Check Your Grammatical Mistakes 100% Free [No need to Login]</h3>
-    <h5 class="pt-4 pb-4">Our premium service are now free we help someone, just like yours.</h5>
+<section class="container pt-4 pb-4 pl-5 pr-5 border-radius-12 text-center check-grammar-box">
+    <h4 class="blue-theme py-2 font">Now, Check Your Grammatical Mistakes 100% Free [No need to Login]</h4>
+    <h5 class="pt-3 pb-3">Our premium service is now free. We help someone, just like yours.</h5>
     <a href="{% url 'writing:grammar' %}" class="btn text-white bg-blue-theme mt-md-3 border-radius-30 px-4 py-2 mb-4 mb-md-0">
                         Check Your Grammar
     </a>
