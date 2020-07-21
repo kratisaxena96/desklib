@@ -174,7 +174,7 @@
 							<td align="center" valign="top" style="padding-bottom:40px;padding-left:20px;padding-right:20px;" class="description">
 								<!-- Description Text// -->
 								<p class="midText" style="color:#919191; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:14px; font-weight:400; line-height:20px; text-align:center; padding:0; margin:0;">
-                                     Click the link below to check your Payment details.
+                                     Click the link below to check your Order status.
                                 </p>
 							</td>
 						</tr>
@@ -186,8 +186,8 @@
 									<tr>
 										<td align="center" class="postButton" style="background-color:#405fbd;padding-top:10px;padding-bottom:10px;padding-left:25px;padding-right:25px;border-radius:2px">
 											<!-- Button Link // -->
-											<a href="#" target="_blank" style="color:#FFFFFF; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:12px; font-weight:600; letter-spacing:1px; line-height:20px; text-transform:uppercase; text-decoration:none; display:block;" >
-												View Details
+											<a href="{{ SITE_URL }}{% url 'homework_help:order-detail-view' uuid=uuid %}" target="_blank" style="color:#FFFFFF; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:12px; font-weight:600; letter-spacing:1px; line-height:20px; text-transform:uppercase; text-decoration:none; display:block;" >
+												Your Order
 											</a>
 										</td>
 									</tr>

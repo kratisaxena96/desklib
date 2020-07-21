@@ -56,9 +56,9 @@ class WritingPageView(MetadataMixin,JsonLdContextMixin, TemplateView):
 class ComparePageView(MetadataMixin,JsonLdContextMixin, FormView):
     form_class = CompareForm
     use_title_tag = True
-    title = 'Plagiarism compare checker | compare the similarity of two documents | desklib.com '
+    title = 'Paper Checker | Compare Two Documents For Plagiarism'
     description = ' Desklib free plagiarism checker & comparison tool to detect your content originality. Reports with percentage, 100% perfect and authentic.'
-    keywords=['Free Plagiarism Checker', 'free online plagiarism checker with percentage', 'free plagiarism checker with percentage', 'free plagiarism checker by desklib', 'online plagiarism checker']
+    keywords = ['similarity checker', 'text similarity checker', 'compare two documents for plagiarism', 'compare two documents for plagiarism', 'essay checker', 'plagiarism between two documents']
     template_name = "writing/compare.html"
 
     context = {}
@@ -145,13 +145,11 @@ class SpellCheckPageView(MetadataMixin,JsonLdContextMixin, FormView):
 
 class GrammarCorrectPageView(MetadataMixin,JsonLdContextMixin, FormView):
     form_class = SpellCheckForm
-    title = 'Desklib.com | Trusted and free grammar checker | spelling checker'
+    title = 'Trusted and free grammar checker | spelling checker'
     use_title_tag = True
     description = 'Check your text for grammar corrections and spelling mistakes using our trusted and free grammar ' \
                   'checker tool. Get free writing tips and suggestions to improve your writing skills. '
-    keywords = ['trusted and free grammar checker', 'Grammar Checker Tool', 'Grammar and spelling checker',
-                'english grammar check online', 'english sentence correction', 'free grammar check',
-                'punctuation checker' , 'essay checker', 'spell', 'grammar', 'diction']
+    keywords = ['spelling checker', 'grammar checker', 'best grammar checker tool', 'free grammar checker tool']
     template_name = "writing/grammar_correct.html"
 
     structured_data = {

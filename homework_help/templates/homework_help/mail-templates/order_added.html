@@ -179,8 +179,8 @@
 									<tr>
 										<td align="center" class="postButton" style="background-color:#8D6CD1;padding-top:10px;padding-bottom:10px;padding-left:25px;padding-right:25px;border-radius:2px">
 											<!-- Button Link // -->
-											<a href="{{ SITE_URL }}" target="_blank" style="color:#FFFFFF; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:12px; font-weight:600; letter-spacing:1px; line-height:20px; text-transform:uppercase; text-decoration:none; display:block;" >
-												Back to Homepage
+											<a href="{{ SITE_URL }}{% url 'homework_help:order-detail-view' uuid=uuid %}" target="_blank" style="color:#FFFFFF; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:12px; font-weight:600; letter-spacing:1px; line-height:20px; text-transform:uppercase; text-decoration:none; display:block;" >
+												View Order
 											</a>
 										</td>
 									</tr>

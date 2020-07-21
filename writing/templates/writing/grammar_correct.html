@@ -783,7 +783,7 @@
                             </p>
                         </div>
                         <div class="editorHeaderRight text-center mt-3 mt-md-0">
-                            <a class="ff-chrome jump_menu p-2" type="button" href="https://tawk.to/chat/5d52a62677aa790be32eb23b/default"  target="_blank">
+                            <a class="ff-chrome jump_menu border-radius-40" type="button" href="https://tawk.to/chat/5d52a62677aa790be32eb23b/default"  target="_blank">
                                 Hire a content editor
                             </a>
                         </div>
@@ -794,10 +794,9 @@
                             <a href="#" title="toggle fullscreen mode"
                                onClick="fullscreen_toggle();return false;"></a>
                         </div>
-                        <p id="checktextpara" style="margin: 0">
-                                                        <textarea id="checktext" name="text" style="width: 100%"
-                                      rows="10">At some point,I realized that I strated to use the bike more often, not only to get to work but also to catch up with friends and to head out for coffee on weekends.</textarea>
-                                                    </p>
+                        <p id="checktextpara" style="margin:0">
+                            <textarea id="checktext" name="text" placeholder=" Type here....." required rows="10" style="width: 100%;/* display: none; */"></textarea>
+                        </p>
                         <div id="feedbackErrorMessage"></div>
                         <div id="feedbackPremiumMessage"></div>
                         <div id="editor_controls">
@@ -876,7 +875,69 @@
                     </div>
                 </form>
             </div>
+    </div></div></section>
 
+<!-- added accordion -->
+<section class="pb-5 pt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <div id="accordion">
+                    <div id="cardOne" class="card">
+                      <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" href="#collapseOne">
+                            Free similarity checker with percentage by Desklib
+                        </a>
+                      </div>
+                      <div id="collapseOne" class="collapse show">
+                        <div class="card-body">
+                            <p>Any student or professional looking to compare two text documents can use our free similarity checker and get an instant comparison. Sometimes it becomes difficult to check if two texts are similar or if one text is copied from another. This tool helps to identify such similarities in the content and provide a complete report with additional details on where the text is matching. It is useful for anyone looking to avoid plagiarism and copied content. This tool is useful only if you have two texts to compare. This doesn't provide plagiarism check over the data available on the internet.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="cardTwo" class="card">
+                      <div class="card-header">
+                        <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+                            How to use Desklib similarity checker
+                      </a>
+                      </div>
+                      <div id="collapseTwo" class="collapse show">
+                        <div class="card-body">
+                            <p>Using this tool is super easy. Firstly, you need to copy both the content t be compared in separate text boxes available in the form. Once that done you need to click on the "Compare Now" button and witness the magic. You will get a complete report on where exactly the content is matching and aggregated information on how much content is similar in both the files. This tool is free to use for anyone.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="cardThree" class="card">
+                      <div class="card-header">
+                        <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+                            Benefits of similarity tool by Desklib
+                        </a>
+                      </div>
+                      <div id="collapseThree" class="collapse show">
+                        <div class="card-body">
+                            <p>This tool is based on diff which means that it compares for the exact text search. This makes it perfect to use in the case where we need to find the similarity between two documents.</p>
+                            <p>Following are some of the use cases for this tool:</p>
+                            <ul>
+                                <li>Comparing the solutions of two students to find plagiarism.</li>
+                                <li>Comparing the content of two websites to check if they have similar content.</li>
+                                <li>Finding if two students cheated in examination by comparing their answers.</li>
+                                <li>Checking duplicate content on your website. </li>
+                            </ul>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ul class="list-group sticky-top">
+                    <li class="list-group-item"><a href="#cardOne">Free similarity checker with percentage by Desklib</a></li>
+                    <li class="list-group-item"><a href="#cardTwo">How to use Desklib similarity checker</a></li>
+                    <li class="list-group-item"><a href="#cardThree">Benefits of similarity tool by Desklib</a></li>
+                </ul>
+            </div>
+        </div>
+</div>
+</section>
 <!--<div id="stage" class="start">-->
 <!--  <div class="inner">-->
 <!--    <div id="text">-->
@@ -995,12 +1056,12 @@
 <!--    <div id="content">-->
 <!--    </div>-->
 
-</section>
 
+{% comment %}
 <section class="container py-5">
     <div class="row">
         <div class="col-sm">
-            <img class="width-100 img-fluid" src="{% static 'dist/assets/images/Content writer@2.5x.png' %}" alt="proofread">
+            <img class=" img-fluid" src="{% static 'dist/assets/images/Content writer@2.5x.png' %}" alt="proofread">
         </div>
         <div class="col-sm pt-3 pb-sm-0 pt-sm-0 pt-lg-5">
             <h2 class="">Hire top content writer and proofreaders</h2>
@@ -1014,7 +1075,7 @@
     </div>
 
 </section>
-{% comment %}
+
 <section class="container-fluid bg-light-grey mt-3 mt-sm-5">
     <h2 class="text-center py-2 pt-5">Testimonials</h2>
     <div class="row pb-4 pt-4">
