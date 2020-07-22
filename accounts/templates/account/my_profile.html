@@ -36,14 +36,15 @@
 			</div>
 		{% endif %}
   	{% endblock %}
-<div class="container">
-  <div class="row pt-0 pt-sm-5">
+<div class="container py-5">
+  <div class="row">
       <aside class="col-sm-4 border-right">
         <div class="list-group" role="tablist">
           <a class="list-group-item list-group-item-action bg-active white" href="{% url 'my-profile' %}" role="tab" aria-controls="my-profile">My Profile</a>
                <a class="list-group-item list-group-item-action" href="{% url 'my-downloads' %}" role="tab" aria-controls="my-downloads">My Downloads</a>
                <a class="list-group-item list-group-item-action" href="{% url 'my-uploads' %}" role="tab" aria-controls="my-uploads">My Uploads</a>
                 <a class="list-group-item list-group-item-action" href="{% url 'upload-file' %}" role="tab" aria-controls="upload-files">Upload Files</a>
+               <a class="list-group-item list-group-item-action" href="{% url 'my-subscription' %}" role="tab" aria-controls="my-subscription">My Subscriptions</a>
         </div>
         <!-- <ul class="list-group list-group-flush">
           <li class="list-group-item bg-active"><a class="white my-profile" href="{% url 'my-profile' %}">My Profile</a></li>
@@ -121,6 +122,7 @@
                     <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">My Settings</a>
                     <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">My Accounts</a>
                     <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">Upload Files</a>
+
             </div>
         </div>
 

@@ -468,7 +468,7 @@ class DocumentPayment(LoginRequiredMixin, MetadataMixin, TemplateView):
         if settings.PAYPAL_TEST:
             receiver_email = "info-facilitator@a2zservices.net"
         else:
-            receiver_email = "info@a2zservices.net"
+            receiver_email = "payment@locusrags.com"
         paypal_dict = {
             "business": receiver_email,
             "item_name": "desklib subscription",

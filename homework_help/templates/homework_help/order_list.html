@@ -6,9 +6,11 @@
       <ol class="breadcrumb mb-0">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="{% url 'homework_help:ask-question-view'%}">Homework</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Order</li>
   </ol>
 </nav>
 </section>
+ {% if object_list %}
 <section class="bg-light">
     <div class="container pt-5">
         <div class="row mb-3">
@@ -36,6 +38,7 @@
             {% endfor %}
         </div>
 
+{% if object.has_other_pages %}
         <div class="row ">
             <div class="col-md-12">
                 <ul class="pagination justify-content-center">
@@ -69,9 +72,10 @@
               </ul>
         </div>
       </div>
-
+{% endif %}
     </div>
 </section>
+  {% endif %}
 
 {% endblock %}
 

@@ -24,7 +24,7 @@ class DocumentSitemap(Sitemap):
     priority = 0.5
     changefreq = 'daily'
 
-    # limit = 50000
+    limit = 20000
 
     def items(self):
         return Document.objects.filter(is_visible=True, is_published=True, published_date__lte=timezone.now()).only('published_date','slug')
@@ -77,7 +77,7 @@ class StaticViewSitemap(Sitemap):
     changefreq = 'daily'
 
     def items(self):
-        return ['home', 'about', 'contact', 'writing:writing', 'writing:compare', 'writing:grammar', 'homework_help:ask-question-view']
+        return ['home', 'about', 'contact', 'writing:writing', 'writing:compare', 'writing:grammar', 'homework_help:ask-question-view', 'blog']
 
     def location(self, item):
         return reverse(item)

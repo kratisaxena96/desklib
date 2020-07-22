@@ -86,7 +86,7 @@
                <div class="row">
                   {% for blog in object_list %}
                   <div class="col-md-6 mb-4">
-                     <a href="{% url 'blog_detail' year=blog.published_date|date:'Y' month=blog.published_date|date:'m' date=blog.published_date|date:'d' slug=blog.slug %}" class="text-decoration-none">
+                     <a href="{{ blog.get_absolute_url }}" class="text-decoration-none">
                         <div class="card border-0 h-100 shadow">
                            {% thumbnail blog.cover_image "1349x480" crop="top" as im %}
                            <img src="{{ im.url }}" alt="{{blog.title}}" class="img-fluid">
@@ -97,7 +97,7 @@
                               <small class="text-muted">{{blog.short_description}}</small>
                               {% endif %}
                               <p class="border-bottom py-2"></p>
-                              <small class="border-right text-muted pr-3">{{blog.author.first_name}}</small>
+                              <small class="border-right text-muted pr-3 text-capitalize">{{blog.author.first_name}}</small>
                               <small class="text-muted pl-2">{{blog.published_date|date:"d M Y"}}</small>
                            </div>
                         </div>
@@ -211,7 +211,7 @@
                               <p class="black-font">{{featured_blog.title}}</p>
                               <p class="black-font">
 
-                              <small class="border-right text-muted pr-2">{{featured_blog.author.first_name}}</small>   <small class="text-muted pl-2">{{featured_blog.published_date|date:"d M Y"}}</small>
+                              <small class="border-right text-muted pr-2 text-capitalize">{{featured_blog.author.first_name}}</small>   <small class="text-muted pl-2">{{featured_blog.published_date|date:"d M Y"}}</small>
                               </p>
                            </div>
                         </a>

@@ -69,7 +69,7 @@ urlpatterns = [
                   path('writing/', include(('writing.urls', 'writing'), namespace="writing")),
                   path('robots.txt', include('robots.urls')),
                   path('sitemap.xml', cache_page(60)(views.index), {'sitemaps': sitemaps}, name='cached-sitemap'),
-                  path('sitemap-<section>.xml', views.sitemap, {'sitemaps': sitemaps},
+                  path('sitemap-<section>.xml', cache_page(60)(views.sitemap), {'sitemaps': sitemaps},
                        name='django.contrib.sitemaps.views.sitemap'),
                   # path('payment/doc', PaypalPaymentView.as_view(), name='paypal_view'),
                   path('subscription/', SubscriptionView.as_view(), name='subscription'),
@@ -97,7 +97,7 @@ urlpatterns = [
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += i18n_patterns(
-    url(r'^$', HomePageView.as_view(), name='home'),
+    # url(r'^$', HomePageView.as_view(), name='home'),
     url(r'^admissions/contacts/', ContactWizard.as_view([AspirantCountryDetailsForm, AspirantDetailsForm,DesiredQualificationForm]), name='admissions')
 
 # url(r'^admin/', include(admin.site.urls)),

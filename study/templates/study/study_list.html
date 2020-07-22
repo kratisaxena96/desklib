@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% load meta %}
 {% load render_json_ld from json_ld %}
-{% load thumbnail %}
+
 
 {% block canonical %}
 <link rel="canonical" href="https://desklib.com/study/" />
@@ -52,7 +52,6 @@
     <div class="row mb-2">
         {% for p in parent %}
     <div class="col-sm-6 col-md-4 mt-4">
-        {% if not p.parent_subject %}
                  <h5>
                      {% comment %}
 <!--                 <a href="{% url 'subjects:parent-subject-view' p.slug %}" class="card-title black-font font-weight-normal blue-theme"> <img src="{{ p.image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid pr-2" style="width:12%">{{ p }}</a> </h5>-->
@@ -61,11 +60,14 @@
         <hr class="mt-3 mb-3">
 
        <div class="text-justify">
-           {% for sub in p.subject_content.all %}
 
-           <p class="para">{{ sub.short_description }}</p>
+{% if p.study_short_description %}
+   <p class="para">  {{ p.study_short_description }}</p>
+{% endif %}
 
-           {% endfor %}</div>
+
+
+       </div>
 
                     {% for child in p.subject_set.all %}
                     <ul style="margin-bottom:0.30rem">
@@ -82,14 +84,10 @@
 
                     </ul>
         {% endfor %}
-        {% endif %}
 
     </div>
     {% endfor %}
-        {% for object in subject.subject_content.all %}
 
-{{object.title}}
-{% endfor %}
 </div>
 </section>
 
@@ -102,7 +100,7 @@
             <div class="item h-350">
                 <div class="main-div shadow mt-2 h-350 border-radius-5">
                     <a href="{% url 'documents:document-view' results.slug %}" class="h-350 d-inline-block w-100">
-                    <img class="card-img-top" src="{{results.cover_image}}" alt="documents image">
+                   <img class="card-img-top" src="{{results.cover_image}}" alt="documents image">
                  </a>
                  <a href="{% url 'documents:document-view' results.slug %}" class="text-decoration-none">
                  <div class="card-body inner-div bg-light">
@@ -138,7 +136,7 @@
                 <div class="item bg-white h-350">
                     <div class="main-div shadow mt-2 h-350 border-radius-5">
                         <a href="{% url 'documents:document-view' rec.slug %}" class="h-350 d-inline-block w-100">
-                        <img class="card-img-top" src="{{rec.cover_image}}" alt="documents image">
+                      <img class="card-img-top" src="{{rec.cover_image}}" alt="documents image">
                         </a>
                         <a href="{% url 'documents:document-view' rec.slug %}" class="text-decoration-none">
                         <div class="card-body inner-div bg-light">
