@@ -43,11 +43,11 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade" id="study-resource">
-            <div class="bg-white bottom-radius" style="height: 47px;">
+            <div class="bg-white bottom-radius">
 <!--             <div class="row">-->
 <!--                 <div class="col-md-12 pr-0" >-->
                    <form action="{% url 'study:search-results' %}">
-                    <div id="remote" class="form-input-group mb-5 mb-lg-3">
+                    <div id="remote" class="form-input-group">
                       <input class=" form-control form-control-lg  border-radius-12 typeahead search-bar-border-none " type="text" style="font-size:0.99rem;height:60px;margin-top:3px" placeholder="Search for assignment samples and resources" name="q">
                         <div class="input-group-append">
                             <button class="btn btn-lg button-border search-bg-body" type="submit"><i class="fa fa-search rounded-circle search-icon"></i></button>
@@ -381,10 +381,7 @@ $('#main0 .owl-carousel').owlCarousel({
 </script>
 
 <script>
-//$('input[type=file]').change(function () {
-    //fileCount = this.files.length;
-    //$(this).prev().text(fileCount + 'Selected');
-//})
+
 $(document).ready(function (){
 	$('#question-form').submit(function() {
     	$('.show-loader').show();
