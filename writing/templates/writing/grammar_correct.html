@@ -689,7 +689,7 @@
     </script>
 
 
-<script>
+<script async>
     $(document).ready(function () {
             $(".owl-second").owlCarousel({
                 items: 1,
@@ -739,6 +739,11 @@
             .hiddenSpellError{
                 background-color: #BCCDFF;
             }
+            @media (max-width: 992px){
+                .editorHeaderLeft h3, .features h2, p {
+                   text-align: left;
+                }
+             }
 
       </style>
 
@@ -746,8 +751,7 @@
 {% endblock %}
 
 
-  </head>
-  <body>
+
 <!--    <div id="detectedLanguage"></div>-->
 
 
@@ -795,7 +799,7 @@
                                onClick="fullscreen_toggle();return false;"></a>
                         </div>
                         <p id="checktextpara" style="margin:0">
-                            <textarea id="checktext" name="text" placeholder=" Type here....." required rows="10" style="width: 100%;/* display: none; */"></textarea>
+                            <textarea id="checktext" name="text" required rows="10" style="width: 100%;/* display: none; */">At some point,I realized that I strated to use the bike more often, not only to get to work but also to catch up with friends and to head out for coffee on weekends.</textarea>
                         </p>
                         <div id="feedbackErrorMessage"></div>
                         <div id="feedbackPremiumMessage"></div>
@@ -1151,6 +1155,5 @@
 {% endcomment %}
 
         {% endblock %}
-  </body>
-</html>
+
 
