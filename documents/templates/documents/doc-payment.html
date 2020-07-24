@@ -683,6 +683,7 @@ $(document).ready(function() {
 
             },
             error: function(data){
+             $('.show-loader').hide();
             var response = data.responseJSON;
             for (key in response) {
               $("#upload-form1 ."+key).addClass("has-error");
