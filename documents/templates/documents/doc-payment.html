@@ -656,7 +656,6 @@ $(document).ready(function() {
 
 
         $("div.error_file").text("");
-                $('.show-loader').hide();
                 $(".enquiry-form-popup").hide();
                 $(".form-icon-plane").hide();
                 $(".form-loader").show();
@@ -678,15 +677,14 @@ $(document).ready(function() {
         $(".status_1").addClass("done")
 
                 $(".second-doc").css("display", "block");
+                $('.show-loader').hide();
 //                $("#doc-upload").
                 $('#doc-upload').append("<input type='hidden' value='" + data.unique_id + "' name='unique_id' >");
 
             },
             error: function(data){
-
             var response = data.responseJSON;
             for (key in response) {
-              $('.show-loader').hide();
               $("#upload-form1 ."+key).addClass("has-error");
               $("#upload-form1 span." + key).text(response[key][0]);
             }
@@ -767,7 +765,6 @@ $(document).ready(function() {
 
 
         $("div.error_file").text("");
-
                 $(".enquiry-form-popup").hide();
                 $(".form-icon-plane").hide();
                 $(".form-loader").show();
