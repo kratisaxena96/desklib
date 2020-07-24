@@ -13,8 +13,25 @@
        </ol>
 </nav>
 </section>
-<section class="">
-    <div class="container pt-4 pb-4 pt-md-5">
+<section>
+
+         {% block messages %}
+     {% if messages %}
+        <div>
+            <ul class="notification-right">
+            {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>{{message}}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+ {% endblock %}
+    <div class="container pt-2 pb-4 pt-md-5">
         <div class="row">
             <div class="col-sm-12">
                 <h6><strong>Your Question</strong></h6>

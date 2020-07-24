@@ -5,11 +5,10 @@
 {% block head_title %}{% trans "Subscribe" %}{% endblock %}
 
 {% block content %}
-    <div class="container margin-top-40 py-5">
           {% block messages %}
     {% if messages %}
         <div>
-            <ul>
+            <ul class="notification-right">
                 {% for message in messages %}
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
                         <strong>{{message}}</strong>
@@ -22,6 +21,7 @@
         </div>
     {% endif %}
   {% endblock %}
+    <div class="container margin-top-40 py-5">
         <div class="row text-center">
             <div class="col-sm-9 col-md-7 col-lg-5 mx-auto bg-light-grey box-shadow-3-3-5-5 py-4 border-radius-20">
                 <h4 class="py-2" id="head_banner">{% trans "You read a lot." %}</h4>

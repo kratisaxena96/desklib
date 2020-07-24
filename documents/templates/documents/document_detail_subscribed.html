@@ -157,11 +157,10 @@ opacity:0.9 !important;
   </ol>
 </nav>
 </section>
-<div class="container">
       {% block messages %}
     {% if messages %}
-        <div>
-            <ul>
+        <div class="pb-4">
+            <ul class="notification-right">
                 {% for message in messages %}
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
                         <strong>{{message}}</strong>
@@ -174,6 +173,7 @@ opacity:0.9 !important;
         </div>
     {% endif %}
   {% endblock %}
+<div class="container">
   <div class="row pt-0 pt-sm-5">
     <article class="col-md-8 border-right">
 

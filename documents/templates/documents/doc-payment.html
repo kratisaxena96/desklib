@@ -9,6 +9,22 @@
 
 
 {% block content %}
+{% block messages %}
+     {% if messages %}
+        <div>
+            <ul class="notification-right">
+            {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>{{message}}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+ {% endblock %}
 <section class="pt-5 pb-5">
 	<div class="container">
 				<h2 class="text-center mb-3">Select a Plan</h2>
@@ -398,7 +414,7 @@
 			</form>
 			{% comment %}
 
-			<form action="." method="post" id="upload-form1">
+			<form action="." method="post" id="">
 				{% csrf_token %}
 				{{form1.as_p}}
 
@@ -538,7 +554,7 @@
 			</form>
 			{% comment %}
 
-			<form action="." method="post" id="upload-form2">
+			<form action="." method="post" id=" ">
 				{% csrf_token %}
 				{{form1.as_p}}
 
@@ -586,7 +602,11 @@
 
 	</div>
 </section>
-
+<div class="loading show-loader">
+    <div class="loader-container">
+        <div class="loader"></div>
+    </div>
+</div>
 {% endblock %}
 
  {% block extra_js %}
@@ -598,6 +618,7 @@
 <script>
 $(document).ready(function() {
     $('.js-example-basic-single').select2();
+
 });
 </script>
 <script>
@@ -621,7 +642,7 @@ $(document).ready(function() {
 
 
     $("#upload-form1").submit(function(e) {
-
+        jQuery(".show-loader").show();
         e.preventDefault();
         $("span.has-error").empty();
 
@@ -633,8 +654,9 @@ $(document).ready(function() {
        var d = data.unique_id
 
 
-        $("div.error_file").text("");
 
+        $("div.error_file").text("");
+                $('.show-loader').hide();
                 $(".enquiry-form-popup").hide();
                 $(".form-icon-plane").hide();
                 $(".form-loader").show();
@@ -664,6 +686,7 @@ $(document).ready(function() {
 
             var response = data.responseJSON;
             for (key in response) {
+              $('.show-loader').hide();
               $("#upload-form1 ."+key).addClass("has-error");
               $("#upload-form1 span." + key).text(response[key][0]);
             }
@@ -675,7 +698,7 @@ $(document).ready(function() {
 
 
     $("#upload-form2").submit(function(e) {
-
+        $('.show-loader').show();
         e.preventDefault();
         $("span.has-error").empty();
 
@@ -717,7 +740,7 @@ $(document).ready(function() {
 
             },
             error: function(data){
-
+             $('.show-loader').hide();
             var response = data.responseJSON;
             for (key in response) {
               $("#upload-form2 ."+key).addClass("has-error");
@@ -731,7 +754,7 @@ $(document).ready(function() {
 
 
     $("#doc-upload").submit(function(e) {
-
+    $('.show-loader').show();
         e.preventDefault();
         $("span.has-error").empty();
 
@@ -761,7 +784,7 @@ $(document).ready(function() {
                 document.getElementById("upload-form2").reset();
                 $(".upload-form").css("display", "none");
 //                $(".mt-element-step").css("display", "none");
-
+                 $('.show-loader').hide();
                 $(".thankyou").css("display", "block");
 //                $("#doc-upload").
                 $('#doc-upload').append("<input type='hidden' value='" + data.unique_id + "' name='unique_id' >");
@@ -769,6 +792,7 @@ $(document).ready(function() {
                 setTimeout(function(){ window.location.replace( "/document/{{doc}}")}, 10000) ;
             },
             error: function(data){
+
 
             var response = data.responseJSON;
             for (key in response) {
