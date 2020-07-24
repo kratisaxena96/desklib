@@ -574,6 +574,7 @@
 
 				<input type="hidden" name="document" value="{{doc}}">
 				<input type="submit" value="submit" class="btn btn-bg-theme border-radius-20 text-white px-sm-5 px-4" id="final-confirm">
+				   <div class="loader"></div>
 			  </form>
 
 		  </div>
@@ -588,6 +589,10 @@
 			</div>
 
 		  </div>
+		  <div class="show-loader">
+        <div class="loader">
+    </div>
+    </div>
 
       </div>
       <div class="modal-footer">
@@ -602,11 +607,7 @@
 
 	</div>
 </section>
-<div class="loading show-loader">
-    <div class="loader-container">
-        <div class="loader"></div>
-    </div>
-</div>
+
 {% endblock %}
 
  {% block extra_js %}
@@ -642,6 +643,7 @@ $(document).ready(function() {
 
 
     $("#upload-form1").submit(function(e) {
+        $(".first-doc").css("display", "none");
         jQuery(".show-loader").show();
         e.preventDefault();
         $("span.has-error").empty();
@@ -684,6 +686,7 @@ $(document).ready(function() {
             },
             error: function(data){
              $('.show-loader').hide();
+              $(".first-doc").css("display", "block");
             var response = data.responseJSON;
             for (key in response) {
               $("#upload-form1 ."+key).addClass("has-error");
@@ -697,6 +700,7 @@ $(document).ready(function() {
 
 
     $("#upload-form2").submit(function(e) {
+        $(".second-doc").css("display", "none");
         $('.show-loader').show();
         e.preventDefault();
         $("span.has-error").empty();
@@ -740,6 +744,7 @@ $(document).ready(function() {
             },
             error: function(data){
              $('.show-loader').hide();
+             $(".second-doc").css("display", "block");
             var response = data.responseJSON;
             for (key in response) {
               $("#upload-form2 ."+key).addClass("has-error");
@@ -753,6 +758,7 @@ $(document).ready(function() {
 
 
     $("#doc-upload").submit(function(e) {
+    $(".upload-form").css("display", "none");
     $('.show-loader').show();
         e.preventDefault();
         $("span.has-error").empty();
@@ -790,8 +796,8 @@ $(document).ready(function() {
                 setTimeout(function(){ window.location.replace( "/document/{{doc}}")}, 10000) ;
             },
             error: function(data){
-
-
+            $('.show-loader').hide();
+            $(".thankyou").css("display", "block")
             var response = data.responseJSON;
             for (key in response) {
               $("#comment-form ."+key).addClass("has-error");
