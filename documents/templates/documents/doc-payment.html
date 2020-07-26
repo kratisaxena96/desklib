@@ -736,7 +736,6 @@ $(document).ready(function() {
                 $('#doc-upload').append("<input type='hidden' value='" + data.unique_id + "' name='unique_id' >");
 
         $(".status_2").removeClass("active")
-        $(".status_3").addClass("active")
         $(".status_2").addClass("done")
 				$( "#final-confirm" ).trigger( "click" );
 
@@ -789,6 +788,7 @@ $(document).ready(function() {
                 $(".upload-form").css("display", "none");
 //                $(".mt-element-step").css("display", "none");
                  $('.show-loader').hide();
+                 $(".status_3").addClass("active")
                 $(".thankyou").css("display", "block");
 //                $("#doc-upload").
                 $('#doc-upload').append("<input type='hidden' value='" + data.unique_id + "' name='unique_id' >");
