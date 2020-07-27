@@ -86,7 +86,7 @@ class DocumentView(JsonLdDetailView):
         try:
             pay_per_doc_sub = self.request.user.pay_per_download.all()
             if pay_per_doc_sub:
-                if  pay_per_doc_sub.filter(documents=entry, expire_on__gt=timezone.now()):
+                if pay_per_doc_sub.filter(documents=entry, expire_on__gt=timezone.now()):
                     self.payperdoc = True
                     pageviews_left = True
         except:
@@ -489,7 +489,7 @@ class DocumentPayment(LoginRequiredMixin, MetadataMixin, TemplateView):
         context['plan_qs'] = Plan.objects.all()
         context['payperdoc'] = PayPerDocument.objects.all()
         context['doc'] = self.request.GET.get('doc')
-        context['user'] = self.request.user.username
+        context['user'] = self.request.user
         context['form1'] = UploadForm
         context['form2'] = UploadFileForm
         if settings.PAYPAL_TEST:
