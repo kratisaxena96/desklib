@@ -1,8 +1,12 @@
 {% extends "desklib/base.html" %}
 {% load staticfiles %}
 {% load l10n %}
-{% block content %}
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css">
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.18.1/build/cssreset-context/cssreset-context-min.css">
+{% endblock extra_css %}
 
+{% block content %}
 <section class="pt-5">
       <div class="container">
         <div class="row">
@@ -96,7 +100,7 @@
 	 				   	 	 	{{pages.document | truncatechars:40}}
 								</td>
                                 <td scope="row">
-	 				   	 	  		{{pages.created_at}}
+	 				   	 	  		{{pages.created_at |localize}}
 	 				   	 	  	</td>
 	 				   	 	</tr>
 	 				    </tbody>
