@@ -1,11 +1,5 @@
 {% extends "desklib/base.html" %}
 {% load staticfiles %}
-{% load l10n %}
-{% block extra_css %}
-<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css">
-<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.18.1/build/cssreset-context/cssreset-context-min.css">
-{% endblock extra_css %}
-
 {% block content %}
 <section class="pt-5">
       <div class="container">
@@ -36,7 +30,7 @@
             		   <tbody>
             		   	   <tr>
             		   	   	   <td scope="row">{{downloads.document | truncatechars:40}}</td>
-                               <td scope="row">{{downloads.created_at | localize}}</td>
+                               <td scope="row">{{downloads.created_at}}</td>
             		   	   </tr>
             		   </tbody>
 
@@ -100,7 +94,7 @@
 	 				   	 	 	{{pages.document | truncatechars:40}}
 								</td>
                                 <td scope="row">
-	 				   	 	  		{{pages.created_at |localize}}
+	 				   	 	  		{{pages.created_at}}
 	 				   	 	  	</td>
 	 				   	 	</tr>
 	 				    </tbody>
