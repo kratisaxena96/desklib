@@ -13,8 +13,25 @@
        </ol>
 </nav>
 </section>
-<section class="">
-    <div class="container pt-4 pb-4 pt-md-5">
+<section>
+
+         {% block messages %}
+     {% if messages %}
+        <div>
+            <ul class="notification-right">
+            {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>{{message}}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+ {% endblock %}
+    <div class="container pt-2 pb-4 pt-md-5">
         <div class="row">
             <div class="col-sm-12">
                 <h6><strong>Your Question</strong></h6>
@@ -62,127 +79,151 @@
                 <h6><strong>Status Of Your Order</strong></h6>
             </div>
         </div>
-
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-
-                <div class="mt-element-step">
-                    <div class="row step-line">
-<!--{% if order.status > 1 %}done{% elif order.status == 1 %}active{% endif %}-->
-						<div class="col mt-step-col status_1 pt-20 pb-20 {% if order.status > 1 %} done {% elif order.status == 1 %} active{% endif %} d-block text-center">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div>
-                                        <div class="mt-step-number m-0 bg-white assigned">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div>
-                                        <div class="mt-step-title uppercase theme-color-blue">Question Received</div>
-                                    </div>
-                                </div>
-                            </div>
-						</div>
-
-						<div class="col mt-step-col status_2 pt-20 pb-20  {% if order.status > 2 %} done {% elif order.status == 2 %} active{% endif %} d-block text-center">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div>
-                                        <div class="mt-step-number m-0 bg-white assigned">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div>
-                                        <div class="mt-step-title uppercase theme-color-blue">Payment Updated </div>
-                                    </div>
-                                </div>
-                            </div>
-						</div>
-
-						<div class="col mt-step-col status_3 pt-20 pb-20 {% if order.status > 3 %} done {% elif order.status == 3 %} active{% endif %} d-block text-center">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div>
-                                        <div class="mt-step-number m-0 bg-white assigned">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div>
-                                        <div class="mt-step-title uppercase theme-color-blue">Expert Working On Your Answer</div>
-                                    </div>
-                                </div>
-                            </div>
-						</div>
-						<div class="col mt-step-col status_4 pt-20 pb-20 {% if order.status > 4 %} done {% elif order.status == 4 %} active{% endif %} d-block text-center">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div>
-                                        <div class="mt-step-number m-0 bg-white assigned">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div>
-                                        <div class="mt-step-title uppercase theme-color-blue">Answer Is Posted</div>
-                                    </div>
-                                </div>
-                            </div>
-						</div>
-					</div>
+        <ul class="stepper d-md-none">
+            <li class="step one bg-gray  {% if order.status > 1 %} done {% elif order.status == 1 %} active{% endif %}"><div class="">
+                <div class="step-title">
+                    <span class="d-block mt-n-2">Question Received</span>
                 </div>
+            </div>
+        </li>
+        <li class="step two bg-gray  {% if order.status > 2 %} done {% elif order.status == 2 %} active{% endif %}">
+            <div class="">
+                <div class="step-title">
+                    <span class="d-block mt-n-2">Payment Updated</span>
+                </div>
+            </div>
+        </li>
+        <li class="step three bg-gray {% if order.status > 3 %} done {% elif order.status == 3 %} active{% endif %}">
+            <div class="">
+                <div class="step-title">
+                    <span class="d-block mt-n-2">Expert Working On Your Answer</span>
+                </div>
+            </div>
+        </li>
+        <li class="step four bg-gray {% if order.status > 4 %} done {% elif order.status == 4 %} active{% endif %}">
+            <div class="">
+                <div class="step-title">
+                    <span class="d-block mt-n-2">Answer Is Posted</span>
+                </div>
+            </div>
+        </li>
+    </ul>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-none d-md-block">
+            <div class="mt-element-step">
+                <div class="row step-line">
+<!--{% if order.status > 1 %}done{% elif order.status == 1 %}active{% endif %}-->
+                    <div class="col mt-step-col status_1 pt-20 pb-20 {% if order.status > 1 %} done {% elif order.status == 1 %} active{% endif %} d-block text-center">
+                        <div class="row">
+                            <div class="col-12">
+                                <div>
+                                    <div class="mt-step-number m-0 bg-white assigned">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div>
+                                    <div class="mt-step-title uppercase theme-color-blue">Question Received</div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mt-step-col status_2 pt-20 pb-20  {% if order.status > 2 %} done {% elif order.status == 2 %} active{% endif %} d-block text-center">
+                        <div class="row">
+                            <div class="col-12">
+                                <div>
+                                    <div class="mt-step-number m-0 bg-white assigned">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div>
+                                    <div class="mt-step-title uppercase theme-color-blue">Payment Updated </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mt-step-col status_3 pt-20 pb-20 {% if order.status > 3 %} done {% elif order.status == 3 %} active{% endif %} d-block text-center">
+                        <div class="row">
+                            <div class="col-12">
+                                <div>
+                                    <div class="mt-step-number m-0 bg-white assigned">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div>
+                                    <div class="mt-step-title uppercase theme-color-blue">Expert Working On Your Answer</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mt-step-col status_4 pt-20 pb-20 {% if order.status > 4 %} done {% elif order.status == 4 %} active{% endif %} d-block text-center">
+                        <div class="row">
+                            <div class="col-12">
+                                <div>
+                                    <div class="mt-step-number m-0 bg-white assigned">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div>
+                                    <div class="mt-step-title uppercase theme-color-blue">Answer Is Posted</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="content_section">
         <div class="status_content status_1_content  status-d-none" style="display:{% if order.status == 1 %} block{% endif %}">
-         <div class="row mt-5">
-             <div class="col-sm-12">
-                 <div class="card card-body">
-                     <p class="text-center mb-0">Your question is being analyzed by our experts.</p>
-                     <p class="text-center mb-0 mt-2">A quote will be provided shortly maximum wait time: 2 minutes</p>
-                 </div>
-             </div>
-         </div>
+            <div class="row mt-5">
+                <div class="col-sm-12">
+                    <div class="card card-body">
+                        <p class="text-center mb-0">Your question is being analyzed by our experts.</p>
+                        <p class="text-center mb-0 mt-2">A quote will be provided shortly maximum wait time: 2 minutes</p>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="status_content status_2_content status-d-none" style="display:{% if order.status == 2 %} block{% endif %}">
-        <div class="row mt-5">
-             <div class="col-sm-12">
-                 <div class="card card-body">
-                    <p class="text-center mb-0">
-                <form action="{{paypalform.get_endpoint}}" method="post" id="form-check">
-                     {% csrf_token %}
-                     {{paypalform}}
-
-                    <div class="row mt-3">
-                        <div class="col-md-12 text-md-center">
+            <div class="row mt-5">
+                <div class="col-sm-12">
+                    <div class="card card-body">
+                        <p class="text-center mb-0"></p>
+                        <form action="{{paypalform.get_endpoint}}" method="post" id="form-check">
+                        {% csrf_token %}
+                        {{paypalform}}
+                        <div class="row mt-3">
+                            <div class="col-md-12 text-md-center">
                              {% if order.budget %}
-                     <p class=""><strong>You have to pay ${{order.budget}} to get answer</strong></p>
+                                <p class=""><strong>You have to pay ${{order.budget}} to get answer</strong></p>
+                                <p>Expected solution delivery time is for {{order.expected_hours}} hour after your payment</p>
                              {% endif %}
-                            <input type="checkbox" name="checkbox" id="check-box" class="checkbox" required>
-                            <label class="d-inline" for="check-box" class="blue-theme">&nbsp;I agree to the <a href="{% url 'termsofuse' %}">terms & conditions</a>, <a href="{% url 'privacypolicy' %}"> privacy policy</a>, <a href="{% url 'academicintegrity' %}">Academic Integrity</a>, <a href="{% url 'honorcode' %}">Honor Code</a> and <a href="{% url 'copyright' %}">Copyright</a>
-                            </label>
+                                <input type="checkbox" name="checkbox" id="check-box" class="checkbox" required>
+                                <label class="d-inline" for="check-box" class="blue-theme">&nbsp;I agree to the <a href="{% url 'termsofuse' %}">terms & conditions</a>, <a href="{% url 'privacypolicy' %}"> privacy policy</a>, <a href="{% url 'academicintegrity' %}">Academic Integrity</a>, <a href="{% url 'honorcode' %}">Honor Code</a> and <a href="{% url 'copyright' %}">Copyright</a>
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mt-3">
-	 	                <div class="col-md-12">
-                            <p class="text-md-center">By clicking the link below you will be redirected to PayPal Payment Gateway</p>
-                            <div class="text-center">
-			                <input type="submit" value="Proceed with Paypal" class="btn btn-bg-theme border-radius-20 text-white px-sm-5 px-4" id="submitButton">
-		                    </div>
-                        </div>
-	                </div>
-                    <input id="id_amount" name="amount" type="hidden" value="">
-                </form>
-
-                    </p>
+                            <div class="row mt-3">
+	 	                        <div class="col-md-12">
+                                    <p class="text-md-center">By clicking the link below you will be redirected to PayPal Payment Gateway</p>
+                                    <div class="text-center">
+			                            <input type="submit" value="Proceed with Paypal" class="btn btn-bg-theme border-radius-20 text-white px-sm-5 px-4" id="submitButton">
+		                            </div>
+                                </div>
+	                        </div>
+                                <input id="id_amount" name="amount" type="hidden" value="{{order.budget}}">
+                        </form>
+<!--                    </p>-->
                  </div>
              </div>
          </div>
@@ -192,7 +233,7 @@
              <div class="col-sm-12">
                  <div class="card card-body">
                      <p class="text-center mb-0">Your payment has been received.</p>
-                     <p class="text-center mb-0 mt-2">Our expert is working on your query. You will be provided with solution shortly.</p>
+                     <p class="text-center mb-0 mt-2">Our expert is working on your query. You will be provided with solution by this deadline.</p><p id="demo" class="text-center mb-0 mt-2"></p>
                  </div>
              </div>
          </div>
@@ -255,6 +296,38 @@
 </script>
 {% endcomment %}
 
+
+<script>
+// Set the date we're counting down to
+var countDownDate = new Date('{{order.deadline_datetime|date:"m d ,y H:i:s"}}').getTime();
+//var countDownDate = new Date('jul 07, 2020 14:18:3').getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+  + minutes + "m " + seconds + "s ";
+
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "EXPIRED";
+  }
+}, 1000);
+</script>
 <script>
 jQuery(document).ready(function() {
 

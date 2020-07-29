@@ -97,7 +97,7 @@
                               <small class="text-muted">{{blog.short_description}}</small>
                               {% endif %}
                               <p class="border-bottom py-2"></p>
-                              <small class="border-right text-muted pr-3">{{blog.author.first_name}}</small>
+                              <small class="border-right text-muted pr-3 text-capitalize">{{blog.author.first_name}}</small>
                               <small class="text-muted pl-2">{{blog.published_date|date:"d M Y"}}</small>
                            </div>
                         </div>
@@ -211,7 +211,7 @@
                               <p class="black-font">{{featured_blog.title}}</p>
                               <p class="black-font">
 
-                              <small class="border-right text-muted pr-2">{{featured_blog.author.first_name}}</small>   <small class="text-muted pl-2">{{featured_blog.published_date|date:"d M Y"}}</small>
+                              <small class="border-right text-muted pr-2 text-capitalize">{{featured_blog.author.first_name}}</small>   <small class="text-muted pl-2">{{featured_blog.published_date|date:"d M Y"}}</small>
                               </p>
                            </div>
                         </a>

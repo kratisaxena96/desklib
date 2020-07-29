@@ -22,4 +22,8 @@ class SubscriptionCheckMixin(object):
         if subscription or pay_per_doc:
             return super(SubscriptionCheckMixin, self).dispatch(request, *args, **kwargs)
         else:
-            return HttpResponseRedirect(reverse('subscription'))
+
+            # url = reverse('blog')
+            # number = request
+            # return HttpResponseRedirect(url + "?page=%s" % number)
+            return HttpResponseRedirect(reverse('documents:document-pay')+ "?doc=" + request.GET.get('doc'))

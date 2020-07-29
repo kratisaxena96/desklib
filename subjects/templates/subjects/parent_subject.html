@@ -23,7 +23,7 @@
 				 {% endif %}
 				</div>
 				<div class="d-inline-block">
-				<h1 class="d-inline ml-md-2">{{object.name}}</h1>
+				<h2 class="d-inline ml-md-2">{{object.name}}</h2>
 				</div>
 				{% if object.sub_heading %}
                 <p class="pt-2">{{object.sub_heading}}</p>
@@ -34,7 +34,7 @@
 			<div class="col-sm-5"></div>
 		</div>
 		<div class="row mt-4 mb-4">
-			 {% for child in child_subject %}
+			  {% for child in object.subject_set.all %}
 			<div class="col-sm-4 mb-3">
 				<h5>
 					<a href="{% url 'subjects:child-subject-view' object.slug child.slug %}" class="blue-theme">{{child}}</a> </h5>
@@ -57,7 +57,7 @@
 		<div class="row mt-md-4 mb-md-4 mb-3 mt-3 border-bottom pb-2">
 			<div class="col-sm-4 mb-md-2 mb-4">
 				<form class="form-inline" action="{% url 'study:search-results' %}">
-            	<div class="input-group tt-input-group" id="">
+            	<div class="input-group tt-input-group">
                 {% if request.GET.q %}
                 	<input type="search" name="q" class="sm-search typeahead form-control border-radius-30" placeholder="Search here..." value="{{request.GET.q}}">
                 {% else %}
@@ -80,7 +80,7 @@
 		<div class="col-sm-8">
 <ul class="nav nav-pills mb-3 justify-content-end" id="pills-tab" role="tablist">
   <li class="nav-item">
-    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#all-tab" role="tab" aria-controls="pills-home" aria-selected="true">All</a>
+    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#recent-tab" role="tab" aria-controls="pills-home" aria-selected="true">All</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#recent-tab" role="tab" aria-controls="pills-profile" aria-selected="false">Recent</a>
@@ -96,7 +96,7 @@
 		<div class="col-sm-6 col-md-4 col-lg-3 mb-3 mb-md-3">
 			 <div class="main-div shadow h-350 border-radius-5">
 				<a href="{% url 'documents:document-view' documents.slug %}" class="text-decoration-none">
-				<img class="card-img-top" src="{{documents.cover_image}}" alt="icon">
+				  <img class="card-img-top" src="{{documents.cover_image}}" alt="icon">
 				<div class="card-body inner-div bg-light">
 					<h6 class="card-text blue-theme">{{documents.title|truncatechars:35}}</h6>
 					 <small class="text-muted">{{documents.no_of_pages}}</small>

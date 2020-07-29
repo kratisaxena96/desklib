@@ -275,25 +275,30 @@ class Document(ModelMeta, models.Model):
             "publisher": self.author.first_name,
             "datePublished": self.published_date,
             "headline": self.title,
-            "dateModified": self.updated
+            "dateModified": self.updated,
+
         }
         try:
             data["image"] = Page.objects.get(document=self, no=self.cover_page_number).image_file.url,
+            # data["college"] = Document.objects.get(college=self.college),
+            # data["course"] = Document.objects.get(course=self.course)
         except:
             data["image"] = None
+            # data["college"] = None
+            # data["course"] = None
         return data
 
     class Meta:
         verbose_name = _('document')
         verbose_name_plural = _('documents')
 
-    def __str__(self):
-        return self.title
-
-    class Meta:
         permissions = [
             ("change_document_author", "Staff Can Assign Document Author"),
+            ("document_download_from_admin", "Document Download From Admin"),
         ]
+
+    def __str__(self):
+        return self.title
 
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''

@@ -47,14 +47,70 @@
 		</div>
 	</div>
 </section>
+
+<!--{% if question %}-->
+<!--<section>-->
+<!--	<div class="container pt-5 pb-4">-->
+<!--		<h2 class="text-center">Recently Asked Questions</h2>-->
+<!--		<div class="row mt-4">-->
+<!--			{% for object in question %}-->
+<!--			<div class="col-sm-12 mb-4">-->
+<!--				<a href="{% url 'homework_help:question-detail-view' object.slug %}" class="text-decoration-none h-100">-->
+<!--					<div class="card question-search-hover">-->
+<!--						<div class="card-body text-left">-->
+<!--							<div class="d-flex">-->
+<!--                    			<div class="d-inline-block">-->
+<!--                        			<div class="black-font">-->
+<!--										<strong>Q:</strong>-->
+<!--                        			</div>-->
+<!--                    			</div>-->
+<!--                    			<div class="d-inline-block ml-2 black-font">-->
+<!--                        			<span>{{object.question|truncatechars:200}}</span>-->
+<!--                    			</div>-->
+<!--                 			</div>-->
+<!--							<div class="d-flex mt-2">-->
+<!--								<div class="d-inline-block">-->
+<!--									<div class="black-font">-->
+<!--										<strong>A:</strong>-->
+<!--                        			</div>-->
+<!--								</div>-->
+<!--								<div class="d-inline-block ml-2 black-font">-->
+<!--									<a href="{% url 'homework_help:question-detail-view' object.slug %}" class="">Get Answer</a>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</a>-->
+<!--			</div>-->
+<!--		{% endfor %}-->
+<!--		</div>-->
+<!--	</div>-->
+<!--</section>-->
+<!--{% endif %}-->
+
+
+<!--<section>-->
+<!--	<div class="container">-->
+<!--		<div class="row mb-5">-->
+<!--			<div class="col-sm-12 text-center">-->
+<!--				{% if question %}-->
+<!--				<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="{% url 'homework_help:search-question' %}?q={{object.slug}} ">View More</a>-->
+<!--				{% else %}-->
+<!--				{% endif %}-->
+<!--			</div>-->
+<!--		</div>-->
+<!--	</div>-->
+<!--</section>-->
+
+
 <!-- search bar and tabs -->
 {% if recent or top_results %}
 <section>
 	<div class="container">
 		<div class="row mt-md-4 mb-md-4 mb-3 mt-3 border-bottom pb-2">
 			<div class="col-sm-4 mb-md-2 mb-4">
-				<form class="form-inline" action="">
-            		<div class="input-group tt-input-group" id="">
+				<form class="form-inline">
+            		<div class="input-group tt-input-group">
                 	<input type="search" name="search" class="sm-search typeahead form-control border-radius-30" placeholder="Search here..." value="">
                 	<div class="input-group-append">
                     <button class="btn rounded-circle search-bg" type="submit"><i class="fa fa-search search-icon"></i></button>
@@ -65,10 +121,10 @@
 		<div class="col-sm-8">
 <ul class="nav nav-pills mb-3 justify-content-end" id="pills-tab" role="tablist">
   <li class="nav-item">
-    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#all-tab" role="tab" aria-controls="pills-home" aria-selected="true">All</a>
+    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#recent-tab" role="tab" aria-controls="pills-home" aria-selected="true">All</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#recent-tab" role="tab" aria-controls="pills-profile" aria-selected="false">Recent</a>
+    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#all-tab" role="tab" aria-controls="pills-profile" aria-selected="false">Recent</a>
   </li>
 
 </ul>
@@ -81,7 +137,7 @@
 		<div class="col-sm-6 col-md-4 col-lg-3 mb-3 mb-md-3">
 			 <div class="main-div shadow h-350 border-radius-5">
 				<a href="{% url 'documents:document-view' documents.slug %}" class="text-decoration-none">
-				<img class="card-img-top" src="{{documents.cover_image}}" alt="icon">
+				 <img class="card-img-top" src="{{documents.cover_image}}" alt="icon">
 				<div class="card-body inner-div bg-light">
 					<h6 class="card-text blue-theme">{{documents.title|truncatechars:35}}</h6>
 					 <small class="text-muted">{{documents.no_of_pages}}</small>
@@ -104,7 +160,7 @@
 		<div class="col-sm-6 col-md-4 col-lg-3 mb-3 mb-md-3">
 			 <div class="main-div shadow h-350 border-radius-5">
 				<a href="{% url 'documents:document-view' documents.slug %}" class="text-decoration-none">
-					<img class="card-img-top" src="{{documents.cover_image}}" alt="documents image">
+					 <img class="card-img-top" src="{{documents.cover_image}}" alt="documents image">
 					<div class="card-body inner-div bg-light">
 					<h6 class="card-text blue-theme">{{documents.title|truncatechars:35}}</h6>
 					<small class="text-muted">{{documents.no_of_pages}}</small>

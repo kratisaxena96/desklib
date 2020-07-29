@@ -85,9 +85,7 @@
                         <h2 class="">{{object.title}}</h2>
                     </div>
                     <div class="mt-3 mt-md-4">
-                        <span class="text-muted"><i class="fa fa-user" aria-hidden="true"></i></span>
-                        <span class="mr-4 text-muted">{{object.author.first_name}}</span>
-                        <span class="text-muted"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                        <span class="mr-4 text-muted text-capitalize">{{object.author.first_name}}</span>
                         <span class="text-muted">{{object.published_date|date:"d M Y"}}</span>
                     </div>
                 {% if object.description %}
@@ -187,17 +185,17 @@
                             {% for featured_blog in featured_blog %}
                                 <div class="col-4 col-md-4 mb-3">
                                     <a href="{% url 'blog_detail' year=featured_blog.published_date|date:'Y' month=featured_blog.published_date|date:'m' date=featured_blog.published_date|date:'d' slug=featured_blog.slug %}" class="text-decoration-none">
-                              {% thumbnail object.cover_image "75x75" crop="top" as im %}
+                              {% thumbnail featured_blog.cover_image "75x75" crop="top" as im %}
                                             <img src="{{im.url}}" class="featured-post-img rounded-0 card-img-top img-fluid" alt="{{ object.title }}">
                                {% endthumbnail %}
                                     </a>
                                 </div>
-                                <div class="col-8 col-md-8 mt-3 mt-md-3 mt-lg-3 mt-xl-0">
+                                <div class="col-8 col-md-8 mt-md-3 mt-lg-3 mt-xl-0">
                                     <a href="{% url 'blog_detail' year=featured_blog.published_date|date:'Y' month=featured_blog.published_date|date:'m' date=featured_blog.published_date|date:'d' slug=featured_blog.slug %}" class="text-decoration-none">
                                         <div class="px-3 px-md-0">
                                             <p class="black-font">{{featured_blog.title}}</p>
                                             <p class="black-font">
-                              <small class="border-right text-muted pr-2">{{featured_blog.author.first_name}}</small><small class="text-muted pl-2">{{featured_blog.published_date|date:"d M Y"}}</small>
+                              <small class="border-right text-muted pr-2 text-capitalize">{{featured_blog.author.first_name}}</small><small class="text-muted pl-2">{{featured_blog.published_date|date:"d M Y"}}</small>
                                             </p>
                                         </div>
                                     </a>
@@ -257,17 +255,22 @@
 {% block extra_js %}
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v7.0&appId=499875237473632&autoLogAppEvents=1"></script>
+
 <script>
-jQuery(document).ready(function() {
-  $(window).bind("load resize", function(){
-  setTimeout(function() {
-  var container_width = $('#container').width();
-    $('#container').html('<div class="fb-page" ' +
-    'data-href="http://www.facebook.com/desklib"' +
-    ' data-width="' + container_width + '" data-tabs="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="http://www.facebook.com/desklib"><a href="http://www.facebook.com/desklib">Desklib</a></blockquote></div></div>');
-    FB.XFBML.parse( );
-  }, 100);
-});
+var TIMEOUT = null;
+
+$(window).on('resize', function() {
+    if(TIMEOUT === null) {
+        TIMEOUT = window.setTimeout(function() {
+            TIMEOUT = null;
+            //fb_iframe_widget class is added after first FB.FXBML.parse()
+            //fb_iframe_widget_fluid is added in same situation, but only for mobile devices (tablets, phones)
+            //By removing those classes FB.XFBML.parse() will reset the plugin widths.
+            $('.fb-page').removeClass('fb_iframe_widget fb_iframe_widget_fluid');
+
+            FB.XFBML.parse();
+        }, 300);
+    }
 });
 </script>
 
@@ -314,7 +317,7 @@ $(document).ready(function(){
    });
 
 </script>
-<script type="text/javascript">
+<script async type="text/javascript">
 function parseJSAtOnload() {
 var element = document.createElement("script");
 element.src = "script_to_be_deferred.js";
@@ -325,7 +328,7 @@ window.addEventListener("load", parseJSAtOnload, false);
 else if (window.attachEvent)
 window.attachEvent("onload", parseJSAtOnload);
 else window.onload = parseJSAtOnload;
-</script >
+</script>
 
 {% endblock extra_js %}
 

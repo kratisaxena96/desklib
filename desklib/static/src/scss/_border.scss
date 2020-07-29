@@ -47,6 +47,9 @@
 .border-color{
     border-color: $blue-theme;
 }
+.border-top-blue{
+    border-top: 5px solid #405FBD !important;
+}
 .circle-icon{
     background: #ffc0c0;
     width: 100px;
@@ -56,4 +59,13 @@
     line-height: 100px;
     vertical-align: middle;
     padding: 30px;
+}
+
+.rounded-bottom-0{
+    border-bottom-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+.rounded-top-0{
+    border-top-right-radius: 0 !important;
+    border-top-left-radius: 0 !important;
 }

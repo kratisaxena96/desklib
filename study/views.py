@@ -9,7 +9,7 @@ from django_json_ld.views import JsonLdContextMixin
 from django.utils.translation import gettext as _
 from haystack.generic_views import SearchView, FacetedSearchView
 from meta.views import MetadataMixin
-from subjects.models import Subject
+from subjects.models import Subject, SubjectContent
 from .forms import CustomFacetedSearchForm
 
 
@@ -55,16 +55,14 @@ class StudyPageView(MetadataMixin, JsonLdContextMixin, SearchView):
         # subjects = sqs.facet_counts()
         context = super(StudyPageView, self).get_context_data(**kwargs)
         recent = SearchQuerySet().order_by('-pub_date')[:5]
-        # subjects = Subject.objects.filter(is_visible=True,)
         top_results = SearchQuerySet().order_by('-views')[:5]
         # cover_image = top_results.pages.first().image_file.name
         context['top_results'] = top_results
         context['recent'] = recent
         doc = Subject.objects.annotate(doc_subject=Count('subject_documents'))
         context['doc_count'] = doc
-        # context['subject_facet'] = subjects
         context['parent'] = Subject.objects.filter(parent_subject__isnull=True).prefetch_related('subject_set')
-        context['subject_facet'] = Subject.objects.all()
+        # context['subject_facet'] = Subject.objects.all()
         return context
 
     def get_structured_data(self):
@@ -127,7 +125,7 @@ class CustomSearchView(JsonLdContextMixin, MetadataMixin, FacetedSearchView):
     queryset = SearchQuerySet().models(Document)
     form_class = CustomFacetedSearchForm
     facet_fields = ['subjects']
-    paginate_by = 20
+    paginate_by = 1
     title = 'Search Page | desklib.com'
     description = 'Search results for your query on desklib.com'
     keywords = ['Study resources', 'study notes search', 'study documents', 'study material search']

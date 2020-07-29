@@ -21,44 +21,32 @@
     </section>
 {% endcomment %}
 <section class="container-fluid bg-light-grey py-2 py-md-5">
-      {% block messages %}
-    {% if messages %}
-        <div>
-            <ul>
-                {% for message in messages %}
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <strong>{{message}}</strong>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                </div>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
-  {% endblock %}
-        <div class="row pl-5 pltb-0">
+    <div class="row pl-5 pltb-0">
             <div class="col-md-5">
-                <img class="img-fluid pt-3 width-100
-                   " src="{% static 'dist/assets/images/about_desklib.jpg' %}" alt="about-img">
+                <img class="img-fluid pt-3
+                   " src="{% static 'dist/assets/images/about1.jpg' %}" alt="about-img">
             </div>
             <div class="col-md-6 pt-2 ml-4">
-                <h2 class="py-1">Who We Are</h2>
+                <h2 class="py-1 sub-heading">Who We Are</h2>
                 <h5>
                     We're an <strong class="blue-theme">online learning platform</strong> of course-specific <strong class="blue-theme">study material</strong>
                 </h5>
-                <p>Desklib is an online learning library where students can find solutions to assignments, essays, dissertations, case studies, research reports, reflection writing and a lot more. Students looking for assignment help, help in writing an essay, help with dissertations, help in writing a perfect case study can get instant access to our resources and can be benefited from them. The resources are provided by various students and education partners which can be used by students looking for help in their homework to learn and improve their knowledge and writing skills. Students can gain access to millions of documents in various subjects and explore them to learn more about the topic and prepare their assignments better.</p>
+                <p class="text-justify para">Desklib is an online learning library where students can find solutions to assignments, essays, dissertations, case studies, research reports, reflection writing and a lot more. Students looking for assignment help, help in writing an essay, help with dissertations, help in writing a perfect case study can get instant access to our resources and can be benefited from them. The resources are provided by various students and education partners which can be used by students looking for help in their homework to learn and improve their knowledge and writing skills. Students can gain access to millions of documents in various subjects and explore them to learn more about the topic and prepare their assignments better.</p>
             </div>
-             <div class="col-md-6 pt-3 mr-4">
-                 <h2 class="py-1">Why We Do It</h2>
+
+    </div></section>
+<section class="container-fluid bg-light-grey py-2 py-md-5">
+    <div class="row pl-5 pltb-0">
+             <div class="col-md-6 pt-3 mr-4 order-md-1 order-2">
+                 <h2 class="py-1 sub-heading">Why We Do It</h2>
                  <h5>
                     We belive in supporting student <strong class="blue-theme">online learning together</strong> 
                  </h5>
-                 <p>We believe that only by sharing can knowledge be spread and students can learn quickly and effectively by learning from other students. We also believe that the share of knowledge should be beyond boundaries and every student has the right to have equal opportunities and resources. At Desklib, we constantly try to provide students with filtered and curated resources, so they can learn better, improve their knowledge and secure good grades.</p>
+                 <p class="text-justify para">We believe that only by sharing can knowledge be spread and students can learn quickly and effectively by learning from other students. We also believe that the share of knowledge should be beyond boundaries and every student has the right to have equal opportunities and resources. At Desklib, we constantly try to provide students with filtered and curated resources, so they can learn better, improve their knowledge and secure good grades.</p>
              </div>
-             <div class="col-md-5">
-                <img class="img-fluid pt-3 width-100
-                   " src="{% static 'dist/assets/images/about_desklib.jpg' %}" alt="about-img">
+             <div class="col-md-5 order-md-2 order-1">
+                <img class="img-fluid pt-3
+                   " src="{% static 'dist/assets/images/about2.jpg' %}" alt="about-img">
             </div>
         </div>
 </section>

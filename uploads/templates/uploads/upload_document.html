@@ -11,12 +11,10 @@
 </form>
 {{form.as_p}}
 {% endcomment %}
-<section class="py-5">
-	<div class="container">
-		{% block messages %}
+{% block messages %}
      {% if messages %}
         <div>
-            <ul>
+            <ul class="notification-right pb-1">
             {% for message in messages %}
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
                     <strong>{{message}}</strong>
@@ -29,6 +27,8 @@
         </div>
     {% endif %}
  {% endblock %}
+<section class="py-5" style="padding-top: 5rem !important;">
+	<div class="container">
 		<div class="row d-flex justify-content-center">
 			<aside class="col-sm-4 border-right">
 		 	 	<div class="list-group" role="tablist">
@@ -36,6 +36,7 @@
 			         <a class="list-group-item list-group-item-action" href="{% url 'my-downloads' %}" role="tab" aria-controls="my-downloads">My Downloads</a>
 			         <a class="list-group-item list-group-item-action" href="{% url 'my-uploads' %}" role="tab" aria-controls="my-account">My Uploads</a>
 			         <a class="list-group-item list-group-item-action bg-active white" href="{% url 'upload-file' %}" role="tab" aria-controls="upload-files">Upload Files</a>
+					 <a class="list-group-item list-group-item-action" href="{% url 'my-subscription' %}" role="tab" aria-controls="my-subscriptions">My Subscriptions</a>
                 </div>
 	        </aside>
 			<div class="col-md-8">
@@ -65,7 +66,7 @@
 				<div class="col-sm-8">
 					<div class="form-group">
 						{{ form.course_code }}
-						<span id="" class="form-text text-muted">{{form.course_code.errors}}</span>
+						<span class="form-text text-muted">{{form.course_code.errors}}</span>
 					</div>
 				</div>
 			</div>
@@ -78,7 +79,7 @@
 				<div class="col-sm-8">
                   <div class="form-group">
 						{{ form.subjects }}
-						<span id="" class="form-text text-muted">{{form.subjects.errors}}</span>
+						<span class="form-text text-muted">{{form.subjects.errors}}</span>
 					</div>
 				</div>
 			</div>
@@ -91,7 +92,7 @@
 				<div class="col-sm-8">
 					<div class="form-group position-relative">
 						{{ form.country }}
-						<span id="" class="form-text text-muted">{{form.country.errors}}</span>
+						<span class="form-text text-muted">{{form.country.errors}}</span>
 						
 					</div>
 				</div>
@@ -105,7 +106,7 @@
 				<div class="col-sm-8">
 					<div class="form-group">
 						{{ form.university }}
-						<span id="" class="form-text text-muted">{{form.university.errors}}</span>
+						<span class="form-text text-muted">{{form.university.errors}}</span>
 					</div>
 				</div>
 			</div>
@@ -118,7 +119,7 @@
 				<div class="col-sm-8">
 					<div class="form-group">
 						{{ form.type }}
-						<span id="" class="form-text text-muted">{{form.type.errors}}</span>
+						<span class="form-text text-muted">{{form.type.errors}}</span>
 					</div>
 				</div>
 			</div>
@@ -136,19 +137,19 @@
     					<label class="custom-file-label text-truncate" for="inputGroupFile02">Choose file</label>
  			 </div>
  			 <div class="input-group-append">
-    			<span class="input-group-text" id=""></span>
+    			<span class="input-group-text"></span>
   		</div>
 		</div>
-		<small id="" class="form-text text-muted">
+		<small class="form-text text-muted">
 			You can upload doc, docx, and pdf format. Max file-size should be 5 MB</small>
-		<span id="" class="form-text text-muted">{{form.upload_file.errors}}</span>
+		<span class="form-text text-muted">{{form.upload_file.errors}}</span>
 
 	</div>
 </div>
 	          {% comment %}
 				<div class="col-sm-8">
 					{{ form.upload_file}}
-					<span id="" class="form-text text-muted">{{form.upload_file.errors}}</span>
+					<span class="form-text text-muted">{{form.upload_file.errors}}</span>
 			</div>
 			{% endcomment %}
 		</div>
