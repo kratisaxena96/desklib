@@ -7,10 +7,10 @@ from homework_help.models import Question, Answers
 class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True, template_name="search/book_text.txt")
     title = indexes.CharField(model_attr='title')
-    # description = indexes.CharField(model_attr='description')
+    description = indexes.CharField(model_attr='description')
     # content = indexes.CharField(model_attr='content')
     summary = indexes.CharField(model_attr='summary')
-    # content_auto = indexes.EdgeNgramField(model_attr='description')
+    content_auto = indexes.EdgeNgramField(model_attr='title')
     slug = indexes.CharField(model_attr='slug')
     pub_date = indexes.DateTimeField(model_attr='published_date')
     cover_image = indexes.CharField()
