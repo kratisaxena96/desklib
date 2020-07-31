@@ -2,23 +2,23 @@
 {% load staticfiles %}
 {% load l10n %}
 {% block content %}
-	{% block messages %}
-		{% if messages %}
+{% block messages %}
+     {% if messages %}
+        <div>
+            <ul class="notification-right">
+            {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>{{message}}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+ {% endblock %}
 
-			<div>
-				<ul>
-					{% for message in messages %}
-					<div class="alert alert-warning alert-dismissible fade show" role="alert">
-							<strong>{{message}}</strong>
-							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-					</div>
-					{% endfor %}
-				</ul>
-			</div>
-		{% endif %}
-  	{% endblock %}
 <section class="pt-5">
       <div class="container">
         <div class="row">
@@ -33,8 +33,8 @@
 	</aside>
 
             <div class="col-sm-8 mt-3 mt-md-0">
-                <div class="mt-5 mt-md-0">
-                <h4 class="text-center mb-3 d-inline-block">My Subscriptions</h4><i class="fa fa-money fa-4 font-size-20 blue-theme pl-3" aria-hidden="true"></i>
+                     <h4 class="mb-3" style="display: inline-block;">My Subscriptions</h4><i class="fa fa-money fa-4" aria-hidden="true" style="font-size:21px;color: #405fbd; padding-left: inherit;"></i>
+                     <div class="table-responsive-sm">
             		<table class="table table-bordered table-sm">
             		 	<thead>
             		 	 	<tr>
@@ -97,10 +97,11 @@
   </div>
 </div>
 				{% endif %}
-</div>
+                     </div>
+
           	 		<div class="mt-5 mb-5">
-        		<h4 class="text-center mb-3 d-inline-block">My Pay Per Documents</h4>
-					<i class="fas fa-credit-card fa-4 font-size-20 blue-theme pl-3" aria-hidden="true"></i>
+                         <h4 class="mb-3" style="display: inline-block;">My Pay Per Documents</h4><i class="fas fa-credit-card fa-4" aria-hidden="true" style="font-size:21px;color: #405fbd; padding-left: 14px;"></i>
+                         <div class="table-responsive-sm">
 	 				<table class="table table-bordered table-sm">
 	 				 	<thead>
 	 				 	 	<tr>
@@ -166,6 +167,7 @@
 </nav>
 </div>
 				 {% endif %}
+                    </div>
 	 		</div>
 	 	</div>
 	 </div>

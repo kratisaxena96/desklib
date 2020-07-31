@@ -1,5 +1,6 @@
 from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include
+from django.conf.urls import url
 from .views import DocumentView, DocumentDownloadView, DownloadSuccessView, PageViewsFinishView, \
     DocumentDownloadDetailView, DocumentPayment, PaypalDocumentRedirect
 from django.views.generic import TemplateView

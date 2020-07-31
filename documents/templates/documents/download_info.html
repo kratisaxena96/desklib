@@ -5,11 +5,10 @@
 {% endblock %}
 
 {% block content %}
-<div class="container pb-2 ">
       {% block messages %}
     {% if messages %}
         <div>
-            <ul>
+            <ul class="notification-right">
                 {% for message in messages %}
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
                         <strong>{{message}}</strong>
@@ -22,6 +21,7 @@
         </div>
     {% endif %}
   {% endblock %}
+<div class="container pb-2 ">
   <div class="row pt-0 pt-sm-5">
       <div class="col-sm-8 mycontent-left">
           <h5 class="text-center">Download Document</h5>

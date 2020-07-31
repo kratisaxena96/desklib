@@ -247,6 +247,9 @@ class Order(ModelMeta, models.Model):
     amount_paid = models.IntegerField(_('Amount Paid'), default=0, null=True, blank=True)
     order_id = models.CharField(unique=True, max_length=10, default=key_generator, editable=False)
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    client_timezone = models.CharField(_('Client TimeZone'),max_length=200, blank=True, null=True)
+    expected_hours = models.IntegerField(_('Expected Time'), null=True, blank=True)
+    deadline_datetime = models.DateTimeField(_('Deadline Time'), blank=True, null=True)
 
     is_accepted = models.BooleanField(_('Is Accepted'), default=False)
     is_detailed = models.BooleanField(_('Is Detailed'), default=False)
@@ -288,51 +291,6 @@ class Order(ModelMeta, models.Model):
             # 'gplus_publisher': 'settings.GPLUS_PUBLISHER',
         }
 
-    def save(self, *args, **kwargs):
-        value = self.budget
-        # self.slug = slugify(truncatechars(value, 50))
-        # super(Question, self).save(*args, **kwargs)
-        # self.slug = slugify(truncatechars(value, 50)+str(self.pk))
-        ip = "https://" + Site.objects.get_current().domain
-        if value and self.status == 2:
-
-            locus_email = "kushagra.goel@locusrags.com"
-            if not settings.DEBUG:
-                locus_email = "info@desklib.com"
-
-            subject = 'Budget for ' + self.order_id + '... updated'
-            message = 'Budget for ' + self.order_id + '... updated'
-            from_email = settings.DEFAULT_FROM_EMAIL
-            recipient_list = [self.author.email],
-            contex = {'first_name': self.author.first_name, 'order_id': self.order_id, 'budget': self.budget,
-                      'SITE_URL': ip, 'uuid': self.uuid }
-            htmly = render_to_string('homework_help/mail-templates/budget_for_order_added.html',
-                                     context=contex, request=None)
-            html_message = htmly
-            # html_message = "Hello " + self.author.first_name + ",<br>Budget for your order " + self.order_id + " has been updated. Your budget is " + str(self.budget) + ".<br><a href=" + ip + reverse('homework_help:order-detail-view', kwargs={'uuid': self.uuid}) + "> click here to check budget.</a> "
-            mail = EmailMultiAlternatives(subject, message, from_email, recipient_list)
-
-            mail.attach_alternative(html_message, 'text/html')
-            mail.send(True)
-
-        if self.status == 4:
-
-            subject = 'Answer for ' + self.order_id + '... updated'
-            message = 'Answer for ' + self.order_id + '... updated'
-            from_email = settings.DEFAULT_FROM_EMAIL
-            recipient_list = [self.author.email],
-            contex = {'first_name': self.author.first_name, 'order_id': self.order_id,
-                      'SITE_URL': ip, 'uuid': self.uuid }
-            htmly = render_to_string('homework_help/mail-templates/answer_for_order_added.html',
-                                     context=contex, request=None)
-            html_message = htmly
-            # html_message = "Hello " + self.author.first_name + ",<br>Answer for your order " + self.order_id + " has been updated.<br><a href=" + ip + reverse('homework_help:order-detail-view', kwargs={'uuid': self.uuid}) + "> click here to check answer.</a> "
-            mail = EmailMultiAlternatives(subject, message, from_email, recipient_list)
-
-            mail.attach_alternative(html_message, 'text/html')
-            mail.send(True)
-
-        super().save(*args, **kwargs)
 
 
 class Answers(models.Model):

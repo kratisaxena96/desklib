@@ -17,6 +17,23 @@
 	{% endfor %}
 </ul>
 {% endcomment %}
+  {% block messages %}
+     {% if messages %}
+        <div>
+            <ul class="notification-right">
+            {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>{{message}}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+ {% endblock %}
+
 <section class="pt-5">
     <div class="container">
         <div class="row">
@@ -47,8 +64,8 @@
                          {% for object in object_list %}
             		   	   <tr>
             		   	   	 <td scope="row">{{ object.course_name }}</td>
-            		   	   	 <td scope="row">{{ object.course_code }}</td>
-            		   	   	 <td scope="row">{{ object.university }}</td>
+            		   	   	 <td scope="row">{% if object.course_code %} {{ object.course_code }}{% endif %}</td>
+            		   	   	 <td scope="row">{% if object.university %}{{ object.university }}{% endif %}</td>
                              <td scope="row">{{ object.get_type_display }}</td>
                              <td scope="row">{{ object.created|date:"M d Y" }}</td>
                              <td scope="row">{{ object.get_status_display }}</td>

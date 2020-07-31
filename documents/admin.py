@@ -241,6 +241,7 @@ class DocumentAdmin(admin.ModelAdmin):
     search_fields = ['title','slug','upload_file']
     list_display = ('title', 'published_date', 'is_published', 'is_visible', 'page', 'words')
     list_filter = (SubjectListFilter, 'is_published', 'is_visible' , EmployeeListFilter)
+    list_per_page = 50
     actions = [publish_documents, un_publish_documents, visble_documents, soft_delete_documents, set_document_subject, restore_documents, hard_delete_documents, chage_publish_date, change_author, get_document_download]
 
     inlines = [

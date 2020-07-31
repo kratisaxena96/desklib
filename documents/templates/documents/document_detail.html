@@ -1,6 +1,7 @@
   {% extends 'desklib/base.html' %}
 {% load meta %}
   {% load staticfiles %}
+
 {% block canonical %}
     {% if canonical %}
         <link rel="canonical" href="{{canonical}}"/>
@@ -151,11 +152,11 @@ opacity:0.9 !important;
   </ol>
 </nav>
 </section>
-<div class="container">
+
       {% block messages %}
     {% if messages %}
-        <div>
-            <ul>
+        <div class="pb-4">
+            <ul class="notification-right">
                 {% for message in messages %}
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
                         <strong>{{message}}</strong>
@@ -168,31 +169,54 @@ opacity:0.9 !important;
         </div>
     {% endif %}
   {% endblock %}
+  <div class="container">
   <div class="row pt-0 pt-sm-5">
     <article class="col-md-8 border-right">
 
         <h3>{{object.title}}</h3>
         <p>Added on - {{object.created|date:"d M Y"}}</p>
         <ul class="p-0 d-inline-block">
+      {% if object.course %}
+           <li class="d-inline-block p-2 text-center border-right">
+                <p class="mb-1">{{object.course}}</p>
+                <p class="mb-0 blue-theme">course code</p>
+            </li>
+            {% endif %}
+            {% comment %}
+<!--             <li class="d-inline-block p-2 text-center border-right">-->
+<!--                <p class="mb-1">{% for obj in object.subjects.all %}{{obj.name}}{% endfor %}</p>-->
+<!--                <p class="mb-0 blue-theme">subject</p>-->
+<!--            </li>-->
+            {% endcomment %}
+            {% if object.type %}
+             <li class="d-inline-block p-2 text-center border-right">
+                <p class="mb-1">{{object.type}}</p>
+                <p class="mb-0 blue-theme">type</p>
+            </li>
+            {% endif %}
+            {% if object.pages.all.count %}
             <li class="d-inline-block p-2 text-center border-right">
                 <p class="mb-1">{{object.pages.all.count}}</p>
-                <p class="mb-0">pages</p>
+                <p class="mb-0 blue-theme">pages</p>
             </li>
+            {% endif %}
+            {% if object.words %}
             <li class="d-inline-block p-2 text-center border-right">
                 <p class="mb-1">{{object.words}}</p>
-                <p class="mb-0">words</p>
+                <p class="mb-0 blue-theme">words</p>
             </li>
+            {% endif %}
             <li class="d-inline-block p-2 text-center border-right">
                 <p class="mb-1">{{object.views}}</p>
-                <p class="mb-0">views</p>
+                <p class="mb-0 blue-theme">views</p>
             </li>
             <li class="d-inline-block text-center p-2">
                 <p class="mb-1">{{object.total_downloads}}</p>
-                <p class="mb-0">downloads</p>
+                <p class="mb-0 blue-theme">downloads</p>
             </li>
         </ul>
         <ul class="p-0 d-inline-block float-md-right">
-            <li class="d-inline-block text-center p-2 border-right">
+            <li class="d-inline-block text-center p-2">
               <div class="dropdown">
                 <a class="btn" data-toggle="dropdown" href="JavaScript:Void(0);">
                   <i class="fas fa-share-alt mb-1"></i>
@@ -208,97 +232,98 @@ opacity:0.9 !important;
                 </div>
               </div>
             </li>
-
-            <li class="d-inline-block text-center p-2">
-                <a class="report-button btn" data-toggle="modal" data-target="#myModal" href="JavaScript:Void(0);">
-                  <i class="fas fa-exclamation-circle mb-1"></i>
-                      <p class="mb-0">Report</p>
-                </a>
-
-                <!-- The Modal -->
-                <div class="modal" id="myModal">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="report-form-popup">
-                            <!-- Modal Header -->
-                          <div class="modal-header">
-                            <h4 class="modal-title">Report</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          </div>
-
-                          <!-- Modal body -->
-                          <div class="modal-body">
-
-                            <div class="report">
-                                <form id="report-form" action="." method="post" data-url="{% url 'api:documents-api:report-document-api' %}" data-title="{{object.pk  }}">
-                                {% csrf_token %}
-
-
-                                  <div class="form-group text-left">
-                                    <p>{{form.issue.label}}</p>
-                                        {% for x in form.fields.issue.choices %}
-                                          <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" class="custom-control-input" id="{{x.1|cut:' '}}" name="issue" value="{{x.0}}" checked>
-                                            <label class="custom-control-label" for="{{x.1|cut:' '}}">{{x.1}}</label>
-                                          </div>
-                                        {% endfor %}
-
-
-            {% comment %}
-                                      {{form.issue}}
-            {% endcomment %}
-                                    <span class="issue text-danger"></span>
-                                  </div>
-                                  <div class="form-group text-left">
-                                      <label for="id_other_issue">{{form.other_issue.label}} <span class="text-secondary">(Optional)</span></label>
-                                      {{form.other_issue}}
-                                  </div>
-
-                                    <input type="submit" value="Report" class="btn btn-bg-theme text-white">
-                                </form>
-                            </div>
-
-                          </div>
-                        </div>
-                        <div class="loader-container jumbotron bg-white m-auto" style="display:none;">
-                            <div class="loader"></div>
-                        </div>
-                        <div class="thank-you jumbotron bg-white mb-0" style="display:none;">
-                            <p class="mb-0">Thank you for your feedback.</p>
-                        </div>
-
-
-                    </div>
-                  </div>
-                </div>
-            </li>
-
         </ul>
+{% comment %}
+<!--            <li class="d-inline-block text-center p-2">-->
+<!--                <a class="report-button btn" data-toggle="modal" data-target="#myModal" href="JavaScript:Void(0);">-->
+<!--                  <i class="fas fa-exclamation-circle mb-1"></i>-->
+<!--                      <p class="mb-0">Report</p>-->
+<!--                </a>-->
 
-        <div class="alert alert-light border">
+<!--                &lt;!&ndash; The Modal &ndash;&gt;-->
+<!--                <div class="modal" id="myModal">-->
+<!--                  <div class="modal-dialog">-->
+<!--                    <div class="modal-content">-->
+<!--                        <div class="report-form-popup">-->
+<!--                            &lt;!&ndash; Modal Header &ndash;&gt;-->
+<!--                          <div class="modal-header">-->
+<!--                            <h4 class="modal-title">Report</h4>-->
+<!--                            <button type="button" class="close" data-dismiss="modal">&times;</button>-->
+<!--                          </div>-->
 
-            <div class="feedback">
-                <form class="feedback-form" action="." method="post" data-url="{% url 'api:documents-api:document-feedback-api' slug=object.slug %}">
-                {% csrf_token %}
+<!--                          &lt;!&ndash; Modal body &ndash;&gt;-->
+<!--                          <div class="modal-body">-->
 
-                   <label class="mr-2">{% if object.was_helpful %}
-                  {{object.was_helpful}} people found this document helpful.
-                  {% endif %} Did you find it helpful?</label>
+<!--                            <div class="report">-->
+<!--                                <form id="report-form" action="." method="post" data-url="{% url 'api:documents-api:report-document-api' %}" data-title="{{object.pk  }}">-->
+<!--                                {% csrf_token %}-->
 
-                <button data-value="helpful" class="btn btn-light border submit-feedback mr-2">Yes</button>
-                <button data-value="not-helpful" class="btn btn-light border submit-feedback">No</button>
-                <!--<input type="submit" name="was_heplful" value="Yes">-->
-                <!--<input type="submit" name="not_heplful" value="No">-->
-                </form>
-            </div>
-            <div class="helpful" style="display:none;">
-                Thank you for your valuable feedback.
-            </div>
-            <div class="not-helpful" style="display:none;">
-                Thank you for your feedback. If you want to report an issue about this document <a class="" data-toggle="modal" data-target="#myModal">click here</a>
-            </div>
-        </div>
 
+<!--                                  <div class="form-group text-left">-->
+<!--                                    <p>{{form.issue.label}}</p>-->
+<!--                                        {% for x in form.fields.issue.choices %}-->
+<!--                                          <div class="custom-control custom-radio custom-control-inline">-->
+<!--                                            <input type="radio" class="custom-control-input" id="{{x.1|cut:' '}}" name="issue" value="{{x.0}}" checked>-->
+<!--                                            <label class="custom-control-label" for="{{x.1|cut:' '}}">{{x.1}}</label>-->
+<!--                                          </div>-->
+<!--                                        {% endfor %}-->
+
+
+<!--           -->
+<!--                                      {{form.issue}}-->
+<!--            -->
+<!--                                    <span class="issue text-danger"></span>-->
+<!--                                  </div>-->
+<!--                                  <div class="form-group text-left">-->
+<!--                                      <label for="id_other_issue">{{form.other_issue.label}} <span class="text-secondary">(Optional)</span></label>-->
+<!--                                      {{form.other_issue}}-->
+<!--                                  </div>-->
+
+<!--                                    <input type="submit" value="Report" class="btn btn-bg-theme text-white">-->
+<!--                                </form>-->
+<!--                            </div>-->
+
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                        <div class="loader-container jumbotron bg-white m-auto" style="display:none;">-->
+<!--                            <div class="loader"></div>-->
+<!--                        </div>-->
+<!--                        <div class="thank-you jumbotron bg-white mb-0" style="display:none;">-->
+<!--                            <p class="mb-0">Thank you for your feedback.</p>-->
+<!--                        </div>-->
+
+
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--            </li>-->
+
+<!--        </ul>-->
+
+<!--        <div class="alert alert-light border">-->
+
+<!--            <div class="feedback">-->
+<!--                <form class="feedback-form" action="." method="post" data-url="{% url 'api:documents-api:document-feedback-api' slug=object.slug %}">-->
+<!--                {% csrf_token %}-->
+
+<!--                   <label class="mr-2">{% if object.was_helpful %}-->
+<!--                  {{object.was_helpful}} people found this document helpful.-->
+<!--                  {% endif %} Did you find it helpful?</label>-->
+
+<!--                <button data-value="helpful" class="btn btn-light border submit-feedback mr-2">Yes</button>-->
+<!--                <button data-value="not-helpful" class="btn btn-light border submit-feedback">No</button>-->
+<!--                &lt;!&ndash;<input type="submit" name="was_heplful" value="Yes">&ndash;&gt;-->
+<!--                &lt;!&ndash;<input type="submit" name="not_heplful" value="No">&ndash;&gt;-->
+<!--                </form>-->
+<!--            </div>-->
+<!--            <div class="helpful" style="display:none;">-->
+<!--                Thank you for your valuable feedback.-->
+<!--            </div>-->
+<!--            <div class="not-helpful" style="display:none;">-->
+<!--                Thank you for your feedback. If you want to report an issue about this document <a class="" data-toggle="modal" data-target="#myModal">click here</a>-->
+<!--            </div>-->
+<!--        </div>-->
+{% endcomment %}
 
         <div class="d-inline-block d-sm-inline-block w-100 text-center text-md-left text-lg-center p-4 mb-3 jumbotron">
             <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white border-radius-40" rel="nofollow">Unlock this Document</a>
@@ -335,7 +360,7 @@ opacity:0.9 !important;
 <div class="col-md-12">
 <!--<h2 class="text-center">Expert's Answers</h2>-->
 <div class="blur-content position-relative">
-<div class="card position-absolute card-position width-68 card-border">
+<div class="card position-absolute card-position width-60 card-border">
 <div class="card-body text-center card-padding">
     <img class="img-fluid pb-2" src="{% static 'dist/assets/images/deskliblogo.png' %}" alt="desklib-logo"><br>
  <h5 class="pb-2"><strong>You’re reading a preview</strong></h5>
@@ -353,7 +378,7 @@ opacity:0.9 !important;
  <aside class="col-md-4">
         {% if more_like_this %}
             <section class="similar-resource">
-                <h3>Similar Documents</h3>
+                <h4>Similar documents also studied by user</h4>
                 <div class="py-4">
                     <div class="row">
                         {% for results in more_like_this %}

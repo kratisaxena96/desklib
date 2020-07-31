@@ -1,10 +1,14 @@
 # some_app/views.py
 import logging
 import os
+import socket
 import tempfile
 from django.contrib import messages
 from django.core.mail import EmailMultiAlternatives, EmailMessage
 from paypal.standard.forms import PayPalPaymentsForm
+import geoip2.webservice
+
+from django.contrib.gis.geoip2 import GeoIP2
 
 from desklib.mixins import CheckSubscriptionMixin
 from documents.mixins import SubscriptionCheckMixin
@@ -51,6 +55,14 @@ from django.db.models import Q
 from django.http import HttpResponsePermanentRedirect, Http404, HttpResponseRedirect
 from documents.utils import merge_pdf
 from django.utils import timezone
+from documents.forms import UploadFileForm
+from uploads.forms import UploadForm
+from formtools.wizard.views import SessionWizardView
+from django.core.files.storage import DefaultStorage
+from uploads.models import Upload
+from formtools.wizard.forms import ManagementForm
+
+
 
 class DocumentView(JsonLdDetailView):
     model = Document
@@ -74,7 +86,7 @@ class DocumentView(JsonLdDetailView):
         try:
             pay_per_doc_sub = self.request.user.pay_per_download.all()
             if pay_per_doc_sub:
-                if  pay_per_doc_sub.filter(documents=entry, expire_on__gt=timezone.now()):
+                if pay_per_doc_sub.filter(documents=entry, expire_on__gt=timezone.now()):
                     self.payperdoc = True
                     pageviews_left = True
         except:
@@ -461,10 +473,25 @@ class DocumentPayment(LoginRequiredMixin, MetadataMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(DocumentPayment, self).get_context_data(**kwargs)
 
+
+        # reader = geoip2.database.Reader('desklib/GeoLite2-City_20200609/GeoLite2-City.mmdb')
+        x_forwarded_for = self.request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = self.request.META.get('REMOTE_ADDR')
+        if not ip == '127.0.0.1':
+            response = GeoIP2().city(ip)
+            country = response.get('country_code')
+            timezone = response.get('time_zone')
+            context['location'] = country
+
         context['plan_qs'] = Plan.objects.all()
         context['payperdoc'] = PayPerDocument.objects.all()
         context['doc'] = self.request.GET.get('doc')
-        context['user'] = self.request.user.username
+        context['user'] = self.request.user
+        context['form1'] = UploadForm
+        context['form2'] = UploadFileForm
         if settings.PAYPAL_TEST:
             receiver_email = "info-facilitator@a2zservices.net"
         else:

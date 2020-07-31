@@ -13,8 +13,25 @@
        </ol>
 </nav>
 </section>
-<section class="">
-    <div class="container pt-4 pb-4 pt-md-5">
+<section>
+
+         {% block messages %}
+     {% if messages %}
+        <div>
+            <ul class="notification-right">
+            {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>{{message}}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+ {% endblock %}
+    <div class="container pt-2 pb-4 pt-md-5">
         <div class="row">
             <div class="col-sm-12">
                 <h6><strong>Your Question</strong></h6>
@@ -189,6 +206,7 @@
                             <div class="col-md-12 text-md-center">
                              {% if order.budget %}
                                 <p class=""><strong>You have to pay ${{order.budget}} to get answer</strong></p>
+                                <p>Expected solution delivery time is for {{order.expected_hours}} hour after your payment</p>
                              {% endif %}
                                 <input type="checkbox" name="checkbox" id="check-box" class="checkbox" required>
                                 <label class="d-inline" for="check-box" class="blue-theme">&nbsp;I agree to the <a href="{% url 'termsofuse' %}">terms & conditions</a>, <a href="{% url 'privacypolicy' %}"> privacy policy</a>, <a href="{% url 'academicintegrity' %}">Academic Integrity</a>, <a href="{% url 'honorcode' %}">Honor Code</a> and <a href="{% url 'copyright' %}">Copyright</a>
@@ -215,7 +233,7 @@
              <div class="col-sm-12">
                  <div class="card card-body">
                      <p class="text-center mb-0">Your payment has been received.</p>
-                     <p class="text-center mb-0 mt-2">Our expert is working on your query. You will be provided with solution shortly.</p>
+                     <p class="text-center mb-0 mt-2">Our expert is working on your query. You will be provided with solution by this deadline.</p><p id="demo" class="text-center mb-0 mt-2"></p>
                  </div>
              </div>
          </div>
@@ -278,6 +296,38 @@
 </script>
 {% endcomment %}
 
+
+<script>
+// Set the date we're counting down to
+var countDownDate = new Date('{{order.deadline_datetime|date:"m d ,y H:i:s"}}').getTime();
+//var countDownDate = new Date('jul 07, 2020 14:18:3').getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+  + minutes + "m " + seconds + "s ";
+
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "EXPIRED";
+  }
+}, 1000);
+</script>
 <script>
 jQuery(document).ready(function() {
 
