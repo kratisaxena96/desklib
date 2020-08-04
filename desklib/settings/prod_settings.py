@@ -16,7 +16,7 @@ from desklib.settings.base import *
 
 ALLOWED_HOSTS = ['.desklib.com']
 DEBUG=False
-ADMINS = [('Rishi', 'rishi.dutta@zucolservices.com')]
+ADMINS = [('Rishi', 'rishi.d@zucol.in'), ('Kushagra', 'kushagra.goel@locusrags.com')]
 
 ALLOWED_IPS = ['171.50.149.84']
 
