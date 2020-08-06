@@ -152,14 +152,14 @@ class UploadForDocumentApiView(CreateAPIView):
 
         ip = "https://" + Site.objects.get_current().domain
 
-        locus_email = ('kushadmin@mailinator.com')
+        locus_email = ['kushagra.goel@locusrags.com', 'kushadmin@mailinator.com']
         if not settings.DEBUG:
-            locus_email = ('info@desklib.com', 'ankit.r@zucol.in')
+            locus_email = ['info@desklib.com', 'ankit.r@zucol.in']
 
         subject = 'Documents Uploaded for free download'
         message = 'Documents Uploaded for free download'
         from_email = settings.DEFAULT_FROM_EMAIL
-        recipient_list = locus_email,
+        recipient_list = locus_email
         html_message = 'The documents are uploaded by '+ request.user.email+'.<br>The required document is ' + required_document.title+ '<br>Link for the admin is: ' + ip + reverse('admin:uploads_upload_change', args=(qf.id,))
 
         mail = EmailMultiAlternatives(subject, message, from_email, recipient_list)
