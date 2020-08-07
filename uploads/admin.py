@@ -1,5 +1,13 @@
 from django.contrib import admin
+from django.core.mail import send_mail, EmailMultiAlternatives
+
+from documents.models import Document
+from subscription.models import PayPerDocument, Plan
 from uploads.models import Upload, UploadForDocument
+from datetime import timedelta
+from django.conf import settings
+from datetime import datetime
+from django.template.loader import render_to_string
 from subjects.models import Subject
 
 # Register your models here.
@@ -25,6 +33,37 @@ from subjects.models import Subject
 #         return queryset
 
 
+# def make_verified(modeladmin, request, queryset):
+#     queryset.update(is_verified=True)
+#
+# make_verified.short_description = "Mark selected document is verified"
+
+
+def make_subscription(modeladmin, request, queryset):
+    for document in queryset:
+        doc = document.required_document
+    plan = Plan.objects.get(is_pay_per_download=True)
+    doc_file = Document.objects.get(title=doc)
+    create = PayPerDocument.objects.create(user=document.author, expire_on=datetime.now() + timedelta(days=30),
+                                           plan=plan, start_date=datetime.now())
+    create.documents.add(doc_file)
+
+    context = {'document': doc_file}
+    htmly = render_to_string('subscription/mail-templates/make_subscription.html',
+                             context=context, request=None)
+    html_message = htmly
+    mail = EmailMultiAlternatives(
+        subject='Regarding your requested document',
+        to=[document.author.email],
+        body=''
+    )
+    mail.attach_alternative(html_message, 'text/html')
+    mail.send(True)
+
+
+make_subscription.short_description = "Make subscription for the Pay Per Document"
+
+
 class UploadInlineAdmin(admin.TabularInline):
     # form = SampleFileAdminForm
     model = Upload
@@ -38,6 +77,7 @@ class UploadForDocumentAdmin(admin.ModelAdmin):
     inlines =[UploadInlineAdmin]
     raw_id_fields = ['required_document', 'author']
     readonly_fields = ('created', 'updated')
+    actions = [make_subscription]
 
 
 class UplaodAdmin(admin.ModelAdmin):
