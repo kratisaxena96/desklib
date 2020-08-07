@@ -13,7 +13,8 @@ from samples.models import Sample
 from uploads.models import UploadForDocument, Upload
 from documents.models import Issue
 from rest_framework.permissions import IsAuthenticated
-
+from django.contrib.sites.models import Site
+from django.urls import reverse
 
 class DocumentCreateApiView(RestrictIpMixin, CreateAPIView):
     serializer_class = DocumentCreateSerializer
@@ -149,6 +150,7 @@ class UploadForDocumentApiView(CreateAPIView):
             qf.upload_for_document = doc
             qf.save()
 
+        ip = "https://" + Site.objects.get_current().domain
 
         locus_email = "kushadmin@mailinator.com"
         if not settings.DEBUG:
@@ -158,7 +160,8 @@ class UploadForDocumentApiView(CreateAPIView):
         message = 'Documents Uploaded for free download'
         from_email = settings.DEFAULT_FROM_EMAIL
         recipient_list = [locus_email],
-        html_message = 'The documents are uploaded by '+ request.user.email+'.<br>The required document is ' + required_document.title
+        html_message = 'The documents are uploaded by '+ request.user.email+'.<br>The required document is ' + required_document.title+ '<br>Link for the admin is: ' + ip + reverse('admin:uploads_upload_change', args=(qf.id,))
+
         mail = EmailMultiAlternatives(subject, message, from_email, recipient_list)
         mail.attach_alternative(html_message, 'text/html')
 

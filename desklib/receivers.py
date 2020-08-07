@@ -98,7 +98,7 @@ def show_me_the_money(sender, **kwargs):
                 else:
                     custom_str = ipn_obj.custom
                     custom_str_list = custom_str.split('_')
-                    username = custom_str_list[0]
+                    email = custom_str_list[0]
                     plan_key = custom_str_list[1]
                     try:
                         doc_slug = custom_str_list[2]
@@ -109,7 +109,7 @@ def show_me_the_money(sender, **kwargs):
                     plan_days = plan.days
                     payment_date = ipn_obj.payment_date
                     expire_on = payment_date + timedelta(days=plan_days)
-                    user = UserAccount.objects.get(username=username)
+                    user = UserAccount.objects.get(email=email)
                     site_url = Site.objects.get_current().domain
 
                     if plan.is_pay_per_download:
