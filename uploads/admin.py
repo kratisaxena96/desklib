@@ -42,19 +42,19 @@ from subjects.models import Subject
 def make_subscription(modeladmin, request, queryset):
     for document in queryset:
         doc = document.required_document
+    user = document.author
     plan = Plan.objects.get(is_pay_per_download=True)
     doc_file = Document.objects.get(title=doc)
-    create = PayPerDocument.objects.create(user=document.author, expire_on=datetime.now() + timedelta(days=30),
+    create = PayPerDocument.objects.create(user=user, expire_on=datetime.now() + timedelta(days=30),
                                            plan=plan, start_date=datetime.now())
     create.documents.add(doc_file)
-
-    context = {'document': doc_file}
+    context = {'document': doc_file, 'user':user}
     htmly = render_to_string('subscription/mail-templates/make_subscription.html',
                              context=context, request=None)
     html_message = htmly
     mail = EmailMultiAlternatives(
         subject='Regarding your requested document',
-        to=[document.author.email],
+        to=[user.email],
         body=''
     )
     mail.attach_alternative(html_message, 'text/html')
