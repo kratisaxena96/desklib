@@ -1739,3 +1739,8 @@ body #editor_controls {
     width: 33%;
     z-index: 1;
 }
+
+.danger {
+    background-color: #ffdddd;
+    border-left: 6px solid #f44336;
+}

@@ -1,3 +1,4 @@
+from django.core.validators import FileExtensionValidator
 from rest_framework import serializers
 from documents.models import Document
 from documents.models import Report
@@ -30,7 +31,7 @@ class ReportDocumentSerializer(serializers.ModelSerializer):
 
 class UploadDocumentSerializer(serializers.ModelSerializer):
     author = serializers.CharField(required=False)
-    upload_file = serializers.FileField(required=True)
+    upload_file = serializers.FileField(required=True, validators=[FileExtensionValidator(allowed_extensions=['pdf', 'doc', 'docx'])])
     # required_document = serializers.CharField(required=False)
     course_code = serializers.CharField(required=False)
     country = CountryField(required= False)
