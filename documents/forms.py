@@ -43,9 +43,9 @@ class UploadFileForm(forms.ModelForm):
 
     type = forms.ChoiceField(label='Type of Document', choices=Upload.TYPE_OF_DOCUMENT, widget=forms.Select(attrs={'class': "form-control form-rounded", 'id': "id_type_2"}))
     upload_file = forms.FileField(label='Upload Document', widget=forms.FileInput(attrs={'class': "form-control custom-file-input", 'id': "inputGroupFile02_2"}))
-    course_code = forms.CharField(label='Course Code', widget=forms.TextInput(attrs={'class': "form-control form-rounded", 'placeholder':"Course Code...", 'id': "id_course_code_2"}))
+    course_code = forms.CharField(label='Course Code', widget=forms.TextInput(attrs={'class': "form-control form-rounded", 'placeholder':"Course Code...", 'id': "id_course_code_2"}), required=False)
     country = CountryField().formfield(blank_label='(select country)', widget=CountrySelectWidget(attrs={'class': "form-control js-example-basic-single", 'id': "id_country_2"}))
-    university = forms.CharField(label='University', widget=forms.TextInput(attrs={'class': "form-control form-rounded", 'placeholder':"Your University", 'id': "id_university_2"}))
+    university = forms.CharField(label='University', widget=forms.TextInput(attrs={'class': "form-control form-rounded", 'placeholder':"Your University", 'id': "id_university_2"}), required=False)
 
     class Meta:
         model = Upload
