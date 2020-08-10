@@ -42,9 +42,9 @@ from subjects.models import Subject
 def make_subscription(modeladmin, request, queryset):
     for document in queryset:
         doc = document.required_document.slug
+        doc_file = document.required_document
     user = document.author
     plan = Plan.objects.get(is_pay_per_download=True)
-    doc_file = Document.objects.get(slug=doc)
     create = PayPerDocument.objects.create(user=user, expire_on=datetime.now() + timedelta(days=30),
                                            plan=plan, start_date=datetime.now())
     create.documents.add(doc_file)
