@@ -47,8 +47,8 @@ def make_subscription(modeladmin, request, queryset):
     plan = Plan.objects.get(is_pay_per_download=True)
     create = PayPerDocument.objects.create(user=user, expire_on=datetime.now() + timedelta(days=30),
                                            plan=plan, start_date=datetime.now())
-    create.documents.add(doc_file)
-    context = {'document': doc_file, 'user':user}
+    create.documents.add(document.required_document)
+    context = {'document': document.required_document, 'user':user}
     htmly = render_to_string('subscription/mail-templates/make_subscription.html',
                              context=context, request=None)
     html_message = htmly
