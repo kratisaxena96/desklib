@@ -113,7 +113,8 @@
 		{% endif %}
 {% endfor %}
 
-				</div></div></section>
+				</div></div>
+
 
 <form action="{{form.get_endpoint}}" method="post" id="form-check">
 {% csrf_token %}
@@ -135,7 +136,7 @@
 	</form>
 
 
-  </div>
+	   </section></div>
   <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 
 <div class="row mt-4 mb-3">
@@ -145,48 +146,58 @@
 </div>
 
 		<div class="row justify-content-center parent">
-			<div class="col-11 col-sm-11 col-md-11 col-lg-11">
+			<div class="col-11 col-sm-11 col-md-11 col-lg-11 text-center extra-padding-360">
 				<div class="card mb-4 payment-card-box">
 					<a href="javascript:void(0)"  data-toggle="modal" data-target="#myModal" class="text-black payment-card-box">
-					<div class="card-body p-4">
-						<span class="d-block ml-4">
-							<h5 class="ml-2">Upload document to download</h5>
-						</span>
-						<span class="d-block ml-4">
-							<span class="ml-2">Upload 2 documents</span>
-						</span>
-						<span class="d-block ml-4">
-							<span class="ml-2">1</span>
-							<span class="">view</span>
-						</span>
-						<span class="d-block ml-4">
-							<span class="ml-2">1</span>
-							<span class="">download</span>
-						</span>
+					<div class="card-body p-4 text-center">
+
+							<h5 class="ml-2">Free Plan</h5>
+<!--							<h6 class="mb-1 mt-2 mb-3">Upload documents to download</h6>-->
+						<div class="plan-price p-2"><sup>$</sup>0<span>/30days</span>
+						<hr style="width:80%;"></div>
+						 <ul class="list-style-non text-left mb-0">
+                                    <li><strong>Views: </strong> 1</li>
+                                    <li><strong>Downloads: </strong> 1</li>
+                                    <li>Upload two documents</li>
+							        <li>Estimate approval time 24 hours</li><br>
+							       <li class="font-light-blue">Read the requirements before clicking on it.</li>
+
+                                </ul>
+
+<!--						<span class="d-block">-->
+<!--							<span class="ml-2">Upload 2 documents</span>-->
+<!--						</span>-->
+<!--						<span class="d-block ml-4">-->
+<!--							<span class="ml-2">1</span>-->
+<!--							<span class="">view</span>-->
+<!--						</span>-->
+<!--						<span class="d-block ml-4">-->
+<!--							<span class="ml-2">1</span>-->
+<!--							<span class="">download</span>-->
+<!--						</span>-->
 					</div>
 					</a>
 				</div>
 			</div>
 		</div>
 <div class="row mt-4 mb-3 justify-content-center">
-	<div class="col-sm-11">
+	<div class="col-sm-9 border">
+		<div class="p-5">
 		<h5>3 Simple steps:</h5>
 		<ul>
 			<li>Upload your study documents (e.g. your assignment solutions, reports, research, dissertation etc)</li>
 			<li>Our team will review your uploaded document.</li>
 			<li>If your document is approved, you will get your document for free.</li>
 		</ul>
-	</div>
-</div>
-	<div class="row mt-4 mb-3 justify-content-center">
-	<div class="col-sm-11">
+
 		<h5>Requirements for Approval:</h5>
-		<ul>
+		<ul class="mb-0">
 			<li>Content should not be published on any other website or indexed on search engine.</li>
 			<li>Content should be grammatically correct. Uploads with grammatical mistakes will be rejected.</li>
 			<li>Content should be at least 500 words or more.</li>
 			<li>Content should not be copyrighted by anyone.</li>
 		</ul>
+		</div>
 	</div>
 </div>
   </div>
@@ -631,6 +642,7 @@ $(document).ready(function() {
 
 <script>
 //multistep form
+
 //ajax to submit form
 
 // document upload

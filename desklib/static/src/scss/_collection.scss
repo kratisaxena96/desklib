@@ -1807,3 +1807,19 @@ border-radius: 5px 5px 0px 0px;
 .check-grammar-box {
     background-color: rgba(188, 192, 207, 0.34);
 }
+.extra-padding-360 {
+    padding-right: 360px;
+    padding-left: 360px;
+}
+@media (max-width: 600px){
+.extra-padding-360 {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+}
+.font-light-blue{
+color: #007bff;
+}
+.font-light-blue:hover {
+     color: #fff !important;
+}
