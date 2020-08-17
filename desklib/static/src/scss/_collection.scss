@@ -1764,8 +1764,8 @@ body #editor_controls {
     font-weight: 500;
     position: relative;
     text-align: center;
-//     color:#405fbd;
-  color: #007bff;
+    color:#405fbd;
+//   color: #007bff;
 }
 .plan-price sup {
     font-size: 20px;
@@ -1788,9 +1788,7 @@ padding-left: 0px;
 .plan-content{
  color: #bdc3c7;
 }
-.plan-price:hover {
-     color: #fff !important;
-}
+
 .doc-tab {
   padding-left: 200px;
   padding-right: 200px;
@@ -1823,3 +1821,5 @@ color: #007bff;
 .font-light-blue:hover {
      color: #fff !important;
 }
+
+.payment-card-box:hover .plan-price { color: #fff!important; }
