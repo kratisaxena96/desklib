@@ -428,8 +428,13 @@ var num = +$('#fileupload').attr("data-num");
  }).on('fileuploadfail', function (e, data) {
 	var fileTypeAllowed = /.\.(gif|jpg|png|jpeg)$/i;
 	  var fileName = data.originalFiles[0]['name'];
+	  var status = 500;
   		 if (!fileTypeAllowed.test(fileName))
   			$('#selected-files span.error-msg').html('File extension '+ fileName +' is not allowed. Allowed extensions are: png, jpg, jpeg, gif');
+
+			 else if (status)
+			   $('#selected-files span.error').html('Your file has not uploaded, Please upload another file');
+		//		console.log("Your file has not uploaded, Please upload another file");
 			  $(".show-loader").hide();
 
 }).on('fileuploadstart', function (e, data) {
