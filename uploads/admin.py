@@ -9,6 +9,7 @@ from django.conf import settings
 from datetime import datetime
 from django.template.loader import render_to_string
 from subjects.models import Subject
+from django.contrib.sites.models import Site
 
 # Register your models here.
 
@@ -47,7 +48,8 @@ def make_subscription(modeladmin, request, queryset):
     create = PayPerDocument.objects.create(user=user, expire_on=datetime.now() + timedelta(days=30),
                                            plan=plan, start_date=datetime.now())
     create.documents.add(document.required_document)
-    context = {'document': document.required_document, 'user':user}
+    site_url = Site.objects.get_current().domain
+    context = {'document': document.required_document, 'user':user, 'SITE_URL': site_url}
     htmly = render_to_string('subscription/mail-templates/make_subscription.html',
                              context=context, request=None)
     html_message = htmly
