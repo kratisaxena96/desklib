@@ -39,7 +39,7 @@ class UploadDocumentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Upload
-        fields = ['course_code', 'country', 'university', 'upload_file', 'author', 'unique_id', 'course_name', 'subjects', 'type']
+        fields = ['course_code', 'country', 'university', 'upload_file', 'unique_id', 'course_name', 'subjects', 'type']
 
 
 class UploadForDocumentSerializer(serializers.ModelSerializer):
