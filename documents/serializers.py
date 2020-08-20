@@ -30,7 +30,7 @@ class ReportDocumentSerializer(serializers.ModelSerializer):
 
 
 class UploadDocumentSerializer(serializers.ModelSerializer):
-    author = serializers.CharField(required=False)
+    # author = serializers.CharField(required=False)
     upload_file = serializers.FileField(required=True, validators=[FileExtensionValidator(allowed_extensions=['pdf', 'doc', 'docx'])])
     # required_document = serializers.CharField(required=False)
     course_code = serializers.CharField(required=False)
