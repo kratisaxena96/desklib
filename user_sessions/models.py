@@ -12,7 +12,7 @@ from django.contrib.gis.geoip2 import GeoIP2
 class UserSession(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     session = models.OneToOneField(Session, on_delete=models.CASCADE)
-    user_agent = models.CharField(null=True, blank=True, max_length=200)
+    user_agent = models.CharField(null=True, blank=True, max_length=250)
     # last_activity = models.DateTimeField(auto_now=True)
 
     ip = models.GenericIPAddressField(null=True, blank=True, verbose_name='IP')
