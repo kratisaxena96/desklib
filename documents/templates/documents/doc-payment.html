@@ -48,6 +48,7 @@
   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
 	   <section class="pt-5">
+
             <div class="container">
 
                 <div class="row">
@@ -55,18 +56,19 @@
 				{% if plan.is_pay_per_download %}
 <!--				<div class="row ">-->
 <!--					<div class="col-11 col-sm-11 col-md-11 col-lg-11">-->
+
 						 <div class="col-3 col-sm-3 col-md-3 col-lg-3 justify-content-center parent text-center md-margin-30px-bottom wow fadeInUp pl-2 pr-2">
 						<div class="card mb-4 payment-card-box">
-							<div class="bg-deep-blue p-2 text-white top-radius-bor">Pay Per Document</div>
+							<div class="bg-deep-blue p-2 text-white top-radius-bor head-font">Pay Per Document</div>
 							<label class="d-block label mt-2">
 								<div class="card-body p-4">
 									<input class="selected_plan" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}" style="display:none;">
-									<h5 class="d-inline">{{ plan }}</h5>
+									<h5>{{ plan }}</h5>
 										<h6 class="mb-1 mt-2 plan-content mb-3">Best value for you</h6>
 
-									<div class="plan-price p-2"><sup>$</sup>{{ plan.price }}<span>/{{ plan.days }}days</span>
-									<hr style="width:80%;"></div>
-									 <ul class="list-style-non text-left">
+									<div class="plan-price p-2"><a href="#check"><sup>$</sup>{{ plan.price }}<span>/{{ plan.days }}days</span>
+										<hr style="width:80%;"></a></div>
+									 <ul class="list-style-non text-left list-font">
                                     <li><strong>Views: </strong> {{plan.view_limit}}</li>
                                     <li><strong>Downloads: </strong>{{ plan.download_limit }}</li>
 
@@ -74,9 +76,10 @@
                                 </ul>
 
 					</div>
+
 					</label>
 				</div>
-			</div>
+                         </div>
 <!--		</div>-->
 <!--				</div>-->
 		{% endif %}
@@ -94,20 +97,21 @@
 					<div class="card-body p-4">
 
 						<input class="selected_plan" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}" style="display:none;">
-							<h5 class="d-inline">{{plan}}</h5>
+							<h5>{{plan}}</h5>
 							<h6 class="mb-1 mt-2 plan-content mb-3">Top rated plan</h6>
 
-									<div class="plan-price p-2"><sup>$</sup>{{ plan.price }}<span>/{{ plan.days }}days</span>
-						<hr style="width:80%;"></div>
-									 <ul class="list-style-non text-left">
+									<div class="plan-price p-2"><a href="#check"><sup>$</sup>{{ plan.price }}<span>/{{ plan.days }}days</span>
+										<hr style="width:80%;"></a></div>
+									 <ul class="list-style-non text-left list-font">
                                     <li><strong>Views: </strong> {{plan.view_limit}}</li>
                                     <li><strong>Downloads: </strong> {{ plan.download_limit }}</li>
 
                                 </ul>
-					</div>
+                    </div>
+<!--						</a>-->
 					</label>
 				</div>
-			</div>
+                      </div>
 <!--		</div>-->
 <!--		</div>-->
 		{% endif %}
@@ -121,7 +125,7 @@
 {{form}}
  	<input id="id_custom" name="custom" type="hidden" value=""/>
 	<input id="id_amount" name="amount" type="hidden"  value=""/>
-	<div class="row justify-content-center pt-5">
+	<div class="row justify-content-center pt-5" id="check">
 		<div class="col-md-9 col-lg-5">
 			<p>
 				By continuing you agree to the <a href="{% url 'termsofuse' %}">terms & conditions</a>, <a href="{% url 'privacypolicy' %}"> privacy policy</a>, <a href="{% url 'academicintegrity' %}">Academic Integrity</a>, <a href="{% url 'honorcode' %}">Honor Code</a> and <a href="{% url 'copyright' %}">Copyright</a>
@@ -831,8 +835,8 @@ $(document).ready(function() {
 });
 
   	$('.parent .payment-card-box').click(function() {
-    $('.parent .payment-card-box').removeClass("bg-blue");
-    $(this).addClass("bg-blue");
+    $('.parent .payment-card-box').removeClass("bg-blue plan-price");
+    $(this).addClass("bg-blue plan-price");
   	})
 
   	$("#submitButton").click(function (e) {
@@ -842,6 +846,17 @@ $(document).ready(function() {
             }
         });
  });
+
+</script>
+
+<script>
+$('a[href*="#check"]').on('click', function (e) {
+    e.preventDefault();
+
+    $('html, body').animate({
+        scrollTop: $($(this).attr('href')).offset().top
+    }, 600, 'linear');
+});
 
 </script>
 
