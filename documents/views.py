@@ -251,7 +251,10 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
 
     def get(self, request, *args, **kwargs):
         subscription = get_current_subscription(self.request.user)
-        doc = Document.objects.get(slug=request.GET.get('doc'))
+        try:
+            doc = Document.objects.get(slug=request.GET.get('doc'))
+        except:
+            pass
         try:
             pay_per_doc = PayPerDocument.objects.get(documents=doc, expire_on__gt=timezone.now(), is_current=True)
         except:
@@ -261,7 +264,13 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
             # return super(DocumentDownloadDetailView, self).dispatch(request, *args, **kwargs)
             return self.render_to_response(self.get_context_data())
         else:
-            return HttpResponseRedirect(reverse('documents:document-pay') + "?doc=" + request.GET.get('doc'))
+            try:
+                return HttpResponseRedirect(reverse('documents:document-pay') + "?doc=" + request.GET.get('doc'))
+            except:
+                messages.success(self.request, "Your are redirected to home because we couldn't get the required document.")
+                return HttpResponseRedirect(reverse('home'))
+
+
 
     def get_context_data(self, **kwargs):
         context = super(DocumentDownloadDetailView, self).get_context_data(**kwargs)

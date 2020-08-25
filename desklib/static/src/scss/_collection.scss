@@ -1767,6 +1767,14 @@ body #editor_controls {
     color:#405fbd;
 //   color: #007bff;
 }
+
+.plan-price a {
+    font-size: 3rem ;
+    font-weight: 500;
+    position: relative;
+    text-align: center;
+    color:#405fbd;
+}
 .plan-price sup {
     font-size: 1.2rem;
     position: relative;
@@ -1776,6 +1784,13 @@ body #editor_controls {
 .plan-price span {
     font-size: 1.2rem;
     color: #bdc3c7;
+}
+.plan-price .head-font {
+    font-size: 1rem;
+}
+.plan-price .list-font {
+    font-size: 1rem;
+    font-weight: bold
 }
 .list-style-non{
 list-style: none;
@@ -1822,4 +1837,15 @@ color: #007bff;
      color: #fff !important;
 }
 
+
 .payment-card-box:hover .plan-price { color: #fff!important; }
+.payment-card-box:hover .plan-price a { color: #fff!important; }
+.plan-price:hover a {
+color: #fff!important;
+text-decoration: none;
+ }
+
+.bg-blue .plan-price a{
+	background-color: #405fbd !important;
+	color: #fff !important;
+}
