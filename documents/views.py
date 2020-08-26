@@ -473,14 +473,13 @@ class DocumentPayment(LoginRequiredMixin, MetadataMixin, TemplateView):
                                                      created_at__lte=expiry_date_subscription).count()
             remaining_downloads = plan_download_limit - download_count
             if remaining_downloads > 0:
-                return redirect("%s?doc=%s" % (redirect('documents:download-info-view').url, doc.slug))
+                return HttpResponseRedirect(reverse('documents:document-pay') + "?doc=" + request.GET.get('doc'))
+                # return redirect("%s?doc=%s" % (redirect('documents:download-info-view').url, doc.slug))
         elif pay_per_doc_obj:
-            try:
-                return redirect("%s?doc=%s" % (redirect('documents:download-info-view').url, doc.slug))
-            except:
-                return redirect("%s?doc=%s" % (redirect('documents:document-pay').url, doc.slug))
+            return HttpResponseRedirect(reverse('documents:download-info-view') + "?doc=" + request.GET.get('doc'))
+            # return redirect("%s?doc=%s" % (redirect('documents:download-info-view').url, doc.slug))
         else:
-            return redirect("%s?doc=%s" % (redirect('documents:download-info-view').url, doc.slug))
+            return HttpResponseRedirect(reverse('documents:document-pay') + "?doc=" + request.GET.get('doc'))
         return context
 
     def get_context_data(self, **kwargs):
