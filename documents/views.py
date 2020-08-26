@@ -475,8 +475,7 @@ class DocumentPayment(LoginRequiredMixin, MetadataMixin, TemplateView):
             if remaining_downloads > 0:
                 return redirect("%s?doc=%s" % (redirect('documents:download-info-view').url, doc.slug))
             else:
-                pass
-                # return redirect("%s?doc=%s" % (redirect('documents:document-pay').url, doc.slug))
+                return redirect("%s?doc=%s" % (redirect('documents:document-pay').url, doc.slug))
         elif pay_per_doc_obj:
             return redirect("%s?doc=%s" % (redirect('documents:download-info-view').url, doc.slug))
         return context
