@@ -249,12 +249,13 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
     form_class = DownloadFileForm
     payperdoc = False
 
+
     def get(self, request, *args, **kwargs):
         subscription = get_current_subscription(self.request.user)
         try:
             doc = Document.objects.get(slug=request.GET.get('doc'))
         except:
-            pass
+            doc = None
         try:
             pay_per_doc = PayPerDocument.objects.get(documents=doc, expire_on__gt=timezone.now(), is_current=True)
         except:
@@ -451,6 +452,8 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
 class DocumentPayment(LoginRequiredMixin, MetadataMixin, TemplateView):
     template_name = 'documents/doc-payment.html'
     title = 'Homework Help Payment | Online Homework Help - Desklib'
+    raise_exception = True
+
 
     def get(self, request, *args, **kwargs):
         context = super(DocumentPayment, self).get(request, *args, **kwargs)
@@ -473,13 +476,10 @@ class DocumentPayment(LoginRequiredMixin, MetadataMixin, TemplateView):
                                                      created_at__lte=expiry_date_subscription).count()
             remaining_downloads = plan_download_limit - download_count
             if remaining_downloads > 0:
-                return HttpResponseRedirect(reverse('documents:document-pay') + "?doc=" + request.GET.get('doc'))
+                pass
                 # return redirect("%s?doc=%s" % (redirect('documents:download-info-view').url, doc.slug))
         elif pay_per_doc_obj:
-            return HttpResponseRedirect(reverse('documents:download-info-view') + "?doc=" + request.GET.get('doc'))
-            # return redirect("%s?doc=%s" % (redirect('documents:download-info-view').url, doc.slug))
-        else:
-            return HttpResponseRedirect(reverse('documents:document-pay') + "?doc=" + request.GET.get('doc'))
+            return redirect("%s?doc=%s" % (redirect('documents:download-info-view').url, doc.slug))
         return context
 
     def get_context_data(self, **kwargs):
