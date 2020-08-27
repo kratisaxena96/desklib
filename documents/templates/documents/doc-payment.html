@@ -57,7 +57,8 @@
 <!--				<div class="row ">-->
 <!--					<div class="col-11 col-sm-11 col-md-11 col-lg-11">-->
 
-						 <div class="col-3 col-sm-3 col-md-3 col-lg-3 justify-content-center parent text-center md-margin-30px-bottom wow fadeInUp pl-2 pr-2">
+						 <div class="col-3 col-sm-3 col-md-3 col-lg-3 crd justify-content-center parent text-center md-margin-30px-bottom wow fadeInUp pl-2 pr-2">
+							 <a href="#check">
 						<div class="card mb-4 payment-card-box">
 							<div class="bg-deep-blue p-2 text-white top-radius-bor head-font">Pay Per Document</div>
 							<label class="d-block label mt-2">
@@ -66,8 +67,8 @@
 									<h5>{{ plan }}</h5>
 										<h6 class="mb-1 mt-2 plan-content mb-3">Best value for you</h6>
 
-									<div class="plan-price p-2"><a href="#check"><sup>$</sup>{{ plan.price }}<span>/{{ plan.days }}days</span>
-										<hr style="width:80%;"></a></div>
+									<div class="plan-price p-2"><sup>$</sup>{{ plan.price }}<span>/{{ plan.days }}days</span>
+										<hr style="width:80%;"></div>
 									 <ul class="list-style-non text-left list-font">
                                     <li><strong>Views: </strong> {{plan.view_limit}}</li>
                                     <li><strong>Downloads: </strong>{{ plan.download_limit }}</li>
@@ -78,8 +79,8 @@
 					</div>
 
 					</label>
-				</div>
-                         </div>
+						</div></a>
+	   </div>
 <!--		</div>-->
 <!--				</div>-->
 		{% endif %}
@@ -91,17 +92,17 @@
 		{% if not plan.is_pay_per_download %}
 					<!--				<div class="row ">-->
 <!--			<div class="col-11 col-sm-11 col-md-11 col-lg-11">-->
-				  <div class="col-3 col-sm-3 col-md-3 col-lg-3 text-center md-margin-30px-bottom wow fadeInUp pl-2 pr-2 justify-content-center parent" data-wow-delay="0.2s" style="padding-top:40px">
+				  <div class="col-3 col-sm-3 col-md-3 col-lg-3 crd text-center md-margin-30px-bottom wow fadeInUp pl-2 pr-2 justify-content-center parent" data-wow-delay="0.2s" style="padding-top:40px">
+					  <a href="#check">
 				<div class="card mb-4 payment-card-box">
 					<label class="d-block label mt-2">
 					<div class="card-body p-4">
-
 						<input class="selected_plan" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}" style="display:none;">
 							<h5>{{plan}}</h5>
 							<h6 class="mb-1 mt-2 plan-content mb-3">Top rated plan</h6>
 
-									<div class="plan-price p-2"><a href="#check"><sup>$</sup>{{ plan.price }}<span>/{{ plan.days }}days</span>
-										<hr style="width:80%;"></a></div>
+									<div class="plan-price p-2"><sup>$</sup>{{ plan.price }}<span>/{{ plan.days }}days</span>
+										<hr style="width:80%;"></div>
 									 <ul class="list-style-non text-left list-font">
                                     <li><strong>Views: </strong> {{plan.view_limit}}</li>
                                     <li><strong>Downloads: </strong> {{ plan.download_limit }}</li>
@@ -111,7 +112,7 @@
 <!--						</a>-->
 					</label>
 				</div>
-                      </div>
+					  </a> </div>
 <!--		</div>-->
 <!--		</div>-->
 		{% endif %}
@@ -824,6 +825,7 @@ $(document).ready(function() {
 
 
   $( document ).ready(function() {
+    e.preventDefault();
 	$(".selected_plan").on("click", function(){
  	if ($("input[type='radio']").is(":checked")) {
 

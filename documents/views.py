@@ -257,7 +257,7 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
         except:
             doc = None
         try:
-            pay_per_doc = PayPerDocument.objects.get(documents=doc, expire_on__gt=timezone.now(), is_current=True)
+            pay_per_doc = PayPerDocument.objects.get(documents=doc, expire_on__gt=timezone.now(), is_current=True, user=request.user)
         except:
             pay_per_doc = None
 
@@ -452,7 +452,7 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
 class DocumentPayment(LoginRequiredMixin, MetadataMixin, TemplateView):
     template_name = 'documents/doc-payment.html'
     title = 'Homework Help Payment | Online Homework Help - Desklib'
-    raise_exception = True
+
 
 
     def get(self, request, *args, **kwargs):
@@ -476,8 +476,7 @@ class DocumentPayment(LoginRequiredMixin, MetadataMixin, TemplateView):
                                                      created_at__lte=expiry_date_subscription).count()
             remaining_downloads = plan_download_limit - download_count
             if remaining_downloads > 0:
-                pass
-                # return redirect("%s?doc=%s" % (redirect('documents:download-info-view').url, doc.slug))
+                return redirect("%s?doc=%s" % (redirect('documents:download-info-view').url, doc.slug))
         elif pay_per_doc_obj:
             return redirect("%s?doc=%s" % (redirect('documents:download-info-view').url, doc.slug))
         return context
