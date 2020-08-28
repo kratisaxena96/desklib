@@ -492,10 +492,13 @@ class DocumentPayment(LoginRequiredMixin, MetadataMixin, TemplateView):
         else:
             ip = self.request.META.get('REMOTE_ADDR')
         if not ip == '127.0.0.1':
-            response = GeoIP2().city(ip)
-            country = response.get('country_code')
-            timezone = response.get('time_zone')
-            context['location'] = country
+            try:
+                response = GeoIP2().city(ip)
+                country = response.get('country_code')
+                timezone  = response.get('time_zone')
+                context['location'] = country
+            except:
+                context['location'] = None
 
         context['plan_qs'] = Plan.objects.all()
         context['payperdoc'] = PayPerDocument.objects.all()
