@@ -363,7 +363,7 @@ opacity:0.9 !important;
 <!--        </div>-->
  {% endcomment %}
         <div class="d-inline-block d-sm-inline-block w-100 text-center text-md-left text-lg-center p-4 mb-3 jumbotron">
-            <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white border-radius-40" rel="nofollow">Unlock this Document</a>
+            <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white border-radius-40" rel="nofollow">Download This Document</a>
 			{% comment %}
             <a href='{% url "documents:document-download-view" %}?doc={{object.slug}}' class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Download</a>
 			<a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Plans</a>
@@ -454,7 +454,7 @@ opacity:0.9 !important;
 <div class="modal-body">
     <div class="text-center">
         <p>Subscribe or upgrade to access study resources for your class.</p>
-         <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white border-radius-40 mb-2" rel="nofollow">Unlock this Document</a>
+         <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white border-radius-40 mb-2" rel="nofollow">Download This Document</a>
         <!-- <a href="{% url 'subscription' %}" class="btn btn-bg-theme text-white mb-3">Subscribe</a> -->
         <!-- <p>Already on Desklib? <a href="{% url 'account_login' %}">Log in</a> </p> -->
     </div>

@@ -328,7 +328,7 @@ opacity:0.9 !important;
 {% endcomment %}
 
         <div class="d-inline-block d-sm-inline-block w-100 text-center text-md-left text-lg-center p-4 mb-3 jumbotron">
-            <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white border-radius-40" rel="nofollow">Unlock this Document</a>
+            <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white border-radius-40" rel="nofollow">Download This Document</a>
 
             {% comment%}
             <a href='{% url "documents:document-download-view"%}?doc={{object.slug}}' class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Download</a>
@@ -369,7 +369,7 @@ opacity:0.9 !important;
      <img class="img-fluid pb-2" src="{% static 'dist/assets/images/cardimage.png' %}" alt="card-image"><br>
     <p>To View Complete Document</p>
     <p>Become a Desklib Library Member.<br>Subscribe to our plans</p>
-<a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme white border-radius-20 px-4 mt-2">Unlock This Document</a>
+<a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme white border-radius-20 px-4 mt-2">Download This Document</a>
 </div>
 </div>
 </div>
@@ -439,7 +439,7 @@ opacity:0.9 !important;
 <div class="modal-body">
     <div class="text-center">
         <p>Subscribe or upgrade to access study resources for your class.</p>
-        <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white border-radius-40 mb-3" rel="nofollow">Unlock this Document</a>
+        <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white border-radius-40 mb-3" rel="nofollow">Download This Document</a>
 
         <p class="pt-2">Already on Desklib?
         <a href="{% url 'account_login' %}">Log in</a> </p>

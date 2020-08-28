@@ -150,62 +150,53 @@
 		<h5 class="text-center">Great work! you are going to get this file free.</h5>
 	</div>
 </div>
+	  <div class="row justify-content-center parent">
+	  	  <div class="col-4 col-sm-4 col-md-4 col-lg-4 text-center parent" data-wow-delay="0.2s" >
 
-		<div class="row justify-content-center parent">
-			<div class="col-11 col-sm-11 col-md-11 col-lg-11 text-center extra-padding-360">
-				<div class="card payment-card-box">
-					<a href="javascript:void(0)"  data-toggle="modal" data-target="#myModal" class="text-black payment-card-box">
-					<div class="card-body p-4 text-center">
+<!--					  	<a href="javascript:void(0)"  data-toggle="modal" data-target="#myModal" class="text-black payment-card-box">-->
+				<div class="card mb-4">
+					<label class="d-block label mb-0">
+					<div class="card-body p-4">
+						<input class="selected_plan" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}" style="display:none;">
+							<h5>Free Plan</h5>
+<!--							<h6 class="mb-1 mt-2 plan-content mb-3">Upload documents to download</h6>-->
+									<div class="plan-price p-2"><sup>$</sup>0<span>/30days</span>
+										<hr style="width:80%;"></div>
+                                    <h6 class="text-left"><strong>Views: </strong> 1</h6>
+                                    <h6 class="text-left"><strong>Downloads: </strong> 1</h6>
+						<ul class="text-left pl-1" style="line-height: 1.8rem;">
+<!--										 <li>Upload two documents</li>-->
+										 <li>Upload 2 study files ( e.g. assignment, report etc. )</li>
+										 <li>Don't upload plagiarize content.</li>
+										 <li>Content should not be published on any other website or indexed on search engine.</li>
+										 <li>Content should be grammatically correct.</li>
+										 <li>Our team will review your files.</li>
+							             <li>Estimate approval time 24 hours.</li>
+							             <li>Content should be at least 500 words or more.</li>
+							             <li>Content should not be copyrighted by anyone.</li>
 
-							<h5 class="ml-2">Free Plan</h5>
-<!--							<h6 class="mb-1 mt-2 mb-3">Upload documents to download</h6>-->
-						<div class="plan-price p-2"><sup>$</sup>0<span>/30days</span>
-						<hr style="width:80%;"></div>
-						 <ul class="list-style-non text-left mb-0 list-font">
-                                    <li><strong>Views: </strong> 1</li>
-                                    <li><strong>Downloads: </strong> 1</li>
-                                    <li>Upload two documents</li>
-							        <li>Estimate approval time 24 hours</li><br>
-							       <li>Read the requirements below before clicking on it.</li>
 
                                 </ul>
+<!--		 <ul class="list-style-non text-left list-font">-->
+<!--			<li>Upload your study documents (e.g. your assignment solutions, reports, research, dissertation etc)</li>-->
+<!--			<li>Our team will review your uploaded documents.</li>-->
+<!--			<li>If your documents are approved, you will get your document for free.</li>-->
+<!--		</ul>-->
+<!--		 <ul class="list-style-non text-left list-font">-->
+<!--			<li>Content should not be published on any other website or indexed on search engine.</li>-->
+<!--			<li>Content should be grammatically correct. Uploads with grammatical mistakes will be rejected.</li>-->
+<!--			<li>Content should be at least 500 words or more.</li>-->
+<!--			<li>Content should not be copyrighted by anyone.</li>-->
+<!--		</ul>-->
+						<div>
+                     <a href="javascript:void(0)"  data-toggle="modal" data-target="#myModal" class="btn btn-bg-theme border-radius-20 text-white" style="width:60%" >Upload File </a>
+                 </div>
+                    </div>
+					</label>
 
-<!--						<span class="d-block">-->
-<!--							<span class="ml-2">Upload 2 documents</span>-->
-<!--						</span>-->
-<!--						<span class="d-block ml-4">-->
-<!--							<span class="ml-2">1</span>-->
-<!--							<span class="">view</span>-->
-<!--						</span>-->
-<!--						<span class="d-block ml-4">-->
-<!--							<span class="ml-2">1</span>-->
-<!--							<span class="">download</span>-->
-<!--						</span>-->
-					</div>
-					</a>
 				</div>
-			</div>
-		</div>
-<div class="row mt-4 mb-3 justify-content-center">
-	<div class="col-sm-9 border">
-		<div class="p-4">
-		<h5>3 Simple steps:</h5>
-		<ul>
-			<li>Upload your study documents (e.g. your assignment solutions, reports, research, dissertation etc)</li>
-			<li>Our team will review your uploaded documents.</li>
-			<li>If your documents are approved, you will get your document for free.</li>
-		</ul>
-
-		<h5>Requirements for Approval:</h5>
-		<ul class="mb-0">
-			<li>Content should not be published on any other website or indexed on search engine.</li>
-			<li>Content should be grammatically correct. Uploads with grammatical mistakes will be rejected.</li>
-			<li>Content should be at least 500 words or more.</li>
-			<li>Content should not be copyrighted by anyone.</li>
-		</ul>
-		</div>
-	</div>
-</div>
+				  </div>
+	  </div>
   </div>
 </div>
 
@@ -844,7 +835,7 @@ $(document).ready(function() {
 
 
   	$('.parent .payment-card-box').click(function() {
-    $('.parent .payment-card-box').removeClass("bg-blue plan-price");
+    $('.parent .payment-card-box').removeClass("bg-blue plan-price free-plan-active free-plan-list");
     $(this).addClass("bg-blue plan-price");
   	})
 
