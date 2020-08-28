@@ -257,7 +257,7 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
         except:
             doc = None
         try:
-            pay_per_doc = PayPerDocument.objects.get(documents=doc, expire_on__gt=timezone.now(), is_current=True, user=request.user)
+            pay_per_doc = PayPerDocument.objects.get(documents=doc, expire_on__gt=timezone.now(), is_current=True, user=self.request.user)
         except:
             pay_per_doc = None
 
@@ -461,7 +461,7 @@ class DocumentPayment(LoginRequiredMixin, MetadataMixin, TemplateView):
         try:
             pay_per_doc_sub = self.request.user.pay_per_download.all()
         except:
-            pass
+            pay_per_doc_sub = None
         doc = Document.objects.get(slug=self.request.GET.get('doc'))
         pay_per_doc_obj = pay_per_doc_sub.filter(documents=doc, expire_on__gt=timezone.now())
 

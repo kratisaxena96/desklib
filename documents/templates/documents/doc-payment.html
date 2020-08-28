@@ -79,7 +79,8 @@
 					</div>
 
 					</label>
-						</div></a>
+						</div>
+							 </a>
 	   </div>
 <!--		</div>-->
 <!--				</div>-->
@@ -109,10 +110,10 @@
 
                                 </ul>
                     </div>
-<!--						</a>-->
 					</label>
 				</div>
-					  </a> </div>
+					  </a>
+				  </div>
 <!--		</div>-->
 <!--		</div>-->
 		{% endif %}
@@ -825,9 +826,14 @@ $(document).ready(function() {
 
 
   $( document ).ready(function() {
-    e.preventDefault();
+    //e.preventDefault();
 	$(".selected_plan").on("click", function(){
  	if ($("input[type='radio']").is(":checked")) {
+ 	$('a[href*="#check"]').on('click', function (e){
+ 	$('html, body').animate({
+        scrollTop: $($(this).attr('href')).offset().top
+    }, 600, 'linear');
+    })
 
  	key= $(this).data("key");
 	value = $(this).val();
@@ -835,6 +841,7 @@ $(document).ready(function() {
 	$("#id_amount").val(value);
  }
 });
+
 
   	$('.parent .payment-card-box').click(function() {
     $('.parent .payment-card-box').removeClass("bg-blue plan-price");
@@ -851,16 +858,7 @@ $(document).ready(function() {
 
 </script>
 
-<script>
-$('a[href*="#check"]').on('click', function (e) {
-    e.preventDefault();
 
-    $('html, body').animate({
-        scrollTop: $($(this).attr('href')).offset().top
-    }, 600, 'linear');
-});
-
-</script>
 
 
  {% endblock extra_js %}
