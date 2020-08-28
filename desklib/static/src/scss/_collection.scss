@@ -1793,8 +1793,8 @@ body #editor_controls {
     font-weight: bold
 }
 .list-style-non{
-list-style: none;
-padding-left: 0px;
+  list-style: none;
+  padding-left: 0px;
 }
 
 .icon-large {
@@ -1845,7 +1845,12 @@ color: #fff!important;
 text-decoration: none;
  }
 
-.bg-blue .plan-price a{
+.bg-blue .plan-price{
 	background-color: #405fbd !important;
 	color: #fff !important;
 }
+.crd a {
+color: black!important;
+text-decoration: none;
+ }
+

@@ -249,14 +249,15 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
     form_class = DownloadFileForm
     payperdoc = False
 
+
     def get(self, request, *args, **kwargs):
         subscription = get_current_subscription(self.request.user)
         try:
             doc = Document.objects.get(slug=request.GET.get('doc'))
         except:
-            pass
+            doc = None
         try:
-            pay_per_doc = PayPerDocument.objects.get(documents=doc, expire_on__gt=timezone.now(), is_current=True)
+            pay_per_doc = PayPerDocument.objects.get(documents=doc, expire_on__gt=timezone.now(), is_current=True, user=self.request.user)
         except:
             pay_per_doc = None
 
@@ -267,10 +268,9 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
             try:
                 return HttpResponseRedirect(reverse('documents:document-pay') + "?doc=" + request.GET.get('doc'))
             except:
-                messages.success(self.request, "Your are redirected to home because we couldn't get the required document.")
+                messages.success(self.request,
+                                 "Your are redirected to home because we couldn't get the required document.")
                 return HttpResponseRedirect(reverse('home'))
-
-
 
     def get_context_data(self, **kwargs):
         context = super(DocumentDownloadDetailView, self).get_context_data(**kwargs)
@@ -453,13 +453,15 @@ class DocumentPayment(LoginRequiredMixin, MetadataMixin, TemplateView):
     template_name = 'documents/doc-payment.html'
     title = 'Homework Help Payment | Online Homework Help - Desklib'
 
+
+
     def get(self, request, *args, **kwargs):
         context = super(DocumentPayment, self).get(request, *args, **kwargs)
         subscription_obj = get_current_subscription(self.request.user)
         try:
             pay_per_doc_sub = self.request.user.pay_per_download.all()
         except:
-            pass
+            pay_per_doc_sub = None
         doc = Document.objects.get(slug=self.request.GET.get('doc'))
         pay_per_doc_obj = pay_per_doc_sub.filter(documents=doc, expire_on__gt=timezone.now())
 
