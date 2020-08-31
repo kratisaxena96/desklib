@@ -4,20 +4,13 @@ var states = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
   queryTokenizer: Bloodhound.tokenizers.whitespace,
   // `states` is an array of state names defined in "The Basics"
-  prefetch: '/study/autocomplete/?q=ass',
+//  prefetch: '/study/autocomplete/?q=ass',
   remote: {
     url: '/study/autocomplete/?q=%QUERY',
     wildcard: '%QUERY'
 //    return response.states;
   }
 });
-
-var promise = states.initialize();
-
-promise
-.done(function() { console.log('ready to go!'); })
-.fail(function() { console.log('err, something went wrong :('); });
-
 
 
 $('#remote .typeahead').typeahead(null,{

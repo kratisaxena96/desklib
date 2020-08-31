@@ -145,7 +145,7 @@
 						<tr>
 							<td align="center" valign="top" style="padding-bottom:5px;padding-left:20px;padding-right:20px;" class="title">
 								<!-- Main Title Text // -->
-								<h2 class="bigTitle" style="color:#313131; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:26px; font-weight:600; font-style:normal; letter-spacing:normal; line-height:34px; text-align:center; padding:0; margin:0;">
+								<h2 class="bigTitle" style="color:#313131; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:26px; font-weight:600; font-style:normal; letter-spacing:normal; line-height:34px; text-align:left; padding:0; margin:0;">
 									Hello {{ user.first_name }}
 								</h2>
 							</td>
@@ -161,21 +161,38 @@
 						</tr>
 
 						<tr>
-							<td align="center" valign="top" style="padding-bottom:40px;padding-left:20px;padding-right:20px;" class="description">
+							<td align="left" valign="top" style="padding-bottom:20px;padding-left:20px;padding-right:20px;" class="description">
 								<!-- Description Text // -->
-								<p class="midText" style="color:#919191; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:14px; font-weight:400; line-height:22px; text-align:center; padding:0; margin:0;">
-									Thank you for uploading your documents. Your document is ready to unlock.
-									<br>Link:
+								<p class="midText" style="color:#919191; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:14px; font-weight:400; line-height:22px; text-align:left; padding:0; margin:0;">
+									Congratulation, your uploaded documents are successfully accepted.
+								</p>
+							</td>
+						</tr>
+						<tr>
+							<td align="left" valign="top" style="padding-bottom:20px;padding-left:20px;padding-right:20px;" class="description">
+								<!-- Description Text // -->
+								<p class="midText" style="color:#919191; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:14px; font-weight:400; line-height:22px; text-align:left; padding:0; margin:0;">
+									For your honest submission, Now you can unlock the document which you wanted for free.
+Click the button below to unlock your document.
+								</p>
+							</td>
+						</tr>
+						<tr>
+							<td align="left" valign="top" style="padding-bottom:20px;padding-left:20px;padding-right:20px;" class="description">
+								<!-- Description Text // -->
+								<p class="midText" style="color:#919191; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:14px; font-weight:400; line-height:22px; text-align:left; padding:0; margin:0;">
+									Click the button below to unlock your document.
 								</p>
 							</td>
 						</tr>
 
+
 						<tr>
-							<td align="center" valign="top" style="padding-bottom:40px;padding-left:20px;padding-right:20px;" class="btnCard">
+							<td align="left" valign="top" style="padding-bottom:40px;padding-left:20px;padding-right:20px;" class="btnCard">
 								<!-- Button Table // -->
-								<table align="center" border="0" cellpadding="0" cellspacing="0">
+								<table align="left" border="0" cellpadding="0" cellspacing="0">
 									<tr>
-										<td align="center" class="postButton" style="background-color:#8D6CD1;padding-top:10px;padding-bottom:10px;padding-left:25px;padding-right:25px;border-radius:2px">
+										<td align="left" class="postButton" style="background-color:#8D6CD1;padding-top:10px;padding-bottom:10px;padding-left:25px;padding-right:25px;border-radius:2px">
 											<!-- Button Link // -->
 											<a href="https://{{ SITE_URL }}{% url 'documents:document-view' document.slug %}" target="_blank" style="color:#FFFFFF; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:12px; font-weight:600; letter-spacing:1px; line-height:20px; text-transform:uppercase; text-decoration:none; display:block;" >
 												Check Document
