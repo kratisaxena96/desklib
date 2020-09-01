@@ -33,6 +33,7 @@ class UploadForDocument(models.Model):
     uid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, null=True, blank=True)
 
     is_verified = models.BooleanField(_('Is verified'), default=False)
+    is_rejected = models.BooleanField(_('Is rejected'), default=False)
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

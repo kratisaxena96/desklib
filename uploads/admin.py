@@ -43,26 +43,45 @@ from django.contrib.sites.models import Site
 def make_subscription(modeladmin, request, queryset):
     for document in queryset:
         doc = document.required_document.slug
-    user = document.author
-    plan = Plan.objects.get(is_pay_per_download=True)
-    create = PayPerDocument.objects.create(user=user, expire_on=datetime.now() + timedelta(days=30),
-                                           plan=plan, start_date=datetime.now())
-    create.documents.add(document.required_document)
-    site_url = Site.objects.get_current().domain
-    context = {'document': document.required_document, 'user':user, 'SITE_URL': site_url}
-    htmly = render_to_string('subscription/mail-templates/make_subscription.html',
-                             context=context, request=None)
-    html_message = htmly
-    mail = EmailMultiAlternatives(
-        subject='Regarding your requested document',
-        to=[user.email],
-        body=''
-    )
-    mail.attach_alternative(html_message, 'text/html')
-    mail.send(True)
+        if (document.is_verified==True):
+            user = document.author
+            plan = Plan.objects.get(is_pay_per_download=True)
+            create = PayPerDocument.objects.create(user=user, expire_on=datetime.now() + timedelta(days=30),
+                                                   plan=plan, start_date=datetime.now())
+            create.documents.add(document.required_document)
+            site_url = Site.objects.get_current().domain
+            context = {'document': document.required_document, 'user': user, 'SITE_URL': site_url}
+            htmly = render_to_string('subscription/mail-templates/make_subscription.html',
+                                     context=context, request=None)
+            html_message = htmly
+            mail = EmailMultiAlternatives(
+                subject='Regarding your requested document',
+                to=[user.email],
+                body=''
+            )
+            mail.attach_alternative(html_message, 'text/html')
+            mail.send(True)
+
+        elif(document.is_rejected==True):
+            user = document.author
+            site_url = Site.objects.get_current().domain
+            context = {'document': document.required_document, 'user': user, 'SITE_URL': site_url}
+            htmly = render_to_string('subscription/mail-templates/uploads_rejected_email.html',
+                                     context=context, request=None)
+            html_message = htmly
+            mail = EmailMultiAlternatives(
+                subject='Regarding the rejection of your uploaded files',
+                to=[user.email],
+                body=''
+            )
+            mail.attach_alternative(html_message, 'text/html')
+            mail.send(True)
+
+        else:
+            pass
 
 
-make_subscription.short_description = "Make subscription for the Pay Per Document"
+make_subscription.short_description = "Make Pay Per Subscription or Reject"
 
 
 class UploadInlineAdmin(admin.TabularInline):
