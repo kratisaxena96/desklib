@@ -44,9 +44,10 @@
 		  </li>
 		</ul>
 	</div>
+
+				  <div class="error-messages text-center pt-5" style="display:none; color:red;"></div>
 <div class="tab-content pt-3 pb-3 border-radius-5" id="myTabContent">
   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-
 	   <section class="pt-5" id="check">
 
             <div class="container">
@@ -635,8 +636,6 @@ $(document).ready(function() {
 })
 </script>
 
-
-
 <script>
 //multistep form
 
@@ -817,16 +816,11 @@ $(document).ready(function() {
 
 
   $( document ).ready(function() {
-    //e.preventDefault();
 	$(".selected_plan").on("click", function(){
  	if ($("input[type='radio']").is(":checked")) {
- 	$('a[href*="#check"]').on('click', function (e){
  	$('html, body').animate({
-        scrollTop: $($(this).attr('href')).offset().top
-    }, 600, 'linear');
-    })
-
-
+        scrollTop: $($('a[href*="#check"]').attr('href')).offset().top
+    }, 600);
  	key= $(this).data("key");
 	value = $(this).val();
  	$("#id_custom").val("{{ user }}_" + key +"_{{doc}}");
@@ -836,13 +830,14 @@ $(document).ready(function() {
 
 
   	$('.parent .payment-card-box').click(function() {
-    $('.parent .payment-card-box').removeClass("bg-blue plan-price free-plan-active free-plan-list");
+    $('.parent .payment-card-box').removeClass("bg-blue plan-price");
     $(this).addClass("bg-blue plan-price");
   	})
 
   	$("#submitButton").click(function (e) {
             if (!$('input[name="radio"]').is(':checked')) {
-            	alert("Please select one of the above plan");
+                $(".error-messages").text("Please select one of the below plan").fadeIn();
+            	//alert("Please select one of the above plan");
                 e.preventDefault();
             }
         });
