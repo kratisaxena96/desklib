@@ -44,10 +44,11 @@
 		  </li>
 		</ul>
 	</div>
+
+				  <div class="error-messages text-center pt-5" style="display:none; color:red;"></div>
 <div class="tab-content pt-3 pb-3 border-radius-5" id="myTabContent">
   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-
-	   <section class="pt-5">
+	   <section class="pt-5" id="check">
 
             <div class="container">
 
@@ -93,7 +94,7 @@
 		{% if not plan.is_pay_per_download %}
 					<!--				<div class="row ">-->
 <!--			<div class="col-11 col-sm-11 col-md-11 col-lg-11">-->
-				  <div class="col-3 col-sm-3 col-md-3 col-lg-3 crd text-center md-margin-30px-bottom wow fadeInUp pl-2 pr-2 justify-content-center parent" data-wow-delay="0.2s" style="padding-top:40px">
+				  <div class="col-3 col-sm-3 col-md-3 col-lg-3 crd text-center md-margin-30px-bottom wow fadeInUp pl-2 pr-2 justify-content-center parent"  data-wow-delay="0.2s" style="padding-top:40px">
 					  <a href="#check">
 				<div class="card mb-4 payment-card-box">
 					<label class="d-block label mt-2">
@@ -127,7 +128,7 @@
 {{form}}
  	<input id="id_custom" name="custom" type="hidden" value=""/>
 	<input id="id_amount" name="amount" type="hidden"  value=""/>
-	<div class="row justify-content-center pt-5" id="check">
+	<div class="row justify-content-center pt-5" >
 		<div class="col-md-9 col-lg-5">
 			<p>
 				By continuing you agree to the <a href="{% url 'termsofuse' %}">terms & conditions</a>, <a href="{% url 'privacypolicy' %}"> privacy policy</a>, <a href="{% url 'academicintegrity' %}">Academic Integrity</a>, <a href="{% url 'honorcode' %}">Honor Code</a> and <a href="{% url 'copyright' %}">Copyright</a>
@@ -635,8 +636,6 @@ $(document).ready(function() {
 })
 </script>
 
-
-
 <script>
 //multistep form
 
@@ -810,22 +809,18 @@ $(document).ready(function() {
 
             }
         });
-    });
+    });headerHeight = $(".primary-header").height() + 5;
 
 
 
 
 
   $( document ).ready(function() {
-    //e.preventDefault();
 	$(".selected_plan").on("click", function(){
  	if ($("input[type='radio']").is(":checked")) {
- 	$('a[href*="#check"]').on('click', function (e){
  	$('html, body').animate({
-        scrollTop: $($(this).attr('href')).offset().top
-    }, 600, 'linear');
-    })
-
+        scrollTop: $($('a[href*="#check"]').attr('href')).offset().top
+    }, 600);
  	key= $(this).data("key");
 	value = $(this).val();
  	$("#id_custom").val("{{ user }}_" + key +"_{{doc}}");
@@ -835,13 +830,14 @@ $(document).ready(function() {
 
 
   	$('.parent .payment-card-box').click(function() {
-    $('.parent .payment-card-box').removeClass("bg-blue plan-price free-plan-active free-plan-list");
+    $('.parent .payment-card-box').removeClass("bg-blue plan-price");
     $(this).addClass("bg-blue plan-price");
   	})
 
   	$("#submitButton").click(function (e) {
             if (!$('input[name="radio"]').is(':checked')) {
-            	alert("Please select one of the above plan");
+                $(".error-messages").text("Please select one of the below plan").fadeIn();
+            	//alert("Please select one of the above plan");
                 e.preventDefault();
             }
         });
