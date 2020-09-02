@@ -45,7 +45,7 @@
 		</ul>
 	</div>
 
-				  <div class="error-messages text-center pt-5" style="display:none; color:red;"></div>
+<!--				  <div class="error-messages text-center pt-5" style="display:none; color:red;"></div>-->
 <div class="tab-content pt-3 pb-3 border-radius-5" id="myTabContent">
   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 	   <section class="pt-5" id="check">
@@ -836,7 +836,7 @@ $(document).ready(function() {
 
   	$("#submitButton").click(function (e) {
             if (!$('input[name="radio"]').is(':checked')) {
-                $(".error-messages").text("Please select one of the below plan").fadeIn();
+                //$(".error-messages").text("Please select one of the below plan").fadeIn();
             	//alert("Please select one of the above plan");
                 e.preventDefault();
             }
