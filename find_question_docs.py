@@ -11,7 +11,7 @@ doc = Document.objects.filter(is_visible=True)
 def run(doc, outfile_path):
     row = []
     for question in doc:
-        if "san" in question.title or "JANUARY" in question.description:
+        if "Question" in question.description:
             ip = "https://" + Site.objects.get_current().domain
             csvwriter = csv.writer(open(outfile_path, 'w'))
             heading_row = ['Admin Url']
