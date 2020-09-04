@@ -408,7 +408,7 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
                     recipient_list = [request.user.email],
                     html_message = htmly
                     mail = EmailMultiAlternatives(
-                        subject='Your downloaded document from desklib.com',
+                        subject='Confirmation For Your Document Download',
                         to=[request.user.email],
                         body=''
                     )
