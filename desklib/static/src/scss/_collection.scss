@@ -1790,7 +1790,7 @@ body #editor_controls {
 }
 .plan-price .list-font {
     font-size: 1rem;
-//     font-weight: bold
+    font-weight: bold
 }
 .list-style-non{
   list-style: none;
@@ -1854,3 +1854,20 @@ color: black!important;
 text-decoration: none;
  }
 
+.col-3 {
+    -ms-flex: 0 0 25%;
+    /* flex: 0 0 25%; */
+    /* max-width: 25%; */
+}
+@media (max-width: 600px){
+.col-3 {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+}
+@media (max-width: 600px){
+.col-4 {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+}
