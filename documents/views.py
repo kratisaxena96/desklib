@@ -268,9 +268,7 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
             try:
                 return HttpResponseRedirect(reverse('documents:document-pay') + "?doc=" + request.GET.get('doc'))
             except:
-                messages.success(self.request,
-                                 "Your are redirected to home because we couldn't get the required document.")
-                return HttpResponseRedirect(reverse('home'))
+                return render(request, 'desklib/error_404.html', status=404)
 
     def get_context_data(self, **kwargs):
         context = super(DocumentDownloadDetailView, self).get_context_data(**kwargs)
@@ -462,9 +460,11 @@ class DocumentPayment(LoginRequiredMixin, MetadataMixin, TemplateView):
             pay_per_doc_sub = self.request.user.pay_per_download.all()
         except:
             pay_per_doc_sub = None
-        doc = Document.objects.get(slug=self.request.GET.get('doc'))
+        try:
+            doc = Document.objects.get(slug=self.request.GET.get('doc'))
+        except:
+            return render(request, 'desklib/error_404.html', status=404)
         pay_per_doc_obj = pay_per_doc_sub.filter(documents=doc, expire_on__gt=timezone.now())
-
         if subscription_obj:
             expiry_date_subscription = subscription_obj.expire_on
             plan = subscription_obj.plan
