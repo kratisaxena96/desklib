@@ -257,7 +257,7 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
         except:
             doc = None
         try:
-            pay_per_doc = PayPerDocument.objects.get(documents=doc, expire_on__gt=timezone.now(), is_current=True, user=self.request.user)
+            pay_per_doc = PayPerDocument.objects.get(documents=doc, expire_on__gt=timezone.now(), is_current=True, user=request.user)
         except:
             pay_per_doc = None
 
