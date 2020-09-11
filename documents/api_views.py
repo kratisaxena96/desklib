@@ -91,6 +91,7 @@ class DocumentFeedbackApi(GenericAPIView):
 
 class UploadDocumentApi(CreateAPIView):
     serializer_class = UploadDocumentSerializer
+    permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -132,6 +133,7 @@ class UploadDocumentApi(CreateAPIView):
 
 class UploadForDocumentApiView(CreateAPIView):
     serializer_class = UploadForDocumentSerializer
+    permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
