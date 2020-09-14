@@ -273,7 +273,7 @@ class OrderCreateView(LoginRequiredMixin, FormView):
 
         question = Question.objects.get(uid= self.kwargs.get('uid'))
         order = Order(question=question, author=request.user)
-        order.client_timezone = get_timezone(self.request)
+        # order.client_timezone = get_timezone(self.request)
         order.save()
 
         ip = "https://"+ Site.objects.get_current().domain
