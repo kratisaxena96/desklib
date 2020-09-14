@@ -17,6 +17,7 @@ def check(doc):
             csvwriter.writerow(heading_row)
             for i in row:
                 csvwriter.writerow(i)
+                print(i)
 
             row.append(data_row)
 
