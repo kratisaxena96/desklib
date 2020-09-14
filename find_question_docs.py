@@ -1,3 +1,4 @@
+# exec(open("./find_question_docs.py").read())
 import csv
 from django.contrib.sites.models import Site
 
