@@ -170,9 +170,9 @@ def show_me_the_money(sender, **kwargs):
                     else:
                         try:
                             amount = ipn_obj.mc_gross
-                            locus_email = "sandhya.k@zucol.in"
+                            locus_email = "kushagra.goel@locusrags.com"
                             if not settings.DEBUG:
-                                locus_email = "sandhya.k@zucol.in"
+                                locus_email = "info@desklib.com"
                             if amount != plan.price:
                                 amount_remaining = plan.price - ipn_obj.mc_gross
                                 html_message = "Plan Name: "+ str(plan) + "<br>Payment done by user: "+ user.username + "<br>Amount Received: " + str(amount) + "<br>AmountPending: " + str(amount_remaining) + "<br>For Document: " + str(doc)
