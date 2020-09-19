@@ -374,8 +374,9 @@ opacity:0.9 !important;
 <!--            <a href='{% url "documents:document-download-view"%}?doc={{object.slug}}&single=True' class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Pay Per Download</a>-->
             {% endcomment %}
         </div>
+        {% if object.pages.all.count %}
           <span class="d-inline-block d-sm-inline-block w-100 text-center text-md-left text-lg-center text-muted">Showing pages {{object.preview_from}} to {{object.preview_to}} of {{object.pages.all.count}} pages</span>
-
+        {% endif %}
         <div id="viewer" class="documentViewer">
             {% comment %}
             {% for page in object.pages.all %}
