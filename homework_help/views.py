@@ -7,7 +7,7 @@ from email.mime.image import MIMEImage
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import EmailMultiAlternatives
 from django.db.models import Count
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from haystack.query import SearchQuerySet
 from paypal.standard.forms import PayPalPaymentsForm
 from django.urls import reverse
@@ -32,6 +32,8 @@ from django.utils.translation import gettext as _
 from subjects.models import Subject
 from django.shortcuts import redirect, render
 from desklib.utils import get_timezone
+from django.views import View
+from datetime import datetime
 
 
 def autocomplete(request):
@@ -325,4 +327,76 @@ class OrderCreateView(LoginRequiredMixin, FormView):
 
         return HttpResponseRedirect(redirect_to=reverse('homework_help:order-detail-view', kwargs={'uuid': order.uuid}))
 
+
+class HomeworkHelpPaypalPaymentView(LoginRequiredMixin, View):
+
+    def post(self, request, *args, **kwargs):
+        body = json.loads(request.body.decode("utf-8"))
+        print(body)
+        if settings.DEBUG:
+            receiver_email = "ankushtambi-facilitator@gmail.com"
+            # receiver_email = "info-facilitator@a2zservices.net"
+            # action="https://www.sandbox.paypal.com/cgi-bin/webscr
+
+            # homework help payment logic
+        else:
+            receiver_email = "payment@locusrags.com"
+        if body.get('purchase_units')[0].get("payee").get("email_address") == receiver_email:
+            if body.get('id'):
+
+                order = body.get('order')
+                o = Order.objects.get(uuid=order)
+                o.amount_paid = o.amount_paid + int(float(body.get('purchase_units')[0].get("amount").get("value")))
+                time_split = o.expected_hours
+                p = time_split
+                if p:
+                    if p > 24:
+                        total_days = p // 24
+                        total_hours = p % 24
+                        o.deadline_datetime = datetime.strptime(body.get('create_time'), '%Y-%m-%dT%H:%M:%SZ') + datetime.timedelta(days=total_days, hours=total_hours)
+                    else:
+                        total_hours = p
+                        o.deadline_datetime = datetime.strptime(body.get('create_time'), '%Y-%m-%dT%H:%M:%SZ') + datetime.timedelta(hours=total_hours)
+
+                o.status = 3
+                o.save()
+
+                ip = "https://" + Site.objects.get_current().domain
+
+                subject = 'payment for ' + o.order_id + ' completed'
+                message = 'payment for ' + o.order_id + ' completed'
+                from_email = settings.DEFAULT_FROM_EMAIL
+                to = o.author.email,
+                contex = {'first_name': o.author.first_name, 'order_id': o.order_id, 'SITE_URL': ip, 'uuid': o.uuid,
+                          'amount': int(float(body.get('purchase_units')[0].get("amount").get("value")))}
+                htmly = render_to_string('homework_help/mail-templates/order_payment_completed.html',
+                                         context=contex, request=None)
+                html_message = htmly
+                # html_message = "Hello " + o.author.first_name + ",<br>Your order " + o.order_id + " is added.<br>Question is <br>"
+                mail = EmailMultiAlternatives(subject, message, from_email, to)
+
+                # if question.user_questionfiles:
+
+                # mail.attach_file(.path)
+                mail.attach_alternative(html_message, 'text/html')
+                mail.send(True)
+
+                locus_email = "kushagra.goel@locusrags.com"
+                if not settings.DEBUG:
+                    locus_email = "info@desklib.com"
+
+                subject = 'payment for ' + o.order_id + ' recieved'
+                message = 'payment for ' + o.order_id + ' recieved'
+                from_email = settings.DEFAULT_FROM_EMAIL
+                to = locus_email,
+                html_message = 'Hello<br>Payment for ' + o.order_id + ' recieved' + '<br>Link for the admin is: ' + ip + reverse(
+                    'admin:homework_help_order_change', args=(o.id,))
+                mail = EmailMultiAlternatives(subject, message, from_email, to)
+
+                # if question.user_questionfiles:
+
+                # mail.attach_file(.path)
+                mail.attach_alternative(html_message, 'text/html')
+                mail.send(True)
+                return JsonResponse('Payment completed', safe=False)
 

@@ -1,7 +1,7 @@
 from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include
 from .views import OrderDetailView, AskQuestionView, QuestionDetailView, OrderCreateView, OrderListView, \
-    CustomSearchQuestionView, autocomplete
+    CustomSearchQuestionView, autocomplete, HomeworkHelpPaypalPaymentView
 from django.views.generic import TemplateView
 # from .sitemaps import all_sitemaps as sitemaps
 
@@ -9,6 +9,7 @@ from django.views.generic import TemplateView
 urlpatterns = [
     path('', AskQuestionView.as_view(), name='ask-question-view'),
     path('question/<slug>/', QuestionDetailView.as_view(), name='question-detail-view'),
+    path('paypal/validate/', HomeworkHelpPaypalPaymentView.as_view(), name='homework-help-payment-validate'),
     path('order-create/<uid>/', OrderCreateView.as_view(), name='order-create-view'),
     path('order/', OrderListView.as_view(), name='order-list-view'),
     path('order/<uuid>/', OrderDetailView.as_view(), name='order-detail-view'),

@@ -1,17 +1,21 @@
 # some_app/views.py
 import logging
 import os
+import json
 import socket
 import tempfile
 from django.contrib import messages
+from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives, EmailMessage
 from paypal.standard.forms import PayPalPaymentsForm
 import geoip2.webservice
 
 from django.contrib.gis.geoip2 import GeoIP2
 
+from accounts.models import UserAccount
 from desklib.mixins import CheckSubscriptionMixin
 from documents.mixins import SubscriptionCheckMixin
+from homework_help.models import Order
 
 logger = logging.getLogger(__name__)
 from rest_framework.views import APIView
@@ -48,11 +52,11 @@ from rest_framework.renderers import (
 from .forms import ReportForm, DownloadFileForm
 
 from django.db.models import F
-from datetime import timedelta
+from datetime import timedelta, datetime
 from subscription.utils import is_subscribed, get_current_subscription
 from django.core.files import File as DjangoFile
 from django.db.models import Q
-from django.http import HttpResponsePermanentRedirect, Http404, HttpResponseRedirect
+from django.http import HttpResponsePermanentRedirect, Http404, HttpResponseRedirect, JsonResponse
 from documents.utils import merge_pdf
 from django.utils import timezone
 from documents.forms import UploadFileForm
@@ -609,3 +613,184 @@ class FilterSimlar():
             }
 
         )
+
+
+class PaypalPaymentView(LoginRequiredMixin, View):
+
+    def post(self, request, *args, **kwargs):
+        body = json.loads(request.body.decode("utf-8"))
+        print(body)
+        if settings.DEBUG:
+            receiver_email = "ankushtambi-facilitator@gmail.com"
+            # receiver_email = "info-facilitator@a2zservices.net"
+            # action="https://www.sandbox.paypal.com/cgi-bin/webscr
+
+            # homework help payment logic
+        else:
+            receiver_email = "payment@locusrags.com"
+        if body.get('purchase_units')[0].get("payee").get("email_address") == receiver_email:
+            if body.get('id'):
+
+                # custom_list = ipn_obj.custom.split('_')
+                # if custom_list[0] == "homework-help":
+                #     order = custom_list[1]
+                #     o = Ord0er.objects.get(uuid=order)
+                #     o.amount_paid = o.amount_paid + ipn_obj.payment_gross
+                #     time_split = o.expected_hours
+                #     p = time_split
+                #     if p > 24:
+                #         total_days = p // 24
+                #         total_hours = p % 24
+                #         o.deadline_datetime = ipn_obj.payment_date + datetime.timedelta(days=total_days, hours=total_hours)
+                #     else:
+                #         total_hours = p
+                #         o.deadline_datetime = ipn_obj.payment_date + datetime.timedelta(hours=total_hours)
+                #
+                #
+                #     o.status = 3
+                #     o.save()
+                #
+                #     ip = "https://" + Site.objects.get_current().domain
+                #
+                #
+                #
+                #     subject = 'payment for ' + o.order_id + ' completed'
+                #     message = 'payment for ' + o.order_id + ' completed'
+                #     from_email = settings.DEFAULT_FROM_EMAIL
+                #     to = o.author.email,
+                #     contex = {'first_name': o.author.first_name, 'order_id': o.order_id, 'SITE_URL': ip, 'uuid': o.uuid, 'amount': ipn_obj.payment_gross }
+                #     htmly = render_to_string('homework_help/mail-templates/order_payment_completed.html',
+                #                              context=contex, request=None)
+                #     html_message = htmly
+                #     # html_message = "Hello " + o.author.first_name + ",<br>Your order " + o.order_id + " is added.<br>Question is <br>"
+                #     mail = EmailMultiAlternatives(subject, message, from_email, to)
+                #
+                #     # if question.user_questionfiles:
+                #
+                #     # mail.attach_file(.path)
+                #     mail.attach_alternative(html_message, 'text/html')
+                #     mail.send(True)
+                #
+                #
+                #
+                #     locus_email = "kushagra.goel@locusrags.com"
+                #     if not settings.DEBUG:
+                #         locus_email = "info@desklib.com"
+                #
+                #     subject = 'payment for ' + o.order_id + ' recieved'
+                #     message = 'payment for ' + o.order_id + ' recieved'
+                #     from_email = settings.DEFAULT_FROM_EMAIL
+                #     to = locus_email,
+                #     html_message = 'Hello<br>Payment for ' + o.order_id + ' recieved' + '<br>Link for the admin is: ' + ip + reverse(
+                #         'admin:homework_help_order_change', args=(o.id,))
+                #     mail = EmailMultiAlternatives(subject, message, from_email, to)
+                #
+                #     # if question.user_questionfiles:
+                #
+                #         # mail.attach_file(.path)
+                #     mail.attach_alternative(html_message, 'text/html')
+                #     mail.send(True)
+                #
+                #
+                # else:
+                    # custom_str = ipn_obj.custom
+                    # custom_str_list = custom_str.split('_')
+                email = body.get('user')
+                plan_key = body.get('key')
+                try:
+                    doc_slug = body.get('doc')
+                    doc = Document.objects.get(slug=doc_slug)
+                except:
+                    pass
+                plan = Plan.objects.get(key=plan_key)
+                plan_days = plan.days
+                payment_date = datetime.strptime(body.get('create_time'), '%Y-%m-%dT%H:%M:%SZ')
+                expire_on = payment_date + timedelta(days=plan_days)
+                user = UserAccount.objects.get(email=email)
+                site_url = Site.objects.get_current().domain
+                amount = int(float(body.get('purchase_units')[0].get("amount").get("value")))
+
+                if amount==plan.price:
+                    if plan.is_pay_per_download:
+                        contex = {'traction_id': body.get('purchase_units')[0].get("payments").get("captures")[0].get("id"), 'currency': body.get('purchase_units')[0].get("amount").get("currency"),
+                                  'amount': body.get('purchase_units')[0].get("amount").get("value"), 'payment_date': payment_date,
+                                  'expiry': expire_on,
+                                  'plan': plan.package_name, 'document_redirect': doc_slug, 'SITE_URL': site_url, }
+                        # pay_doc = PayPerDocument.objects.filter(user=user, start_date=payment_date,documents=doc, expire_on=expire_on)
+                        # if pay_doc :
+                        #     pay_doc.documents.add(doc)
+                        payperdoc = PayPerDocument.objects.create(user=user, plan=plan, expire_on=expire_on,
+                                                                  start_date=payment_date, is_current=True)
+                        payperdoc.documents.add(doc)
+                    else:
+                        contex = {'traction_id': body.get('purchase_units')[0].get("payments").get("captures")[0].get("id"), 'currency': body.get('purchase_units')[0].get("amount").get("currency"),
+                                  'amount': body.get('purchase_units')[0].get("amount").get("value"), 'payment_date': payment_date,
+                                  'expiry': expire_on,
+                                  'plan': plan.package_name, 'SITE_URL': site_url, }
+                        subscription = Subscription.objects.create(user=user, plan=plan, expire_on=expire_on,
+                                                                   author=user)
+                    try:
+
+                        htmly = render_to_string('desklib/mail-templates/payment_success_email_template.html',
+                                                 context=contex, request=None)
+                        html_message = htmly
+                        mail = EmailMultiAlternatives(
+                            subject='Payment Success Confirmation From Desklib',
+                            to=[user.email],
+                            body=''
+                        )
+                        # mail = EmailMultiAlternatives(subject, message, from_email, recipient_list)
+                        mail.attach_alternative(html_message, 'text/html')
+                        mail.send(True)
+                        # mail.send(
+                        #     user.email,
+                        #     settings.DEFAULT_FROM_EMAIL,
+                        #     subject='Payment Success Confirmation From Desklib',
+                        #     # message=htmly,
+                        #     html_message=htmly,
+                        #     # attachments=attachments,
+                        #     priority='now'
+                        # )
+
+                    except Exception as e:
+                        print("Payment Success Email Sending failed", e)
+                    # if plan.is_pay_per_download:
+                    #     # pay_doc = PayPerDocument.objects.filter(user=user, start_date=payment_date,documents=doc, expire_on=expire_on)
+                    #     # if pay_doc :
+                    #     #     pay_doc.documents.add(doc)
+                    #     payperdoc = PayPerDocument.objects.create(user=user, plan=plan, expire_on=expire_on,
+                    #                                               start_date=payment_date, is_current=True)
+                    #     payperdoc.documents.add(doc)
+                    # else:
+                    #     subscription = Subscription.objects.create(user=user, plan=plan, expire_on=expire_on,
+                    #
+                else:
+                    try:
+                        amount = body.get('purchase_units')[0].get("amount").get("value")
+                        locus_email = "kushagra.goel@locusrags.com"
+                        if not settings.DEBUG:
+                            locus_email = "info@desklib.com"
+                        if amount != plan.price:
+                            amount_remaining = plan.price - body.get('purchase_units')[0].get("amount").get("value")
+                            html_message = "Plan Name: "+ str(plan) + "<br>Payment done by user: "+ user.username + "<br>Amount Received: " + str(amount) + "<br>AmountPending: " + str(amount_remaining) + "<br>For Document: " + str(doc)
+                            mail = EmailMultiAlternatives(
+                                subject='Insufficient Amount received from Client',
+                                # from_email=settings.DEFAULT_FROM_EMAIL,
+                                to=[locus_email],
+                                body=''
+                            )
+                            mail.attach_alternative(html_message, 'text/html')
+                            mail.send(True)
+                        else:
+                            pass
+                    except:
+                        pass
+
+                messages.success(request, 'Your payment is being processed. Please access your document once you recieve an email regarding your activation.')
+                # return redirect(reverse('documents:document-view', kwargs={'slug': doc.slug}))
+                return JsonResponse('Payment completed', safe=False)
+        else:
+            return
+        # body = json.loads(request.body.decode("utf-8"))
+        # print('BODY:', body)
+        # return JsonResponse('payment Completed', safe=False)

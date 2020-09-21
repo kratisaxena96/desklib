@@ -5,6 +5,26 @@
 <link rel="canonical" href=" https://desklib.com/homework-help/" />
 {% endblock %}
 {% block extra_css %}
+
+    <style>
+    .payment-loader {
+    display: none;
+}
+        /* Media query for mobile viewport */
+        @media screen and (max-width: 400px) {
+            #paypal-button-container {
+                width: 100%;
+            }
+        }
+
+        /* Media query for desktop viewport */
+        @media screen and (min-width: 400px) {
+            #paypal-button-container {
+                width: 250px;
+            }
+        }
+    </style>
+
 <style>
 .bar {
    height: 18px;
@@ -768,6 +788,8 @@ jQuery(document).ready(function() {
 
 });
 </script>
+
+
 
 {% endcomment %}
 
