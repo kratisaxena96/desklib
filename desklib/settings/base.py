@@ -81,7 +81,8 @@ INSTALLED_APPS = [
     'admissions',
     'homework_help',
     'blogs',
-    'contact'
+    'contact',
+    'advanced_filters'
 ]
 
 SITE_ID = 1
