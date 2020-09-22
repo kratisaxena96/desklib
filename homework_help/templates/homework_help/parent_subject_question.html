@@ -67,25 +67,7 @@
 		</div>
 	</div>
 </section>
-<!--<section class="bg-light">-->
-<!--	<div class="container pt-5 pb-5">-->
-<!--		<div class="row">-->
-<!--			<div class="col-md-5">-->
-<!--				<h6>Looking For Another Answer?</h6>-->
-<!--				 <form class="" action="{% url 'homework_help:search-question' %}">-->
-<!--					 <div class="form-group d-flex mt-4">-->
-<!--                     <div id="question" class="input-group w-50 width-100per">-->
-<!--                      	 <input class=" form-control form-control-lg shadow border-radius-30 typeahead search-bar-border-none" type="text" placeholder="Search Your Question" name="q" style="font-size:16px">-->
-<!--                         	<div class="input-group-append">-->
-<!--                            	<button class="btn btn-lg rounded-circle search-bg-body" type="submit"><i class="fa fa-search rounded-circle search-icon"></i></button>-->
-<!--                        	</div>-->
-<!--                    	</div>-->
-<!--						 </div>-->
-<!--				 </form>-->
-<!--			</div>-->
-<!--	</div>-->
-<!--	</div>-->
-<!--</section>-->
+
 <section class="bg-light pt-5 pb-5">
  <div class="row justify-content-center">
         <div class="col-md-8">
@@ -148,12 +130,23 @@
                             </ul>
                             <p id="done">{{count}}</p>
 						</div>
+
 						<div class="col-md-6">
 							<label class=""><strong>Select Your&nbsp;{{form.subjects.label}}</strong></label>
 							<div class="form-group">
-                     		{{form.subjects}}
+								<select class="form-control" name="subjects">
+                     		<option value="{{ parent_subject }}" selected>{{ parent_subject }}</option>
+								</select>
 							</div>
 						</div>
+
+
+<!--						<div class="col-md-6">-->
+<!--							<label class=""><strong>Select Your&nbsp;{{form.subjects.label}}</strong></label>-->
+<!--							<div class="form-group">-->
+<!--                     		{{form.subjects}}-->
+<!--							</div>-->
+<!--						</div>-->
 					</div>
 					<div class="row">
 						<div class="col-sm-6">
@@ -177,9 +170,23 @@
 </div>
         </div></div>
 
+
+
 {% if question %}
 <section>
 	<div class="container pt-5 pb-4">
+				<h4>Looking For Previous Answer?</h4>
+				 <form class="" action="{% url 'homework_help:search-question' %}">
+					 <div class="form-group d-flex mt-4">
+                     <div id="question" class="input-group width-100per" style="width:30%;">
+                      	 <input class=" form-control form-control-lg shadow border-radius-30 typeahead search-bar-border-none" type="text" placeholder="Search Your Question" name="q">
+                         	<div class="input-group-append">
+                            	<button class="btn btn-lg rounded-circle search-bg-body" type="submit"><i class="fa fa-search rounded-circle search-icon"></i></button>
+                        	</div>
+                    	</div>
+						 </div>
+				 </form>
+
 		<h2 class="text-center">Recently Asked Questions</h2>
 		<div class="row mt-4">
 			{% for object in question %}
@@ -217,120 +224,18 @@
 </section>
 {% endif %}
 
-
-<!--{% if question %}-->
-<!--<section>-->
-<!--	<div class="container pt-5 pb-4">-->
-<!--		<h2 class="text-center">Question Related to Subject</h2>-->
-<!--		<div class="row mt-4">-->
-<!--			<div class="col-sm-12 mb-4">-->
-
-<!--&lt;!&ndash;			<div class="col-sm-12 mb-4">&ndash;&gt;-->
-<!--&lt;!&ndash;				<a href="{% url 'homework_help:question-detail-view' object.slug %}" class="text-decoration-none h-100">&ndash;&gt;-->
-<!--					<div class="card question-search-hover">-->
-<!--						<div class="card-body text-left">-->
-<!--							{% for object in question %}-->
-<!--&lt;!&ndash;							<a href="{% url 'homework_help:question-detail-view' object.slug %}" class="text-decoration-none h-100">&ndash;&gt;-->
-<!--							<div class="d-flex m-4">-->
-<!--                    			<div class="d-inline-block">-->
-<!--                        			<div class="black-font">-->
-<!--										<strong>Q:</strong>-->
-<!--                        			</div>-->
-<!--                    			</div>-->
-<!--                    			<div class="d-inline-block ml-2 black-font">-->
-<!--                        			<span>{{object.question|truncatechars:200}}</span>-->
-<!--                    			</div>-->
-<!--								<div class="d-inline-block ml-2 black-font">-->
-<!--									<a href="{% url 'homework_help:question-detail-view' object.slug %}" class="">Get Answer</a>-->
-<!--								</div>-->
-<!--                 			</div>-->
-<!--&lt;!&ndash;							</a>&ndash;&gt;-->
-<!--								{% endfor %}-->
-<!--&lt;!&ndash;							<div class="d-flex mt-2">&ndash;&gt;-->
-<!--&lt;!&ndash;								<div class="d-inline-block">&ndash;&gt;-->
-<!--&lt;!&ndash;									<div class="black-font">&ndash;&gt;-->
-<!--&lt;!&ndash;										<strong>A:</strong>&ndash;&gt;-->
-<!--&lt;!&ndash;                        			</div>&ndash;&gt;-->
-<!--&lt;!&ndash;								</div>&ndash;&gt;-->
-<!--&lt;!&ndash;								<div class="d-inline-block ml-2 black-font">&ndash;&gt;-->
-<!--&lt;!&ndash;									<a href="{% url 'homework_help:question-detail-view' object.slug %}" class="">Get Answer</a>&ndash;&gt;-->
-<!--&lt;!&ndash;								</div>&ndash;&gt;-->
-<!--&lt;!&ndash;							</div>&ndash;&gt;-->
-<!--						</div>-->
-<!--					</div>-->
-<!--&lt;!&ndash;				</a>&ndash;&gt;-->
-<!--			</div>-->
-
-<!--		</div>-->
-<!--	</div>-->
-<!--</section>-->
-<!--{% endif %}-->
-<!--<section class="bg-light-grey">-->
-<!--	<div class="container pt-5 pb-5">-->
-<!--		<div class="row justify-content-center">-->
-<!--			<div class="col-md-12">-->
-<!--				<h3 class="text-center">Having Another Question</h3>-->
-<!--&lt;!&ndash;				<p class="text-center">Ask your question or type any assignment topic and title which you are looking for solutions.</p>&ndash;&gt;-->
-<!--			</div>-->
-<!--		</div>-->
-<!--		<div class="row">-->
-<!--			<div class="col-md-12">-->
-<!--				<form method="post" id="question-form1`" enctype="multipart/form-data">-->
-<!--					 {% csrf_token %}-->
-<!--					<div class="row mt-4">-->
-<!--						<div class="col-md-12">-->
-<!--							<div class="form-group">-->
-<!--							{{form.question}}-->
-<!--                			</div>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--					<div class="row mt-2">-->
-<!--            			<div class="col-md-6">-->
-<!--							<label class=""><strong>Upload&nbsp;{{form.file.label}}</strong></label>-->
-<!--							<div class="form-group">-->
-<!--								<span class="btn btn-bg-theme white border-radius-20 px-4 fileinput-button d-block">-->
-<!--								  <i class="fa fa-plus"></i>-->
-<!--								  <span>Add files...</span>-->
-<!--									{{form.file}}-->
-<!--								</span>-->
-<!--							</div>-->
-<!--							<ul id="selected-files" class="list-unstyled">-->
-<!--								<li class="">-->
-<!--									<span class="error-msg text-danger d-block"></span>-->
-<!--									<span class="error text-danger d-block"></span>-->
-<!--								</li>-->
-<!--							</ul>-->
-<!--						</div>-->
-<!--						<div class="col-md-6">-->
-<!--							<label class=""><strong>Select Your&nbsp;{{form.subjects.label}}</strong></label>-->
-<!--							<div class="form-group">-->
-<!--                     		{{form.subjects}}-->
-<!--							</div>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--    					<div class="row mt-3">-->
-<!--							<div class="col-md-6">-->
-<!--                     			<input id="submit-button" type="submit" value="Get Answer" class="btn btn-bg-theme white border-radius-20 px-4">-->
-<!--							</div>-->
-<!--						</div>-->
-<!--				</form>-->
-<!--			</div>-->
-<!--		</div>-->
-<!--	</div>-->
-<!--</section>-->
-
-<!--<section>-->
-<!--	<div class="container">-->
-<!--		<div class="row mb-5">-->
-<!--			<div class="col-sm-12 text-center">-->
-<!--				{% if question %}-->
-<!--				<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="{% url 'homework_help:search-question' %}?q={{object.slug}} ">View More</a>-->
-<!--				{% else %}-->
-<!--				{% endif %}-->
-<!--			</div>-->
-<!--		</div>-->
-<!--	</div>-->
-<!--</section>-->
+<section>
+	<div class="container">
+		<div class="row mb-5">
+			<div class="col-sm-12 text-center">
+				{% if question %}
+				<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="{% url 'homework_help:search-question' %}?q={{object.slug}} ">View More</a>
+				{% else %}
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</section>
 
 <!--	<div class="container">-->
 <!--		<div class="row mb-5">-->
@@ -348,7 +253,7 @@
         <div class="row">
             <div class="col-sm-8">
                 <div id="accordion">
-					 {% for object in subject.subject_question_content.all %}
+					 {% for object in subject %}
                     <div id="cardOne{{ forloop.counter }}" class="card">
                       <div class="card-header">
                         <a class="card-link" data-toggle="collapse" href="#collapseOne{{ forloop.counter }}">
@@ -366,7 +271,7 @@
             </div>
             <div class="col-sm-4">
                 <ul class="list-group sticky-top">
-					 {% for object in subject.subject_question_content.all %}
+					 {% for object in subject %}
                     <li class="list-group-item">
 						<a href="#cardOne{{ forloop.counter }}">
 							{{object.title}}
@@ -379,86 +284,7 @@
 </div>
 </section>
 
-</section>
-	<section class="pb-5 pt-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-8">
-                <div id="accordion">
-                    <div id="cardOne" class="card">
-                      <div class="card-header">
-                        <a class="card-link" data-toggle="collapse" href="#collapseOne">
-                           Avoid grammatical mistakes with the help of desklib grammar checker
-                        </a>
-                      </div>
-                      <div id="collapseOne" class="collapse show">
-                        <div class="card-body">
-                            <p>Even if you’re a fluent English speaker or just a beginner English Grammar can be confusing and difficult to write. It’s not just about Grammar, it’s about adding comma, exclamation marks, checking spelling mistakes, and making proper use of nouns and verbs in a sentence while sounding correct too. Have you ever realized after hitting the send button that you’ve made a spelling mistake in the subject line itself? You were in a presentation and forgot to add proper comma and exclamations to your slides? It can be confusing to understand where you need to add apostrophes and comma in a sentence especially when you’re trying to jot down your ideas fastly. </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div id="cardTwo" class="card">
-                      <div class="card-header">
-                        <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
-                             Why use a grammar checker?
-                      </a>
-                      </div>
-                      <div id="collapseTwo" class="collapse show">
-                        <div class="card-body">
-                            <p>Grammar Checker is something that will save you from embarrassment in meetings and help your writings. If you ever have to pitch a client about your product or services, you have to present your ideas in a crisp and subtle way. Especially when the stakes are high, using heavy words in a sentence won’t make that impression. Instead, using simple language with properly written grammar/language can help you crack the deal. So, we have designed a tool such that it will write properly constructed statements from your original written ones. </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div id="cardThree" class="card">
-                      <div class="card-header">
-                        <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
-                           Free grammar checker tool by Desklib
-                        </a>
-                      </div>
-                      <div id="collapseThree" class="collapse show">
-                        <div class="card-body">
-                            <p>Our online Grammar checker tool is perfect for ones who are writing long and heavy paragraphs and needs a quick check for their text. The best part about this tool is that without wasting time you can just copy-paste the entire text from your word file and within a few minutes the errors will be highlighted. You can check your grammatical errors, punctuations, and save your time proofreading the text again and again. The spelling mistakes and punctuation mistakes are highlighted in such a way that an alternative correction will be suggested in place of original ones. So, it not only highlights your mistakes but gives you a proper solution to the existing ones. From typos to sentence corrector, grammar checker is everything you’re looking for in a tool. </p>
-                        </div>
-                      </div>
-                    </div>
-                       <div id="cardFour" class="card">
-                      <div class="card-header">
-                        <a class="collapsed card-link" data-toggle="collapse" href="#collapseFour">
-                           Importance of grammar checker
-                        </a>
-                      </div>
-                      <div id="collapseFour" class="collapse show">
-                        <div class="card-body">
-                            <p>The grammar checker tool takes the context of any sentence into the account. For example- except and expect when written in a sentence fastly have very high chances of getting misspelled. So depending upon what is the meaning of the sentence and what you are trying to convey through your writing Grammar checker will suggest the alternative. So even if you write the spelling correct, it will let you know that your context in that particular sentence is wrong. The tool is so fast that when you upload the text in the box, it will give you suggestions within a few seconds and in your preferred language as well. You can skip the logging in process for faster access to our services. Without signing in we provide access to our tool. So, what are you waiting for? Start better writing with the help of Grammar Checker by Desklib. </p>
-                        </div>
-                      </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <ul class="list-group sticky-top">
-                    <li class="list-group-item"><a href="#cardOne"> Avoid grammatical mistakes with the help of desklib grammar checker</a></li>
-                    <li class="list-group-item"><a href="#cardTwo"> Why use a grammar checker?</a></li>
-                    <li class="list-group-item"><a href="#cardThree"> Free grammar checker tool by Desklib</a></li>
-                    <li class="list-group-item"><a href="#cardFour"> Importance of grammar checker</a></li>
-                </ul>
-            </div>
-        </div>
-</div>
-</section>
 
-
-<!--<section class="bg-light pt-5 pb-5">-->
-<!--	<div class="container">-->
-<!--		<div class="row bg-light">-->
-<!--			<div class="col-sm-12 text-center">-->
-<!--				<h3>Join us and improve your grades.</h3>-->
-<!--				<h3>Get best deals</h3>-->
-<!--					<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="{% url 'subscription' %}">Join now</a>-->
-<!--			</div>-->
-<!--		</div>-->
-<!--	</div>-->
-<!--</section>-->
 <div class="loading show-loader">
     <div class="loader-container">
         <div class="loader"></div>
