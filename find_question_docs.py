@@ -1,3 +1,4 @@
+# exec(open("./find_question_docs.py").read())
 import csv
 from django.contrib.sites.models import Site
 
@@ -17,6 +18,7 @@ def check(doc):
             csvwriter.writerow(heading_row)
             for i in row:
                 csvwriter.writerow(i)
+                print(i)
 
             row.append(data_row)
 

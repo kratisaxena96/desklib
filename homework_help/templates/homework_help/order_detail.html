@@ -206,7 +206,7 @@
                             <div class="col-md-12 text-md-center">
                              {% if order.budget %}
                                 <p class=""><strong>You have to pay ${{order.budget}} to get answer</strong></p>
-                                <p>Expected solution delivery time is for {{order.expected_hours}} hour after your payment</p>
+                                {% if order.expected_hours %} <p>Expected solution delivery time is for {{order.expected_hours}} hour after your payment</p>{% endif %}
                              {% endif %}
                                 <input type="checkbox" name="checkbox" id="check-box" class="checkbox" required>
                                 <label class="d-inline" for="check-box" class="blue-theme">&nbsp;I agree to the <a href="{% url 'termsofuse' %}">terms & conditions</a>, <a href="{% url 'privacypolicy' %}"> privacy policy</a>, <a href="{% url 'academicintegrity' %}">Academic Integrity</a>, <a href="{% url 'honorcode' %}">Honor Code</a> and <a href="{% url 'copyright' %}">Copyright</a>

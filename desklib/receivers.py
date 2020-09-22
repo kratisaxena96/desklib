@@ -105,67 +105,103 @@ def show_me_the_money(sender, **kwargs):
                         doc = Document.objects.get(slug=doc_slug)
                     except:
                         pass
-                    plan = Plan.objects.get(key=plan_key)
-                    plan_days = plan.days
-                    payment_date = ipn_obj.payment_date
-                    expire_on = payment_date + timedelta(days=plan_days)
-                    user = UserAccount.objects.get(email=email)
-                    site_url = Site.objects.get_current().domain
-
-                    if plan.is_pay_per_download:
-                        contex = {'traction_id': ipn_obj.txn_id, 'currency': ipn_obj.mc_currency,
-                                  'amount': ipn_obj.payment_gross, 'payment_date': payment_date, 'expiry': expire_on,
-                                  'plan': plan.package_name, 'document_redirect': doc_slug, 'SITE_URL': site_url,}
-                        # pay_doc = PayPerDocument.objects.filter(user=user, start_date=payment_date,documents=doc, expire_on=expire_on)
-                        # if pay_doc :
-                        #     pay_doc.documents.add(doc)
-                        payperdoc = PayPerDocument.objects.create(user=user, plan=plan, expire_on=expire_on,
-                                                                  start_date=payment_date, is_current=True)
-                        payperdoc.documents.add(doc)
-                    else:
-                        contex = {'traction_id': ipn_obj.txn_id, 'currency': ipn_obj.mc_currency,
-                                  'amount': ipn_obj.payment_gross, 'payment_date': payment_date, 'expiry': expire_on,
-                                  'plan': plan.package_name, 'SITE_URL': site_url, }
-                        subscription = Subscription.objects.create(user=user, plan=plan, expire_on=expire_on,
-                                                                   author=user)
-
                     try:
+                        plan = Plan.objects.get(key=plan_key)
+                        plan_days = plan.days
+                        payment_date = ipn_obj.payment_date
+                        expire_on = payment_date + timedelta(days=plan_days)
+                        user = UserAccount.objects.get(email=email)
+                        site_url = Site.objects.get_current().domain
+                        amount = ipn_obj.mc_gross
 
-                        htmly = render_to_string('desklib/mail-templates/payment_success_email_template.html',
-                                                 context=contex, request=None)
-                        html_message = htmly
-                        mail = EmailMultiAlternatives(
-                            subject='Payment Success Confirmation From Desklib',
-                            to=[user.email],
-                            body=''
-                        )
-                        # mail = EmailMultiAlternatives(subject, message, from_email, recipient_list)
-                        mail.attach_alternative(html_message, 'text/html')
-                        mail.send(True)
-                        # mail.send(
-                        #     user.email,
-                        #     settings.DEFAULT_FROM_EMAIL,
-                        #     subject='Payment Success Confirmation From Desklib',
-                        #     # message=htmly,
-                        #     html_message=htmly,
-                        #     # attachments=attachments,
-                        #     priority='now'
-                        # )
+                        if amount == plan.price:
+                            if plan.is_pay_per_download:
+                                contex = {'traction_id': ipn_obj.txn_id, 'currency': ipn_obj.mc_currency,
+                                          'amount': ipn_obj.payment_gross, 'payment_date': payment_date,
+                                          'expiry': expire_on,
+                                          'plan': plan.package_name, 'document_redirect': doc_slug,
+                                          'SITE_URL': site_url, }
+                                # pay_doc = PayPerDocument.objects.filter(user=user, start_date=payment_date,documents=doc, expire_on=expire_on)
+                                # if pay_doc :
+                                #     pay_doc.documents.add(doc)
+                                payperdoc = PayPerDocument.objects.create(user=user, plan=plan, expire_on=expire_on,
+                                                                          start_date=payment_date, is_current=True)
+                                payperdoc.documents.add(doc)
+                            else:
+                                contex = {'traction_id': ipn_obj.txn_id, 'currency': ipn_obj.mc_currency,
+                                          'amount': ipn_obj.payment_gross, 'payment_date': payment_date,
+                                          'expiry': expire_on,
+                                          'plan': plan.package_name, 'SITE_URL': site_url, }
+                                subscription = Subscription.objects.create(user=user, plan=plan, expire_on=expire_on,
+                                                                           author=user)
+                            try:
 
-                    except Exception as e:
-                        print("Payment Success Email Sending failed", e)
-                    # if plan.is_pay_per_download:
-                    #     # pay_doc = PayPerDocument.objects.filter(user=user, start_date=payment_date,documents=doc, expire_on=expire_on)
-                    #     # if pay_doc :
-                    #     #     pay_doc.documents.add(doc)
-                    #     payperdoc = PayPerDocument.objects.create(user=user, plan=plan, expire_on=expire_on,
-                    #                                               start_date=payment_date, is_current=True)
-                    #     payperdoc.documents.add(doc)
-                    # else:
-                    #     subscription = Subscription.objects.create(user=user, plan=plan, expire_on=expire_on,
-                    #                                                author=user)
+                                htmly = render_to_string('desklib/mail-templates/payment_success_email_template.html',
+                                                         context=contex, request=None)
+                                html_message = htmly
+                                mail = EmailMultiAlternatives(
+                                    subject='Payment Success Confirmation From Desklib',
+                                    to=[user.email],
+                                    body=''
+                                )
+                                # mail = EmailMultiAlternatives(subject, message, from_email, recipient_list)
+                                mail.attach_alternative(html_message, 'text/html')
+                                mail.send()
+                                # mail.send(
+                                #     user.email,
+                                #     settings.DEFAULT_FROM_EMAIL,
+                                #     subject='Payment Success Confirmation From Desklib',
+                                #     # message=htmly,
+                                #     html_message=htmly,
+                                #     # attachments=attachments,
+                                #     priority='now'
+                                # )
+
+                            except Exception as e:
+                                print("Payment Success Email Sending failed", e)
+                            # if plan.is_pay_per_download:
+                            #     # pay_doc = PayPerDocument.objects.filter(user=user, start_date=payment_date,documents=doc, expire_on=expire_on)
+                            #     # if pay_doc :
+                            #     #     pay_doc.documents.add(doc)
+                            #     payperdoc = PayPerDocument.objects.create(user=user, plan=plan, expire_on=expire_on,
+                            #                                               start_date=payment_date, is_current=True)
+                            #     payperdoc.documents.add(doc)
+                            # else:
+                            #     subscription = Subscription.objects.create(user=user, plan=plan, expire_on=expire_on,
+                            #
+                        else:
+                            try:
+                                amount = ipn_obj.mc_gross
+                                locus_email = "kushagra.goel@locusrags.com"
+                                if not settings.DEBUG:
+                                    locus_email = "info@desklib.com"
+                                if amount != plan.price:
+                                    amount_remaining = plan.price - ipn_obj.mc_gross
+                                    html_message = "Plan Name: " + str(
+                                        plan) + "<br>Payment done by user: " + user.username + "<br>Amount Received: " + str(
+                                        amount) + "<br>AmountPending: " + str(
+                                        amount_remaining) + "<br>For Document: " + str(doc)
+                                    mail = EmailMultiAlternatives(
+                                        subject='Insufficient Amount received from Client',
+                                        # from_email=settings.DEFAULT_FROM_EMAIL,
+                                        to=[locus_email],
+                                        body=''
+                                    )
+                                    mail.attach_alternative(html_message, 'text/html')
+                                    mail.send(True)
+                                else:
+                                    pass
+                            except:
+                                pass
+                    except:
+                        pass
+
+
             else:
-                return
+                pass
+
+        else:
+            return
 
     else:
         print("Payment Failed")
