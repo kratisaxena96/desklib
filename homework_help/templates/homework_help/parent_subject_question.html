@@ -49,8 +49,8 @@
 </section>
 <section>
 	<div class="container">
-		<div class="row mb-4 mt-4 pb-2 border-bottom">
-			<div class="col-sm-7">
+		<div class="row mb-4 mt-4 pb-2">
+			<div class="col-sm-7 border-bottom">
 				{% if object.info_graphic_image %}
 				 <img src="{{ object.info_graphic_image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid width-50px h-auto">
 				 {% elif object.image %}
@@ -68,77 +68,145 @@
 	</div>
 </section>
 
-<section class="bg-light pt-5 pb-5">
- <div class="row justify-content-center">
-        <div class="col-md-8">
-            <h3 class="blue-theme py-2 font text-center">Ask Question</h3>
-<!--            <p class="pb-2 para text-dark">You can access millions of study documents homework solutions at our online library</p>-->
-            <div class="bs-example border-radius-12 col-md-12 mb-2">
-    <ul class="nav nav-tabs border-topradius" id="myTab" style="background-color:white">
-        <li class="nav-item" style="position:relative; width:50%">
-            <a href="#study-resource" class="nav-link text-center border-radius-topr p-3"  data-toggle="tab"> <i class="fa fa-search"></i><br> Find a Solution</a>
-        </li>
-        <li class="nav-item" style="position:relative; width:50%">
-            <a href="#Homework-help" class="nav-link text-center border-radius-topl p-3"  data-toggle="tab"><i class="fa fa-home"></i><br>Ask a Question</a>
-        </li>
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane fade" id="study-resource">
-            <div class="bg-white bottom-radius">
-<!--             <div class="row">-->
-<!--                 <div class="col-md-12 pr-0" >-->
-                   <form action="{% url 'study:search-results' %}">
-                    <div id="remote" class="form-input-group">
-                      <input class=" form-control form-control-lg  border-radius-12 typeahead search-bar-border-none " type="text" style="font-size:0.99rem;height:60px;margin-top:3px" placeholder="Search for assignment samples and resources" name="q">
-                        <div class="input-group-append">
-                            <button class="btn btn-lg button-border search-bg-body" type="submit"><i class="fa fa-search rounded-circle search-icon"></i></button>
-                        </div>
-                    </div>
-                </form>
-<!--             </div></div>-->
-            </div>
-        </div>
-        <div class="tab-pane fade" id="Homework-help">
-	<div class="bg-white bottom-radius p-3">
-		<div class="row">
-			<div class="col-md-12 pr-4 pl-4 pb-1">
-                <h6 class="text-center pt-2"><strong>Ask your Question here</strong></h6>
+<section class="bg-light-grey">
+	<div class="container pt-5 pb-5">
+		<div class="row justify-content-center">
+			<div class="col-md-12">
+				<h1 class="text-center">Ask Question</h1>
+			</div>
+		</div>
+		<div class="row justify-content-center">
+			<div class="col-md-9">
 				<form method="post" id="question-form" enctype="multipart/form-data">
 					 {% csrf_token %}
 					<div class="row mt-4">
 						<div class="col-md-12">
-							<div class="form-group bordr">
+							<div class="form-group">
 							{{form.question}}
                 			</div>
 						</div>
 					</div>
 					<div class="row mt-2">
             			<div class="col-md-6">
-							<strong>Upload&nbsp;{{form.file.label}}</strong>
+							<label class=""><strong>Upload&nbsp;{{form.file.label}}</strong></label>
 							<div class="form-group">
-								<span class="btn btn-bg-theme white border-radius-20 px-4 fileinput-button d-block mt-2">
+								<span class="btn btn-bg-theme white border-radius-20 px-4 fileinput-button d-block">
 								  <i class="fa fa-plus"></i>
 								  <span>Add files...</span>
-                                   {{form.file}}
+									{{form.file}}
 								</span>
 							</div>
 							<ul id="selected-files" class="list-unstyled">
-                                <li class="">
+								<li class="">
 									<span class="error-msg text-danger d-block"></span>
 									<span class="error text-danger d-block"></span>
 								</li>
-                            </ul>
-                            <p id="done">{{count}}</p>
+							</ul>
+							{% comment %}
+<!--								<div id="progress">-->
+<!--    								<div class="bar" style="width: 0%;"></div>-->
+<!--					  			</div>-->
+<!--									<span class="reference_files"></span>-->
+							{% endcomment %}
 						</div>
-
 						<div class="col-md-6">
 							<label class=""><strong>Select Your&nbsp;{{form.subjects.label}}</strong></label>
 							<div class="form-group">
-								<select class="form-control" name="subjects">
-                     		<option value="{{ parent_subject }}" selected>{{ parent_subject }}</option>
-								</select>
+                     		{{form.subjects}}
 							</div>
 						</div>
+					</div>
+					{% comment %}
+<!--					<div class="row">-->
+<!--						<div class="col-sm-6">-->
+<!--							<span class="error-msg text-danger"></span>-->
+<!--						</div>-->
+<!--					</div>-->
+					{% endcomment %}
+    					<div class="row mt-3">
+							<div class="col-md-6">
+                     			<input id="submit-button" type="submit" value="Get Answer" class="btn btn-bg-theme white border-radius-20 px-4">
+							</div>
+						</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+<section>
+
+
+<!--<section class="bg-light pt-5 pb-5">-->
+<!-- <div class="row justify-content-center">-->
+<!--        <div class="col-md-8">-->
+<!--            <h3 class="blue-theme py-2 font text-center">Ask Question</h3>-->
+<!--&lt;!&ndash;            <p class="pb-2 para text-dark">You can access millions of study documents homework solutions at our online library</p>&ndash;&gt;-->
+<!--            <div class="bs-example border-radius-12 col-md-12 mb-2">-->
+<!--    <ul class="nav nav-tabs border-topradius" id="myTab" style="background-color:white">-->
+<!--        <li class="nav-item" style="position:relative; width:50%">-->
+<!--            <a href="#study-resource" class="nav-link text-center border-radius-topr p-3"  data-toggle="tab"> <i class="fa fa-search"></i><br> Find a Solution</a>-->
+<!--        </li>-->
+<!--        <li class="nav-item" style="position:relative; width:50%">-->
+<!--            <a href="#Homework-help" class="nav-link text-center border-radius-topl p-3"  data-toggle="tab"><i class="fa fa-home"></i><br>Ask a Question</a>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--    <div class="tab-content">-->
+<!--        <div class="tab-pane fade" id="study-resource">-->
+<!--            <div class="bg-white bottom-radius">-->
+<!--&lt;!&ndash;             <div class="row">&ndash;&gt;-->
+<!--&lt;!&ndash;                 <div class="col-md-12 pr-0" >&ndash;&gt;-->
+<!--                   <form action="{% url 'study:search-results' %}">-->
+<!--                    <div id="remote" class="form-input-group">-->
+<!--                      <input class=" form-control form-control-lg  border-radius-12 typeahead search-bar-border-none " type="text" style="font-size:0.99rem;height:60px;margin-top:3px" placeholder="Search for assignment samples and resources" name="q">-->
+<!--                        <div class="input-group-append">-->
+<!--                            <button class="btn btn-lg button-border search-bg-body" type="submit"><i class="fa fa-search rounded-circle search-icon"></i></button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--&lt;!&ndash;             </div></div>&ndash;&gt;-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="tab-pane fade" id="Homework-help">-->
+<!--	<div class="bg-white bottom-radius p-3">-->
+<!--		<div class="row">-->
+<!--			<div class="col-md-12 pr-4 pl-4 pb-1">-->
+<!--                <h6 class="text-center pt-2"><strong>Ask your Question here</strong></h6>-->
+<!--				<form method="post" id="question-form" enctype="multipart/form-data">-->
+<!--					 {% csrf_token %}-->
+<!--					<div class="row mt-4">-->
+<!--						<div class="col-md-12">-->
+<!--							<div class="form-group bordr">-->
+<!--							{{form.question}}-->
+<!--                			</div>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div class="row mt-2">-->
+<!--            			<div class="col-md-6">-->
+<!--							<strong>Upload&nbsp;{{form.file.label}}</strong>-->
+<!--							<div class="form-group">-->
+<!--								<span class="btn btn-bg-theme white border-radius-20 px-4 fileinput-button d-block mt-2">-->
+<!--								  <i class="fa fa-plus"></i>-->
+<!--								  <span>Add files...</span>-->
+<!--                                   {{form.file}}-->
+<!--								</span>-->
+<!--							</div>-->
+<!--							<ul id="selected-files" class="list-unstyled">-->
+<!--                                <li class="">-->
+<!--									<span class="error-msg text-danger d-block"></span>-->
+<!--									<span class="error text-danger d-block"></span>-->
+<!--								</li>-->
+<!--                            </ul>-->
+<!--                            <p id="done">{{count}}</p>-->
+<!--						</div>-->
+
+<!--&lt;!&ndash;						<div class="col-md-6">&ndash;&gt;-->
+<!--&lt;!&ndash;							<label class=""><strong>Select Your&nbsp;{{form.subjects.label}}</strong></label>&ndash;&gt;-->
+<!--&lt;!&ndash;							<div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;								<select class="form-control" name="subjects">&ndash;&gt;-->
+<!--&lt;!&ndash;                     		<option value="{{ parent_subject }}" selected>{{ parent_subject }}</option>&ndash;&gt;-->
+<!--&lt;!&ndash;								</select>&ndash;&gt;-->
+<!--&lt;!&ndash;							</div>&ndash;&gt;-->
+<!--&lt;!&ndash;						</div>&ndash;&gt;-->
 
 
 <!--						<div class="col-md-6">-->
@@ -147,45 +215,45 @@
 <!--                     		{{form.subjects}}-->
 <!--							</div>-->
 <!--						</div>-->
-					</div>
-					<div class="row">
-						<div class="col-sm-6">
-							<span class="error-msg text-danger"></span>
-						</div>
-					</div>
-    					<div class="row mt-3 mb-3">
-							<div class="col-md-6">
-                     			<input type="submit" value="Get Answer" class="btn btn-bg-theme white border-radius-20 px-4">
-							</div>
-						</div>
-				</form>
-			</div>
-        </div>
-	</div>
-        </div>
+<!--					</div>-->
+<!--					<div class="row">-->
+<!--						<div class="col-sm-6">-->
+<!--							<span class="error-msg text-danger"></span>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--    					<div class="row mt-3 mb-3">-->
+<!--							<div class="col-md-6">-->
+<!--                     			<input type="submit" value="Get Answer" class="btn btn-bg-theme white border-radius-20 px-4">-->
+<!--							</div>-->
+<!--						</div>-->
+<!--				</form>-->
+<!--			</div>-->
+<!--        </div>-->
+<!--	</div>-->
+<!--        </div>-->
 
 
 
-    </div>
-</div>
-        </div></div>
+<!--    </div>-->
+<!--</div>-->
+<!--        </div></div>-->
 
 
 
 {% if question %}
-<section>
-	<div class="container pt-5 pb-4">
-				<h4>Looking For Previous Answer?</h4>
-				 <form class="" action="{% url 'homework_help:search-question' %}">
-					 <div class="form-group d-flex mt-4">
-                     <div id="question" class="input-group width-100per" style="width:30%;">
-                      	 <input class=" form-control form-control-lg shadow border-radius-30 typeahead search-bar-border-none" type="text" placeholder="Search Your Question" name="q">
-                         	<div class="input-group-append">
-                            	<button class="btn btn-lg rounded-circle search-bg-body" type="submit"><i class="fa fa-search rounded-circle search-icon"></i></button>
-                        	</div>
-                    	</div>
-						 </div>
-				 </form>
+<section class="bg-light pt-4">
+	<div class="container pt-3 pb-4">
+<!--				<h4>Looking For Previous Answer?</h4>-->
+<!--				 <form class="" action="{% url 'homework_help:search-question' %}">-->
+<!--					 <div class="form-group d-flex mt-4">-->
+<!--                     <div id="question" class="input-group width-100per" style="width:30%;">-->
+<!--                      	 <input class=" form-control form-control-lg shadow border-radius-30 typeahead search-bar-border-none" type="text" placeholder="Search Your Question" name="q">-->
+<!--                         	<div class="input-group-append">-->
+<!--                            	<button class="btn btn-lg rounded-circle search-bg-body" type="submit"><i class="fa fa-search rounded-circle search-icon"></i></button>-->
+<!--                        	</div>-->
+<!--                    	</div>-->
+<!--						 </div>-->
+<!--				 </form>-->
 
 		<h2 class="text-center">Recently Asked Questions</h2>
 		<div class="row mt-4">
@@ -224,6 +292,7 @@
 </section>
 {% endif %}
 
+	{% if question|length > 10 %}
 <section>
 	<div class="container">
 		<div class="row mb-5">
@@ -236,6 +305,7 @@
 		</div>
 	</div>
 </section>
+	{% endif %}
 
 <!--	<div class="container">-->
 <!--		<div class="row mb-5">-->
@@ -248,9 +318,12 @@
 <!--			</div>-->
 <!--		</div>-->
 <!--	</div>-->
-	<section class="pb-5">
+	<section class="pb-5 pt-4">
     <div class="container">
         <div class="row">
+			  <div class="col-sm-12">
+			<h2 class="text-center pt-4 pb-4">{{object.name}} Homework Help</h2>
+			  </div>
             <div class="col-sm-8">
                 <div id="accordion">
 					 {% for object in subject %}
@@ -269,7 +342,7 @@
 					{% endfor %}
                 </div>
             </div>
-            <div class="col-sm-4">
+			 <div class="col-sm-4">
                 <ul class="list-group sticky-top">
 					 {% for object in subject %}
                     <li class="list-group-item">
@@ -280,6 +353,17 @@
 					{% endfor %}
                 </ul>
             </div>
+<!--            <div class="col-sm-4">-->
+<!--                <ul class="list-group sticky-top">-->
+<!--					 {% for object in subject %}-->
+<!--                    <li class="list-group-item">-->
+<!--						<a href="#cardOne{{ forloop.counter }}">-->
+<!--							{{object.title}}-->
+<!--					</a>-->
+<!--					</li>-->
+<!--					{% endfor %}-->
+<!--                </ul>-->
+<!--            </div>-->
         </div>
 </div>
 </section>
