@@ -295,6 +295,7 @@ class Document(ModelMeta, models.Model):
         permissions = [
             ("change_document_author", "Staff Can Assign Document Author"),
             ("document_download_from_admin", "Document Download From Admin"),
+            ("search_in_description", "Search in Description"),
         ]
 
     def __str__(self):

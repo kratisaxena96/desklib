@@ -8,7 +8,7 @@ class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True, template_name="search/book_text.txt")
     title = indexes.CharField(model_attr='title')
     description = indexes.CharField(model_attr='description')
-    # content = indexes.CharField(model_attr='content')
+    content = indexes.CharField(model_attr='content')
     summary = indexes.CharField(model_attr='summary')
     content_auto = indexes.EdgeNgramField(model_attr='title')
     slug = indexes.CharField(model_attr='slug')
@@ -20,13 +20,14 @@ class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
     subjects = indexes.MultiValueField(faceted=True)
     views = indexes.CharField(model_attr='views')
     p_subject = indexes.MultiValueField(faceted=True)
+    file_name = indexes.CharField(model_attr='upload_file')
 
     def get_model(self):
         return Document
 
-    # def prepare_content(self, obj):
-    #     content = ' '.join(map(str, obj.content.split()[:500]))
-    #     return content
+    def prepare_content(self, obj):
+        content = ' '.join(map(str, obj.content.split()[:200]))
+        return content
 
     def prepare_subjects(self, obj):
         return [(t.slug) for t in obj.subjects.all()]

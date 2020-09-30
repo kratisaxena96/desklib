@@ -290,8 +290,10 @@ class DocumentAdmin(admin.ModelAdmin):
 
         return super(DocumentAdmin, self).get_form(request, obj, **kwargs)
 
+
 class ReportAdmin(admin.ModelAdmin):
     raw_id_fields = ('issue','author','document')
+
 
 class IssueAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
