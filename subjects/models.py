@@ -26,6 +26,7 @@ class Subject(ModelMeta, models.Model):
     # keywords = models.CharField(_('Keywords'), max_length=1000, blank=True, null=True,)
     parent_subject = models.ForeignKey("self", blank=True, null=True, on_delete=models.CASCADE, verbose_name="Parent Subject")
     description = models.TextField(_('Description'), max_length=2000, blank=True, null=True, )
+    parent_question_description = models.TextField(_('Parent Question description'), null=True, blank=True)
     # author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete='PROTECT', related_name='author_document')
     keywords = TaggableManager(blank=True)
 
@@ -97,11 +98,23 @@ class SubjectContent(models.Model):
     slug = models.SlugField(_('Slug'), unique=True)
     description = RichTextUploadingField(_('Description'))
 
-
-
     class Meta:
         verbose_name = _('subject content')
         verbose_name_plural = _('subject content')
+
+    def __str__(self):
+        return self.title
+
+
+class SubjectQuestionContent(models.Model):
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='subject_question_content')
+    title = models.CharField(_('Title'), max_length=500)
+    slug = models.SlugField(_('Slug'), unique=True)
+    description = RichTextUploadingField(_('Description'))
+
+    class Meta:
+        verbose_name = _('subject question content')
+        verbose_name_plural = _('subject question content')
 
     def __str__(self):
         return self.title

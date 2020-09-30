@@ -1,0 +1,603 @@
+{% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% load meta %}
+{% block extra_css %}
+<style>
+.bar {
+   height: 18px;
+   background: green;
+}
+// add dropzone
+#dropzone {
+    background: palegreen;
+    width: 150px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-weight: bold;
+}
+#dropzone.in {
+	width : 600px;
+	height : 200px;
+	line-height : 200px;
+	font-size : larger;
+}
+#dropzone.hover {
+	background : lawngreen;
+	border : #405FBD dashed 3px;
+}
+#dropzone.fade {
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    opacity: 1;
+}
+</style>
+{% endblock extra_css %}
+{% block content %}
+
+<section>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'subjects:subjects'%}">Subjects</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{object.name}}</li>
+  </ol>
+</nav>
+</section>
+<section>
+	<div class="container">
+		<div class="row mb-4 mt-4 pb-2">
+			<div class="col-sm-7 border-bottom">
+				{% if object.info_graphic_image %}
+				 <img src="{{ object.info_graphic_image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid width-50px h-auto">
+				 {% elif object.image %}
+				 <img src="{{ object.image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid width-50px h-auto">
+				 {% endif %}
+				<h1 class="d-inline ml-md-2">{{object.name}}</h1>
+				</div>
+			<div class="col-sm-12">
+               {% if object.parent_question_description %}
+                <p class="pt-2">{{object.parent_question_description}}</p>
+                {% endif %}
+			</div>
+			<div class="col-sm-5"></div>
+		</div>
+	</div>
+</section>
+
+<section class="bg-light-grey">
+	<div class="container pt-5 pb-5">
+		<div class="row justify-content-center">
+			<div class="col-md-12">
+				<h1 class="text-center">Ask Question</h1>
+			</div>
+		</div>
+		<div class="row justify-content-center">
+			<div class="col-md-9">
+				<form method="post" id="question-form" enctype="multipart/form-data">
+					 {% csrf_token %}
+					<div class="row mt-4">
+						<div class="col-md-12">
+							<div class="form-group">
+							{{form.question}}
+                			</div>
+						</div>
+					</div>
+					<div class="row mt-2">
+            			<div class="col-md-6">
+							<label class=""><strong>Upload&nbsp;{{form.file.label}}</strong></label>
+							<div class="form-group">
+								<span class="btn btn-bg-theme white border-radius-20 px-4 fileinput-button d-block">
+								  <i class="fa fa-plus"></i>
+								  <span>Add files...</span>
+									{{form.file}}
+								</span>
+							</div>
+							<ul id="selected-files" class="list-unstyled">
+								<li class="">
+									<span class="error-msg text-danger d-block"></span>
+									<span class="error text-danger d-block"></span>
+								</li>
+							</ul>
+							{% comment %}
+<!--								<div id="progress">-->
+<!--    								<div class="bar" style="width: 0%;"></div>-->
+<!--					  			</div>-->
+<!--									<span class="reference_files"></span>-->
+							{% endcomment %}
+						</div>
+						<div class="col-md-6">
+							<label class=""><strong>Select Your&nbsp;{{form.subjects.label}}</strong></label>
+							<div class="form-group">
+                     		{{form.subjects}}
+							</div>
+						</div>
+					</div>
+					{% comment %}
+<!--					<div class="row">-->
+<!--						<div class="col-sm-6">-->
+<!--							<span class="error-msg text-danger"></span>-->
+<!--						</div>-->
+<!--					</div>-->
+					{% endcomment %}
+    					<div class="row mt-3">
+							<div class="col-md-6">
+                     			<input id="submit-button" type="submit" value="Get Answer" class="btn btn-bg-theme white border-radius-20 px-4">
+							</div>
+						</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+<section>
+
+
+<!--<section class="bg-light pt-5 pb-5">-->
+<!-- <div class="row justify-content-center">-->
+<!--        <div class="col-md-8">-->
+<!--            <h3 class="blue-theme py-2 font text-center">Ask Question</h3>-->
+<!--&lt;!&ndash;            <p class="pb-2 para text-dark">You can access millions of study documents homework solutions at our online library</p>&ndash;&gt;-->
+<!--            <div class="bs-example border-radius-12 col-md-12 mb-2">-->
+<!--    <ul class="nav nav-tabs border-topradius" id="myTab" style="background-color:white">-->
+<!--        <li class="nav-item" style="position:relative; width:50%">-->
+<!--            <a href="#study-resource" class="nav-link text-center border-radius-topr p-3"  data-toggle="tab"> <i class="fa fa-search"></i><br> Find a Solution</a>-->
+<!--        </li>-->
+<!--        <li class="nav-item" style="position:relative; width:50%">-->
+<!--            <a href="#Homework-help" class="nav-link text-center border-radius-topl p-3"  data-toggle="tab"><i class="fa fa-home"></i><br>Ask a Question</a>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--    <div class="tab-content">-->
+<!--        <div class="tab-pane fade" id="study-resource">-->
+<!--            <div class="bg-white bottom-radius">-->
+<!--&lt;!&ndash;             <div class="row">&ndash;&gt;-->
+<!--&lt;!&ndash;                 <div class="col-md-12 pr-0" >&ndash;&gt;-->
+<!--                   <form action="{% url 'study:search-results' %}">-->
+<!--                    <div id="remote" class="form-input-group">-->
+<!--                      <input class=" form-control form-control-lg  border-radius-12 typeahead search-bar-border-none " type="text" style="font-size:0.99rem;height:60px;margin-top:3px" placeholder="Search for assignment samples and resources" name="q">-->
+<!--                        <div class="input-group-append">-->
+<!--                            <button class="btn btn-lg button-border search-bg-body" type="submit"><i class="fa fa-search rounded-circle search-icon"></i></button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--&lt;!&ndash;             </div></div>&ndash;&gt;-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="tab-pane fade" id="Homework-help">-->
+<!--	<div class="bg-white bottom-radius p-3">-->
+<!--		<div class="row">-->
+<!--			<div class="col-md-12 pr-4 pl-4 pb-1">-->
+<!--                <h6 class="text-center pt-2"><strong>Ask your Question here</strong></h6>-->
+<!--				<form method="post" id="question-form" enctype="multipart/form-data">-->
+<!--					 {% csrf_token %}-->
+<!--					<div class="row mt-4">-->
+<!--						<div class="col-md-12">-->
+<!--							<div class="form-group bordr">-->
+<!--							{{form.question}}-->
+<!--                			</div>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div class="row mt-2">-->
+<!--            			<div class="col-md-6">-->
+<!--							<strong>Upload&nbsp;{{form.file.label}}</strong>-->
+<!--							<div class="form-group">-->
+<!--								<span class="btn btn-bg-theme white border-radius-20 px-4 fileinput-button d-block mt-2">-->
+<!--								  <i class="fa fa-plus"></i>-->
+<!--								  <span>Add files...</span>-->
+<!--                                   {{form.file}}-->
+<!--								</span>-->
+<!--							</div>-->
+<!--							<ul id="selected-files" class="list-unstyled">-->
+<!--                                <li class="">-->
+<!--									<span class="error-msg text-danger d-block"></span>-->
+<!--									<span class="error text-danger d-block"></span>-->
+<!--								</li>-->
+<!--                            </ul>-->
+<!--                            <p id="done">{{count}}</p>-->
+<!--						</div>-->
+
+<!--&lt;!&ndash;						<div class="col-md-6">&ndash;&gt;-->
+<!--&lt;!&ndash;							<label class=""><strong>Select Your&nbsp;{{form.subjects.label}}</strong></label>&ndash;&gt;-->
+<!--&lt;!&ndash;							<div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;								<select class="form-control" name="subjects">&ndash;&gt;-->
+<!--&lt;!&ndash;                     		<option value="{{ parent_subject }}" selected>{{ parent_subject }}</option>&ndash;&gt;-->
+<!--&lt;!&ndash;								</select>&ndash;&gt;-->
+<!--&lt;!&ndash;							</div>&ndash;&gt;-->
+<!--&lt;!&ndash;						</div>&ndash;&gt;-->
+
+
+<!--						<div class="col-md-6">-->
+<!--							<label class=""><strong>Select Your&nbsp;{{form.subjects.label}}</strong></label>-->
+<!--							<div class="form-group">-->
+<!--                     		{{form.subjects}}-->
+<!--							</div>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div class="row">-->
+<!--						<div class="col-sm-6">-->
+<!--							<span class="error-msg text-danger"></span>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--    					<div class="row mt-3 mb-3">-->
+<!--							<div class="col-md-6">-->
+<!--                     			<input type="submit" value="Get Answer" class="btn btn-bg-theme white border-radius-20 px-4">-->
+<!--							</div>-->
+<!--						</div>-->
+<!--				</form>-->
+<!--			</div>-->
+<!--        </div>-->
+<!--	</div>-->
+<!--        </div>-->
+
+
+
+<!--    </div>-->
+<!--</div>-->
+<!--        </div></div>-->
+
+
+
+{% if question %}
+<section class="bg-light pt-4">
+	<div class="container pt-3 pb-4">
+<!--				<h4>Looking For Previous Answer?</h4>-->
+<!--				 <form class="" action="{% url 'homework_help:search-question' %}">-->
+<!--					 <div class="form-group d-flex mt-4">-->
+<!--                     <div id="question" class="input-group width-100per" style="width:30%;">-->
+<!--                      	 <input class=" form-control form-control-lg shadow border-radius-30 typeahead search-bar-border-none" type="text" placeholder="Search Your Question" name="q">-->
+<!--                         	<div class="input-group-append">-->
+<!--                            	<button class="btn btn-lg rounded-circle search-bg-body" type="submit"><i class="fa fa-search rounded-circle search-icon"></i></button>-->
+<!--                        	</div>-->
+<!--                    	</div>-->
+<!--						 </div>-->
+<!--				 </form>-->
+
+		<h2 class="text-center">Recently Asked Questions</h2>
+		<div class="row mt-4">
+			{% for object in question %}
+			<div class="col-sm-12 mb-4">
+				<a href="{% url 'homework_help:question-detail-view' object.slug %}" class="text-decoration-none h-100">
+					<div class="card question-search-hover">
+						<div class="card-body text-left">
+							<div class="d-flex">
+                    			<div class="d-inline-block">
+                        			<div class="black-font">
+										<strong>Q:</strong>
+                        			</div>
+                    			</div>
+                    			<div class="d-inline-block ml-2 black-font">
+                        			<span>{{object.question|truncatechars:200}}</span>
+                    			</div>
+                 			</div>
+							<div class="d-flex mt-2">
+								<div class="d-inline-block">
+									<div class="black-font">
+										<strong>A:</strong>
+                        			</div>
+								</div>
+								<div class="d-inline-block ml-2 black-font">
+									<a href="{% url 'homework_help:question-detail-view' object.slug %}" class="">Get Answer</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		{% endfor %}
+		</div>
+	</div>
+</section>
+{% endif %}
+
+	{% if question|length > 10 %}
+<section>
+	<div class="container">
+		<div class="row mb-5">
+			<div class="col-sm-12 text-center">
+				{% if question %}
+				<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="{% url 'homework_help:search-question' %}?q={{object.slug}} ">View More</a>
+				{% else %}
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</section>
+	{% endif %}
+
+<!--	<div class="container">-->
+<!--		<div class="row mb-5">-->
+<!--			<div class="col-sm-12 text-center">-->
+<!--				{% if recent %}-->
+<!--				<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="{% url 'study:search-results' %}?q=&amp;selected_facets=subjects_exact:{{object.slug}}">View More</a>-->
+<!--				{% elif top_results %}-->
+<!--				<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="{% url 'study:search-results' %}?q=&amp;selected_facets=subjects_exact:{{object.slug}}">View More</a>-->
+<!--				{% endif %}-->
+<!--			</div>-->
+<!--		</div>-->
+<!--	</div>-->
+	<section class="pb-5 pt-4">
+    <div class="container">
+        <div class="row">
+			  <div class="col-sm-12">
+			<h2 class="text-center pt-4 pb-4">{{object.name}} Homework Help</h2>
+			  </div>
+            <div class="col-sm-8">
+                <div id="accordion">
+					 {% for object in subject %}
+                    <div id="cardOne{{ forloop.counter }}" class="card">
+                      <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" href="#collapseOne{{ forloop.counter }}">
+                          {{object.title}}
+                        </a>
+                      </div>
+                      <div id="collapseOne{{ forloop.counter }}" class="collapse show">
+                        <div class="card-body">
+                            <p>{{object.description|safe}}
+                        </div>
+                      </div>
+                    </div>
+					{% endfor %}
+                </div>
+            </div>
+			 <div class="col-sm-4">
+                <ul class="list-group sticky-top">
+					 {% for object in subject %}
+                    <li class="list-group-item">
+						<a href="#cardOne{{ forloop.counter }}">
+							{{object.title}}
+					</a>
+					</li>
+					{% endfor %}
+                </ul>
+            </div>
+<!--            <div class="col-sm-4">-->
+<!--                <ul class="list-group sticky-top">-->
+<!--					 {% for object in subject %}-->
+<!--                    <li class="list-group-item">-->
+<!--						<a href="#cardOne{{ forloop.counter }}">-->
+<!--							{{object.title}}-->
+<!--					</a>-->
+<!--					</li>-->
+<!--					{% endfor %}-->
+<!--                </ul>-->
+<!--            </div>-->
+        </div>
+</div>
+</section>
+
+
+<div class="loading show-loader">
+    <div class="loader-container">
+        <div class="loader"></div>
+    </div>
+</div>
+
+{% comment %}
+{{document}}
+child subject page
+{{object.name}}
+{{document}}
+{% endcomment %}
+
+{% endblock %}
+{% block extra_js %}
+<script src='{% static "src/js/jquery.ui.widget.js" %}'></script>
+<script src='{% static "src/js/jquery.fileupload.js" %}' ></script>
+
+<script>
+
+$(document).ready(function (){
+	$('#question-form').submit(function() {
+    	$('.show-loader').show();
+	});
+});
+$(function () {
+
+var k = 1
+var txt = "";
+var num = +$('#fileupload').attr("data-num");
+    $('#fileupload').fileupload({
+        url: '{% url 'api:homework-help-api:question-file-create-api' %}',
+        dataType: 'json',
+        dropZone: $('#dropzone'),
+
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('<p><p/>').text(file.name).appendTo(document.body);
+                $('form').append("<input type='hidden' value='" + data.unique_id + "' name='unique_id' >");
+            });
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progress .bar').css('width',progress + '%');
+        }
+
+}).on('fileuploaddone', function (e, data) {
+	var ul = $('#selected-files');
+	var p = $('#done');
+	var selectedFiles = $('<li class="d-inline-block w-50 text-truncate"><p class="d-inline"></p></li><div class="d-inline-block w-50" id="progress"><div class="bar"></div></div>');
+	selectedFiles.find('p').text(data.files[0].name);
+	if (num == 1){
+	  txt += selectedFiles.appendTo(p);
+	}
+	else {
+	  txt = "Total files upload: " + num;
+	  document.getElementById("done").innerHTML = txt;
+	}
+  //
+	//data.context = selectedFiles;
+	$('.show-loader').hide();
+//	data.submit();
+
+ }).on('fileuploadfail', function (e, data) {
+	var fileTypeAllowed = /.\.(gif|jpg|png|jpeg)$/i;
+	  var fileName = data.originalFiles[0]['name'];
+	  var status = 500;
+  		 if (!fileTypeAllowed.test(fileName))
+  			$('#selected-files span.error-msg').html('File extension '+ fileName +' is not allowed. Allowed extensions are: png, jpg, jpeg, gif');
+
+			 else if (status)
+			   $('#selected-files span.error').html('Your file has not uploaded, Please upload another file');
+		//		console.log("Your file has not uploaded, Please upload another file");
+			  $(".show-loader").hide();
+
+}).on('fileuploadstart', function (e, data) {
+ jQuery(".show-loader").show();
+
+    }).on('fileuploaddone', function (e, data) {
+			//alert(data);
+			//uploadBtn.button('reset');
+		//	var xhr = data.response().jqXHR;
+		//	var response = xhr.responseJSON;
+		//	var key = response.key;
+		console.log(data);
+                $('form').append("<input type='hidden' value='" + data.result.unique_id + "' name='unique_id' >");
+        console.log(num);
+            num = num + 1;
+            console.log(num);
+               $('#fileupload').attr('data-num', num);
+
+
+		}).on('fileuploadfail', function (e, data) {
+			//alert(data);
+
+			$(".loader-background").hide();
+			//uploadBtn.button('reset');
+			var xhr = data.response().jqXHR;
+			var response = xhr.responseJSON;
+			console.log(response);
+			// Begin for loop here
+			for (var key in response) {
+				console.log(key, response[key][0]);
+				$('.' + key).addClass('has-error');
+				$('span.' + key).text(response[key][0]);
+			}});
+});
+
+$(document).bind('dragover', function (e) {
+    var dropZone = $('#dropzone'),
+        timeout = window.dropZoneTimeout;
+    if (timeout) {
+        clearTimeout(timeout);
+    } else {
+        dropZone.addClass('in');
+    }
+    var hoveredDropZone = $(e.target).closest(dropZone);
+    dropZone.toggleClass('hover', hoveredDropZone.length);
+    window.dropZoneTimeout = setTimeout(function () {
+        window.dropZoneTimeout = null;
+        dropZone.removeClass('in hover');
+    }, 100);
+});
+
+$(document).bind('drop dragover', function (e) {
+    e.preventDefault();
+});
+
+
+    $("#question-form").submit(function(e) {
+        e.preventDefault();
+        $("span.has-error").empty();
+
+        var data = $("#question-form").serializeArray();
+
+
+         //       if(data['message'] && data['reference_files']){
+         //       $(".comments").append('<div class="current"></div>');
+         //       $(".current").text( data['message'] + ' ' + data['reference_files'] )
+         //         }
+         //       else if(data['message']){
+         //       $(".comments").append('<div class="current"></div>');
+         //       $(".current").text( data['message'] )
+         //         }
+         //         else if(data['reference_files']){
+         //       $(".comments").append('<div class="current"></div>');
+         //       $(".current").text( data['reference_files'] )
+         //         }
+
+
+
+
+
+        var myForm = document.getElementById('question-form');
+       data = new FormData(myForm);
+       var d = data.unique_id
+
+
+        $("div.error_file").text("");
+
+                $(".enquiry-form-popup").hide();
+                $(".form-icon-plane").hide();
+                $(".form-loader").show();
+
+        $.ajax({
+            type : "POST",
+            url : '{% url 'api:homework-help-api:question-create-api' %}',
+            enctype: 'multipart/form-data',
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function(data){
+
+
+                if(data['message'] && data['reference_files']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] + ' ' + data['reference_files'] )
+                  }
+                else if(data['message']){
+//                $(".comments").append("<code>" + data['message'] + "</code><br>");
+
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] )
+                  }
+                  else if(data['reference_files']){
+//                    $(".comments").append( data['reference_files'] + "<br>");
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['reference_files'] )
+                  }
+
+
+                document.getElementById("question-form").reset();
+                window.location.replace( "/homework-help/order-create/" + data.uid) ;
+            },
+            error: function(data){
+
+            var response = data.responseJSON;
+            for (key in response) {
+              $("#comment-form ."+key).addClass("has-error");
+              $("#comment-form span." + key).text(response[key][0]);
+            }
+
+            }
+        });
+    });
+
+
+$('.homework-help-carousel').owlCarousel({
+	items: 1,
+	loop: true,
+	autoplay: true,
+	margin: 10,
+	nav: true,
+	dots: false,
+	 navText: [
+        '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+        '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+    ],navContainer: '#main0 .custom-nav',
+
+});
+
+$(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+});
+</script>
+
+<script>
+     $(document).ready(function(){
+        $("#myTab a:first").tab('show'); // show first tab on page load
+    });
+</script>
+{% endblock extra_js %}

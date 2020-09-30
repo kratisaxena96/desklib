@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from subjects.models import Subject, SubjectContent
+from subjects.models import Subject, SubjectContent, SubjectQuestionContent
 from django import forms
 
 
@@ -20,16 +20,29 @@ class SubjectContentAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title', )}
 
 
+class SubjectQuestionContentInlineAdmin(admin.TabularInline):
+    model = SubjectQuestionContent
+    prepopulated_fields = {'slug': ('title', )}
+
+
+class SubjectQuestionContentAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('title', )}
+
+
 class SubjectAdmin(admin.ModelAdmin):
     # form = SubjectModelForm
     search_fields = ['title', 'description']
     list_display = ('name', 'tag_list')
     search_fields = ['name', 'description']
-    inlines = [SubjectContentInlineAdmin, ]
+    inlines = [SubjectContentInlineAdmin, SubjectQuestionContentInlineAdmin, ]
 
     def tag_list(self, obj):
         return u", ".join(list(obj.keywords.all().values_list('name',flat=True)))
 
 
+
+
+
 admin.site.register(Subject, SubjectAdmin)
-admin.site.register(SubjectContent, SubjectContentAdmin )
+admin.site.register(SubjectContent, SubjectContentAdmin)
+admin.site.register(SubjectQuestionContent, SubjectQuestionContentAdmin )

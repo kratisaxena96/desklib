@@ -1,7 +1,7 @@
 from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include
 from .views import OrderDetailView, AskQuestionView, QuestionDetailView, OrderCreateView, OrderListView, \
-    CustomSearchQuestionView, autocomplete
+    CustomSearchQuestionView, autocomplete, ParentSubjectQuestionView
 from django.views.generic import TemplateView
 # from .sitemaps import all_sitemaps as sitemaps
 
@@ -14,5 +14,6 @@ urlpatterns = [
     path('order/<uuid>/', OrderDetailView.as_view(), name='order-detail-view'),
     path('search/', CustomSearchQuestionView.as_view(), name='search-question'),
     path(r'autocomplete/', autocomplete, name='autocomplete'),
+    path('<slug:slug>/', ParentSubjectQuestionView.as_view(), name='parent-question-view'),
 
 ]
