@@ -1,0 +1,42 @@
+{% extends "admin/base_site.html" %}
+{% load i18n l10n admin_urls static %}
+{% block extrahead %}
+{% load static  %}
+
+<script type="text/javascript" src="/admin/jsi18n/"></script>
+<script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/jquery.init.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/cancel.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/base.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/widgets.css' %}" />
+{% endblock %}
+{% block content_title %}<h1>Search from Description in documents</h1>{% endblock %}
+
+{% block content %}
+<div id="content-main">
+	<form method="post" action="">
+        {% csrf_token %}
+
+{{ form.as_p }}
+    <input type="submit" value="{% trans "Search" %}">
+    </form>
+
+    {% if result %}
+    <div class="results table-responsive">
+        <table class="table table-striped">
+            <tr>
+                <th>Title</th>
+            </tr>
+            {% for i in result %}
+            <tr>
+                <td>
+                    <a href="{% url 'admin:documents_document_change' i.pk %}" target="_blank"> {{ i.title }}</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {%endif%}
+</div>
+{% endblock %}
