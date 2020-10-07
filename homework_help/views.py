@@ -78,7 +78,7 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
         if settings.PAYPAL_TEST:
             receiver_email = "info-facilitator@a2zservices.net"
         else:
-            receiver_email = "payment@locusrags.com"
+            receiver_email = "info@a2zservices.net"
         paypal_dict = {
             "business": receiver_email,
             "item_name": "Order- " + order.order_id,
