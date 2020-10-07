@@ -5,6 +5,10 @@
 {% endblock %}
 
 {% block content %}
+    <div class="overlay">
+        <div class="loader"></div>
+    </div>
+
       {% block messages %}
     {% if messages %}
         <div>
@@ -154,5 +158,14 @@
 {% endblock %}
 
 {% block extra_js %}
+
+<script>
+
+  $(window).on('load', function (e) {
+    $(".overlay").hide();
+  });
+
+</script>
+
 {% endblock %}
 
