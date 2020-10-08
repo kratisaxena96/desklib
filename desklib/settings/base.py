@@ -260,7 +260,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'haystack.backends.elasticsearch2_backend.Elasticsearch2SearchEngine',
+        'ENGINE': 'desklib.backends.elasticsearch2_backend_updated.Elasticsearch2SearchUpdatedEngine',
         'URL': 'localhost:9200',
         'TIMEOUT': 60 * 5,
         'INDEX_NAME': 'haystack_new',
