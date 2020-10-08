@@ -160,7 +160,7 @@ class DocumentView(JsonLdDetailView):
         context['canonical'] = entry.canonical_url
         from haystack.inputs import AutoQuery, Raw
 
-        mlt = SearchQuerySet().more_like_this(entry)[:6]
+        # mlt = SearchQuerySet().more_like_this(entry)[:6]
         if subjects:
             s = "context['more_like_this'] = SearchQuerySet()"
             for sub in subjects:
