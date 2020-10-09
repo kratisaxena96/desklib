@@ -34,8 +34,11 @@ class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
 
     def prepare_p_subject(self, obj):
         try:
-            parent_sub = {(t.parent_subject.slug) for t in obj.subjects.all()}
-        except:
+            parent_sub = []
+            for t in obj.subjects.all():
+                if t.parent_subject:
+                    parent_sub.append(t.parent_subject.slug)
+        except Exception as e:
             import pdb; pdb.set_trace()
         return list(parent_sub)
     
