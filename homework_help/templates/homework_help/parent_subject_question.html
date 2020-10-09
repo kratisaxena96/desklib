@@ -7,6 +7,8 @@
    height: 18px;
    background: green;
 }
+.loadMore{ list-style-type:none; }
+.loadMore li{ display:none; }
 // add dropzone
 #dropzone {
     background: palegreen;
@@ -136,6 +138,7 @@
 <section>
 
 
+
 <!--<section class="bg-light pt-5 pb-5">-->
 <!-- <div class="row justify-content-center">-->
 <!--        <div class="col-md-8">-->
@@ -239,26 +242,14 @@
 <!--        </div></div>-->
 
 
-
-{% if question %}
-<section class="bg-light pt-4">
-	<div class="container pt-3 pb-4">
-<!--				<h4>Looking For Previous Answer?</h4>-->
-<!--				 <form class="" action="{% url 'homework_help:search-question' %}">-->
-<!--					 <div class="form-group d-flex mt-4">-->
-<!--                     <div id="question" class="input-group width-100per" style="width:30%;">-->
-<!--                      	 <input class=" form-control form-control-lg shadow border-radius-30 typeahead search-bar-border-none" type="text" placeholder="Search Your Question" name="q">-->
-<!--                         	<div class="input-group-append">-->
-<!--                            	<button class="btn btn-lg rounded-circle search-bg-body" type="submit"><i class="fa fa-search rounded-circle search-icon"></i></button>-->
-<!--                        	</div>-->
-<!--                    	</div>-->
-<!--						 </div>-->
-<!--				 </form>-->
-
-		<h2 class="text-center">Recently Asked Questions</h2>
-		<div class="row mt-4">
-			{% for object in question %}
-			<div class="col-sm-12 mb-4">
+		{% if question %}<section class="bg-light pt-4">
+	<div class="container">
+   <div class="row">
+     <div class="col-sm-12">
+		    <h2 class="text-center pt-3">Recently Asked Questions</h2>
+     <ul class="loadMore list-group pt-3">
+   {% for object in question %}<li>
+		 <div class="col-sm-12 mb-4">
 				<a href="{% url 'homework_help:question-detail-view' object.slug %}" class="text-decoration-none h-100">
 					<div class="card question-search-hover">
 						<div class="card-body text-left">
@@ -286,26 +277,94 @@
 					</div>
 				</a>
 			</div>
-		{% endfor %}
-		</div>
-	</div>
-</section>
-{% endif %}
+	 </li>
+		 {% endfor %}
 
-	{% if question|length > 10 %}
+ </ul>
+
+	 </div>
+
+     </div>
+
+ </div></section>{% endif %}
+	{% if question.count > 10 %}
 <section>
 	<div class="container">
 		<div class="row mb-5">
 			<div class="col-sm-12 text-center">
-				{% if question %}
-				<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="{% url 'homework_help:search-question' %}?q={{object.slug}} ">View More</a>
-				{% else %}
-				{% endif %}
+				<a name="load_more" id="load_more" class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3">View More</a>
 			</div>
 		</div>
 	</div>
 </section>
 	{% endif %}
+
+
+<!--{% if question %}-->
+<!--<section class="bg-light pt-4">-->
+<!--	<div class="container pt-3 pb-4">-->
+<!--&lt;!&ndash;				<h4>Looking For Previous Answer?</h4>&ndash;&gt;-->
+<!--&lt;!&ndash;				 <form class="" action="{% url 'homework_help:search-question' %}">&ndash;&gt;-->
+<!--&lt;!&ndash;					 <div class="form-group d-flex mt-4">&ndash;&gt;-->
+<!--&lt;!&ndash;                     <div id="question" class="input-group width-100per" style="width:30%;">&ndash;&gt;-->
+<!--&lt;!&ndash;                      	 <input class=" form-control form-control-lg shadow border-radius-30 typeahead search-bar-border-none" type="text" placeholder="Search Your Question" name="q">&ndash;&gt;-->
+<!--&lt;!&ndash;                         	<div class="input-group-append">&ndash;&gt;-->
+<!--&lt;!&ndash;                            	<button class="btn btn-lg rounded-circle search-bg-body" type="submit"><i class="fa fa-search rounded-circle search-icon"></i></button>&ndash;&gt;-->
+<!--&lt;!&ndash;                        	</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    	</div>&ndash;&gt;-->
+<!--&lt;!&ndash;						 </div>&ndash;&gt;-->
+<!--&lt;!&ndash;				 </form>&ndash;&gt;-->
+
+<!--		<h2 class="text-center">Recently Asked Questions</h2>-->
+<!--		<div class="row mt-4">-->
+<!--			{% for object in question %}-->
+<!--			<div class="col-sm-12 mb-4">-->
+<!--				<a href="{% url 'homework_help:question-detail-view' object.slug %}" class="text-decoration-none h-100">-->
+<!--					<div class="card question-search-hover">-->
+<!--						<div class="card-body text-left">-->
+<!--							<div class="d-flex">-->
+<!--                    			<div class="d-inline-block">-->
+<!--                        			<div class="black-font">-->
+<!--										<strong>Q:</strong>-->
+<!--                        			</div>-->
+<!--                    			</div>-->
+<!--                    			<div class="d-inline-block ml-2 black-font">-->
+<!--                        			<span>{{object.question|truncatechars:200}}</span>-->
+<!--                    			</div>-->
+<!--                 			</div>-->
+<!--							<div class="d-flex mt-2">-->
+<!--								<div class="d-inline-block">-->
+<!--									<div class="black-font">-->
+<!--										<strong>A:</strong>-->
+<!--                        			</div>-->
+<!--								</div>-->
+<!--								<div class="d-inline-block ml-2 black-font">-->
+<!--									<a href="{% url 'homework_help:question-detail-view' object.slug %}" class="">Get Answer</a>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</a>-->
+<!--			</div>-->
+<!--		{% endfor %}-->
+<!--		</div>-->
+<!--	</div>-->
+<!--</section>-->
+<!--{% endif %}-->
+
+<!--	{% if question.count > 10 %}-->
+<!--<section>-->
+<!--	<div class="container">-->
+<!--		<div class="row mb-5">-->
+<!--			<div class="col-sm-12 text-center">-->
+
+<!--				<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="{% url 'homework_help:search-question' %}?q={{object.slug}} ">View More</a>-->
+
+<!--			</div>-->
+<!--		</div>-->
+<!--	</div>-->
+<!--</section>-->
+<!--	{% endif %}-->
 
 <!--	<div class="container">-->
 <!--		<div class="row mb-5">-->
@@ -375,6 +434,8 @@
     </div>
 </div>
 
+
+
 {% comment %}
 {{document}}
 child subject page
@@ -384,6 +445,24 @@ child subject page
 
 {% endblock %}
 {% block extra_js %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script>
+  $(document).ready(function(e) {
+     var limit = 10;
+	 $(".loadMore li").slice(0, limit).show();
+	 $(document).on('click','#load_more',function(e){
+         limit += 10;
+		 e.preventDefault();
+	     $(".loadMore li").slice(0, limit).show();
+	 });
+	 //var lenght_name =  $(".loadMore li").length;
+  });
+ </script>
+
+
+
+
 <script src='{% static "src/js/jquery.ui.widget.js" %}'></script>
 <script src='{% static "src/js/jquery.fileupload.js" %}' ></script>
 
