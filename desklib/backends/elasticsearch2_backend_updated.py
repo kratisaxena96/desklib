@@ -2,7 +2,7 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 from haystack.backends import BaseEngine
-from haystack.backends.elasticsearch_backend import ElasticsearchSearchBackend
+from haystack.backends.elasticsearch2_backend import Elasticsearch2SearchBackend
 from haystack.backends.elasticsearch2_backend import Elasticsearch2SearchQuery
 from haystack.constants import ID
 from haystack.utils import get_identifier
@@ -19,7 +19,7 @@ except ImportError:
                             Please refer to the documentation.")
 
 
-class Elasticsearch2SearchBackendUpdated(ElasticsearchSearchBackend):
+class Elasticsearch2SearchBackendUpdated(Elasticsearch2SearchBackend):
     def __init__(self, connection_alias, **connection_options):
         super(Elasticsearch2SearchBackendUpdated, self).__init__(connection_alias, **connection_options)
         self.content_field_name = None
