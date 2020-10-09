@@ -348,7 +348,7 @@ class ParentSubjectQuestionView(MetadataMixin, JsonLdContextMixin, DetailView):
             ques = Question.objects.filter(subjects=i.id)
             question = question | ques
 
-        question = question.order_by('-published_date')[:10]
+        question = question.order_by('-published_date')
 
         context['meta'] = self.get_object().as_meta(self.request)
         context['recent'] = recent
