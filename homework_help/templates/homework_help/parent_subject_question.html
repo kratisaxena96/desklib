@@ -138,7 +138,7 @@
 </section>
 <section>
 
-
+{% comment %}
 
 <!--<section class="bg-light pt-5 pb-5">-->
 <!-- <div class="row justify-content-center">-->
@@ -242,7 +242,7 @@
 <!--</div>-->
 <!--        </div></div>-->
 
-
+{% endcomment %}
 		{% if question %}<section class="bg-light pt-4">
 	<div class="container">
    <div class="row">
@@ -300,84 +300,6 @@
 </section>
 	{% endif %}
 
-
-<!--{% if question %}-->
-<!--<section class="bg-light pt-4">-->
-<!--	<div class="container pt-3 pb-4">-->
-<!--&lt;!&ndash;				<h4>Looking For Previous Answer?</h4>&ndash;&gt;-->
-<!--&lt;!&ndash;				 <form class="" action="{% url 'homework_help:search-question' %}">&ndash;&gt;-->
-<!--&lt;!&ndash;					 <div class="form-group d-flex mt-4">&ndash;&gt;-->
-<!--&lt;!&ndash;                     <div id="question" class="input-group width-100per" style="width:30%;">&ndash;&gt;-->
-<!--&lt;!&ndash;                      	 <input class=" form-control form-control-lg shadow border-radius-30 typeahead search-bar-border-none" type="text" placeholder="Search Your Question" name="q">&ndash;&gt;-->
-<!--&lt;!&ndash;                         	<div class="input-group-append">&ndash;&gt;-->
-<!--&lt;!&ndash;                            	<button class="btn btn-lg rounded-circle search-bg-body" type="submit"><i class="fa fa-search rounded-circle search-icon"></i></button>&ndash;&gt;-->
-<!--&lt;!&ndash;                        	</div>&ndash;&gt;-->
-<!--&lt;!&ndash;                    	</div>&ndash;&gt;-->
-<!--&lt;!&ndash;						 </div>&ndash;&gt;-->
-<!--&lt;!&ndash;				 </form>&ndash;&gt;-->
-
-<!--		<h2 class="text-center">Recently Asked Questions</h2>-->
-<!--		<div class="row mt-4">-->
-<!--			{% for object in question %}-->
-<!--			<div class="col-sm-12 mb-4">-->
-<!--				<a href="{% url 'homework_help:question-detail-view' object.slug %}" class="text-decoration-none h-100">-->
-<!--					<div class="card question-search-hover">-->
-<!--						<div class="card-body text-left">-->
-<!--							<div class="d-flex">-->
-<!--                    			<div class="d-inline-block">-->
-<!--                        			<div class="black-font">-->
-<!--										<strong>Q:</strong>-->
-<!--                        			</div>-->
-<!--                    			</div>-->
-<!--                    			<div class="d-inline-block ml-2 black-font">-->
-<!--                        			<span>{{object.question|truncatechars:200}}</span>-->
-<!--                    			</div>-->
-<!--                 			</div>-->
-<!--							<div class="d-flex mt-2">-->
-<!--								<div class="d-inline-block">-->
-<!--									<div class="black-font">-->
-<!--										<strong>A:</strong>-->
-<!--                        			</div>-->
-<!--								</div>-->
-<!--								<div class="d-inline-block ml-2 black-font">-->
-<!--									<a href="{% url 'homework_help:question-detail-view' object.slug %}" class="">Get Answer</a>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--				</a>-->
-<!--			</div>-->
-<!--		{% endfor %}-->
-<!--		</div>-->
-<!--	</div>-->
-<!--</section>-->
-<!--{% endif %}-->
-
-<!--	{% if question.count > 10 %}-->
-<!--<section>-->
-<!--	<div class="container">-->
-<!--		<div class="row mb-5">-->
-<!--			<div class="col-sm-12 text-center">-->
-
-<!--				<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="{% url 'homework_help:search-question' %}?q={{object.slug}} ">View More</a>-->
-
-<!--			</div>-->
-<!--		</div>-->
-<!--	</div>-->
-<!--</section>-->
-<!--	{% endif %}-->
-
-<!--	<div class="container">-->
-<!--		<div class="row mb-5">-->
-<!--			<div class="col-sm-12 text-center">-->
-<!--				{% if recent %}-->
-<!--				<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="{% url 'study:search-results' %}?q=&amp;selected_facets=subjects_exact:{{object.slug}}">View More</a>-->
-<!--				{% elif top_results %}-->
-<!--				<a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="{% url 'study:search-results' %}?q=&amp;selected_facets=subjects_exact:{{object.slug}}">View More</a>-->
-<!--				{% endif %}-->
-<!--			</div>-->
-<!--		</div>-->
-<!--	</div>-->
 	<section class="pb-5 pt-4">
     <div class="container">
         <div class="row">
@@ -413,17 +335,6 @@
 					{% endfor %}
                 </ul>
             </div>
-<!--            <div class="col-sm-4">-->
-<!--                <ul class="list-group sticky-top">-->
-<!--					 {% for object in subject %}-->
-<!--                    <li class="list-group-item">-->
-<!--						<a href="#cardOne{{ forloop.counter }}">-->
-<!--							{{object.title}}-->
-<!--					</a>-->
-<!--					</li>-->
-<!--					{% endfor %}-->
-<!--                </ul>-->
-<!--            </div>-->
         </div>
 </div>
 </section>
