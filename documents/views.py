@@ -670,8 +670,8 @@ class PaypalPaymentView(LoginRequiredMixin, View):
 
                 if amount==plan.price:
                     if plan.is_pay_per_download:
-                        contex = {'traction_id': body.get('purchase_units')[0].get("payments").get("captures")[0].get("id"), 'currency': body.get('purchase_units')[0].get("amount").get("currency"),
-                                  'amount': body.get('purchase_units')[0].get("amount").get("value"), 'payment_date': str(payment_date),
+                        contex = {'traction_id': body.get('purchase_units')[0].get("payments").get("captures")[0].get("id"), 'currency': body.get('purchase_units')[0].get("amount").get("currency_code"),
+                                  'amount': body.get('purchase_units')[0].get("amount").get("value"), 'payment_date': str(payment_date.date()),
                                   'expiry': str(expire_on),
                                   'plan': plan.package_name, 'document_redirect': doc_slug, 'SITE_URL': site_url, }
                         # pay_doc = PayPerDocument.objects.filter(user=user, start_date=payment_date,documents=doc, expire_on=expire_on)

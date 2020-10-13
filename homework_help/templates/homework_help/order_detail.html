@@ -567,20 +567,21 @@ $( document ).ready(function() {
 	}
 	var csrftoken = getCookie('csrftoken');
 	var user = "{{ user }}"
-	var key;
+//	var key;
 	var doc = "{{doc}}"
+
+    var url= "{% url 'homework_help:homework-help-payment-validate' %}"
+    var payment_details = details
+    payment_details.user = user
+//    payment_details.key = key
+    payment_details.doc = doc
+
+    body = JSON.stringify(payment_details);
 
 
         // Render the PayPal button into #paypal-button-container
 
         function completeOrder(details){
-        	var url= "{% url 'documents:payment-validate' %}"
-			var payment_details = details
-			payment_details.user = user
-			payment_details.key = key
-			payment_details.doc = doc
-
-			body = JSON.stringify(payment_details);
 
 	    	$('.payment-loader').show();
 
@@ -610,13 +611,27 @@ $( document ).ready(function() {
 			},
 
             // Set up the transaction
+
+
             createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: plan_value
-                        }
-                    }]
+                return fetch("{% url 'homework_help:homework-help-check' %}", {
+        		method:'POST',
+        		headers:{
+        			'Content-type':'application/json',
+        			'X-CSRFToken':csrftoken,
+        		},
+        		body: body
+        	}).then(function(res) {
+                    return res.json();
+                }).then(function(orderData) {
+
+					return actions.order.create({
+						purchase_units: [{
+							amount: {
+								value: orderData.purchase_units.amount
+							}
+						}]
+					});
                 });
             },
 
@@ -857,6 +872,15 @@ $( document ).ready(function() {
 			})
 	}
 
+	var user = "{{ user }}"
+	var doc = "{{doc}}"
+
+    var payment_details1 = {}
+    payment_details1['user'] = "{{user}}"
+    payment_details1['doc'] = "{{object.id}}"
+
+    body = JSON.stringify(payment_details);
+
 	paypal.Buttons({
 
 		// Customize button (optional)
@@ -869,15 +893,28 @@ $( document ).ready(function() {
 		},
 
 		// Set up the transaction
-		createOrder: function (data, actions) {
-			return actions.order.create({
-				purchase_units: [{
-					amount: {
-						value: plan_value
-					}
-				}]
-			});
-		},
+
+            createOrder: function(data, actions) {
+                return fetch("{% url 'homework_help:homework-help-check' %}", {
+        		method:'POST',
+        		headers:{
+        			'Content-type':'application/json',
+        			'X-CSRFToken':csrftoken,
+        		},
+        		body: body
+        	}).then(function(res) {
+                    return res.json();
+                }).then(function(orderData) {
+
+					return actions.order.create({
+						purchase_units: [{
+							amount: {
+								value: orderData.purchase_units.amount
+							}
+						}]
+					});
+                });
+            },
 
 		// Finalize the transaction
 		onApprove: function (data, actions) {

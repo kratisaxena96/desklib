@@ -328,6 +328,22 @@ class OrderCreateView(LoginRequiredMixin, FormView):
         return HttpResponseRedirect(redirect_to=reverse('homework_help:order-detail-view', kwargs={'uuid': order.uuid}))
 
 
+class HomeworkHelpPaypalPaymentCheckView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        body = json.loads(request.body.decode("utf-8"))
+
+        order = body.get('order')
+
+        data = {}
+        item = {}
+        item['amount'] = amount
+        data['purchase_units'] = item
+
+        the_data = json.dumps(data)
+
+        return HttpResponse(the_data, content_type='application/json')
+
+
 class HomeworkHelpPaypalPaymentView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
