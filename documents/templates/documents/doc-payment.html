@@ -939,13 +939,72 @@ $( document ).ready(function() {
         		},
         		body: body
         	})
-        	.then((response) => response.json())
-        	.then((data) => {
-        		console.log('success:', data);
+//        	.then((response) => response.json())
+//        	.then((data) => {
+//        		console.log('success:', data);
+//        		window.location.replace("{% url 'documents:document-view' doc %}");
+//			})
+			.then(function(res) {
+                    return res.json();
+                }).then(function(orderData) {
+                    // Three cases to handle:
+                    //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
+                    //   (2) Other non-recoverable errors -> Show a failure message
+                    //   (3) Successful transaction -> Show a success / thank you message
+
+                    // Your server defines the structure of 'orderData', which may differ
+                    var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
+
+                    if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
+                        // Recoverable state, see: "Handle Funding Failures"
+                        // https://developer.paypal.com/docs/checkout/integration-features/funding-failure/
+                        return actions.restart();
+                    }
+
+                    if (errorDetail) {
+                        var msg = 'Sorry, your transaction could not be processed.';
+                        if (errorDetail.description) msg += '\n\n' + errorDetail.description;
+                        if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
+                        // Show a failure message
+                        return alert(msg);
+                    }
+
+                    // Show a success message to the buyer
+//                    alert('Transaction completed by ' + orderData.payer.name.given_name);
+        		console.log('success:', orderData);
         		window.location.replace("{% url 'documents:document-view' doc %}");
-			})
+                });
         }
 
+
+	$(".selected_plan").on("click", function(){
+		if ($("input[type='radio']").is(":checked")) {
+		$('html, body').animate({
+			scrollTop: $($('a[href*="#check"]').attr('href')).offset().top
+		}, 600);
+		key= $(this).data("key");
+		plan_value = $(this).val();
+		$("#id_custom").val("{{ user }}_" + key +"_{{doc}}");
+		$("#id_amount").val(plan_value);
+
+
+			var payment_details1 = {}
+			payment_details1['user'] = "{{user}}"
+			payment_details1['key'] = key
+			payment_details1['doc'] = "{{doc}}"
+
+			body = JSON.stringify(payment_details1);
+
+		}
+	});
+//			var payment_details1 = {}
+//			payment_details1['user'] = "{{user}}"
+//			payment_details1['key'] = key
+//			payment_details1['doc'] = "{{doc}}"
+
+//			console.log(payment_details1)
+
+//			body = JSON.stringify(payment_details1);
         paypal.Buttons({
 
         // Customize button (optional)
@@ -957,23 +1016,58 @@ $( document ).ready(function() {
 				label: 'checkout',
 			},
 
-            // Set up the transaction
+//            // Set up the transaction
+//            createOrder: function(data, actions) {
+//                return actions.order.create({
+//                    purchase_units: [{
+//                        amount: {
+//                            value: plan_value
+//                        }
+//                    }]
+//                });
+//            },
+
             createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: plan_value
-                        }
-                    }]
+                return fetch("{% url 'documents:payment-check' %}", {
+        		method:'POST',
+        		headers:{
+        			'Content-type':'application/json',
+        			'X-CSRFToken':csrftoken,
+        		},
+        		body: body
+        	}).then(function(res) {
+                    return res.json();
+                }).then(function(orderData) {
+
+					return actions.order.create({
+						purchase_units: [{
+							amount: {
+								value: orderData.purchase_units.amount
+							}
+						}]
+					});
                 });
             },
 
-            // Finalize the transaction
+//            // Finalize the transaction
+//            onApprove: function(data, actions) {
+//                return actions.order.capture().then(function(details) {
+//                    // Show a success message to the buyer
+//                    completeOrder(details)
+//                    // alert('Transaction completed by ' + details.payer.name.given_name + '!');
+//                });
+//            }
+
+
+            // Call your server to finalize the transaction
             onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
-                    // Show a success message to the buyer
+//                return fetch('{% url 'documents:payment-validate' %}', {
+//                    method: 'post'
+                    return actions.order.capture().then(function(details) {
+//                    // Show a success message to the buyer
                     completeOrder(details)
-                    // alert('Transaction completed by ' + details.payer.name.given_name + '!');
+//                    // alert('Transaction completed by ' + details.payer.name.given_name + '!');
+//                });
                 });
             }
 
