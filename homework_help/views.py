@@ -345,7 +345,7 @@ class ParentSubjectQuestionView(MetadataMixin, JsonLdContextMixin, DetailView):
         question = Question.objects.filter(subjects=parent_subject.id, is_visible=True, is_published=True)
 
         for i in child_subject:
-            ques = Question.objects.filter(subjects=i.id)
+            ques = Question.objects.filter(subjects=i.id, is_visible=True, is_published=True)
             question = question | ques
 
         question = question.order_by('-published_date')
