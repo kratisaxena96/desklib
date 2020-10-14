@@ -332,11 +332,11 @@ class HomeworkHelpPaypalPaymentCheckView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         body = json.loads(request.body.decode("utf-8"))
 
-        order = body.get('order')
-
+        order_id = body.get('order')
+        order = Order.objects.get(uuid=order_id)
         data = {}
         item = {}
-        item['amount'] = amount
+        item['amount'] = order.budget
         data['purchase_units'] = item
 
         the_data = json.dumps(data)
@@ -348,7 +348,7 @@ class HomeworkHelpPaypalPaymentView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
         body = json.loads(request.body.decode("utf-8"))
-        print(body)
+        # print(body)
         if settings.DEBUG:
             receiver_email = "ankushtambi-facilitator@gmail.com"
             # receiver_email = "info-facilitator@a2zservices.net"

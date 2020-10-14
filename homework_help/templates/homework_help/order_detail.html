@@ -263,7 +263,10 @@
              <div class="col-sm-12">
                  <div class="card card-body">
                      <p class="text-center mb-0">Your payment has been received.</p>
-                     <p class="text-center mb-0 mt-2">Our expert is working on your query. You will be provided with solution by this deadline.</p><p id="demo" class="text-center mb-0 mt-2"></p>
+                     <p class="text-center mb-0 mt-2">Our expert is working on your query.{% if order.deadline_datetime %} You will be provided with solution by this deadline.{% endif %}</p>
+                     {% if order.deadline_datetime %}
+                     <p id="demo" class="text-center mb-0 mt-2"></p>
+                     {% endif %}
                  </div>
              </div>
          </div>
@@ -866,20 +869,50 @@ $( document ).ready(function() {
 				},
 				body: body
 			})
-			.then((response) => response.json())
-			.then((data) => {
+//			.then((response) => response.json())
+//			.then((data) => {
 //				console.log('success:', data);
-			})
-	}
+//			})
+			.then(function(res) {
+                    return res.json();
+                }).then(function(orderData) {
+                    // Three cases to handle:
+                    //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
+                    //   (2) Other non-recoverable errors -> Show a failure message
+                    //   (3) Successful transaction -> Show a success / thank you message
+
+                    // Your server defines the structure of 'orderData', which may differ
+                    var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
+
+                    if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
+                        // Recoverable state, see: "Handle Funding Failures"
+                        // https://developer.paypal.com/docs/checkout/integration-features/funding-failure/
+                        return actions.restart();
+                    }
+
+                    if (errorDetail) {
+                        var msg = 'Sorry, your transaction could not be processed.';
+                        if (errorDetail.description) msg += '\n\n' + errorDetail.description;
+                        if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
+                        // Show a failure message
+                        return alert(msg);
+                    }
+
+                    // Show a success message to the buyer
+//                    alert('Transaction completed by ' + orderData.payer.name.given_name);
+        		console.log('success:', orderData);
+                });
+        }
+
 
 	var user = "{{ user }}"
 	var doc = "{{doc}}"
 
     var payment_details1 = {}
     payment_details1['user'] = "{{user}}"
-    payment_details1['doc'] = "{{object.id}}"
+    payment_details1['order'] = "{{object.uuid}}"
 
-    body = JSON.stringify(payment_details);
+    body = JSON.stringify(payment_details1);
 
 	paypal.Buttons({
 
