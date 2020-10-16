@@ -82,7 +82,7 @@ class Upload(models.Model):
     course_name = models.CharField(_('Course Name'), db_index=True, max_length=200)
     course_code = models.CharField(_('Course Code'), max_length=100, blank=True, null=True)
     country = CountryField(blank_label='(select country)', blank=True, null=True)
-    university = models.CharField(_('University / College'), max_length=50, blank=True, null=True)
+    university = models.CharField(_('University / College'), max_length=500, blank=True, null=True)
     type = models.IntegerField(choices=TYPE_OF_DOCUMENT, default=SOLUTION, db_index=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=PENDING, blank=True, null=True)
     subjects = models.ManyToManyField(Subject, db_index=True, related_name='subject_uploads')
