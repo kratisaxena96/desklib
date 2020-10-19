@@ -251,6 +251,7 @@
                                     <p>By continuing you agree to the <a href="{% url 'termsofuse' %}">terms & conditions</a>, <a href="{% url 'privacypolicy' %}"> privacy policy</a>, <a href="{% url 'academicintegrity' %}">Academic Integrity</a>, <a href="{% url 'honorcode' %}">Honor Code</a> and <a href="{% url 'copyright' %}">Copyright</a></p>
                             </div>
                             <div class="col-lg-5">
+			<p class="paypal-error text-danger"></p>
                                 <div id="paypal-button-container"></div>
                             </div>
                         </div>
@@ -953,10 +954,77 @@ $( document ).ready(function() {
 		onApprove: function (data, actions) {
 			return actions.order.capture().then(function (details) {
 				// Show a success message to the buyer
-				completeOrder(details)
+//				completeOrder(details)
 				// alert('Transaction completed by ' + details.payer.name.given_name + '!');
+
+		var url = "{% url 'homework_help:homework-help-payment-validate' %}"
+		var payment_details = details
+		payment_details.order = "{{order.uuid}}"
+
+		body = JSON.stringify(payment_details);
+
+		$('.payment-loader').show();
+
+		fetch(url, {
+				method: 'POST',
+				headers: {
+					'Content-type': 'application/json',
+					'X-CSRFToken': csrftoken,
+				},
+				body: body
+			})
+//			.then((response) => response.json())
+//			.then((data) => {
+//				console.log('success:', data);
+//			})
+			.then(function(res) {
+                    return res.json();
+                }).then(function(orderData) {
+                    // Three cases to handle:
+                    //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
+                    //   (2) Other non-recoverable errors -> Show a failure message
+                    //   (3) Successful transaction -> Show a success / thank you message
+
+                    // Your server defines the structure of 'orderData', which may differ
+                    var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
+
+                    if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
+                        // Recoverable state, see: "Handle Funding Failures"
+                        // https://developer.paypal.com/docs/checkout/integration-features/funding-failure/
+                        return actions.restart();
+                    }
+
+                    if (errorDetail) {
+                        var msg = 'Sorry, your transaction could not be processed.';
+                        if (errorDetail.description) msg += '\n\n' + errorDetail.description;
+                        if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
+                        // Show a failure message
+                        return alert(msg);
+                    }
+
+                    // Show a success message to the buyer
+//                    alert('Transaction completed by ' + orderData.payer.name.given_name);
+        		console.log('success:', orderData);
+                });
+
 			});
-		}
+		},
+            onCancel: function (data) {
+				/*
+				* Buyer cancelled the payment
+				/
+				alert("Buyer Cancelled the Payment");
+				//window.location = '<http://test.com/cancelURL';>
+			},
+			onError: function(err) {
+				/
+				 * An error occurred during the transaction
+				 */
+				// alert("An error occured, Pls debug");
+			// window.location = '<http://test.com/ErrorURL';>
+			$('.paypal-error').text("An error occured during transaction. Please try again.");
+
+			}
 
 
 	}).render('#paypal-button-container');
