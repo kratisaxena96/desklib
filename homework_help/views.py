@@ -342,10 +342,10 @@ class ParentSubjectQuestionView(MetadataMixin, JsonLdContextMixin, DetailView):
         recent = SearchQuerySet().filter(p_subject=parent_subject).order_by('-pub_date')[:20]
         top_results = SearchQuerySet().filter(p_subject=parent_subject).order_by('-views')[:20]
 
-        question = Question.objects.filter(subjects=parent_subject.id)
+        question = Question.objects.filter(subjects=parent_subject.id, is_visible=True, is_published=True)
 
         for i in child_subject:
-            ques = Question.objects.filter(subjects=i.id)
+            ques = Question.objects.filter(subjects=i.id, is_visible=True, is_published=True)
             question = question | ques
 
         question = question.order_by('-published_date')

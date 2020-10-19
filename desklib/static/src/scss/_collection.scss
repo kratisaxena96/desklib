@@ -1897,3 +1897,16 @@ text-decoration: none;
 }
 
 
+.button-style {
+    width: 25%;
+    height: 124%;
+}
+@media (max-width: 600px){
+.button-style {
+    width: 50%;
+}
+}
+
+.search-button {
+    padding: 5px 10px !important;
+}
