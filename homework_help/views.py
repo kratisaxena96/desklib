@@ -339,7 +339,42 @@ class HomeworkHelpPaypalPaymentCheckView(LoginRequiredMixin, View):
         item['amount'] = order.budget
         data['purchase_units'] = item
 
-        the_data = json.dumps(data)
+        the_data = json.dumps({
+    "intent": "sale",
+    "payer":
+    {
+    	"payment_method": "paypal",
+	# 	"payer_info": {
+	# 		"email":"PayPal@test.com",
+	# 		"first_name": "PayPal",
+	# 		"last_name":"Test"
+	# 	}
+    },
+	"application_context" : {
+ 	 	"shipping_preference": "NO_SHIPPING",
+		"user_action":"commit",
+		"locale":"en_US"	#// Pass the locale code of checkout currency Ex : en_US for USD, en_IN for INR
+	},
+  "transactions": [
+  {
+    "amount": {
+        "total": order.budget,
+        "currency": "USD",
+        "details": {
+          "subtotal": order.budget,
+        }
+    },
+    "item_list":
+    {
+      "items": [{
+		"name": order.question.question,
+		"price": order.budget,
+		"currency": "USD",
+		}],
+    },
+    "description": "Purchased " + order.question.question + " by " + request.user.email,
+  }]
+})
 
         return HttpResponse(the_data, content_type='application/json')
 

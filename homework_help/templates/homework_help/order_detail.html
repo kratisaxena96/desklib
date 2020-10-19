@@ -943,7 +943,7 @@ $( document ).ready(function() {
 					return actions.order.create({
 						purchase_units: [{
 							amount: {
-								value: orderData.purchase_units.amount
+								value: orderData.transactions[0].amount.total
 							}
 						}]
 					});
