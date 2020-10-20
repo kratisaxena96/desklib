@@ -662,7 +662,7 @@ class PaypalPaymentCheckView(LoginRequiredMixin, View):
 		"currency": "USD",
 		}],
     },
-    "description": "Purchased " + plan.package_name + " by " + request.get('user'),
+    "description": "Purchased " + plan.package_name + " by " + request.user.email,
   }]
 })
 
