@@ -287,11 +287,12 @@
 
      </div>
 
- </div></section>{% endif %}
+ </div>
+
 	{% if question.count > 10 %}
 <section>
 	<div class="container">
-		<div class="row mb-5">
+		<div class="row pb-5">
 			<div class="col-sm-12 text-center">
 				<a name="load_more" id="load_more" class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3">View More</a>
 			</div>
@@ -299,12 +300,16 @@
 	</div>
 </section>
 	{% endif %}
+</section>{% endif %}
 
+	{% if subject %}
 	<section class="pb-5 pt-4">
     <div class="container">
         <div class="row">
 			  <div class="col-sm-12">
-			<h2 class="text-center pt-4 pb-4">{{object.name}} Homework Help</h2>
+				  {% if object.blog_title %}
+			<h2 class="text-center pt-4 pb-4">{{object.blog_title}}</h2>
+				  {% endif %}
 			  </div>
             <div class="col-sm-8">
                 <div id="accordion">
@@ -338,6 +343,7 @@
         </div>
 </div>
 </section>
+	{% endif %}
 
 
 <div class="loading show-loader">

@@ -9,6 +9,7 @@ from haystack.backends.elasticsearch2_backend import Elasticsearch2SearchQuery
 from haystack.constants import ID
 from haystack.utils import get_identifier
 from haystack.exceptions import MissingDependency, SkipDocument
+from tqdm import tqdm
 
 try:
     import elasticsearch
@@ -40,7 +41,8 @@ class Elasticsearch2SearchBackendUpdated(Elasticsearch2SearchBackend):
 
         prepped_docs = []
 
-        for obj in iterable:
+        for obj in tqdm(iterable, colour='#44f172'):
+        # for obj in iterable:
             if obj.is_visible and obj.is_published and obj.published_date < timezone.now():
                 try:
                     prepped_data = index.full_prepare(obj)
@@ -52,7 +54,7 @@ class Elasticsearch2SearchBackendUpdated(Elasticsearch2SearchBackend):
                     final_data['_id'] = final_data[ID]
 
                     prepped_docs.append(final_data)
-                    print(obj.slug)
+                    # print(obj.slug)
                 except SkipDocument:
                     self.log.debug(u"Indexing for object `%s` skipped", obj)
                 except elasticsearch.TransportError as e:
