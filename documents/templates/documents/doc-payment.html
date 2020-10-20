@@ -1125,7 +1125,8 @@ $( document ).ready(function() {
 				/*
 				* Buyer cancelled the payment
 				/
-				alert("Buyer Cancelled the Payment");
+				//alert("Buyer Cancelled the Payment");
+                $('.paypal-error').text("Payment canceled. Please try again to purchase.");
 				//window.location = '<http://test.com/cancelURL';>
 			},
 			onError: function(err) {
@@ -1134,7 +1135,7 @@ $( document ).ready(function() {
 				 */
 				// alert("An error occured, Pls debug");
 			// window.location = '<http://test.com/ErrorURL';>
-			$('.paypal-error').text("An error occured during transaction. Please try again.");
+			$('.paypal-error').text("An error occurred during transaction. Please try again.");
 
 			}
 
