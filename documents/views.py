@@ -684,7 +684,7 @@ class PaypalPaymentView(LoginRequiredMixin, View):
             # homework help payment logic
         else:
             receiver_email = "payment@locusrags.com"
-        if body.get('purchase_units')[0].get("payee").get("email_address") == receiver_email:
+        if body.get('purchase_units')[0].get("payee").get("email_address") == receiver_email and body.get('purchase_units')[0].get('payments').get('captures')[0].get('status') == "COMPLETED":
             if body.get('id'):
 
                 email = body.get('user')
