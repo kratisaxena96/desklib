@@ -25,6 +25,9 @@ class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
     def get_model(self):
         return Document
 
+    def get_updated_field(self):
+        return 'published_date'
+
     def prepare_content(self, obj):
         content = ' '.join(map(str, obj.content.split()[:200]))
         return content
@@ -99,6 +102,9 @@ class QuestionIndex(indexes.SearchIndex, indexes.Indexable):
     def get_model(self):
         return Question
 
+    def get_updated_field(self):
+        return 'published_date'
+
     def prepare_no_of_answers(self, obj):
         answers_count = Answers.objects.filter(question=obj).count()
         return answers_count
@@ -121,3 +127,6 @@ class QuestionIndex(indexes.SearchIndex, indexes.Indexable):
     def prepare_uid(self, obj):
         uid = obj.uid
         return uid
+
+    def index_queryset(self, using=None):
+        return self.get_model().objects.filter(is_visible=True, is_published=True, published_date__lte=timezone.now()).distinct()

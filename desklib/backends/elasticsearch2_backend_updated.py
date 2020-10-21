@@ -40,33 +40,60 @@ class Elasticsearch2SearchBackendUpdated(Elasticsearch2SearchBackend):
                 return
 
         prepped_docs = []
+        if len(iterable) > 1:
+            for obj in tqdm(iterable, colour='#44f172'):
+            # for obj in iterable:
+                if obj.is_visible and obj.is_published and obj.published_date < timezone.now():
+                    try:
+                        prepped_data = index.full_prepare(obj)
+                        final_data = {}
 
-        for obj in tqdm(iterable, colour='#44f172'):
-        # for obj in iterable:
-            if obj.is_visible and obj.is_published and obj.published_date < timezone.now():
-                try:
-                    prepped_data = index.full_prepare(obj)
-                    final_data = {}
+                        # Convert the data to make sure it's happy.
+                        for key, value in prepped_data.items():
+                            final_data[key] = self._from_python(value)
+                        final_data['_id'] = final_data[ID]
 
-                    # Convert the data to make sure it's happy.
-                    for key, value in prepped_data.items():
-                        final_data[key] = self._from_python(value)
-                    final_data['_id'] = final_data[ID]
+                        prepped_docs.append(final_data)
+                        # print(obj.slug)
+                    except SkipDocument:
+                        self.log.debug(u"Indexing for object `%s` skipped", obj)
+                    except elasticsearch.TransportError as e:
+                        if not self.silently_fail:
+                            raise
 
-                    prepped_docs.append(final_data)
-                    # print(obj.slug)
-                except SkipDocument:
-                    self.log.debug(u"Indexing for object `%s` skipped", obj)
-                except elasticsearch.TransportError as e:
-                    if not self.silently_fail:
-                        raise
+                        # We'll log the object identifier but won't include the actual object
+                        # to avoid the possibility of that generating encoding errors while
+                        # processing the log message:
+                        self.log.error(u"%s while preparing object for update" % e.__class__.__name__, exc_info=True,
+                                       extra={"data": {"index": index,
+                                                       "object": get_identifier(obj)}})
+        else:
+            # for obj in tqdm(iterable, colour='#44f172'):
+            for obj in iterable:
+                if obj.is_visible and obj.is_published and obj.published_date < timezone.now():
+                    try:
+                        prepped_data = index.full_prepare(obj)
+                        final_data = {}
 
-                    # We'll log the object identifier but won't include the actual object
-                    # to avoid the possibility of that generating encoding errors while
-                    # processing the log message:
-                    self.log.error(u"%s while preparing object for update" % e.__class__.__name__, exc_info=True,
-                                   extra={"data": {"index": index,
-                                                   "object": get_identifier(obj)}})
+                        # Convert the data to make sure it's happy.
+                        for key, value in prepped_data.items():
+                            final_data[key] = self._from_python(value)
+                        final_data['_id'] = final_data[ID]
+
+                        prepped_docs.append(final_data)
+                        # print(obj.slug)
+                    except SkipDocument:
+                        self.log.debug(u"Indexing for object `%s` skipped", obj)
+                    except elasticsearch.TransportError as e:
+                        if not self.silently_fail:
+                            raise
+
+                        # We'll log the object identifier but won't include the actual object
+                        # to avoid the possibility of that generating encoding errors while
+                        # processing the log message:
+                        self.log.error(u"%s while preparing object for update" % e.__class__.__name__, exc_info=True,
+                                       extra={"data": {"index": index,
+                                                       "object": get_identifier(obj)}})
 
         bulk(self.conn, prepped_docs, index=self.index_name, doc_type='modelresult')
 
