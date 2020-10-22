@@ -1039,14 +1039,7 @@ $( document ).ready(function() {
         	}).then(function(res) {
                     return res.json();
                 }).then(function(orderData) {
-
-					return actions.order.create({
-						purchase_units: [{
-							amount: {
-								value: orderData.transactions[0].amount.total
-							}
-						}]
-					});
+					return orderData.id;
                 });
             },
 

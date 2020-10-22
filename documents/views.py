@@ -5,6 +5,8 @@ import json
 import pytz
 import socket
 import tempfile
+import requests
+
 from django.contrib import messages
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives, EmailMessage
@@ -620,53 +622,90 @@ class PaypalPaymentCheckView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         body = json.loads(request.body.decode("utf-8"))
 
+        if settings.DEBUG:
+            url = "https://api.sandbox.paypal.com/v2/checkout/orders"
+        else:
+            url= "https://api.paypal.com/v2/checkout/orders"
+
         plan_key = body.get('key')
         plan = Plan.objects.get(key=plan_key)
         amount = plan.price
 
-        data = {}
-        item = {}
-        item['amount'] = amount
-        data['purchase_units'] = item
-
-        the_data = json.dumps({
-    "intent": "sale",
-    "payer":
+        payload = json.dumps({
+  "intent": "CAPTURE",
+  "purchase_units": [
     {
-    	"payment_method": "paypal",
-	# 	"payer_info": {
-	# 		"email":"PayPal@test.com",
-	# 		"first_name": "PayPal",
-	# 		"last_name":"Test"
-	# 	}
-    },
-	"application_context" : {
- 	 	"shipping_preference": "NO_SHIPPING",
-		"user_action":"commit",
-		"locale":"en_US"	#// Pass the locale code of checkout currency Ex : en_US for USD, en_IN for INR
-	},
-  "transactions": [
-  {
-    "amount": {
-        "total": amount,
-        "currency": "USD",
-        "details": {
-          "subtotal": amount,
-        }
-    },
-    "item_list":
-    {
-      "items": [{
-		"name": plan.package_name,
-		"price": plan.price,
-		"currency": "USD",
-		}],
-    },
-    "description": "Purchased " + plan.package_name + " by " + request.user.email,
-  }]
+      "reference_id": "PUHF",
+      "amount": {
+        "currency_code": "USD",
+        "value": amount
+      }
+    }
+  ],
+  "application_context": {
+    "return_url": "",
+    "cancel_url": ""
+  }
 })
+        headers = {
+            'accept': "application/json",
+            'content-type': "application/json",
+            'accept-language': "en_US",
+            'authorization': "Bearer A21AAIHXU-kmtFK1fRHWYAtsUwX88kva-6Eo_NPhCzoGhMR4kjZCYas8Lr7v2fapAkyneSEke4_QwQN-ETPbmXQGMMCK2oKWg"
+        }
 
-        return HttpResponse(the_data, content_type='application/json')
+        response = requests.request("POST", url, data=payload, headers=headers)
+
+        print(response.status_code)
+
+        print(response.text)
+
+
+        return HttpResponse(response, content_type='application/json')
+
+#         data = {}
+#         item = {}
+#         item['amount'] = amount
+#         data['purchase_units'] = item
+#
+#         the_data = json.dumps({
+#     "intent": "sale",
+#     "payer":
+#     {
+#     	"payment_method": "paypal",
+# 	# 	"payer_info": {
+# 	# 		"email":"PayPal@test.com",
+# 	# 		"first_name": "PayPal",
+# 	# 		"last_name":"Test"
+# 	# 	}
+#     },
+# 	"application_context" : {
+#  	 	"shipping_preference": "NO_SHIPPING",
+# 		"user_action":"commit",
+# 		"locale":"en_US"	#// Pass the locale code of checkout currency Ex : en_US for USD, en_IN for INR
+# 	},
+#   "transactions": [
+#   {
+#     "amount": {
+#         "total": amount,
+#         "currency": "USD",
+#         "details": {
+#           "subtotal": amount,
+#         }
+#     },
+#     "item_list":
+#     {
+#       "items": [{
+# 		"name": plan.package_name,
+# 		"price": plan.price,
+# 		"currency": "USD",
+# 		}],
+#     },
+#     "description": "Purchased " + plan.package_name + " by " + request.user.email,
+#   }]
+# })
+#
+#         return HttpResponse(the_data, content_type='application/json')
 
 
 
