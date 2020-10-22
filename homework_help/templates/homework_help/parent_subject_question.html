@@ -44,7 +44,7 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'subjects:subjects'%}">Subjects</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'homework_help:ask-question-view' %}">Homework Help</a></li>
         <li class="breadcrumb-item active" aria-current="page">{{object.name}}</li>
   </ol>
 </nav>
@@ -54,15 +54,15 @@
 		<div class="row mb-4 mt-4 pb-2">
 			<div class="col-sm-7 border-bottom">
 				{% if object.info_graphic_image %}
-				 <img src="{{ object.info_graphic_image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid width-50px h-auto">
+				 <img src="{{ object.info_graphic_image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid width-50px h-auto pb-3">
 				 {% elif object.image %}
 				 <img src="{{ object.image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid width-50px h-auto">
 				 {% endif %}
-				<h1 class="d-inline ml-md-2">{{object.name}}</h1>
+				<h1 class="d-inline ml-md-2" style="font-size:2.2rem;">{{object.name}}</h1>
 				</div>
 			<div class="col-sm-12">
                {% if object.parent_question_description %}
-                <p class="pt-2">{{object.parent_question_description}}</p>
+                <p class="pt-3">{{object.parent_question_description}}</p>
                 {% endif %}
 			</div>
 			<div class="col-sm-5"></div>
