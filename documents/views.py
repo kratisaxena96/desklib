@@ -633,33 +633,65 @@ class PaypalPaymentCheckView(LoginRequiredMixin, View):
 
         payload = json.dumps({
   "intent": "CAPTURE",
+  "application_context":{
+    "brand_name":"Desklib",
+    "locale":"en-US",
+    "shipping_preference":"NO_SHIPPING",
+    "user_action":"PAY_NOW",
+    "return_url":"http://ReturnURL",
+    "cancel_url":"http://CancelURL",
+    "payment_method":{
+        "payer_selected":"PAYPAL",
+		 "payee_preferred": "IMMEDIATE_PAYMENT_REQUIRED"
+    }
+  },
+  "payer":{
+    "name":{
+        "given_name": request.user.first_name,
+        "surname": request.user.last_name
+    },
+    "email_address": request.user.email,
+    "phone": {
+            "phone_number": {
+                "national_number": request.user.contact_no.national_number
+            }
+        }
+    },
   "purchase_units": [
     {
-      "reference_id": "PUHF",
-      "amount": {
-        "currency_code": "USD",
-        "value": amount
-      }
+        "amount": {
+              "currency_code": "USD",
+              "value": amount,
+              "breakdown": {
+                "item_total": {
+                  "currency_code": "USD",
+                  "value": amount
+                }
+              }
+            },
+        "items": [
+            {
+              "name": plan.package_name,
+              "quantity": "1",
+              "unit_amount": {
+                "currency_code": "USD",
+                "value": amount
+              }
+            }],
+        # "soft_descriptor":"CC_STATEMENT_NAME",
+	    # "custom_id":"12345",	#// Pass any custom value of website if required
+	    # "invoice_id":"1234567890"	#// Pass the unique order id of website
     }
-  ],
-  "application_context": {
-    "return_url": "",
-    "cancel_url": ""
-  }
+  ]
 })
         headers = {
             'accept': "application/json",
             'content-type': "application/json",
             'accept-language': "en_US",
-            'authorization': "Bearer A21AAIHXU-kmtFK1fRHWYAtsUwX88kva-6Eo_NPhCzoGhMR4kjZCYas8Lr7v2fapAkyneSEke4_QwQN-ETPbmXQGMMCK2oKWg"
+            'authorization': "Bearer A101.FLjopHiRyc2TDarBtXAIUN69CnHSA2EUs3cKjKR2ZQQIMXYWtfjw1GDo5G1FMcd2.IoddE09MuRP4lNND2C1YKyKZLg8"
         }
 
         response = requests.request("POST", url, data=payload, headers=headers)
-
-        print(response.status_code)
-
-        print(response.text)
-
 
         return HttpResponse(response, content_type='application/json')
 
