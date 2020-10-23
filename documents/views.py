@@ -717,57 +717,25 @@ class PaypalPaymentCheckView(LoginRequiredMixin, View):
 
         return HttpResponse(response, content_type='application/json')
 
-#         data = {}
-#         item = {}
-#         item['amount'] = amount
-#         data['purchase_units'] = item
-#
-#         the_data = json.dumps({
-#     "intent": "sale",
-#     "payer":
-#     {
-#     	"payment_method": "paypal",
-# 	# 	"payer_info": {
-# 	# 		"email":"PayPal@test.com",
-# 	# 		"first_name": "PayPal",
-# 	# 		"last_name":"Test"
-# 	# 	}
-#     },
-# 	"application_context" : {
-#  	 	"shipping_preference": "NO_SHIPPING",
-# 		"user_action":"commit",
-# 		"locale":"en_US"	#// Pass the locale code of checkout currency Ex : en_US for USD, en_IN for INR
-# 	},
-#   "transactions": [
-#   {
-#     "amount": {
-#         "total": amount,
-#         "currency": "USD",
-#         "details": {
-#           "subtotal": amount,
-#         }
-#     },
-#     "item_list":
-#     {
-#       "items": [{
-# 		"name": plan.package_name,
-# 		"price": plan.price,
-# 		"currency": "USD",
-# 		}],
-#     },
-#     "description": "Purchased " + plan.package_name + " by " + request.user.email,
-#   }]
-# })
-#
-#         return HttpResponse(the_data, content_type='application/json')
-
-
-
 
 class PaypalPaymentView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
         body = json.loads(request.body.decode("utf-8"))
+        url = "https://api.sandbox.paypal.com/v2/checkout/orders/" + body.get('orderid') + "/capture"
+
+        headers = {
+            'content-type': "application/json",
+            'authorization': "Bearer A101.FLjopHiRyc2TDarBtXAIUN69CnHSA2EUs3cKjKR2ZQQIMXYWtfjw1GDo5G1FMcd2.IoddE09MuRP4lNND2C1YKyKZLg8"
+        }
+
+        response = requests.request("POST", url, headers=headers)
+
+        print(response.status_code)
+
+        print(response.text)
+        resp_json = json.loads(response.text)
+
         # print(body)
         if settings.DEBUG:
             receiver_email = "ankushtambi-facilitator@gmail.com"
@@ -777,83 +745,85 @@ class PaypalPaymentView(LoginRequiredMixin, View):
             # homework help payment logic
         else:
             receiver_email = "payment@locusrags.com"
-        if body.get('purchase_units')[0].get("payee").get("email_address") == receiver_email and body.get('purchase_units')[0].get('payments').get('captures')[0].get('status') == "COMPLETED":
-            if body.get('id'):
+        if resp_json.get('status') == "COMPLETED":
 
-                email = body.get('user')
-                plan_key = body.get('key')
+            email = body.get('user')
+            plan_key = body.get('key')
+            try:
+                doc_slug = body.get('doc')
+                doc = Document.objects.get(slug=doc_slug)
+            except:
+                pass
+            plan = Plan.objects.get(key=plan_key)
+            plan_days = plan.days
+            pay_date = datetime.strptime(resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('create_time'), '%Y-%m-%dT%H:%M:%SZ')
+            payment_date = pytz.utc.localize(pay_date)
+            expire_on = payment_date + timedelta(days=plan_days)
+            user = UserAccount.objects.get(email=email)
+            site_url = Site.objects.get_current().domain
+            amount = int(float(resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('amount').get('value')))
+
+            if amount==plan.price:
+                if plan.is_pay_per_download:
+                    contex = {'traction_id': resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('id'), 'currency': resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('amount').get("currency_code"),
+                              'amount': resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('amount').get('value'), 'payment_date': str(payment_date.date()),
+                              'expiry': str(expire_on),
+                              'plan': plan.package_name, 'document_redirect': doc_slug, 'SITE_URL': site_url, }
+                    # pay_doc = PayPerDocument.objects.filter(user=user, start_date=payment_date,documents=doc, expire_on=expire_on)
+                    # if pay_doc :
+                    #     pay_doc.documents.add(doc)
+                    payperdoc = PayPerDocument.objects.create(user=user, plan=plan, expire_on=expire_on,
+                                                              start_date=payment_date, is_current=True)
+                    payperdoc.documents.add(doc)
+                    messages.success(request, 'Congratulations! You have successfully unlocked this document.')
+                else:
+                    contex = {'traction_id': body.get('purchase_units')[0].get("payments").get("captures")[0].get("id"), 'currency': body.get('purchase_units')[0].get("amount").get("currency"),
+                              'amount': body.get('purchase_units')[0].get("amount").get("value"), 'payment_date': payment_date,
+                              'expiry': expire_on,
+                              'plan': plan.package_name, 'SITE_URL': site_url, }
+                    subscription = Subscription.objects.create(user=user, plan=plan, expire_on=expire_on,
+                                                               author=user)
+
+                    messages.success(request, 'Congratulations! You have successfully subscribed to ' + plan.package_name + '.')
                 try:
-                    doc_slug = body.get('doc')
-                    doc = Document.objects.get(slug=doc_slug)
-                except:
-                    pass
-                plan = Plan.objects.get(key=plan_key)
-                plan_days = plan.days
-                pay_date = datetime.strptime(body.get('create_time'), '%Y-%m-%dT%H:%M:%SZ')
-                payment_date = pytz.utc.localize(pay_date)
-                expire_on = payment_date + timedelta(days=plan_days)
-                user = UserAccount.objects.get(email=email)
-                site_url = Site.objects.get_current().domain
-                amount = int(float(body.get('purchase_units')[0].get("amount").get("value")))
 
-                if amount==plan.price:
-                    if plan.is_pay_per_download:
-                        contex = {'traction_id': body.get('purchase_units')[0].get("payments").get("captures")[0].get("id"), 'currency': body.get('purchase_units')[0].get("amount").get("currency_code"),
-                                  'amount': body.get('purchase_units')[0].get("amount").get("value"), 'payment_date': str(payment_date.date()),
-                                  'expiry': str(expire_on),
-                                  'plan': plan.package_name, 'document_redirect': doc_slug, 'SITE_URL': site_url, }
-                        # pay_doc = PayPerDocument.objects.filter(user=user, start_date=payment_date,documents=doc, expire_on=expire_on)
-                        # if pay_doc :
-                        #     pay_doc.documents.add(doc)
-                        payperdoc = PayPerDocument.objects.create(user=user, plan=plan, expire_on=expire_on,
-                                                                  start_date=payment_date, is_current=True)
-                        payperdoc.documents.add(doc)
-                    else:
-                        contex = {'traction_id': body.get('purchase_units')[0].get("payments").get("captures")[0].get("id"), 'currency': body.get('purchase_units')[0].get("amount").get("currency"),
-                                  'amount': body.get('purchase_units')[0].get("amount").get("value"), 'payment_date': payment_date,
-                                  'expiry': expire_on,
-                                  'plan': plan.package_name, 'SITE_URL': site_url, }
-                        subscription = Subscription.objects.create(user=user, plan=plan, expire_on=expire_on,
-                                                                   author=user)
-                    try:
+                    htmly = render_to_string('desklib/mail-templates/payment_success_email_template.html',
+                                             context=contex, request=None)
+                    html_message = htmly
+                    mail = EmailMultiAlternatives(
+                        subject='Payment Success Confirmation From Desklib',
+                        to=[user.email],
+                        body=''
+                    )
+                    mail.attach_alternative(html_message, 'text/html')
+                    mail.send(True)
 
-                        htmly = render_to_string('desklib/mail-templates/payment_success_email_template.html',
-                                                 context=contex, request=None)
-                        html_message = htmly
+                except Exception as e:
+                    print("Payment Success Email Sending failed", e)
+            else:
+                try:
+                    amount = body.get('purchase_units')[0].get("amount").get("value")
+                    locus_email = "kushagra.goel@locusrags.com"
+                    if not settings.DEBUG:
+                        locus_email = "info@desklib.com"
+                    if amount != plan.price:
+                        amount_remaining = plan.price - body.get('purchase_units')[0].get("amount").get("value")
+                        html_message = "Plan Name: "+ str(plan) + "<br>Payment done by user: "+ user.username + "<br>Amount Received: " + str(amount) + "<br>AmountPending: " + str(amount_remaining) + "<br>For Document: " + str(doc)
                         mail = EmailMultiAlternatives(
-                            subject='Payment Success Confirmation From Desklib',
-                            to=[user.email],
+                            subject='Insufficient Amount received from Client',
+                            # from_email=settings.DEFAULT_FROM_EMAIL,
+                            to=[locus_email],
                             body=''
                         )
                         mail.attach_alternative(html_message, 'text/html')
                         mail.send(True)
-
-                    except Exception as e:
-                        print("Payment Success Email Sending failed", e)
-                else:
-                    try:
-                        amount = body.get('purchase_units')[0].get("amount").get("value")
-                        locus_email = "kushagra.goel@locusrags.com"
-                        if not settings.DEBUG:
-                            locus_email = "info@desklib.com"
-                        if amount != plan.price:
-                            amount_remaining = plan.price - body.get('purchase_units')[0].get("amount").get("value")
-                            html_message = "Plan Name: "+ str(plan) + "<br>Payment done by user: "+ user.username + "<br>Amount Received: " + str(amount) + "<br>AmountPending: " + str(amount_remaining) + "<br>For Document: " + str(doc)
-                            mail = EmailMultiAlternatives(
-                                subject='Insufficient Amount received from Client',
-                                # from_email=settings.DEFAULT_FROM_EMAIL,
-                                to=[locus_email],
-                                body=''
-                            )
-                            mail.attach_alternative(html_message, 'text/html')
-                            mail.send(True)
-                        else:
-                            pass
-                    except:
+                    else:
                         pass
+                except:
+                    pass
 
-                messages.success(request, 'Your payment is being processed. Please access your document once you recieve an email regarding your activation.')
-                # return redirect(reverse('documents:document-view', kwargs={'slug': doc.slug}))
-                return JsonResponse('Payment completed', safe=False)
+            messages.success(request, 'Congratulations! You have successfully unlocked this document.')
+            # return redirect(reverse('documents:document-view', kwargs={'slug': doc.slug}))
+            return JsonResponse('Payment completed', safe=False)
         else:
             return
