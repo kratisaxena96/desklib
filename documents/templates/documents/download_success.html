@@ -5,7 +5,7 @@
 {% block head_title %}{% trans "Download Success" %}{% endblock %}
 
 {% block content %}
-    <section class="container py-4">
+    <section class="container py-4" style="vertical-align: middle; transform: translate(0, 0%); ">
           {% block messages %}
     {% if messages %}
         <div>
@@ -34,7 +34,7 @@
             <div class="col-md-12 pb-4" style="margin-top: -20px;">
         {% if doc_slug %}
                 <p>We've sent the file to you {{ user.email | mask_email_domain}} </p>
-                <a href="{% url 'documents:document-view' doc_slug %}" class="btn btn-bg-theme border-radius-20 white px-4" style="width:20%;">View Your Document </a>
+                <a href="{% url 'documents:document-view' doc_slug %}" class="width-button btn btn-bg-theme border-radius-20 white px-4">View Your Document </a>
         {% endif %}
             </div>
         </div>

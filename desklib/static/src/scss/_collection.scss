@@ -1910,3 +1910,13 @@ text-decoration: none;
 .search-button {
     padding: 5px 10px !important;
 }
+
+.width-button{
+width:20%;
+}
+
+@media (max-width: 600px){
+.width-button {
+    width: 50%;
+}
+}
