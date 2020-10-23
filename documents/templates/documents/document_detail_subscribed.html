@@ -363,7 +363,8 @@ opacity:0.9 !important;
 <!--        </div>-->
  {% endcomment %}
         <div class="d-inline-block d-sm-inline-block w-100 text-center text-md-left text-lg-center p-4 mb-3 jumbotron">
-            <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white border-radius-40" rel="nofollow">Download This Document</a>
+            <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white border-radius-40 pl-4 pr-4" rel="nofollow"><i class="fa fa-download" aria-hidden="true"></i>
+ Download Now!</a>
 			{% comment %}
             <a href='{% url "documents:document-download-view" %}?doc={{object.slug}}' class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Download</a>
 			<a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Plans</a>

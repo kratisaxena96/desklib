@@ -200,6 +200,8 @@ class DocumentView(JsonLdDetailView):
             self.template_name = 'documents/document_detail.html'
         elif is_subscribed(self.request.user):
             self.template_name = 'documents/document_detail_subscribed.html'
+        elif self.payperdoc:
+            self.template_name = 'documents/document_detail_subscribed.html'
         else:
             self.template_name = 'documents/document_detail_logged_in.html'
 
