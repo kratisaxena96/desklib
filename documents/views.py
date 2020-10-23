@@ -10,6 +10,7 @@ import requests
 from django.contrib import messages
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives, EmailMessage
+from django.template.response import TemplateResponse
 from paypal.standard.forms import PayPalPaymentsForm
 import geoip2.webservice
 
@@ -17,6 +18,7 @@ from django.contrib.gis.geoip2 import GeoIP2
 
 from accounts.models import UserAccount
 from desklib.mixins import CheckSubscriptionMixin
+from documents.admin_forms import DocumentSearchForm
 from documents.mixins import SubscriptionCheckMixin
 from homework_help.models import Order
 
@@ -40,7 +42,7 @@ from meta.views import Meta, MetadataMixin
 from django_json_ld.views import JsonLdContextMixin, settings, JsonLdSingleObjectMixin
 
 from post_office import mail
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.conf import settings
 from rest_framework.generics import CreateAPIView, UpdateAPIView, GenericAPIView
 from django.core.files.base import ContentFile
@@ -68,6 +70,8 @@ from formtools.wizard.views import SessionWizardView
 from django.core.files.storage import DefaultStorage
 from uploads.models import Upload
 from formtools.wizard.forms import ManagementForm
+from django.utils.decorators import method_decorator
+from django.contrib.admin.views.decorators import staff_member_required
 
 
 
@@ -163,7 +167,7 @@ class DocumentView(JsonLdDetailView):
         context['canonical'] = entry.canonical_url
         from haystack.inputs import AutoQuery, Raw
 
-        mlt = SearchQuerySet().more_like_this(entry)[:6]
+        # mlt = SearchQuerySet().more_like_this(entry)[:6]
         if subjects:
             s = "context['more_like_this'] = SearchQuerySet()"
             for sub in subjects:
@@ -516,7 +520,7 @@ class DocumentPayment(LoginRequiredMixin, MetadataMixin, TemplateView):
         if settings.PAYPAL_TEST:
             receiver_email = "info-facilitator@a2zservices.net"
         else:
-            receiver_email = "payment@locusrags.com"
+            receiver_email = "info@a2zservices.net"
         paypal_dict = {
             "business": receiver_email,
             "item_name": "desklib subscription",
@@ -616,6 +620,24 @@ class FilterSimlar():
             }
 
         )
+
+
+@method_decorator(staff_member_required, name='dispatch')
+class DocumentSearchDescription(LoginRequiredMixin, PermissionRequiredMixin, FormView):
+    template_name = 'admin/search_in_description.html'
+    permission_required = 'documents.search_in_description'
+    raise_exception = True
+    form_class = DocumentSearchForm
+
+    def post(self, request, *args, **kwargs):
+        form = DocumentSearchForm(self.request.POST)
+        sqs = SearchQuerySet().models(Document).filter(description=request.POST['search'])
+        file = SearchQuerySet().models(Document).filter(file_name=request.POST['search'])
+        result = sqs | file
+
+        return TemplateResponse(request, "admin/search_in_description.html", context={'result':result, 'form': form})
+
+
 
 
 class PaypalPaymentCheckView(LoginRequiredMixin, View):

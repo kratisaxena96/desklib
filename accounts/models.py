@@ -56,7 +56,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(_('last name'), max_length=40, blank=True, null=True)
     contact_no = PhoneNumberField(_('contact number'), max_length=20)
     country = CountryField(blank_label='(select country)')
-    university = models.CharField(_('University'), max_length=50)
+    university = models.CharField(_('University'), max_length=500)
     college = models.CharField(_('College'), max_length=50)
 
     is_staff = models.BooleanField(_('staff status'), default=False,

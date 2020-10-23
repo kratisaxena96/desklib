@@ -219,8 +219,8 @@ opacity:0.9 !important;
         </ul>
         <ul class="p-0 d-inline-block float-md-right">
             <li class="d-inline-block text-center p-2">
-              <div class="dropdown">
-                <a class="btn" data-toggle="dropdown" href="JavaScript:Void(0);">
+              <div class="d-inline-block dropdown">
+                <a class="btn margin-b" data-toggle="dropdown" href="JavaScript:Void(0);">
                   <i class="fas fa-share-alt mb-1"></i>
                   <p class="mb-0">Share</p>
                 </a>
@@ -336,8 +336,9 @@ opacity:0.9 !important;
 
             {% endcomment %}
         </div>
+        {% if object.pages.all.count %}
         <span class="d-inline-block d-sm-inline-block w-100 text-center text-md-left text-lg-center text-muted">Showing pages {{object.preview_from}} to {{object.preview_to}} of {{object.pages.all.count}} pages</span>
-
+        {% endif %}
         <div id="viewer" class="documentViewer">
             {% comment %}
             {% for page in object.pages.all %}

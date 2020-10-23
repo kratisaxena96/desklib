@@ -17,13 +17,13 @@
 			<div class="col-sm-7">
 				<div class="d-inline-block">
 				{% if object.info_graphic_image %}
-				 <img src="{{ object.info_graphic_image.url }}" alt="{{ image_alt_text.title }}" class="mt-n2 img-fluid width-50px h-auto">
+				 <img src="{{ object.info_graphic_image.url }}" alt="{{ image_alt_text.title }}" class="mt-n2 img-fluid width-50px h-auto pb-3">
 				 {% elif object.image %}
 				 <img src="{{ object.image.url }}" alt="{{ image_alt_text.title }}" class="mt-n2 img-fluid width-50px h-auto">
 				 {% endif %}
 				</div>
 				<div class="d-inline-block">
-				<h2 class="d-inline ml-md-2">{{object.name}}</h2>
+				<h2 class="d-inline ml-md-2 " style="font-size:2.2rem;">{{object.name}}</h2>
 				</div>
 				{% if object.sub_heading %}
                 <p class="pt-2">{{object.sub_heading}}</p>

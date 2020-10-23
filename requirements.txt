@@ -26,6 +26,7 @@ cssselect==1.0.3
 daphne==2.3.0
 defusedxml==0.6.0
 Django==2.2.2
+django-advanced-filters==1.2.0
 django-allauth==0.39.1
 django-celery==3.3.1
 django-ckeditor==5.9.0
@@ -101,6 +102,7 @@ SpeechRecognition==3.6.3
 sqlparse==0.3.0
 termcolor==1.1.0
 textract==1.6.1
+tqdm==4.50.2
 Twisted==19.7.0
 txaio==18.8.1
 urllib3==1.25.3

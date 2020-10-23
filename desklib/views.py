@@ -264,7 +264,7 @@ class PaypalPaymentView(TemplateView):
             receiver_email = "info-facilitator@a2zservices.net"
             # action="https://www.sandbox.paypal.com/cgi-bin/webscr"
         else:
-            receiver_email = "payment@locusrags.com"
+            receiver_email = "info@a2zservices.net"
 
         paypal_dict = {
             "cmd": "_xclick-subscriptions",
@@ -314,7 +314,7 @@ class PayNowView(LoginRequiredMixin, CheckSubscriptionMixin, TemplateView):
             receiver_email = "info-facilitator@a2zservices.net"
             # action="https://www.sandbox.paypal.com/cgi-bin/webscr"
         else:
-            receiver_email = "payment@locusrags.com"
+            receiver_email = "info@a2zservices.net"
         now = timezone.now()
 
         if not self.request.user.subscriptions.all().filter(expire_on__gt=now):

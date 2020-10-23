@@ -16,6 +16,11 @@ class ChangeAuthorForm(forms.Form):
         self.fields['user'] = forms.ModelChoiceField(
             queryset=UserAccount.objects.filter(is_staff=True, is_superuser=False,).exclude(username=user.username))
 
+
+class DocumentSearchForm(forms.Form):
+    search = forms.CharField(label='Search', widget=forms.TextInput(attrs={'class': "form-control"}), required=False)
+
+
 class DocumentAdminForm(forms.ModelForm):
     class Meta:
         model = Document

@@ -81,7 +81,8 @@ INSTALLED_APPS = [
     'admissions',
     'homework_help',
     'blogs',
-    'contact'
+    'contact',
+    'advanced_filters'
 ]
 
 SITE_ID = 1
@@ -265,10 +266,17 @@ HAYSTACK_CONNECTIONS = {
         'INDEX_NAME': 'haystack_new',
         'INCLUDE_SPELLING': True,
     },
+    'progressbar': {
+        'ENGINE': 'desklib.backends.elasticsearch2_backend_updated.Elasticsearch2SearchUpdatedEngine',
+        'URL': 'localhost:9200',
+        'TIMEOUT': 60 * 5,
+        'INDEX_NAME': 'haystack_new',
+        'INCLUDE_SPELLING': True,
+    },
 }
 
 
-# HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 # Allauth settings
 ACCOUNT_AUTHENTICATION_METHOD = 'email'

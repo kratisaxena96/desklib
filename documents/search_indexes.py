@@ -8,7 +8,7 @@ class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True, template_name="search/book_text.txt")
     title = indexes.CharField(model_attr='title')
     description = indexes.CharField(model_attr='description')
-    # content = indexes.CharField(model_attr='content')
+    content = indexes.CharField(model_attr='content')
     summary = indexes.CharField(model_attr='summary')
     content_auto = indexes.EdgeNgramField(model_attr='title')
     slug = indexes.CharField(model_attr='slug')
@@ -20,21 +20,28 @@ class DocumentIndex(indexes.SearchIndex, indexes.Indexable):
     subjects = indexes.MultiValueField(faceted=True)
     views = indexes.CharField(model_attr='views')
     p_subject = indexes.MultiValueField(faceted=True)
+    file_name = indexes.CharField(model_attr='upload_file')
 
     def get_model(self):
         return Document
 
-    # def prepare_content(self, obj):
-    #     content = ' '.join(map(str, obj.content.split()[:500]))
-    #     return content
+    def get_updated_field(self):
+        return 'published_date'
+
+    def prepare_content(self, obj):
+        content = ' '.join(map(str, obj.content.split()[:200]))
+        return content
 
     def prepare_subjects(self, obj):
         return [(t.slug) for t in obj.subjects.all()]
 
     def prepare_p_subject(self, obj):
         try:
-            parent_sub = {(t.parent_subject.slug) for t in obj.subjects.all()}
-        except:
+            parent_sub = []
+            for t in obj.subjects.all():
+                if t.parent_subject:
+                    parent_sub.append(t.parent_subject.slug)
+        except Exception as e:
             import pdb; pdb.set_trace()
         return list(parent_sub)
     
@@ -95,18 +102,31 @@ class QuestionIndex(indexes.SearchIndex, indexes.Indexable):
     def get_model(self):
         return Question
 
+    def get_updated_field(self):
+        return 'published_date'
+
     def prepare_no_of_answers(self, obj):
         answers_count = Answers.objects.filter(question=obj).count()
         return answers_count
 
     def prepare_subjects(self, obj):
-        subject = obj.subjects.slug
-        return subject
+        if obj.subjects:
+            subject = obj.subjects.slug
+            return subject
+        else:
+            pass
 
     def prepare_p_subject(self, obj):
-        parent_sub = obj.subjects.parent_subject.slug
-        return list(parent_sub)
+        if obj.subjects:
+            if obj.subjects.parent_subject:
+                parent_sub = obj.subjects.parent_subject.slug
+                return list(parent_sub)
+        else:
+            pass
 
     def prepare_uid(self, obj):
         uid = obj.uid
         return uid
+
+    def index_queryset(self, using=None):
+        return self.get_model().objects.filter(is_visible=True, is_published=True, published_date__lte=timezone.now()).distinct()

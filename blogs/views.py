@@ -1,3 +1,4 @@
+from django.http import Http404
 from django_json_ld.views import JsonLdDetailView, JsonLdListView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils import timezone
@@ -52,7 +53,13 @@ class BlogDetailPageView(JsonLdDetailView, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(BlogDetailPageView, self).get_context_data(**kwargs)
-        context['meta'] = self.get_object().as_meta(self.request)
-        featured_blog = BlogModel.objects.filter(is_published=True, is_featured=True, is_visible=True, published_date__lte=timezone.now())[:4]
-        context['featured_blog'] = featured_blog
-        return context
+        data = self.request.path.split('/')
+        year = data[1]
+        month = data[2]
+        day = data[3]
+        if year == str(kwargs.get('object').published_date.year) and month == str(kwargs.get('object').published_date.month) and day == str(kwargs.get('object').published_date.day):
+            context['meta'] = self.get_object().as_meta(self.request)
+            featured_blog = BlogModel.objects.filter(is_published=True, is_featured=True, is_visible=True, published_date__lte=timezone.now())[:4]
+            context['featured_blog'] = featured_blog
+            return context
+        raise Http404()

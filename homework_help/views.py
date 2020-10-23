@@ -18,7 +18,7 @@ from haystack.generic_views import SearchView
 from django.shortcuts import render
 from django.views.generic import TemplateView, FormView, ListView, DetailView
 from homework_help.models import Order, Comment, Question, Answers
-from homework_help.forms import CommentForm, QuestionForm
+from homework_help.forms import CommentForm, QuestionForm, QuestionHomeForm
 from django.core.paginator import Paginator
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from haystack.generic_views import SearchView
@@ -29,9 +29,10 @@ from django_json_ld import settings as setting
 from django.utils.translation import gettext as _
 
 # Create your views here.
-from subjects.models import Subject
+from subjects.models import Subject, SubjectQuestionContent
 from django.shortcuts import redirect, render
 from desklib.utils import get_timezone
+from documents.models import Document
 from django.views import View
 from datetime import datetime
 
@@ -79,7 +80,7 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
         if settings.PAYPAL_TEST:
             receiver_email = "info-facilitator@a2zservices.net"
         else:
-            receiver_email = "payment@locusrags.com"
+            receiver_email = "info@a2zservices.net"
         paypal_dict = {
             "business": receiver_email,
             "item_name": "Order- " + order.order_id,
@@ -328,6 +329,38 @@ class OrderCreateView(LoginRequiredMixin, FormView):
         return HttpResponseRedirect(redirect_to=reverse('homework_help:order-detail-view', kwargs={'uuid': order.uuid}))
 
 
+class ParentSubjectQuestionView(MetadataMixin, JsonLdContextMixin, DetailView):
+    template_name = "homework_help/parent_subject_question.html"
+    model = Subject
+    form_class = QuestionHomeForm
+
+    def get_context_data(self, **kwargs):
+        context = super(ParentSubjectQuestionView, self).get_context_data(**kwargs)
+        parent_subject = Subject.objects.get(slug=self.kwargs['slug'])
+        child_subject = Subject.objects.filter(parent_subject=parent_subject)
+        subject = SubjectQuestionContent.objects.filter(subject=parent_subject.id)
+
+        all = SearchQuerySet().filter(p_subject=parent_subject)[:20]
+        recent = SearchQuerySet().filter(p_subject=parent_subject).order_by('-pub_date')[:20]
+        top_results = SearchQuerySet().filter(p_subject=parent_subject).order_by('-views')[:20]
+
+        question = Question.objects.filter(subjects=parent_subject.id, is_visible=True, is_published=True)
+
+        for i in child_subject:
+            ques = Question.objects.filter(subjects=i.id, is_visible=True, is_published=True)
+            question = question | ques
+
+        question = question.order_by('-published_date')
+
+        context['meta'] = self.get_object().as_meta(self.request)
+        context['recent'] = recent
+        context['top_results'] = top_results
+        context['question'] = question
+        context['subject'] = subject
+        context['parent_subject'] = parent_subject
+        if 'form' not in context:
+            context['form'] = QuestionHomeForm
+        return context
 class HomeworkHelpPaypalPaymentCheckView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         body = json.loads(request.body.decode("utf-8"))

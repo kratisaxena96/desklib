@@ -17,11 +17,11 @@
 		<div class="row mb-4 mt-4 pb-2 border-bottom">
 			<div class="col-sm-7">
 				{% if object.info_graphic_image %}
-				 <img src="{{ object.info_graphic_image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid width-50px h-auto">
+				 <img src="{{ object.info_graphic_image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid width-50px h-auto pb-3">
 				 {% elif object.image %}
 				 <img src="{{ object.image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid width-50px h-auto">
 				 {% endif %}
-				<h1 class="d-inline ml-md-2">{{object.name}}</h1>
+				<h1 class="d-inline ml-md-2" style="font-size:2.2rem;">{{object.name}}</h1>
                {% if object.sub_heading %}
                 <p class="pt-2">{{object.sub_heading}}</p>
                 {% elif  object.short_description %}

@@ -94,6 +94,8 @@ urlpatterns = [
                   path('blog/', BlogListPageView.as_view(), name='blog'),
                   path('<int:year>/<int:month>/<int:date>/<slug:slug>/', BlogDetailPageView.as_view(), name='blog_detail'),
 
+                  path('advanced_filters/', include('advanced_filters.urls')),
+
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += i18n_patterns(
