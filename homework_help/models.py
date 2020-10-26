@@ -19,6 +19,7 @@ from django.template.defaultfilters import truncatechars
 from meta.models import ModelMeta
 from django.core.mail import EmailMultiAlternatives
 from django.contrib.sites.models import Site
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 # Create your models here.
@@ -84,6 +85,7 @@ class Question(ModelMeta, models.Model):
                                  on_delete=models.PROTECT, )
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True, related_name='author_question')
     uid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    is_publicly_visible = models.BooleanField(_('Publicly Visible'), default=False)
     is_published = models.BooleanField(_('Is Published'), default=False)
     is_visible = models.BooleanField(_('Is Visible'), default=False)
 
@@ -340,7 +342,8 @@ class Order(ModelMeta, models.Model):
 
 class Answers(models.Model):
     question = models.ForeignKey(Question, related_name='answer_question', on_delete=models.PROTECT)
-    solution = models.TextField(_('Solution'))
+    solution = RichTextUploadingField(_('Solution'))
+    # solution_description = RichTextUploadingField(null=True)
     # solution_files = models.FileField(verbose_name=_('Upload File'), upload_to=upload_solutions, max_length=1000)
     answer_id = models.CharField(unique=True, max_length=10, default=key_generator, editable=False)
 

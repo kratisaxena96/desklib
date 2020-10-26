@@ -14,7 +14,7 @@
     <div class="container pt-5 pb-4 pb-md-5">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <h1 class="font-size-25">{{object.question|truncatechars:250}}</h1>
+                <h1 class="font-size-25">Q: {{object.question|truncatechars:250}}</h1>
             </div>
         </div>
  {% if object.user_questionfiles.all %}
@@ -37,12 +37,32 @@
         {% endif %}
     </div>
 </section>
+
 <section>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <h2 class="text-center">Expert's Answers</h2>
-                <div class="blur-image position-relative">
+                {% if question.is_publicly_visible %} {% for answer in question.answer_question.all %}
+            <div class="row mt-4">
+             <div class="col-sm-12">
+                 <div class="card card-body">
+                     <h6><strong>Solution:</strong></h6>
+                     <p>{{answer.solution|safe}}</p>
+                 </div>
+             </div>
+         </div>
+            {% for answers in answer.user_answerfiles.all %}
+            <div class="row mt-4">
+                <div class="col-sm-12">
+                    <span class="d-inline-block mr-2"><i class="fa fa-file"></i></span><a href="{{answers.file.url}}" class="" download>{{answers.title}}</a>
+                    <p class="mt-2">By clicking on the link you can download a file.</p>
+                </div>
+            </div>
+                 {% endfor %}
+                {% endfor %}
+                {% else %}
+                 <div class="blur-image position-relative">
                 <div class="card position-absolute blur-image-position width-452">
                     <div class="card-body p-4 p-md-5 text-center">
                        {% if answer %}
@@ -54,15 +74,7 @@
                     </div>
                 </div>
                 </div>
-                <div class="text-center">
-                     {% comment %}
-    				 <form action="" method="post" id="question-form" enctype="multipart/form-data">
-                         {% csrf_token %}
-                         <input type="hidden" name="question" value="{{object.id}}">
-                         <input type="submit" value="View Answer" class="btn btn-bg-theme white border-radius-20 px-4">
-                     </form>
-                     {% endcomment %}
-                 </div>
+                {% endif %}
             </div>
         </div>
     </div>
