@@ -436,7 +436,7 @@ class HomeworkHelpPaypalPaymentCheckView(LoginRequiredMixin, View):
             'accept': "application/json",
             'content-type': "application/json",
             'accept-language': "en_US",
-            'authorization': "Bearer A21AAKv_HQHsJhvTNVoxdeDfr-gECZ5VycguIYD-GXSWTyH2T7OOB4O6riv0gZqIXis53Tdhz9gvs92cgKpAlfnOaatrX2H1Q"
+            'authorization': "Bearer A21AAI9BZfDs6juLgLbIIt9IcLuKbRjd49VkHTr-pNaQP1CULEKoq05YP3tP0svmVwYA3nWuJzOdcZ2W-Bgne3wzOoUgDCegQ"
         }
 
         response = requests.request("POST", url, data=payload, headers=headers)
@@ -452,7 +452,7 @@ class HomeworkHelpPaypalPaymentView(LoginRequiredMixin, View):
 
         headers = {
             'content-type': "application/json",
-            'authorization': "Bearer A21AAKv_HQHsJhvTNVoxdeDfr-gECZ5VycguIYD-GXSWTyH2T7OOB4O6riv0gZqIXis53Tdhz9gvs92cgKpAlfnOaatrX2H1Q"
+            'authorization': "Bearer A21AAI9BZfDs6juLgLbIIt9IcLuKbRjd49VkHTr-pNaQP1CULEKoq05YP3tP0svmVwYA3nWuJzOdcZ2W-Bgne3wzOoUgDCegQ"
         }
 
         response = requests.request("POST", url, headers=headers)
