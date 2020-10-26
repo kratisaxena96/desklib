@@ -1,3 +1,5 @@
+import requests
+
 from django.contrib.sites.models import Site
 from django.template.loader import render_to_string
 from django.utils import timezone
@@ -365,57 +367,100 @@ class HomeworkHelpPaypalPaymentCheckView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         body = json.loads(request.body.decode("utf-8"))
 
+        if settings.DEBUG:
+            url = "https://api.sandbox.paypal.com/v2/checkout/orders"
+        else:
+            url= "https://api.paypal.com/v2/checkout/orders"
+
         order_id = body.get('order')
         order = Order.objects.get(uuid=order_id)
         data = {}
         item = {}
-        item['amount'] = order.budget
-        data['purchase_units'] = item
+        # item['amount'] = order.budget
+        # data['purchase_units'] = item
 
-        the_data = json.dumps({
-    "intent": "sale",
-    "payer":
-    {
-    	"payment_method": "paypal",
-	# 	"payer_info": {
-	# 		"email":"PayPal@test.com",
-	# 		"first_name": "PayPal",
-	# 		"last_name":"Test"
-	# 	}
-    },
-	"application_context" : {
- 	 	"shipping_preference": "NO_SHIPPING",
-		"user_action":"commit",
-		"locale":"en_US"	#// Pass the locale code of checkout currency Ex : en_US for USD, en_IN for INR
-	},
-  "transactions": [
-  {
-    "amount": {
-        "total": order.budget,
-        "currency": "USD",
-        "details": {
-          "subtotal": order.budget,
+        payload = json.dumps({
+            "intent": "CAPTURE",
+            "application_context": {
+                "brand_name": "Desklib",
+                "locale": "en-US",
+                "shipping_preference": "NO_SHIPPING",
+                "user_action": "PAY_NOW",
+                "return_url": "http://ReturnURL",
+                "cancel_url": "http://CancelURL",
+                "payment_method": {
+                    "payer_selected": "PAYPAL",
+                    "payee_preferred": "IMMEDIATE_PAYMENT_REQUIRED"
+                }
+            },
+            "payer": {
+                "name": {
+                    "given_name": request.user.first_name,
+                    "surname": request.user.last_name
+                },
+                "email_address": request.user.email,
+                "phone": {
+                    "phone_number": {
+                        "national_number": request.user.contact_no.national_number
+                    }
+                }
+            },
+            "purchase_units": [
+                {
+                    "amount": {
+                        "currency_code": "USD",
+                        "value": order.budget,
+                        "breakdown": {
+                            "item_total": {
+                                "currency_code": "USD",
+                                "value": order.budget
+                            }
+                        }
+                    },
+                    "items": [
+                        {
+                            "name": order.question.question[0:15:],
+                            "quantity": "1",
+                            "unit_amount": {
+                                "currency_code": "USD",
+                                "value": order.budget
+                            }
+                        }],
+                    # "soft_descriptor":"CC_STATEMENT_NAME",
+                    # "custom_id":"12345",	#// Pass any custom value of website if required
+                    # "invoice_id":"1234567890"	#// Pass the unique order id of website
+                }
+            ]
+        })
+        headers = {
+            'accept': "application/json",
+            'content-type': "application/json",
+            'accept-language': "en_US",
+            'authorization': "Bearer A21AAKv_HQHsJhvTNVoxdeDfr-gECZ5VycguIYD-GXSWTyH2T7OOB4O6riv0gZqIXis53Tdhz9gvs92cgKpAlfnOaatrX2H1Q"
         }
-    },
-    "item_list":
-    {
-      "items": [{
-		"name": order.question.question,
-		"price": order.budget,
-		"currency": "USD",
-		}],
-    },
-    "description": "Purchased " + order.question.question + " by " + request.user.email,
-  }]
-})
 
-        return HttpResponse(the_data, content_type='application/json')
+        response = requests.request("POST", url, data=payload, headers=headers)
+
+        return HttpResponse(response, content_type='application/json')
 
 
 class HomeworkHelpPaypalPaymentView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
         body = json.loads(request.body.decode("utf-8"))
+        url = "https://api.sandbox.paypal.com/v2/checkout/orders/" + body.get('orderid') + "/capture"
+
+        headers = {
+            'content-type': "application/json",
+            'authorization': "Bearer A21AAKv_HQHsJhvTNVoxdeDfr-gECZ5VycguIYD-GXSWTyH2T7OOB4O6riv0gZqIXis53Tdhz9gvs92cgKpAlfnOaatrX2H1Q"
+        }
+
+        response = requests.request("POST", url, headers=headers)
+
+        # print(response.status_code)
+        #
+        # print(response.text)
+        resp_json = json.loads(response.text)
         # print(body)
         if settings.DEBUG:
             receiver_email = "ankushtambi-facilitator@gmail.com"
@@ -425,62 +470,61 @@ class HomeworkHelpPaypalPaymentView(LoginRequiredMixin, View):
             # homework help payment logic
         else:
             receiver_email = "payment@locusrags.com"
-        if body.get('purchase_units')[0].get("payee").get("email_address") == receiver_email:
-            if body.get('id'):
+        if resp_json.get('status') == "COMPLETED":
 
-                order = body.get('order')
-                o = Order.objects.get(uuid=order)
-                o.amount_paid = o.amount_paid + int(float(body.get('purchase_units')[0].get("amount").get("value")))
-                time_split = o.expected_hours
-                p = time_split
-                if p:
-                    if p > 24:
-                        total_days = p // 24
-                        total_hours = p % 24
-                        o.deadline_datetime = datetime.strptime(body.get('create_time'), '%Y-%m-%dT%H:%M:%SZ') + datetime.timedelta(days=total_days, hours=total_hours)
-                    else:
-                        total_hours = p
-                        o.deadline_datetime = datetime.strptime(body.get('create_time'), '%Y-%m-%dT%H:%M:%SZ') + datetime.timedelta(hours=total_hours)
+            order = body.get('order')
+            o = Order.objects.get(uuid=order)
+            o.amount_paid = o.amount_paid + int(float(resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('amount').get('value')))
+            time_split = o.expected_hours
+            p = time_split
+            if p:
+                if p > 24:
+                    total_days = p // 24
+                    total_hours = p % 24
+                    o.deadline_datetime = datetime.strptime(body.get('create_time'), '%Y-%m-%dT%H:%M:%SZ') + datetime.timedelta(days=total_days, hours=total_hours)
+                else:
+                    total_hours = p
+                    o.deadline_datetime = datetime.strptime(body.get('create_time'), '%Y-%m-%dT%H:%M:%SZ') + datetime.timedelta(hours=total_hours)
 
-                o.status = 3
-                o.save()
+            o.status = 3
+            o.save()
 
-                ip = "https://" + Site.objects.get_current().domain
+            ip = "https://" + Site.objects.get_current().domain
 
-                subject = 'payment for ' + o.order_id + ' completed'
-                message = 'payment for ' + o.order_id + ' completed'
-                from_email = settings.DEFAULT_FROM_EMAIL
-                to = o.author.email,
-                contex = {'first_name': o.author.first_name, 'order_id': o.order_id, 'SITE_URL': ip, 'uuid': o.uuid,
-                          'amount': int(float(body.get('purchase_units')[0].get("amount").get("value")))}
-                htmly = render_to_string('homework_help/mail-templates/order_payment_completed.html',
-                                         context=contex, request=None)
-                html_message = htmly
-                # html_message = "Hello " + o.author.first_name + ",<br>Your order " + o.order_id + " is added.<br>Question is <br>"
-                mail = EmailMultiAlternatives(subject, message, from_email, to)
+            subject = 'payment for ' + o.order_id + ' completed'
+            message = 'payment for ' + o.order_id + ' completed'
+            from_email = settings.DEFAULT_FROM_EMAIL
+            to = o.author.email,
+            contex = {'first_name': o.author.first_name, 'order_id': o.order_id, 'SITE_URL': ip, 'uuid': o.uuid,
+                      'amount': int(float(resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('amount').get('value')))}
+            htmly = render_to_string('homework_help/mail-templates/order_payment_completed.html',
+                                     context=contex, request=None)
+            html_message = htmly
+            # html_message = "Hello " + o.author.first_name + ",<br>Your order " + o.order_id + " is added.<br>Question is <br>"
+            mail = EmailMultiAlternatives(subject, message, from_email, to)
 
-                # if question.user_questionfiles:
+            # if question.user_questionfiles:
 
-                # mail.attach_file(.path)
-                mail.attach_alternative(html_message, 'text/html')
-                mail.send(True)
+            # mail.attach_file(.path)
+            mail.attach_alternative(html_message, 'text/html')
+            mail.send(True)
 
-                locus_email = "kushagra.goel@locusrags.com"
-                if not settings.DEBUG:
-                    locus_email = "info@desklib.com"
+            locus_email = "kushagra.goel@locusrags.com"
+            if not settings.DEBUG:
+                locus_email = "info@desklib.com"
 
-                subject = 'payment for ' + o.order_id + ' recieved'
-                message = 'payment for ' + o.order_id + ' recieved'
-                from_email = settings.DEFAULT_FROM_EMAIL
-                to = locus_email,
-                html_message = 'Hello<br>Payment for ' + o.order_id + ' recieved' + '<br>Link for the admin is: ' + ip + reverse(
-                    'admin:homework_help_order_change', args=(o.id,))
-                mail = EmailMultiAlternatives(subject, message, from_email, to)
+            subject = 'payment for ' + o.order_id + ' recieved'
+            message = 'payment for ' + o.order_id + ' recieved'
+            from_email = settings.DEFAULT_FROM_EMAIL
+            to = locus_email,
+            html_message = 'Hello<br>Payment for ' + o.order_id + ' recieved' + '<br>Link for the admin is: ' + ip + reverse(
+                'admin:homework_help_order_change', args=(o.id,))
+            mail = EmailMultiAlternatives(subject, message, from_email, to)
 
-                # if question.user_questionfiles:
+            # if question.user_questionfiles:
 
-                # mail.attach_file(.path)
-                mail.attach_alternative(html_message, 'text/html')
-                mail.send(True)
-                return JsonResponse('Payment completed', safe=False)
+            # mail.attach_file(.path)
+            mail.attach_alternative(html_message, 'text/html')
+            mail.send(True)
+            return JsonResponse('Payment completed', safe=False)
 

@@ -939,31 +939,26 @@ $( document ).ready(function() {
         	}).then(function(res) {
                     return res.json();
                 }).then(function(orderData) {
-
-					return actions.order.create({
-						purchase_units: [{
-							amount: {
-								value: orderData.transactions[0].amount.total
-							}
-						}]
-					});
+					return orderData.id;
                 });
             },
 
 		// Finalize the transaction
 		onApprove: function (data, actions) {
-			return actions.order.capture().then(function (details) {
+//			return actions.order.capture().then(function (details) {
 				// Show a success message to the buyer
 //				completeOrder(details)
 				// alert('Transaction completed by ' + details.payer.name.given_name + '!');
 
 		var url = "{% url 'homework_help:homework-help-payment-validate' %}"
-		var payment_details = details
+		var payment_details = {}
 		payment_details.order = "{{order.uuid}}"
+        payment_details.orderid = data.orderID
 
 		body = JSON.stringify(payment_details);
+			$('.payment-loader').siblings().css({"filter": "blur(8px)", "-webkit-filter": "blur(8px)"});
+	    	$('.payment-loader').show();
 
-		$('.payment-loader').show();
 
 		fetch(url, {
 				method: 'POST',
@@ -1007,7 +1002,7 @@ $( document ).ready(function() {
         		console.log('success:', orderData);
                 });
 
-			});
+//			});
 		},
             onCancel: function (data) {
 				/*

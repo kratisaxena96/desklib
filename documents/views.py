@@ -712,7 +712,7 @@ class PaypalPaymentCheckView(LoginRequiredMixin, View):
             'accept': "application/json",
             'content-type': "application/json",
             'accept-language': "en_US",
-            'authorization': "Bearer A101.FLjopHiRyc2TDarBtXAIUN69CnHSA2EUs3cKjKR2ZQQIMXYWtfjw1GDo5G1FMcd2.IoddE09MuRP4lNND2C1YKyKZLg8"
+            'authorization': "Bearer A21AAKv_HQHsJhvTNVoxdeDfr-gECZ5VycguIYD-GXSWTyH2T7OOB4O6riv0gZqIXis53Tdhz9gvs92cgKpAlfnOaatrX2H1Q"
         }
 
         response = requests.request("POST", url, data=payload, headers=headers)
@@ -728,14 +728,14 @@ class PaypalPaymentView(LoginRequiredMixin, View):
 
         headers = {
             'content-type': "application/json",
-            'authorization': "Bearer A101.FLjopHiRyc2TDarBtXAIUN69CnHSA2EUs3cKjKR2ZQQIMXYWtfjw1GDo5G1FMcd2.IoddE09MuRP4lNND2C1YKyKZLg8"
+            'authorization': "Bearer A21AAKv_HQHsJhvTNVoxdeDfr-gECZ5VycguIYD-GXSWTyH2T7OOB4O6riv0gZqIXis53Tdhz9gvs92cgKpAlfnOaatrX2H1Q"
         }
 
         response = requests.request("POST", url, headers=headers)
 
-        print(response.status_code)
-
-        print(response.text)
+        # print(response.status_code)
+        #
+        # print(response.text)
         resp_json = json.loads(response.text)
 
         # print(body)
@@ -824,7 +824,7 @@ class PaypalPaymentView(LoginRequiredMixin, View):
                 except:
                     pass
 
-            messages.success(request, 'Congratulations! You have successfully unlocked this document.')
+            # messages.success(request, 'Congratulations! You have successfully unlocked this document.')
             # return redirect(reverse('documents:document-view', kwargs={'slug': doc.slug}))
             return JsonResponse('Payment completed', safe=False)
         else:
