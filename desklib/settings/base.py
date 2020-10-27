@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
+    'corsheaders',
     'taggit',
     'user_sessions',
     'ckeditor',
@@ -91,6 +92,10 @@ SOCIALACCOUNT_QUERY_EMAIL=ACCOUNT_EMAIL_REQUIRED,
 SOCIALACCOUNT_EMAIL_REQUIRED=ACCOUNT_EMAIL_REQUIRED,
 SOCIALACCOUNT_STORE_TOKENS=False
 EXPECTED_IP_API = ['192.168.1.1','127.0.0.1']
+
+# djcelery.setup_loader()
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
@@ -134,6 +139,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     # 'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     # 'django.middleware.cache.FetchFromCacheMiddleware',
