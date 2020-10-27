@@ -779,9 +779,9 @@ class PaypalPaymentView(LoginRequiredMixin, View):
                     payperdoc.documents.add(doc)
                     messages.success(request, 'Congratulations! You have successfully unlocked this document.')
                 else:
-                    contex = {'traction_id': body.get('purchase_units')[0].get("payments").get("captures")[0].get("id"), 'currency': body.get('purchase_units')[0].get("amount").get("currency"),
-                              'amount': body.get('purchase_units')[0].get("amount").get("value"), 'payment_date': payment_date,
-                              'expiry': expire_on,
+                    contex = {'traction_id': resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('id'), 'currency': resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('amount').get("currency_code"),
+                              'amount': resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('amount').get('value'), 'payment_date': str(payment_date.date()),
+                              'expiry': str(expire_on),
                               'plan': plan.package_name, 'SITE_URL': site_url, }
                     subscription = Subscription.objects.create(user=user, plan=plan, expire_on=expire_on,
                                                                author=user)
