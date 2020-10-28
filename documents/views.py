@@ -646,6 +646,30 @@ class PaypalPaymentCheckView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         body = json.loads(request.body.decode("utf-8"))
 
+
+
+        if settings.DEBUG:
+            url = "https://api.sandbox.paypal.com/v1/oauth2/token"
+        else:
+            url= "https://api.paypal.com/v1/oauth2/token"
+
+        data = {
+            "grant_type": "client_credentials"
+        }
+        headers = {
+            'content-type': "application/x-www-form-urlencoded",
+        }
+        client = settings.PAYPAL_CLIENT
+        secret = settings.PAYPAL_SECRET
+
+        auth = (client, secret)
+
+        auth_token = requests.request("POST", url, data=data, headers=headers, auth=auth)
+
+        # print(auth_token.status_code)
+        #
+        # print(auth_token.text)
+
         if settings.DEBUG:
             url = "https://api.sandbox.paypal.com/v2/checkout/orders"
         else:
@@ -712,7 +736,7 @@ class PaypalPaymentCheckView(LoginRequiredMixin, View):
             'accept': "application/json",
             'content-type': "application/json",
             'accept-language': "en_US",
-            'authorization': "Bearer A21AAJKBlvZrcWUDcDv31uXhdHbKZW5I1Rnxm1rss3g6RjSFXBTJsfOZyo20GKrchDbBsf9uI1flE0j7VQ8uKNSJz-sEP4xzA"
+            'authorization': "Bearer "+json.loads(auth_token.text).get('access_token')
         }
 
         response = requests.request("POST", url, data=payload, headers=headers)
@@ -723,12 +747,34 @@ class PaypalPaymentCheckView(LoginRequiredMixin, View):
 class PaypalPaymentView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
+
+        if settings.DEBUG:
+            url = "https://api.sandbox.paypal.com/v1/oauth2/token"
+        else:
+            url= "https://api.paypal.com/v1/oauth2/token"
+
+        data = {
+            "grant_type": "client_credentials"
+        }
+        headers = {
+            'content-type': "application/x-www-form-urlencoded",
+        }
+        client = settings.PAYPAL_CLIENT
+        secret = settings.PAYPAL_SECRET
+
+        auth = (client, secret)
+
+        auth_token = requests.request("POST", url, data=data, headers=headers, auth=auth)
+
         body = json.loads(request.body.decode("utf-8"))
-        url = "https://api.sandbox.paypal.com/v2/checkout/orders/" + body.get('orderid') + "/capture"
+        if settings.DEBUG:
+            url = "https://api.sandbox.paypal.com/v2/checkout/orders/" + body.get('orderid') + "/capture"
+        else:
+            url = "https://api.paypal.com/v2/checkout/orders/" + body.get('orderid') + "/capture"
 
         headers = {
             'content-type': "application/json",
-            'authorization': "Bearer A21AAJKBlvZrcWUDcDv31uXhdHbKZW5I1Rnxm1rss3g6RjSFXBTJsfOZyo20GKrchDbBsf9uI1flE0j7VQ8uKNSJz-sEP4xzA"
+            'authorization': "Bearer "+json.loads(auth_token.text).get('access_token')
         }
 
         response = requests.request("POST", url, headers=headers)
