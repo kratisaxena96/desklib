@@ -683,11 +683,11 @@ class PaypalPaymentCheckView(LoginRequiredMixin, View):
   "intent": "CAPTURE",
   "application_context":{
     "brand_name":"Desklib",
-    "locale":"en-US",
+    # "locale":"en-US",
     "shipping_preference":"NO_SHIPPING",
     "user_action":"PAY_NOW",
-    "return_url":"http://ReturnURL",
-    "cancel_url":"http://CancelURL",
+    # "return_url":"http://ReturnURL",
+    # "cancel_url":"http://CancelURL",
     "payment_method":{
         "payer_selected":"PAYPAL",
 		 "payee_preferred": "IMMEDIATE_PAYMENT_REQUIRED"
@@ -726,9 +726,9 @@ class PaypalPaymentCheckView(LoginRequiredMixin, View):
                 "value": amount
               }
             }],
-        # "soft_descriptor":"CC_STATEMENT_NAME",
+        "soft_descriptor":"Desklib",
 	    # "custom_id":"12345",	#// Pass any custom value of website if required
-	    # "invoice_id":"1234567890"	#// Pass the unique order id of website
+	    "invoice_id":"1234567890"	#// Pass the unique order id of website
     }
   ]
 })
