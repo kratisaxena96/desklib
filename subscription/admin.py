@@ -3,7 +3,7 @@ from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 
-from subscription.models import Plan, Subscription, Download, PageView, SessionPageView, PayPerDocument
+from subscription.models import Plan, Subscription, Download, PageView, SessionPageView, PayPerDocument, PaypalInvoice
 
 
 # Register your models here.
@@ -77,6 +77,11 @@ class SessionPageViewsAdmin(admin.ModelAdmin):
     search_fields = ['document__title', ]
     list_display = ('document', 'session', 'created_at', 'updated_at')
 
+class PaypalInvoiceAdmin(admin.ModelAdmin):
+    search_fields = ['payer_email', ]
+    list_display = ('invoice_id', 'buyer_email', 'status', 'amount', 'created_at', 'updated_at')
+    readonly_fields = ('buyer_email', 'invoice_id', 'status', 'amount', 'user', 'currency', 'transaction_id', 'created_at', 'updated_at')
+
 class PayPerViewAdmin(admin.ModelAdmin):
     raw_id_fields = ('documents','user')
     list_display = ('user','is_current')
@@ -88,5 +93,6 @@ admin.site.register(Subscription, SubscriptionAdmin)
 admin.site.register(Download, DownloadAdmin)
 admin.site.register(PageView, PageViewsAdmin)
 admin.site.register(SessionPageView, SessionPageViewsAdmin)
+admin.site.register(PaypalInvoice, PaypalInvoiceAdmin)
 
 

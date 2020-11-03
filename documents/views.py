@@ -72,6 +72,7 @@ from uploads.models import Upload
 from formtools.wizard.forms import ManagementForm
 from django.utils.decorators import method_decorator
 from django.contrib.admin.views.decorators import staff_member_required
+from subscription.models import PaypalInvoice
 
 
 
@@ -646,34 +647,34 @@ class PaypalPaymentCheckView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         body = json.loads(request.body.decode("utf-8"))
 
-
-
         if settings.DEBUG:
-            url = "https://api.sandbox.paypal.com/v1/oauth2/token"
+            url = settings.PAYPAL_TOKEN_API
+
+            data = {
+                "grant_type": "client_credentials"
+            }
+            headers = {
+                'content-type': "application/x-www-form-urlencoded",
+            }
+            client = settings.PAYPAL_CLIENT
+            secret = settings.PAYPAL_SECRET
+
+            auth = (client, secret)
+
+            auth_token = requests.request("POST", url, data=data, headers=headers, auth=auth)
+            token = json.loads(auth_token.text).get('access_token')
         else:
-            url= "https://api.paypal.com/v1/oauth2/token"
-
-        data = {
-            "grant_type": "client_credentials"
-        }
-        headers = {
-            'content-type': "application/x-www-form-urlencoded",
-        }
-        client = settings.PAYPAL_CLIENT
-        secret = settings.PAYPAL_SECRET
-
-        auth = (client, secret)
-
-        auth_token = requests.request("POST", url, data=data, headers=headers, auth=auth)
+            f = open(settings.BASE_DIR + "/authtoken.txt", "r")
+            token = f.read()
 
         # print(auth_token.status_code)
         #
         # print(auth_token.text)
 
-        if settings.DEBUG:
-            url = "https://api.sandbox.paypal.com/v2/checkout/orders"
-        else:
-            url= "https://api.paypal.com/v2/checkout/orders"
+        payment_invoice = PaypalInvoice(user=request.user)
+        payment_invoice.save()
+
+        url = settings.PAYPAL_CHECKOUT_API
 
         plan_key = body.get('key')
         plan = Plan.objects.get(key=plan_key)
@@ -693,18 +694,18 @@ class PaypalPaymentCheckView(LoginRequiredMixin, View):
 		 "payee_preferred": "IMMEDIATE_PAYMENT_REQUIRED"
     }
   },
-  "payer":{
-    "name":{
-        "given_name": request.user.first_name,
-        "surname": request.user.last_name
-    },
-    "email_address": request.user.email,
-    "phone": {
-            "phone_number": {
-                "national_number": request.user.contact_no.national_number
-            }
-        }
-    },
+  # "payer":{
+  #   "name":{
+  #       "given_name": request.user.first_name,
+  #       "surname": request.user.last_name
+  #   },
+  #   "email_address": request.user.email,
+  #   "phone": {
+  #           "phone_number": {
+  #               "national_number": request.user.contact_no.national_number
+  #           }
+  #       }
+  #   },
   "purchase_units": [
     {
         "amount": {
@@ -728,7 +729,7 @@ class PaypalPaymentCheckView(LoginRequiredMixin, View):
             }],
         "soft_descriptor":"Desklib",
 	    # "custom_id":"12345",	#// Pass any custom value of website if required
-	    "invoice_id":"1234567890"	#// Pass the unique order id of website
+	    "invoice_id": payment_invoice.invoice_id #// Pass the unique order id of website
     }
   ]
 })
@@ -736,7 +737,7 @@ class PaypalPaymentCheckView(LoginRequiredMixin, View):
             'accept': "application/json",
             'content-type': "application/json",
             'accept-language': "en_US",
-            'authorization': "Bearer "+json.loads(auth_token.text).get('access_token')
+            'authorization': "Bearer "+token
         }
 
         response = requests.request("POST", url, data=payload, headers=headers)
@@ -749,22 +750,24 @@ class PaypalPaymentView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
 
         if settings.DEBUG:
-            url = "https://api.sandbox.paypal.com/v1/oauth2/token"
+            url = settings.PAYPAL_TOKEN_API
+
+            data = {
+                "grant_type": "client_credentials"
+            }
+            headers = {
+                'content-type': "application/x-www-form-urlencoded",
+            }
+            client = settings.PAYPAL_CLIENT
+            secret = settings.PAYPAL_SECRET
+
+            auth = (client, secret)
+
+            auth_token = requests.request("POST", url, data=data, headers=headers, auth=auth)
+            token = json.loads(auth_token.text).get('access_token')
         else:
-            url= "https://api.paypal.com/v1/oauth2/token"
-
-        data = {
-            "grant_type": "client_credentials"
-        }
-        headers = {
-            'content-type': "application/x-www-form-urlencoded",
-        }
-        client = settings.PAYPAL_CLIENT
-        secret = settings.PAYPAL_SECRET
-
-        auth = (client, secret)
-
-        auth_token = requests.request("POST", url, data=data, headers=headers, auth=auth)
+            f = open(settings.BASE_DIR + "/authtoken.txt", "r")
+            token = f.read()
 
         body = json.loads(request.body.decode("utf-8"))
         if settings.DEBUG:
@@ -774,7 +777,7 @@ class PaypalPaymentView(LoginRequiredMixin, View):
 
         headers = {
             'content-type': "application/json",
-            'authorization': "Bearer "+json.loads(auth_token.text).get('access_token')
+            'authorization': "Bearer "+token
         }
 
         response = requests.request("POST", url, headers=headers)
@@ -783,6 +786,15 @@ class PaypalPaymentView(LoginRequiredMixin, View):
         #
         # print(response.text)
         resp_json = json.loads(response.text)
+
+        invoice_id = resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('invoice_id')
+        payment = PaypalInvoice.objects.get(invoice_id=invoice_id)
+        payment.buyer_email = resp_json.get('payer').get('email_address')
+        payment.amount = resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('amount').get('value')
+        payment.status = resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('status')
+        payment.currency = resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('amount').get("currency_code")
+        payment.transaction_id = resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('id')
+        payment.save()
 
         # print(body)
         if settings.DEBUG:
