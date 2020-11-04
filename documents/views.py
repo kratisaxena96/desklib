@@ -73,6 +73,7 @@ from formtools.wizard.forms import ManagementForm
 from django.utils.decorators import method_decorator
 from django.contrib.admin.views.decorators import staff_member_required
 from subscription.models import PaypalInvoice
+from documents.utils import key_generator
 
 
 
@@ -667,6 +668,43 @@ class PaypalPaymentCheckView(LoginRequiredMixin, View):
             f = open(settings.BASE_DIR + "/authtoken.txt", "r")
             token = f.read()
 
+        tracking_id = key_generator()
+        url = settings.PAYPAL_RISK_API + settings.PAYPAL_MERCHANT_ID + "/" + tracking_id
+
+        payload = json.dumps({
+            "tracking_id": tracking_id,
+            "additional_data": [
+                {
+                    "key":"sender_first_name",
+                    "value": request.user.first_name
+                },
+                {
+                    "key":"sender_email",
+                    "value": request.user.email
+                },
+                {
+                    "key":"sender_phone",
+                    "value": str(request.user.contact_no)
+                },
+                {
+                    "key":"sender_country_code",
+                    "value": str(request.user.country)
+                },
+                {
+                    "key":"sender_create_date",
+                    "value": str(datetime.now())
+                },
+            ],
+        })
+        headers = {
+            'accept': "application/json",
+            'content-type': "application/json",
+            'accept-language': "en_US",
+            'authorization': "Bearer " + token
+        }
+
+        risk_response = requests.request("PUT", url, data=payload, headers=headers)
+
         # print(auth_token.status_code)
         #
         # print(auth_token.text)
@@ -770,10 +808,8 @@ class PaypalPaymentView(LoginRequiredMixin, View):
             token = f.read()
 
         body = json.loads(request.body.decode("utf-8"))
-        if settings.DEBUG:
-            url = "https://api.sandbox.paypal.com/v2/checkout/orders/" + body.get('orderid') + "/capture"
-        else:
-            url = "https://api.paypal.com/v2/checkout/orders/" + body.get('orderid') + "/capture"
+
+        url = settings.PAYPAL_CHECKOUT_API + body.get('orderid') + "/capture"
 
         headers = {
             'content-type': "application/json",

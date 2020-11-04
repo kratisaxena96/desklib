@@ -78,7 +78,7 @@ class SessionPageViewsAdmin(admin.ModelAdmin):
     list_display = ('document', 'session', 'created_at', 'updated_at')
 
 class PaypalInvoiceAdmin(admin.ModelAdmin):
-    search_fields = ['payer_email', ]
+    search_fields = ['payer_email', 'transaction_id', 'buyer_email', ]
     list_display = ('invoice_id', 'buyer_email', 'status', 'amount', 'created_at', 'updated_at')
     readonly_fields = ('buyer_email', 'invoice_id', 'status', 'amount', 'user', 'currency', 'transaction_id', 'created_at', 'updated_at')
 

@@ -19,6 +19,8 @@ from django_json_ld.views import JsonLdContextMixin
 from haystack.generic_views import SearchView
 from django.shortcuts import render
 from django.views.generic import TemplateView, FormView, ListView, DetailView
+
+from documents.utils import key_generator
 from homework_help.models import Order, Comment, Question, Answers
 from homework_help.forms import CommentForm, QuestionForm, QuestionHomeForm
 from django.core.paginator import Paginator
@@ -37,6 +39,8 @@ from desklib.utils import get_timezone
 from documents.models import Document
 from django.views import View
 from datetime import datetime
+
+from subscription.models import PaypalInvoice
 
 
 def autocomplete(request):
@@ -363,32 +367,73 @@ class ParentSubjectQuestionView(MetadataMixin, JsonLdContextMixin, DetailView):
         if 'form' not in context:
             context['form'] = QuestionHomeForm
         return context
+
+
 class HomeworkHelpPaypalPaymentCheckView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         body = json.loads(request.body.decode("utf-8"))
 
         if settings.DEBUG:
-            url = "https://api.sandbox.paypal.com/v1/oauth2/token"
-        else:
-            url= "https://api.paypal.com/v1/oauth2/token"
+            url = settings.PAYPAL_TOKEN_API
 
-        data = {
-            "grant_type": "client_credentials"
-        }
+            data = {
+                "grant_type": "client_credentials"
+            }
+            headers = {
+                'content-type': "application/x-www-form-urlencoded",
+            }
+            client = settings.PAYPAL_CLIENT
+            secret = settings.PAYPAL_SECRET
+
+            auth = (client, secret)
+
+            auth_token = requests.request("POST", url, data=data, headers=headers, auth=auth)
+            token = json.loads(auth_token.text).get('access_token')
+        else:
+            f = open(settings.BASE_DIR + "/authtoken.txt", "r")
+            token = f.read()
+
+        tracking_id = key_generator()
+        url = settings.PAYPAL_RISK_API + settings.PAYPAL_MERCHANT_ID + "/" + tracking_id
+
+        payload = json.dumps({
+            "tracking_id": tracking_id,
+            "additional_data": [
+                {
+                    "key":"sender_first_name",
+                    "value": request.user.first_name
+                },
+                {
+                    "key":"sender_email",
+                    "value": request.user.email
+                },
+                {
+                    "key":"sender_phone",
+                    "value": str(request.user.contact_no)
+                },
+                {
+                    "key":"sender_country_code",
+                    "value": str(request.user.country)
+                },
+                {
+                    "key":"sender_create_date",
+                    "value": str(datetime.now())
+                },
+            ],
+        })
         headers = {
-            'content-type': "application/x-www-form-urlencoded",
+            'accept': "application/json",
+            'content-type': "application/json",
+            'accept-language': "en_US",
+            'authorization': "Bearer " + token
         }
-        client = settings.PAYPAL_CLIENT
-        secret = settings.PAYPAL_SECRET
 
-        auth = (client, secret)
+        risk_response = requests.request("PUT", url, data=payload, headers=headers)
 
-        auth_token = requests.request("POST", url, data=data, headers=headers, auth=auth)
+        url = settings.PAYPAL_CHECKOUT_API
 
-        if settings.DEBUG:
-            url = "https://api.sandbox.paypal.com/v2/checkout/orders"
-        else:
-            url= "https://api.paypal.com/v2/checkout/orders"
+        payment_invoice = PaypalInvoice(user=request.user)
+        payment_invoice.save()
 
         order_id = body.get('order')
         order = Order.objects.get(uuid=order_id)
@@ -401,28 +446,28 @@ class HomeworkHelpPaypalPaymentCheckView(LoginRequiredMixin, View):
             "intent": "CAPTURE",
             "application_context": {
                 "brand_name": "Desklib",
-                "locale": "en-US",
+                # "locale": "en-US",
                 "shipping_preference": "NO_SHIPPING",
                 "user_action": "PAY_NOW",
-                "return_url": "http://ReturnURL",
-                "cancel_url": "http://CancelURL",
+                # "return_url": "http://ReturnURL",
+                # "cancel_url": "http://CancelURL",
                 "payment_method": {
                     "payer_selected": "PAYPAL",
                     "payee_preferred": "IMMEDIATE_PAYMENT_REQUIRED"
                 }
             },
-            "payer": {
-                "name": {
-                    "given_name": request.user.first_name,
-                    "surname": request.user.last_name
-                },
-                "email_address": request.user.email,
-                "phone": {
-                    "phone_number": {
-                        "national_number": request.user.contact_no.national_number
-                    }
-                }
-            },
+            # "payer": {
+            #     "name": {
+            #         "given_name": request.user.first_name,
+            #         "surname": request.user.last_name
+            #     },
+            #     "email_address": request.user.email,
+            #     "phone": {
+            #         "phone_number": {
+            #             "national_number": request.user.contact_no.national_number
+            #         }
+            #     }
+            # },
             "purchase_units": [
                 {
                     "amount": {
@@ -444,9 +489,9 @@ class HomeworkHelpPaypalPaymentCheckView(LoginRequiredMixin, View):
                                 "value": order.budget
                             }
                         }],
-                    # "soft_descriptor":"CC_STATEMENT_NAME",
+                    "soft_descriptor":"Desklib",
                     # "custom_id":"12345",	#// Pass any custom value of website if required
-                    # "invoice_id":"1234567890"	#// Pass the unique order id of website
+                    "invoice_id": payment_invoice.invoice_id	#// Pass the unique order id of website
                 }
             ]
         })
@@ -454,7 +499,7 @@ class HomeworkHelpPaypalPaymentCheckView(LoginRequiredMixin, View):
             'accept': "application/json",
             'content-type': "application/json",
             'accept-language': "en_US",
-            'authorization': "Bearer "+json.loads(auth_token.text).get('access_token')
+            'authorization': "Bearer "+ token
         }
 
         response = requests.request("POST", url, data=payload, headers=headers)
@@ -467,28 +512,30 @@ class HomeworkHelpPaypalPaymentView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
 
         if settings.DEBUG:
-            url = "https://api.sandbox.paypal.com/v1/oauth2/token"
+            url = settings.PAYPAL_TOKEN_API
+
+            data = {
+                "grant_type": "client_credentials"
+            }
+            headers = {
+                'content-type': "application/x-www-form-urlencoded",
+            }
+            client = settings.PAYPAL_CLIENT
+            secret = settings.PAYPAL_SECRET
+
+            auth = (client, secret)
+
+            auth_token = requests.request("POST", url, data=data, headers=headers, auth=auth)
+            token = json.loads(auth_token.text).get('access_token')
         else:
-            url= "https://api.paypal.com/v1/oauth2/token"
-
-        data = {
-            "grant_type": "client_credentials"
-        }
-        headers = {
-            'content-type': "application/x-www-form-urlencoded",
-        }
-        client = settings.PAYPAL_CLIENT
-        secret = settings.PAYPAL_SECRET
-
-        auth = (client, secret)
-
-        auth_token = requests.request("POST", url, data=data, headers=headers, auth=auth)
+            f = open(settings.BASE_DIR + "/authtoken.txt", "r")
+            token = f.read()
         body = json.loads(request.body.decode("utf-8"))
-        url = "https://api.sandbox.paypal.com/v2/checkout/orders/" + body.get('orderid') + "/capture"
+        url = settings.PAYPAL_CHECKOUT_API + body.get('orderid') + "/capture"
 
         headers = {
             'content-type': "application/json",
-            'authorization': "Bearer "+json.loads(auth_token.text).get('access_token')
+            'authorization': "Bearer "+ token
         }
 
         response = requests.request("POST", url, headers=headers)
@@ -497,6 +544,15 @@ class HomeworkHelpPaypalPaymentView(LoginRequiredMixin, View):
         #
         # print(response.text)
         resp_json = json.loads(response.text)
+
+        invoice_id = resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('invoice_id')
+        payment = PaypalInvoice.objects.get(invoice_id=invoice_id)
+        payment.buyer_email = resp_json.get('payer').get('email_address')
+        payment.amount = resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('amount').get('value')
+        payment.status = resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('status')
+        payment.currency = resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('amount').get("currency_code")
+        payment.transaction_id = resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('id')
+        payment.save()
         # print(body)
         if settings.DEBUG:
             receiver_email = "ankushtambi-facilitator@gmail.com"

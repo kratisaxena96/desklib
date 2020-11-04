@@ -93,3 +93,5 @@ PAYPAL_SECRET = "EDVPo6BKm3W20QSivNv8IsZSxExWw71RC99Vvb_uN4xCmI7QFkTuHJ6g_YCX9lM
 
 PAYPAL_TOKEN_API = "https://api.sandbox.paypal.com/v1/oauth2/token"
 PAYPAL_CHECKOUT_API = "https://api.sandbox.paypal.com/v2/checkout/orders"
+PAYPAL_RISK_API = "https://api.sandbox.paypal.com/v1/risk/transaction-contexts/"
+PAYPAL_MERCHANT_ID = "BL4F4UGTX2VCW"
