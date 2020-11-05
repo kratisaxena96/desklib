@@ -101,6 +101,7 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
         context['paypalform'] = paypalform
         context['meta'] = self.get_object().as_meta(self.request)
         context['order'] = order
+        context['tracking_id'] = key_generator()
         return context
 
 
@@ -394,10 +395,10 @@ class HomeworkHelpPaypalPaymentCheckView(LoginRequiredMixin, View):
             token = f.read()
 
         tracking_id = key_generator()
-        url = settings.PAYPAL_RISK_API + settings.PAYPAL_MERCHANT_ID + "/" + tracking_id
+        url = settings.PAYPAL_RISK_API + settings.PAYPAL_MERCHANT_ID + "/" + body.get('tracking_id')
 
         payload = json.dumps({
-            "tracking_id": tracking_id,
+            "tracking_id": body.get('tracking_id'),
             "additional_data": [
                 {
                     "key":"sender_first_name",
@@ -456,18 +457,18 @@ class HomeworkHelpPaypalPaymentCheckView(LoginRequiredMixin, View):
                     "payee_preferred": "IMMEDIATE_PAYMENT_REQUIRED"
                 }
             },
-            # "payer": {
-            #     "name": {
-            #         "given_name": request.user.first_name,
-            #         "surname": request.user.last_name
-            #     },
-            #     "email_address": request.user.email,
-            #     "phone": {
-            #         "phone_number": {
-            #             "national_number": request.user.contact_no.national_number
-            #         }
-            #     }
-            # },
+            "payer": {
+                "name": {
+                    "given_name": request.user.first_name,
+                    "surname": request.user.last_name
+                },
+                "email_address": request.user.email,
+                # "phone": {
+                #     "phone_number": {
+                #         "national_number": request.user.contact_no.national_number
+                #     }
+                # }
+            },
             "purchase_units": [
                 {
                     "amount": {
@@ -535,7 +536,9 @@ class HomeworkHelpPaypalPaymentView(LoginRequiredMixin, View):
 
         headers = {
             'content-type': "application/json",
-            'authorization': "Bearer "+ token
+            'authorization': "Bearer "+ token,
+            'PayPal-Client-Metadata-Id': body.get('tracking_id'),
+            'PayPal-Request-id': key_generator()
         }
 
         response = requests.request("POST", url, headers=headers)

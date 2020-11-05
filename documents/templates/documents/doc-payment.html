@@ -993,6 +993,7 @@ $( document ).ready(function() {
 				payment_details1['user'] = "{{user}}"
 				payment_details1['key'] = key
 				payment_details1['doc'] = "{{doc}}"
+				payment_details1['tracking_id'] = "{{tracking_id}}"
 
 			body = JSON.stringify(payment_details1);
 
@@ -1064,6 +1065,7 @@ $( document ).ready(function() {
 			payment_details.key = key
 			payment_details.doc = doc
 			payment_details.orderid = data.orderID
+			payment_details.tracking_id = "{{tracking_id}}"
 
 			body = JSON.stringify(payment_details);
 			$('.payment-loader').siblings().css({"filter": "blur(8px)", "-webkit-filter": "blur(8px)"});

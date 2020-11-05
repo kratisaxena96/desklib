@@ -521,6 +521,8 @@ class DocumentPayment(LoginRequiredMixin, MetadataMixin, TemplateView):
         context['user'] = self.request.user
         context['form1'] = UploadForm
         context['form2'] = UploadFileForm
+
+        context['tracking_id'] = key_generator()
         if settings.PAYPAL_TEST:
             receiver_email = "info-facilitator@a2zservices.net"
         else:
@@ -668,11 +670,10 @@ class PaypalPaymentCheckView(LoginRequiredMixin, View):
             f = open(settings.BASE_DIR + "/authtoken.txt", "r")
             token = f.read()
 
-        tracking_id = key_generator()
-        url = settings.PAYPAL_RISK_API + settings.PAYPAL_MERCHANT_ID + "/" + tracking_id
+        url = settings.PAYPAL_RISK_API + settings.PAYPAL_MERCHANT_ID + "/" + body.get('tracking_id')
 
         payload = json.dumps({
-            "tracking_id": tracking_id,
+            "tracking_id": body.get('tracking_id'),
             "additional_data": [
                 {
                     "key":"sender_first_name",
@@ -732,18 +733,18 @@ class PaypalPaymentCheckView(LoginRequiredMixin, View):
 		 "payee_preferred": "IMMEDIATE_PAYMENT_REQUIRED"
     }
   },
-  # "payer":{
-  #   "name":{
-  #       "given_name": request.user.first_name,
-  #       "surname": request.user.last_name
-  #   },
-  #   "email_address": request.user.email,
-  #   "phone": {
-  #           "phone_number": {
-  #               "national_number": request.user.contact_no.national_number
-  #           }
-  #       }
-  #   },
+  "payer":{
+    "name":{
+        "given_name": request.user.first_name,
+        "surname": request.user.last_name
+    },
+    "email_address": request.user.email,
+    # "phone": {
+    #         "phone_number": {
+    #             "national_number": request.user.contact_no.national_number
+    #         }
+    #     }
+    },
   "purchase_units": [
     {
         "amount": {
@@ -760,13 +761,14 @@ class PaypalPaymentCheckView(LoginRequiredMixin, View):
             {
               "name": plan.package_name,
               "quantity": "1",
+              "category": "DIGITAL_GOODS",
               "unit_amount": {
                 "currency_code": "USD",
                 "value": amount
               }
             }],
         "soft_descriptor":"Desklib",
-	    # "custom_id":"12345",	#// Pass any custom value of website if required
+	    # "custom_id": tracking_id,	#// Pass any custom value of website if required
 	    "invoice_id": payment_invoice.invoice_id #// Pass the unique order id of website
     }
   ]
@@ -813,7 +815,9 @@ class PaypalPaymentView(LoginRequiredMixin, View):
 
         headers = {
             'content-type': "application/json",
-            'authorization': "Bearer "+token
+            'authorization': "Bearer "+token,
+            'PayPal-Client-Metadata-Id': body.get('tracking_id'),
+            'PayPal-Request-id': key_generator()
         }
 
         response = requests.request("POST", url, headers=headers)

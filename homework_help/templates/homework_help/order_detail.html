@@ -4,6 +4,9 @@
 
     {% block extra_css %}
     <style>
+    .payment-loader {
+    display: none;
+}
         /* Media query for mobile viewport */
         @media screen and (max-width: 400px) {
             #paypal-button-container {
@@ -300,6 +303,13 @@
         </div>
 </section>
 
+
+<div class="loading payment-loader">
+    <div class="loader-container">
+		<h4 class="text-center text-white">Your payment is being processed...</h4>
+        <div class="loader"></div>
+    </div>
+</div>
 
 {% comment %}
 <div class="comments"></div>
@@ -857,6 +867,7 @@ $( document ).ready(function() {
 		var url = "{% url 'homework_help:homework-help-payment-validate' %}"
 		var payment_details = details
 		payment_details.order = "{{order.uuid}}"
+        payment_details.tracking_id = "{{tracking_id}}"
 
 		body = JSON.stringify(payment_details);
 
@@ -912,6 +923,7 @@ $( document ).ready(function() {
     var payment_details1 = {}
     payment_details1['user'] = "{{user}}"
     payment_details1['order'] = "{{object.uuid}}"
+    payment_details1['tracking_id'] = "{{tracking_id}}"
 
     body = JSON.stringify(payment_details1);
 
@@ -974,6 +986,8 @@ $( document ).ready(function() {
 //			})
 			.then(function(res) {
                     return res.json();
+			$('.payment-loader').siblings().css({"filter": "blur(0px)", "-webkit-filter": "blur(0px)"});
+	    	$('.payment-loader').hide();
                 }).then(function(orderData) {
                     // Three cases to handle:
                     //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
