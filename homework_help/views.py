@@ -531,7 +531,7 @@ class HomeworkHelpPaypalPaymentView(LoginRequiredMixin, View):
             f = open(settings.BASE_DIR + "/authtoken.txt", "r")
             token = f.read()
         body = json.loads(request.body.decode("utf-8"))
-        url = settings.PAYPAL_CHECKOUT_API + body.get('orderid') + "/capture"
+        url = settings.PAYPAL_CHECKOUT_API + "/" + body.get('orderid') + "/capture"
 
         headers = {
             'content-type': "application/json",
