@@ -485,6 +485,7 @@ class HomeworkHelpPaypalPaymentCheckView(LoginRequiredMixin, View):
                         {
                             "name": order.question.question[0:15:],
                             "quantity": "1",
+                            "category": "DIGITAL_GOODS",
                             "unit_amount": {
                                 "currency_code": "USD",
                                 "value": order.budget
