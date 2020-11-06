@@ -966,6 +966,7 @@ $( document ).ready(function() {
 		var payment_details = {}
 		payment_details.order = "{{order.uuid}}"
         payment_details.orderid = data.orderID
+    payment_details.tracking_id = "{{tracking_id}}"
 
 		body = JSON.stringify(payment_details);
 			$('.payment-loader').siblings().css({"filter": "blur(8px)", "-webkit-filter": "blur(8px)"});
