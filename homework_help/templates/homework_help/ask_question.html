@@ -422,7 +422,7 @@
 			{% for content in accordion_content %}
 			<div class="hrz-border" id="{{ content.id }}">
             <div class="card-header collapsed pb-4 mb-1 pr-0 pl-0" data-toggle="collapse" href="#{{ content.slug }}" style="background-color: transparent; border-bottom: none;">
-                <div class="pr-5"><a class="card-title steps-font" onclick="showDetails(this)" data-aacordion="check" data-check="acc{{forloop.counter}}" id="{{ content.accordion_title }}">
+                <div class="pr-5"><a class="card-title question-font" onclick="showDetails(this)" data-aacordion="check" data-check="acc{{forloop.counter}}" id="{{ content.accordion_title }}">
                     {{ content.accordion_title }}
                 </a></div>
             </div>
