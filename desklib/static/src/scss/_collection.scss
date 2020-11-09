@@ -2025,6 +2025,14 @@ opacity: 1;
   height:500px;
 }
 
+@media (max-width: 600px){
+.steps-to-get-banner{
+  background: transparent url("/static/dist/assets/images/ac_bg_line_form-svg .png") 0% 0% no-repeat padding-box;
+  opacity: 1;
+  height: auto;
+}
+}
+
 .form-field-design{
 border: 1px solid #405FBD !important;
 border-radius: 32px;
@@ -2099,10 +2107,6 @@ ol li {
   list-style-type: none !important;
   border-bottom: 1px solid #9B9B9B !important;
 }
-ol li:before {
-  text-align:center !important;
-  position:absolute !important;
-}
 
 .margin-t{
 margin-top:0%;
@@ -2133,7 +2137,7 @@ color: black;
 color: #405FBD !important;
 }
 .card-body-p{
-padding: 20px 0px 0px 15px;
+padding: 20px 70px 0px 0px;
 }
 
 ol {
@@ -2147,14 +2151,12 @@ ol > li {
 ol > li:before {
 	content:counter(li);
 	counter-increment:li;
-	top:-2px !important;
-	left:-2em !important;
+	top:-2px ;
+	left:-2em ;
 	box-sizing:border-box;
-	padding:4px !important;
-	color:#fff !important;
-	background:#666 !important;
-	text-align:center !important;
-    position:absolute !important;
+	padding:4px ;
+	text-align:center ;
+    position:absolute ;
 }
 li ol,
 li ul {margin-top:6px;}
