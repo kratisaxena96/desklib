@@ -15,7 +15,7 @@ def index_documents():
     call_command('update_index', start=str(publishdate))
 
 
-@periodic_task(run_every=(crontab(minute=0, hour='*/7')), name="index_documents", ignore_result=True)
+@periodic_task(run_every=(crontab(minute=0, hour='*/7')), name="paypal_auth_token", ignore_result=True)
 def paypal_auth_token():
     url = settings.PAYPAL_TOKEN_API
 
