@@ -17,7 +17,7 @@ from django_json_ld.views import JsonLdContextMixin
 from haystack.generic_views import SearchView
 from django.shortcuts import render
 from django.views.generic import TemplateView, FormView, ListView, DetailView
-from homework_help.models import Order, Comment, Question, Answers
+from homework_help.models import Order, Comment, Question, Answers, HomeworkAccordion
 from homework_help.forms import CommentForm, QuestionForm, QuestionHomeForm
 from django.core.paginator import Paginator
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -164,11 +164,13 @@ class AskQuestionView(JsonLdContextMixin, MetadataMixin, FormView):
         # context = super(AskQuestionView, self).get_context_data(**kwargs)
         context = super(JsonLdContextMixin, self).get_context_data(**kwargs)
         context[setting.CONTEXT_ATTRIBUTE] = self.get_structured_data()
-        queryset = Question.objects.filter(is_published=True, is_visible=True, published_date__lte=timezone.now()).order_by('-published_date')[:6]
-        subject = Subject.objects.all()[:12]
+        queryset = Question.objects.filter(is_published=True, is_visible=True, published_date__lte=timezone.now()).order_by('-published_date')
+        subject = Subject.objects.all()[:9]
+        accordion_content = HomeworkAccordion.objects.filter
         # order = Order.objects.get(order_id=self.kwargs['order_id'])
         context['question'] = queryset
         context['subject'] = subject
+        context['accordion_content'] = accordion_content
         context[self.context_meta_name] = self.get_meta(context=context)
         return context
 
