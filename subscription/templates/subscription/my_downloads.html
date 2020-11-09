@@ -47,7 +47,7 @@
             		   <tbody>
             		   	   <tr>
             		   	   	   <td scope="row">{{downloads.document | truncatechars:40}}</td>
-                               <td scope="row">{{downloads.created_at}}</td>
+                               <td scope="row">{{downloads.created_at|date:"N j, Y, H:i"}}</td>
             		   	   </tr>
             		   </tbody>
 
@@ -111,7 +111,7 @@
 	 				   	 	 	{{pages.document | truncatechars:40}}
 								</td>
                                 <td scope="row">
-	 				   	 	  		{{pages.created_at}}
+	 				   	 	  		{{pages.created_at|date:"N j, Y, H:i"}}
 	 				   	 	  	</td>
 	 				   	 	</tr>
 	 				    </tbody>
