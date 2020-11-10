@@ -208,7 +208,7 @@
 <div class="container pt-5 pb-3">
    <h2 class="sub-heading-homew alt-font font-weight-700 text-extra-dark-gray text-center pb-4">Top free solved homework questions</h2>
    <div class="row">
-	    <div class="col-sm-12 pb-4 mb-1">
+	    <div class="col-sm-12 pb-4 mb-1 homew">
 	   <ol class="loadMore list-group pt-3">
       {% for object in question %}
 		   <li class="pt-4 bg-aqua mr-1" style="margin-bottom:20px;">
@@ -223,7 +223,7 @@
 <!--                           </div>-->
 <!--                        </div>-->
                         <div class="pb-4">
-                          <div data-toggle="collapse" aria-expanded="true" style="margin-top:-24px;" class="question-font padding-ques"><span>{{object.question}}</span></div>
+                          <div data-toggle="collapse" aria-expanded="true" style="margin-top:-4px;" class="question-font padding-ques"><span>{{object.question}}</span></div>
 							 <a href="{% url 'homework_help:question-detail-view' object.slug %}" class="margin-tp get-answer">Get Answer</a>
                         </div>
 <!--                        <div class=" ml-2 black-font" style="float:right;">-->
