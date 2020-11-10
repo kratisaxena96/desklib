@@ -137,10 +137,10 @@
                 {% comment %}
                 <a class="dropdown-item blue-theme" href="javascript:void(0);" rel="nofollow">My Settings</a>
                 <a class="dropdown-item blue-theme" href="javascript:void(0);" rel="nofollow">My Accounts</a>
-                 {% endcomment %}
                 <a class="dropdown-item blue-theme" href="{% url 'upload-file' %}" rel="nofollow">Upload Files</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item blue-theme" href="{% url 'account_logout' %}" rel="nofollow">Logout</a>                                        
+                {% endcomment %}
+                <a class="dropdown-item blue-theme" href="{% url 'account_logout' %}" rel="nofollow">Logout</a>
             </div>
           </li>      
         </ul>
