@@ -332,20 +332,6 @@ ROBOTS_SITEMAP_URLS = [
 ROBOTS_CACHE_TIMEOUT = 60*60*24
 ROBOTS_SITEMAP_VIEW_NAME = 'cached-sitemap'
 
-BROKER_HOST = "127.0.0.1"
-BROKER_PORT = 5672
-BROKER_VHOST = "virtual_host"
-BROKER_USER = 'root'
-BROKER_PASSWORD = 'locus123'
-
-import djcelery
-djcelery.setup_loader()
-
-from celery.schedules import crontab
-
-# where to store periodic tasks (needed for scheduler)
-CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
-
 # for chaced db run command "python manage.py createcachetable" for first time sorl-thumbnail required it
 CACHES = {
     'default': {
