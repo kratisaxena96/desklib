@@ -1,20 +1,75 @@
 {% extends "desklib/base.html" %}
 {% load staticfiles %}
+{% load humanize %}
+{% block canonical %}
+<link rel="canonical" href=" https://desklib.com/homework-help/" xmlns="http://www.w3.org/1999/html"
+	  xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"/>
+{% endblock %}
+{% block extra_css %}
+<style>
+.bar {
+   height: 18px;
+   background: green;
+}
+// add dropzone// add dropzone
+#dropzone {
+    background: palegreen;
+    width: 150px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-weight: bold;
+}
+#dropzone.in {
+	width : 600px;
+	height : 200px;
+	line-height : 200px;
+	font-size : larger;
+}
+#dropzone.hover {
+	background : lawngreen;
+	border : #405FBD dashed 3px;
+}
+#dropzone.fade {
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    opacity: 1;
+}
+
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #9B9B9B !important;
+    line-height: 28px;
+}
+.select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border: none !important;
+    border-radius: 4px;
+    outline: none !important;
+}
+
+</style>
+{% endblock extra_css %}
 {% block content %}
+
 <section>
     <nav aria-label="breadcrumb">
-      <ol class="breadcrumb mb-0">
-          <li class="breadcrumb-item"><a href="/">Home</a></li>
-          <li class="breadcrumb-item"><a href="{% url 'homework_help:ask-question-view'%}">Homework</a></li>
-          <li class="breadcrumb-item active" aria-current="page">{{object.question|truncatechars:35}}</li>
-      </ol>
+      <ol class="breadcrumb breadcrumb-transparent mb-0">
+        <li class="breadcrumb-item"><a href="/" class="text-muted">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'homework_help:ask-question-view' %}" class="text-muted">Homework Help</a></li>
+        <li class="breadcrumb-item active text-dark font-weight-bold" aria-current="page">{{object.question|truncatechars:35}}</li>
+  </ol>
 </nav>
 </section>
-<section class="">
-    <div class="container pt-5 pb-4 pb-md-5">
+
+<section class="homework-banner banner-contain">
+	<div class="container pt-5 pb-5 ,mt-3">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <h1 class="font-size-25">Q: {{object.question|truncatechars:250}}</h1>
+                <p class=""><span class="text-blue font-size-25">Question-</span> {{object.question|truncatechars:250}}</p>
             </div>
         </div>
  {% if object.user_questionfiles.all %}
@@ -35,31 +90,30 @@
                  </div>
              </div>
         {% endif %}
-    </div>
+	</div>
 </section>
+
 
 <section>
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <h2 class="text-center">Expert's Answers</h2>
-                {% if question.is_publicly_visible %} {% for answer in question.answer_question.all %}
-            <div class="row mt-4">
-             <div class="col-sm-12">
-                 <div class="card card-body">
-                     <h6><strong>Solution:</strong></h6>
-                     <p>{{answer.solution|safe}}</p>
+                <!--<h2 class="text-center">Expert's Answers</h2>-->
+                {% if question.is_publicly_visible %}
+                    {% for answer in question.answer_question.all %}
+            {% if forloop.counter == 1 %}
+                <div class="col-md-2">
+
+                     <span class="text-blue font-size-25">Solution-</span>
+                </div>
+            {% else %}
+                <div class="col-md-2">
+                </div>
+            {% endif %}
+             <div class="col-sm-10">
+                 <div class="jumbotron p-5 border-radius-30">
+                     {{answer.solution|safe}}
                  </div>
              </div>
-         </div>
-            {% for answers in answer.user_answerfiles.all %}
-            <div class="row mt-4">
-                <div class="col-sm-12">
-                    <span class="d-inline-block mr-2"><i class="fa fa-file"></i></span><a href="{{answers.file.url}}" class="" download>{{answers.title}}</a>
-                    <p class="mt-2">By clicking on the link you can download a file.</p>
-                </div>
-            </div>
-                 {% endfor %}
                 {% endfor %}
                 {% else %}
                  <div class="blur-image position-relative">
@@ -75,12 +129,109 @@
                 </div>
                 </div>
                 {% endif %}
-            </div>
         </div>
     </div>
 </section>
 
-<section id="image-content" class="mb-4 mt-3 mb-md-0 mt-md-0">
+
+<section class="">
+    <div class="container pb-5 pt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <p class=""><span class="text-blue font-size-25">Share your Answer-</span> Not Satisfied? Tell us your views by writing your answer.</p>
+            </div>
+        </div>
+		<div class="row">
+			<div class="col-md-12">
+				<form method="post" id="solution-form" enctype="multipart/form-data">
+					 {% csrf_token %}
+					<div class="row mt-4">
+						<div class="col-md-12">
+							<div class="">
+							{{solution_form.solution}}
+                			</div>
+						</div>
+            			<div class="col-md-12 text-right">
+							<input id="submit-answer" type="submit" value="Submit Answer" class="btn btn-bg-theme white border-radius-20 px-4 mt-4">
+						</div>
+					</div>
+				</form>
+			</div>
+    </div>
+</section>
+
+<section class="">
+    <div class="container pb-5 pt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <p class=""><span class="text-blue font-size-25">Ask Question-</span> You can ask more questions in case of any query.</p>
+            </div>
+        </div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<form method="post" id="question-form" enctype="multipart/form-data">
+					 {% csrf_token %}
+					<div class="row mt-4">
+						<div class="col-md-6">
+							<div class="">
+							{{form.question}}
+                			</div>
+						</div>
+            			<div class="col-md-6">
+							<div class="pb-2">
+							<label class="txt-black-color"><strong>Select Your&nbsp;{{form.subjects.label}}</strong></label>
+							</div>
+							<div class="form-field-design">
+<!--								 <span>Eg. Maths, Science</span>-->
+                     		{{form.subjects}}
+							</div>
+							<div class="pt-4 pb-2">
+							<label class=""><strong>{{form.file.label}}</strong></label>
+							</div>
+							<div class="form-field-design">
+								<span class="blue-theme btn border-radius-20 px-4 fileinput-button d-block">
+								  <i class="fa fa-plus"></i>
+								  <span>Add files...</span>
+									{{form.file}}
+								</span>
+							</div>
+							<ul id="selected-files" class="list-unstyled">
+								<li class="">
+									<span class="error-msg text-danger d-block"></span>
+									<span class="error text-danger d-block"></span>
+								</li>
+							</ul>
+							 <p id="done">{{count}}</p>
+                            <div class="row">
+							<div class="col-md-6">
+								<div class="pt-2 pb-2">
+							<label><strong>{{form.solution_deadline.label}}</strong></label>
+								</div>
+                     		{{form.solution_deadline}}
+						    </div>
+
+							<div class="col-md-6">
+								<div class="pt-2 pb-2"><label class="">&nbsp;</label></div>
+							<input id="submit-button" type="submit" value="Get Answer" class="btn btn-bg-theme white border-radius-20 px-4" style="width:100%;padding:8px;">
+						    </div>
+						   </div>
+
+						</div>
+
+<!--    					<div class="row mt-3">-->
+<!--							<div class="col-md-6">-->
+<!--                     			<input id="submit-button" type="submit" value="Get Answer" class="btn btn-bg-theme white border-radius-20 px-4">-->
+<!--							</div>-->
+<!--						</div>-->
+					</div>
+				</form>
+			</div>
+		</div>
+    </div>
+</section>
+
+<section id="image-content" class="mb-3 mt-4">
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
@@ -94,96 +245,143 @@
     </div>
 </section>
 
-<section>
-	<div class="container pt-md-5 pb-4">
-		<h2 class="text-center">{% if question.subjects %}Q & A Related To {{question.subjects}}{% endif %}</h2>
-		<div class="row mt-4">
-			{% for question in similar_questions %}
-			<div class="col-sm-12 mb-4">
-				<a href="{% url 'homework_help:question-detail-view' slug=question.slug %}" class="text-decoration-none h-100">
-					<div class="card question-search-hover">
-						<div class="card-body text-left">
-							<div class="d-flex">
-                    			<div class="d-inline-block">
-                        			<div class="black-font">
-										<strong>Q:</strong>
-                        			</div>
-                    			</div>
-                    			<div class="d-inline-block ml-2 black-font">
-                        			<span>{{question.question|truncatechars:200}}</span>
-                    			</div>
-                 			</div>
-							<div class="d-flex mt-2">
-								<div class="d-inline-block">
-									<div class="black-font">
-										<strong>A:</strong>
-                        			</div>
-								</div>
-								<div class="d-inline-block ml-2 black-font">
-									<a href="{% url 'homework_help:question-detail-view' slug=question.slug %}" class="">Get Answer</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</a>
-			</div>
-		{% endfor %}
-		</div>
-	</div>
-</section>
-<section class="bg-light-grey">
-    <div class="container pb-5 pt-5">
-        <div class="row">
-            <div class="col-md-12">
-                <h2 class="text-center">Ask a Question</h2>
-                <div class="text-center">
-                    <a href="{% url 'homework_help:ask-question-view'%}" class="btn btn-bg-theme white border-radius-20 px-4 mt-3">Ask Now</a>
-                </div>
-            </div>
-        </div>
+
+
+<div class="loading show-loader">
+    <div class="loader-container">
+        <div class="loader"></div>
     </div>
-</section>
-
+</div>
 {% endblock %}
-
 {% block extra_js %}
-<script>
-$(document).ready(function(){
-  $('a[href*="#image-content"]').on('click', function (e) {
-    e.preventDefault();
 
-    $('html, body').animate({
-    scrollTop: $($(this).attr('href')).offset().top
-    }, 800, 'linear');
-});
+<script src='{% static "src/js/jquery.ui.widget.js" %}'></script>
+<script src='{% static "src/js/jquery.fileupload.js" %}' ></script>
+
+<script>
+
+$(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
 });
 </script>
+
+
 <script>
+
+$(document).ready(function (){
+	$('#question-form').submit(function() {
+    	$('.show-loader').show();
+	});
+});
+$(function () {
+
+var k = 1
+var txt = "";
+var num = +$('#fileupload').attr("data-num");
+    $('#fileupload').fileupload({
+        url: '{% url 'api:homework-help-api:question-file-create-api' %}',
+        dataType: 'json',
+        dropZone: $('#dropzone'),
+
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('<p><p/>').text(file.name).appendTo(document.body);
+                $('form').append("<input type='hidden' value='" + data.unique_id + "' name='unique_id' >");
+            });
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progress .bar').css('width',progress + '%');
+        }
+
+}).on('fileuploaddone', function (e, data) {
+	var ul = $('#selected-files');
+	var p = $('#done');
+	var selectedFiles = $('<li class="d-inline-block w-50 text-truncate"><p class="d-inline"></p></li><div class="d-inline-block w-50" id="progress"><div class="bar"></div></div>');
+	selectedFiles.find('p').text(data.files[0].name);
+	if (num == 1){
+	  txt += selectedFiles.appendTo(p);
+	}
+	else {
+	  txt = "Total files upload: " + num;
+	  document.getElementById("done").innerHTML = txt;
+	}
+  //
+	//data.context = selectedFiles;
+	$('.show-loader').hide();
+//	data.submit();
+
+ }).on('fileuploadfail', function (e, data) {
+	var fileTypeAllowed = /.\.(gif|jpg|png|jpeg)$/i;
+	  var fileName = data.originalFiles[0]['name'];
+	  var status = 500;
+  		 if (!fileTypeAllowed.test(fileName))
+  			$('#selected-files span.error-msg').html('File extension '+ fileName +' is not allowed. Allowed extensions are: png, jpg, jpeg, gif');
+
+			 else if (status)
+			   $('#selected-files span.error').html('Your file has not uploaded, Please upload another file');
+		//		console.log("Your file has not uploaded, Please upload another file");
+			  $(".show-loader").hide();
+
+}).on('fileuploadstart', function (e, data) {
+ jQuery(".show-loader").show();
+
+    }).on('fileuploaddone', function (e, data) {
+			//alert(data);
+			//uploadBtn.button('reset');
+		//	var xhr = data.response().jqXHR;
+		//	var response = xhr.responseJSON;
+		//	var key = response.key;
+		console.log(data);
+                $('form').append("<input type='hidden' value='" + data.result.unique_id + "' name='unique_id' >");
+        console.log(num);
+            num = num + 1;
+            console.log(num);
+               $('#fileupload').attr('data-num', num);
+
+
+		}).on('fileuploadfail', function (e, data) {
+			//alert(data);
+
+			$(".loader-background").hide();
+			//uploadBtn.button('reset');
+			var xhr = data.response().jqXHR;
+			var response = xhr.responseJSON;
+			console.log(response);
+			// Begin for loop here
+			for (var key in response) {
+				console.log(key, response[key][0]);
+				$('.' + key).addClass('has-error');
+				$('span.' + key).text(response[key][0]);
+			}});
+});
+
+$(document).bind('dragover', function (e) {
+    var dropZone = $('#dropzone'),
+        timeout = window.dropZoneTimeout;
+    if (timeout) {
+        clearTimeout(timeout);
+    } else {
+        dropZone.addClass('in');
+    }
+    var hoveredDropZone = $(e.target).closest(dropZone);
+    dropZone.toggleClass('hover', hoveredDropZone.length);
+    window.dropZoneTimeout = setTimeout(function () {
+        window.dropZoneTimeout = null;
+        dropZone.removeClass('in hover');
+    }, 100);
+});
+
+$(document).bind('drop dragover', function (e) {
+    e.preventDefault();
+});
+
 
     $("#question-form").submit(function(e) {
         e.preventDefault();
         $("span.has-error").empty();
 
         var data = $("#question-form").serializeArray();
-
-
-         //       if(data['message'] && data['reference_files']){
-         //       $(".comments").append('<div class="current"></div>');
-         //       $(".current").text( data['message'] + ' ' + data['reference_files'] )
-         //         }
-         //       else if(data['message']){
-         //       $(".comments").append('<div class="current"></div>');
-         //       $(".current").text( data['message'] )
-         //         }
-         //         else if(data['reference_files']){
-         //       $(".comments").append('<div class="current"></div>');
-         //       $(".current").text( data['reference_files'] )
-         //         }
-
-
-
-
-
         var myForm = document.getElementById('question-form');
        data = new FormData(myForm);
        var d = data.unique_id
@@ -197,7 +395,7 @@ $(document).ready(function(){
 
         $.ajax({
             type : "POST",
-            url : '{% url 'api:homework-help-api:order-create-api' %}',
+            url : '{% url 'api:homework-help-api:question-create-api' %}',
             enctype: 'multipart/form-data',
             data: data,
             processData: false,
@@ -205,9 +403,25 @@ $(document).ready(function(){
             success: function(data){
 
 
+                if(data['message'] && data['reference_files']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] + ' ' + data['reference_files'] )
+                  }
+                else if(data['message']){
+//                $(".comments").append("<code>" + data['message'] + "</code><br>");
+
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] )
+                  }
+                  else if(data['reference_files']){
+//                    $(".comments").append( data['reference_files'] + "<br>");
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['reference_files'] )
+                  }
+
 
                 document.getElementById("question-form").reset();
-                window.location.replace( "/homework-help/order/" + data.uuid) ;
+                window.location.replace( "/homework-help/order-create/" + data.uid) ;
             },
             error: function(data){
 
@@ -221,10 +435,23 @@ $(document).ready(function(){
         });
     });
 
+
+$('.homework-help-carousel').owlCarousel({
+	items: 1,
+	loop: true,
+	autoplay: true,
+	margin: 10,
+	nav: true,
+	dots: false,
+	 navText: [
+        '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+        '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+    ],navContainer: '#main0 .custom-nav',
+
+});
+
+$(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+});
 </script>
-
-{% endblock %}
-
-{% comment %}
-{{object}}
-{% endcomment %}
+{% endblock extra_js %}

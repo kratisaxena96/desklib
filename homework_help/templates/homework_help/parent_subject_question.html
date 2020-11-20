@@ -1,15 +1,17 @@
 {% extends "desklib/base.html" %}
 {% load staticfiles %}
-{% load meta %}
+{% load humanize %}
+{% block canonical %}
+<link rel="canonical" href=" https://desklib.com/homework-help/" xmlns="http://www.w3.org/1999/html"
+	  xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"/>
+{% endblock %}
 {% block extra_css %}
 <style>
 .bar {
    height: 18px;
    background: green;
 }
-.loadMore{ list-style-type:none; }
-.loadMore li{ display:none; }
-// add dropzone
+// add dropzone// add dropzone
 #dropzone {
     background: palegreen;
     width: 150px;
@@ -36,63 +38,60 @@
     transition: all 0.3s ease-out;
     opacity: 1;
 }
+
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #9B9B9B !important;
+    line-height: 28px;
+}
+.select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border: none !important;
+    border-radius: 4px;
+    outline: none !important;
+}
+
 </style>
 {% endblock extra_css %}
 {% block content %}
 
 <section>
     <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'homework_help:ask-question-view' %}">Homework Help</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{object.name}}</li>
+      <ol class="breadcrumb breadcrumb-transparent mb-0">
+        <li class="breadcrumb-item"><a href="/" class="text-muted">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'homework_help:ask-question-view' %}" class="text-muted">Homework Help</a></li>
+        <li class="breadcrumb-item active text-dark font-weight-bold" aria-current="page">{{parent_subject.name}}</li>
   </ol>
 </nav>
 </section>
-<section>
-	<div class="container">
-		<div class="row mb-4 mt-4 pb-2">
-			<div class="col-sm-7 border-bottom">
-				{% if object.info_graphic_image %}
-				 <img src="{{ object.info_graphic_image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid width-50px h-auto pb-3">
-				 {% elif object.image %}
-				 <img src="{{ object.image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid width-50px h-auto">
-				 {% endif %}
-				<h1 class="d-inline ml-md-2" style="font-size:2.2rem;">{{object.name}}</h1>
-				</div>
-			<div class="col-sm-12">
-               {% if object.parent_question_description %}
-                <p class="pt-3">{{object.parent_question_description}}</p>
-                {% endif %}
-			</div>
-			<div class="col-sm-5"></div>
-		</div>
-	</div>
-</section>
 
-<section class="bg-light-grey">
-	<div class="container pt-5 pb-5">
-		<div class="row justify-content-center">
-			<div class="col-md-12">
-				<h1 class="text-center">Ask Question</h1>
+<section class="homework-banner">
+	<div class="container pt-5 pb-5 ,mt-3">
+		<div class="row">
+			<div class="col-md-6">
+				<h1 class="heading">{{parent_subject.name}} Help</h1>
+				<p class="content">{{parent_subject.parent_question_description}}</p>
 			</div>
-		</div>
-		<div class="row justify-content-center">
-			<div class="col-md-9">
+			<div class="col-md-6">
 				<form method="post" id="question-form" enctype="multipart/form-data">
 					 {% csrf_token %}
 					<div class="row mt-4">
 						<div class="col-md-12">
-							<div class="form-group">
+							<div class="">
 							{{form.question}}
                 			</div>
-						</div>
-					</div>
-					<div class="row mt-2">
-            			<div class="col-md-6">
-							<label class=""><strong>Upload&nbsp;{{form.file.label}}</strong></label>
-							<div class="form-group">
-								<span class="btn btn-bg-theme white border-radius-20 px-4 fileinput-button d-block">
+							<div class="pt-4 pb-2">
+							<label class="txt-black-color"><strong>Select Your&nbsp;{{form.subjects.label}}</strong></label>
+							</div>
+							<div class="form-field-design">
+<!--								 <span>Eg. Maths, Science</span>-->
+                     		{{form.subjects}}
+							</div>
+							<div class="pt-4 pb-2">
+							<label class=""><strong>{{form.file.label}}</strong></label>
+							</div>
+							<div class="form-field-design">
+								<span class="blue-theme btn border-radius-20 px-4 fileinput-button d-block">
 								  <i class="fa fa-plus"></i>
 								  <span>Add files...</span>
 									{{form.file}}
@@ -104,246 +103,300 @@
 									<span class="error text-danger d-block"></span>
 								</li>
 							</ul>
-							<p id="done">{{count}}</p>
-							{% comment %}
-<!--								<div id="progress">-->
-<!--    								<div class="bar" style="width: 0%;"></div>-->
-<!--					  			</div>-->
-<!--									<span class="reference_files"></span>-->
-							{% endcomment %}
-						</div>
-						<div class="col-md-6">
-							<label class=""><strong>Select Your&nbsp;{{form.subjects.label}}</strong></label>
-							<div class="form-group">
-                     		{{form.subjects}}
-							</div>
-						</div>
-					</div>
-					{% comment %}
-<!--					<div class="row">-->
-<!--						<div class="col-sm-6">-->
-<!--							<span class="error-msg text-danger"></span>-->
-<!--						</div>-->
-<!--					</div>-->
-					{% endcomment %}
-    					<div class="row mt-3">
+							 <p id="done">{{count}}</p>
+                            <div class="row">
 							<div class="col-md-6">
-                     			<input id="submit-button" type="submit" value="Get Answer" class="btn btn-bg-theme white border-radius-20 px-4">
-							</div>
+								<div class="pt-2 pb-2">
+							<label><strong>{{form.solution_deadline.label}}</strong></label>
+								</div>
+                     		{{form.solution_deadline}}
+						    </div>
+
+							<div class="col-md-6">
+								<div class="pt-2 pb-2"><label class="">&nbsp;</label></div>
+							<input id="submit-button" type="submit" value="Get Answer" class="btn btn-bg-theme white border-radius-20 px-4" style="width:100%;padding:8px;">
+						    </div>
+						   </div>
+
 						</div>
+
+					</div>
 				</form>
 			</div>
 		</div>
 	</div>
 </section>
-<section>
 
-{% comment %}
+{% if question %}
+<section class="pt-4">
+<div class="container pt-5 pb-3">
+   <h2 class="sub-heading-homew alt-font font-weight-700 text-extra-dark-gray text-center pb-4">Top Asked questions</h2>
 
-<!--<section class="bg-light pt-5 pb-5">-->
-<!-- <div class="row justify-content-center">-->
-<!--        <div class="col-md-8">-->
-<!--            <h3 class="blue-theme py-2 font text-center">Ask Question</h3>-->
-<!--&lt;!&ndash;            <p class="pb-2 para text-dark">You can access millions of study documents homework solutions at our online library</p>&ndash;&gt;-->
-<!--            <div class="bs-example border-radius-12 col-md-12 mb-2">-->
-<!--    <ul class="nav nav-tabs border-topradius" id="myTab" style="background-color:white">-->
-<!--        <li class="nav-item" style="position:relative; width:50%">-->
-<!--            <a href="#study-resource" class="nav-link text-center border-radius-topr p-3"  data-toggle="tab"> <i class="fa fa-search"></i><br> Find a Solution</a>-->
-<!--        </li>-->
-<!--        <li class="nav-item" style="position:relative; width:50%">-->
-<!--            <a href="#Homework-help" class="nav-link text-center border-radius-topl p-3"  data-toggle="tab"><i class="fa fa-home"></i><br>Ask a Question</a>-->
-<!--        </li>-->
-<!--    </ul>-->
-<!--    <div class="tab-content">-->
-<!--        <div class="tab-pane fade" id="study-resource">-->
-<!--            <div class="bg-white bottom-radius">-->
-<!--&lt;!&ndash;             <div class="row">&ndash;&gt;-->
-<!--&lt;!&ndash;                 <div class="col-md-12 pr-0" >&ndash;&gt;-->
-<!--                   <form action="{% url 'study:search-results' %}">-->
-<!--                    <div id="remote" class="form-input-group">-->
-<!--                      <input class=" form-control form-control-lg  border-radius-12 typeahead search-bar-border-none " type="text" style="font-size:0.99rem;height:60px;margin-top:3px" placeholder="Search for assignment samples and resources" name="q">-->
-<!--                        <div class="input-group-append">-->
-<!--                            <button class="btn btn-lg button-border search-bg-body" type="submit"><i class="fa fa-search rounded-circle search-icon"></i></button>-->
+
+
+                                   {% for sub in slug_faceit %}
+                                           <a class="dropdown-item" id="{{sub.slug}}" href="?q={{ query }}&amp;selected_facets=subjects_exact:{{ sub.slug|urlencode }}"> {{sub.name}}</a>
+                                     {% endfor %}
+
+
+	<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+		{% for child in child_subject %}
+			<li class="col nav-item child-subject-homework mb-2">
+    			<a class=" {% if forloop.counter == 1 %}active{% endif %}" id="pills-home-tab" data-toggle="pill" href="#pills-{{forloop.counter}}" role="tab" aria-controls="pills-home" aria-selected="true">{{child}}</a>
+			</li>
+		{% endfor %}
+	</ul>
+<div class="row pt-5">
+	<div class="col-sm-12 col-md-9 pb-4 mb-1 homew tab-content" id="pills-tabContent">
+		{% for child in child_subject %}
+	  <div class="tab-pane fade show {% if forloop.counter == 1 %}active{% endif %}" id="pills-{{forloop.counter}}" role="tabpanel" aria-labelledby="pills-home-tab">
+
+	   <ol class="loadMore list-group pt-3">
+      {% for object in question %}
+		   <li class="pt-4 bg-aqua bg-gray mr-1" style="margin-bottom:20px;">
+         <div class="tab">
+            <div class="panel panel-default pl-4 ml-3">
+               <div class="panel-heading">
+                  <div class="panel-title">
+<!--                     <div class="d-flex">-->
+<!--                        <div class="d-inline-block">-->
+<!--                           <div class="text-extra-dark-gray">-->
+<!--                                <strong></strong>-->
+<!--                           </div>-->
 <!--                        </div>-->
-<!--                    </div>-->
-<!--                </form>-->
-<!--&lt;!&ndash;             </div></div>&ndash;&gt;-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="tab-pane fade" id="Homework-help">-->
-<!--	<div class="bg-white bottom-radius p-3">-->
-<!--		<div class="row">-->
-<!--			<div class="col-md-12 pr-4 pl-4 pb-1">-->
-<!--                <h6 class="text-center pt-2"><strong>Ask your Question here</strong></h6>-->
-<!--				<form method="post" id="question-form" enctype="multipart/form-data">-->
-<!--					 {% csrf_token %}-->
-<!--					<div class="row mt-4">-->
-<!--						<div class="col-md-12">-->
-<!--							<div class="form-group bordr">-->
-<!--							{{form.question}}-->
-<!--                			</div>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--					<div class="row mt-2">-->
-<!--            			<div class="col-md-6">-->
-<!--							<strong>Upload&nbsp;{{form.file.label}}</strong>-->
-<!--							<div class="form-group">-->
-<!--								<span class="btn btn-bg-theme white border-radius-20 px-4 fileinput-button d-block mt-2">-->
-<!--								  <i class="fa fa-plus"></i>-->
-<!--								  <span>Add files...</span>-->
-<!--                                   {{form.file}}-->
-<!--								</span>-->
-<!--							</div>-->
-<!--							<ul id="selected-files" class="list-unstyled">-->
-<!--                                <li class="">-->
-<!--									<span class="error-msg text-danger d-block"></span>-->
-<!--									<span class="error text-danger d-block"></span>-->
-<!--								</li>-->
-<!--                            </ul>-->
-<!--                            <p id="done">{{count}}</p>-->
-<!--						</div>-->
-
-<!--&lt;!&ndash;						<div class="col-md-6">&ndash;&gt;-->
-<!--&lt;!&ndash;							<label class=""><strong>Select Your&nbsp;{{form.subjects.label}}</strong></label>&ndash;&gt;-->
-<!--&lt;!&ndash;							<div class="form-group">&ndash;&gt;-->
-<!--&lt;!&ndash;								<select class="form-control" name="subjects">&ndash;&gt;-->
-<!--&lt;!&ndash;                     		<option value="{{ parent_subject }}" selected>{{ parent_subject }}</option>&ndash;&gt;-->
-<!--&lt;!&ndash;								</select>&ndash;&gt;-->
-<!--&lt;!&ndash;							</div>&ndash;&gt;-->
-<!--&lt;!&ndash;						</div>&ndash;&gt;-->
-
-
-<!--						<div class="col-md-6">-->
-<!--							<label class=""><strong>Select Your&nbsp;{{form.subjects.label}}</strong></label>-->
-<!--							<div class="form-group">-->
-<!--                     		{{form.subjects}}-->
-<!--							</div>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--					<div class="row">-->
-<!--						<div class="col-sm-6">-->
-<!--							<span class="error-msg text-danger"></span>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--    					<div class="row mt-3 mb-3">-->
-<!--							<div class="col-md-6">-->
-<!--                     			<input type="submit" value="Get Answer" class="btn btn-bg-theme white border-radius-20 px-4">-->
-<!--							</div>-->
-<!--						</div>-->
-<!--				</form>-->
-<!--			</div>-->
-<!--        </div>-->
-<!--	</div>-->
-<!--        </div>-->
-
-
-
-<!--    </div>-->
-<!--</div>-->
-<!--        </div></div>-->
-
-{% endcomment %}
-		{% if question %}<section class="bg-light pt-4">
-	<div class="container">
-   <div class="row">
-     <div class="col-sm-12">
-		    <h2 class="text-center pt-3">Recently Asked Questions</h2>
-     <ul class="loadMore list-group pt-3">
-   {% for object in question %}<li>
-		 <div class="col-sm-12 mb-4">
-				<a href="{% url 'homework_help:question-detail-view' object.slug %}" class="text-decoration-none h-100">
-					<div class="card question-search-hover">
-						<div class="card-body text-left">
-							<div class="d-flex">
-                    			<div class="d-inline-block">
-                        			<div class="black-font">
-										<strong>Q:</strong>
-                        			</div>
-                    			</div>
-                    			<div class="d-inline-block ml-2 black-font">
-                        			<span>{{object.question|truncatechars:200}}</span>
-                    			</div>
-                 			</div>
-							<div class="d-flex mt-2">
-								<div class="d-inline-block">
-									<div class="black-font">
-										<strong>A:</strong>
-                        			</div>
-								</div>
-								<div class="d-inline-block ml-2 black-font">
-									<a href="{% url 'homework_help:question-detail-view' object.slug %}" class="">Get Answer</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</a>
-			</div>
-	 </li>
-		 {% endfor %}
-
- </ul>
-
-	 </div>
-
-     </div>
-
- </div>
-
-	{% if question.count > 10 %}
-<section>
-	<div class="container">
-		<div class="row pb-5">
-			<div class="col-sm-12 text-center">
-				<a name="load_more" id="load_more" class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3">View More</a>
-			</div>
-		</div>
-	</div>
-</section>
-	{% endif %}
-</section>{% endif %}
-
-	{% if subject %}
-	<section class="pb-5 pt-4">
-    <div class="container">
-        <div class="row">
-			  <div class="col-sm-12">
-				  {% if object.blog_title %}
-			<h2 class="text-center pt-4 pb-4">{{object.blog_title}}</h2>
-				  {% endif %}
-			  </div>
-            <div class="col-sm-8">
-                <div id="accordion">
-					 {% for object in subject %}
-                    <div id="cardOne{{ forloop.counter }}" class="card">
-                      <div class="card-header">
-                        <a class="card-link" data-toggle="collapse" href="#collapseOne{{ forloop.counter }}">
-                          {{object.title}}
-                        </a>
-                      </div>
-                      <div id="collapseOne{{ forloop.counter }}" class="collapse show">
-                        <div class="card-body">
-                            <p>{{object.description|safe}}
+                        <div class="pb-4">
+                          <div data-toggle="collapse" aria-expanded="true" style="margin-top:-4px;" class="question-font padding-ques"><span>{{object.question}}</span></div>
+							 <a href="{% url 'homework_help:question-detail-view' object.slug %}" class="margin-tp get-answer">Get Answer</a>
                         </div>
-                      </div>
-                    </div>
-					{% endfor %}
-                </div>
+<!--                        <div class=" ml-2 black-font" style="float:right;">-->
+<!--                         <a href="{% url 'homework_help:question-detail-view' object.slug %}" class="" style="float:right;">Get Answer</a>-->
+<!--                        </div>-->
+                  </div>
+               </div>
             </div>
-			 <div class="col-sm-4">
-                <ul class="list-group sticky-top">
-					 {% for object in subject %}
-                    <li class="list-group-item">
-						<a href="#cardOne{{ forloop.counter }}">
-							{{object.title}}
-					</a>
-					</li>
-					{% endfor %}
-                </ul>
-            </div>
-        </div>
+         </div>
+			   </li>
+      {% endfor %}
+	   </ol>
+	  </div>
+		{% endfor %}
+	</div>
+
+	   <div class="col-sm-12 col-md-3 pb-4 mb-1 homew">
+			<div class="border-blue border-radius-12 p-4">
+				<div class="d-flex">
+					<img src="{% static 'dist/assets/images/Icon_lock.png' %}" class="img-fluid"> <span class="h4 m-auto">100% Privacy</span>
+				</div>
+				<p class="mb-0 mt-2">Get step by step solution and explanation to your question.</p>
+			</div>
+
+		   <div class="mt-4 subject-tag-pills">
+			   <h5>Popular Programming</h5>
+			    <span class="badge badge-pill badge-primary h5 pill-bg-golden">C++</span>
+<span class="badge badge-pill badge-primary h5 pill-bg-orangered">Ruby/Ruby</span>
+<span class="badge badge-pill badge-primary h5 pill-bg-royalblue">C</span>
+<span class="badge badge-pill badge-primary h5 pill-bg-royalblue">Ruby/Ruby</span>
+<span class="badge badge-pill badge-primary h5 pill-bg-golden">Guide C++</span>
+<span class="badge badge-pill badge-primary h5 pill-bg-golden">C</span>
+<span class="badge badge-pill badge-primary h5 pill-bg-orangered">Ruby/Ruby</span>
+		   </div>
+	   </div>
+</div>
+
+
+
+
+	{% if question.count > 6 %}
+
+             <div class="d-flex justify-content-center mb-5">
+                 <nav class="d-none d-md-block">
+                     {% if is_paginated %}
+                       <ul class="pagination">
+                           <!--                    <img class="img-responsive" src="{% static 'dist/assets/images/search icon.png' %}" alt="search" height="70px" style="margin-top: -11px; margin-left: -50px;">-->
+                           {% if page_obj.has_previous %}
+                            <li class="page-item p-3">
+                            {% if selected %}
+                                <span class="">
+                                    <a href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ page_obj.previous_page_number }}">
+                                        <i class='fas fa-angle-left fafa-nav-active blue-theme'></i>
+                                    </a>
+                                </span>
+                            {% else %}
+                                <span class="">
+                                    <a href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}">
+                                        <i class='fas fa-angle-left fafa-nav-active blue-theme'></i>
+                                    </a>
+                                </span>
+                            {% endif %}
+                        </li>
+                           <li class="page-item pt-4 pr-3">
+                               <a class="blue-theme d-inline-block" href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}">Prev</a>
+                           </li>
+
+                           {% else %}
+                           <li class="page-item disabled p-3">
+                               <span><i class='fas fa-angle-left fafa-nav-in-active'></i></span>
+                           </li>
+                            {% endif %}
+
+                           {% for num in page_obj.paginator.page_range %}
+                           {% if page_obj.number == num %}
+                           <li class="page-item active p-3">
+                               <a class="rounded-circle page-link border-color bg-blue-theme" href="#">{{ num }}<span class="sr-only">(current)</span>
+                               </a>
+                           </li>
+                           {%  elif num > page_obj.number|add:'-5' and num < page_obj.number|add:'5' %}
+                           <li class="page-item p-3">
+                               {% if selected %}
+                               <a class="rounded-circle page-link  blue-theme" href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ num }}">{{ num }}</a>
+                               {% else %}
+                               <a class="rounded-circle page-link  blue-theme" href="?q={{ query }}&amp;page={{ num }}">{{ num }}</a>
+                               {% endif %}
+                           </li>
+                                {% endif %}
+                                {% endfor %}
+
+                              {% if page_obj.has_next %}
+                            <li class="page-item pt-4 pl-3">
+                               <a class="blue-theme d-inline-block" href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}">Next</a>
+                            </li>
+                            <li class="page-item p-3">
+                                {% if selected %}
+                                    <a class="blue-theme" href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ page_obj.next_page_number }}">
+                                        <i class='fas fa-angle-right fafa-nav-active blue-theme'></i>
+                                    </a>
+                                {% else %}
+                                    <a class="blue-theme d-inline-block" href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}">
+                                        <i class='fas fa-angle-right fafa-nav-active blue-theme'></i>
+                                    </a>
+                                {% endif %}
+                            </li>
+                            {% else %}
+                                <li class="page-item disabled p-3">
+                                    <span class=""><i class='fas fa-angle-right fafa-nav-in-active'></i></span>
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                    </ul>
+                    </nav>
+
+ <!--  pagination for responsive devices  -->
+   <nav class="d-md-none">
+       {% if is_paginated %}
+       <ul class="pagination">
+           {% if page_obj.has_previous %}
+           <li class="page-item p-3">
+               {% if selected %}
+               <span class="">
+                   <a href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ page_obj.previous_page_number }}">
+                       <i class='fas fa-angle-left fafa-nav-active blue-theme'></i>
+                   </a>
+               </span>
+               {% else %}
+               <span class="">
+                   <a href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}">
+                       <i class='fas fa-angle-left fafa-nav-active blue-theme'></i>
+                   </a>
+               </span>
+               {% endif %}
+           </li>
+           {% else %}
+           <li class="page-item disabled p-3">
+               <span><i class='fas fa-angle-left fafa-nav-in-active'></i></span>
+           </li>
+           {% endif %}
+
+           {% for num in page_obj.paginator.page_range %}
+           {% if page_obj.number == num %}
+           <li class="page-item active p-3">
+               <a class="rounded-circle page-link border-color bg-blue-theme" href="#">{{ num }}<span class="sr-only">(current)</span>
+               </a>
+           </li>
+           {%  elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
+           <li class="page-item p-3">
+               {% if selected %}
+               <a class="rounded-circle page-link  blue-theme" href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ num }}">{{ num }}</a>
+               {% else %}
+               <a class="rounded-circle page-link  blue-theme" href="?q={{ query }}&amp;page={{ num }}">{{ num }}</a>
+               {% endif %}
+           </li>
+           {% endif %}
+           {% endfor %}
+           {% if page_obj.has_next %}
+           <li class="page-item p-3">
+               {% if selected %}
+               <a class="blue-theme" href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ page_obj.next_page_number }}">
+                   <i class='fas fa-angle-right fafa-nav-active blue-theme'></i>
+               </a>
+               {% else %}
+               <a class="blue-theme" href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}">
+                   <i class='fas fa-angle-right fafa-nav-active blue-theme'></i>
+               </a>
+               {% endif %}
+           </li>
+           {% else %}
+           <li class="page-item disabled p-3">
+               <span class=""><i class='fas fa-angle-right fafa-nav-in-active'></i></span>
+           </li>
+           {% endif %}
+       </ul>
+   </nav>
+                 {% else %}
+            {% endif %}
+             </div>
+
+	{% endif %}
 </div>
 </section>
-	{% endif %}
+{% endif %}
+
+
+<section class="blue-background feedback">
+	<div class="container pt-5 pb-5 text-center">
+		<div class="pt-4 pb-4">
+			<p class="p-content">Perfection is achieved not when there is nothing more to add, but rather when there is nothing more to take away.
+            </p>
+		</div>
+		<h4 class="">– Antoine de Saint-Exupery</h4>
+	</div>
+</section>
+
+
+
+<section class="pt-5 pb-5 mt-4">
+	<div class="container">
+		  <div class="row">
+            <div class="col-md-8">
+    <div id="accordion" class="accordion">
+        <div class="mb-0">
+			{% for content in subject %}
+			<div class="hrz-border" id="{{ content.id }}">
+            <div class="card-header collapsed pb-4 mb-1 pr-0 pl-0" data-toggle="collapse" href="#{{ content.slug }}" style="background-color: transparent; border-bottom: none;">
+                <div class="pr-5"><a class="card-title question-font" onclick="showDetails(this)" data-aacordion="check" data-check="acc{{forloop.counter}}" id="{{ content.accordion_title }}">
+                    {{ content.title }}
+                </a></div>
+            </div>
+            <div id="{{ content.slug }}" class="card-body-p card-body collapse margin-tp" data-parent="#accordion" >
+                <p class="pb-3">{{ content.description|safe }}</p>
+            </div>
+			</div>
+			{% endfor %}
+        </div>
+    </div>
+  </div>
+			   <div class="col-md-4 mt-2 mt-sm-0 mt-md-0 pt-4 pr-3">
+				   <ul class="list-group sticky-top">
+                     {% for content in subject %}
+                   <li class="accordian-border mb-5" id="acc{{forloop.counter}}">
+					   <a href=#{{ content.id }} class="txt-color">{{ content.title }}</a>
+				   </li>
+					   {% endfor %}
+                   </ul>
+			   </div>
+		  </div>
+	</div>
+</section>
+
 
 
 <div class="loading show-loader">
@@ -351,38 +404,30 @@
         <div class="loader"></div>
     </div>
 </div>
-
-
-
-{% comment %}
-{{document}}
-child subject page
-{{object.name}}
-{{document}}
-{% endcomment %}
-
 {% endblock %}
 {% block extra_js %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script>
-  $(document).ready(function(e) {
-     var limit = 10;
-	 $(".loadMore li").slice(0, limit).show();
-	 $(document).on('click','#load_more',function(e){
-         limit += 10;
-		 e.preventDefault();
-	     $(".loadMore li").slice(0, limit).show();
-	 });
-	 //var lenght_name =  $(".loadMore li").length;
-  });
- </script>
-
-
-
 
 <script src='{% static "src/js/jquery.ui.widget.js" %}'></script>
 <script src='{% static "src/js/jquery.fileupload.js" %}' ></script>
+
+
+<script>
+$(document).ready(function (){
+    $(".homework").addClass("active");
+ });
+</script>
+<script>
+
+</script>
+
+<script>
+        function showDetails(accordion) {
+            var accordi = accordion.getAttribute("data-check");
+            document.getElementById(accordi).classList.add("change-accordion");
+            $("#"+accordi).siblings().removeClass("change-accordion");
+      }
+
+</script>
 
 <script>
 
@@ -592,9 +637,173 @@ $(document).ready(function() {
 });
 </script>
 
+
 <script>
-     $(document).ready(function(){
-        $("#myTab a:first").tab('show'); // show first tab on page load
+	 $(document).ready(function(){
+        var results = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('question'),
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            remote: {
+                url: '/homework-help/autocomplete/?q=%QUERY',
+                 wildcard: '{query}'
+            }
+        });
+        results.initialize();
+
+        $('#question .typeahead').typeahead({
+            hint: true,
+            highlight: true,
+            minLength: 2,
+            maxItem: 5,
+          },
+          {
+            name: 'question',
+            displayKey: 'question',
+            source: results.ttAdapter(),
+            templates: {
+                empty: function(){
+                    return [
+                        '<div class="empty-message">',
+                            'No results found',
+                        '</div>'].join('\n')
+                },
+                suggestion: function(question){
+                    var string = '<a class="tt-suggestion-link" href="/homework-help/question/'+ question.slug +'">'+ question.question +'</a>'
+                    return string;
+                }
+            }
+           }
+        );
     });
 </script>
+
+
+
+{% comment %}
+<script>
+jQuery(document).ready(function() {
+
+
+
+
+    $.ajax({
+          type: 'GET',
+          url: "{% url 'api:homework-help-api:document-create-api' order.order_id %}",
+          success: function(data){
+            var catObj;
+            catObj={};
+    $(".comments").empty();
+
+
+            console.log(data);
+//            console.log(data.size());
+//                $.each( data, function( key, value ) {
+                $.each( data, function( index, value ) {
+
+
+                if(value['message'] && value['reference_files']){
+                $(".comments").append('<div class="current' + index + '"></div>');
+                $('.current' + index).text( value['message'] + ' ' + value['reference_files'] )
+                  }
+                else if(value['message']){
+                $(".comments").append('<div class="current' + index + '"></div>');
+                $('.current' + index ).text( value['message'] )
+                  }
+                  else if(value['reference_files']){
+                $(".comments").append('<div class="current' + index + '"></div>');
+                $('.current' + index ).text( value['reference_files'] )
+                  }
+
+
+            });
+
+          },
+          error: function(data) {
+              $(".faqQuesTab").hide();
+              $("#faqPreloader").hide();
+              $(".errorDiv").show();
+          }
+        });
+
+
+    $("#comment-form").submit(function(e) {
+        e.preventDefault();
+        $("span.has-error").empty();
+
+        var data = $("#comment-form").serializeArray();
+
+
+                if(data['message'] && data['reference_files']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] + ' ' + data['reference_files'] )
+                  }
+                else if(data['message']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] )
+                  }
+                  else if(data['reference_files']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['reference_files'] )
+                  }
+
+
+
+
+
+        var myForm = document.getElementById('comment-form');
+        data = new FormData(myForm);
+
+
+        $("div.error_file").text("");
+
+                $(".enquiry-form-popup").hide();
+                $(".form-icon-plane").hide();
+                $(".form-loader").show();
+
+        $.ajax({
+            type : "POST",
+            url : '{% url 'api:homework-help-api:document-create-api' order.order_id %}',
+            enctype: 'multipart/form-data',
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function(data){
+
+
+                if(data['message'] && data['reference_files']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] + ' ' + data['reference_files'] )
+                  }
+                else if(data['message']){
+//                $(".comments").append("<code>" + data['message'] + "</code><br>");
+
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] )
+                  }
+                  else if(data['reference_files']){
+//                    $(".comments").append( data['reference_files'] + "<br>");
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['reference_files'] )
+                  }
+
+
+                document.getElementById("comment-form").reset();
+            },
+            error: function(data){
+
+            var response = data.responseJSON;
+            for (key in response) {
+              $("#comment-form ."+key).addClass("has-error");
+              $("#comment-form span." + key).text(response[key][0]);
+            }
+
+            }
+        });
+    });
+
+});
+</script>
+
+{% endcomment %}
+
 {% endblock extra_js %}

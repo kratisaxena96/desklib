@@ -1942,7 +1942,6 @@ font: normal normal bold 38px/50px Roboto;
 color: #303030;
 }
 .content{
-text-align: center;
 font: normal normal normal 18px/24px Roboto;
 letter-spacing: 0px;
 color: #2F2F2F;
@@ -1997,6 +1996,16 @@ padding: 30px;
   border-width: 15px;
   border-color: #f8f9fa;
   color: #303030;
+}
+.child-subject-homework {
+  padding: 15px;
+  border-left-style:solid;
+  border-width: 15px;
+    box-shadow: 4px 4px 18px #0000001F;
+    border-radius: 14px;
+    color: #405fbd;
+    border-color: #405fbd;
+    margin-right: 10px;
 }
 .check:hover{
 background: #FFFFFF;
@@ -2094,6 +2103,9 @@ color: #405FBD ;
   color:white;
   margin-left:30px;
   margin-top: 5px;
+}
+.bg-gray::before{
+    background-color: #B8BFD3;
 }
 
 .homew ol li {
@@ -2194,6 +2206,52 @@ font: normal normal normal 18px/24px Roboto;
 
 .padding-ques{
 padding-right:230px !important;
+}
+.subjects-background{
+  background: transparent url(/static/dist/assets/images/orange_dots.png) right 140px no-repeat padding-box;
+  background-size: 130px;
+}
+.breadcrumb-transparent{background: transparent;}
+.border-blue{
+    border: 1px solid #405fbd;
+}
+.subject-tag-pills .badge.badge-pill {
+    padding: 5px 13px;
+    font-size: 16px;
+    font-weight: 500;
+    font: normal normal normal 18px Roboto;
+    color: #000;
+}
+.pill-bg-golden{background-color: #FCAF3A20;}
+.pill-bg-orangered{background-color: #FD542120;}
+.pill-bg-royalblue{background-color: #405FBD20;}
+
+.feedback .p-content {position:relative;font: normal normal normal 36px/54px Roboto;}
+.feedback .p-content::before {
+    content: url(/static/dist/assets/images/quotemarks-1.png);
+    position: absolute;
+    top: -20px;
+    left: -40px;
+    width: 70px;
+    height: 55px;
+    z-index: 999;
+    color: #000;
+    font-size: 60px;
+}
+.feedback .p-content::after {
+    content: url(/static/dist/assets/images/quotemarks-2.png);
+    position: absolute;
+    bottom: -20px;
+    right: -40px;
+    width: 70px;
+    height: 55px;
+    z-index: 999;
+    color: #000;
+    font-size: 60px;
+}
+.banner-contain{background-size: contain;}
+.text-blue {
+    color: #405FBD;
 }
 
 @media (max-width: 600px){

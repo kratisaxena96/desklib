@@ -7,7 +7,7 @@ from email.mime.image import MIMEImage
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import EmailMultiAlternatives
 from django.db.models import Count
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, Http404
 from haystack.query import SearchQuerySet
 from paypal.standard.forms import PayPalPaymentsForm
 from django.urls import reverse
@@ -18,7 +18,7 @@ from haystack.generic_views import SearchView
 from django.shortcuts import render
 from django.views.generic import TemplateView, FormView, ListView, DetailView
 from homework_help.models import Order, Comment, Question, Answers, HomeworkAccordion
-from homework_help.forms import CommentForm, QuestionForm, QuestionHomeForm
+from homework_help.forms import CommentForm, QuestionForm, QuestionHomeForm, SolutionForm
 from django.core.paginator import Paginator
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from haystack.generic_views import SearchView
@@ -29,6 +29,7 @@ from django_json_ld import settings as setting
 from django.utils.translation import gettext as _
 
 # Create your views here.
+from study.forms import CustomFacetedSearchForm
 from subjects.models import Subject, SubjectQuestionContent
 from django.shortcuts import redirect, render
 from desklib.utils import get_timezone
@@ -221,7 +222,8 @@ class CustomSearchQuestionView(JsonLdContextMixin, MetadataMixin, FacetedSearchV
 class QuestionDetailView(DetailView):
     model = Question
     template_name = "homework_help/question_detail.html"
-    # form_class = HomeSearchForm
+    form_class = QuestionForm
+    form = SolutionForm
     # title = 'Desklib | homework help | online learning library | assignment solutions '
     # # description = 'Desklib is your home for best study resources and educational documents. We have a large collection of homework answers, assignment solutions, reports, sample resume and presentations. Our study tools help you improve your writing skills and grammar.'
     # description = 'Desklib online learning library provides you 24/7 Homework Help, Q&A help, and solutions to assignments, essays, dissertations, case studies and Best free writing tools for everyone to improve their writing skills.'
@@ -264,6 +266,8 @@ class QuestionDetailView(DetailView):
         context['object'] = question
         context['answer'] = answer.count()
         context['similar_questions'] = similar_questions
+        context['form'] = self.form_class
+        context['solution_form'] = self.form
         # context[self.context_meta_name] = self.get_meta(context=context)
         return context
 
@@ -329,10 +333,67 @@ class OrderCreateView(LoginRequiredMixin, FormView):
         return HttpResponseRedirect(redirect_to=reverse('homework_help:order-detail-view', kwargs={'uuid': order.uuid}))
 
 
-class ParentSubjectQuestionView(MetadataMixin, JsonLdContextMixin, DetailView):
+# class ParentSubjectQuestionView(MetadataMixin, JsonLdContextMixin, DetailView):
+#     template_name = "homework_help/parent_subject_question.html"
+#     model = Subject
+#     # form_class = CustomFacetedSearchForm
+#     form_class1 = QuestionHomeForm
+#     facet_fields = ['subjects']
+#     # suggestions = {}
+#     selected_facets = ['subjects', ]
+#
+#     def get_context_data(self, **kwargs):
+#         context = super(ParentSubjectQuestionView, self).get_context_data(**kwargs)
+#         parent_subject = Subject.objects.get(slug=self.kwargs['slug'])
+#         child_subject = Subject.objects.filter(parent_subject=parent_subject)
+#         subject = SubjectQuestionContent.objects.filter(subject=parent_subject.id)
+#
+#         all = SearchQuerySet().filter(p_subject=parent_subject)[:5]
+#         recent = SearchQuerySet().filter(p_subject=parent_subject).order_by('-pub_date')[:5]
+#         top_results = SearchQuerySet().filter(p_subject=parent_subject).order_by('-views')[:5]
+#
+#         question = Question.objects.filter(subjects=parent_subject.id, is_visible=True, is_published=True)
+#
+#         for i in child_subject:
+#             ques = SearchQuerySet().filter(subjects=i, is_visible=True, is_published=True)
+#             # question = question | ques
+#
+#         # for i in child_subject:
+#         #     SearchQuerySet().filter(subjects=i.id)[:20]
+#
+#         question = question.order_by('-published_date')
+#
+#         context['meta'] = self.get_object().as_meta(self.request)
+#         context['recent'] = recent
+#         context['top_results'] = top_results
+#         context['question'] = question
+#         context['subject'] = subject
+#         context['parent_subject'] = parent_subject
+#         context['child_subject'] = child_subject
+#         if 'form' not in context:
+#             context['form'] = QuestionHomeForm
+#         return context
+
+
+class ParentSubjectQuestionView(MetadataMixin, JsonLdContextMixin, FacetedSearchView):
     template_name = "homework_help/parent_subject_question.html"
     model = Subject
-    form_class = QuestionHomeForm
+    form_class = CustomFacetedSearchForm
+    form_class1 = QuestionHomeForm
+    facet_fields = ['subjects']
+    paginate_by = 5
+    # suggestions = {}
+    selected_facets = ['subjects', ]
+
+    def get_object(self, queryset=None):
+        """
+        Return the object the view is displaying.
+
+        Require `self.queryset` and a `pk` or `slug` argument in the URLconf.
+        Subclasses can override this to return any object.
+        """
+        return Subject.objects.get(slug=self.kwargs['slug'])
+
 
     def get_context_data(self, **kwargs):
         context = super(ParentSubjectQuestionView, self).get_context_data(**kwargs)
@@ -340,17 +401,27 @@ class ParentSubjectQuestionView(MetadataMixin, JsonLdContextMixin, DetailView):
         child_subject = Subject.objects.filter(parent_subject=parent_subject)
         subject = SubjectQuestionContent.objects.filter(subject=parent_subject.id)
 
-        all = SearchQuerySet().filter(p_subject=parent_subject)[:20]
-        recent = SearchQuerySet().filter(p_subject=parent_subject).order_by('-pub_date')[:20]
-        top_results = SearchQuerySet().filter(p_subject=parent_subject).order_by('-views')[:20]
+        all = SearchQuerySet().filter(p_subject=parent_subject)[:5]
+        recent = SearchQuerySet().filter(p_subject=parent_subject).order_by('-pub_date')[:5]
+        top_results = SearchQuerySet().filter(p_subject=parent_subject).order_by('-views')[:5]
 
         question = Question.objects.filter(subjects=parent_subject.id, is_visible=True, is_published=True)
 
         for i in child_subject:
-            ques = Question.objects.filter(subjects=i.id, is_visible=True, is_published=True)
-            question = question | ques
+            ques = SearchQuerySet().filter(subjects=i, is_visible=True, is_published=True)
+            # question = question | ques
+
+        # for i in child_subject:
+        #     SearchQuerySet().filter(subjects=i.id)[:20]
 
         question = question.order_by('-published_date')
+        sqs = SearchQuerySet().facet('subjects')
+        sqs_count = sqs.facet_counts()
+
+        slug_list = []
+        for sub_filter in sqs_count.get('fields').get('subjects'):
+            slug_list.append(sub_filter[0])
+        context['slug_faceit'] = Subject.objects.filter(slug__in=slug_list)
 
         context['meta'] = self.get_object().as_meta(self.request)
         context['recent'] = recent
@@ -358,6 +429,6 @@ class ParentSubjectQuestionView(MetadataMixin, JsonLdContextMixin, DetailView):
         context['question'] = question
         context['subject'] = subject
         context['parent_subject'] = parent_subject
-        if 'form' not in context:
-            context['form'] = QuestionHomeForm
+        context['child_subject'] = child_subject
+        context['form'] = self.form_class1
         return context

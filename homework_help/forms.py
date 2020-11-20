@@ -1,5 +1,5 @@
 from django import forms
-from homework_help.models import Comment, Question, Order
+from homework_help.models import Comment, Question, Order, Answers
 from subjects.models import Subject
 from django import forms
 from haystack.forms import SearchForm
@@ -49,15 +49,25 @@ class QuestionForm(forms.ModelForm):
         fields = ['question', 'subjects', 'solution_deadline']
 
 
+class SolutionForm(forms.ModelForm):
+    solution = forms.CharField(label='Question', widget=forms.Textarea(attrs={'placeholder':"Type Your Question here...", 'class': "form-control form-design ", 'id': "dropzone" ,'rows':"5"}), required=True)
+
+    class Meta:
+        model = Answers
+        fields = ['solution',]
+
+
 class QuestionHomeForm(forms.ModelForm):
-    question = forms.CharField(label='Question', widget=forms.Textarea(attrs={'placeholder':"Type Your Question here...", 'class': "form-control rounded-0 ", 'id': "dropzone" ,'rows':"5"}), required=True)
+    question = forms.CharField(label='Question', widget=forms.Textarea(attrs={'placeholder':"Type Your Question here...", 'class': "form-control form-design ", 'id': "dropzone" ,'rows':"5"}), required=True)
     subjects =forms.ModelChoiceField(queryset=Subject.objects.filter(is_parent=False), label='Subject', widget=forms.Select(attrs={'class':"form-control js-example-basic-multiple border-radius-20", }), required=True)
     file =forms.FileField(label='Files', widget=forms.FileInput(attrs={'class': "form-control", 'id': "fileupload",'data-num':"1"}), required=False)
+    solution_deadline = forms.DateField(label='Deadline',
+        widget=widgets.AdminDateWidget(attrs={'type': 'date', 'placeholder': "Date", 'class': "form-field-design"}))
 
 
     class Meta:
         model = Question
-        fields = ['question', 'subjects']
+        fields = ['question', 'subjects', 'solution_deadline']
 
 
 # class QuestionOrder(forms.Form):
