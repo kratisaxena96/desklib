@@ -36,12 +36,24 @@ class CommentForm(forms.ModelForm):
 
 
 
+# class QuestionForm(forms.ModelForm):
+#     question = forms.CharField(label='Question', widget=forms.Textarea(attrs={'placeholder':"Type Your Question here...", 'class': "form-design fade well", 'id': "dropzone", 'rows':14}), required=True)
+#     subjects =forms.ModelChoiceField(empty_label='Eg. Maths, Science',queryset=Subject.objects.filter(is_parent=False), label='Subject', widget=forms.Select(attrs={'class':"form-field-design js-example-basic-multiple", }), required=True)
+#     file =forms.FileField(label='Upload Files', widget=forms.FileInput(attrs={'class': "form-field-design", 'id': "fileupload", 'data-num':"1"}), required=False)
+#     solution_deadline = forms.DateField(label='Deadline',
+#         widget=widgets.AdminDateWidget(attrs={'type': 'date', 'placeholder': "Date", 'class': "form-field-design"}))
+#
+#
+#     class Meta:
+#         model = Question
+#         fields = ['question', 'subjects', 'solution_deadline']
+
 class QuestionForm(forms.ModelForm):
-    question = forms.CharField(label='Question', widget=forms.Textarea(attrs={'placeholder':"Type Your Question here...", 'class': "form-design fade well", 'id': "dropzone", 'rows':14}), required=True)
-    subjects =forms.ModelChoiceField(empty_label='Eg. Maths, Science',queryset=Subject.objects.filter(is_parent=False), label='Subject', widget=forms.Select(attrs={'class':"form-field-design js-example-basic-multiple", }), required=True)
-    file =forms.FileField(label='Upload Files', widget=forms.FileInput(attrs={'class': "form-field-design", 'id': "fileupload", 'data-num':"1"}), required=False)
+    question = forms.CharField(label='Question', widget=forms.Textarea(attrs={'placeholder':"Type Your Question here...", 'class': "form-control fade well", 'id': "dropzone", 'rows':10}), required=True)
+    subjects =forms.ModelChoiceField(empty_label='Eg. Maths, Science',queryset=Subject.objects.filter(is_parent=False), label='Subject', widget=forms.Select(attrs={'class':"js-example-basic-multiple", }), required=True)
+    file =forms.FileField(label='Upload Files', widget=forms.FileInput(attrs={'class': "", 'id': "fileupload", 'data-num':"1"}), required=False)
     solution_deadline = forms.DateField(label='Deadline',
-        widget=widgets.AdminDateWidget(attrs={'type': 'date', 'placeholder': "Date", 'class': "form-field-design"}))
+        widget=widgets.AdminDateWidget(attrs={'type': 'date', 'placeholder': "Date", 'class': ""}))
 
 
     class Meta:
