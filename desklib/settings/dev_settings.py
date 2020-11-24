@@ -88,4 +88,26 @@ RECAPTCHA_PRIVATE_KEY = "6LeT_rYUAAAAADYzTg-nkVC3eRv5KBUrbRPTkkxZ"
 
 # ASGI_APPLICATION = "desklib.routing.application"
 
+PAYPAL_CLIENT = "Aei6_cYX5hfSF0WsVXJ3VR3Rc_C0KbneVwh3RLYx_OUJG3gS5m2XM-1tg9EFL7ffTjggfvaNhKQQnsyE"
+PAYPAL_SECRET = "EDVPo6BKm3W20QSivNv8IsZSxExWw71RC99Vvb_uN4xCmI7QFkTuHJ6g_YCX9lMIKfpx7-rs_upjOFmw"
 
+PAYPAL_TOKEN_API = "https://api.sandbox.paypal.com/v1/oauth2/token"
+PAYPAL_CHECKOUT_API = "https://api.sandbox.paypal.com/v2/checkout/orders"
+PAYPAL_RISK_API = "https://api.sandbox.paypal.com/v1/risk/transaction-contexts/"
+PAYPAL_MERCHANT_ID = "BL4F4UGTX2VCW"
+
+
+# BROKER_HOST = "127.0.0.1"
+# BROKER_PORT = 5672
+# BROKER_VHOST = "virtual_host"
+# BROKER_USER = 'root'
+# BROKER_PASSWORD = 'locus123'
+broker_url = 'amqp://root:locus123@127.0.0.1:5672/virtual_host'
+
+import djcelery
+djcelery.setup_loader()
+
+from celery.schedules import crontab
+
+# where to store periodic tasks (needed for scheduler)
+CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"

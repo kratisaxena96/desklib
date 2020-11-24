@@ -2,6 +2,20 @@
 {% load staticfiles %}
 {% load humanize %}
 
+    {% block extra_css %}
+    <style>
+    .payment-loader {
+    display: none;
+}
+        /* Media query for mobile viewport */
+        @media screen and (max-width: 400px) {
+            #paypal-button-container {
+                width: 100%;
+            }
+        }
+
+    </style>
+    {% endblock extra_css %}
 {% block content %}
 <section>
     <nav aria-label="breadcrumb">
@@ -199,6 +213,7 @@
                 <div class="col-sm-12">
                     <div class="card card-body">
                         <p class="text-center mb-0"></p>
+                        {% comment %}
                         <form action="{{paypalform.get_endpoint}}" method="post" id="form-check">
                         {% csrf_token %}
                         {{paypalform}}
@@ -209,7 +224,7 @@
                                 {% if order.expected_hours %} <p>Expected solution delivery time is for {{order.expected_hours}} hour after your payment</p>{% endif %}
                              {% endif %}
                                 <input type="checkbox" name="checkbox" id="check-box" class="checkbox" required>
-                                <label class="d-inline" for="check-box" class="blue-theme">&nbsp;I agree to the <a href="{% url 'termsofuse' %}">terms & conditions</a>, <a href="{% url 'privacypolicy' %}"> privacy policy</a>, <a href="{% url 'academicintegrity' %}">Academic Integrity</a>, <a href="{% url 'honorcode' %}">Honor Code</a> and <a href="{% url 'copyright' %}">Copyright</a>
+                                <label class="d-inline" for="check-box" class="blue-theme">
                                 </label>
                             </div>
                         </div>
@@ -219,11 +234,30 @@
                                     <div class="text-center">
 			                            <input type="submit" value="Proceed with Paypal" class="btn btn-bg-theme border-radius-20 text-white px-sm-5 px-4" id="submitButton">
 		                            </div>
+
+
                                 </div>
 	                        </div>
                                 <input id="id_amount" name="amount" type="hidden" value="{{order.budget}}">
                         </form>
 <!--                    </p>-->
+                        {% endcomment %}
+
+
+                        <div class="row justify-content-center mt-3">
+                            <div class="col-md-12 text-md-center">
+                             {% if order.budget %}
+                                <p class=""><strong>You have to pay ${{order.budget}} to get answer</strong></p>
+                                {% if order.expected_hours %} <p>Expected solution delivery time is for {{order.expected_hours}} hour after your payment</p>{% endif %}
+                             {% endif %}
+                                    <!-- Set up a container element for the button -->
+                                    <p>By continuing you agree to the <a href="{% url 'termsofuse' %}">terms & conditions</a>, <a href="{% url 'privacypolicy' %}"> privacy policy</a>, <a href="{% url 'academicintegrity' %}">Academic Integrity</a>, <a href="{% url 'honorcode' %}">Honor Code</a> and <a href="{% url 'copyright' %}">Copyright</a></p>
+                            </div>
+                            <div class="col-lg-5">
+			<p class="paypal-error text-danger"></p>
+                                <div id="paypal-button-container"></div>
+                            </div>
+                        </div>
                  </div>
              </div>
          </div>
@@ -233,7 +267,10 @@
              <div class="col-sm-12">
                  <div class="card card-body">
                      <p class="text-center mb-0">Your payment has been received.</p>
-                     <p class="text-center mb-0 mt-2">Our expert is working on your query. You will be provided with solution by this deadline.</p><p id="demo" class="text-center mb-0 mt-2"></p>
+                     <p class="text-center mb-0 mt-2">Our expert is working on your query.{% if order.deadline_datetime %} You will be provided with solution by this deadline.{% endif %}</p>
+                     {% if order.deadline_datetime %}
+                     <p id="demo" class="text-center mb-0 mt-2"></p>
+                     {% endif %}
                  </div>
              </div>
          </div>
@@ -266,6 +303,13 @@
         </div>
 </section>
 
+
+<div class="loading payment-loader">
+    <div class="loader-container">
+		<h4 class="text-center text-white">Your payment is being processed...</h4>
+        <div class="loader"></div>
+    </div>
+</div>
 
 {% comment %}
 <div class="comments"></div>
@@ -328,9 +372,14 @@ var x = setInterval(function() {
   }
 }, 1000);
 </script>
+
+<!-- Include the PayPal JavaScript SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=Aei6_cYX5hfSF0WsVXJ3VR3Rc_C0KbneVwh3RLYx_OUJG3gS5m2XM-1tg9EFL7ffTjggfvaNhKQQnsyE&currency=USD"></script>
+{% comment %}
 <script>
 jQuery(document).ready(function() {
 
+var plan_value;
 setInterval(get_status, 10000);
 
 function get_status(){
@@ -345,6 +394,7 @@ function get_status(){
 
         if(i == 2){
             $("input#id_amount").val(data.budget)
+            plan_value = data.budget
 //            console.log(data.budget)
         }
 
@@ -509,6 +559,489 @@ function get_answer(){
     });
 
 });
+
+
+
+$( document ).ready(function() {
+
+	function getCookie(name) {
+		let cookieValue = null;
+		if (document.cookie && document.cookie !== '') {
+			const cookies = document.cookie.split(';');
+			for (let i = 0; i < cookies.length; i++) {
+				const cookie = cookies[i].trim();
+				// Does this cookie string begin with the name we want?
+				if (cookie.substring(0, name.length + 1) === (name + '=')) {
+					cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+					break;
+				}
+			}
+		}
+		return cookieValue;
+	}
+	var csrftoken = getCookie('csrftoken');
+	var user = "{{ user }}"
+//	var key;
+	var doc = "{{doc}}"
+
+    var url= "{% url 'homework_help:homework-help-payment-validate' %}"
+    var payment_details = details
+    payment_details.user = user
+//    payment_details.key = key
+    payment_details.doc = doc
+
+    body = JSON.stringify(payment_details);
+
+
+        // Render the PayPal button into #paypal-button-container
+
+        function completeOrder(details){
+
+	    	$('.payment-loader').show();
+
+        	fetch(url, {
+        		method:'POST',
+        		headers:{
+        			'Content-type':'application/json',
+        			'X-CSRFToken':csrftoken,
+        		},
+        		body: body
+        	})
+        	.then((response) => response.json())
+        	.then((data) => {
+        		console.log('success:', data);
+			})
+        }
+
+        paypal.Buttons({
+
+        // Customize button (optional)
+			locale: 'en_US',
+			style: {
+				size: 'small',
+				color: 'blue',
+				shape: 'pill',
+				label: 'checkout',
+			},
+
+            // Set up the transaction
+
+
+            createOrder: function(data, actions) {
+                return fetch("{% url 'homework_help:homework-help-check' %}", {
+        		method:'POST',
+        		headers:{
+        			'Content-type':'application/json',
+        			'X-CSRFToken':csrftoken,
+        		},
+        		body: body
+        	}).then(function(res) {
+                    return res.json();
+                }).then(function(orderData) {
+
+					return actions.order.create({
+						purchase_units: [{
+							amount: {
+								value: orderData.purchase_units.amount
+							}
+						}]
+					});
+                });
+            },
+
+            // Finalize the transaction
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    // Show a success message to the buyer
+                    completeOrder(details)
+                    // alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                });
+            }
+
+
+        }).render('#paypal-button-container');
+});
+
+    </script>
+{% endcomment %}
+
+
+
+<script>
+	jQuery(document).ready(function () {
+
+		var plan_value = {{order.budget}};
+		setInterval(get_status, 10000);
+
+		function get_status() {
+			var feedback = $.ajax({
+				type: 'GET',
+				url: "{% url 'api:homework-help-api:order-status-api' order.uuid %}",
+				success: function (data) {
+
+					$(".status_" + data.status).siblings().removeClass("active")
+					$(".status_" + data.status).siblings().removeClass("done")
+					i = data.status
+
+					if (i == 2) {
+						$("input#id_amount").val(data.budget)
+						plan_value = data.budget
+						//            console.log(data.budget)
+					}
+
+					while (i >= 1) {
+						$(".status_" + i).addClass("done")
+						if (i == 4) {
+							get_answer()
+						}
+						//        console.log(i)
+						i--;
+					}
+					$(".status_content").siblings().hide()
+					$(".status_" + data.status + "_content").show()
+					$(".status_" + data.status).addClass("active")
+				}
+			})
+		}
+
+		function get_answer() {
+			var feedback = $.ajax({
+				type: 'GET',
+				url: "{% url 'api:homework-help-api:get-answer-api' order.question.uid %}",
+				success: function (data) {
+					$(".status_4_content").empty()
+					for (i in data) {
+						//        console.log(data[i])
+
+						$(".status_4_content").append("<h6 class='mt-4'><strong>Answer from your tutor:</strong></h6>", "<div class='mt-4'><div class='col-sm-12'><div class='card card-body'><h6><strong>Explanation:</strong></h6><p>" + data[i].solution + "</p></div></div></div>");
+						var str = data[i].solution_files;
+						for (var i = 0; i < str.length; i++) {
+							console.log(str[i]);
+
+							var res = str[i].toString().split("/");
+							$(".status_4_content").append("<div class='row mt-4'><div class='col-sm-12'><span class='d-inline-block mr-2 ml-4'><i class='fa fa-file'></i></span><a href='" + str[i] + "' download>" + res[7] + "</a><p class='ml-4 mt-2'>By clicking on the link you can download a file.</p></div></div>")
+							//               console.log(res[7]);
+						}
+
+					}
+				}
+			})
+		}
+
+
+		$.ajax({
+			type: 'GET',
+			url: "{% url 'api:homework-help-api:comment-create-api' order.order_id %}",
+			success: function (data) {
+				var catObj;
+				catObj = {};
+				$(".comments").empty();
+
+
+				console.log(data);
+				//            console.log(data.size());
+				//                $.each( data, function( key, value ) {
+				$.each(data, function (index, value) {
+
+
+					if (value['message'] && value['reference_files']) {
+						$(".comments").append('<div class="current' + index + '"></div>');
+						$('.current' + index).text(value['message'] + ' ' + value['reference_files'])
+					} else if (value['message']) {
+						$(".comments").append('<div class="current' + index + '"></div>');
+						$('.current' + index).text(value['message'])
+					} else if (value['reference_files']) {
+						$(".comments").append('<div class="current' + index + '"></div>');
+						$('.current' + index).text(value['reference_files'])
+					}
+
+
+				});
+
+			},
+			error: function (data) {
+				$(".faqQuesTab").hide();
+				$("#faqPreloader").hide();
+				$(".errorDiv").show();
+			}
+		});
+
+
+		$("#comment-form").submit(function (e) {
+			e.preventDefault();
+			$("span.has-error").empty();
+
+			var data = $("#comment-form").serializeArray();
+
+
+			if (data['message'] && data['reference_files']) {
+				$(".comments").append('<div class="current"></div>');
+				$(".current").text(data['message'] + ' ' + data['reference_files'])
+			} else if (data['message']) {
+				$(".comments").append('<div class="current"></div>');
+				$(".current").text(data['message'])
+			} else if (data['reference_files']) {
+				$(".comments").append('<div class="current"></div>');
+				$(".current").text(data['reference_files'])
+			}
+
+
+			var myForm = document.getElementById('comment-form');
+			data = new FormData(myForm);
+
+
+			$("div.error_file").text("");
+
+			$(".enquiry-form-popup").hide();
+			$(".form-icon-plane").hide();
+			$(".form-loader").show();
+
+			$.ajax({
+				type: "POST",
+				url: '{% url 'api:homework-help-api:comment-create-api' order.order_id %}',
+				enctype: 'multipart/form-data',
+				data: data,
+				processData: false,
+				contentType: false,
+				success: function (data) {
+
+
+					if (data['message'] && data['reference_files']) {
+						$(".comments").append('<div class="current"></div>');
+						$(".current").text(data['message'] + ' ' + data['reference_files'])
+					} else if (data['message']) {
+						//                $(".comments").append("<code>" + data['message'] + "</code><br>");
+
+						$(".comments").append('<div class="current"></div>');
+						$(".current").text(data['message'])
+					} else if (data['reference_files']) {
+						//                    $(".comments").append( data['reference_files'] + "<br>");
+						$(".comments").append('<div class="current"></div>');
+						$(".current").text(data['reference_files'])
+					}
+
+
+					document.getElementById("comment-form").reset();
+				},
+				error: function (data) {
+
+					var response = data.responseJSON;
+					for (key in response) {
+						$("#comment-form ." + key).addClass("has-error");
+						$("#comment-form span." + key).text(response[key][0]);
+					}
+
+				}
+			});
+		});
+
+//	});
+
+
+// $(document).ready(function () {
+
+	function getCookie(name) {
+		let cookieValue = null;
+		if (document.cookie && document.cookie !== '') {
+			const cookies = document.cookie.split(';');
+			for (let i = 0; i < cookies.length; i++) {
+				const cookie = cookies[i].trim();
+				// Does this cookie string begin with the name we want?
+				if (cookie.substring(0, name.length + 1) === (name + '=')) {
+					cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+					break;
+				}
+			}
+		}
+		return cookieValue;
+	}
+	var csrftoken = getCookie('csrftoken');
+	var user = "{{ user }}"
+	var key;
+	var doc = "{{doc}}"
+
+
+	// Render the PayPal button into #paypal-button-container
+
+	function completeOrder(details) {
+		var url = "{% url 'homework_help:homework-help-payment-validate' %}"
+		var payment_details = details
+		payment_details.order = "{{order.uuid}}"
+        payment_details.tracking_id = "{{tracking_id}}"
+
+		body = JSON.stringify(payment_details);
+
+		$('.payment-loader').show();
+
+		fetch(url, {
+				method: 'POST',
+				headers: {
+					'Content-type': 'application/json',
+					'X-CSRFToken': csrftoken,
+				},
+				body: body
+			})
+//			.then((response) => response.json())
+//			.then((data) => {
+//				console.log('success:', data);
+//			})
+			.then(function(res) {
+                    return res.json();
+                }).then(function(orderData) {
+                    // Three cases to handle:
+                    //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
+                    //   (2) Other non-recoverable errors -> Show a failure message
+                    //   (3) Successful transaction -> Show a success / thank you message
+
+                    // Your server defines the structure of 'orderData', which may differ
+                    var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
+
+                    if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
+                        // Recoverable state, see: "Handle Funding Failures"
+                        // https://developer.paypal.com/docs/checkout/integration-features/funding-failure/
+                        return actions.restart();
+                    }
+
+                    if (errorDetail) {
+                        var msg = 'Sorry, your transaction could not be processed.';
+                        if (errorDetail.description) msg += '\n\n' + errorDetail.description;
+                        if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
+                        // Show a failure message
+                        return alert(msg);
+                    }
+
+                    // Show a success message to the buyer
+//                    alert('Transaction completed by ' + orderData.payer.name.given_name);
+        		console.log('success:', orderData);
+                });
+        }
+
+
+	var user = "{{ user }}"
+	var doc = "{{doc}}"
+
+    var payment_details1 = {}
+    payment_details1['user'] = "{{user}}"
+    payment_details1['order'] = "{{object.uuid}}"
+    payment_details1['tracking_id'] = "{{tracking_id}}"
+
+    body = JSON.stringify(payment_details1);
+
+	paypal.Buttons({
+
+		// Customize button (optional)
+		locale: 'en_US',
+		style: {
+			size: 'small',
+			color: 'blue',
+			shape: 'pill',
+			label: 'checkout',
+		},
+
+		// Set up the transaction
+
+            createOrder: function(data, actions) {
+                return fetch("{% url 'homework_help:homework-help-check' %}", {
+        		method:'POST',
+        		headers:{
+        			'Content-type':'application/json',
+        			'X-CSRFToken':csrftoken,
+        		},
+        		body: body
+        	}).then(function(res) {
+                    return res.json();
+                }).then(function(orderData) {
+					return orderData.id;
+                });
+            },
+
+		// Finalize the transaction
+		onApprove: function (data, actions) {
+//			return actions.order.capture().then(function (details) {
+				// Show a success message to the buyer
+//				completeOrder(details)
+				// alert('Transaction completed by ' + details.payer.name.given_name + '!');
+
+		var url = "{% url 'homework_help:homework-help-payment-validate' %}"
+		var payment_details = {}
+		payment_details.order = "{{order.uuid}}"
+        payment_details.orderid = data.orderID
+    payment_details.tracking_id = "{{tracking_id}}"
+
+		body = JSON.stringify(payment_details);
+			$('.payment-loader').siblings().css({"filter": "blur(8px)", "-webkit-filter": "blur(8px)"});
+	    	$('.payment-loader').show();
+
+
+		fetch(url, {
+				method: 'POST',
+				headers: {
+					'Content-type': 'application/json',
+					'X-CSRFToken': csrftoken,
+				},
+				body: body
+			})
+//			.then((response) => response.json())
+//			.then((data) => {
+//				console.log('success:', data);
+//			})
+			.then(function(res) {
+                    return res.json();
+                }).then(function(orderData) {
+                    // Three cases to handle:
+                    //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
+                    //   (2) Other non-recoverable errors -> Show a failure message
+                    //   (3) Successful transaction -> Show a success / thank you message
+
+                    // Your server defines the structure of 'orderData', which may differ
+                    var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
+
+                    if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
+                        // Recoverable state, see: "Handle Funding Failures"
+                        // https://developer.paypal.com/docs/checkout/integration-features/funding-failure/
+                        return actions.restart();
+                    }
+
+                    if (errorDetail) {
+                        var msg = 'Sorry, your transaction could not be processed.';
+                        if (errorDetail.description) msg += '\n\n' + errorDetail.description;
+                        if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
+                        // Show a failure message
+                        return alert(msg);
+                    }
+
+                    // Show a success message to the buyer
+//                    alert('Transaction completed by ' + orderData.payer.name.given_name);
+        		console.log('success:', orderData);
+			$('.payment-loader').siblings().css({"filter": "blur(0px)", "-webkit-filter": "blur(0px)"});
+	    	$('.payment-loader').hide();
+                });
+
+//			});
+		},
+            onCancel: function (data) {
+				/*
+				* Buyer cancelled the payment
+				/
+//				alert("Buyer Cancelled the Payment");
+			$('.paypal-error').text("Payment canceled. Please try again to purchase.");
+				//window.location = '<http://test.com/cancelURL';>
+			},
+			onError: function(err) {
+				/
+				 * An error occurred during the transaction
+				 */
+				// alert("An error occured, Pls debug");
+			// window.location = '<http://test.com/ErrorURL';>
+			$('.paypal-error').text("An error occurred during transaction. Please try again.");
+
+			}
+
+
+	}).render('#paypal-button-container');
+});
+
 </script>
+
 
 {% endblock extra_js %}

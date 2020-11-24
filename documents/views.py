@@ -1,9 +1,14 @@
 # some_app/views.py
 import logging
 import os
+import json
+import pytz
 import socket
 import tempfile
+import requests
+
 from django.contrib import messages
+from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives, EmailMessage
 from django.template.response import TemplateResponse
 from paypal.standard.forms import PayPalPaymentsForm
@@ -11,9 +16,11 @@ import geoip2.webservice
 
 from django.contrib.gis.geoip2 import GeoIP2
 
+from accounts.models import UserAccount
 from desklib.mixins import CheckSubscriptionMixin
 from documents.admin_forms import DocumentSearchForm
 from documents.mixins import SubscriptionCheckMixin
+from homework_help.models import Order
 
 logger = logging.getLogger(__name__)
 from rest_framework.views import APIView
@@ -50,11 +57,11 @@ from rest_framework.renderers import (
 from .forms import ReportForm, DownloadFileForm
 
 from django.db.models import F
-from datetime import timedelta
+from datetime import timedelta, datetime
 from subscription.utils import is_subscribed, get_current_subscription
 from django.core.files import File as DjangoFile
 from django.db.models import Q
-from django.http import HttpResponsePermanentRedirect, Http404, HttpResponseRedirect
+from django.http import HttpResponsePermanentRedirect, Http404, HttpResponseRedirect, JsonResponse, HttpResponse
 from documents.utils import merge_pdf
 from django.utils import timezone
 from documents.forms import UploadFileForm
@@ -65,6 +72,8 @@ from uploads.models import Upload
 from formtools.wizard.forms import ManagementForm
 from django.utils.decorators import method_decorator
 from django.contrib.admin.views.decorators import staff_member_required
+from subscription.models import PaypalInvoice
+from documents.utils import key_generator
 
 
 
@@ -192,6 +201,8 @@ class DocumentView(JsonLdDetailView):
         if self.request.user.is_anonymous:
             self.template_name = 'documents/document_detail.html'
         elif is_subscribed(self.request.user):
+            self.template_name = 'documents/document_detail_subscribed.html'
+        elif self.payperdoc:
             self.template_name = 'documents/document_detail_subscribed.html'
         else:
             self.template_name = 'documents/document_detail_logged_in.html'
@@ -510,6 +521,8 @@ class DocumentPayment(LoginRequiredMixin, MetadataMixin, TemplateView):
         context['user'] = self.request.user
         context['form1'] = UploadForm
         context['form2'] = UploadFileForm
+
+        context['tracking_id'] = key_generator()
         if settings.PAYPAL_TEST:
             receiver_email = "info-facilitator@a2zservices.net"
         else:
@@ -631,3 +644,286 @@ class DocumentSearchDescription(LoginRequiredMixin, PermissionRequiredMixin, For
         return TemplateResponse(request, "admin/search_in_description.html", context={'result':result, 'form': form})
 
 
+
+
+class PaypalPaymentCheckView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        body = json.loads(request.body.decode("utf-8"))
+
+        if settings.DEBUG:
+            url = settings.PAYPAL_TOKEN_API
+
+            data = {
+                "grant_type": "client_credentials"
+            }
+            headers = {
+                'content-type': "application/x-www-form-urlencoded",
+            }
+            client = settings.PAYPAL_CLIENT
+            secret = settings.PAYPAL_SECRET
+
+            auth = (client, secret)
+
+            auth_token = requests.request("POST", url, data=data, headers=headers, auth=auth)
+            token = json.loads(auth_token.text).get('access_token')
+        else:
+            f = open(settings.BASE_DIR + "/authtoken.txt", "r")
+            token = f.read()
+
+        url = settings.PAYPAL_RISK_API + settings.PAYPAL_MERCHANT_ID + "/" + body.get('tracking_id')
+
+        payload = json.dumps({
+            "tracking_id": body.get('tracking_id'),
+            "additional_data": [
+                {
+                    "key":"sender_first_name",
+                    "value": request.user.first_name
+                },
+                {
+                    "key":"sender_email",
+                    "value": request.user.email
+                },
+                {
+                    "key":"sender_phone",
+                    "value": str(request.user.contact_no)
+                },
+                {
+                    "key":"sender_country_code",
+                    "value": str(request.user.country)
+                },
+                {
+                    "key":"sender_create_date",
+                    "value": str(datetime.now())
+                },
+            ],
+        })
+        headers = {
+            'accept': "application/json",
+            'content-type': "application/json",
+            'accept-language': "en_US",
+            'authorization': "Bearer " + token
+        }
+
+        risk_response = requests.request("PUT", url, data=payload, headers=headers)
+
+        # print(auth_token.status_code)
+        #
+        # print(auth_token.text)
+
+        payment_invoice = PaypalInvoice(user=request.user)
+        payment_invoice.save()
+
+        url = settings.PAYPAL_CHECKOUT_API
+
+        plan_key = body.get('key')
+        plan = Plan.objects.get(key=plan_key)
+        amount = plan.price
+
+        payload = json.dumps({
+  "intent": "CAPTURE",
+  "application_context":{
+    "brand_name":"Desklib",
+    # "locale":"en-US",
+    "shipping_preference":"NO_SHIPPING",
+    "user_action":"PAY_NOW",
+    # "return_url":"http://ReturnURL",
+    # "cancel_url":"http://CancelURL",
+    "payment_method":{
+        "payer_selected":"PAYPAL",
+		 "payee_preferred": "IMMEDIATE_PAYMENT_REQUIRED"
+    }
+  },
+  "payer":{
+    "name":{
+        "given_name": request.user.first_name,
+        "surname": request.user.last_name
+    },
+    "email_address": request.user.email,
+    # "phone": {
+    #         "phone_number": {
+    #             "national_number": request.user.contact_no.national_number
+    #         }
+    #     }
+    },
+  "purchase_units": [
+    {
+        "amount": {
+              "currency_code": "USD",
+              "value": amount,
+              "breakdown": {
+                "item_total": {
+                  "currency_code": "USD",
+                  "value": amount
+                }
+              }
+            },
+        "items": [
+            {
+              "name": plan.package_name,
+              "quantity": "1",
+              "category": "DIGITAL_GOODS",
+              "unit_amount": {
+                "currency_code": "USD",
+                "value": amount
+              }
+            }],
+        "soft_descriptor":"Desklib",
+	    # "custom_id": tracking_id,	#// Pass any custom value of website if required
+	    "invoice_id": payment_invoice.invoice_id #// Pass the unique order id of website
+    }
+  ]
+})
+        headers = {
+            'accept': "application/json",
+            'content-type': "application/json",
+            'accept-language': "en_US",
+            'authorization': "Bearer "+token
+        }
+
+        response = requests.request("POST", url, data=payload, headers=headers)
+
+        return HttpResponse(response, content_type='application/json')
+
+
+class PaypalPaymentView(LoginRequiredMixin, View):
+
+    def post(self, request, *args, **kwargs):
+
+        if settings.DEBUG:
+            url = settings.PAYPAL_TOKEN_API
+
+            data = {
+                "grant_type": "client_credentials"
+            }
+            headers = {
+                'content-type': "application/x-www-form-urlencoded",
+            }
+            client = settings.PAYPAL_CLIENT
+            secret = settings.PAYPAL_SECRET
+
+            auth = (client, secret)
+
+            auth_token = requests.request("POST", url, data=data, headers=headers, auth=auth)
+            token = json.loads(auth_token.text).get('access_token')
+        else:
+            f = open(settings.BASE_DIR + "/authtoken.txt", "r")
+            token = f.read()
+
+        body = json.loads(request.body.decode("utf-8"))
+
+        url = settings.PAYPAL_CHECKOUT_API + "/" + body.get('orderid') + "/capture"
+
+        headers = {
+            'content-type': "application/json",
+            'authorization': "Bearer "+token,
+            'PayPal-Client-Metadata-Id': body.get('tracking_id'),
+            'PayPal-Request-id': key_generator()
+        }
+
+        response = requests.request("POST", url, headers=headers)
+
+        # print(response.status_code)
+        #
+        # print(response.text)
+        resp_json = json.loads(response.text)
+
+        invoice_id = resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('invoice_id')
+        payment = PaypalInvoice.objects.get(invoice_id=invoice_id)
+        payment.buyer_email = resp_json.get('payer').get('email_address')
+        payment.amount = resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('amount').get('value')
+        payment.status = resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('status')
+        payment.currency = resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('amount').get("currency_code")
+        payment.transaction_id = resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('id')
+        payment.save()
+
+        # print(body)
+        if settings.DEBUG:
+            receiver_email = "ankushtambi-facilitator@gmail.com"
+            # receiver_email = "info-facilitator@a2zservices.net"
+            # action="https://www.sandbox.paypal.com/cgi-bin/webscr
+
+            # homework help payment logic
+        else:
+            receiver_email = "payment@locusrags.com"
+        if resp_json.get('status') == "COMPLETED":
+
+            email = body.get('user')
+            plan_key = body.get('key')
+            try:
+                doc_slug = body.get('doc')
+                doc = Document.objects.get(slug=doc_slug)
+            except:
+                pass
+            plan = Plan.objects.get(key=plan_key)
+            plan_days = plan.days
+            pay_date = datetime.strptime(resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('create_time'), '%Y-%m-%dT%H:%M:%SZ')
+            payment_date = pytz.utc.localize(pay_date)
+            expire_on = payment_date + timedelta(days=plan_days)
+            user = UserAccount.objects.get(email=email)
+            site_url = Site.objects.get_current().domain
+            amount = int(float(resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('amount').get('value')))
+
+            if amount==plan.price:
+                if plan.is_pay_per_download:
+                    contex = {'traction_id': resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('id'), 'currency': resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('amount').get("currency_code"),
+                              'amount': resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('amount').get('value'), 'payment_date': str(payment_date.date()),
+                              'expiry': str(expire_on),
+                              'plan': plan.package_name, 'document_redirect': doc_slug, 'SITE_URL': site_url, }
+                    # pay_doc = PayPerDocument.objects.filter(user=user, start_date=payment_date,documents=doc, expire_on=expire_on)
+                    # if pay_doc :
+                    #     pay_doc.documents.add(doc)
+                    payperdoc = PayPerDocument.objects.create(user=user, plan=plan, expire_on=expire_on,
+                                                              start_date=payment_date, is_current=True)
+                    payperdoc.documents.add(doc)
+                    messages.success(request, 'Congratulations! You have successfully unlocked this document.')
+                else:
+                    contex = {'traction_id': resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('id'), 'currency': resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('amount').get("currency_code"),
+                              'amount': resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('amount').get('value'), 'payment_date': str(payment_date.date()),
+                              'expiry': str(expire_on),
+                              'plan': plan.package_name, 'SITE_URL': site_url, }
+                    subscription = Subscription.objects.create(user=user, plan=plan, expire_on=expire_on,
+                                                               author=user)
+
+                    messages.success(request, 'Congratulations! You have successfully subscribed to ' + plan.package_name + '.')
+                try:
+
+                    htmly = render_to_string('desklib/mail-templates/payment_success_email_template.html',
+                                             context=contex, request=None)
+                    html_message = htmly
+                    mail = EmailMultiAlternatives(
+                        subject='Payment Success Confirmation From Desklib',
+                        to=[user.email],
+                        body=''
+                    )
+                    mail.attach_alternative(html_message, 'text/html')
+                    mail.send(True)
+
+                except Exception as e:
+                    print("Payment Success Email Sending failed", e)
+            else:
+                try:
+                    amount = body.get('purchase_units')[0].get("amount").get("value")
+                    locus_email = "kushagra.goel@locusrags.com"
+                    if not settings.DEBUG:
+                        locus_email = "info@desklib.com"
+                    if amount != plan.price:
+                        amount_remaining = plan.price - body.get('purchase_units')[0].get("amount").get("value")
+                        html_message = "Plan Name: "+ str(plan) + "<br>Payment done by user: "+ user.username + "<br>Amount Received: " + str(amount) + "<br>AmountPending: " + str(amount_remaining) + "<br>For Document: " + str(doc)
+                        mail = EmailMultiAlternatives(
+                            subject='Insufficient Amount received from Client',
+                            # from_email=settings.DEFAULT_FROM_EMAIL,
+                            to=[locus_email],
+                            body=''
+                        )
+                        mail.attach_alternative(html_message, 'text/html')
+                        mail.send(True)
+                    else:
+                        pass
+                except:
+                    pass
+
+            # messages.success(request, 'Congratulations! You have successfully unlocked this document.')
+            # return redirect(reverse('documents:document-view', kwargs={'slug': doc.slug}))
+            return JsonResponse('Payment completed', safe=False)
+        else:
+            return
