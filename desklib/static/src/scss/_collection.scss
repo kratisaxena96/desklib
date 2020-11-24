@@ -2253,6 +2253,15 @@ padding-right:230px !important;
 .text-blue {
     color: #405FBD;
 }
+.homework-footer-banner {
+    position: relative;
+}
+.homework-footer-banner {
+    background-image: url(/static/dist/assets/images/homeworkhelp_fotter_b.jpeg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom left;
+}
 
 @media (max-width: 600px){
 .padding-ques{
