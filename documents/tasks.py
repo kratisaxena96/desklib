@@ -32,7 +32,7 @@ def paypal_auth_token():
 
     resp = requests.request("POST", url, data=data, headers=headers, auth=auth)
     auth_token = json.loads(resp.text).get('access_token')
-    f = open(settings.BASE_DIR + "/authtoken.txt", "w")
+    f = open(settings.BASE_DIR + "/"+settings.AUTHTOKEN, "w")
     f.write(auth_token)
     f.close()
 

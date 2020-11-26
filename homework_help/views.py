@@ -391,7 +391,7 @@ class HomeworkHelpPaypalPaymentCheckView(LoginRequiredMixin, View):
             auth_token = requests.request("POST", url, data=data, headers=headers, auth=auth)
             token = json.loads(auth_token.text).get('access_token')
         else:
-            f = open(settings.BASE_DIR + "/authtoken.txt", "r")
+            f = open(settings.BASE_DIR + "/"+settings.AUTHTOKEN, "r")
             token = f.read()
 
         tracking_id = key_generator()
@@ -530,7 +530,7 @@ class HomeworkHelpPaypalPaymentView(LoginRequiredMixin, View):
             auth_token = requests.request("POST", url, data=data, headers=headers, auth=auth)
             token = json.loads(auth_token.text).get('access_token')
         else:
-            f = open(settings.BASE_DIR + "/authtoken.txt", "r")
+            f = open(settings.BASE_DIR + "/"+settings.AUTHTOKEN, "r")
             token = f.read()
         body = json.loads(request.body.decode("utf-8"))
         url = settings.PAYPAL_CHECKOUT_API + "/" + body.get('orderid') + "/capture"

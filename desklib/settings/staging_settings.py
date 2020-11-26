@@ -189,12 +189,13 @@ PAYPAL_CHECKOUT_API = "https://api.sandbox.paypal.com/v2/checkout/orders"
 PAYPAL_RISK_API = "https://api.sandbox.paypal.com/v1/risk/transaction-contexts/"
 
 
-# BROKER_HOST = "127.0.0.1"
-# BROKER_PORT = 5672
-# BROKER_VHOST = "virtual_host"
-# BROKER_USER = 'root'
-# BROKER_PASSWORD = 'locus123'
-broker_url = 'amqp://root:locus123@127.0.0.1:5672/virtual_host'
+BROKER_HOST = os.environ['BROKER_HOST']
+BROKER_PORT = os.environ['BROKER_PORT']
+BROKER_VHOST = os.environ['BROKER_VHOST']
+BROKER_USER = os.environ['BROKER_USER']
+BROKER_PASSWORD = os.environ['BROKER_PASSWORD']
+
+broker_url = 'amqp://'+BROKER_USER+':'+BROKER_PASSWORD+'@'+BROKER_HOST+':'+BROKER_PORT+'/'+BROKER_VHOST
 
 import djcelery
 djcelery.setup_loader()
@@ -203,3 +204,4 @@ from celery.schedules import crontab
 
 # where to store periodic tasks (needed for scheduler)
 CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
+AUTHTOKEN = os.environ['AUTHTOKEN']
