@@ -206,3 +206,4 @@ from celery.schedules import crontab
 
 # where to store periodic tasks (needed for scheduler)
 CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
+AUTHTOKEN = os.environ['AUTHTOKEN']

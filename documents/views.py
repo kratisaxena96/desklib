@@ -667,7 +667,7 @@ class PaypalPaymentCheckView(LoginRequiredMixin, View):
             auth_token = requests.request("POST", url, data=data, headers=headers, auth=auth)
             token = json.loads(auth_token.text).get('access_token')
         else:
-            f = open(settings.BASE_DIR + "/authtoken.txt", "r")
+            f = open(settings.BASE_DIR + "/"+settings.AUTHTOKEN, "r")
             token = f.read()
 
         url = settings.PAYPAL_RISK_API + settings.PAYPAL_MERCHANT_ID + "/" + body.get('tracking_id')
@@ -806,7 +806,7 @@ class PaypalPaymentView(LoginRequiredMixin, View):
             auth_token = requests.request("POST", url, data=data, headers=headers, auth=auth)
             token = json.loads(auth_token.text).get('access_token')
         else:
-            f = open(settings.BASE_DIR + "/authtoken.txt", "r")
+            f = open(settings.BASE_DIR + "/"+settings.AUTHTOKEN, "r")
             token = f.read()
 
         body = json.loads(request.body.decode("utf-8"))
