@@ -96,7 +96,7 @@
 
 <section>
 	<div class="container pt-md-5 pb-4">
-		<h2 class="text-center">Q & A Related To {{question.subjects}}</h2>
+		<h2 class="text-center">{% if question.subjects %}Q & A Related To {{question.subjects}}{% endif %}</h2>
 		<div class="row mt-4">
 			{% for question in similar_questions %}
 			<div class="col-sm-12 mb-4">

@@ -27,7 +27,9 @@
 			         <a class="list-group-item list-group-item-action" href="{% url 'my-profile' %}" role="tab" aria-controls="my-profile">My Profile</a>
                <a class="list-group-item list-group-item-action" href="{% url 'my-downloads' %}" role="tab" aria-controls="my-downloads">My Downloads</a>
                <a class="list-group-item list-group-item-action" href="{% url 'my-uploads' %}" role="tab" aria-controls="my-uploads">My Uploads</a>
+                    {% comment %}
                 <a class="list-group-item list-group-item-action" href="{% url 'upload-file' %}" role="tab" aria-controls="upload-files">Upload Files</a>
+                    {% endcomment %}
                     <a class="list-group-item list-group-item-action bg-active white" href="{% url 'my-subscription' %}" role="tab" aria-controls="my-subscriptions">My Subscriptions</a>
         </div>
 	</aside>
@@ -52,7 +54,7 @@
             		   	   	 <td scope="row">{{subs.plan}}</td>
                                <td scope="row">{{subs.plan.view_limit}}</td>
                                  <td scope="row">{{subs.plan.download_limit}}</td>
-            		   	   	  <td scope="row">{{subs.expire_on| localize}}</td>
+            		   	   	  <td scope="row">{{subs.expire_on|date:"N j, Y, H:i"}}</td>
             		   	   </tr>
             		   </tbody>
 
@@ -120,7 +122,7 @@
                                      {% for obj_name in paydoc.documents.all %}<a href="{% url 'documents:document-view' obj_name.slug %}">{{obj_name.title |truncatechars:40}} </a> {% endfor %}
 	 				   	 	  	</td>
                                 <td scope="row">
-	 				   	 	  	{{paydoc.expire_on| localize}}
+	 				   	 	  	{{paydoc.expire_on|date:"N j, Y, H:i"}}
 	 				   	 	  	</td>
 	 				   	 	</tr>
 	 				    </tbody>

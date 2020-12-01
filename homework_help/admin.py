@@ -4,7 +4,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.conf import settings
 
-from . models import Question, Order, Comment, Answers, QuestionFile, AnswerFile
+from . models import Question, Order, Comment, Answers, QuestionFile, AnswerFile, HomeworkAccordion
 
 
 class CommentAdmin(admin.ModelAdmin):
@@ -127,6 +127,12 @@ class AnswerFileAdmin(admin.ModelAdmin):
             obj.author = request.user
         obj.save()
 
+
+class AccordionContentAdmin(admin.ModelAdmin):
+    list_display = ['accordion_title','is_visible', 'is_published']
+    prepopulated_fields = {'slug': ('accordion_title',), }
+
+
 # Register your models here.
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(QuestionFile, QuestionFileAdmin)
@@ -134,4 +140,5 @@ admin.site.register(AnswerFile, AnswerFileAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Answers, AnswerAdmin)
+admin.site.register(HomeworkAccordion, AccordionContentAdmin)
 

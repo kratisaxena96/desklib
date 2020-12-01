@@ -8,7 +8,7 @@ class QuestionCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Question
-        fields = ('question', 'subjects', 'slug')
+        fields = ('question', 'subjects', 'slug', 'solution_deadline')
 
 
 class OrderCreateSerializer(serializers.ModelSerializer):

@@ -83,6 +83,7 @@ class Question(ModelMeta, models.Model):
     # upload_file = models.FileField(verbose_name=_('Upload File'), upload_to=upload_to, max_length=1000)
     subjects = models.ForeignKey(Subject, db_index=True, blank=True, null=True, related_name='subject_question',
                                  on_delete=models.PROTECT, )
+    solution_deadline = models.DateField(blank=True, null=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True, related_name='author_question')
     uid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     is_publicly_visible = models.BooleanField(_('Publicly Visible'), default=False)
@@ -411,5 +412,19 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.message
+
+
+class HomeworkAccordion(models.Model):
+    accordion_title = models.CharField(max_length=200, null=True, blank=True)
+    slug = models.SlugField(unique=True, null=True, blank=True)
+    accordion_description = models.TextField(_('Description'), null=True, blank=True)
+    created = models.DateTimeField(auto_now=True)
+    updated = models.DateTimeField(auto_now=True)
+    is_visible = models.BooleanField(_('Is Visible'), default=False)
+    is_published = models.BooleanField(_('Is Published'), default=False)
+
+    def __str__(self):
+        return self.accordion_title
+
 
 
