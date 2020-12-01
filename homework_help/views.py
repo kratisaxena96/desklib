@@ -132,7 +132,7 @@ class OrderListView(LoginRequiredMixin, MetadataMixin, ListView):
 
 
 class AskQuestionView(JsonLdContextMixin, MetadataMixin, FormView):
-    template_name = 'homework_help/ask_question.html'
+    template_name = 'homework_help/v2/ask_question.html'
     form_class = QuestionForm
     title = 'Desklib | Homework Help | Ask Q&A from online experts'
     description = 'Access quality study resources and get homework help and solutions to your assignments. Click here to ask question from our experts.'
@@ -221,7 +221,7 @@ class CustomSearchQuestionView(JsonLdContextMixin, MetadataMixin, FacetedSearchV
 
 class QuestionDetailView(DetailView):
     model = Question
-    template_name = "homework_help/question_detail.html"
+    template_name = "homework_help/v2/question_detail.html"
     form_class = QuestionForm
     form = SolutionForm
     # title = 'Desklib | homework help | online learning library | assignment solutions '
@@ -375,15 +375,10 @@ class OrderCreateView(LoginRequiredMixin, FormView):
 #         return context
 
 
-class ParentSubjectQuestionView(MetadataMixin, JsonLdContextMixin, FacetedSearchView):
-    template_name = "homework_help/parent_subject_question.html"
+class ParentSubjectQuestionView(MetadataMixin, JsonLdContextMixin, DetailView):
+    template_name = "homework_help/v2/parent_subject_question.html"
     model = Subject
-    form_class = CustomFacetedSearchForm
-    form_class1 = QuestionHomeForm
-    facet_fields = ['subjects']
-    paginate_by = 5
-    # suggestions = {}
-    selected_facets = ['subjects', ]
+    form_class = QuestionHomeForm
 
     def get_object(self, queryset=None):
         """
@@ -397,38 +392,44 @@ class ParentSubjectQuestionView(MetadataMixin, JsonLdContextMixin, FacetedSearch
 
     def get_context_data(self, **kwargs):
         context = super(ParentSubjectQuestionView, self).get_context_data(**kwargs)
+
         parent_subject = Subject.objects.get(slug=self.kwargs['slug'])
         child_subject = Subject.objects.filter(parent_subject=parent_subject)
         subject = SubjectQuestionContent.objects.filter(subject=parent_subject.id)
-
-        all = SearchQuerySet().filter(p_subject=parent_subject)[:5]
-        recent = SearchQuerySet().filter(p_subject=parent_subject).order_by('-pub_date')[:5]
-        top_results = SearchQuerySet().filter(p_subject=parent_subject).order_by('-views')[:5]
-
-        question = Question.objects.filter(subjects=parent_subject.id, is_visible=True, is_published=True)
+        question = Question.objects.filter(subjects=parent_subject, is_visible=True, is_published=True)
 
         for i in child_subject:
-            ques = SearchQuerySet().filter(subjects=i, is_visible=True, is_published=True)
-            # question = question | ques
+            ques = Question.objects.filter(subjects=i, is_visible=True, is_published=True)
+            if ques:
+                question = question | ques
+            else:
+                child_subject.exclude(slug=i.slug)
 
+
+
+
+        # all = SearchQuerySet().filter(p_subject=parent_subject)[:5]
+        # recent = SearchQuerySet().filter(p_subject=parent_subject).order_by('-pub_date')[:5]
+        # top_results = SearchQuerySet().filter(p_subject=parent_subject).order_by('-views')[:5]
+        #
+        # question = Question.objects.filter(subjects=parent_subject.id, is_visible=True, is_published=True)
+        #
         # for i in child_subject:
-        #     SearchQuerySet().filter(subjects=i.id)[:20]
-
-        question = question.order_by('-published_date')
-        sqs = SearchQuerySet().facet('subjects')
-        sqs_count = sqs.facet_counts()
-
-        slug_list = []
-        for sub_filter in sqs_count.get('fields').get('subjects'):
-            slug_list.append(sub_filter[0])
-        context['slug_faceit'] = Subject.objects.filter(slug__in=slug_list)
+        #     ques = SearchQuerySet().filter(subjects=i, is_visible=True, is_published=True)
+        #     # question = question | ques
+        #
+        # # for i in child_subject:
+        # #     SearchQuerySet().filter(subjects=i.id)[:20]
+        #
+        # question = question.order_by('-published_date')
 
         context['meta'] = self.get_object().as_meta(self.request)
-        context['recent'] = recent
-        context['top_results'] = top_results
+        # context['recent'] = recent
+        # context['top_results'] = top_results
         context['question'] = question
         context['subject'] = subject
         context['parent_subject'] = parent_subject
         context['child_subject'] = child_subject
-        context['form'] = self.form_class1
+        if 'form' not in context:
+            context['form'] = QuestionHomeForm
         return context

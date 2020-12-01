@@ -1,0 +1,802 @@
+{% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% load humanize %}
+{% block canonical %}
+<link rel="canonical" href=" https://desklib.com/homework-help/" xmlns="http://www.w3.org/1999/html"
+	  xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"/>
+{% endblock %}
+{% block extra_css %}
+<style>
+.bar {
+   height: 18px;
+   background: green;
+}
+// add dropzone// add dropzone
+#dropzone {
+    background: palegreen;
+    width: 150px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-weight: bold;
+}
+#dropzone.in {
+	width : 600px;
+	height : 200px;
+	line-height : 200px;
+	font-size : larger;
+}
+#dropzone.hover {
+	background : lawngreen;
+	border : #405FBD dashed 3px;
+}
+#dropzone.fade {
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    opacity: 1;
+}
+
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #9B9B9B !important;
+    line-height: 28px;
+}
+.select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border: none !important;
+    border-radius: 4px;
+    outline: none !important;
+}
+
+</style>
+{% endblock extra_css %}
+{% block content %}
+
+<section>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb breadcrumb-transparent mb-0">
+        <li class="breadcrumb-item"><a href="/" class="text-muted">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'homework_help:ask-question-view' %}" class="text-muted">Homework Help</a></li>
+        <li class="breadcrumb-item active text-dark font-weight-bold" aria-current="page">{{parent_subject.name}}</li>
+  </ol>
+</nav>
+</section>
+
+<section class="homework-banner">
+	<div class="container pt-5 pb-5 ,mt-3">
+		<div class="row">
+			<div class="col-md-6">
+				<h1 class="heading">{{parent_subject.name}} Help</h1>
+                {% if parent_subject.parent_question_description %}
+				<p class="content">{{parent_subject.parent_question_description}}</p>
+                {% endif %}
+			</div>
+			<div class="col-md-6">
+				<form method="post" id="question-form" enctype="multipart/form-data">
+					 {% csrf_token %}
+					<div class="row mt-4">
+						<div class="col-md-12">
+							<div class="">
+							{{form.question}}
+                			</div>
+							<div class="pt-4 pb-2">
+							<label class="txt-black-color"><strong>Select Your&nbsp;{{form.subjects.label}}</strong></label>
+							</div>
+							<div class="form-field-design">
+<!--								 <span>Eg. Maths, Science</span>-->
+                     		{{form.subjects}}
+							</div>
+							<div class="pt-4 pb-2">
+							<label class=""><strong>{{form.file.label}}</strong></label>
+							</div>
+							<div class="form-field-design">
+								<span class="blue-theme btn border-radius-20 px-4 fileinput-button d-block">
+								  <i class="fa fa-plus"></i>
+								  <span>Add files...</span>
+									{{form.file}}
+								</span>
+							</div>
+							<ul id="selected-files" class="list-unstyled">
+								<li class="">
+									<span class="error-msg text-danger d-block"></span>
+									<span class="error text-danger d-block"></span>
+								</li>
+							</ul>
+							 <p id="done">{{count}}</p>
+                            <div class="row">
+							<div class="col-md-6">
+								<div class="pt-2 pb-2">
+							<label><strong>{{form.solution_deadline.label}}</strong></label>
+								</div>
+                     		{{form.solution_deadline}}
+						    </div>
+
+							<div class="col-md-6">
+								<div class="pt-2 pb-2"><label class="">&nbsp;</label></div>
+							<input id="submit-button" type="submit" value="Get Answer" class="btn btn-bg-theme white border-radius-20 px-4" style="width:100%;padding:8px;">
+						    </div>
+						   </div>
+
+						</div>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% if child_subject %}
+<section class="pt-4">
+<div class="container pt-5 pb-3">
+   <h2 class="sub-heading-homew alt-font font-weight-700 text-extra-dark-gray text-center pb-4">Top Asked questions</h2>
+
+	<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+		{% for child in child_subject %}
+			<li class="col nav-item child-subject-homework mb-2">
+    			<a class=" {% if forloop.counter == 1 %}active{% endif %}" id="pills-home-tab" data-toggle="pill" href="#pills-{{forloop.counter}}" role="tab" aria-controls="pills-home" aria-selected="true">{{child}}</a>
+			</li>
+		{% endfor %}
+	</ul>
+<div class="row pt-5">
+	<div class="col-sm-12 col-md-9 pb-4 mb-1 homew tab-content" id="pills-tabContent">
+		{% for child in child_subject %}
+	  <div class="tab-pane fade show {% if forloop.counter == 1 %}active{% endif %}" id="pills-{{forloop.counter}}" role="tabpanel" aria-labelledby="pills-home-tab">
+	   <ol class="loadMore list-group pt-3">
+      {% for object in question %}
+           {% if object.subjects.slug == child.slug %}
+		   <li class="pt-4 bg-aqua bg-gray mr-1" style="margin-bottom:20px;">
+         <div class="tab">
+            <div class="panel panel-default pl-4 ml-3">
+               <div class="panel-heading">
+                  <div class="panel-title">
+<!--                     <div class="d-flex">-->
+<!--                        <div class="d-inline-block">-->
+<!--                           <div class="text-extra-dark-gray">-->
+<!--                                <strong></strong>-->
+<!--                           </div>-->
+<!--                        </div>-->
+                        <div class="pb-4">
+                          <div data-toggle="collapse" aria-expanded="true" style="margin-top:-4px;" class="question-font padding-ques"><span>{{object.question}}</span></div>
+                            <a href="{% url 'homework_help:question-detail-view' object.slug %}" class="margin-tp get-answer">Get Answer</a>
+                        </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+			   </li>
+           {% endif %}
+      {% endfor %}
+	   </ol>
+	  </div>
+		{% endfor %}
+	</div>
+
+	   <div class="col-sm-12 col-md-3 pb-4 mb-1 homew">
+			<div class="border-blue border-radius-12 p-4">
+				<div class="d-flex">
+					<img src="{% static 'dist/assets/images/Icon_lock.png' %}" class="img-fluid"> <span class="h4 m-auto">100% Privacy</span>
+				</div>
+				<p class="mb-0 mt-2">Get step by step solution and explanation to your question.</p>
+			</div>
+
+		   <div class="mt-4 subject-tag-pills">
+			   <h5>Popular Programming</h5>
+			    <span class="badge badge-pill badge-primary h5 pill-bg-golden">C++</span>
+<span class="badge badge-pill badge-primary h5 pill-bg-orangered">Ruby/Ruby</span>
+<span class="badge badge-pill badge-primary h5 pill-bg-royalblue">C</span>
+<span class="badge badge-pill badge-primary h5 pill-bg-royalblue">Ruby/Ruby</span>
+<span class="badge badge-pill badge-primary h5 pill-bg-golden">Guide C++</span>
+<span class="badge badge-pill badge-primary h5 pill-bg-golden">C</span>
+<span class="badge badge-pill badge-primary h5 pill-bg-orangered">Ruby/Ruby</span>
+		   </div>
+	   </div>
+</div>
+
+
+
+
+	{% if question.count > 6 %}
+
+             <div class="d-flex justify-content-center mb-5">
+                 <nav class="d-none d-md-block">
+                     {% if is_paginated %}
+                       <ul class="pagination">
+                           <!--                    <img class="img-responsive" src="{% static 'dist/assets/images/search icon.png' %}" alt="search" height="70px" style="margin-top: -11px; margin-left: -50px;">-->
+                           {% if page_obj.has_previous %}
+                            <li class="page-item p-3">
+                            {% if selected %}
+                                <span class="">
+                                    <a href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ page_obj.previous_page_number }}">
+                                        <i class='fas fa-angle-left fafa-nav-active blue-theme'></i>
+                                    </a>
+                                </span>
+                            {% else %}
+                                <span class="">
+                                    <a href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}">
+                                        <i class='fas fa-angle-left fafa-nav-active blue-theme'></i>
+                                    </a>
+                                </span>
+                            {% endif %}
+                        </li>
+                           <li class="page-item pt-4 pr-3">
+                               <a class="blue-theme d-inline-block" href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}">Prev</a>
+                           </li>
+
+                           {% else %}
+                           <li class="page-item disabled p-3">
+                               <span><i class='fas fa-angle-left fafa-nav-in-active'></i></span>
+                           </li>
+                            {% endif %}
+
+                           {% for num in page_obj.paginator.page_range %}
+                           {% if page_obj.number == num %}
+                           <li class="page-item active p-3">
+                               <a class="rounded-circle page-link border-color bg-blue-theme" href="#">{{ num }}<span class="sr-only">(current)</span>
+                               </a>
+                           </li>
+                           {%  elif num > page_obj.number|add:'-5' and num < page_obj.number|add:'5' %}
+                           <li class="page-item p-3">
+                               {% if selected %}
+                               <a class="rounded-circle page-link  blue-theme" href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ num }}">{{ num }}</a>
+                               {% else %}
+                               <a class="rounded-circle page-link  blue-theme" href="?q={{ query }}&amp;page={{ num }}">{{ num }}</a>
+                               {% endif %}
+                           </li>
+                                {% endif %}
+                                {% endfor %}
+
+                              {% if page_obj.has_next %}
+                            <li class="page-item pt-4 pl-3">
+                               <a class="blue-theme d-inline-block" href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}">Next</a>
+                            </li>
+                            <li class="page-item p-3">
+                                {% if selected %}
+                                    <a class="blue-theme" href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ page_obj.next_page_number }}">
+                                        <i class='fas fa-angle-right fafa-nav-active blue-theme'></i>
+                                    </a>
+                                {% else %}
+                                    <a class="blue-theme d-inline-block" href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}">
+                                        <i class='fas fa-angle-right fafa-nav-active blue-theme'></i>
+                                    </a>
+                                {% endif %}
+                            </li>
+                            {% else %}
+                                <li class="page-item disabled p-3">
+                                    <span class=""><i class='fas fa-angle-right fafa-nav-in-active'></i></span>
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                    </ul>
+                    </nav>
+
+ <!--  pagination for responsive devices  -->
+   <nav class="d-md-none">
+       {% if is_paginated %}
+       <ul class="pagination">
+           {% if page_obj.has_previous %}
+           <li class="page-item p-3">
+               {% if selected %}
+               <span class="">
+                   <a href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ page_obj.previous_page_number }}">
+                       <i class='fas fa-angle-left fafa-nav-active blue-theme'></i>
+                   </a>
+               </span>
+               {% else %}
+               <span class="">
+                   <a href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}">
+                       <i class='fas fa-angle-left fafa-nav-active blue-theme'></i>
+                   </a>
+               </span>
+               {% endif %}
+           </li>
+           {% else %}
+           <li class="page-item disabled p-3">
+               <span><i class='fas fa-angle-left fafa-nav-in-active'></i></span>
+           </li>
+           {% endif %}
+
+           {% for num in page_obj.paginator.page_range %}
+           {% if page_obj.number == num %}
+           <li class="page-item active p-3">
+               <a class="rounded-circle page-link border-color bg-blue-theme" href="#">{{ num }}<span class="sr-only">(current)</span>
+               </a>
+           </li>
+           {%  elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
+           <li class="page-item p-3">
+               {% if selected %}
+               <a class="rounded-circle page-link  blue-theme" href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ num }}">{{ num }}</a>
+               {% else %}
+               <a class="rounded-circle page-link  blue-theme" href="?q={{ query }}&amp;page={{ num }}">{{ num }}</a>
+               {% endif %}
+           </li>
+           {% endif %}
+           {% endfor %}
+           {% if page_obj.has_next %}
+           <li class="page-item p-3">
+               {% if selected %}
+               <a class="blue-theme" href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ page_obj.next_page_number }}">
+                   <i class='fas fa-angle-right fafa-nav-active blue-theme'></i>
+               </a>
+               {% else %}
+               <a class="blue-theme" href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}">
+                   <i class='fas fa-angle-right fafa-nav-active blue-theme'></i>
+               </a>
+               {% endif %}
+           </li>
+           {% else %}
+           <li class="page-item disabled p-3">
+               <span class=""><i class='fas fa-angle-right fafa-nav-in-active'></i></span>
+           </li>
+           {% endif %}
+       </ul>
+   </nav>
+                 {% else %}
+            {% endif %}
+             </div>
+
+	{% endif %}
+</div>
+</section>
+{% endif %}
+
+
+<section class="blue-background feedback">
+	<div class="container pt-5 pb-5 text-center">
+		<div class="pt-4 pb-4">
+			<p class="p-content">Perfection is achieved not when there is nothing more to add, but rather when there is nothing more to take away.
+            </p>
+		</div>
+		<h4 class="">– Antoine de Saint-Exupery</h4>
+	</div>
+</section>
+
+
+
+<section class="pt-5 pb-5 mt-4">
+	<div class="container">
+		  <div class="row">
+            <div class="col-md-8">
+    <div id="accordion" class="accordion">
+        <div class="mb-0">
+			{% for content in subject %}
+			<div class="hrz-border" id="{{ content.id }}">
+            <div class="card-header collapsed pb-4 mb-1 pr-0 pl-0" data-toggle="collapse" href="#{{ content.slug }}" style="background-color: transparent; border-bottom: none;">
+                <div class="pr-5"><a class="card-title question-font" onclick="showDetails(this)" data-aacordion="check" data-check="acc{{forloop.counter}}" id="{{ content.accordion_title }}">
+                    {{ content.title }}
+                </a></div>
+            </div>
+            <div id="{{ content.slug }}" class="card-body-p card-body collapse margin-tp" data-parent="#accordion" >
+                <p class="pb-3">{{ content.description|safe }}</p>
+            </div>
+			</div>
+			{% endfor %}
+        </div>
+    </div>
+  </div>
+			   <div class="col-md-4 mt-2 mt-sm-0 mt-md-0 pt-4 pr-3">
+				   <ul class="list-group sticky-top">
+                     {% for content in subject %}
+                   <li class="accordian-border mb-5" id="acc{{forloop.counter}}">
+					   <a href=#{{ content.id }} class="txt-color">{{ content.title }}</a>
+				   </li>
+					   {% endfor %}
+                   </ul>
+			   </div>
+		  </div>
+	</div>
+</section>
+
+
+
+<div class="loading show-loader">
+    <div class="loader-container">
+        <div class="loader"></div>
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+
+<script src='{% static "src/js/jquery.ui.widget.js" %}'></script>
+<script src='{% static "src/js/jquery.fileupload.js" %}' ></script>
+
+
+<script>
+$(document).ready(function (){
+    $(".homework").addClass("active");
+ });
+</script>
+<script>
+
+</script>
+
+<script>
+        function showDetails(accordion) {
+            var accordi = accordion.getAttribute("data-check");
+            document.getElementById(accordi).classList.add("change-accordion");
+            $("#"+accordi).siblings().removeClass("change-accordion");
+      }
+
+</script>
+
+<script>
+
+$(document).ready(function (){
+	$('#question-form').submit(function() {
+    	$('.show-loader').show();
+	});
+});
+$(function () {
+
+var k = 1
+var txt = "";
+var num = +$('#fileupload').attr("data-num");
+    $('#fileupload').fileupload({
+        url: '{% url 'api:homework-help-api:question-file-create-api' %}',
+        dataType: 'json',
+        dropZone: $('#dropzone'),
+
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('<p><p/>').text(file.name).appendTo(document.body);
+                $('form').append("<input type='hidden' value='" + data.unique_id + "' name='unique_id' >");
+            });
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progress .bar').css('width',progress + '%');
+        }
+
+}).on('fileuploaddone', function (e, data) {
+	var ul = $('#selected-files');
+	var p = $('#done');
+	var selectedFiles = $('<li class="d-inline-block w-50 text-truncate"><p class="d-inline"></p></li><div class="d-inline-block w-50" id="progress"><div class="bar"></div></div>');
+	selectedFiles.find('p').text(data.files[0].name);
+	if (num == 1){
+	  txt += selectedFiles.appendTo(p);
+	}
+	else {
+	  txt = "Total files upload: " + num;
+	  document.getElementById("done").innerHTML = txt;
+	}
+  //
+	//data.context = selectedFiles;
+	$('.show-loader').hide();
+//	data.submit();
+
+ }).on('fileuploadfail', function (e, data) {
+	var fileTypeAllowed = /.\.(gif|jpg|png|jpeg)$/i;
+	  var fileName = data.originalFiles[0]['name'];
+	  var status = 500;
+  		 if (!fileTypeAllowed.test(fileName))
+  			$('#selected-files span.error-msg').html('File extension '+ fileName +' is not allowed. Allowed extensions are: png, jpg, jpeg, gif');
+
+			 else if (status)
+			   $('#selected-files span.error').html('Your file has not uploaded, Please upload another file');
+		//		console.log("Your file has not uploaded, Please upload another file");
+			  $(".show-loader").hide();
+
+}).on('fileuploadstart', function (e, data) {
+ jQuery(".show-loader").show();
+
+    }).on('fileuploaddone', function (e, data) {
+			//alert(data);
+			//uploadBtn.button('reset');
+		//	var xhr = data.response().jqXHR;
+		//	var response = xhr.responseJSON;
+		//	var key = response.key;
+		console.log(data);
+                $('form').append("<input type='hidden' value='" + data.result.unique_id + "' name='unique_id' >");
+        console.log(num);
+            num = num + 1;
+            console.log(num);
+               $('#fileupload').attr('data-num', num);
+
+
+		}).on('fileuploadfail', function (e, data) {
+			//alert(data);
+
+			$(".loader-background").hide();
+			//uploadBtn.button('reset');
+			var xhr = data.response().jqXHR;
+			var response = xhr.responseJSON;
+			console.log(response);
+			// Begin for loop here
+			for (var key in response) {
+				console.log(key, response[key][0]);
+				$('.' + key).addClass('has-error');
+				$('span.' + key).text(response[key][0]);
+			}});
+});
+
+$(document).bind('dragover', function (e) {
+    var dropZone = $('#dropzone'),
+        timeout = window.dropZoneTimeout;
+    if (timeout) {
+        clearTimeout(timeout);
+    } else {
+        dropZone.addClass('in');
+    }
+    var hoveredDropZone = $(e.target).closest(dropZone);
+    dropZone.toggleClass('hover', hoveredDropZone.length);
+    window.dropZoneTimeout = setTimeout(function () {
+        window.dropZoneTimeout = null;
+        dropZone.removeClass('in hover');
+    }, 100);
+});
+
+$(document).bind('drop dragover', function (e) {
+    e.preventDefault();
+});
+
+
+    $("#question-form").submit(function(e) {
+        e.preventDefault();
+        $("span.has-error").empty();
+
+        var data = $("#question-form").serializeArray();
+
+
+         //       if(data['message'] && data['reference_files']){
+         //       $(".comments").append('<div class="current"></div>');
+         //       $(".current").text( data['message'] + ' ' + data['reference_files'] )
+         //         }
+         //       else if(data['message']){
+         //       $(".comments").append('<div class="current"></div>');
+         //       $(".current").text( data['message'] )
+         //         }
+         //         else if(data['reference_files']){
+         //       $(".comments").append('<div class="current"></div>');
+         //       $(".current").text( data['reference_files'] )
+         //         }
+
+
+
+
+
+        var myForm = document.getElementById('question-form');
+       data = new FormData(myForm);
+       var d = data.unique_id
+
+
+        $("div.error_file").text("");
+
+                $(".enquiry-form-popup").hide();
+                $(".form-icon-plane").hide();
+                $(".form-loader").show();
+
+        $.ajax({
+            type : "POST",
+            url : '{% url 'api:homework-help-api:question-create-api' %}',
+            enctype: 'multipart/form-data',
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function(data){
+
+
+                if(data['message'] && data['reference_files']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] + ' ' + data['reference_files'] )
+                  }
+                else if(data['message']){
+//                $(".comments").append("<code>" + data['message'] + "</code><br>");
+
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] )
+                  }
+                  else if(data['reference_files']){
+//                    $(".comments").append( data['reference_files'] + "<br>");
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['reference_files'] )
+                  }
+
+
+                document.getElementById("question-form").reset();
+                window.location.replace( "/homework-help/order-create/" + data.uid) ;
+            },
+            error: function(data){
+
+            var response = data.responseJSON;
+            for (key in response) {
+              $("#comment-form ."+key).addClass("has-error");
+              $("#comment-form span." + key).text(response[key][0]);
+            }
+
+            }
+        });
+    });
+
+
+$('.homework-help-carousel').owlCarousel({
+	items: 1,
+	loop: true,
+	autoplay: true,
+	margin: 10,
+	nav: true,
+	dots: false,
+	 navText: [
+        '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+        '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+    ],navContainer: '#main0 .custom-nav',
+
+});
+
+$(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+});
+</script>
+
+
+<script>
+	 $(document).ready(function(){
+        var results = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('question'),
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            remote: {
+                url: '/homework-help/autocomplete/?q=%QUERY',
+                 wildcard: '{query}'
+            }
+        });
+        results.initialize();
+
+        $('#question .typeahead').typeahead({
+            hint: true,
+            highlight: true,
+            minLength: 2,
+            maxItem: 5,
+          },
+          {
+            name: 'question',
+            displayKey: 'question',
+            source: results.ttAdapter(),
+            templates: {
+                empty: function(){
+                    return [
+                        '<div class="empty-message">',
+                            'No results found',
+                        '</div>'].join('\n')
+                },
+                suggestion: function(question){
+                    var string = '<a class="tt-suggestion-link" href="/homework-help/question/'+ question.slug +'">'+ question.question +'</a>'
+                    return string;
+                }
+            }
+           }
+        );
+    });
+</script>
+
+
+
+{% comment %}
+<script>
+jQuery(document).ready(function() {
+
+
+
+
+    $.ajax({
+          type: 'GET',
+          url: "{% url 'api:homework-help-api:document-create-api' order.order_id %}",
+          success: function(data){
+            var catObj;
+            catObj={};
+    $(".comments").empty();
+
+
+            console.log(data);
+//            console.log(data.size());
+//                $.each( data, function( key, value ) {
+                $.each( data, function( index, value ) {
+
+
+                if(value['message'] && value['reference_files']){
+                $(".comments").append('<div class="current' + index + '"></div>');
+                $('.current' + index).text( value['message'] + ' ' + value['reference_files'] )
+                  }
+                else if(value['message']){
+                $(".comments").append('<div class="current' + index + '"></div>');
+                $('.current' + index ).text( value['message'] )
+                  }
+                  else if(value['reference_files']){
+                $(".comments").append('<div class="current' + index + '"></div>');
+                $('.current' + index ).text( value['reference_files'] )
+                  }
+
+
+            });
+
+          },
+          error: function(data) {
+              $(".faqQuesTab").hide();
+              $("#faqPreloader").hide();
+              $(".errorDiv").show();
+          }
+        });
+
+
+    $("#comment-form").submit(function(e) {
+        e.preventDefault();
+        $("span.has-error").empty();
+
+        var data = $("#comment-form").serializeArray();
+
+
+                if(data['message'] && data['reference_files']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] + ' ' + data['reference_files'] )
+                  }
+                else if(data['message']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] )
+                  }
+                  else if(data['reference_files']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['reference_files'] )
+                  }
+
+
+
+
+
+        var myForm = document.getElementById('comment-form');
+        data = new FormData(myForm);
+
+
+        $("div.error_file").text("");
+
+                $(".enquiry-form-popup").hide();
+                $(".form-icon-plane").hide();
+                $(".form-loader").show();
+
+        $.ajax({
+            type : "POST",
+            url : '{% url 'api:homework-help-api:document-create-api' order.order_id %}',
+            enctype: 'multipart/form-data',
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function(data){
+
+
+                if(data['message'] && data['reference_files']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] + ' ' + data['reference_files'] )
+                  }
+                else if(data['message']){
+//                $(".comments").append("<code>" + data['message'] + "</code><br>");
+
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] )
+                  }
+                  else if(data['reference_files']){
+//                    $(".comments").append( data['reference_files'] + "<br>");
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['reference_files'] )
+                  }
+
+
+                document.getElementById("comment-form").reset();
+            },
+            error: function(data){
+
+            var response = data.responseJSON;
+            for (key in response) {
+              $("#comment-form ."+key).addClass("has-error");
+              $("#comment-form span." + key).text(response[key][0]);
+            }
+
+            }
+        });
+    });
+
+});
+</script>
+
+{% endcomment %}
+
+{% endblock extra_js %}

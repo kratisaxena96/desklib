@@ -2,8 +2,7 @@
 {% load staticfiles %}
 {% load humanize %}
 {% block canonical %}
-<link rel="canonical" href=" https://desklib.com/homework-help/" xmlns="http://www.w3.org/1999/html"
-	  xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"/>
+<link rel="canonical" href=" https://desklib.com/homework-help/" />
 {% endblock %}
 {% block extra_css %}
 <style>
@@ -11,8 +10,7 @@
    height: 18px;
    background: green;
 }
-.loadMore li{ display:none; }
-// add dropzone// add dropzone
+// add dropzone
 #dropzone {
     background: palegreen;
     width: 150px;
@@ -39,30 +37,17 @@
     transition: all 0.3s ease-out;
     opacity: 1;
 }
-
-
-.select2-container--default .select2-selection--single .select2-selection__rendered {
-    color: #9B9B9B !important;
-    line-height: 28px;
-}
-.select2-container--default .select2-selection--single {
-    background-color: #fff;
-    border: none !important;
-    border-radius: 4px;
-    outline: none !important;
-}
-
 </style>
 {% endblock extra_css %}
+
 {% block content %}
 
-
-<section class="homework-banner">
-	<div class="container pt-5 pb-5 ,mt-3">
-		<div class="row text-center">
-			<div class="col-md-12 pb-2">
-				<h1 class="heading">Homework help for all your coursework questions</h1>
-				<p class="content text-center">Ask your question to get instant homework answers from professional experts.</p>
+<section class="bg-light-grey">
+	<div class="container pt-5 pb-5">
+		<div class="row justify-content-center">
+			<div class="col-md-12">
+				<h1 class="text-center">Get Step-by-step Homework Help</h1>
+				<p class="text-center">Ask your question or type any assignment topic and title which you are looking for solutions.</p>
 			</div>
 		</div>
 		<div class="row">
@@ -70,24 +55,17 @@
 				<form method="post" id="question-form" enctype="multipart/form-data">
 					 {% csrf_token %}
 					<div class="row mt-4">
-						<div class="col-md-6">
-							<div class="">
+						<div class="col-md-12">
+							<div class="form-group">
 							{{form.question}}
                 			</div>
 						</div>
+					</div>
+					<div class="row mt-2">
             			<div class="col-md-6">
-							<div class="pb-2">
-							<label class="txt-black-color"><strong>Select Your&nbsp;{{form.subjects.label}}</strong></label>
-							</div>
-							<div class="form-field-design">
-<!--								 <span>Eg. Maths, Science</span>-->
-                     		{{form.subjects}}
-							</div>
-							<div class="pt-4 pb-2">
-							<label class=""><strong>{{form.file.label}}</strong></label>
-							</div>
-							<div class="form-field-design">
-								<span class="blue-theme btn border-radius-20 px-4 fileinput-button d-block">
+							<label class=""><strong>Upload&nbsp;{{form.file.label}}</strong></label>
+							<div class="form-group">
+								<span class="btn btn-bg-theme white border-radius-20 px-4 fileinput-button d-block">
 								  <i class="fa fa-plus"></i>
 								  <span>Add files...</span>
 									{{form.file}}
@@ -99,189 +77,63 @@
 									<span class="error text-danger d-block"></span>
 								</li>
 							</ul>
-							 <p id="done">{{count}}</p>
-                            <div class="row">
-							<div class="col-md-6">
-								<div class="pt-2 pb-2">
-							<label><strong>{{form.solution_deadline.label}}</strong></label>
-								</div>
-                     		{{form.solution_deadline}}
-						    </div>
-
-							<div class="col-md-6">
-								<div class="pt-2 pb-2"><label class="">&nbsp;</label></div>
-							<input id="submit-button" type="submit" value="Get Answer" class="btn btn-bg-theme white border-radius-20 px-4" style="width:100%;padding:8px;">
-						    </div>
-						   </div>
-
+							{% comment %}
+<!--								<div id="progress">-->
+<!--    								<div class="bar" style="width: 0%;"></div>-->
+<!--					  			</div>-->
+<!--									<span class="reference_files"></span>-->
+							{% endcomment %}
 						</div>
-
-<!--    					<div class="row mt-3">-->
-<!--							<div class="col-md-6">-->
-<!--                     			<input id="submit-button" type="submit" value="Get Answer" class="btn btn-bg-theme white border-radius-20 px-4">-->
-<!--							</div>-->
-<!--						</div>-->
+						<div class="col-md-6">
+							<label class=""><strong>Select Your&nbsp;{{form.subjects.label}}</strong></label>
+							<div class="form-group">
+                     		{{form.subjects}}
+							</div>
+						</div>
 					</div>
+					{% comment %}
+<!--					<div class="row">-->
+<!--						<div class="col-sm-6">-->
+<!--							<span class="error-msg text-danger"></span>-->
+<!--						</div>-->
+<!--					</div>-->
+					{% endcomment %}
+    					<div class="row mt-3">
+							<div class="col-md-6">
+                     			<input id="submit-button" type="submit" value="Get Answer" class="btn btn-bg-theme white border-radius-20 px-4">
+							</div>
+						</div>
 				</form>
 			</div>
 		</div>
 	</div>
 </section>
-
-<section class="blue-background">
-	<div class="container pt-5 pb-4 text-center">
-		<h2 class="sub-heading-homew">Get your homework answers</h2>
-		<div class="pt-4 pb-4">
-			<p class="p-content">When you are stuck finding the correct homework answers, just reach to our experts to get
-				professional homework help. You will be surprised; to see, we are offering homework answers help for free
-				(only for 40% of the questions) We initiate to help students to secure maximum grades in their academics.
-				Now ask your question and get professional help from our experts online.
-            </p>
-		</div>
-	</div>
-</section>
-
-
-<!--		{% if question %}-->
-<!--	<section class="bg-light pt-4">-->
-<!--	<div class="container">-->
-<!--   <div class="row">-->
-<!--     <div class="col-sm-12">-->
-<!--		    <h2 class="text-center pt-3">Recently Asked Questions</h2>-->
-<!--     <ul class="loadMore list-group pt-3">-->
-<!--   {% for object in question %}<li>-->
-<!--		 <div class="col-sm-12 mb-4">-->
-<!--				<a href="{% url 'homework_help:question-detail-view' object.slug %}" class="text-decoration-none h-100">-->
-<!--					<div class="card question-search-hover">-->
-<!--						<div class="card-body text-left">-->
-<!--							<div class="d-flex">-->
-<!--                    			<div class="d-inline-block">-->
-<!--                        			<div class="black-font">-->
-<!--										<strong>Q:</strong>-->
-<!--                        			</div>-->
-<!--                    			</div>-->
-<!--                    			<div class="d-inline-block ml-2 black-font">-->
-<!--                        			<span>{{object.question|truncatechars:200}}</span>-->
-<!--                    			</div>-->
-<!--                 			</div>-->
-<!--							<div class="d-flex mt-2">-->
-<!--								<div class="d-inline-block">-->
-<!--									<div class="black-font">-->
-<!--										<strong>A:</strong>-->
-<!--                        			</div>-->
-<!--								</div>-->
-<!--								<div class="d-inline-block ml-2 black-font">-->
-<!--									<a href="{% url 'homework_help:question-detail-view' object.slug %}" class="">Get Answer</a>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--				</a>-->
-<!--			</div>-->
-<!--	 </li>-->
-<!--		 {% endfor %}-->
-
-<!-- </ul>-->
-
-<!--	 </div>-->
-
-<!--     </div>-->
-
-<!-- </div>-->
-
-<!--	{% if question.count > 10 %}-->
-<!--<section>-->
-<!--	<div class="container">-->
-<!--		<div class="row pb-5">-->
-<!--			<div class="col-sm-12 text-center">-->
-<!--				<a name="load_more" id="load_more" class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3">View More</a>-->
-<!--			</div>-->
-<!--		</div>-->
-<!--	</div>-->
-<!--</section>-->
-<!--	{% endif %}-->
-<!--</section>{% endif %}-->
-
-
-{% if question %}
-<section class="pt-4">
-<div class="container pt-5 pb-3">
-   <h2 class="sub-heading-homew alt-font font-weight-700 text-extra-dark-gray text-center pb-4">Top free solved homework questions</h2>
-   <div class="row">
-	    <div class="col-sm-12 pb-4 mb-1 homew">
-	   <ol class="loadMore list-group pt-3">
-      {% for object in question %}
-		   <li class="pt-4 bg-aqua mr-1" style="margin-bottom:20px;">
-         <div class="tab">
-            <div class="panel panel-default pl-4 ml-3">
-               <div class="panel-heading">
-                  <div class="panel-title">
-<!--                     <div class="d-flex">-->
-<!--                        <div class="d-inline-block">-->
-<!--                           <div class="text-extra-dark-gray">-->
-<!--                                <strong></strong>-->
-<!--                           </div>-->
-<!--                        </div>-->
-                        <div class="pb-4">
-                          <div data-toggle="collapse" aria-expanded="true" style="margin-top:-4px;" class="question-font padding-ques"><span>{{object.question}}</span></div>
-							 <a href="{% url 'homework_help:question-detail-view' object.slug %}" class="margin-tp get-answer">Get Answer</a>
-                        </div>
-<!--                        <div class=" ml-2 black-font" style="float:right;">-->
-<!--                         <a href="{% url 'homework_help:question-detail-view' object.slug %}" class="" style="float:right;">Get Answer</a>-->
-<!--                        </div>-->
-                  </div>
-               </div>
-            </div>
-         </div>
-			   </li>
-      {% endfor %}
-	   </ol>
-   </div>
-   </div>
-</div>
-
-	{% if question.count > 6 %}
 <section>
-	<div class="container">
-		<div class="row pb-5">
-			<div class="col-sm-12 text-center">
-				<a name="load_more" id="load_more" class="blue-theme get-answer" style="float: none !important; text-decoration: underline !important;">View More</a>
+	<div class="container pt-5 pb-5">
+		<h2 class="text-center">Steps To Get Help With Your Homework</h2>
+		<div class="row mt-5">
+			<div class="col-md-4 mb-4 mb-md-0">
+				<img src="{% static 'dist/assets/images/Enter question.svg' %}" alt="enter question" class="img-fluid mx-auto d-block width-100">
+				<h5 class="text-center mt-2">ENTER QUESTION</h5>
+				<p class="mt-1 text-center">Add all relevant details & images</p>
+			</div>
+			<div class="col-md-4 mb-4 mb-md-0">
+				<img src="{% static 'dist/assets/images/Quick payment.svg' %}" alt="quick payment" class="img-fluid mx-auto d-block width-100">
+				<h5 class="text-center mt-2">QUICK PAYMENT</h5>
+				<p class="mt-1 text-center">Pay the amount using quick payment options</p>
+			</div>
+			<div class="col-md-4">
+				<img src="{% static 'dist/assets/images/Get answer.svg' %}" alt="get your answer" class="img-fluid mx-auto d-block width-100">
+				<h5 class="text-center mt-2">GET YOUR ANSWER</h5>
+				<p class="mt-1 text-center">Get step-by-step solution & explanation to your question</p>
 			</div>
 		</div>
-	</div>
-</section>
-	{% endif %}
-</section>
-{% endif %}
-
-
-
-<section class="steps-to-get-banner pt-5 pb-5">
-	<div class="container">
-		<h2 class="sub-heading-homew">How instant homework answers work</h2>
-		<div class="row mt-5 pt-5">
-			<div class="col-md-4 mb-4 mb-md-0">
-				<img src="{% static 'dist/assets/images/homework_help_icon/question.png' %}" alt="enter question" class="img-fluid mx-auto d-block">
-				<h5 class="mt-2 steps-font text-center">Ask a question</h5>
-				<p class="mt-1 text-center txt-black-color">Use the form to ask any question and submit.</p>
-			</div>
-			<div class="col-md-4 mb-4 mb-md-0">
-				<img src="{% static 'dist/assets/images/homework_help_icon/payment.png' %}" alt="quick payment" class="img-fluid mx-auto d-block">
-				<h5 class="steps-font mt-2 text-center">Quick payment</h5>
-				<p class="mt-1 text-center txt-black-color">For instant answer choose the payment option.</p>
-			</div>
-			<div class="col-md-4 mb-4 mb-md-0">
-				<img src="{% static 'dist/assets/images/homework_help_icon/get_ur_answer.png' %}" alt="get your answer" class="img-fluid mx-auto d-block">
-				<h5 class="steps-font mt-2 text-center">Get your answer</h5>
-				<p class="mt-1 text-center txt-black-color">Get your homework answers as per your selected deadline.</p>
-			</div>
 		</div>
-	</div>
 </section>
 
 {% comment %}
-<section class="bg-light pt-5 pb-5">
-	<div class="container">
+<section class="bg-light">
+	<div class="container pt-5 pb-5">
 		<div class="row">
 			<div class="col-md-12">
 				<h2 class="text-center">Looking For Previous Answer?</h2>
@@ -301,152 +153,160 @@
 </section>
 {% endcomment %}
 
-<section class="bg-light subjects-background">
-	<div class="container pt-5 pb-5">
-		<h2 class="homework-heading ">Subjects we provide homework answers help</h2>
-		<div class="row mt-4 pt-3">
+{% comment %}
+{% if question %}
+<section>
+	<div class="container pt-5 pb-4">
+		<h2 class="text-center">Recently Asked Questions</h2>
+		<div class="row mt-4">
+			{% for object in question %}
+			<div class="col-sm-12 mb-4">
+				<a href="{% url 'homework_help:question-detail-view' object.slug %}" class="text-decoration-none h-100">
+					<div class="card question-search-hover">
+						<div class="card-body text-left">
+							<div class="d-flex">
+                    			<div class="d-inline-block">
+                        			<div class="black-font">
+										<strong>Q:</strong>
+                        			</div>
+                    			</div>
+                    			<div class="d-inline-block ml-2 black-font">
+                        			<span>{{object.question|truncatechars:200}}</span>
+                    			</div>
+                 			</div>
+
+<!--							<div class="d-flex">-->
+<!--								<div class="d-inline-block">-->
+<!--									<div class="black-font">-->
+<!--										<strong>A:</strong>-->
+<!--                        			</div>-->
+<!--								</div>-->
+<!--								<div class="d-inline-block ml-2 black-font">-->
+<!--									<span class="text-dark">1</span>-->
+<!--									<span class="text-dark">Answers Available</span>-->
+<!--								</div>-->
+<!--							</div>-->
+
+							<div class="d-flex mt-2">
+								<div class="d-inline-block">
+									<div class="black-font">
+										<strong>A:</strong>
+                        			</div>
+								</div>
+								<div class="d-inline-block ml-2 black-font">
+									<a href="{% url 'homework_help:question-detail-view' object.slug %}" class="">Get Answer</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		{% endfor %}
+		</div>
+	</div>
+</section>
+{% endif %}
+{% endcomment %}
+
+<section class="bg-light">
+	<div class="container pt-5 pb-4">
+		<h2 class="text-center">Homework Help Subjects & Topics</h2>
+		<div class="row mt-4">
 			{% for object in subject %}
-			<div class="col-sm-6 col-md-4 mb-4">
+			<div class="col-sm-6 col-md-3 mb-4">
 
 				<a href="{% url 'homework_help:parent-question-view' object.slug %}" class="text-decoration-none">
-				<div class="d-flex mt-4">
-<!--					<div class="d-inline-block">-->
-<!--						<div>-->
-<!--							{% if object.info_graphic_image %}-->
-<!--							<img src="{{object.info_graphic_image.url}}" alt="{{object.info_graphic_image_alt_text}}" class="img-fluid width-25">-->
-<!--								{% endif %}-->
-<!--						</div>-->
-<!--					</div>-->
-					<div class="d-inline-block ml-2 homework-subject check">
-						<span>{{object}}</span>
+				<div class="d-flex mt-2">
+					<div class="d-inline-block">
+						<div>
+							{% if object.info_graphic_image %}
+							<img src="{{object.info_graphic_image.url}}" alt="{{object.info_graphic_image_alt_text}}" class="img-fluid width-25">
+								{% endif %}
+						</div>
+					</div>
+					<div class="d-inline-block ml-2 black-font">
+						<span><strong>{{object}}</strong></span>
 					</div>
 				</div>
 				</a>
+
 			</div>
 			{% endfor %}
 		</div>
 	</div>
 </section>
-
-
-<!--<section class="pb-5 pt-5">-->
-<!--    <div class="container">-->
-<!--        <div class="row">-->
-<!--            <div class="col-md-8">-->
-<!--                <div id="accordion">-->
-<!--                    <div id="cardOne" class="hrz-border">-->
-<!--                      <div class="pb-4">-->
-<!--                        <a class="card-link" data-toggle="collapse" href="#collapseOne">-->
-<!--                            Get Homework help online-->
-<!--                        </a>-->
-<!--						   <div class="d-inline-block ml-2 black-font" style="float:right;">-->
-<!--                           <a data-toggle="collapse" href=#collapseOne aria-expanded="true"><i class="fas fa-angle-down" style="font-size: 32px;"></i></a>-->
-<!--                           </div>-->
-<!--                      </div>-->
-<!--                      <div id="collapseOne" class="collapse show">-->
-<!--                        <div class="card-body">-->
-<!--                            <p>Connect with Desklib homework help service because education is the most important part of one's life and with growing competition in the world, everyone is working hard to ace their studies and homework. Looking for homework help online?There is so much work to do and often so little time and when it comes to college and school studies, managing work and assignments together becomes too much of a burden for students. You came to the right place, Desklib is here to assist you to provide the best homework help or solutions.</p>-->
-<!--							<p>Students can get the help of the teachers but they cannot be available for everything and whenever needed, the reason why homework help websites come to students' service. </p>-->
-<!--							<p>Our homework help website assist students with their studies and assignments by providing online help with homework assistance and study material to students across the world.</p>-->
-<!--                        </div>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                    <div id="cardTwo" class="hrz-border">-->
-<!--                      <div class="pb-4">-->
-<!--                        <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">-->
-<!--                           Why you should use our online homework help service-->
-<!--                      </a>-->
-<!--						  <div class="d-inline-block ml-2 black-font" style="float:right;">-->
-<!--                           <a data-toggle="collapse" href=#collapseTwo aria-expanded="true"><i class="fas fa-angle-down" style="font-size: 32px;"></i></a>-->
-<!--						  </div>-->
-<!--                      </div>-->
-<!--                      <div id="collapseTwo" class="collapse show">-->
-<!--                        <div class="card-body">-->
-<!--							<p>Desklib is one such homework help website that started with the aim to help students with their studies by creating an online library with more than two million documents and study material on various subjects which students can refer to for their exams and assignments.</p>-->
-<!--							<p>Desklib designed in the form of an online library that students can use from anywhere in the world by just logging in. Students can get homework help and study material for all their assignments, projects, dissertations, research, exams, etc.</p>-->
-<!--                        </div>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                    <div id="cardThree" class="hrz-border">-->
-<!--                      <div class="pb-4">-->
-<!--                        <a class="collapsed card-link" data-toggle="collapse" href="#collapse3">-->
-<!--                            Get help with homework online for all subjects-->
-<!--                        </a>-->
-<!--						  <div class="d-inline-block ml-2 black-font" style="float:right;">-->
-<!--                           <a data-toggle="collapse" href=#collapseThree aria-expanded="true"><i class="fas fa-angle-down" style="font-size: 32px;"></i></a>-->
-<!--						  </div>-->
-<!--                      </div>-->
-<!--                      <div id="collapse3" class="collapse show">-->
-<!--                        <div class="card-body">-->
-<!--                            <p>Our online tool is accessible by any student from anywhere and the students can get the study material on any subject regardless of the college they are enrolled in or the course or degree they are pursuing.  </p>-->
-<!--							<p>Desklib has over two million documents for your assistance which include all the subjects from all the streams like management, art & design, computer science, education & training, engineering, health & medicine, humanities, mathematics, programming, science, and social science. Solutions, explanations, and assistance to all the literary explanations, mathematical formulas, scientific solutions, difficult medical terminologies, coding, etc will be easily available to the students in one place so that they do not have to search and refer to hundreds of books. </p>-->
-<!--							<p>Getting help with homework online is the savior from the last minute rote memorization because it makes you understand and complete your concepts and assignments deeply and timely so that you don't have to just mug everything up at the last moment. </p>-->
-<!--						</div>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--					<div id="cardFour" class="hrz-border">-->
-<!--                      <div class="pb-4">-->
-<!--                        <a class="collapsed card-link" data-toggle="collapse" href="#collapse4">-->
-<!--                            Access the finest collection of online homework solutions-->
-<!--                        </a>-->
-<!--						  <div class="d-inline-block ml-2 black-font" style="float:right;">-->
-<!--                           <a data-toggle="collapse" href=#collapseFour aria-expanded="true"><i class="fas fa-angle-down" style="font-size: 32px;"></i></a>-->
-<!--						  </div>-->
-<!--                      </div>-->
-<!--                      <div id="collapse4" class="collapse show">-->
-<!--                        <div class="card-body">-->
-<!--							<p>To get help with homework by using our online platform Desklib is like an all-inclusive education portal which not only provides the students with world-class study material for their academics but also assists them with their documents and assignments so that they don't make mistakes or be average in their performance, </p>-->
-<!--							<p>Desklib homework help for students to perform excellently in their studies and get closer to their dreams.</p>-->
-<!--						</div>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="col-md-4 mt-4 mt-sm-0 mt-md-0">-->
-<!--                <ul class="list-group sticky-top">-->
-<!--                   <div class="pb-4"> <li class="accordian-border"><a href="#cardOne">Get Homework help online</a></li></div>-->
-<!--					<div class="pb-4"><li class="accordian-border"><a href="#cardTwo">Why you should use our online homework help service</a></li></div>-->
-<!--					<div class="pb-4"> <li class="accordian-border"><a href="#cardThree">Get help with homework online for all subjects</a></li></div>-->
-<!--					<div class="pb-4"><li class="accordian-border"><a href="#cardThree">Access the finest collection of online homework solutions</a></li></div>-->
-<!--                </ul>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--</div>-->
-<!--</section>-->
-<section class="pt-5 pb-5 mt-4">
-	<div class="container">
-		  <div class="row">
+<section class="pb-5 pt-5">
+    <div class="container">
+        <div class="row">
             <div class="col-md-8">
-    <div id="accordion" class="accordion">
-        <div class="mb-0">
-			{% for content in accordion_content %}
-			<div class="hrz-border" id="{{ content.id }}">
-            <div class="card-header collapsed pb-4 mb-1 pr-0 pl-0" data-toggle="collapse" href="#{{ content.slug }}" style="background-color: transparent; border-bottom: none;">
-                <div class="pr-5"><a class="card-title question-font" onclick="showDetails(this)" data-aacordion="check" data-check="acc{{forloop.counter}}" id="{{ content.accordion_title }}">
-                    {{ content.accordion_title }}
-                </a></div>
+                <div id="accordion">
+                    <div id="cardOne" class="card">
+                      <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" href="#collapseOne">
+                            Get Homework help online
+                        </a>
+                      </div>
+                      <div id="collapseOne" class="collapse show">
+                        <div class="card-body">
+                            <p>Connect with Desklib homework help service because education is the most important part of one's life and with growing competition in the world, everyone is working hard to ace their studies and homework. Looking for homework help online?There is so much work to do and often so little time and when it comes to college and school studies, managing work and assignments together becomes too much of a burden for students. You came to the right place, Desklib is here to assist you to provide the best homework help or solutions.</p>
+							<p>Students can get the help of the teachers but they cannot be available for everything and whenever needed, the reason why homework help websites come to students' service. </p>
+							<p>Our homework help website assist students with their studies and assignments by providing online help with homework assistance and study material to students across the world.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="cardTwo" class="card">
+                      <div class="card-header">
+                        <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+                           Why you should use our online homework help service
+                      </a>
+                      </div>
+                      <div id="collapseTwo" class="collapse show">
+                        <div class="card-body">
+							<p>Desklib is one such homework help website that started with the aim to help students with their studies by creating an online library with more than two million documents and study material on various subjects which students can refer to for their exams and assignments.</p>
+							<p>Desklib designed in the form of an online library that students can use from anywhere in the world by just logging in. Students can get homework help and study material for all their assignments, projects, dissertations, research, exams, etc.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="cardThree" class="card">
+                      <div class="card-header">
+                        <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+                            Get help with homework online for all subjects
+                        </a>
+                      </div>
+                      <div id="collapseThree" class="collapse show">
+                        <div class="card-body">
+                            <p>Our online tool is accessible by any student from anywhere and the students can get the study material on any subject regardless of the college they are enrolled in or the course or degree they are pursuing.  </p>
+							<p>Desklib has over two million documents for your assistance which include all the subjects from all the streams like management, art & design, computer science, education & training, engineering, health & medicine, humanities, mathematics, programming, science, and social science. Solutions, explanations, and assistance to all the literary explanations, mathematical formulas, scientific solutions, difficult medical terminologies, coding, etc will be easily available to the students in one place so that they do not have to search and refer to hundreds of books. </p>
+							<p>Getting help with homework online is the savior from the last minute rote memorization because it makes you understand and complete your concepts and assignments deeply and timely so that you don't have to just mug everything up at the last moment. </p>
+						</div>
+                      </div>
+                    </div>
+					<div id="cardFour" class="card">
+                      <div class="card-header">
+                        <a class="collapsed card-link" data-toggle="collapse" href="#collapseFour">
+                            Access the finest collection of online homework solutions
+                        </a>
+                      </div>
+                      <div id="collapseFour" class="collapse show">
+                        <div class="card-body">
+							<p>To get help with homework by using our online platform Desklib is like an all-inclusive education portal which not only provides the students with world-class study material for their academics but also assists them with their documents and assignments so that they don't make mistakes or be average in their performance, </p>
+							<p>Desklib homework help for students to perform excellently in their studies and get closer to their dreams.</p>
+						</div>
+                      </div>
+                    </div>
+                </div>
             </div>
-            <div id="{{ content.slug }}" class="card-body-p card-body collapse margin-tp" data-parent="#accordion" >
-                <p class="pb-3">{{ content.accordion_description }}</p>
+            <div class="col-md-4 mt-4 mt-sm-0 mt-md-0">
+                <ul class="list-group sticky-top">
+                    <li class="list-group-item"><a href="#cardOne">Get Homework help online</a></li>
+                    <li class="list-group-item"><a href="#cardTwo">Why you should use our online homework help service</a></li>
+                    <li class="list-group-item"><a href="#cardThree">Get help with homework online for all subjects</a></li>
+					<li class="list-group-item"><a href="#cardThree">Access the finest collection of online homework solutions</a></li>
+                </ul>
             </div>
-			</div>
-			{% endfor %}
         </div>
-    </div>
-  </div>
-			   <div class="col-md-4 mt-2 mt-sm-0 mt-md-0 pt-4 pr-3">
-				   <ul class="list-group sticky-top">
-                     {% for content in accordion_content %}
-                   <li class="accordian-border mb-5" id="acc{{forloop.counter}}">
-					   <a href=#{{ content.id }} class="txt-color">{{ content.accordion_title }}</a>
-				   </li>
-					   {% endfor %}
-                   </ul>
-			   </div>
-		  </div>
-	</div>
+</div>
 </section>
-
 {% comment %}
 <section class="">
 	<div class="container pt-5 pb-5">
@@ -535,45 +395,20 @@
         <div class="loader"></div>
     </div>
 </div>
-{% endblock %}
-{% block extra_js %}
 
+{% endblock %}
+
+{% block extra_js %}
 <script src='{% static "src/js/jquery.ui.widget.js" %}'></script>
 <script src='{% static "src/js/jquery.fileupload.js" %}' ></script>
-
 
 <script>
 $(document).ready(function (){
     $(".homework").addClass("active");
  });
 </script>
-<script>
-
-</script>
 
 <script>
-  $(document).ready(function(e) {
-     var limit = 6;
-	 $(".loadMore li").slice(0, limit).show();
-	 $(document).on('click','#load_more',function(e){
-         limit += 6;
-		 e.preventDefault();
-	     $(".loadMore li").slice(0, limit).show();
-	 });
-	 //var lenght_name =  $(".loadMore li").length;
-  });
-</script>
-<script>
-        function showDetails(accordion) {
-            var accordi = accordion.getAttribute("data-check");
-            document.getElementById(accordi).classList.add("change-accordion");
-            $("#"+accordi).siblings().removeClass("change-accordion");
-      }
-
-</script>
-
-<script>
-
 $(document).ready(function (){
 	$('#question-form').submit(function() {
     	$('.show-loader').show();
@@ -582,8 +417,6 @@ $(document).ready(function (){
 $(function () {
 
 var k = 1
-var txt = "";
-var num = +$('#fileupload').attr("data-num");
     $('#fileupload').fileupload({
         url: '{% url 'api:homework-help-api:question-file-create-api' %}',
         dataType: 'json',
@@ -602,18 +435,9 @@ var num = +$('#fileupload').attr("data-num");
 
 }).on('fileuploaddone', function (e, data) {
 	var ul = $('#selected-files');
-	var p = $('#done');
 	var selectedFiles = $('<li class="d-inline-block w-50 text-truncate"><p class="d-inline"></p></li><div class="d-inline-block w-50" id="progress"><div class="bar"></div></div>');
 	selectedFiles.find('p').text(data.files[0].name);
-	if (num == 1){
-	  txt += selectedFiles.appendTo(p);
-	}
-	else {
-	  txt = "Total files upload: " + num;
-	  document.getElementById("done").innerHTML = txt;
-	}
-  //
-	//data.context = selectedFiles;
+	data.context = selectedFiles.appendTo(ul);
 	$('.show-loader').hide();
 //	data.submit();
 
@@ -640,10 +464,7 @@ var num = +$('#fileupload').attr("data-num");
 		//	var key = response.key;
 		console.log(data);
                 $('form').append("<input type='hidden' value='" + data.result.unique_id + "' name='unique_id' >");
-        console.log(num);
-            num = num + 1;
-            console.log(num);
-               $('#fileupload').attr('data-num', num);
+
 
 
 		}).on('fileuploadfail', function (e, data) {
@@ -780,7 +601,6 @@ $(document).ready(function() {
 });
 </script>
 
-
 <script>
 	 $(document).ready(function(){
         var results = new Bloodhound({
@@ -819,6 +639,8 @@ $(document).ready(function() {
         );
     });
 </script>
+
+
 
 
 
