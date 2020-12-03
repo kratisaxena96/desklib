@@ -39,6 +39,7 @@ from desklib.utils import get_timezone
 from documents.models import Document
 from django.views import View
 from datetime import datetime
+from datetime import timedelta
 
 from subscription.models import PaypalInvoice
 
@@ -579,10 +580,10 @@ class HomeworkHelpPaypalPaymentView(LoginRequiredMixin, View):
                 if p > 24:
                     total_days = p // 24
                     total_hours = p % 24
-                    o.deadline_datetime = datetime.strptime(body.get('create_time'), '%Y-%m-%dT%H:%M:%SZ') + datetime.timedelta(days=total_days, hours=total_hours)
+                    o.deadline_datetime = datetime.strptime(resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('create_time'), '%Y-%m-%dT%H:%M:%SZ') + timedelta(days=total_days, hours=total_hours)
                 else:
                     total_hours = p
-                    o.deadline_datetime = datetime.strptime(body.get('create_time'), '%Y-%m-%dT%H:%M:%SZ') + datetime.timedelta(hours=total_hours)
+                    o.deadline_datetime = datetime.strptime(resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('create_time'), '%Y-%m-%dT%H:%M:%SZ') + timedelta(hours=total_hours)
 
             o.status = 3
             o.save()
