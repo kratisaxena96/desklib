@@ -186,9 +186,9 @@ PAYPAL_CLIENT = os.environ['PAYPAL_CLIENT_ID']
 PAYPAL_SECRET = os.environ['PAYPAL_SECRET_ID']
 PAYPAL_MERCHANT_ID = os.environ['PAYPAL_MERCHANT_ID']
 
-PAYPAL_TOKEN_API = "https://api.sandbox.paypal.com/v1/oauth2/token"
-PAYPAL_CHECKOUT_API = "https://api.sandbox.paypal.com/v2/checkout/orders"
-PAYPAL_RISK_API = "https://api.sandbox.paypal.com/v1/risk/transaction-contexts/"
+PAYPAL_TOKEN_API = "https://api.paypal.com/v1/oauth2/token"
+PAYPAL_CHECKOUT_API = "https://api.paypal.com/v2/checkout/orders"
+PAYPAL_RISK_API = "https://api.paypal.com/v1/risk/transaction-contexts/"
 
 
 BROKER_HOST = os.environ['BROKER_HOST']
