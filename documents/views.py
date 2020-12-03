@@ -701,7 +701,7 @@ class PaypalPaymentCheckView(LoginRequiredMixin, View):
             'accept': "application/json",
             'content-type': "application/json",
             'accept-language': "en_US",
-            'authorization': "Bearer " + token
+            'authorization': "Bearer " + str(token)
         }
 
         risk_response = requests.request("PUT", url, data=payload, headers=headers)
@@ -777,7 +777,7 @@ class PaypalPaymentCheckView(LoginRequiredMixin, View):
             'accept': "application/json",
             'content-type': "application/json",
             'accept-language': "en_US",
-            'authorization': "Bearer "+token
+            'authorization': "Bearer "+str(token)
         }
 
         response = requests.request("POST", url, data=payload, headers=headers)
@@ -815,7 +815,7 @@ class PaypalPaymentView(LoginRequiredMixin, View):
 
         headers = {
             'content-type': "application/json",
-            'authorization': "Bearer "+token,
+            'authorization': "Bearer "+str(token),
             'PayPal-Client-Metadata-Id': body.get('tracking_id'),
             'PayPal-Request-id': key_generator()
         }
