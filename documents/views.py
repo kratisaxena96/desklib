@@ -650,25 +650,25 @@ class PaypalPaymentCheckView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         body = json.loads(request.body.decode("utf-8"))
 
-        if settings.DEBUG:
-            url = settings.PAYPAL_TOKEN_API
+        # if settings.DEBUG:
+        url = settings.PAYPAL_TOKEN_API
 
-            data = {
-                "grant_type": "client_credentials"
-            }
-            headers = {
-                'content-type': "application/x-www-form-urlencoded",
-            }
-            client = settings.PAYPAL_CLIENT
-            secret = settings.PAYPAL_SECRET
+        data = {
+            "grant_type": "client_credentials"
+        }
+        headers = {
+            'content-type': "application/x-www-form-urlencoded",
+        }
+        client = settings.PAYPAL_CLIENT
+        secret = settings.PAYPAL_SECRET
 
-            auth = (client, secret)
+        auth = (client, secret)
 
-            auth_token = requests.request("POST", url, data=data, headers=headers, auth=auth)
-            token = json.loads(auth_token.text).get('access_token')
-        else:
-            f = open(settings.BASE_DIR + "/"+settings.AUTHTOKEN, "r")
-            token = f.read()
+        auth_token = requests.request("POST", url, data=data, headers=headers, auth=auth)
+        token = json.loads(auth_token.text).get('access_token')
+        # else:
+        #     f = open(settings.BASE_DIR + "/"+settings.AUTHTOKEN, "r")
+        #     token = f.read()
 
         url = settings.PAYPAL_RISK_API + settings.PAYPAL_MERCHANT_ID + "/" + body.get('tracking_id')
 
@@ -789,25 +789,25 @@ class PaypalPaymentView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
 
-        if settings.DEBUG:
-            url = settings.PAYPAL_TOKEN_API
+        # if settings.DEBUG:
+        url = settings.PAYPAL_TOKEN_API
 
-            data = {
-                "grant_type": "client_credentials"
-            }
-            headers = {
-                'content-type': "application/x-www-form-urlencoded",
-            }
-            client = settings.PAYPAL_CLIENT
-            secret = settings.PAYPAL_SECRET
+        data = {
+            "grant_type": "client_credentials"
+        }
+        headers = {
+            'content-type': "application/x-www-form-urlencoded",
+        }
+        client = settings.PAYPAL_CLIENT
+        secret = settings.PAYPAL_SECRET
 
-            auth = (client, secret)
+        auth = (client, secret)
 
-            auth_token = requests.request("POST", url, data=data, headers=headers, auth=auth)
-            token = json.loads(auth_token.text).get('access_token')
-        else:
-            f = open(settings.BASE_DIR + "/"+settings.AUTHTOKEN, "r")
-            token = f.read()
+        auth_token = requests.request("POST", url, data=data, headers=headers, auth=auth)
+        token = json.loads(auth_token.text).get('access_token')
+        # else:
+        #     f = open(settings.BASE_DIR + "/"+settings.AUTHTOKEN, "r")
+        #     token = f.read()
 
         body = json.loads(request.body.decode("utf-8"))
 
