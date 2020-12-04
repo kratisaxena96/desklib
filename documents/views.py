@@ -523,21 +523,21 @@ class DocumentPayment(LoginRequiredMixin, MetadataMixin, TemplateView):
         context['form2'] = UploadFileForm
 
         context['tracking_id'] = key_generator()
-        if settings.PAYPAL_TEST:
-            receiver_email = "info-facilitator@a2zservices.net"
-        else:
-            receiver_email = "info@a2zservices.net"
-        paypal_dict = {
-            "business": receiver_email,
-            "item_name": "desklib subscription",
-            "notify_url": self.request.build_absolute_uri(reverse('paypal-ipn')),
-            "return": self.request.build_absolute_uri('../paypal/redirect/' + self.request.GET.get('doc')),
-            "cancel_return": self.request.build_absolute_uri('../' + self.request.GET.get('doc')),
-
-        }
-
-        form = PayPalPaymentsForm(initial=paypal_dict, button_type="subscribe")
-        context['form'] = form
+        # if settings.PAYPAL_TEST:
+        #     receiver_email = "info-facilitator@a2zservices.net"
+        # else:
+        #     receiver_email = "info@a2zservices.net"
+        # paypal_dict = {
+        #     "business": receiver_email,
+        #     "item_name": "desklib subscription",
+        #     "notify_url": self.request.build_absolute_uri(reverse('paypal-ipn')),
+        #     "return": self.request.build_absolute_uri('../paypal/redirect/' + self.request.GET.get('doc')),
+        #     "cancel_return": self.request.build_absolute_uri('../' + self.request.GET.get('doc')),
+        #
+        # }
+        #
+        # form = PayPalPaymentsForm(initial=paypal_dict, button_type="subscribe")
+        # context['form'] = form
         return context
 
 
