@@ -7,6 +7,22 @@
 <link rel="canonical" href="https://desklib.com" />
 {% endblock %}
 
+    {% block json_ld %}
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@id": "https://www.desklib.com/",
+  "@type": "WebSite",
+  "name": "Desklib",
+  "url": "https://desklib.com/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://desklib.com/study/search/?q={search_term}",
+    "query-input": "required name=search_term"
+  }
+}
+</script>
+    {% endblock %}
 
 {% block content %}
 
