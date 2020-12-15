@@ -101,7 +101,7 @@ class HomePageView(MetadataMixin, JsonLdContextMixin, SearchView):
     twitter_title = 'Desklib | Online Homework Help | Homework Solutions'
     og_title = 'Desklib | Online Homework Help | Homework Solutions'
 
-    template_name = "desklib/home.html"
+    template_name = "desklib/v2/home.html"
 
     structured_data = {
         "@type": "Organization",

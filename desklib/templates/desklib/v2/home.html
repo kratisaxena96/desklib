@@ -1,0 +1,618 @@
+{% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% load meta %}
+{% load i18n %}
+
+{% block canonical %}
+<link rel="canonical" href="https://desklib.com" />
+{% endblock %}
+
+    {% block json_ld %}
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@id": "https://www.desklib.com/",
+  "@type": "WebSite",
+  "name": "Desklib",
+  "url": "https://desklib.com/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://desklib.com/study/search/?q={search_term}",
+    "query-input": "required name=search_term"
+  }
+}
+</script>
+    {% endblock %}
+
+{% block content %}
+
+<section class="homework-banner container-fluid">
+ {% block messages %}
+     {% if messages %}
+        <div>
+            <ul>
+            {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>{{message}}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+ {% endblock %}
+
+    <div class="row pl-5 pt-7rem pb-7rem pltb-0 pt-6 pb-10">
+        <div class="col-md-6">
+            <img src="{% static 'src/assets/images/v2/3.png' %}" class="img-fluid" alt="Desklib">
+        </div>
+        <div class="col-md-6">
+            <h1 class="blue-theme py-2 font">Online Homework Help</h1>
+            <p class="pb-2 para text-dark">You can access millions of study documents homework solutions at our online library</p>
+            <div class="bs-example border-radius-12 col-md-12 mb-2 pl-0 pr-0 box-shadow-home-banner">
+    <ul class="nav nav-tabs border-topradius" id="myTab" style="background-color:white">
+        <li class="nav-item" style="position:relative; width:50%">
+            <a href="#study-resource" class="nav-link text-center border-radius-topr p-3"  data-toggle="tab"> <i class="fa fa-search"></i><br> Find a Solution</a>
+        </li>
+        <li class="nav-item" style="position:relative; width:50%">
+            <a href="#Homework-help" class="nav-link text-center border-radius-topl p-3"  data-toggle="tab"><i class="fa fa-home"></i><br>Ask a Question</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade" id="study-resource">
+            <div class="bg-white bottom-radius">
+<!--             <div class="row">-->
+<!--                 <div class="col-md-12 pr-0" >-->
+                   <form action="{% url 'study:search-results' %}">
+                    <div id="remote" class="form-input-group w-100">
+                      <input class=" form-control form-control-lg border-radius-12 typeahead search-bar-border-none " type="text" style="font-size:0.99rem;height:60px;margin-top:3px" placeholder="Search for assignment samples and resources" name="q">
+                        <div class="input-group-append">
+                            <button class="btn btn-lg button-border search-bg-body" type="submit"><i class="fa fa-search rounded-circle search-icon"></i></button>
+                        </div>
+                    </div>
+                </form>
+<!--             </div></div>-->
+            </div>
+        </div>
+        <div class="tab-pane fade" id="Homework-help">
+	<div class="bg-white bottom-radius p-3">
+		<div class="row">
+			<div class="col-md-12 pr-4 pl-4 pb-1">
+                <h6 class="text-center pt-2"><strong>Ask your Question here</strong></h6>
+				<form method="post" id="question-form" enctype="multipart/form-data">
+					 {% csrf_token %}
+					<div class="row mt-4">
+						<div class="col-md-12">
+							<div class="form-group bordr">
+							{{form2.question}}
+                			</div>
+						</div>
+					</div>
+					<div class="row mt-2">
+            			<div class="col-md-6">
+							<strong>Upload&nbsp;{{form2.file.label}}</strong>
+							<div class="form-group">
+								<span class="btn btn-bg-theme white border-radius-20 px-4 fileinput-button d-block mt-2">
+								  <i class="fa fa-plus"></i>
+								  <span>Add files...</span>
+                                   {{form2.file}}
+								</span>
+							</div>
+							<ul id="selected-files" class="list-unstyled">
+                                <li class="">
+									<span class="error-msg text-danger d-block"></span>
+									<span class="error text-danger d-block"></span>
+								</li>
+                            </ul>
+                            <p id="done">{{count}}</p>
+						</div>
+						<div class="col-md-6">
+							<label class=""><strong>Select Your&nbsp;{{form2.subjects.label}}</strong></label>
+							<div class="form-group">
+                     		{{form2.subjects}}
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6">
+							<span class="error-msg text-danger"></span>
+						</div>
+					</div>
+    					<div class="row mt-3 mb-3">
+							<div class="col-md-6">
+                     			<input type="submit" value="Get Answer" class="btn btn-bg-theme white border-radius-20 px-4">
+							</div>
+						</div>
+				</form>
+			</div>
+        </div>
+	</div>
+        </div>
+
+
+
+    </div>
+</div>
+        </div>
+    </div>
+</section>
+
+</section>
+<section class="container-fluid pr-0 pl-0">
+    <div class="bg-light pt-md-5 pt-4 text-center pb-4 ">
+        <div class="container">
+             <h2 class="py-2 font"> Easy to Get Excellent Online Solutions for Your Assignments </h2>
+             <p class="para text-center pl-3 pr-3">Now you can get the best online homework solutions. To get 24/7 help with your homework get step by step study assistance as per your requirement. Our online learning platform Desklib is the best solution for every difficulty which students face. Our main aim to provide online learning by using our library. It will improve your confidence level for academics exams and also for future study homework and assignments. Students who face problems with their assignments can get our online solutions.</p>
+        </div>
+    </div>
+</section>
+<section class="container mt-md-5 mt-4 text-center pb-4 pr-4 pl-4 border-bottom">
+        <div class="row pt-4">
+            <div class="col-md-4 order-md-2 order-1">
+               <div>
+                    <img src="{% static 'dist/assets/images/Written soutions.png' %}" class="img-fluid border-radius-12" alt="written soution image">
+                     <h5 class="font pt-4 pb-4 mb-0">Written solution</h5>
+                     <p class="sec-para">Get assistance with assignments, essays, report, case study, and more.</p>
+                </div>
+            </div>
+            <div class="col-md-4 order-md-2 order-1">
+               <div>
+                    <img src="{% static 'dist/assets/images/library.png' %}"  class="img-fluid border-radius-12" alt="homework library image">
+                     <h5 class="font pt-4 pb-4 mb-0">Homework library</h5>
+                     <p class="sec-para">View the finest collection of homework help and assignment solutions etc..</p>
+                </div>
+            </div>
+             <div class="col-md-4 order-md-2 order-1 ">
+                <div>
+                    <img src="{% static 'dist/assets/images/Client rating.png' %}" class="img-fluid border-radius-12" alt="/client rating image">
+                     <h5 class="font pt-4 pb-4 mb-0">Happy students 4.9/5</h5>
+                     <p class="sec-para">Students choose us to get good marks in their academics</p>
+                </div>
+            </div>
+    </div>
+</section>
+
+
+<section class="container mt-md-5 mt-4">
+        <div class="row">
+            <div class="col-md-6 ml-auto d-flex align-items-center order-md-1 order-2 mt-4 mt-md-0">
+                <div>
+                    <h2 class="sub-heading font-weight-500 mb-5">Online Homework Solutions Library</h2>
+                    <p class="text-justify para">
+                    Desklib is home to more than millions of study resources for your online homework help we offer you academic study solutions of every subject as per your requirement. We are fully capable to help you in various college homework or assignment solutions. Getting the right education will bring you closer to your dreams and help you to boost your academics career and build the right kind of future that you want.
+                    </p>
+                    <p class="para text-justify">So, what are you waiting for now! choose our online service to make your study more interesting and make this your best year. </p>
+                </div>
+            </div>
+            <div class="col-md-6 order-md-2 order-1">
+                <div>
+                    <img src="{% static 'dist/assets/images/Untitled-1-03.png' %}"class="img-fluid border-radius-12" width="470" alt="homework solution image">
+                </div>
+            </div>
+    </div>
+</section>
+
+<section class="container p-4 mb-md-3">
+    <div class="row">
+        <div class="col-md-6">
+            <div>
+            <img src="{% static 'dist/assets/images/Untitled-1-02.png' %}" class="img-fluid border-radius-12" alt="homework help for all strean image">
+            </div>
+        </div>
+         <div class="col-md-6 ml-auto d-flex align-items-center mt-4 mt-md-0">
+             <div>
+                <h2 class="sub-heading font-weight-500 mb-5">Homework Help For All Stream Subjects</h2>
+                 <p class="text-justify para">
+                     We select the best study material for your college homework help and solutions to assignments, essays, dissertations ,and case studies. Our Homework Solutions resources are diverse so they can be used by students studying in any college, enrolled in any course ,or pursuing any degree/level. Moreover, new documents are added regularly and content is updated as well with improvements. We are an online homework help website developed for the students where anyone can learn, gain ,and contribute.
+                 </p>
+                 <div class="align-self-end ml-auto">
+                     <a href="{% url 'homework_help:ask-question-view'%}" class="btn btn-bg-theme border-radius-20 white px-4" >Get Homework Help </a>
+                 </div>
+        </div>
+         </div>
+    </div>
+</section>
+
+<section class="container pb-5">
+        <div class="row">
+            <div class="col-md-6 ml-auto d-flex align-items-center order-md-1 order-2 mt-4 mt-md-0">
+                <div>
+                    <h2 class="sub-heading font-weight-500 mb-5"> Avail Online Homework Solutions Today  </h2>
+                    <p class="text-justify para">Access top quality study materials encompass different study courses at universities all over the world. You can jump into the best homework help online service where you pick and choose your requirement and avail the solution at affordable prices. We offer every stream's all subjects online assistance for college students. They can get 24/7 help with homework here with us. We have every kind of solution for your homework related help.
+You can find the number of sections which are generally designed for you to get your requirement.</p>
+                </div>
+            </div>
+            <div class="col-md-6 order-md-2 order-1">
+                <div>
+                    <img src="{% static 'dist/assets/images/Untitled-1-04.png' %}"class="img-fluid border-radius-12" alt="avail online help image">
+                </div>
+            </div>
+    </div>
+</section>
+
+
+
+
+{% if top_results %}
+<section class="container-fluid pt-5 pb-5 bg-light">
+    <h2 class="text-center font">Most viewed Homework Solutions</h2>
+    <p class="text-center">Students who availed our services have higher chances of getting good grades. </p>
+    <div class="main-content container" id="main0">
+        <div class="owl-carousel owl-theme mt-4">
+         {% for results in top_results %}
+            <div class="item  bg-white">
+                <div class="main-div shadow mt-4 h-350 border-radius-12" style="height:350px;">
+                    <a href="{% url 'documents:document-view' results.slug %}" class="h-350 d-inline-block w-100">
+                        <img class="card-img-top" src="{{results.cover_image}}" alt="documents image">
+                 </a>
+                 <a href="{% url 'documents:document-view' results.slug %}" class="text-decoration-none">
+                 <div class="card-body inner-div bg-light">
+                     <h6 class="text-black font-weight-700">{{results.title|truncatechars:40}}</h6>
+                     <small class="text-muted">{{results.no_of_pages}}</small>
+                     <small class="text-muted add-dash">pages</small>
+                     <small class="text-muted">{{results.no_of_words}}</small>
+                     <small class="text-muted add-dash">words</small>
+                     <small class="text-muted d-md-block d-lg-inline">{{results.pub_date|date:"d M Y"}}</small>
+                     <small class="text-muted btn-d-none pt-1">{{results.description|safe|truncatechars:60}}</small>
+                     <a href="{% url 'documents:document-view' results.slug %}" class="btn btn-bg-theme border-radius-20 btn-d-none text-white mt-3 mb-3 pt-1 pb-1">View Document</a>
+                 </div></a>
+        </div>
+    </div>
+
+        {% endfor %}
+    </div>
+    <div class="owl-theme">
+                <div class="owl-controls">
+                    <div class="custom-nav owl-nav"></div>
+                </div>
+            </div>
+    </div>
+</section>
+{% endif %}
+
+
+<section class="container-fluid pt-5 pb-5 ">
+    <h3 class="text-center font">WHAT OUR USER SAYS</h3>
+    <div class="main-content container" id="customer">
+        <div class="owl-carousel owl-theme mt-4">
+
+           <div class="item  bg-white ">
+                <div class="main-div shadow mt-4 border-radius-5 testimonial-height">
+                        <p class="sec-para customer-block text-justify">Homework and assignments solutions at Desklib.com are the best. I personally feel that they have such an excellent collection of study resources. I'll surely visit this place again.</p>
+                    <div class="row">
+                        <div class="col-md-6 d-flex pt-5 pl-4" style="width:50%">
+                              <div class="pl-1"><h5>Clark</h5><p>Student</p><img class="image-radius aligncenter" src="{% static 'dist/assets/images/stars.png' %}" style="width:80%; padding:0px" alt="client stars image"></div>
+                        </div>
+                        <div class="col-md-6 p-5 customer-image" style="width:50%"><img src="{% static 'dist/assets/images/Untitled-1-01.png' %}" class="border-radius-12 float-right" style="width:100px; height:100px;" alt="client image"></div>
+                    </div>
+
+                </div>
+            </div>
+              <div class="item  bg-white ">
+                <div class="main-div shadow mt-4 border-radius-5 testimonial-height" >
+                    <div class="row">
+                          <div class="col-md-6 d-flex pt-5 pl-4" style="width:50%">
+                   <div class="pl-1"><h5>Charlie</h5><p>Student</p><img class="image-radius aligncenter" src="{% static 'dist/assets/images/stars.png' %}" style="width:80%; padding:0px" alt="client stars image"></div>
+                          </div>
+                        <div class="col-md-6 p-5 customer-image" style="width:50%"><img src="{% static 'dist/assets/images/Untitled-1-02-2.png' %}" class="border-radius-12 float-right" style="width:100px; height:100px;" alt="client image"></div>
+                    </div>
+                        <p class="sec-para customer-block text-justify">I would like to thank Desklib library. That's really a great platform for online study resources. I got the best solutions for my assignment.</p>
+
+                </div>
+            </div>
+              <div class="item  bg-white">
+                <div class="main-div shadow mt-4 border-radius-5 testimonial-height" >
+                    <div class="row">
+                          <div class="col-md-6 d-flex pt-5 pl-4" style="width:50%">
+                   <div class="pl-1"><h5>Morris</h5><p>Student</p><img class="image-radius aligncenter" src="{% static 'dist/assets/images/stars.png' %}" style="width:80%; padding:0px" alt="client stars image"></div>
+                          </div>
+                        <div class="col-md-6 p-5 customer-image" style="width:50%"><img src="{% static 'dist/assets/images/Untitled-1-03-2.png' %}" class="border-radius-12 float-right" style="width:100px; height:100px;" alt="client image"></div>
+                    </div>
+                        <p class="sec-para customer-block text-justify">I was looking for quality provided platform for academic assistance. I am very happy with the solutions to the content of assignments. keep growing. </p>
+
+                </div>
+            </div>
+            <div class="item  bg-white">
+                <div class="main-div shadow mt-4 border-radius-5 testimonial-height">
+                    <div class="row">
+                          <div class="col-md-6 d-flex pt-5 pl-4" style="width:50%">
+                   <div class="pl-1"><h5>Jones </h5><p>Student</p><img class="image-radius aligncenter" src="{% static 'dist/assets/images/stars.png' %}" style="width:80%; padding:0px;" alt="client stars image"></div>
+                          </div>
+                        <div class="col-md-6 p-5 customer-image" style="width:50%"><img src="{% static 'dist/assets/images/Untitled-1-04-2.png' %}" class="border-radius-12 float-right" style="width:100px; height:100px;" alt="client image"></div>
+                    </div>
+                        <p class="sec-para customer-block text-justify">Desklib Homework Help library has a consumer rating of 4.9 stars reviews, which clearly indicates that students are satisfied with their purchases. it also ranks among the top 20 online homework help website.</p>
+                </div>
+            </div>
+    </div>
+    <div class="owl-theme">
+                <div class="owl-controls">
+                    <div class="custom-nav owl-nav"></div>
+                </div>
+            </div>
+    </div>
+</section>
+<div class="loading show-loader">
+    <div class="loader-container">
+        <div class="loader"></div>
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src='{% static "src/js/jquery.ui.widget.js" %}'></script>
+<script src='{% static "src/js/jquery.fileupload.js" %}' ></script>
+
+
+<script>
+$('#main0 .owl-carousel').owlCarousel({
+    autoplay:true,
+    stagePadding: 10,
+    loop: true,
+    margin: 25,
+    dots: false,
+    nav: true,
+    autoplayHoverPause: true,
+    navText: [
+        '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+        '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+    ],
+    navContainer: '#main0 .custom-nav',
+    responsive:{
+        0:{
+            items: 1
+        },
+        576:{
+            items: 2
+        },
+        768:{
+            items: 3
+        },
+        1200:{
+            items: 4
+        }
+    }
+});
+
+</script>
+
+<script>
+    $('#customer .owl-carousel').owlCarousel({
+    autoplay:true,
+    stagePadding: 10,
+    loop: true,
+    margin: 30,
+    dots: false,
+    nav: false,
+    autoplayHoverPause: true,
+    navContainer: '#customer .custom-nav',
+    responsive:{
+        0:{
+            items: 1
+        },
+        576:{
+            items: 2
+        },
+        768:{
+           items: 3
+        },
+    }
+
+});
+
+</script>
+
+<script>
+
+$(document).ready(function (){
+	$('#question-form').submit(function() {
+    	$('.show-loader').show();
+	});
+});
+$(function () {
+
+var k = 1
+var txt = "";
+var num = +$('#fileupload').attr("data-num");
+    $('#fileupload').fileupload({
+        url: '{% url 'api:homework-help-api:question-file-create-api' %}',
+        dataType: 'json',
+        dropZone: $('#dropzone'),
+
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('<p><p/>').text(file.name).appendTo(document.body);
+                $('form').append("<input type='hidden' value='" + data.unique_id + "' name='unique_id' >");
+            });
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progress .bar').css('width',progress + '%');
+        }
+
+}).on('fileuploaddone', function (e, data) {
+	var ul = $('#selected-files');
+	var p = $('#done');
+	var selectedFiles = $('<li class="d-inline-block w-50 text-truncate"><p class="d-inline"></p></li><div class="d-inline-block w-50" id="progress"><div class="bar"></div></div>');
+	selectedFiles.find('p').text(data.files[0].name);
+	if (num == 1){
+	  txt += selectedFiles.appendTo(p);
+	}
+	else {
+	  txt = "Total files upload: " + num;
+	  document.getElementById("done").innerHTML = txt;
+	}
+  //
+	//data.context = selectedFiles;
+	$('.show-loader').hide();
+//	data.submit();
+
+ }).on('fileuploadfail', function (e, data) {
+	var fileTypeAllowed = /.\.(gif|jpg|png|jpeg)$/i;
+	  var fileName = data.originalFiles[0]['name'];
+	  var status = 500;
+  		 if (!fileTypeAllowed.test(fileName))
+  			$('#selected-files span.error-msg').html('File extension '+ fileName +' is not allowed. Allowed extensions are: png, jpg, jpeg, gif');
+
+			 else if (status)
+			   $('#selected-files span.error').html('Your file has not uploaded, Please upload another file');
+		//		console.log("Your file has not uploaded, Please upload another file");
+			  $(".show-loader").hide();
+
+}).on('fileuploadstart', function (e, data) {
+ jQuery(".show-loader").show();
+
+    }).on('fileuploaddone', function (e, data) {
+			//alert(data);
+			//uploadBtn.button('reset');
+		//	var xhr = data.response().jqXHR;
+		//	var response = xhr.responseJSON;
+		//	var key = response.key;
+		console.log(data);
+                $('form').append("<input type='hidden' value='" + data.result.unique_id + "' name='unique_id' >");
+        console.log(num);
+            num = num + 1;
+            console.log(num);
+               $('#fileupload').attr('data-num', num);
+
+
+		}).on('fileuploadfail', function (e, data) {
+			//alert(data);
+
+			$(".loader-background").hide();
+			//uploadBtn.button('reset');
+			var xhr = data.response().jqXHR;
+			var response = xhr.responseJSON;
+			console.log(response);
+			// Begin for loop here
+			for (var key in response) {
+				console.log(key, response[key][0]);
+				$('.' + key).addClass('has-error');
+				$('span.' + key).text(response[key][0]);
+			}});
+});
+
+$(document).bind('dragover', function (e) {
+    var dropZone = $('#dropzone'),
+        timeout = window.dropZoneTimeout;
+    if (timeout) {
+        clearTimeout(timeout);
+    } else {
+        dropZone.addClass('in');
+    }
+    var hoveredDropZone = $(e.target).closest(dropZone);
+    dropZone.toggleClass('hover', hoveredDropZone.length);
+    window.dropZoneTimeout = setTimeout(function () {
+        window.dropZoneTimeout = null;
+        dropZone.removeClass('in hover');
+    }, 100);
+});
+
+$(document).bind('drop dragover', function (e) {
+    e.preventDefault();
+});
+
+
+    $("#question-form").submit(function(e) {
+        e.preventDefault();
+        $("span.has-error").empty();
+
+        var data = $("#question-form").serializeArray();
+
+
+         //       if(data['message'] && data['reference_files']){
+         //       $(".comments").append('<div class="current"></div>');
+         //       $(".current").text( data['message'] + ' ' + data['reference_files'] )
+         //         }
+         //       else if(data['message']){
+         //       $(".comments").append('<div class="current"></div>');
+         //       $(".current").text( data['message'] )
+         //         }
+         //         else if(data['reference_files']){
+         //       $(".comments").append('<div class="current"></div>');
+         //       $(".current").text( data['reference_files'] )
+         //         }
+
+
+
+
+
+        var myForm = document.getElementById('question-form');
+       data = new FormData(myForm);
+       var d = data.unique_id
+
+
+        $("div.error_file").text("");
+
+                $(".enquiry-form-popup").hide();
+                $(".form-icon-plane").hide();
+                $(".form-loader").show();
+
+        $.ajax({
+            type : "POST",
+            url : '{% url 'api:homework-help-api:question-create-api' %}',
+            enctype: 'multipart/form-data',
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function(data){
+
+
+                if(data['message'] && data['reference_files']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] + ' ' + data['reference_files'] )
+                  }
+                else if(data['message']){
+//                $(".comments").append("<code>" + data['message'] + "</code><br>");
+
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] )
+                  }
+                  else if(data['reference_files']){
+//                    $(".comments").append( data['reference_files'] + "<br>");
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['reference_files'] )
+                  }
+
+
+                document.getElementById("question-form").reset();
+                window.location.replace( "/homework-help/order-create/" + data.uid) ;
+            },
+            error: function(data){
+
+            var response = data.responseJSON;
+            for (key in response) {
+              $("#comment-form ."+key).addClass("has-error");
+              $("#comment-form span." + key).text(response[key][0]);
+            }
+
+            }
+        });
+    });
+
+
+$('.homework-help-carousel').owlCarousel({
+	items: 1,
+	loop: true,
+	autoplay: false,
+	margin: 10,
+	nav: true,
+	dots: false,
+	 navText: [
+        '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+        '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+    ],navContainer: '#main0 .custom-nav',
+
+});
+
+$(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+});
+</script>
+
+<script>
+     $(document).ready(function(){
+        $("#myTab a:last").tab('show'); // show first tab on page load
+    });
+</script>
+{% endblock %}
