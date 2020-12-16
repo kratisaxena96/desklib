@@ -827,14 +827,31 @@ class PaypalPaymentView(LoginRequiredMixin, View):
         # print(response.text)
         resp_json = json.loads(response.text)
 
-        invoice_id = resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('invoice_id')
-        payment = PaypalInvoice.objects.get(invoice_id=invoice_id)
-        payment.buyer_email = resp_json.get('payer').get('email_address')
-        payment.amount = resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('amount').get('value')
-        payment.status = resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('status')
-        payment.currency = resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('amount').get("currency_code")
-        payment.transaction_id = resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('id')
-        payment.save()
+        if resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('invoice_id'):
+            invoice_id = resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('invoice_id')
+            payment = PaypalInvoice.objects.get(invoice_id=invoice_id)
+            payment.buyer_email = resp_json.get('payer').get('email_address')
+            payment.amount = resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('amount').get('value')
+            payment.status = resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('status')
+            payment.currency = resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('amount').get("currency_code")
+            payment.transaction_id = resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('id')
+            payment.save()
+        else:
+            email = body.get('user')
+            user = UserAccount.objects.get(email=email)
+            locus_email = "kushagra.goel@locusrags.com"
+            if not settings.DEBUG:
+                locus_email = "info@desklib.com"
+            html_message = "Payment not completed for user: " + user.username + " <br>email: " + user.email
+            mail = EmailMultiAlternatives(
+                subject='Payment not completed',
+                # from_email=settings.DEFAULT_FROM_EMAIL,
+                to=[locus_email],
+                body=''
+            )
+            mail.attach_alternative(html_message, 'text/html')
+            mail.send(True)
+            return
 
         # print(body)
         if settings.DEBUG:
