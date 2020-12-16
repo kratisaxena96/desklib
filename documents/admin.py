@@ -239,7 +239,7 @@ class DocumentAdmin(admin.ModelAdmin):
     form = DocumentAdminForm
     date_hierarchy = 'published_date'
     raw_id_fields = ('author','subjects','course','term','college')
-    search_fields = ['title','slug','upload_file']
+    search_fields = ['=slug']
     # advanced_filter_fields = ('title', 'slug', 'description', 'upload_file')
     list_display = ('title', 'published_date', 'is_published', 'is_visible', 'page', 'words')
     list_filter = (SubjectListFilter, 'is_published', 'is_visible' , EmployeeListFilter)
