@@ -26,7 +26,7 @@
 
 {% block content %}
 
-<section class="homework-banner container-fluid">
+<section class="homepage-banner container-fluid">
  {% block messages %}
      {% if messages %}
         <div>
@@ -46,7 +46,7 @@
 
     <div class="row pl-5 pt-7rem pb-7rem pltb-0 pt-6 pb-10">
         <div class="col-md-6">
-            <img src="{% static 'src/assets/images/v2/3.png' %}" class="img-fluid" alt="Desklib">
+            <img src="{% static 'src/assets/images/v2/Student_img.png' %}" class="img-fluid" alt="Desklib">
         </div>
         <div class="col-md-6">
             <h1 class="blue-theme py-2 font">Online Homework Help</h1>
@@ -140,39 +140,42 @@
 </section>
 
 </section>
-<section class="container-fluid pr-0 pl-0">
-    <div class="bg-light pt-md-5 pt-4 text-center pb-4 ">
+<div class="online-solution-home">
+<section class="steps-to-get-banner container-fluid pr-0 pl-0 h-auto">
+    <div class="pt-md-5 pt-4 text-center pb-4 ">
         <div class="container">
              <h2 class="py-2 font"> Easy to Get Excellent Online Solutions for Your Assignments </h2>
              <p class="para text-center pl-3 pr-3">Now you can get the best online homework solutions. To get 24/7 help with your homework get step by step study assistance as per your requirement. Our online learning platform Desklib is the best solution for every difficulty which students face. Our main aim to provide online learning by using our library. It will improve your confidence level for academics exams and also for future study homework and assignments. Students who face problems with their assignments can get our online solutions.</p>
         </div>
     </div>
-</section>
-<section class="container mt-md-5 mt-4 text-center pb-4 pr-4 pl-4 border-bottom">
+<!--</section>-->
+<div class="container mt-md-5 mt-4 text-center pb-4 pr-4 pl-4 border-bottom">
         <div class="row pt-4">
             <div class="col-md-4 order-md-2 order-1">
                <div>
-                    <img src="{% static 'dist/assets/images/Written soutions.png' %}" class="img-fluid border-radius-12" alt="written soution image">
+                    <img src="{% static 'src/assets/images/v2/written_solution_icon.png' %}" class="img-fluid border-radius-12" alt="written soution image">
                      <h5 class="font pt-4 pb-4 mb-0">Written solution</h5>
                      <p class="sec-para">Get assistance with assignments, essays, report, case study, and more.</p>
                 </div>
             </div>
             <div class="col-md-4 order-md-2 order-1">
                <div>
-                    <img src="{% static 'dist/assets/images/library.png' %}"  class="img-fluid border-radius-12" alt="homework library image">
+                    <img src="{% static 'src/assets/images/v2/homework_library_icon.png' %}"  class="img-fluid border-radius-12" alt="homework library image">
                      <h5 class="font pt-4 pb-4 mb-0">Homework library</h5>
                      <p class="sec-para">View the finest collection of homework help and assignment solutions etc..</p>
                 </div>
             </div>
              <div class="col-md-4 order-md-2 order-1 ">
                 <div>
-                    <img src="{% static 'dist/assets/images/Client rating.png' %}" class="img-fluid border-radius-12" alt="/client rating image">
+                    <img src="{% static 'src/assets/images/v2/happy_students_icon.png' %}" class="img-fluid border-radius-12" alt="/client rating image">
                      <h5 class="font pt-4 pb-4 mb-0">Happy students 4.9/5</h5>
                      <p class="sec-para">Students choose us to get good marks in their academics</p>
                 </div>
             </div>
     </div>
+</div>
 </section>
+    </div>
 
 
 <section class="container mt-md-5 mt-4">
@@ -188,7 +191,7 @@
             </div>
             <div class="col-md-6 order-md-2 order-1">
                 <div>
-                    <img src="{% static 'dist/assets/images/Untitled-1-03.png' %}"class="img-fluid border-radius-12" width="470" alt="homework solution image">
+                    <img src="{% static 'src/assets/images/v2/online_homework_graphic.png' %}"class="img-fluid border-radius-12 w-auto img-center" width="470" alt="homework solution image">
                 </div>
             </div>
     </div>
@@ -198,7 +201,7 @@
     <div class="row">
         <div class="col-md-6">
             <div>
-            <img src="{% static 'dist/assets/images/Untitled-1-02.png' %}" class="img-fluid border-radius-12" alt="homework help for all strean image">
+            <img src="{% static 'src/assets/images/v2/homework help_graphic.png' %}" class="img-fluid border-radius-12 w-auto img-center" alt="homework help for all strean image">
             </div>
         </div>
          <div class="col-md-6 ml-auto d-flex align-items-center mt-4 mt-md-0">
@@ -226,7 +229,7 @@ You can find the number of sections which are generally designed for you to get 
             </div>
             <div class="col-md-6 order-md-2 order-1">
                 <div>
-                    <img src="{% static 'dist/assets/images/Untitled-1-04.png' %}"class="img-fluid border-radius-12" alt="avail online help image">
+                    <img src="{% static 'src/assets/images/v2/homework solutions_graphic.png' %}"class="img-fluid border-radius-12 w-auto img-center" alt="avail online help image">
                 </div>
             </div>
     </div>
@@ -236,7 +239,7 @@ You can find the number of sections which are generally designed for you to get 
 
 
 {% if top_results %}
-<section class="container-fluid pt-5 pb-5 bg-light">
+<section class="bg-homedocuments container-fluid pt-5 pb-5 bg-light">
     <h2 class="text-center font">Most viewed Homework Solutions</h2>
     <p class="text-center">Students who availed our services have higher chances of getting good grades. </p>
     <div class="main-content container" id="main0">

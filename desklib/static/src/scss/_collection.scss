@@ -1928,6 +1928,22 @@ width:20%;
   background-size: cover;
   background-repeat: no-repeat;
 }
+.online-solution-home{
+    background: linear-gradient(#405FBD1A 50%, transparent 50%);
+//    background-image: url("/static/dist/assets/images/ac_bg_line_form-svg .png") 0 0 no-repeat padding-box;
+}
+.homepage-banner {
+  min-height: 500px;
+  background-image: url("/static/src/assets/images/v2/banner_bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+bg-homedocuments{
+  min-height: 500px;
+  background-image: url("/static/src/assets/images/v2/blue_bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 
 .heading{
 font: normal normal bold 44px/58px Roboto;
@@ -2297,6 +2313,7 @@ padding-right:230px !important;
 #customer .custom-nav.owl-nav.disabled {
     display: none;
 }
+.img-center{display: block; margin: 0 auto;}
 
 @media (max-width: 600px){
 .padding-ques{
