@@ -15,7 +15,7 @@ from desklib.settings.base import *
 # Application definition
 
 ALLOWED_HOSTS = ['.68.183.89.118']
-DEBUG = False
+DEBUG = True
 ADMINS = [('Rishi', 'rishi.dutta@zucolservices.com')]
 
 ALLOWED_IPS = ['68.183.89.118']
