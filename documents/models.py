@@ -42,6 +42,16 @@ def randomString(stringLength=10):
     return ''.join(random.choice(letters) for i in range(stringLength))
 
 
+def randomNumberViews():
+    return random.randint(1000,5000)
+
+def randomNumberDownloads():
+    return random.randint(500,1000)
+
+def randomNumberRating():
+    return random.randint(1,10)
+
+
 
 def upload_to(instance, filename):
     now = timezone.now()
@@ -206,8 +216,11 @@ class Document(ModelMeta, models.Model):
 
     preview_from = models.PositiveIntegerField(default=1)
     preview_to = models.PositiveIntegerField(default=2)
-    total_downloads = models.PositiveIntegerField(default=0)
-    views = models.PositiveIntegerField(default=0)
+    total_downloads = models.PositiveIntegerField(_('Total downloads (actual)'), default=0)
+    views = models.PositiveIntegerField(_('Views (actual)'), default=0)
+    total_downloads_to_show = models.PositiveIntegerField(_('Total downloads (to show on website)'), default=randomNumberDownloads)
+    views_to_show = models.PositiveIntegerField(_('Views (to show on website)'), default=randomNumberViews)
+    fake_reviews = models.PositiveIntegerField(_('Fake Reviews'), default=randomNumberRating)
     search_clicks = models.PositiveIntegerField(default=0)
     google_clicks = models.PositiveIntegerField(default=0)
     cover_page_number = models.PositiveIntegerField(_('Cover Page No.'), null=True, blank=True,default=1)
