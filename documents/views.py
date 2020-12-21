@@ -394,7 +394,7 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
                     if not document_obj in subscription_obj.documents.all() and not self.payperdoc:
                         subscription_obj.documents.add(document_obj)
                         Download.objects.create(user=request.user, document=document_obj)
-                        Document.objects.filter(pk=document_obj.pk).update(total_downloads=F('total_downloads') + 1, total_downloads_to_show=F('total_downloads_to_show') + 5)
+                        Document.objects.filter(pk=document_obj.pk).update(total_downloads=F('total_downloads') + 1, total_downloads_to_show=F('total_downloads_to_show') + 1)
                 except Exception as e:
                     print(e)
 
