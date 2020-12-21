@@ -10,7 +10,7 @@ def randomNumberViews():
     return random.randint(1000,5000)
 
 def randomNumberDownloads():
-    return random.randint(500,1000)
+    return random.randint(1,100)
 
 def randomNumberRating():
     return random.randint(1,10)
