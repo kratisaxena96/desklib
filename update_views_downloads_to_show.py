@@ -1,5 +1,7 @@
 import random
 
+from tqdm import tqdm
+
 from documents.models import Document
 
 # exec(open("./update_views_downloads_to_show.py").read())
@@ -13,7 +15,7 @@ def randomNumberDownloads():
 def randomNumberRating():
     return random.randint(1,10)
 
-for doc in Document.objects.all():
+for doc in tqdm(Document.objects.all(), colour='#44f172'):
     doc.total_downloads_to_show = randomNumberDownloads()
     doc.views_to_show = randomNumberViews()
     doc.fake_reviews = randomNumberRating()
