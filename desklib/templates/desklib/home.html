@@ -142,21 +142,21 @@
         <div class="row pt-4">
             <div class="col-md-4 order-md-2 order-1 vl">
                <div>
-                    <img src="{% static 'dist/assets/images/Written soutions.png' %}" class="img-fluid border-radius-12" alt="written soution image">
+                    <img data-src="{% static 'dist/assets/images/Written soutions.png' %}" class="lazyload img-fluid border-radius-12" alt="written soution image">
                      <h5 class="font pt-2">Written Solution</h5>
                      <p class="sec-para">Get assistance with assignments, essays, report, case study, and more.</p>
                 </div>
             </div>
             <div class="col-md-4 order-md-2 order-1 vl">
                <div>
-                    <img src="{% static 'dist/assets/images/library.png' %}"  class="img-fluid border-radius-12" alt="homework library image">
+                    <img data-src="{% static 'dist/assets/images/library.png' %}"  class="lazyload img-fluid border-radius-12" alt="homework library image">
                      <h5 class="font pt-2">Homework Library</h5>
                      <p class="sec-para">View the finest collection of homework help and assignment solutions etc..</p>
                 </div>
             </div>
              <div class="col-md-4 order-md-2 order-1 ">
                 <div>
-                    <img src="{% static 'dist/assets/images/Client rating.png' %}" class="img-fluid border-radius-12" alt="/client rating image">
+                    <img data-src="{% static 'dist/assets/images/Client rating.png' %}" class="lazyload img-fluid border-radius-12" alt="/client rating image">
                      <h5 class="font pt-2">Happy Students 4.9/5</h5>
                      <p class="sec-para">Students choose us to get good marks in their academics</p>
                 </div>
@@ -179,7 +179,7 @@
             </div>
             <div class="col-md-6 order-md-2 order-1">
                 <div>
-                    <img src="{% static 'dist/assets/images/Untitled-1-03.png' %}"class="img-fluid border-radius-12" width="470" alt="homework solution image">
+                    <img data-src="{% static 'dist/assets/images/Untitled-1-03.png' %}" class="lazyload img-fluid border-radius-12" width="470" alt="homework solution image">
                 </div>
             </div>
     </div>
@@ -189,7 +189,7 @@
     <div class="row">
         <div class="col-md-6">
             <div>
-            <img src="{% static 'dist/assets/images/Untitled-1-02.png' %}" class="img-fluid border-radius-12" alt="homework help for all strean image">
+            <img data-src="{% static 'dist/assets/images/Untitled-1-02.png' %}" class="lazyload img-fluid border-radius-12" alt="homework help for all strean image">
             </div>
         </div>
          <div class="col-md-6 ml-auto d-flex align-items-center mt-4 mt-md-0">
@@ -217,7 +217,7 @@ You can find the number of sections which are generally designed for you to get 
             </div>
             <div class="col-md-6 order-md-2 order-1">
                 <div>
-                    <img src="{% static 'dist/assets/images/Untitled-1-04.png' %}"class="img-fluid border-radius-12" alt="avail online help image">
+                    <img data-src="{% static 'dist/assets/images/Untitled-1-04.png' %}" class="lazyload img-fluid border-radius-12" alt="avail online help image">
                 </div>
             </div>
     </div>
@@ -236,7 +236,7 @@ You can find the number of sections which are generally designed for you to get 
             <div class="item  bg-white">
                 <div class="main-div shadow mt-4 h-350 border-radius-5" style="height:350px;">
                     <a href="{% url 'documents:document-view' results.slug %}" class="h-350 d-inline-block w-100">
-                        <img class="card-img-top" src="{{results.cover_image}}" alt="documents image">
+                        <img class="lazyload card-img-top" data-src="{{results.cover_image}}" alt="documents image">
                  </a>
                  <a href="{% url 'documents:document-view' results.slug %}" class="text-decoration-none">
                  <div class="card-body inner-div bg-light">
@@ -275,7 +275,7 @@ You can find the number of sections which are generally designed for you to get 
                           <div class="col-md-6 d-flex pt-5 pl-4" style="width:50%">
                    <div class="pl-1"><h5>Clark</h5><p>Student</p><img class="image-radius aligncenter" src="{% static 'dist/assets/images/stars.png' %}" style="width:80%; padding:0px" alt="client stars image"></div>
                           </div>
-                        <div class="col-md-6 p-5 customer-image" style="width:50%"><img src="{% static 'dist/assets/images/Untitled-1-01.png' %}" class="border-radius-12 float-right" style="width:100px; height:100px;" alt="client image"></div>
+                        <div class="col-md-6 p-5 customer-image" style="width:50%"><img data-src="{% static 'dist/assets/images/Untitled-1-01.png' %}" class="lazyload border-radius-12 float-right" style="width:100px; height:100px;" alt="client image"></div>
                     </div>
                         <p class="sec-para customer-block text-justify">Homework and assignments solutions at Desklib.com are the best. I personally feel that they have such an excellent collection of study resources. I'll surely visit this place again.</p>
 
@@ -287,7 +287,7 @@ You can find the number of sections which are generally designed for you to get 
                           <div class="col-md-6 d-flex pt-5 pl-4" style="width:50%">
                    <div class="pl-1"><h5>Charlie</h5><p>Student</p><img class="image-radius aligncenter" src="{% static 'dist/assets/images/stars.png' %}" style="width:80%; padding:0px" alt="client stars image"></div>
                           </div>
-                        <div class="col-md-6 p-5 customer-image" style="width:50%"><img src="{% static 'dist/assets/images/Untitled-1-02-2.png' %}" class="border-radius-12 float-right" style="width:100px; height:100px;" alt="client image"></div>
+                        <div class="col-md-6 p-5 customer-image" style="width:50%"><img data-src="{% static 'dist/assets/images/Untitled-1-02-2.png' %}" class="lazyload border-radius-12 float-right" style="width:100px; height:100px;" alt="client image"></div>
                     </div>
                         <p class="sec-para customer-block text-justify">I would like to thank Desklib library. That's really a great platform for online study resources. I got the best solutions for my assignment.</p>
 
@@ -299,7 +299,7 @@ You can find the number of sections which are generally designed for you to get 
                           <div class="col-md-6 d-flex pt-5 pl-4" style="width:50%">
                    <div class="pl-1"><h5>Morris</h5><p>Student</p><img class="image-radius aligncenter" src="{% static 'dist/assets/images/stars.png' %}" style="width:80%; padding:0px" alt="client stars image"></div>
                           </div>
-                        <div class="col-md-6 p-5 customer-image" style="width:50%"><img src="{% static 'dist/assets/images/Untitled-1-03-2.png' %}" class="border-radius-12 float-right" style="width:100px; height:100px;" alt="client image"></div>
+                        <div class="col-md-6 p-5 customer-image" style="width:50%"><img data-src="{% static 'dist/assets/images/Untitled-1-03-2.png' %}" class="lazyload border-radius-12 float-right" style="width:100px; height:100px;" alt="client image"></div>
                     </div>
                         <p class="sec-para customer-block text-justify">I was looking for quality provided platform for academic assistance. I am very happy with the solutions to the content of assignments. keep growing. </p>
 
@@ -333,6 +333,7 @@ You can find the number of sections which are generally designed for you to get 
 {% block extra_js %}
 <script src='{% static "src/js/jquery.ui.widget.js" %}'></script>
 <script src='{% static "src/js/jquery.fileupload.js" %}' ></script>
+<script src='{% static "src/js/lazysizes.js" %}' async></script>
 
 
 <script>
