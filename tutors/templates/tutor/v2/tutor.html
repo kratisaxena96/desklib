@@ -1,0 +1,195 @@
+{% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% load meta %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/darkly/bootstrap.min.css">
+
+{% block content %}
+<div class="pg_tutor">
+    <section class="bg_banner_tutor">
+        <div class="container">
+            <div class="row d-flex">
+                <div class="col-md-12 col-lg-6 order-md-1 order-2">
+                    <div class="tutorbannercontent">
+                        <h1 class="blue-theme mb-4"> Find me a tutor </h1>
+                        <p class="Roboto-Regular pt-4"> Avail The Best Online Homework Solutions & Secure Good Grades </p>
+
+                        <form method="post" id="question-form" class="tutor_findtutorform mt-4" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="d-flex">
+                                <div class="form-field-design">
+								    {{form.subjects}}
+								</div>
+<!--                                <select class="form-control shadow">-->
+<!--                                    <option> Programming </option>-->
+<!--                                    <option> Business Management </option>-->
+<!--                                    <option> Engineering </option>-->
+<!--                                    <option> Science </option>-->
+<!--                                </select>-->
+                                <button class="btn btn_blue btn_find"> Find </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-6 order-md-2 order-1">
+                    <div class="">
+                        <img src="{% static 'src/assets/images/v2/boy_student.png' %}" alt="Tutor" class="img-fluid" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="hwitworks desktop_screen_show">
+        <div class="">
+            <div class="container">
+                <h1 class="text-center mb-4"> How it works </h1>
+                <div class="row">
+                    <div class="col-md-12 col-lg-6 mt-4">
+                        <div class="hwitworks_img text-center">
+                            <img src="{% static 'src/assets/images/v2/tutor_needhelp.svg' %}" alt="Tutor" class="img-fluid" />
+                        </div>
+                        <div class=""></div>
+                    </div>
+                    <div class="col-md-12 col-lg-6 mt-4">
+                        <div class="hwitworks_content">
+                            <h3 class="mb-2"> <span> 1 </span> What kind of help do you need? </h3>
+                            <p> Do you have one-time question or need a repeating session with a tutor? Start with figuring out what kind of help you need. </p>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12 col-lg-6 mt-4">
+                        <div class="hwitworks_content">
+                            <h3 class="mb-2"> <span> 2 </span> Find a tutor </h3>
+                            <p> We’ll match you with tutors who specialize in your subject areas, and are ready to help you now. </p>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-6 mt-4">
+                        <div class="hwitworks_img text-center">
+                            <img src="{% static 'src/assets/images/v2/tutor_findtutor.svg' %}" alt="Tutor" class="img-fluid" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-6 mt-4">
+                        <div class="hwitworks_img text-center">
+                            <img src="{% static 'src/assets/images/v2/tutor_getlesson.svg' %}" alt="Tutor" class="img-fluid" />
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-6 mt-4">
+                        <div class="hwitworks_content">
+                            <h3 class="mb-2"> <span> 3 </span> Get a lesson </h3>
+                            <p> Work with tutors in a live lesson space including a virtual whiteboard, or chat via text, audio or video. </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mobview_hwitworks mobile_screen_show">
+        <div class="">
+            <div class="container">
+                <h1 class="text-center mb-4"> How it works </h1>
+                <div class="row mx-auto my-auto">
+                    <div id="mobile_screen_show" class="carousel slide w-100" data-ride="carousel">
+                        <div class="carousel-inner w-100" role="listbox">
+                            <div class="carousel-item active">
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="mobview_hwitworks_content card shadow border-0 border-radius-40">
+                                        <img class="img-fluid" src="{% static 'src/assets/images/v2/tutor_needhelp.svg' %}">
+                                        <span> 1 </span>
+                                        <h3 class="mb-2"> What kind of help do you need? </h3>
+                                        <p> Do you have one-time question or need a repeating session with a tutor? Start with figuring out what kind of help you need. </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="mobview_hwitworks_content card shadow border-0 border-radius-40">
+                                        <img class="img-fluid" src="{% static 'src/assets/images/v2/tutor_needhelp.svg' %}">
+                                        <span> 2 </span>
+                                        <h3 class="mb-2"> Find a tutor </h3>
+                                        <p> We’ll match you with tutors who specialize in your subject areas, and are ready to help you now. </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="mobview_hwitworks_content card shadow border-0 border-radius-40">
+                                        <img class="img-fluid" src="{% static 'src/assets/images/v2/tutor_needhelp.svg' %}">
+                                        <span> 3 </span>
+                                        <h3 class="mb-2"> Get a lesson </h3>
+                                        <p> Work with tutors in a live lesson space including a virtual whiteboard, or chat via text, audio or video. </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev w-auto" href="#mobile_screen_show" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon bg_blue" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next w-auto" href="#mobile_screen_show" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon bg_blue" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        $('#mobile_screen_show').carousel({
+            interval: 10000
+        })
+
+        $('.carousel .carousel-item').each(function() {
+            var minPerSlide = 3;
+            var next = $(this).next();
+            if (!next.length) {
+                next = $(this).siblings(':first');
+            }
+            next.children(':first-child').clone().appendTo($(this));
+
+            for (var i = 0; i < minPerSlide; i++) {
+                next = next.next();
+                if (!next.length) {
+                    next = $(this).siblings(':first');
+                }
+
+                next.children(':first-child').clone().appendTo($(this));
+            }
+        });
+    </script>
+
+    <section class="bg_blue_getstarted">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-lg-6 mt-4 mb-4">
+                    <div class="getstarted_content">
+                        <h1 class="mb-4"> Let’s get started </h1>
+                        <p class="mb-4"> Work with tutors in a live lesson space including a virtual whiteboard, or chat via text, audio or video. </p>
+
+                        <a class="" href="{% url 'tutors:tutor-plans' %}" >
+                            <button class="btn btn_common btn_white mt-4"> View Plans </button>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-6 mt-4 mb-4">
+                    <div class="getstarted_img text-center">
+                        <img src="{% static 'src/assets/images/v2/get_started.svg' %}" alt="Tutor" class="img-fluid" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    {% block reviews %}
+        {% include 'desklib/reviews.html' %}
+    {% endblock %}
+</div>
+{% endblock %}

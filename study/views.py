@@ -23,7 +23,7 @@ class StudyPageView(MetadataMixin, JsonLdContextMixin, SearchView):
                 'mechanical engineering homework help', 'humanities homework help', 'nursing homework help',
                 'law homework help', 'tort law homework help', 'psychology homework help', '24 homework help',
                 'urgent homework help']
-    template_name = "study/study_list.html"
+    template_name = "study/v2/study_list.html"
 
     structured_data = {
         "@type": "Organization",

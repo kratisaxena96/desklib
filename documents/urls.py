@@ -2,7 +2,7 @@ from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include
 from django.conf.urls import url
 from .views import DocumentView, DocumentDownloadView, DownloadSuccessView, PageViewsFinishView, \
-    DocumentDownloadDetailView, DocumentPayment, PaypalDocumentRedirect, DocumentSearchDescription
+    DocumentDownloadDetailView, DocumentPayment, PaypalDocumentRedirect, DocumentSearchDescription, PaymentOptionView
 from django.views.generic import TemplateView
 # from .sitemaps import all_sitemaps as sitemaps
 
@@ -16,6 +16,7 @@ urlpatterns = [
     path('extend/subscription', PageViewsFinishView.as_view(), name='pageviews-finish-view'),
     path('paypal/redirect/<slug:slug>', PaypalDocumentRedirect.as_view(), name='document-redirect'),
     path('payment/', DocumentPayment.as_view(), name='document-pay'),
+    path('payment-options/', PaymentOptionView.as_view(), name='payment-options'),
     path('<slug:slug>/', DocumentView.as_view(), name='document-view'),
 ]
 

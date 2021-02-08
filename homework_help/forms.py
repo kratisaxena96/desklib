@@ -37,7 +37,7 @@ class CommentForm(forms.ModelForm):
 
 
 class QuestionForm(forms.ModelForm):
-    question = forms.CharField(label='Question', widget=forms.Textarea(attrs={'placeholder':"Type Your Question here...", 'class': "form-design fade well", 'id': "dropzone", 'rows':14}), required=True)
+    question = forms.CharField(label='Question', widget=forms.Textarea(attrs={'placeholder': "Type Your Question here...", 'class': "form-design fade well", 'id': "dropzone", 'rows': 14}), required=True)
     subjects =forms.ModelChoiceField(empty_label='Eg. Maths, Science',queryset=Subject.objects.filter(is_parent=False), label='Subject', widget=forms.Select(attrs={'class':"form-field-design js-example-basic-multiple", }), required=True)
     file =forms.FileField(label='Upload Files', widget=forms.FileInput(attrs={'class': "form-field-design", 'id': "fileupload", 'data-num':"1"}), required=False)
     solution_deadline = forms.DateField(label='Deadline',
@@ -50,7 +50,7 @@ class QuestionForm(forms.ModelForm):
 
 
 class SolutionForm(forms.ModelForm):
-    solution = forms.CharField(label='Question', widget=forms.Textarea(attrs={'placeholder':"Type Your Question here...", 'class': "form-control form-design ", 'id': "dropzone" ,'rows':"5"}), required=True)
+    solution = forms.CharField(label='Question', widget=forms.Textarea(attrs={'placeholder': "Type Your Question here...", 'class': "form-control form-design ", 'id': "dropzone", 'rows': "4"}), required=True)
 
     class Meta:
         model = Answers
@@ -63,7 +63,6 @@ class QuestionHomeForm(forms.ModelForm):
     file =forms.FileField(label='Files', widget=forms.FileInput(attrs={'class': "form-control", 'id': "fileupload",'data-num':"1"}), required=False)
     solution_deadline = forms.DateField(label='Deadline',
         widget=widgets.AdminDateWidget(attrs={'type': 'date', 'placeholder': "Date", 'class': "form-field-design"}))
-
 
     class Meta:
         model = Question

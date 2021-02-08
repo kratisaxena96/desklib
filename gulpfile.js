@@ -94,7 +94,7 @@ gulp.task('copy-js', function(){
 //compress images
 
 gulp.task('minify-image', function () {
-	gulp.src('desklib/static/src/assets/images/*')
+	gulp.src('desklib/static/src/assets/images/v2/*')
 		.pipe(gulpimagemin([
 		    gulpimagemin.gifsicle({interlaced: true}),
 		    gulpimagemin.jpegtran({progressive: true}),
@@ -106,7 +106,7 @@ gulp.task('minify-image', function () {
 		        ]
 		    })
 		]))
-		.pipe(gulp.dest('desklib/static/dist/assets/images'))
+		.pipe(gulp.dest('desklib/static/dist/assets/images/v2'))
 });
 
 

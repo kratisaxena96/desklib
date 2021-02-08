@@ -12,7 +12,7 @@ from django.db.models import Count
 
 
 class SubjectsPageView(MetadataMixin, JsonLdContextMixin, ListView):
-    template_name = "subjects/subject.html"
+    template_name = "subjects/v2/subject.html"
     model = Subject
 
 
@@ -31,7 +31,7 @@ class SubjectsPageView(MetadataMixin, JsonLdContextMixin, ListView):
 
 
 class ParentSubjectPageView(MetadataMixin, JsonLdContextMixin, DetailView):
-    template_name = "subjects/parent_subject.html"
+    template_name = "subjects/v2/parent_subject.html"
     model = Subject
 
     def get_context_data(self, **kwargs):
@@ -66,7 +66,7 @@ class ParentSubjectPageView(MetadataMixin, JsonLdContextMixin, DetailView):
 
 
 class ChildSubjectPageView(MetadataMixin, JsonLdContextMixin, DetailView):
-    template_name = "subjects/child_subject.html"
+    template_name = "subjects/v2/child_subject.html"
     model = Subject
 
     def get_context_data(self, **kwargs):

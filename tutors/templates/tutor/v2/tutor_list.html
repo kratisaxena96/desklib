@@ -1,0 +1,247 @@
+{% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% load meta %}
+
+{% block content %}
+<div class="pg_tutorlist">
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-transparent mb-0">
+                            <li class="breadcrumb-item"><a href="/" class="text-muted">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'tutors:tutor' %}" class="text-muted">Tutor</a></li>
+                            <li class="breadcrumb-item active text-dark font-weight-bold" aria-current="page">Tutors List</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg_banner_tutorlist">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-lg-6">
+                    <div class="bg_banner_tutorlist_img">
+                        <img src="{% static 'src/assets/images/v2/girl_student_a.png' %}" alt="Tutor" class="img-fluid" />
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-6">
+                    <div class="bg_banner_tutorlist_content">
+                        <h1 class="blue-theme Roboto-Bold mb-4"> Tutors On Codementor </h1>
+                        <p class="Roboto-Regular pt-4"> Not to be confused with javascript. Java is a general purpose language that is widely used for enterprise and android applications. Java's syntax and concept can be tricky, and we have java tutors available now to help you with your programming questions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="tutorlist_profile">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-lg-4">
+                    <div class="tutors_profile_box shadow">
+                        <div class="d-flex">
+                            <div class="tutorimg">
+                                <img src="{% static 'src/assets/images/v2/tutorimg.png' %}" alt="Tutor" class="" />
+                            </div>
+                            <div class="tutorinfo pl-4">
+                                <h4 class="font-weight-bold"> Tanvi Roy </h4>
+                                <small class="font-weight-bold"> Fullstack Developer </small>
+                                <p> 3.3 &nbsp; <img src="{% static 'src/assets/images/v2/star_rating.svg' %}" alt="Tutor" class="" /> </p>
+                            </div>
+                        </div>
+                        <div class="tutorintro pt-4">
+                            <p class="text-justify"> Tanvi Roy is an experienced fullstack developer who is excited about complex problems. Her passion is the web and strives to help peers build blazing fast apps for the internet. She is able to take..</p>
+
+                            <ul class="tutor_skills">
+                                <li> C++ </li>
+                                <li> C# </li>
+                                <li> MySQL </li>
+                                <li> Python </li>
+                                <li> Ruby/Rail </li>
+                                <li> Android </li>
+                            </ul>
+
+                        </div>
+                        <div class="btn_action text-center pt-4">
+                            <a href="{% url 'tutors:tutor-detail' %}">
+                                <button class="btn btn_common btn_view"> View Profile </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-4">
+                    <div class="tutors_profile_box shadow">
+                        <div class="d-flex">
+                            <div class="tutorimg">
+                                <img src="{% static 'src/assets/images/v2/tutorimg.png' %}" alt="Tutor" class="" />
+                            </div>
+                            <div class="tutorinfo pl-4">
+                                <h4 class="font-weight-bold"> Tanvi Roy </h4>
+                                <small class="font-weight-bold"> Fullstack Developer </small>
+                                <p> 3.3 &nbsp; <img src="{% static 'src/assets/images/v2/star_rating.svg' %}" alt="Tutor" class="" /> </p>
+                            </div>
+                        </div>
+                        <div class="tutorintro pt-4">
+                            <p class="text-justify"> Tanvi Roy is an experienced fullstack developer who is excited about complex problems. Her passion is the web and strives to help peers build blazing fast apps for the internet. She is able to take..</p>
+
+                            <ul class="tutor_skills">
+                                <li> C++ </li>
+                                <li> C# </li>
+                                <li> MySQL </li>
+                                <li> Python </li>
+                                <li> Ruby/Rail </li>
+                                <li> Android </li>
+                            </ul>
+
+                        </div>
+                        <div class="btn_action text-center pt-4">
+                            <a href="{% url 'tutors:tutor-detail' %}">
+                                <button class="btn btn_common btn_view"> View Profile </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-4">
+                    <div class="tutors_profile_box shadow">
+                        <div class="d-flex">
+                            <div class="tutorimg">
+                                <img src="{% static 'src/assets/images/v2/tutorimg.png' %}" alt="Tutor" class="" />
+                            </div>
+                            <div class="tutorinfo pl-4">
+                                <h4 class="font-weight-bold"> Tanvi Roy </h4>
+                                <small class="font-weight-bold"> Fullstack Developer </small>
+                                <p> 3.3 &nbsp; <img src="{% static 'src/assets/images/v2/star_rating.svg' %}" alt="Tutor" class="" /> </p>
+                            </div>
+                        </div>
+                        <div class="tutorintro pt-4">
+                            <p class="text-justify"> Tanvi Roy is an experienced fullstack developer who is excited about complex problems. Her passion is the web and strives to help peers build blazing fast apps for the internet. She is able to take..</p>
+
+                            <ul class="tutor_skills">
+                                <li> C++ </li>
+                                <li> C# </li>
+                                <li> MySQL </li>
+                                <li> Python </li>
+                                <li> Ruby/Rail </li>
+                                <li> Android </li>
+                            </ul>
+
+                        </div>
+                        <div class="btn_action text-center pt-4">
+                            <a href="{% url 'tutors:tutor-detail' %}">
+                                <button class="btn btn_common btn_view"> View Profile </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-lg-4">
+                    <div class="tutors_profile_box shadow">
+                        <div class="d-flex">
+                            <div class="tutorimg">
+                                <img src="{% static 'src/assets/images/v2/tutorimg.png' %}" alt="Tutor" class="" />
+                            </div>
+                            <div class="tutorinfo pl-4">
+                                <h4 class="font-weight-bold"> Tanvi Roy </h4>
+                                <small class="font-weight-bold"> Fullstack Developer </small>
+                                <p> 3.3 &nbsp; <img src="{% static 'src/assets/images/v2/star_rating.svg' %}" alt="Tutor" class="" /> </p>
+                            </div>
+                        </div>
+                        <div class="tutorintro pt-4">
+                            <p class="text-justify"> Tanvi Roy is an experienced fullstack developer who is excited about complex problems. Her passion is the web and strives to help peers build blazing fast apps for the internet. She is able to take..</p>
+
+                            <ul class="tutor_skills">
+                                <li> C++ </li>
+                                <li> C# </li>
+                                <li> MySQL </li>
+                                <li> Python </li>
+                                <li> Ruby/Rail </li>
+                                <li> Android </li>
+                            </ul>
+
+                        </div>
+                        <div class="btn_action text-center pt-4">
+                            <a href="{% url 'tutors:tutor-detail' %}">
+                                <button class="btn btn_common btn_view"> View Profile </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-4">
+                    <div class="tutors_profile_box shadow">
+                        <div class="d-flex">
+                            <div class="tutorimg">
+                                <img src="{% static 'src/assets/images/v2/tutorimg.png' %}" alt="Tutor" class="" />
+                            </div>
+                            <div class="tutorinfo pl-4">
+                                <h4 class="font-weight-bold"> Tanvi Roy </h4>
+                                <small class="font-weight-bold"> Fullstack Developer </small>
+                                <p> 3.3 &nbsp; <img src="{% static 'src/assets/images/v2/star_rating.svg' %}" alt="Tutor" class="" /> </p>
+                            </div>
+                        </div>
+                        <div class="tutorintro pt-4">
+                            <p class="text-justify"> Tanvi Roy is an experienced fullstack developer who is excited about complex problems. Her passion is the web and strives to help peers build blazing fast apps for the internet. She is able to take..</p>
+
+                            <ul class="tutor_skills">
+                                <li> C++ </li>
+                                <li> C# </li>
+                                <li> MySQL </li>
+                                <li> Python </li>
+                                <li> Ruby/Rail </li>
+                                <li> Android </li>
+                            </ul>
+
+                        </div>
+                        <div class="btn_action text-center pt-4">
+                            <a href="{% url 'tutors:tutor-detail' %}">
+                                <button class="btn btn_common btn_view"> View Profile </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-4">
+                    <div class="tutors_profile_box shadow">
+                        <div class="d-flex">
+                            <div class="tutorimg">
+                                <img src="{% static 'src/assets/images/v2/tutorimg.png' %}" alt="Tutor" class="" />
+                            </div>
+                            <div class="tutorinfo pl-4">
+                                <h4 class="font-weight-bold"> Tanvi Roy </h4>
+                                <small class="font-weight-bold"> Fullstack Developer </small>
+                                <p> 3.3 &nbsp; <img src="{% static 'src/assets/images/v2/star_rating.svg' %}" alt="Tutor" class="" /> </p>
+                            </div>
+                        </div>
+                        <div class="tutorintro pt-4">
+                            <p class="text-justify"> Tanvi Roy is an experienced fullstack developer who is excited about complex problems. Her passion is the web and strives to help peers build blazing fast apps for the internet. She is able to take..</p>
+
+                            <ul class="tutor_skills">
+                                <li> C++ </li>
+                                <li> C# </li>
+                                <li> MySQL </li>
+                                <li> Python </li>
+                                <li> Ruby/Rail </li>
+                                <li> Android </li>
+                            </ul>
+
+                        </div>
+                        <div class="btn_action text-center pt-4">
+                            <a href="{% url 'tutors:tutor-detail' %}">
+                                <button class="btn btn_common btn_view"> View Profile </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% block reviews %}
+        {% include 'desklib/reviews.html' %}
+    {% endblock %}
+</div>
+{% endblock %}

@@ -2321,3 +2321,224 @@ padding-right:20px !important;
 }
 }
 
+
+/*---------- C O M M O N  C S S  S T A R T ----------*/
+.btn {
+    padding: 1rem 3rem;
+    outline: none;
+    -webkit-border-radius: 2rem;
+    -moz-border-radius: 2rem;
+    -ms-border-radius: 2rem;
+    border-radius: 2rem;
+}
+
+/*---------- H O M E W O R K  H E L P  P A G E  C S S  S T A R T ----------*/
+.left_box {
+
+}
+
+.task_box {
+    padding: 2rem 3rem;
+    border: 1px solid #405fbd;
+    -webkit-border-radius: 2rem;
+    -moz-border-radius: 2rem;
+    -ms-border-radius: 2rem;
+    border-radius: 2rem;
+}
+ul.assgnmnt_count {
+    display: flex;
+    padding-left: 0;
+}
+ul.assgnmnt_count li {
+    padding: 1rem 2rem;
+    list-style: none;
+    border-right: 1px solid lightgrey;
+}
+
+.findatutor {
+    background-color: #f7f7f8;
+    padding: 2rem 3rem;
+    -webkit-border-radius: 2rem;
+    -moz-border-radius: 2rem;
+    -ms-border-radius: 2rem;
+    border-radius: 2rem;
+}
+.findatutor h3 {
+    color: #405fbd;
+}
+
+.btn_blue {
+    background-color: #405fbd;
+    color: #fff;
+    outline: none;
+}
+
+
+.authentic {
+    padding: 2rem 3rem;
+    border: 1px solid #405fbd;
+    -webkit-border-radius: 2rem;
+    -moz-border-radius: 2rem;
+    -ms-border-radius: 2rem;
+    border-radius: 2rem;
+}
+
+
+
+
+
+
+/*---------- T U T O R S  P A G E  C S S  S T A R T ----------*/
+.tutorbannercontent {
+    padding: 12rem 1rem;
+}
+.tutors_profile_box {
+    padding: 2rem 3rem;
+    margin: 1rem 0;
+    border: 1px solid #ffffff;
+    -webkit-border-radius: 2rem;
+    -moz-border-radius: 2rem;
+    -ms-border-radius: 2rem;
+    border-radius: 2rem;
+}
+.tutors_profile_box:hover {
+    padding: 2rem 3rem;
+    border: 1px solid #405fbd;
+    -webkit-border-radius: 2rem;
+    -moz-border-radius: 2rem;
+    -ms-border-radius: 2rem;
+    border-radius: 2rem;
+}
+ul.tutor_skills {
+    padding-left: 0;
+    flex-wrap: wrap;
+    display: flex;
+}
+ul.tutor_skills li {
+    background-color: #f7f7f8;
+    color: #000;
+    padding: 0.5rem 1rem;
+    margin: .5rem;
+    list-style: none;
+    -webkit-border-radius: 2rem;
+    -moz-border-radius: 2rem;
+    -ms-border-radius: 2rem;
+    border-radius: 2rem;
+}
+.btn_view {
+    color: #405fbd;
+    padding: 1rem 3rem;
+    border: 1px solid #405fbd;
+}
+.btn_view:hover {
+    background-color: #405fbd;
+    color: #fff;
+    padding: 1rem 3rem;
+    border: 1px solid #405fbd;
+    -webkit-border-radius: 2rem;
+    -moz-border-radius: 2rem;
+    -ms-border-radius: 2rem;
+    border-radius: 2rem;
+
+}
+
+/*---------- A B O U T  T U T O R  P A G E  C S S  S T A R T ----------*/
+.abouttutor, .tutorexpertise {
+    padding: 1rem 2rem;
+    border: 1px solid blue;
+}
+
+/*---------- P L A N  C S S  S T A R T ----------*/
+.plan_box, .plan_box_upper, .plan_box_lower {
+    -webkit-border-radius: 2rem;
+    -moz-border-radius: 2rem;
+    -ms-border-radius: 2rem;
+    border-radius: 2rem;
+}
+.plan_box_upper {
+    background-color: #f5f5f6;
+    text-align: center;
+    padding: 1rem;
+}
+.plan_box_lower {
+    padding: 1rem;
+}
+.btn_magenta {
+    background-color: #fcaf3a;
+    color: #fff;
+}
+.btn_orange {
+    background-color: #fd5421;
+    color: #fff;
+}
+.toggle_plans .active {
+    background: #405fbd;
+    color: #fff !important;
+    padding: 1rem 2rem;
+    -webkit-border-radius: 2rem;
+    -moz-border-radius: 2rem;
+    -ms-border-radius: 2rem;
+    border-radius: 2rem;
+}
+.plan_box_lower ul {}
+.plan_box_lower ul li {
+    list-style: none;
+}
+.toggle_plans li:nth-child(odd) {
+    width: 50%;
+    text-align: right;
+    padding: 1rem 2rem;
+}
+
+.toggle_plans li:nth-child(even) {
+    width: 50%;
+    text-align: left;
+    padding: 1rem 2rem;
+}
+/* li.active a{
+    color: #fff;
+} */
+
+
+/*---------- M E D I A  Q U E R I E S   S T A R T S----------*/
+/*:::::::::: Bootstrap 4 breakpoints ::::::::::*/
+
+/*
+Extra small devices (portrait phones, less than 576px)
+No media query since this is the default in Bootstrap because it is "mobile first"
+*/
+
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+
+}
+
+/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+@media (min-width: 768px) {
+
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
+}
+
+
+
+/*:::::::::: Custom media queries ::::::::::*/
+
+/* Set width to make card deck cards 100% width */
+@media (max-width: 950px) {
+
+}
+
+
+
+
+

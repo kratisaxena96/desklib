@@ -1,0 +1,954 @@
+{% extends "desklib/base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load countries %}
+{% block head_title %}{% trans "payment" %}{% endblock %}
+{% block content %}
+{% block messages %}
+{% if messages %}
+<div class="pg_docpaymwnt">
+    <div class="">
+        <ul class="notification-right">
+            {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>{{message}}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    {% endblock %}
+    <section class="pt-5 pb-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12 col-lg-12 text-center mb-4">
+                    <h1> Choose Your Plan </h1>
+                    <p class="pb-4"> Get the help you need, or your money back </p>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="doc-tab">
+                        <ul class="nav nav-tabs border border-radius-40" id="myTab" role="tablist">
+                            <li class="nav-item col-6 text-center pl-0 pr-0">
+                                <a class="nav-link active pt-3 pb-3 blue-theme border-radius-40" id="home-tab" data-toggle="tab" href="#home"
+                                   role="tab" aria-controls="home" aria-selected="true"> Paid Plan </a>
+                            </li>
+                            <li class="nav-item col-6 text-center pl-0 pr-0">
+                                <a class="nav-link pt-3 pb-3 blue-theme border-radius-40" id="profile-tab" data-toggle="tab" href="#profile"
+                                   role="tab" aria-controls="profile" aria-selected="false"> Free Plan </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--				  <div class="error-messages text-center pt-5" style="display:none; color:red;"></div>-->
+                    <div class="tab-content pt-3 pb-3 border-radius-5" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <section class="pt-5" id="check">
+                                <div class="container">
+                                    <div class="row">
+                                        {% for plan in plan_qs %}
+                                        {% if plan.is_pay_per_download %}
+                                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 crd justify-content-center parent md-margin-30px-bottom wow fadeInUp">
+                                            <a href="#check">
+                                                <div class="docs_plan_box shadow mt-4">
+                                                    <div class="docs_plan_box_upper pt-4 pl-2 pr-2 pb-4">
+                                                        <div class=" pl-2 pr-2">
+                                                            <p class="font-weight-bold"> Per Document Plan </p>
+                                                            <h1 class="font-weight-bold"> $ {{ plan.price }} </h1>
+                                                            <p><small> /{{ plan.days }}days </small>
+                                                        </div>
+
+                                                        <div class="btn_action text-center pt-4 pb-4">
+                                                            <a href='{% url "documents:payment-options" %}'> <button class="btn btn_common btn_magenta"> Get Started </button> </a>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="docs_plan_box_lower pt-4 pl-2 pr-2 pb-4">
+                                                        <ul class="pl-0 pl-4 pr-4">
+                                                            <li> <i class="fas fa-check-square check_yellow"></i> 1 Document view </li>
+                                                            <li> <i class="fas fa-check-square check_yellow"></i> 1 Document Download </li>
+                                                            <li> <i class="fas fa-check-square check_yellow"></i> 1 Lesson </li>
+                                                            <li> <i class="fas fa-check-square check_yellow"></i> Subjects Available </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                {% comment %}
+                                                <div class="card mb-4 payment-card-box">
+                                                    <div class="bg-deep-blue p-2 text-white top-radius-bor head-font"> Pay Per Document </div>
+                                                    <label class="d-block label mt-2">
+                                                        <div class="card-body p-4">
+                                                            <input class="selected_plan" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}" style="display:none;">
+                                                            <h5>{{ plan }}</h5>
+                                                            <h6 class="mb-1 mt-2 plan-content mb-3">Best value for you</h6>
+
+                                                            <div class="plan-price p-2"><sup>$</sup>{{ plan.price }}<span>/{{ plan.days }}days</span>
+                                                                <hr style="width:80%;">
+                                                            </div>
+                                                            <ul class="list-style-non text-left list-font">
+                                                                <li><strong>Views: </strong> {{plan.view_limit}}</li>
+                                                                <li><strong>Downloads: </strong>{{ plan.download_limit }}
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                                {% endcomment %}
+                                            </a>
+                                        </div>
+                                        {% endif %}
+                                        {% endfor %}
+
+
+                                        {% for plan in plan_qs %}
+                                        {% if not plan.is_pay_per_download %}
+                                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 crd md-margin-30px-bottom wow fadeInUp justify-content-center parent"
+                                             data-wow-delay="0.2s">
+                                            <a href="#check">
+                                                <div class="docs_plan_box shadow mt-4">
+                                                    <div class="docs_plan_box_upper pt-4 pl-2 pr-2 pb-4">
+                                                        <div class=" pl-2 pr-2">
+                                                            <p class="font-weight-bold"> Basic Plan </p>
+                                                            <h1 class="font-weight-bold"> $ {{ plan.price }} </h1>
+                                                            <p><small> /{{ plan.days }}days </small>
+                                                        </div>
+
+                                                        <div class="btn_action text-center pt-4 pb-4">
+                                                            <button class="btn btn_common btn_magenta"> Get Started </button>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="docs_plan_box_lower pt-4 pl-2 pr-2 pb-4">
+                                                        <ul class="pl-0 pl-4 pr-4">
+                                                            <li> <i class="fas fa-check-square check_yellow"></i> 1 Document view </li>
+                                                            <li> <i class="fas fa-check-square check_yellow"></i> 1 Document Download </li>
+                                                            <li> <i class="fas fa-check-square check_yellow"></i> 1 Lesson </li>
+                                                            <li> <i class="fas fa-check-square check_yellow"></i> Subjects Available </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                {% comment %}
+                                                <div class="card mb-4 payment-card-box">
+                                                    <label class="d-block label mt-2">
+                                                        <div class="card-body p-4">
+                                                            <input class="selected_plan" type="radio" name="radio"
+                                                                   value="{{ plan.price }}" data-key="{{plan.key}}"
+                                                                   style="display:none;">
+                                                            <h5>{{plan}}</h5>
+                                                            <h6 class="mb-1 mt-2 plan-content mb-3">Top rated plan</h6>
+
+                                                            <div class="plan-price p-2"><sup>$</sup>{{ plan.price }}<span>/{{ plan.days }}days</span>
+                                                                <hr style="width:80%;">
+                                                            </div>
+                                                            <ul class="list-style-non text-left list-font">
+                                                                <li><strong>Views: </strong> {{plan.view_limit}}</li>
+                                                                <li><strong>Downloads: </strong> {{ plan.download_limit }}
+                                                                </li>
+
+                                                            </ul>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                                {% endcomment %}
+                                            </a>
+                                        </div>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                {% comment %}
+                                <form action="{{form.get_endpoint}}" method="post" id="form-check">
+                                    {% csrf_token %}
+                                    {{form}}
+                                    <input id="id_custom" name="custom" type="hidden" value=""/>
+                                    <input id="id_amount" name="amount" type="hidden" value=""/>
+                                    <div class="row justify-content-center pt-5">
+                                        <div class="col-md-9 col-lg-5">
+                                            <p>
+                                                By continuing you agree to the <a href="{% url 'termsofuse' %}">terms &
+                                                conditions</a>, <a href="{% url 'privacypolicy' %}"> privacy policy</a>, <a
+                                                    href="{% url 'academicintegrity' %}">Academic Integrity</a>, <a
+                                                    href="{% url 'honorcode' %}">Honor Code</a> and <a
+                                                    href="{% url 'copyright' %}">Copyright</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center mt-4">
+                                        <div class="col-lg-5 text-center">
+                                            <input type="submit" value="Proceed with Paypal" class="btn btn-bg-theme border-radius-20 text-white px-sm-5 px-4" id="submitButton">
+                                        </div>
+                                    </div>
+                                </form>
+                                {% endcomment %}
+                            </section>
+                        </div>
+
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="docs_plan_box docs_free_plan_box shadow mt-4">
+                                        <div class="docs_plan_box_upper pt-4 pl-2 pr-2 pb-4">
+                                            <div class="d-flex pl-2 pr-2">
+                                                <div class="flex-fill text-left font-weight-bold"> Starter Plan </div>
+                                                <div class="d-flex flex-fill justify-content-end">
+                                                    <h5 class="font-weight-bold"> Free <small> /{{ plan.days }}days </small></h5>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="docs_plan_box_lower pt-4 pl-2 pr-2 pb-4">
+                                            <ul class="pl-0 pl-4 pr-4">
+                                                <li> <i class="fas fa-check-square check_yellow"></i> 1 Document view </li>
+                                                <li> <i class="fas fa-check-square check_yellow"></i> 1 Document Download </li>
+                                            </ul>
+
+                                            <ul class="text-left" style="line-height: 1.8rem;">
+                                                <li>Upload 2 study files ( e.g. assignment, report etc. )</li>
+                                                <li>Don't upload plagiarize content.</li>
+                                                <li>Upload of similar files will lead to rejection.</li>
+                                                <li>Content should not be published on any other website or indexed on
+                                                    search engine.
+                                                </li>
+                                                <li>Content should be grammatically correct.</li>
+                                                <li>Our team will review your files.</li>
+                                                <li>Estimate approval time 24 hours.</li>
+                                                <li>Content should be at least 500 words or more.</li>
+                                                <li>Content should not be copyrighted by anyone.</li>
+                                            </ul>
+
+                                            <div class="d-flex justify-content-end">
+                                                <a href="javascript:void(0)" data-toggle="modal" data-target="#myModal" class="btn text-white btn_common btn_magenta"> Upload File </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            {% comment %}
+                            <div class="row mt-4 mb-3">
+                                <div class="col-sm-12">
+                                    <h5 class="text-center">Great work! you are going to get this file free.</h5>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center parent">
+                                <div class="col-4 col-sm-4 col-md-4 col-lg-4 text-center parent" data-wow-delay="0.2s">
+                                    <div class="card mb-4">
+                                        <label class="d-block label mb-0">
+                                            <div class="card-body p-4">
+                                                <input class="selected_plan" type="radio" name="radio"
+                                                       value="{{ plan.price }}" data-key="{{plan.key}}"
+                                                       style="display:none;">
+                                                <h5>Free Plan</h5>
+                                                <div class="plan-price p-2"><sup>$</sup>0<span>/30days</span>
+                                                    <hr style="width:80%;">
+                                                </div>
+                                                <h6 class="text-left"><strong>Views: </strong> 1</h6>
+                                                <h6 class="text-left"><strong>Downloads: </strong> 1</h6>
+                                                <ul class="text-left pl-1" style="line-height: 1.8rem;">
+                                                    <li>Upload 2 study files ( e.g. assignment, report etc. )</li>
+                                                    <li>Don't upload plagiarize content.</li>
+                                                    <li>Upload of similar files will lead to rejection.</li>
+                                                    <li>Content should not be published on any other website or indexed on
+                                                        search engine.
+                                                    </li>
+                                                    <li>Content should be grammatically correct.</li>
+                                                    <li>Our team will review your files.</li>
+                                                    <li>Estimate approval time 24 hours.</li>
+                                                    <li>Content should be at least 500 words or more.</li>
+                                                    <li>Content should not be copyrighted by anyone.</li>
+                                                </ul>
+
+                                                <!--		 <ul class="list-style-non text-left list-font">-->
+                                                <!--			<li>Upload your study documents (e.g. your assignment solutions, reports, research, dissertation etc)</li>-->
+                                                <!--			<li>Our team will review your uploaded documents.</li>-->
+                                                <!--			<li>If your documents are approved, you will get your document for free.</li>-->
+                                                <!--		</ul>-->
+                                                <!--		 <ul class="list-style-non text-left list-font">-->
+                                                <!--			<li>Content should not be published on any other website or indexed on search engine.</li>-->
+                                                <!--			<li>Content should be grammatically correct. Uploads with grammatical mistakes will be rejected.</li>-->
+                                                <!--			<li>Content should be at least 500 words or more.</li>-->
+                                                <!--			<li>Content should not be copyrighted by anyone.</li>-->
+                                                <!--		</ul>-->
+                                                <div>
+                                                    <a href="javascript:void(0)" data-toggle="modal" data-target="#myModal"
+                                                       class="btn btn-bg-theme border-radius-20 text-white"
+                                                       style="width:60%"> Upload File </a>
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endcomment %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% comment %}
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+            {% endcomment %}
+            <!-- Modal -->
+            <div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">
+                                <img src="{% static 'dist/assets/images/upload_plan_blue.png' %}" class="mr-2" /> Upload Documents
+                            </h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mt-element-step mb-3">
+                                <div class="row step-line">
+                                    {% comment %}
+                                    {% if order.status > 1 %} done {% elif order.status == 1 %} active{% endif %}
+                                    {% endcomment %}
+                                    <div class="col mt-step-col status_1 pt-20 pb-20 active d-block text-center">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div>
+                                                    <div class="mt-step-number m-0 bg-white assigned">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div>
+                                                    <div class="mt-step-title uppercase theme-color-blue">1</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col mt-step-col status_2 pt-20 pb-20 d-block text-center">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div>
+                                                    <div class="mt-step-number m-0 bg-white assigned">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div>
+                                                    <div class="mt-step-title uppercase theme-color-blue">2</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col mt-step-col status_3 pt-20 pb-20 d-block text-center">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div>
+                                                    <div class="mt-step-number m-0 bg-white assigned">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div>
+                                                    <div class="mt-step-title uppercase theme-color-blue">3</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="first-doc status_1_content">
+
+                                <p>Upload first document for document</p>
+                                <form action="" enctype="multipart/form-data" id="upload-form1">
+                                    {% csrf_token %}
+                                    <div class="row mt-3 mb-sm-3">
+                                        <div class="col-sm-4 col-md-4">
+                                            <div class="form-group">
+                                                <label for="id_course_name" class="star"><strong>{{form1.course_name.label}}:</strong></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                {{form1.course_name}}
+                                                <span class="course_name form-text text-danger ">{{form1.course_name.errors}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-sm-3">
+                                        <div class="col-sm-4 col-md-4">
+                                            <div class="form-group">
+                                                <label for="id_course_code"
+                                                       class=""><strong>{{form1.course_code.label}}:</strong></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                {{ form1.course_code }}
+                                                <span class="course_code form-text text-danger ">{{form1.course_code.errors}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-sm-3">
+                                        <div class="col-sm-4 col-md-4">
+                                            <div class="form-group">
+                                                <label for="id_subject"
+                                                       class="star"><strong>{{form1.subjects.label}}:</strong></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                {{ form1.subjects }}
+                                                <span class="subjects form-text text-danger ">{{form1.subjects.errors}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-sm-3">
+                                        <div class="col-sm-4 col-md-4">
+                                            <div class="form-group">
+                                                <label for="id_country"
+                                                       class="star"><strong>{{form1.country.label}}:</strong></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-8">
+                                            <div class="form-group position-relative">
+                                                {% get_countries as countries %}
+                                                <select class="form-control js-example-basic-single" name="country">
+                                                    {% for country in countries %}
+                                                    {% if country.code == location %}
+                                                    <option value="{{ country.code }}" selected>{{ country.name }}</option>
+                                                    {% else %}
+                                                    <option value="{{ country.code }}">{{ country.name }}</option>
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                </select>
+                                                <span class="country form-text text-danger ">{{form1.country.errors}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-sm-3">
+                                        <div class="col-sm-4 col-md-4">
+                                            <div class="form-group">
+                                                <label for="id_college"
+                                                       class=""><strong>{{form1.university.label}}:</strong></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                {{ form1.university }}
+                                                <span class="university form-text text-danger ">{{form1.university.errors}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-md-3">
+                                        <div class="col-sm-4 col-md-4">
+                                            <div class="form-group">
+                                                <label for="id_document" class="star"><strong>{{form1.type.label}}:</strong></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                {{ form1.type }}
+                                                <span class="type form-text text-danger ">{{form1.type.errors}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-sm-3">
+                                        <div class="col-sm-4 col-md-4">
+                                            <div class="form-group">
+                                                <label for="inputGroupFile02" class="star"><strong>{{form1.upload_file.label}}:</strong></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <div class="custom-file">
+                                                        {{ form1.upload_file}}
+                                                        <label class="custom-file-label text-truncate"
+                                                               for="inputGroupFile02">Choose file</label>
+                                                    </div>
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text"></span>
+                                                    </div>
+                                                </div>
+                                                <small class="form-text text-muted ">
+                                                    You can upload doc, docx, and pdf format. Max file-size should be 5
+                                                    MB</small>
+                                                <span class="upload_file form-text text-danger ">{{form1.upload_file.errors}}</span>
+
+                                            </div>
+                                        </div>
+                                        {% comment %}
+                                        <div class="col-sm-8">
+                                            {{ form1.upload_file}}
+                                            <span class="form-text text-danger ">{{form1.upload_file.errors}}</span>
+                                        </div>
+                                        {% endcomment %}
+                                    </div>
+                                    <div class="row d-flex justify-content-center mt-3 mb-sm-3">
+                                        <div class="col-sm-12 text-center">
+                                            <!--<input type="submit" value="next" class="btn btn-bg-theme text-white border-radius-40">-->
+                                            <input type="submit" value="Next"
+                                                   class="btn btn-bg-theme text-white border-radius-40 button-style">
+                                        </div>
+                                    </div>
+                                </form>
+                                {% comment %}
+
+                                <form action="." method="post" id="">
+                                    {% csrf_token %}
+                                    {{form1.as_p}}tel:+1-312 97 5479
+
+
+                                    <input type="hidden" name="required_document" value="{{doc}}">
+                                    <input type="submit" value="submit	"
+                                           class="btn btn-bg-theme border-radius-20 text-white px-sm-5 px-4">
+                                </form>
+                                {% endcomment %}
+                            </div>
+                            <div class="second-doc status_2_content" style="display: none">
+
+                                <p>Upload second document for document</p>
+                                <form method="POST" action="." enctype="multipart/form-data" id="upload-form2">
+                                    {% csrf_token %}
+                                    <div class="row mt-3 mb-sm-3">
+                                        <div class="col-sm-4 col-md-4">
+                                            <div class="form-group">
+                                                <label for="id_course_name_2" class="star"><strong>{{form2.course_name.label}}:</strong></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                {{form2.course_name}}
+                                                <span class="course_name form-text text-danger ">{{form2.course_name.errors}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-sm-3">
+                                        <div class="col-sm-4 col-md-4">
+                                            <div class="form-group">
+                                                <label for="id_course_code_2"
+                                                       class=""><strong>{{form2.course_code.label}}:</strong></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                {{ form2.course_code }}
+                                                <span class="course_code form-text text-danger ">{{form2.course_code.errors}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-sm-3">
+                                        <div class="col-sm-4 col-md-4">
+                                            <div class="form-group">
+                                                <label for="id_subject_2"
+                                                       class="star"><strong>{{form2.subjects.label}}:</strong></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                {{ form2.subjects }}
+                                                <span class="subjects form-text text-danger ">{{form2.subjects.errors}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-sm-3">
+                                        <div class="col-sm-4 col-md-4">
+                                            <div class="form-group">
+                                                <label for="id_country_2"
+                                                       class="star"><strong>{{form2.country.label}}:</strong></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="form-group position-relative">
+                                                {% get_countries as countries %}
+                                                <select class="form-control js-example-basic-single" name="country">
+                                                    {% for country in countries %}
+                                                    {% if country.code == location %}
+                                                    <option value="{{ country.code }}" selected>{{ country.name }}</option>
+                                                    {% else %}
+                                                    <option value="{{ country.code }}">{{ country.name }}</option>
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                </select>
+                                                <span class="country form-text text-danger ">{{form2.country.errors}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-sm-3">
+                                        <div class="col-sm-4 col-md-4">
+                                            <div class="form-group">
+                                                <label for="id_college_2"
+                                                       class=""><strong>{{form2.university.label}}:</strong></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                {{ form2.university }}
+                                                <span class="university form-text text-danger ">{{form2.university.errors}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-md-3">
+                                        <div class="col-sm-4 col-md-4">
+                                            <div class="form-group">
+                                                <label for="id_document_2"
+                                                       class="star"><strong>{{form2.type.label}}:</strong></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                {{ form2.type }}
+                                                <span class="type form-text text-danger ">{{form2.type.errors}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-sm-3">
+                                        <div class="col-sm-4 col-md-4">
+                                            <div class="form-group">
+                                                <label for="inputGroupFile02_2" class="star"><strong>{{form2.upload_file.label}}:</strong></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <div class="custom-file">
+                                                        {{ form2.upload_file}}
+                                                        <label class="custom-file-label text-truncate"
+                                                               for="inputGroupFile02_2">Choose file</label>
+                                                    </div>
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text"></span>
+                                                    </div>
+                                                </div>
+                                                <small class="form-text text-muted ">
+                                                    You can upload doc, docx, and pdf format. Max file-size should be 5
+                                                    MB</small>
+                                                <span class="upload_file form-text text-danger ">{{form2.upload_file.errors}}</span>
+
+                                            </div>
+                                        </div>
+                                        {% comment %}
+                                        <div class="col-sm-8">
+                                            {{ form2.upload_file}}
+                                            <span class="form-text text-danger ">{{form2.upload_file.errors}}</span>
+                                        </div>
+                                        {% endcomment %}
+                                    </div>
+                                    <div class="row d-flex justify-content-center mt-3 mb-sm-3">
+                                        <div class="col-sm-12 text-center">
+                                            <input type="submit" value="Upload document"
+                                                   class="btn btn-bg-theme text-white border-radius-40 button-style">
+                                        </div>
+                                    </div>
+                                </form>
+                                {% comment %}
+
+                                <form action="." method="post" id=" ">
+                                    {% csrf_token %}
+                                    {{form1.as_p}}
+
+
+                                    <input type="hidden" name="required_document" value="{{doc}}">
+                                    <input type="submit" value="submit	"
+                                           class="btn btn-bg-theme border-radius-20 text-white px-sm-5 px-4">
+                                </form>
+                                {% endcomment %}
+                            </div>
+
+                            <div class="upload-form status_3_content" style="display: none">
+
+                                <form id="doc-upload" method="post" action=".">
+                                    <p>please confirm to upload</p>
+                                    {% csrf_token %}
+
+
+                                    <input type="hidden" name="document" value="{{doc}}">
+                                    <input type="submit" value="submit"
+                                           class="btn btn-bg-theme border-radius-20 text-white px-sm-5 px-4"
+                                           id="final-confirm">
+                                    <div class="loader"></div>
+                                </form>
+
+                            </div>
+
+                            <div class="thankyou text-center" style="display: none">
+                                <div class="row justify-content-center">
+                                    <div class="col-8">
+                                        <p>Your documents have been uploaded and are under review. You will be notified as
+                                            soon as your documents are verified and requirement is ready to download</p>
+                                        <p>You will be redirected to <strong>{{doc}}</strong> in <strong>10 seconds</strong>
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="show-loader">
+                                <div class="loader">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+
+
+{% block extra_js %}
+<script src='{% static "src/js/jquery.ui.widget.js" %}'></script>
+<!--<script src='{% static "src/js/jquery.iframe-transport.js" %}' ></script>-->
+<script src='{% static "src/js/jquery.fileupload.js" %}'></script>
+
+<script>
+$(document).ready(function() {
+    $('.js-example-basic-single').select2();
+
+});
+
+</script>
+<script>
+$(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+});
+
+</script>
+<script>
+    $(document).on('change', '.custom-file-input', function (event) {
+    $(this).next('.custom-file-label').html(event.target.files[0].name);
+})
+
+</script>
+<script>
+//multistep form
+
+//ajax to submit form
+
+// document upload
+
+
+
+    $("#upload-form1").submit(function(e) {
+        $(".first-doc").css("display", "none");
+        jQuery(".show-loader").show();
+        e.preventDefault();
+        $("span.has-error").empty();
+
+        var data = $("#upload-form1").serializeArray();
+
+
+        var myForm = document.getElementById('upload-form1');
+       data = new FormData(myForm);
+       var d = data.unique_id
+
+
+
+        $("div.error_file").text("");
+                $(".enquiry-form-popup").hide();
+                $(".form-icon-plane").hide();
+                $(".form-loader").show();
+
+        $.ajax({
+            type : "POST",
+            url : '{% url 'api:documents-api:document-upload-api' %}',
+            enctype: 'multipart/form-data',
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function(data){
+
+                document.getElementById("upload-form1").reset();
+                $(".first-doc").css("display", "none");
+
+        $(".status_1").removeClass("active")
+        $(".status_2").addClass("active")
+        $(".status_1").addClass("done")
+
+                $(".second-doc").css("display", "block");
+                $('.show-loader').hide();
+//                $("#doc-upload").
+                $('#doc-upload').append("<input type='hidden' value='" + data.unique_id + "' name='unique_id' >");
+
+            },
+            error: function(data){
+             $('.show-loader').hide();
+              $(".first-doc").css("display", "block");
+            var response = data.responseJSON;
+            for (key in response) {
+              $("#upload-form1 ."+key).addClass("has-error");
+              $("#upload-form1 span." + key).text(response[key][0]);
+            }
+
+            }
+        });
+    });
+
+
+
+    $("#upload-form2").submit(function(e) {
+        $(".second-doc").css("display", "none");
+        $('.show-loader').show();
+        e.preventDefault();
+        $("span.has-error").empty();
+
+        var data = $("#upload-form2").serializeArray();
+
+
+        var myForm = document.getElementById('upload-form2');
+       data = new FormData(myForm);
+       var d = data.unique_id
+
+
+        $("div.error_file").text("");
+
+                $(".enquiry-form-popup").hide();
+                $(".form-icon-plane").hide();
+                $(".form-loader").show();
+
+        $.ajax({
+            type : "POST",
+            url : '{% url 'api:documents-api:document-upload-api' %}',
+            enctype: 'multipart/form-data',
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function(data){
+
+                document.getElementById("upload-form2").reset();
+                $(".second-doc").css("display", "none");
+                $(".form-loader").show();
+//                $(".upload-form").css("display", "block");
+//                $("#doc-upload").
+                $('#doc-upload').append("<input type='hidden' value='" + data.unique_id + "' name='unique_id' >");
+
+        $(".status_2").removeClass("active")
+        $(".status_2").addClass("done")
+				$( "#final-confirm" ).trigger( "click" );
+
+
+            },
+            error: function(data){
+             $('.show-loader').hide();
+             $(".second-doc").css("display", "block");
+            var response = data.responseJSON;
+            for (key in response) {
+              $("#upload-form2 ."+key).addClass("has-error");
+              $("#upload-form2 span." + key).text(response[key][0]);
+            }
+
+            }
+        });
+    });
+
+
+
+    $("#doc-upload").submit(function(e) {
+    $(".upload-form").css("display", "none");
+    $('.show-loader').show();
+        e.preventDefault();
+        $("span.has-error").empty();
+
+        var data = $("#doc-upload").serializeArray();
+
+
+        var myForm = document.getElementById('doc-upload');
+       data = new FormData(myForm);
+       var d = data.unique_id
+
+
+        $("div.error_file").text("");
+                $(".enquiry-form-popup").hide();
+                $(".form-icon-plane").hide();
+                $(".form-loader").show();
+
+        $.ajax({
+            type : "POST",
+            url : '{% url 'api:documents-api:document-for-upload-api' %}',
+            enctype: 'multipart/form-data',
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function(data){
+
+                document.getElementById("upload-form2").reset();
+                $(".upload-form").css("display", "none");
+//                $(".mt-element-step").css("display", "none");
+                 $('.show-loader').hide();
+                 $(".status_3").addClass("active")
+                $(".thankyou").css("display", "block");
+//                $("#doc-upload").
+                $('#doc-upload').append("<input type='hidden' value='" + data.unique_id + "' name='unique_id' >");
+
+                setTimeout(function(){ window.location.replace( "/document/{{doc}}")}, 10000) ;
+            },
+            error: function(data){
+            $('.show-loader').hide();
+            $(".thankyou").css("display", "block")
+            var response = data.responseJSON;
+            for (key in response) {
+              $("#comment-form ."+key).addClass("has-error");
+              $("#comment-form span." + key).text(response[key][0]);
+            }
+
+            }
+        });
+    });headerHeight = $(".primary-header").height() + 5;
+
+
+
+
+
+  $( document ).ready(function() {
+	$(".selected_plan").on("click", function(){
+ 	if ($("input[type='radio']").is(":checked")) {
+ 	$('html, body').animate({
+        scrollTop: $($('a[href*="#check"]').attr('href')).offset().top
+    }, 600);
+ 	key= $(this).data("key");
+	value = $(this).val();
+ 	$("#id_custom").val("{{ user }}_" + key +"_{{doc}}");
+	$("#id_amount").val(value);
+ }
+});
+
+
+  	$('.parent .payment-card-box').click(function() {
+    $('.parent .payment-card-box').removeClass("bg-blue plan-price");
+    $(this).addClass("bg-blue plan-price");
+  	})
+
+  	$("#submitButton").click(function (e) {
+            if (!$('input[name="radio"]').is(':checked')) {
+                //$(".error-messages").text("Please select one of the below plan").fadeIn();
+            	//alert("Please select one of the above plan");
+                e.preventDefault();
+            }
+        });
+ });
+
+
+</script>
+{% endblock extra_js %}

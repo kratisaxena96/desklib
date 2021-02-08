@@ -1,0 +1,279 @@
+{% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% load meta %}
+{% load render_json_ld from json_ld %}
+
+
+{% block canonical %}
+<link rel="canonical" href="https://desklib.com/study/" />
+{% endblock %}
+
+{% block extra_css %}
+
+{% endblock extra_css %}
+{% block content %}
+
+<section class="bg_banner_study">
+    {% block messages %}
+    {% if messages %}
+    <div>
+        <ul>
+            {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>{{message}}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    {% endblock %}
+    <div class="container pt-10">
+        <div class="row">
+            <div class="col-md-6 mt-8">
+                <div class="banner_study_img text-center">
+                    <img src="{% static 'src/assets/images/v2/girl_student.png' %}" alt="Study List" class="img-fluid" />
+                </div>
+            </div>
+            <div class="col-md-6 mt-8">
+                <div class="banner_study_content">
+                    <h1 class="blue-theme Roboto-Bold py-2">Best resources for your studies</h1>
+                    <p class="Roboto-Regular pb-4">Search from over 2 million study documents</p>
+
+                    <form class="form-inline my-2 my-lg-0" action="{% url 'study:search-results' %}">
+                        <div class="input-group w-75 mb-3 flex-fill tt-input-group" id="remote">
+                            <div class="input-group-append studylist_search">
+                                <input type="text" name="q" class="typeahead form-control form-control-lg search-input box-shadow-3-3-5-5 border-radius-30" style="font-size:0.99rem; height: calc(1.9em + 1rem + 2px);" placeholder="Search for assignment samples and resources" />
+                                <button class="btn btn-lg rounded-circle study_search" type="submit">
+                                    <i class="fa fa-search rounded-circle search-icon"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="hwhelp_subjects pt-5 pb-5">
+    <div class="container">
+        <h1 class="text-center pb-5">Homework Help By Subjects</h1>
+        <div class="row mb-2">
+            {% for p in parent %}
+            <div class="col-sm-6 col-md-4 mt-4">
+                <h5>
+                    {% comment %}
+                    <!--                 <a href="{% url 'subjects:parent-subject-view' p.slug %}" class="card-title black-font font-weight-normal blue-theme"> <img src="{{ p.image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid pr-2" style="width:12%">{{ p }}</a> </h5>-->
+                    {% endcomment %}
+                    <a href="{% url 'subjects:parent-subject-view' p.slug %}" class="card-title black-font font-weight-normal"> {{ p }} </a>
+                </h5>
+                <hr class="mt-3 mb-3">
+
+                <div class="text-justify">
+                    {% if p.study_short_description %}
+                    <p class="para"> {{ p.study_short_description }}</p>
+                    {% endif %}
+                </div>
+
+                {% for child in p.subject_set.all %}
+                <ul class="hwh_bysubj">
+                    <li>
+                        <a class="card-link blue-theme d-inline-block" href="{% url 'subjects:child-subject-view' p.slug child.slug %}"> {{child}} </a>
+                        <span class="font-size-12 text-dark">
+                            {% for c in doc_count %}
+                                {% if c.name == child.name %}
+                                    ({{c.doc_subject}} documents)
+                                {% endif %}
+                            {% endfor %}
+                         </span>
+                    </li>
+                </ul>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% if top_results %}
+<section class="top_study">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center mb-4">Top Study Documents</h1>
+                <div class="main-content pt-4" id="main0">
+                    <div class="owl-carousel owl-theme mt-4">
+                        {% for results in top_results %}
+                        <div class="item h-350">
+                            <div class="main-div shadow mt-2 h-350 border-radius-40">
+                                <a href="{% url 'documents:document-view' results.slug %}" class="h-350 d-inline-block w-100">
+                                    <img class="card-img-top" src="{{results.cover_image}}" alt="documents image">
+                                </a>
+                                <a href="{% url 'documents:document-view' results.slug %}" class="text-decoration-none">
+                                    <div class="card-body inner-div bg-light">
+                                        <h6 class="card-title blue-theme">{{results.title|truncatechars:40}}</h6>
+                                        <small class="text-muted">{{results.no_of_pages}}</small>
+                                        <small class="text-muted add-dash">pages</small>
+                                        <small class="text-muted">{{results.no_of_words}}</small>
+                                        <small class="text-muted add-dash">words</small>
+                                        <small class="text-muted">{{results.pub_date|date:"d M Y"}}</small>
+                                        <small class="text-muted pt-1 btn-d-none">{{results.description|safe|truncatechars:60}}</small>
+                                        <a href="{% url 'documents:document-view' results.slug %}"
+                                           class="btn btn-bg-theme border-radius-20 btn-d-none text-white mt-3 mb-3 pt-1 pb-1">View
+                                            Document</a>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        {% endfor %}
+                    </div>
+                    <div class="owl-theme">
+                        <div class="owl-controls">
+                            <div class="custom-nav owl-nav"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% comment %}
+{% if recent %}
+<section class="container pt-5 pb-5 bg-white">
+    <h2 class="text-center">Recently Uploaded Documents</h2>
+    <div class="main-content" id="main">
+        <div class="owl-carousel owl-theme mt-4 owl-carousel1">
+            {% for rec in recent %}
+            <div class="item bg-white h-350">
+                <div class="main-div shadow mt-2 h-350 border-radius-5">
+                    <a href="{% url 'documents:document-view' rec.slug %}" class="h-350 d-inline-block w-100">
+                        <img class="card-img-top" src="{{rec.cover_image}}" alt="documents image">
+                    </a>
+                    <a href="{% url 'documents:document-view' rec.slug %}" class="text-decoration-none">
+                        <div class="card-body inner-div bg-light">
+                            <h6 class="card-title blue-theme">{{rec.title|truncatechars:40}}</h6>
+                            <small class="text-muted">{{rec.no_of_pages}}</small>
+                            <small class="text-muted add-dash">pages</small>
+                            <small class="text-muted">{{rec.no_of_words}}</small>
+                            <small class="text-muted add-dash">words</small>
+                            <small class="text-muted">{{rec.pub_date|date:"d M Y"}}</small>
+                            <small class="text-muted pt-1 btn-d-none">{{rec.description|safe|truncatechars:60}}</small>
+                            <a href="{% url 'documents:document-view' rec.slug %}"
+                               class="btn btn-bg-theme border-radius-20 btn-d-none text-white mt-3 mb-3 pt-1 pb-1">View
+                                Document</a>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            {% endfor %}
+        </div>
+        <div class="owl-theme">
+            <div class="owl-controls">
+                <div class="custom-nav owl-nav"></div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endcomment %}
+
+{% for subject in subjects %}
+<a href="{% url 'study:search' %}?selected_facets=subjects_exact:{{ subject.slug }}">{{ subject.name }}</a>
+{% endfor %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$('#main0 .owl-carousel').owlCarousel({
+    autoplay:true,
+    stagePadding: 10,
+    nav: true,
+    dots:false,
+    loop: true,
+    margin: 25,
+    autoplayHoverPause: true,
+    navText: [
+        '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+        '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+    ],
+    navContainer: '#main0 .custom-nav',
+    responsive:{
+        0:{
+            items: 1
+        },
+        576:{
+            items: 2
+        },
+        768:{
+            items: 3
+        },
+        1200:{
+            items: 4
+        }
+    }
+});
+
+$('#main .owl-carousel1').owlCarousel({
+    autoplay:true,
+    stagePadding: 10,
+    nav: true,
+    dots:false,
+    loop: true,
+    margin: 25,
+    autoplayHoverPause: true,
+    navText: [
+        '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+        '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+    ],
+    navContainer: '#main .custom-nav',
+    responsive:{
+        0:{
+            items: 1
+        },
+        576:{
+            items: 2
+        },
+        768:{
+            items: 3
+        },
+        1000:{
+            items: 3
+        },
+        1200:{
+            items: 4
+        }
+    }
+});
+
+
+$('#form').submit(function (event) {
+  var tempArray = [];
+  var count = 1
+      $('input:checked[name="selected_facets"]').each(function(e) {
+         var el = '<input type="hidden" name="selected_facets" value=""></input>';
+          $('.selected_facets').val($(this).val());
+          $('#form').append(el);
+         
+      tempArray.push('selected_facets=subjects_exact:'+$(this).val());
+            });
+
+  });
+
+
+
+</script>
+<script>
+    $(document).ready(function (){
+        $(".study").addClass("active");
+    });
+
+</script>
+{% endblock extra_js %}
+

@@ -54,217 +54,234 @@
 </style>
 {% endblock extra_css %}
 {% block content %}
-
-<section>
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb breadcrumb-transparent mb-0">
-        <li class="breadcrumb-item"><a href="/" class="text-muted">Home</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'homework_help:ask-question-view' %}" class="text-muted">Homework Help</a></li>
-        <li class="breadcrumb-item active text-dark font-weight-bold" aria-current="page">{{object.question|truncatechars:35}}</li>
-  </ol>
-</nav>
-</section>
-<section class="homework-footer-banner banner-contain">
-<section class="">
-	<div class="container pt-5 pb-5 ,mt-3">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <p class=""><span class="text-blue font-size-25">Question-</span> {{object.question|truncatechars:250}}</p>
-            </div>
-        </div>
- {% if object.user_questionfiles.all %}
-        <div class="row mt-3 mb-md-3 justify-content-center">
-            {% for object in object.user_questionfiles.all %}
-            <div class="col-md-12 mb-md-4">
-                <div>
-                    <img class="img-fluid mx-auto d-block" alt="question image" src="{{object.file.url}}" />
-                </div>
-            </div>
-             {% endfor %}
-        </div>
-        {% endif %}
-        {% if object.user_questionfiles.all %}
-             <div class="row mt-3 mt-md-0">
-                 <div class="col-sm-12">
-                    <a href="#image-content" class="content text-muted">Show transcribed image text</a>
-                 </div>
-             </div>
-        {% endif %}
-	</div>
-</section>
-
-
-<section>
-    <div class="container">
-        <div class="row">
-                <!--<h2 class="text-center">Expert's Answers</h2>-->
-                {% if question.is_publicly_visible %}
-                    {% for answer in question.answer_question.all %}
-            {% if forloop.counter == 1 %}
-                <div class="col-md-2">
-
-                     <span class="text-blue font-size-25">Solution-</span>
-                </div>
-            {% else %}
-                <div class="col-md-2">
-                </div>
-            {% endif %}
-             <div class="col-sm-10">
-                 <div class="jumbotron p-5 border-radius-30">
-                     {{answer.solution|safe}}
-                 </div>
-             </div>
-                {% endfor %}
-                {% else %}
-                 <div class="blur-image position-relative">
-                <div class="card position-absolute blur-image-position width-452">
-                    <div class="card-body p-4 p-md-5 text-center">
-                       {% if answer %}
-                        <h5>
-                            <strong>This question has been solved!</strong>
-                        </h5>
-                        {% endif %}
-                    <a href="{% url 'homework_help:order-create-view' uid=object.uid %}" class="btn btn-bg-theme white border-radius-20 px-4 mt-2">View Answers</a>
+<div class="pg_homeworkhelp_qd">
+    <section>
+        <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb breadcrumb-transparent mb-0">
+                                <li class="breadcrumb-item"><a href="/" class="text-muted">Home</a></li>
+                                <li class="breadcrumb-item"><a href="{% url 'homework_help:ask-question-view' %}" class="text-muted">Homework Help</a></li>
+                                <li class="breadcrumb-item active text-dark font-weight-bold" aria-current="page">{{object.question|truncatechars:35}}</li>
+                            </ol>
+                        </nav>
                     </div>
                 </div>
+        </div>
+    </section>
+
+    <div class="homework-footer-banner">
+    <section class="">
+        <div class="container pt-5 pb-5 ,mt-3">
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <p class="Roboto-Regular"><span class="text-blue font-size-20">Question-</span> {{object.question|truncatechars:250}}</p>
                 </div>
-                {% endif %}
-        </div>
-    </div>
-</section>
-
-
-<section class="">
-    <div class="container pb-5 pt-5">
-        <div class="row">
-            <div class="col-md-12">
-                <p class=""><span class="text-blue font-size-25">Share your Answer-</span> Not Satisfied? Tell us your views by writing your answer.</p>
             </div>
-        </div>
-		<div class="row">
-			<div class="col-md-12">
-				<form method="post" id="solution-form" enctype="multipart/form-data">
-					 {% csrf_token %}
-					<div class="row mt-4">
-						<div class="col-md-12">
-							<div class="">
-							{{solution_form.solution}}
-                			</div>
-						</div>
-            			<div class="col-md-12 text-right">
-							<input id="submit-answer" type="submit" value="Submit Answer" class="btn btn-bg-theme white border-radius-20 px-4 mt-4">
-						</div>
-					</div>
-				</form>
-			</div>
-    </div>
-</section>
-
-<section class="z-index-9">
-    <div class="container pb-5 pt-5">
-        <div class="row">
-            <div class="col-md-12">
-                <p class=""><span class="text-blue font-size-25">Ask Question-</span> You can ask more questions in case of any query.</p>
-            </div>
-        </div>
-
-		<div class="row">
-			<div class="col-md-12">
-				<form method="post" id="question-form" enctype="multipart/form-data">
-					 {% csrf_token %}
-					<div class="row mt-4">
-						<div class="col-md-6">
-							<div class="">
-							{{form.question}}
-                			</div>
-						</div>
-            			<div class="col-md-6">
-							<div class="pb-2">
-							<label class="txt-black-color"><strong>Select Your&nbsp;{{form.subjects.label}}</strong></label>
-							</div>
-							<div class="form-field-design">
-<!--								 <span>Eg. Maths, Science</span>-->
-                     		{{form.subjects}}
-							</div>
-							<div class="pt-4 pb-2">
-							<label class=""><strong>{{form.file.label}}</strong></label>
-							</div>
-							<div class="form-field-design">
-								<span class="blue-theme btn border-radius-20 px-4 fileinput-button d-block">
-								  <i class="fa fa-plus"></i>
-								  <span>Add files...</span>
-									{{form.file}}
-								</span>
-							</div>
-							<ul id="selected-files" class="list-unstyled">
-								<li class="">
-									<span class="error-msg text-danger d-block"></span>
-									<span class="error text-danger d-block"></span>
-								</li>
-							</ul>
-							 <p id="done">{{count}}</p>
-                            <div class="row">
-							<div class="col-md-6">
-								<div class="pt-2 pb-2">
-							<label><strong>{{form.solution_deadline.label}}</strong></label>
-								</div>
-                     		{{form.solution_deadline}}
-						    </div>
-
-							<div class="col-md-6">
-								<div class="pt-2 pb-2"><label class="">&nbsp;</label></div>
-							<input id="submit-button" type="submit" value="Get Answer" class="btn btn-bg-theme white border-radius-20 px-4" style="width:100%;padding:8px;">
-						    </div>
-						   </div>
-
-						</div>
-
-<!--    					<div class="row mt-3">-->
-<!--							<div class="col-md-6">-->
-<!--                     			<input id="submit-button" type="submit" value="Get Answer" class="btn btn-bg-theme white border-radius-20 px-4">-->
-<!--							</div>-->
-<!--						</div>-->
-					</div>
-				</form>
-			</div>
-		</div>
-    </div>
-</section>
-
-<section id="image-content" class="mt-4">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
+     {% if object.user_questionfiles.all %}
+            <div class="row ml-4 mr-4 pl-4 pr-4 justify-content-center">
                 {% for object in object.user_questionfiles.all %}
-                    {% if object.content %}
-                    <p  class="">{{object.content}}</p>
+                <div class="col-md-12 mb-md-4">
+                    <div>
+                        <img class="img-fluid mx-auto d-block" alt="question image" src="{{object.file.url}}" />
+                    </div>
+                </div>
+                 {% endfor %}
+            </div>
+            {% endif %}
+            {% if object.user_questionfiles.all %}
+                 <div class="row ml-4 mr-4 pl-4 pr-4">
+                     <div class="col-sm-12">
+                        <a href="#image-content" class="content text-muted">Show transcribed image text</a>
+                     </div>
+                 </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                    <!--<h2 class="text-center">Expert's Answers</h2>-->
+                    {% if question.is_publicly_visible %}
+                        {% for answer in question.answer_question.all %}
+                {% if forloop.counter == 1 %}
+                    <div class="col-md-2">
+                         <span class="Roboto-Regular text-blue font-size-20">Solution-</span>
+                    </div>
+                {% else %}
+                    <div class="col-md-2">
+                    </div>
+                {% endif %}
+                 <div class="col-sm-10">
+                     <div class="jumbotron p-5 border-radius-30">
+                         {{answer.solution|safe}}
+                     </div>
+                 </div>
+                    {% endfor %}
+                    {% else %}
+                     <div class="blur-image sol_blur_image position-relative">
+                    <div class="card position-absolute blur-image-position width-452 border-0 border-radius-20 shadow">
+                        <div class="card-body p-4 p-md-5 text-center">
+                           {% if answer %}
+                            <h5>
+                                <strong>This question has been solved!</strong>
+                            </h5>
+                            {% endif %}
+                        <a href="{% url 'homework_help:order-create-view' uid=object.uid %}" class="btn btn-bg-theme white px-4 mt-2">View Answers</a>
+                        </div>
+                    </div>
+                    </div>
                     {% endif %}
-                {% endfor %}
             </div>
         </div>
+    </section>
+
+    <section class="section_share_answer">
+        <div class="container pb-5 pt-5">
+            <p class="Roboto-Regular"><span class="text-blue font-size-20">Share your Answer-</span> Not Satisfied? Tell us your views by writing your answer. </p>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="share_answer_box">
+                        <form method="post" id="solution-form" enctype="multipart/form-data" class="qd_form_shareans">
+                             {% csrf_token %}
+                            <div class="row mt-4">
+                                <div class="col-md-6 mt-4 mb-4">
+                                    <div class=""> {{solution_form.solution}} </div>
+                                </div>
+                                <div class="col-md-6 mt-4">
+                                    <div class="row">
+                                        <div class="col-md-12 mb-4">
+                                            <input type="text" value="" placeholder="Name" class="form-control form-design " />
+                                        </div>
+                                        <div class="col-md-12 mt-4">
+                                            <input type="email" value="" placeholder="Email" class="form-control form-design " />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 qd_formbtn">
+                                    <input id="submit-answer" type="submit" value="Submit Answer" class="btn btn_common btn_blue white mt-4">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <section class="section_ask_question z-index-9">
+        <div class="container pb-5 pt-5">
+            <p class="Roboto-Regular"><span class="text-blue font-size-20">Ask Question-</span> Still Confused? Clear all your confusions by asking more questions </p>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ask_question_box">
+                        <form method="post" id="question-form" enctype="multipart/form-data" class="qd_form_askques">
+                            {% csrf_token %}
+                            <div class="row mt-4">
+                                <div class="col-md-6 mt-4 mb-4">
+                                    <div class=""> {{form.question}} </div>
+                                </div>
+                                <div class="col-md-6 mt-4">
+                                    <div class="row">
+                                        <div class="col-md-12 mb-4">
+                                            <input type="text" value="" placeholder="Name" class="form-control form-design " />
+                                        </div>
+                                        <div class="col-md-12 mt-4">
+                                            <input type="email" value="" placeholder="Email" class="form-control form-design " />
+                                        </div>
+
+                                        <div class="col-md-12 qd_formbtn mt-4 mb-4">
+                                            <input id="submit-button" type="submit" value="Get Answer" class="btn btn_common btn_blue white" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {% comment %}
+                                <div class="col-md-6">
+                                    <div class="pb-2">
+                                        <label class="txt-black-color"><strong>Select Your&nbsp;{{form.subjects.label}}</strong></label>
+                                    </div>
+                                    <div class="form-field-design"> {{form.subjects}} </div>
+                                    <div class="pt-4 pb-2">
+                                        <label class=""><strong>{{form.file.label}}</strong></label>
+                                    </div>
+                                    <div class="form-field-design">
+                                        <span class="blue-theme btn border-radius-20 px-4 fileinput-button d-block">
+                                          <i class="fa fa-plus"></i> <span>Add files...</span> {{form.file}}
+                                        </span>
+                                    </div>
+                                    <ul id="selected-files" class="list-unstyled">
+                                        <li class="">
+                                            <span class="error-msg text-danger d-block"></span>
+                                            <span class="error text-danger d-block"></span>
+                                        </li>
+                                    </ul>
+                                    <p id="done">{{count}}</p>
+                                    <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="pt-2 pb-2">
+                                    <label><strong>{{form.solution_deadline.label}}</strong></label>
+                                        </div>
+                                    {{form.solution_deadline}}
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="pt-2 pb-2"><label class="">&nbsp;</label></div>
+                                    <input id="submit-button" type="submit" value="Ask Answer" class="btn btn-bg-theme white border-radius-20 px-4" style="width:100%;padding:8px;">
+                                    </div>
+                                   </div>
+
+                                </div>
+                                {% endcomment %}
+
+        <!--    					<div class="row mt-3">-->
+        <!--							<div class="col-md-6">-->
+        <!--                     			<input id="submit-button" type="submit" value="Get Answer" class="btn btn-bg-theme white border-radius-20 px-4">-->
+        <!--							</div>-->
+        <!--						</div>-->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="image-content" class="mt-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    {% for object in object.user_questionfiles.all %}
+                        {% if object.content %}
+                        <p  class="">{{object.content}}</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
     </div>
-</section>
-</section>
 
-
-<div class="loading show-loader">
-    <div class="loader-container">
-        <div class="loader"></div>
+    <div class="loading show-loader">
+        <div class="loader-container">
+            <div class="loader"></div>
+        </div>
     </div>
 </div>
 {% endblock %}
-{% block extra_js %}
 
+{% block extra_js %}
 <script src='{% static "src/js/jquery.ui.widget.js" %}'></script>
 <script src='{% static "src/js/jquery.fileupload.js" %}' ></script>
 
 <script>
-
-$(document).ready(function() {
-    $('.js-example-basic-multiple').select2();
-});
+    $(document).ready(function() {
+        $('.js-example-basic-multiple').select2();
+    });
 </script>
-
 
 <script>
 

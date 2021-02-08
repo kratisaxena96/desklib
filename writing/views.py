@@ -27,7 +27,7 @@ class WritingPageView(MetadataMixin,JsonLdContextMixin, TemplateView):
     title = 'Writing | proofreading service | content editing services | desklib.com'
     description = 'Desklib provides free writing tools and proofreading service for everyone to improve their writing skills. Hire top content writers and proofreaders for your content requirements.'
     keywords = ['content editing services', 'editing services', 'proofreading service', 'writing tools', 'free writing tools']
-    template_name = "writing/writing.html"
+    template_name = "writing/v2/writing.html"
 
     structured_data = {
         "@type": "Organization",
@@ -150,7 +150,7 @@ class GrammarCorrectPageView(MetadataMixin,JsonLdContextMixin, FormView):
     description = 'Check your text for grammar corrections and spelling mistakes using our trusted and free grammar ' \
                   'checker tool. Get free writing tips and suggestions to improve your writing skills. '
     keywords = ['spelling checker', 'grammar checker', 'best grammar checker tool', 'free grammar checker tool']
-    template_name = "writing/grammar_correct.html"
+    template_name = "writing/v2/grammar_correct.html"
 
     structured_data = {
         "@type": "Organization",

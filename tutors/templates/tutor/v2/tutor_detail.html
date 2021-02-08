@@ -1,0 +1,112 @@
+{% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% load meta %}
+
+{% block content %}
+<div class="pg_tutordetail">
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-transparent mb-0">
+                            <li class="breadcrumb-item"><a href="/" class="text-muted">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'tutors:tutor' %}" class="text-muted">Tutor</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'tutors:tutor-list' %}" class="text-muted">Tutors List</a></li>
+                            <li class="breadcrumb-item active text-dark font-weight-bold" aria-current="page">Tutor Detail</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="tutordetail">
+        <div class="container">
+            <div class="row ttr_dtl_margin">
+                <div class="col-md-12 col-lg-4 p-0">
+                    <div class="tutordetail_profile text-center">
+                        <div class="tutorimg">
+                            <img src="{% static 'src/assets/images/v2/tutorimg.png' %}" alt="Tutor" class="" />
+                        </div>
+                        <div class="tutorinfo pt-4 pb-4 pl-2 pr-2">
+                            <h4 class="font-weight-bold"> Tanvi Roy </h4>
+                            <small> Fullstack Developer </small>
+                            <p> 3.3 <img src="{% static 'src/assets/images/v2/star_rating.svg' %}" alt="Tutor Details" title="star_rating" class="" /> <small> (308 Reviews) </small></p>
+                        </div>
+
+                        <div class="d-flex">
+                            <div class="dollarrate dollarrate_pinkl">
+                                <h5> US $20.00 </h5>
+                                <small> For every 15 mins </small>
+                            </div>
+                            <div class="dollarrate">
+                                <h5> US $20.00 </h5>
+                                <small> Sessions/jobs </small>
+                            </div>
+                        </div>
+
+                        <div class="btn_action text-center pt-4">
+                            <a href="{% url 'tutors:tutor-plans' %}">
+                                <button class="btn btn_common btn_blue"> Let's Chat </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-8 p-0">
+                    <div class="abouttutor">
+                        <h4 class="font-weight-bold text-muted mb-2"> ABOUT ME </h4>
+                        <div class="tutorintro pt-4">
+                            <p class="text-justify"> Tanvi Roy is an experienced fullstack developer who is excited about complex problems. Her passion is the web and strives to help peers build blazing fast apps for the internet. </p>
+                            <p class="font-weight-bold"> She is able to take..
+                                <ul class="tutor_keyskills mb-4">
+                                    <li> React js </li>
+                                    <li> React Native </li>
+                                    <li> Javascript </li>
+                                    <li> C# </li>
+                                    <li> C++ </li>
+                                    <li> Python and Django framework </li>
+                                </ul>
+                            </p>
+
+                            <ul class="tutor_skills pt-4">
+                                <li> C++ </li>
+                                <li> C# </li>
+                                <li> MySQL </li>
+                                <li> Python </li>
+                                <li> Ruby/Rail </li>
+                                <li> Android </li>
+                            </ul>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="tutorexpertise">
+                                <h4 class="font-weight-bold text-muted mb-4"> Expertise </h4>
+                                <div class="tutorskilldetail pb-4">
+                                    <h5> <img src="{% static 'src/assets/images/v2/javascript.png' %}" alt="Tutor" class="img-fluid" /> Javascript </h5>
+                                    <small class=""> 10 Years Experience | 134 Endorsments </small>
+
+                                    <p class="text-justify pt-4"> JavaScript (JS) is a lightweight, interpreted, or just-in-time compiled programming language with first-class functions. While it is most ... </p>
+                                </div>
+                                <div class="tutorskilldetail pt-4">
+                                    <h5> <img src="{% static 'src/assets/images/v2/javascript.png' %}" alt="Tutor" class="img-fluid" /> Javascript </h5>
+                                    <small class=""> 10 Years Experience | 134 Endorsments </small>
+
+                                    <p class="text-justify pt-4"> JavaScript (JS) is a lightweight, interpreted, or just-in-time compiled programming language with first-class functions. While it is most ... </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-8">
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

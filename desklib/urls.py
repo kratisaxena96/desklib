@@ -54,6 +54,7 @@ urlpatterns = [
                   path('', HomePageView.as_view(), name='home'),
                   # path('coming-soon/', ComingSoonPageView.as_view(), name='coming-soon'),
                   path('document/', include(('documents.urls', 'documents'), namespace="documents")),
+                  path('tutor/', include(('tutors.urls', 'tutors'), namespace="tutors")),
                   path('my-downloads/', MyDownloads.as_view(), name="my-downloads"),
                   path('about/', AboutPageView.as_view(), name='about'),
                   # path('homework/', include('homework.urls'), namespace="homework"),

@@ -1,0 +1,238 @@
+{% extends "writing/base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% load meta %}
+
+{% block canonical %}
+<link rel="canonical" href="https://desklib.com/writing/"/>
+{% endblock %}
+
+{% block content %}
+<div class="pg_writing">
+    <!--<h1>Writing Page</h1>-->
+    <!--<ul>-->
+    <!--    <li><a href="{% url 'writing:compare' %}">Compare</a> </li>-->
+    <!--    <li><a href="{% url 'writing:grammar' %}">Grammar Checker</a> </li>-->
+    <!--</ul>-->
+    <section class="bg_banner_writing">
+        <div class="container">
+            {% block messages %}
+            {% if messages %}
+            <div class="row">
+                <div class="col-md-12">
+                    <ul>
+                        {% for message in messages %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>{{message}}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
+            {% endblock %}
+
+            <div class="row d-flex">
+                <div class="col-md-6 order-md-1 order-2">
+                    <div class="writing_banner_content">
+                        <h1 class="blue-theme pb-4"> Proofread your grammatical mistakes </h1>
+                        <p class="font-weight-400 pb-4"> Desklib trusted and free grammar checker <br> helps you in finding mistakes </p>
+                        <a href="{% url 'writing:grammar' %}" class="btn btn_common btn_blue "> Check Grammar </a>
+                    </div>
+                </div>
+                <div class="col-md-6 order-md-2 order-1">
+                    <div class="writing_banner_img text-center">
+                        <img src="{% static 'src/assets/images/v2/banner_writing.svg' %}" alt="Writing Banner Image" class="img-fluid" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="writing_bpces container pb-4 pt-5">
+        <h1 class="text-center mb-4">Best proofreading and content editing service </h1>
+        <p class="text-center pt-4 pb-4">We make sure to help you improve your writing and get better results. Get an edge with error free and superior content</p>
+        <div class="row mt-4 px-0 py-0">
+            <div class="col-md-4">
+                <div class="card border-0">
+                    <img class="card-img-top" src="{% static 'dist/assets/images/Check_for_grammar.png' %}" alt="random1">
+                    <div class="card-body">
+                        <p class="text-center pl-2 pr-2"> Avoid errors and grammatical mistakes in your content in few clicks. Get the better grades with improved writing. </p>
+                        <div class="col text-center mt-5">
+                            <a href="{% url 'writing:grammar' %}" class="btn btn_common btn_blue"> Check grammar </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0">
+                    <img class="card-img-top" src="{% static 'dist/assets/images/Compare_texts_for_similarity.png' %}"
+                         alt="random2">
+                    <div class="card-body">
+                        <p class="text-center pl-2 pr-2"> Compare for similarity between two contents. Check for plagiarism or
+                            duplicate content easily using our free tools. </p>
+                        <div class="col text-center mt-4">
+                            <a href="{% url 'writing:compare' %}" class="btn btn_common btn_blue">Compare
+                                now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0">
+                    <img class="card-img-top" src="{% static 'dist/assets/images/Expert_help_in_proofreading.png' %}"
+                         alt="random3">
+                    <div class="card-body">
+                        <p class="text-center pl-2 pr-2"> Hire professional content editors for your content. Discuss with us about
+                            your requirements and get best content editing services. </p>
+                        <div class="col text-center mt-4">
+                            <a href="https://tawk.to/chat/5d52a62677aa790be32eb23b/default" target="_blank" class="btn btn_common btn_blue"> Chat now </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="bg_resume_writing">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="bg_resume_writing_content">
+                        <h1 class="pb-4"> Professional tutor service </h1>
+                        <p class=""> Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of.. </p>
+                        <div class="pt-2">
+                            <a href="{% url 'writing:sample-list-view' %}" class="btn btn_common btn_blue"> Find A Tutor </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% comment %}
+    <section class="mt-5 mb-5">
+        <div class="container">
+            <h2 class="text-center py-2">Listen what our customers say</h2>
+            <div class="row pb-4 pt-4">
+                <span><img class="img-responsive" src="{% static 'dist/assets/images/quote.png' %}" alt="quote"
+                           style="left:48%; position: absolute; z-index: 2"></span>
+            </div>
+            <div class="row pb-4">
+                <div class="col-md-10 offset-md-1">
+                    <div class="owl-carousel owl-theme owl-second bg-white border-radius-20 box-shadow-3-3-5-5">
+
+                        <div class="row pt-5" style="border: 0px;">
+                            <div class="col-md-4">
+                                <!-- <p class="card-text"></p>-->
+                                <img class="img-responsive mx-auto d-block" src="{% static 'dist/assets/images/Reviews.png' %}"
+                                     alt="testimonial" style="width:50%;">
+                            </div>
+                            <div class="col-md-8 pt-2">
+                                <p class="pt-4 px-2 pr-4 font-size-15">Lorem Ipsum is simply dummy text of the printing and
+                                    typesetting industry. Lorem Ipsum has been the industry's
+                                    standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                                    scrambled it to make
+                                    a type specimen book.</p>
+                                <p class="font-weight-500 font-size-20 px-3">Ema Swan</p>
+                            </div>
+                        </div>
+
+                        <div class="row pt-5" style="border: 0px;">
+                            <div class="col-md-4">
+                                <!-- <p class="card-text"></p>-->
+                                <img class="img-responsive mx-auto d-block" src="{% static 'dist/assets/images/Reviews.png' %}"
+                                     alt="testimonial" style="width:50%;">
+                            </div>
+                            <div class="col-md-8 pt-2">
+                                <p class="pt-4 px-2 pr-4 font-size-15">Lorem Ipsum is simply dummy text of the printing and
+                                    typesetting industry. Lorem Ipsum has been the industry's
+                                    standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                                    scrambled it to make
+                                    a type specimen book.</p>
+                                <p class="font-weight-500 font-size-20 px-3">Ema Swan</p>
+                            </div>
+                        </div>
+
+                        <div class="row pt-5" style="border: 0px;">
+                            <div class="col-md-4">
+                                <!-- <p class="card-text"></p>-->
+                                <img class="img-responsive mx-auto d-block" src="{% static 'dist/assets/images/Reviews.png' %}"
+                                     alt="testimonial" style="width:50%;">
+                            </div>
+                            <div class="col-md-8 pt-2">
+                                <p class="pt-4 px-2 pr-4 font-size-15">Lorem Ipsum is simply dummy text of the printing and
+                                    typesetting industry. Lorem Ipsum has been the industry's
+                                    standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                                    scrambled it to make
+                                    a type specimen book.</p>
+                                <p class="font-weight-500 font-size-20 px-3">Ema Swan</p>
+                            </div>
+                        </div>
+
+                        <div class="row pt-5" style="border: 0px;">
+                            <div class="col-md-4">
+                                <!-- <p class="card-text"></p>-->
+                                <img class="img-responsive mx-auto d-block" src="{% static 'dist/assets/images/Reviews.png' %}"
+                                     alt="testimonial" style="width:50%;">
+                            </div>
+                            <div class="col-md-8 pt-2">
+                                <p class="pt-4 px-2 pr-4 font-size-15">Lorem Ipsum is simply dummy text of the printing and
+                                    typesetting industry. Lorem Ipsum has been the industry's
+                                    standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                                    scrambled it to make
+                                    a type specimen book.</p>
+                                <p class="font-weight-500 font-size-20 px-3">Ema Swan</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endcomment %}
+</div>
+{% endblock %}
+{% block extra_js %}
+<script>
+    $(document).ready(function () {
+            $(".owl-second").owlCarousel({
+                items: 1,
+                loop: true,
+                nav: false,
+                stagePadding: 10,
+                dots: true,
+                autoplay: true,
+                margin: 10,
+                responsiveClass: true,
+                responsive: {
+                    0: {
+                        items: 1,
+                    },
+                    400: {
+                        items: 1,
+                    },
+                    768: {
+                        items: 1,
+                    },
+                    992: {
+                        items: 1,
+                    }
+                }
+            });
+
+        });
+
+</script>
+<script>
+    $(document).ready(function (){
+        $(".writing").addClass("active");
+    });
+
+</script>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% block content %}
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-transparent">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item active text-dark font-weight-bold" aria-current="page">Subjects</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1>Subjects</h1>
+                <p>Find using our extensive subjects filters & get most out of it.
+                </p>
+            </div>
+        </div>
+        <div class="row mb-3">
+            {% for p in object_list %}
+            <div class="col-sm-6 col-md-4">
+                {% if not p.parent_subject %}
+                {% if object.info_graphic_image %}
+                <img src="{{ object.info_graphic_image.url }}" alt="{{ image_alt_text.title }}"
+                     class="img-fluid width-50px h-auto pb-3">
+                {% elif object.image %}
+                <img src="{{ object.image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid width-50px h-auto">
+                {% endif %}
+                <h4>
+                    <a href="{% url 'subjects:parent-subject-view' p.slug %}" class="card-title black-font">{{ p }}</a>
+                </h4>
+
+                {% for child in p.subject_set.all %}
+                <h5>
+                    <a class="card-link blue-theme" href="{% url 'subjects:child-subject-view' p.slug child.slug %}">
+                        {{child}}
+
+                        {% comment %}
+                        {% for c in doc_count %}
+                        {% if c.name == child.name %}
+                        {{c.doc_subject}} documents
+                        {% endif %}
+                        {% endfor %}
+                        {% endcomment %}
+                    </a>
+                </h5>
+                <span class="d-block text-muted font-size-12 pb-4">
+                    	{% for c in doc_count %}
+                            {% if c.name == child.name %}
+                                {{c.doc_subject}} documents
+                            {% endif %}
+                        {% endfor %}
+                    </span>
+                {% endfor %}
+                {% endif %}
+
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+<!-- common section -->
+<section class="bg-light pt-5 pb-5">
+    <div class="container">
+        <div class="row bg-light">
+            <div class="col-sm-12 text-center">
+                <h3 class="">Join us and improve your grades.</h3>
+                <h3>Get best deals</h3>
+                <a class="btn text-white btn-bg-theme border-radius-40 py-2 px-4 mt-3" href="{% url 'subscription' %}">Join
+                    now</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

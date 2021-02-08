@@ -54,7 +54,7 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
     model = Order
     slug_field = 'uuid'
     slug_url_kwarg = 'uuid'
-    template_name = 'homework_help/order_detail.html'
+    template_name = 'homework_help/v2/order_detail.html'
     form_class = CommentForm
     title = 'Desklib | homework help | online learning library | assignment solutions '
     description = 'Desklib online learning library provides you 24/7 Homework Help, Q&A help, and solutions to assignments, essays, dissertations, case studies and Best free writing tools for everyone to improve their writing skills.'
@@ -94,6 +94,14 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
         context['paypalform'] = paypalform
         context['meta'] = self.get_object().as_meta(self.request)
         context['order'] = order
+        queryset = Question.objects.filter(is_published=True, is_visible=True,
+                                           published_date__lte=timezone.now()).order_by('-published_date')
+        subject = Subject.objects.all()[:9]
+        accordion_content = HomeworkAccordion.objects.filter
+        # order = Order.objects.get(order_id=self.kwargs['order_id'])
+        context['question'] = queryset
+        context['subject'] = subject
+        context['accordion_content'] = accordion_content
         return context
 
 

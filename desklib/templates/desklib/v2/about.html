@@ -1,0 +1,58 @@
+{% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% load meta %}
+
+{% block canonical %}
+<link rel="canonical" href="https://desklib.com/about/" />
+{% endblock %}
+
+{% block content %}
+<div class="pg_about">
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-transparent mb-0 rounded-0">
+                        <li class="breadcrumb-item active"><a href="{% url 'about'%}" class="">About Us</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="bg_banner_about">
+    <div class="container">
+        <div class="row py-2 py-md-5">
+            <div class="col-md-6 order-lg-1 order-md-1 order-2">
+                <div class="about_content">
+                    <h2 class="Roboto-Bold py-1">Who We Are</h2>
+                    <h5 class="Roboto-Regular py-4"> We're an <span class="blue-theme">online learning platform</span> <br /> of course-specific study material </h5>
+                    <p class="text-justify Roboto-Light">Desklib is an online learning library where students can find solutions to assignments, essays, dissertations, case studies, research reports, reflection writing and a lot more. Students looking for assignment help, help in writing an essay, help with dissertations, help in writing a perfect case study can get instant access to our resources and can be benefited from them. The resources are provided by various students and education partners which can be used by students looking for help in their homework to learn and improve their knowledge and writing skills. Students can gain access to millions of documents in various subjects and explore them to learn more about the topic and prepare their assignments better.</p>
+                </div>
+            </div>
+            <div class="col-md-6 text-center order-lg-2 order-md-2 order-1 py-5 mt-4">
+                <img class="img-fluid" src="{% static 'src/assets/images/v2/about_whoweare.svg' %}" alt="About-Who We Are">
+            </div>
+
+        </div>
+
+        <div class="row py-2 py-md-5">
+            <div class="col-md-6 text-center order-lg-1 order-md-2 order-1 py-5">
+                <img class="img-fluid" src="{% static 'src/assets/images/v2/about_whywedoit.svg' %}" alt="About-Why We Do It" />
+            </div>
+             <div class="col-md-6 order-lg-2 order-md-1 order-2">
+                 <div class="about_content">
+                     <h2 class="Roboto-Bold py-1">Why We Do It</h2>
+                     <h5 class="Roboto-Regular py-4"> We belive in supporting student <br /> <span class="blue-theme">online learning together</span> </h5>
+                     <p class="text-justify Roboto-Light">We believe that only by sharing can knowledge be spread and students can learn quickly and effectively by learning from other students. We also believe that the share of knowledge should be beyond boundaries and every student has the right to have equal opportunities and resources. At Desklib, we constantly try to provide students with filtered and curated resources, so they can learn better, improve their knowledge and secure good grades.</p>
+                 </div>
+             </div>
+        </div>
+    </div>
+</section>
+</div>
+{% endblock %}

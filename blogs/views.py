@@ -10,7 +10,7 @@ from blogs.models import BlogModel
 
 
 class BlogListPageView(MetadataMixin, JsonLdListView, ListView):
-    template_name = "blogs/blog_list.html"
+    template_name = "blogs/v2/blog_list.html"
     paginate_by = 6
     title = 'Blog - Desklib'
     description = 'Desklib blog list page'
@@ -44,7 +44,7 @@ class BlogListPageView(MetadataMixin, JsonLdListView, ListView):
 
 
 class BlogDetailPageView(JsonLdDetailView, DetailView):
-    template_name = "blogs/blog_detail.html"
+    template_name = "blogs/v2/blog_detail.html"
     model = BlogModel
 
     def get_structured_data(self):

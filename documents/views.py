@@ -190,11 +190,11 @@ class DocumentView(JsonLdDetailView):
         a list. May not be called if render_to_response is overridden.
         """
         if self.request.user.is_anonymous:
-            self.template_name = 'documents/document_detail.html'
+            self.template_name = 'documents/v2/document_detail.html'
         elif is_subscribed(self.request.user):
-            self.template_name = 'documents/document_detail_subscribed.html'
+            self.template_name = 'documents/v2/document_detail_subscribed.html'
         else:
-            self.template_name = 'documents/document_detail_logged_in.html'
+            self.template_name = 'documents/v2/document_detail_logged_in.html'
 
         return [self.template_name]
 
@@ -452,7 +452,7 @@ class DocumentDownloadDetailView(LoginRequiredMixin, FormView):
 
 
 class DocumentPayment(LoginRequiredMixin, MetadataMixin, TemplateView):
-    template_name = 'documents/doc-payment.html'
+    template_name = 'documents/v2/doc-payment.html'
     title = 'Homework Help Payment | Online Homework Help - Desklib'
 
 
@@ -631,3 +631,9 @@ class DocumentSearchDescription(LoginRequiredMixin, PermissionRequiredMixin, For
         return TemplateResponse(request, "admin/search_in_description.html", context={'result':result, 'form': form})
 
 
+class PaymentOptionView(LoginRequiredMixin, MetadataMixin, TemplateView):
+    template_name = 'documents/v2/payment_option.html'
+    title = 'Homework Help Payment | Online Homework Help - Desklib'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)

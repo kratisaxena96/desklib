@@ -1,0 +1,88 @@
+{% extends "desklib/base.html" %}
+{% load meta %}
+{% load static %}
+
+{% block canonical %}
+<link rel="canonical" href="https://desklib.com/contact/"/>
+{% endblock %}
+
+{% block content %}
+<div class="pg_contact">
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-transparent mb-0 rounded-0">
+                            <li class="breadcrumb-item active"><a href="{% url 'contact'%}" class="">Contact</a></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                {% block messages %}
+                {% if messages %}
+                <div class="">
+                    {% for message in messages %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>{{message}}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <section class="bg_banner_contact">
+        <div class="container py-4">
+            <div class="row py-4">
+                <div class="col-lg-7 col-md-12 col-sm-12">
+                    <div class="row mt-lg-5">
+                        <div class="col-md-4">
+                            <h5 class="Roboto-Regular"> Customer support </h5>
+                        </div>
+                        <div class="col-md-8">
+                            <h5><a class="nav-link p-0" href="mailto:info@desklib.com"> info@desklib.com </a></h5>
+                        </div>
+                    </div>
+                    <div class="row mt-3 border-top pt-3">
+                        <div class="col-md-4">
+                            <h5 class="Roboto-Regular"> By Mail </h5>
+                        </div>
+                        <div class="col-md-8">
+                            <h5 class="Roboto-Regular"><strong>Octal Services Ltd.</strong><br>68 CIRCULAR ROAD <br>#02-01
+                                SINGAPORE (049422) <br><br>12 Station St E, Coventry CV6 5FJ, United Kingdom </h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5 col-md-12 col-sm-12 text-center px-2 py-2">
+                    <img src="{% static 'src/assets/images/v2/banner_contact.svg' %}" alt="Contact Banner Image"
+                         class="img-fluid"/>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="contact_map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7977.625400420358!2d103.84914!3d1.286433!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xee160de8e67a5a25!2s%23Foodcoholic!5e0!3m2!1sen!2sus!4v1567321034591!5m2!1sen!2sus" allowfullscreen="" class="w-100"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

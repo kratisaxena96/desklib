@@ -1,0 +1,1159 @@
+{% extends 'desklib/base.html' %}
+{% load staticfiles %}
+
+{% block canonical %}
+<link rel="canonical" href="https://desklib.com/writing/grammar-checker/" />
+{% endblock %}
+
+{% block extra_css %}
+<!--    <link rel="stylesheet" href="https://languagetool.org/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="https://languagetool.org/vendors/glide3/dist/css/glide.core.min.css">
+    <link rel="stylesheet" href="https://languagetool.org/vendors/glide3/dist/css/glide.theme.min.css">
+    <link href="https://languagetool.org/vendors/dropkick/dropkick.css" rel="stylesheet">
+    <link href="https://languagetool.org/vendors/tooltipster/tooltipster.bundle.min.css" rel="stylesheet">
+    <link href="https://languagetool.org/vendors/tooltipster/tooltipster-sideTip-shadow.min.css" rel="stylesheet">
+    <link href="https://languagetool.org/fonts/fonts.css" rel="stylesheet">
+    <link href="https://languagetool.org/js/lightbox2/css/lightbox.min.css" rel="stylesheet">
+    <link href="https://languagetool.org/css/jquery-ui/jquery-ui.structure.min.css" rel="stylesheet">
+    <link href="https://languagetool.org/css/jquery-ui/jquery-ui.theme.min.css" rel="stylesheet">
+    <link href="https://languagetool.org/css/vex.css" rel="stylesheet">
+    <link href="https://languagetool.org/css/vex-theme-default.css" rel="stylesheet">
+<!--    <link href="https://languagetool.org/css/style.css?20190516" rel="stylesheet">-->
+    <link href="https://languagetool.org/css/media.css?20190426" rel="stylesheet">
+    <link href="https://languagetool.org/css/tooltip.css?20180419" rel="stylesheet">
+    <link href="{% static 'src/css/plugins/style.css' %}" rel="stylesheet">
+
+<!--    <link rel="stylesheet" href="https://languagetool.org/vendors/glide3/dist/css/glide.core.min.css">-->
+<!--    <link rel="stylesheet" href="https://languagetool.org/vendors/glide3/dist/css/glide.theme.min.css">-->
+
+<!--      <script type="text/javascript" src="https://languagetool.org/js/vex.combined.min.js"></script>-->
+<!--    <script>vex.defaultOptions.className = 'vex-theme-os'</script>-->
+
+<!--    <link href="https://languagetool.org/css/vex.css" rel="stylesheet">-->
+<!--    <link href="https://languagetool.org/css/vex-theme-default.css" rel="stylesheet">-->
+
+<!--      <link href="https://languagetool.org/css/style.css?20190516" rel="stylesheet">-->
+<!--    <link href="https://languagetool.org/css/media.css?20190426" rel="stylesheet">-->
+<!--    <link href="https://languagetool.org/css/tooltip.css?20180419" rel="stylesheet">-->
+
+
+<!--      <script type="text/javascript" src="https://languagetool.org/js/jquery-1.7.0.min.js"></script>-->
+<!--<script type="text/javascript" src="https://languagetool.org/js/jquery-ui.min.js"></script>-->
+<!--<script type='text/javascript' src='https://languagetool.org/js/touchHover.js'></script>-->
+
+<!--<link rel="stylesheet" type="text/css" href="https://languagetool.org/css/slick/slick.css"/>-->
+<!--<link rel="stylesheet" type="text/css" href="https://languagetool.org/css/slick/slick-theme.css"/>-->
+<!--<script type="text/javascript" src="https://languagetool.org/js/slick/slick.min.js"></script>-->
+
+<!--      <script type="text/javascript" src="https://languagetool.org/js/zebra_dialog.js"></script>-->
+
+
+{% endblock %}
+
+{% block extra_js %}
+      <script type="text/javascript" src="https://languagetool.org/online-check/tiny_mce/tiny_mce.js"></script>
+      <script type="text/javascript" src="https://languagetool.org/online-check/tiny_mce/plugins/atd-tinymce/editor_plugin2.js?v20171221"></script>
+
+<!--      <script type="text/javascript" src="https://languagetool.org/js/jquery-1.7.0.min.js"></script>-->
+      <script type="text/javascript">
+   // translation of language variant names:
+   var lt_i18n = {
+       'de': {
+           'DE': 'Deutschland',
+           'AT': 'Österreich',
+           'CH': 'Schweiz'
+       }
+   };
+   tinyMCE.init({
+       mode : "textareas",
+       plugins                     : "AtD,paste",
+       //directionality              : 'auto',   // will display e.g. Persian in right-to-left -- doesn't work in MSIE
+       //Keeps Paste Text feature active until user deselects the Paste as Text button
+       paste_text_sticky : true,
+       content_style: "@media (max-width: 750px) { body { margin: 8px 16px !important; } }",
+       //select pasteAsPlainText on startup
+       setup : function(ed) {
+           ed.onInit.add(function(ed) {
+               ed.pasteAsPlainText = true;
+               if (document.checkform.lang.value) {
+                   // needed so we don't get invalid lang + subLang combinations when
+                   // user enters the page via back button:
+                   fillSubLanguageSelect(document.checkform.lang.value.replace(/-..$/, ""));
+               }
+               doit();  // check immediately when entering the page
+           });
+           ed.onKeyDown.add(function(ed, e) {
+               if (e.ctrlKey && e.keyCode == 13) {  // Ctrl+Return
+                   doit(true);
+                   tinymce.dom.Event.cancel(e);
+               } else if (e.keyCode == 27) {   // Escape
+                   // doesn't work in firefox, the re-init in turnOffFullScreenView()
+                   // might clash with event handling:
+                   if ($('form#checkform').hasClass('fullscreen')) {
+                       setTimeout(turnOffFullScreenView, 100);  // use timeout to prevent problems on Firefox
+                   }
+               }
+           });
+           // remove any 'no errors found' message:
+           ed.onKeyUp.add(function(ed, e) {
+               if (!e.keyCode || e.keyCode != 17) {  // don't hide if user used Ctrl+Return
+                   $('#feedbackMessage').html('');
+               }
+           });
+           ed.onPaste.add(function(ed, e) {
+               $('#feedbackMessage').html('');
+           });
+       },
+       /* translations: */
+       languagetool_i18n_no_errors :
+          {
+           // "No errors were found.":
+           'ast': 'Nun s\'atoparon errores',
+           'br': 'Fazi ebet.',
+           'ca': 'No s\'ha trobat cap error',
+           'de-DE': 'Keine Fehler gefunden.',
+           'de-DE-x-simple-language': 'Keine möglichen Verstöße gegen Leichte Sprache gefunden.',
+           'eo': 'Neniuj eraroj trovitaj.',
+           'fr': 'Aucune erreur trouvée.',
+           'nl': 'Geen aandachtspunten gevonden.',
+           'pl': 'Nie znaleziono błędów',
+           'pt': 'Não foram encontrados erros.',
+           'ru': 'Ошибки не найдены.',
+           'fake': 'last entry so all previous items can end with a comma'
+          },
+       languagetool_i18n_explain :
+          {
+           // "Explain..." - shown if there's an URL with a more detailed description:
+           'ast': 'Más información…',
+           'br': 'Muioc’h a ditouroù…',
+           'ca': 'Més informació…',
+           'de-DE': 'Mehr Informationen...',
+           'de-DE-x-simple-language': 'Mehr Informationen...',
+           'eo': 'Pliaj klarigoj…',
+           'fr': 'Plus d’informations…',
+           'nl': 'Uitleg...',
+           'pl': 'Więcej informacji…',
+           'pt': 'Explicação…',
+           'ru': 'Подробнее…',
+           'fake': 'last entry so all previous items can end with a comma'
+          },
+       languagetool_i18n_ignore_once :
+          {
+           // "Ignore this type of error" -- for non-spelling errors:
+           'br': 'Na ober van ouzh fazi a seurt-se',
+           'ca': 'Ignora aquesta classe d\'errors',
+           'de-DE': 'Fehler dieser Art ignorieren',
+           'de-DE-x-simple-language': 'Fehler dieser Art ignorieren',
+           'eo': 'Ignori tiun tipon de eraro',
+           'es': 'Ignorar este tipo de error',
+           'fr': 'Ignorer ce type d’erreur',
+           'nl': 'Negeer dergelijke fouten',
+           'pl': 'Pomijaj błędy tego typu',
+           'pt': 'Ignorar este tipo de erros',
+           'sl': 'Prezri te vrste napako',
+           'ru': 'Пропустить этот вид ошибок',
+           'fake': 'last entry so all previous items can end with a comma'
+          },
+       languagetool_i18n_ignore_all :
+       {
+           // "Ignore error for this word" -- for spelling errors:
+           'ca': 'Ignora l\'error d\'aquesta paraula',
+           'de-DE': 'Fehlermeldung für dieses Wort ignorieren',
+           'de-DE-x-simple-language': 'Fehlermeldung für dieses Wort ignorieren',
+           'eo': 'Ignori eraron por tiu vorto',
+           'es': 'Ignorar el error para esta palabra',
+           'fr': 'Ignorer l’erreur pour ce mot',
+           'nl': 'Negeer deze spelfout',
+           'pl': 'Pomijaj błąd w tym słowie',
+           'pt': 'Ignorar erros para esta palavra',
+           'sl': 'Prezri napako za to besedo',
+           'ru': 'Игнорировать эту ошибку',
+           'fake': 'last entry so all previous items can end with a comma'
+       },
+       languagetool_i18n_ignore_success :
+       {
+           // after ignoring spelling errors:
+           // "Word will be ignored in this session - <a href='https://languagetoolplus.com'>Visit languagetoolplus.com</a> to store ignore words"
+           'de-DE': "Wort wird in dieser Sitzung ignoriert. Tipp: unter <a href='https://languagetoolplus.com'>languagetoolplus.com</a> können Sie Wörter dauerhaft ignorieren",
+           'de-DE-x-simple-language': 'xxx'
+       },
+       languagetool_i18n_rule_examples :
+          {
+           // "Examples", i.e. examples of incorrect and correct sentences for the matching rule:
+           'br': 'Skouerioù…',
+           'ca': 'Exemples...',
+           'de-DE': 'Beispiele...',
+           'de-DE-x-simple-language': 'Beispiele...',
+           'eo': 'Ekzemploj…',
+           'fr': 'Exemples…',
+           'pl': 'Przykłady...',
+           'pt': 'Exemplos…',
+           'ru': 'Примеры...',
+           'nl': 'Voorbeelden...',
+           'sl': 'Primeri ...',
+           'fake': 'last entry so all previous items can end with a comma'
+          },
+       languagetool_i18n_rule_no_examples :
+          {
+           // "Sorry, no examples found for this rule.":
+           'ca': 'No s\'han trobat exemmples per a aquesta regla.',
+           'de-DE': 'Leider wurden keine Beispiele für diese Regel gefunden.',
+           'eo': 'Neniu ekzemplo trovita por tiu regulo.',
+           'fr': 'Aucun exemple trouvé pour cette règle.',
+           'pl': 'Niestety nie znaleziono żadnych przykładów',
+           'pt': 'Não encontramos exemplos para esta regra.',
+           'ru': 'Ни одного примера для этого правила не было найдено.',
+           'sl': 'Žal za to napako ni primerov.',
+           'fake': 'last entry so all previous items can end with a comma'
+          },
+       languagetool_i18n_rule_implementation :
+          {
+           // "Rule implementation":
+           'ca': 'Implementació de la regla...',
+           'de-DE': 'Technische Details...',
+           'de-DE-x-simple-language': 'Technische Details...',
+           'eo': 'Realigo de la regulo…',
+           'fr': 'Implémentation de la règle…',
+           'nl': 'De techniek erachter...',
+           'pl': 'Dodatkowe informacje o regule…',
+           'pt': 'Detalhes técnicos…',
+           'ru': 'Описание реализации правила...',
+           'sl': 'Implementacija pravila ...',
+           'fake': 'last entry so all previous items can end with a comma'
+          },
+       languagetool_i18n_suggest_word :
+          {
+           // "Suggest word for dictionary...":
+           // *** Also set languagetool_i18n_suggest_word_url below if you set this ***
+           'ca': 'Suggereix una paraula per al diccionari...',
+           'de-DE': 'Wort zur Aufnahme vorschlagen...',
+           'eo': 'Sugesti vorton por la vortaro…',
+           'fr': 'Suggerer un mot pour le dictionnaire…',
+           'nl': 'Suggest word for dictionary...',
+           'pl': 'Zaproponuj dodanie wyrazu do słownika...',
+           'pt': 'Adicionar ao dicionário…',
+           'ru': 'Предложить слово для словаря...',
+           'fake': 'last entry so all previous items can end with a comma'
+          },
+       languagetool_i18n_suggest_word_url :
+          {
+           // "Suggest word for dictionary..." - if you add a community.languagetool.org URL,
+           // ask Daniel for the password to the web tool that helps managing the suggestions:
+           'ca': 'https://community.languagetool.org/suggestion?word={word}&lang=ca',
+           'de-DE': 'https://community.languagetool.org/suggestion?word={word}&lang=de&email=off',
+           'nl': 'http://www.opentaal.org/suggesties?word={word}',
+           'pl': 'http://www.sjp.pl',
+           'pt': 'https://community.languagetool.org/suggestion?word={word}&lang=pt',
+           'ru': 'http://myooo.ru/index.php?option=com_addtodictsuggest&Itemid=135&word={word}',
+           'fake': 'last entry so all previous items can end with a comma'
+          },
+       languagetool_i18n_track_message :
+           {
+               'de-DE': 'Um LanguageTool zu verbessern, brauchen wir Daten über die Art der Nutzung. ' +
+                        'Bitte erlauben Sie uns, Ihre korrigierten Sätze anynonym zu speichern ' +
+                        '(Ihre IP-Adresse wird nicht gespeichert).',
+               'ru'   : 'Для дальнейшего улучшения LanguageTool нам необходимы данные о том, как он используется. Пожалуйста, позвольте нам сохранять анонимно исправленные предложения (т.е. ваш IP-адрес не будет сохраняться).',
+               'fr'   : "Afin de perfectionner LanguageTool, nous sommes à la recherche de données d'utilisation. Nous vous prions de nous autoriser anonymement le stockage des expressions corrigées. (ndlr : votre adresse IP ne sera pas mémorisée)",
+               'pt'   : "É possível melhorar o LanguageTool, sabendo como é utilizado. Pode ajudar-nos, se permitir que armazenemos anonimamente as frases corretas (isto é, guardar as frases, sem que o seu IP seja guardado).",
+               'es'   : "Para seguir mejorando LanguageTool buscamos datos sobre cómo está utilizado. Por favor, permítenos guardar tus frases corregidas anónimo (p.ej. nunca guardaremos tu dirección IP).",
+               'uk'   : "Щоб ще більше вдосконалити LanguageTool, ми збираємо дані про те, як його використовують. Будь ласка, дозвольте нам зберігати ваші виправлення для речень анонімно (тобто ваша адреса IP збегрігатися не буде).",
+               'it'   : "Al fine di migliorare ulteriormente LanguageTool, stiamo raccogliendo informazioni sul suo utilizzo. Ti chiediamo il permesso di memorizzare le tue frasi corrette in modo anonimo (ad esempio, il tuo indirizzo IP non sarà memorizzato).",
+               'nl'   : "Om LanguageTool nog beter te maken verzamelen we gegevens over het gebruik ervan. Sta ons s.v.p. toe om de gecorrigeerde zinnen te bewaren. (Uw IP-adres wordt niet bewaard.)",
+               'zh'   : "为了进一步改进LanguageTool，我们需要该工具的使用数据。请允许我们以匿名方式储存你校正的句子（你的IP地址不会被记录）。",
+               'pl'   : "Do dalszego rozwoju korektora LanguageTool potrzebujemy danych na temat jego użycia. Prosimy o zezwolenie na zapisanie poprawionych zdań w postaci anonimowej (tj. adres IP nie zostanie zapisany)."
+           },
+       languagetool_i18n_track_message_sentence :
+           {
+               'de-DE': 'Satz:',
+               'ru'   : 'Предложение:',
+               'fr'   : 'Expression:',
+               'pt'   : "Frase:",
+               'es'   : "Frase:",
+               'uk'   : "Речення:",
+               'it'   : "Frase:",
+               'nl'   : "Zin:",
+               'zh'   : "句子：",
+               'pl'   : "Zdanie:"
+           },
+       languagetool_i18n_track_remember_message :
+           {
+               'de-DE': 'Entscheidung merken',
+               'ru'   : 'Запомнить выбор',
+               'fr'   : 'Mémoriser ce choix',
+               'pt'   : "Memorizar esta escolha",
+               'es'   : "memorizar ésta decisión",
+               'uk'   : "Запам'ятати вибір",
+               'it'   : "Ricorda questa decisione",
+               'nl'   : "Onthoud deze keuze",
+               'zh'   : "记住该决定",
+               'pl'   : "Zapamiętaj ten wybór"
+           },
+       languagetool_i18n_track_no :
+           {
+               'de-DE': 'Nein',
+               'ru'   : 'Нет',
+               'fr'   : 'Non',
+               'pt'   : "Não",
+               'es'   : "No",
+               'uk'   : "Ні",
+               'it'   : "No",
+               'nl'   : "Nee",
+               'zh'   : "不同意",
+               'pl'   : "Nie"
+           },
+       languagetool_i18n_track_yes :
+           {
+               'de-DE': 'Ja, Satz speichern',
+               'ru'   : 'Да, сохранить предложение',
+               'fr'   : "Okay, enregistrer l'expression",
+               'pt'   : "OK. Guardar a frase.",
+               'es'   : "Vale, guardar la frase.",
+               'uk'   : "Так, зберегти це речення",
+               'it'   : "Va bene, memorizza questa frase",
+               'nl'   : "Oké, sla de zin op",
+               'zh'   : "好，储存句子",
+               'pl'   : "Tak, zapisz zdanie"
+           },
+       languagetool_i18n_track_yes_plural :
+           {
+               'de-DE': 'Ja, Sätze speichern',
+               'ru'   : 'Да, сохранять фрагменты текста',
+               'fr'   : 'Okay, enregistrer les expressions',
+               'pt'   : "OK. Guardar as frases.",
+               'es'   : "Vale, guardar las frases.",
+               'uk'   : "Так, зберігати речення",
+               'it'   : "Va bene, acconsento a inviare le frasi",
+               'nl'   : "Oké, sla de zinnen op",
+               'zh'   : "好，储存句子",
+               'pl'   : "Tak, zapisz zdania"
+           },
+
+       languagetool_i18n_track_ask :
+           {
+               'de-DE': 'Jedes Mal fragen',
+               'ru'   : 'Спрашивать каждый раз',
+               'fr'   : 'Toujours demander',
+               'pt'   : "Perguntar sempre",
+               'es'   : "preguntar siempre",
+               'uk'   : "Запитувати кожного разу",
+               'it'   : "Chiedi il permesso ogni volta",
+               'nl'   : "Vraag dit altijd",
+               'zh'   : "每次都询问",
+               'pl'   : "Pytaj za każdym razem"
+           },
+       languagetool_i18n_do_track :
+           {
+               'de-DE': 'Danke, dass Sie Ihre Korrekturen speichern lassen.',
+               'ru'   : 'Благодарим за предложенные варианты исправлений.',
+               'fr'   : 'Merci pour votre contribution.',
+               'pt'   : "Obrigado pela sua contribuição.",
+               'es'   : "Gracias por contribuir correcciones.",
+               'uk'   : "Дякуємо, що ділитеся виправленнями.",
+               'it'   : "Grazie per aver contribuito con le tue correzioni",
+               'nl'   : "Bedankt voor uw bijdragen.",
+               'zh'   : "谢谢你的校正",
+               'pl'   : "Dziękujemy za przesłanie poprawek."
+           },
+       languagetool_i18n_do_not_track :
+           {
+               'de-DE': 'Sie lassen Ihre Korrekturen nicht speichern.',
+               'ru'   : 'Варианты исправлений не сохраняются.',
+               'fr'   : 'Vous avez choisi de ne pas contribuer aux corrections.',
+               'pt'   : "Não está a contribuir com correções.",
+               'es'   : "No estás contribuyendo correcciones.",
+               'uk'   : "Ви не ділитеся своїми виправленнями.",
+               'it'   : "Non stai contribuendo con le correzioni",
+               'nl'   : "U draagt niet bij.",
+               'zh'   : "你没有做任何校正",
+               'pl'   : "Poprawki nie są przesyłane."
+           },
+       languagetool_i18n_tracking_change :
+           {
+               'de-DE': 'Einstellung ändern',
+               'ru'   : 'Изменить настройки',
+               'fr'   : 'Configuration',
+               'pt'   : "Alterar as definições.",
+               'es'   : "Cambiar la configuración",
+               'uk'   : "Змінити цей параметр",
+               'it'   : "Cambia le impostazioni",
+               'nl'   : "Wijzig instelling",
+               'zh'   : "更改设置",
+               'pl'   : "Zmień ustawienia"
+           },
+       languagetool_i18n_other_suggestion_dialog :
+           {
+               'de-DE': 'Ersetzen mit:',
+               'pt'   : 'Substitua por:',
+	           'ru'   : 'Заменить на:'
+           },
+       languagetool_i18n_other_suggestion :
+           {
+               'de-DE': '(andere Ersetzung)',
+               'pt'   : '(outra substituição)',
+               'nl'   : '(andere suggestie)',
+               'ru'   : '(другая замена)'
+           },
+       languagetool_i18n_other_replace_by :
+           {
+               'de-DE': 'Ersetzen mit...',
+               'pt'   : 'Substitua por...',
+	           'ru'   : 'Заменить...'
+           },
+       languagetool_i18n_track_false_alarm_menu :
+           {
+               'de-DE': 'Als Fehlalarm melden...',
+               'pt'   : 'Reportar falso alarme...',
+               'nl'   : 'Meld als onterecht...',
+	           'ru'   : 'Сообщить о ложной ошибке...',
+           },
+       languagetool_i18n_track_false_alarm1 :
+           {
+               'de-DE': 'Die Fehlermeldung als Fehlalarm an LanguageTool schicken, zusammen mit diesem Satz?',
+               'pt'   : 'Enviar este erro para a equipa do LanguageTool como um alarme falso, juntamente com esta frase',
+	           'ru'   : 'Сообщить о ложной ошибке LanguageTool и отправить сообщение разработчикам вместе с этим предложением?',
+           },
+       languagetool_i18n_track_false_alarm2 :
+           {
+               'de-DE': 'Wenn Sie zustimmen, werden diese Daten anonym gespeichert.',
+               'pt'   : 'Se concordar, esta informação será armazenada anonimamente.',
+               'ru'   : 'Если вы согласитесь, то эта информация будет храниться анонимно.',
+           },
+       languagetool_i18n_current_lang :    function() { return document.checkform.lang.value; },
+       /* the URL of your LanguageTool server or the URL of your proxy file: */
+       languagetool_rpc_url                 : "https://languagetool.org/api/v2/check",  // requires the server to be started with '--allow-origin ...'
+       languagetool_rpc_url2                : "https://api.languagetool.org/v2/check",  // requires the server to be started with '--allow-origin ...'
+       //languagetool_rpc_url                 : "http://localhost:8081/v2/check",
+       /* edit this file to customize how LanguageTool shows errors: */
+       languagetool_css_url                 : "https://languagetool.org/vendors/tiny_mce/plugins/atd-tinymce/css/content.css?v6",
+       /* this stuff is a matter of preference: */
+       theme                              : "advanced",
+       theme_advanced_buttons1            : "",
+       theme_advanced_buttons2            : "",
+       theme_advanced_buttons3            : "",
+       theme_advanced_toolbar_location    : "none",
+       theme_advanced_toolbar_align       : "left",
+       theme_advanced_statusbar_location  : "bottom",  // activated so we have a resize button
+       theme_advanced_path                : false,     // don't display path in status bar
+       theme_advanced_resizing            : true,
+       theme_advanced_resizing_use_cookie : false,
+       /* disable the gecko spellcheck since AtD provides one */
+       gecko_spellcheck                   : false
+   });
+    function fullscreen_toggle() {
+      if ($('form#checkform').hasClass('fullscreen')) {
+        turnOffFullScreenView();
+      } else {
+        turnOnFullScreenView();
+        if (typeof(_paq) !== 'undefined') { _paq.push(['trackEvent', 'Action', 'SwitchToFullscreen']); } // Piwik tracking
+      }
+      return false;
+    }
+   function turnOffFullScreenView() {
+       // re-init the editor - this way we lose the error markers, but it's needed
+       // to get proper position of the context menu:
+       // source: http://stackoverflow.com/questions/4651676/how-do-i-remove-tinymce-and-then-re-add-it
+       tinymce.EditorManager.execCommand('mceRemoveControl',true, 'checktext');
+       tinymce.EditorManager.execCommand('mceAddControl', true, 'checktext');
+       $('form#checkform').removeClass('fullscreen');
+       $('body').removeClass('fullscreen');
+       tinymce.execCommand('mceFocus', false, 'checktext');
+   }
+   function turnOnFullScreenView() {
+       tinymce.EditorManager.execCommand('mceRemoveControl',true, 'checktext');
+       tinymce.EditorManager.execCommand('mceAddControl', true, 'checktext');
+       $('body').addClass('fullscreen');
+       $('form#checkform').addClass('fullscreen');
+       $('iframe#checktext_ifr').height( $(window).height() - $('#editor_controls').outerHeight() - $('#handle').outerHeight() );
+       tinymce.execCommand('mceFocus', false, 'checktext');
+   }
+   function doit(doLog) {
+       document.checkform._action_checkText.disabled = true;
+       var langCode = document.checkform.lang.value;
+       if (document.checkform.subLang && document.checkform.subLang.value) {
+           langCode = langCode.replace(/-..$/, "")  // en-US -> en
+               + "-" + document.checkform.subLang.value;
+       }
+       if (doLog) {
+           if (typeof(_paq) !== 'undefined') { _paq.push(['trackEvent', 'Action', 'CheckText', langCode]); } // Piwik tracking
+       }
+       // save language as default for next visit:
+       document.cookie = "lt-language=" + langCode + ";max-age=1314000;path=/";  // one year
+       tinyMCE.activeEditor.execCommand('mceWritingImprovementTool', langCode);
+   }
+   function proofread() {
+     var textarea = document.createElement('textarea');
+     textarea.style.display = 'none';
+     textarea.name = 'proofread_text';
+     var langCode = document.checkform.lang.value;
+     var $dummy = $("<div>").html(tinymce.activeEditor.getContent());
+     if (typeof(_paq) !== 'undefined') { _paq.push(['trackEvent', 'Action', 'ClickProofread', langCode]); } // Piwik tracking
+     textarea.value = $dummy.text();
+     document.checkform.action = '/human-proofreading/';
+     document.checkform.appendChild(textarea);
+   }
+   function setDemoText() {
+       var lang = $('#lang').val().replace(/-..$/, "");
+       var demoText = languageToText[lang];
+       if (demoText) {
+           tinyMCE.activeEditor.setContent(demoText);
+           doit();
+       }
+       return false;
+   }
+   $(function(){
+    $(window).resize(function(){
+      if ($('form#checkform').hasClass('fullscreen')) {
+        $('iframe#checktext_ifr').height( $(window).height() - $('#editor_controls').outerHeight() );
+      }
+    });
+    // $('#dialog').dialog({autoOpen: false, modal: true, width: '50%'});
+   });
+   </script>
+
+      <script type="text/javascript" src="https://languagetool.org/vendors/dropkick/jquery.dropkick.js"></script>
+    <script type="text/javascript">
+        function fillSubLanguageSelect(langCode) {
+            //console.log("fillSubLanguageSelect " + langCode);
+            var unmaintainedLanguages = {   // see https://languagetool.org/languages/
+                "be": "Belarusian",
+                "da": "Danish",
+                // "gl": "Galician",
+                "is": "Icelandic",
+                "ja": "Japanese",
+                "lt": "Lithuanian",
+                "ml": "Malayalam",
+                // "pt": "Portuguese",
+                "ro": "Romanian",
+                "sv": "Swedish",
+                "zh": "Chinese"
+            };
+            var halfMaintainedLanguages = {
+            };
+            if (unmaintainedLanguages[langCode]) {
+                $('#maintainedInfo').html("<div class='unmaintainedWarning'>" + unmaintainedLanguages[langCode] + " has " +
+                    "very incomplete support in LanguageTool and " +
+                    "there is nobody taking care of it. " +
+                    "<a href='/contribute/'>Would you like to help?</a></div>");
+            } else if (halfMaintainedLanguages[langCode]) {
+                $('#maintainedInfo').html("<div class='unmaintainedWarning'>" + halfMaintainedLanguages[langCode] + " has " +
+                    "incomplete support in LanguageTool. " +
+                    "<a href='/contribute/'>Would you like to help?</a></div>");
+            //if (langCode === 'gl') {
+            //    $('#maintainedInfo').html("<div class='unmaintainedWarning'>" + "O Galego ten " +
+            //        "o suporte incompleto no LanguageTool. " +
+            //        "<a href='/contribute/'>Está interessado em ajudar-nos?</a></div>");
+            //} else if (langCode === 'de') {
+            //    $('#maintainedInfo').html("<div class='unmaintainedWarning'>Kannst Du helfen, LanguageTool zu verbessern? " +
+            //        "<a href='/contribute/'>Hier steht, wie.</a></div>");
+            } else {
+                $('#maintainedInfo').html("");
+            }
+
+            var languagesWithOwnPage = {   // see https://languagetool.org/languages/
+                "br": "Ur bajenn vrezhonek hon eus ivez",
+                "eo": "Ni ankaŭ havas hejmpaĝon en Esperanto",
+                "fr": "Nous avons aussi une page en français",
+                "de": "Informationen zu LanguageTool auf Deutsch",
+                "gl": "Também temos uma página em Galego",
+                "it": "Abbiamo anche una pagina in italiano",
+                "nl": "Meer over LanguageTool voor het Nederlands",
+                "ca": "També tenim una pàgina en català",
+                "ru": "Посетите страничку LanguageTool на русском языке!",
+                "pt": "Também temos uma página em Português",
+                "es": "También tenemos una página en español",
+                "uk": "Докладніше про українську в LanguageTool",
+                "pl": "Odwiedź stronę programu LanguageTool po polsku",
+                "zh": "Visit our Chinese page about LanguageTool"
+            };
+            if (languagesWithOwnPage[langCode]) {
+                $('#languageInfo').html("<a href='" + langCode + "/'>" + languagesWithOwnPage[langCode] + "</a>");
+            } else {
+                $('#languageInfo').html("");
+            }
+
+            // 'auto' doesn't work in MSIE, so we switch manually:
+            if (langCode === 'fa') {
+                tinymce.get('checktext').getBody().dir = "rtl";
+            } else {
+                tinymce.get('checktext').getBody().dir = "ltr";
+            }
+
+            var subLang = $('#subLang');
+            subLang.find('option').remove();
+            // For languages that have variants, offer those in a different select:
+            // NOTE: keep in sync with checkform.php!
+            var langToSubLang = {
+                'en': [
+                    {code: 'US', name: 'American'},
+                    {code: 'GB', name: 'British'},
+                    {code: 'ZA', name: 'South Africa'},
+                    {code: 'CA', name: 'Canada'},
+                    {code: 'AU', name: 'Australia'},
+                    {code: 'NZ', name: 'New Zealand'}
+                    ],
+                'de': [
+                    {code: 'DE', name: 'Germany'},
+                    {code: 'AT', name: 'Austria'},
+                    {code: 'CH', name: 'Switzerland'}],
+                'pt': [{code: 'PT', name: 'Portugal'}, {code: 'BR', name: 'Brazil'}, {code: 'AO', name: 'Angola'}, {code: 'MZ', name: 'Mozambique'}],
+                'ca': [{code: 'ES', name: 'General'}, {code: 'ES-Valencia', name: 'Valencian'}]
+            };
+            if (langToSubLang[langCode]) {
+                var subLangs = langToSubLang[langCode];
+                var langCodeWithCountry = "en-US";
+                var langCountry = langCodeWithCountry.replace(/^.*-/, "").toUpperCase();
+                var urlLang;
+                if (window.location.href) {
+                    urlLang = window.location.href.replace(/.*\/(..)\/.*/, "$1");
+                    if (urlLang.length != 2) {
+                      urlLang = null;
+                    }
+                }
+                var i18n = lt_i18n[urlLang];
+                //var i18n = lt_i18n['<?= $checkDefaultLang?>'];
+                //var i18n = lt_i18n[langCode];
+                subLangs.forEach(function(entry) {
+                    var displayName = entry.name;
+                    if (i18n && i18n[entry.code]) {
+                      displayName = i18n[entry.code];
+                    }
+                    if (entry.code == langCountry) {
+                      subLang.append($("<option selected/>").val(entry.code).text(displayName));
+                    } else {
+                      subLang.append($("<option />").val(entry.code).text(displayName));
+                    }
+                });
+                $('#subLangDropDown').show();
+                subLang.dropkick('refresh');
+            } else {
+                $('#subLangDropDown').hide();
+            }
+        }
+        $(function(){
+            var prevLang = $('#lang').val().replace(/-..$/, "");
+            $('#lang').dropkick({
+                change: function (value, label) {
+                    value = value.replace(/-..$/, "");  // en-US -> en
+                    fillSubLanguageSelect(value);
+                    var newText = languageToText[value];  // 'languageToText' comes from default_texts.php
+                    if (newText) {
+                        var oldDemoText = languageToText[prevLang];
+                        var currentText = tinyMCE.activeEditor.getContent({format: 'text'});
+                        if (currentText.trim() === "" || currentText === oldDemoText) {
+                            tinyMCE.activeEditor.setContent(newText);
+                            tinyMCE.get('checktext').focus();
+                            doit();
+                            $('#feedbackMessage').html('');
+                        } else {
+                            $('#feedbackMessage').html('<a href="#" onclick="return setDemoText()">insert demo text</a>');
+                        }
+                    } else {
+                        tinyMCE.activeEditor.setContent("Add ur text here");
+                        if (value !== "auto") {
+                            tinyMCE.activeEditor.setContent("Add your text here");
+                        }
+                        tinyMCE.get('checktext').focus();
+                        tinyMCE.activeEditor.selection.select(tinyMCE.activeEditor.getBody(), true);
+                        $('#feedbackMessage').html('');
+                    }
+                    prevLang = value;
+                }
+            });
+            $('#subLang').dropkick({
+                // TODO: this messes up the text - it gets called more than once after the main
+                // language has been changed:
+                /*change: function (value, label) {
+                    //doit();
+                }*/
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        function resize_buttons(){
+            var max_height = 0;
+            $('.button_container .title').each(function(){
+                $(this).height('auto');
+                if ($(this).height() > max_height) {
+                    max_height = $(this).height();
+                }
+            });
+            $('.button_container .title').height(max_height);
+        }
+        $(function(){
+            $(window).resize(function(){
+                resize_buttons();
+            });
+            resize_buttons();
+        });
+    </script>
+
+
+<script async>
+    $(document).ready(function () {
+            $(".owl-second").owlCarousel({
+                items: 1,
+                loop: true,
+                nav: false,
+                stagePadding: 10,
+                dots: true,
+                autoplay: true,
+                margin: 10,
+                responsiveClass: true,
+                responsive: {
+                    0: {
+                        items: 1,
+                    },
+                    400: {
+                        items: 1,
+                    },
+                    768: {
+                        items: 1,
+                    },
+                    992: {
+                        items: 1,
+                    }
+                }
+            });
+
+        });
+</script>
+
+
+      <style>
+          body #stage .inner #editor .inner {
+            -webkit-box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.30);
+            -moz-box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.30);
+            box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.30);
+          }
+          .editorHeader {
+            background: rgba(188, 192, 207, 0.34);
+          }
+          body #editor_controls {
+                background-color: rgba(188, 192, 207, 0.34);
+            }
+
+            .hiddenGrammarError{
+                background-color: #FFD4B0;
+            }
+            .hiddenSpellError{
+                background-color: #BCCDFF;
+            }
+            @media (max-width: 992px){
+                .editorHeaderLeft h3, .features h2, p {
+                   text-align: left;
+                }
+             }
+
+      </style>
+
+
+{% endblock %}
+
+
+
+<!--    <div id="detectedLanguage"></div>-->
+
+
+{% block content %}
+
+
+<section class="container-fluid bg-light-grey pt-5">
+      {% block messages %}
+    {% if messages %}
+        <div>
+            <ul>
+                {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>{{message}}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+  {% endblock %}
+    <div id="stage" class="start">
+    <div class="container">
+        <div id="editor">
+                <noscript class="warning">Please turn on Javascript to use this website</noscript>
+                <form id="checkform" class="" name="checkform" action="#" method="post">
+                    <div class="editorHeader ">
+                        <div class="editorHeaderLeft text-body">
+                            <h2 class="blue-theme pb-3">Trusted grammar and spell checker tool </h2>
+                            <p>Check your grammatical mistakes, punctuation and correct your spelling and save your proofreading time
+                            </p>
+                        </div>
+                        <div class="editorHeaderRight text-center mt-3 mt-md-0">
+                            <a class="ff-chrome jump_menu " type="button" href="https://tawk.to/chat/5d52a62677aa790be32eb23b/default"  target="_blank">
+                                Hire a content editor
+                            </a>
+                        </div>
+                    </div>
+                    <div id="feedbackMessage"></div>
+                    <div class="window">
+                        <div class="fullscreen-toggle">
+                            <a href="#" title="toggle fullscreen mode"
+                               onClick="fullscreen_toggle();return false;"></a>
+                        </div>
+                        <p id="checktextpara" style="margin:0">
+                            <textarea id="checktext" name="text" required rows="10" style="width: 100%;/* display: none; */">At some point,I realized that I strated to use the bike more often, not only to get to work but also to catch up with friends and to head out for coffee on weekends.</textarea>
+                        </p>
+                        <div id="feedbackErrorMessage"></div>
+                        <div id="feedbackPremiumMessage"></div>
+                        <div id="editor_controls">
+                            <div id="sentenceContributionMessage"></div>
+
+                            <div class="editor_controls_items mb-2">
+
+
+                                <div class="submit editor_controls_group pt-0">
+                                    <button class="btn text-white btn-bg-theme border-radius-40 editor_controls_group_item" type="submit" name="_action_checkText"
+                                            onClick="doit(true);return false;"
+                                            title="Check Text - or use Ctrl+Return">
+                                        Check Text </button>
+
+                                         <button class="btn text-white btn-bg-theme border-radius-40 editor_controls_group_item mb-2 mb-md-0" type="submit" name="_action_checkText"
+                                             onClick="tinyMCE.activeEditor.setContent('');tinyMCE.get('checktext').focus();return false;"
+                                            title="Check Text - or use Ctrl+Return">
+                                        Clear </button>
+
+<!--                                    <button class="btn-tb btn-100 border-radius-40 border-none mt-2 mt-md-0 mb-md-0 mb-2 w-sm-100 editor_controls_group_item btn btn-warning btn-bg-theme" type="submit"-->
+<!--                                            onClick="tinyMCE.activeEditor.setContent('');tinyMCE.get('checktext').focus();return false;"-->
+<!--                                            title="Delete text">-->
+<!--                                        Clear-->
+<!--                                    </button>-->
+                                </div>
+                                <div class="dropdown editor_controls_group">
+                                    <select class="dropkick editor_controls_group_item" style="width: 100%" name="lang"
+                                            id="lang">
+                                        <option value="auto" >auto-detect</option>
+                                        <option value="ast" >Asturian</option>
+                                        <option value="be" >Belarusian</option>
+                                        <option value="br" >Breton</option>
+                                        <option value="ca" >Catalan</option>
+                                        <option value="nl" >Dutch</option>
+                                        <option value="en-US"  selected='selected'>English</option>
+                                        <option value="eo" >Esperanto</option>
+                                        <option value="fr" >French</option>
+                                        <option value="gl" >Galician</option>
+                                        <option value="de-DE" >German</option>
+                                        <option value="el" >Greek</option>
+                                        <option value="it" >Italian</option>
+                                        <option value="ja" >Japanese</option>
+                                        <option value="km" >Khmer</option>
+                                        <option value="fa" >Persian</option>
+                                        <option value="pl" >Polish</option>
+                                        <option value="pt" >Portuguese</option>
+                                        <option value="ro" >Romanian</option>
+                                        <option value="ru" >Russian</option>
+                                        <option value="zh" >Simplified Chinese</option>
+                                        <option value="sk" >Slovak</option>
+                                        <option value="sl" >Slovenian</option>
+                                        <option value="es" >Spanish</option>
+                                        <option value="sv" >Swedish</option>
+                                        <option value="tl" >Tagalog</option>
+                                        <option value="ta" >Tamil</option>
+                                        <option value="uk" >Ukrainian</option>
+                                    </select>
+
+                                                                        <div id="subLangDropDown" class="editor_controls_group_item"
+                                         style="display: flex;">
+                                        <!-- NOTE: keep this in sync with header.php and the if() above: -->
+                                        <select class="dropkick" name="subLang" id="subLang"
+                                                style="width: 100%">
+                                                                                        <option>US</option>
+                                            <option>GB</option>
+                                            <option>AU</option>
+                                            <option>CA</option>
+                                            <option>NZ</option>
+                                            <option>ZA</option>
+                                                                                    </select>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+    </div></div></section>
+
+<!-- added accordion -->
+<section class="pb-5 pt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <div id="accordion">
+                    <div id="cardOne" class="card border-0 border-radius-20 bg_white shadow my-2">
+                      <div class="card-header border-0 border-radius-20 bg_white">
+                        <a class="card-link" data-toggle="collapse" href="#collapseOne">
+                           Avoid grammatical mistakes with the help of desklib grammar checker
+                        </a>
+                      </div>
+                      <div id="collapseOne" class="collapse show">
+                        <div class="card-body">
+                            <p>Even if you’re a fluent English speaker or just a beginner English Grammar can be confusing and difficult to write. It’s not just about Grammar, it’s about adding comma, exclamation marks, checking spelling mistakes, and making proper use of nouns and verbs in a sentence while sounding correct too. Have you ever realized after hitting the send button that you’ve made a spelling mistake in the subject line itself? You were in a presentation and forgot to add proper comma and exclamations to your slides? It can be confusing to understand where you need to add apostrophes and comma in a sentence especially when you’re trying to jot down your ideas fastly. </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="cardTwo" class="card border-0 border-radius-20 bg_white shadow my-2">
+                      <div class="card-header border-0 border-radius-20 bg_white">
+                        <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+                             Why use a grammar checker?
+                      </a>
+                      </div>
+                      <div id="collapseTwo" class="collapse show">
+                        <div class="card-body">
+                            <p>Grammar Checker is something that will save you from embarrassment in meetings and help your writings. If you ever have to pitch a client about your product or services, you have to present your ideas in a crisp and subtle way. Especially when the stakes are high, using heavy words in a sentence won’t make that impression. Instead, using simple language with properly written grammar/language can help you crack the deal. So, we have designed a tool such that it will write properly constructed statements from your original written ones. </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="cardThree" class="card border-0 border-radius-20 bg_white shadow my-2">
+                      <div class="card-header border-0 border-radius-20 bg_white">
+                        <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+                           Free grammar checker tool by Desklib
+                        </a>
+                      </div>
+                      <div id="collapseThree" class="collapse show">
+                        <div class="card-body">
+                            <p>Our online Grammar checker tool is perfect for ones who are writing long and heavy paragraphs and needs a quick check for their text. The best part about this tool is that without wasting time you can just copy-paste the entire text from your word file and within a few minutes the errors will be highlighted. You can check your grammatical errors, punctuations, and save your time proofreading the text again and again. The spelling mistakes and punctuation mistakes are highlighted in such a way that an alternative correction will be suggested in place of original ones. So, it not only highlights your mistakes but gives you a proper solution to the existing ones. From typos to sentence corrector, grammar checker is everything you’re looking for in a tool. </p>
+                        </div>
+                      </div>
+                    </div>
+                       <div id="cardFour" class="card border-0 border-radius-20 bg_white shadow my-2">
+                      <div class="card-header border-0 border-radius-20 bg_white">
+                        <a class="collapsed card-link" data-toggle="collapse" href="#collapseFour">
+                           Importance of grammar checker
+                        </a>
+                      </div>
+                      <div id="collapseFour" class="collapse show">
+                        <div class="card-body">
+                            <p>The grammar checker tool takes the context of any sentence into the account. For example- except and expect when written in a sentence fastly have very high chances of getting misspelled. So depending upon what is the meaning of the sentence and what you are trying to convey through your writing Grammar checker will suggest the alternative. So even if you write the spelling correct, it will let you know that your context in that particular sentence is wrong. The tool is so fast that when you upload the text in the box, it will give you suggestions within a few seconds and in your preferred language as well. You can skip the logging in process for faster access to our services. Without signing in we provide access to our tool. So, what are you waiting for? Start better writing with the help of Grammar Checker by Desklib. </p>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <ul class="list-group sticky-top border-0 border-radius-20 shadow">
+                    <li class="list-group-item"><a href="#cardOne"> Avoid grammatical mistakes with the help of desklib grammar checker</a></li>
+                    <li class="list-group-item"><a href="#cardTwo"> Why use a grammar checker?</a></li>
+                    <li class="list-group-item"><a href="#cardThree"> Free grammar checker tool by Desklib</a></li>
+                    <li class="list-group-item"><a href="#cardFour"> Importance of grammar checker</a></li>
+                </ul>
+            </div>
+        </div>
+</div>
+</section>
+<!--<div id="stage" class="start">-->
+<!--  <div class="inner">-->
+<!--    <div id="text">-->
+<!--        <p>LanguageTool is a <strong>proof&shy;reading service</strong> for English, <a href="de/">German</a>,-->
+<!--            <a href="pl/">Polish</a>, <a href="ru/">Russian</a>, and more than <a href="languages/">20 other languages</a>.</p>-->
+<!--            <div id="addToBrowser">-->
+<!--                <div id="addToBrowser">-->
+<!--                    <a onclick="return installChromeExtension('calltoaction')" href="https://chrome.google.com/webstore/detail/languagetool/oldceeleldhonbafppcapldpdifcinji">Add to Chrome<span>&nbsp;&nbsp;free, no sign up required</span></a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--    </div>-->
+<!--    <div id="editor">-->
+<!--      <div class="inner">-->
+
+<!--        <div id='maintainedInfo' class='languageHomepage'></div>-->
+<!--        <div id='languageInfo' class='languageHomepage'></div>-->
+<!--      </div>-->
+<!--      <div id="text2">-->
+<!--        <p class="small">LanguageTool identifies many grammatical and stylistic issues that a simple spell checker cannot detect.</p>-->
+<!--      </div>-->
+
+<!--        <form id="checkform" class="" name="checkform" action="#" method="post">-->
+<!--    <div id="handle"><div id="feedbackMessage"></div></div>-->
+<!--    <div class="window">-->
+<!--        <div class="fullscreen-toggle">-->
+<!--&lt;!&ndash;            <?php&ndash;&gt;-->
+<!--&lt;!&ndash;            if (!isset($toggleFullscreenMode)) {&ndash;&gt;-->
+<!--&lt;!&ndash;                $toggleFullscreenMode = "toggle fullscreen mode";&ndash;&gt;-->
+<!--&lt;!&ndash;            }&ndash;&gt;-->
+<!--&lt;!&ndash;            ?>&ndash;&gt;-->
+<!--            <a href="#" title="toggle fullscreen mode" onClick="fullscreen_toggle();return false;"></a>-->
+<!--        </div>-->
+<!--        <p id="checktextpara" style="margin: 0">-->
+<!--            <textarea id="checktext" name="text" style="width: 100%" rows="10">this is a default text</textarea>-->
+<!--        </p>-->
+<!--        <div id="editor_controls">-->
+<!--            &lt;!&ndash;-->
+<!--            <div class="message">-->
+<!--                <?php if ($checkDefaultLang == "en-US") { ?>-->
+<!--                    Error not found? <a href="http://wiki.languagetool.org/development-overview#toc0">Improve LanguageTool by writing rules that detect errors</a>. The form doesn't work for you? Please use <a href="simple-check/">the fallback form</a>.-->
+<!--                <?php } ?>-->
+<!--            </div>-->
+<!--            &ndash;&gt;-->
+<!--            <div id="feedbackErrorMessage"></div>-->
+<!--            <div id="sentenceContributionMessage"></div>-->
+<!--            <div class="dropdown">-->
+<!--                <select class="dropkick" name="lang" id="lang">-->
+<!--                    <option value="auto" >auto-detect</option>-->
+<!--<option value="ast" >Asturian</option>-->
+<!--<option value="be" >Belarusian</option>-->
+<!--<option value="br" >Breton</option>-->
+<!--<option value="ca" >Catalan</option>-->
+<!--<option value="nl" >Dutch</option>-->
+<!--<option value="en-US"  selected='selected'>English</option>-->
+<!--<option value="eo" >Esperanto</option>-->
+<!--<option value="fr" >French</option>-->
+<!--<option value="gl" >Galician</option>-->
+<!--<option value="de-DE" >German</option>-->
+<!--<option value="el" >Greek</option>-->
+<!--<option value="it" >Italian</option>-->
+<!--<option value="ja" >Japanese</option>-->
+<!--<option value="km" >Khmer</option>-->
+<!--<option value="fa" >Persian</option>-->
+<!--<option value="pl" >Polish</option>-->
+<!--<option value="pt" >Portuguese</option>-->
+<!--<option value="ro" >Romanian</option>-->
+<!--<option value="ru" >Russian</option>-->
+<!--<option value="zh" >Simplified Chinese</option>-->
+<!--<option value="sk" >Slovak</option>-->
+<!--<option value="sl" >Slovenian</option>-->
+<!--<option value="es" >Spanish</option>-->
+<!--<option value="sv" >Swedish</option>-->
+<!--<option value="tl" >Tagalog</option>-->
+<!--<option value="ta" >Tamil</option>-->
+<!--<option value="uk" >Ukrainian</option>-->
+<!--                </select>-->
+
+<!--                <div id="subLangDropDown" style="display: block;float:left;margin-left:6px">-->
+<!--                    &lt;!&ndash; NOTE: keep this in sync with header.php and the if() above: &ndash;&gt;-->
+<!--                    <select class="dropkick" name="subLang" id="subLang">-->
+<!--                            <option>US</option>-->
+<!--                            <option>GB</option>-->
+<!--                            <option>AU</option>-->
+<!--                            <option>CA</option>-->
+<!--                            <option>NZ</option>-->
+<!--                            <option>ZA</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="submit">-->
+<!--                <button class="proofread" type="submit"-->
+<!--                  onClick="proofread();" title="Have your text checked by an expert">-->
+<!--                    Proofread by an Expert-->
+<!--                    <span class="startPrice">Starting at USD 5</span>-->
+<!--                </button>-->
+<!--                <span style="margin-right: 15px;" id="matchCountArea"></span>-->
+<!--                    <button class="upgrade" type="submit" onClick="if (typeof(_paq) !== 'undefined') { _paq.push(['trackEvent', 'UpgradeClick', '<?=$_SERVER['REQUEST_URI']?>']); } window.location.href='https://languagetool.org/#pricing'; return false;">-->
+<!--                        Upgrade-->
+<!--                    </button>-->
+<!--                <button type="submit" name="_action_checkText"-->
+<!--                  onClick="doit(true);return false;" title="Submit Btn">-->
+<!--                    Check Text-->
+<!--                    &lt;!&ndash;<span class="checkButtonDetail">Instant and free</span>&ndash;&gt;-->
+<!--                </button>-->
+<!--            </div>-->
+<!--            <div style="clear:both;"></div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</form>-->
+
+
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--    <div id="content">-->
+<!--    </div>-->
+
+
+{% comment %}
+<section class="container py-5">
+    <div class="row">
+        <div class="col-sm">
+            <img class=" img-fluid" src="{% static 'dist/assets/images/Content writer@2.5x.png' %}" alt="proofread">
+        </div>
+        <div class="col-sm pt-3 pb-sm-0 pt-sm-0 pt-lg-5">
+            <h2 class="">Hire top content writer and proofreaders</h2>
+            <p class="text-left">
+                Access the best content writing service from desklib’s professional and experienced writers
+            </p>
+            <br>
+            <a class="btn text-white btn-bg-theme border-radius-40 py-2" href="https://tawk.to/chat/5d52a62677aa790be32eb23b/default" target="_blank">Hire a professional</a>
+
+        </div>
+    </div>
+
+</section>
+
+<section class="container-fluid bg-light-grey mt-3 mt-sm-5">
+    <h2 class="text-center py-2 pt-5">Testimonials</h2>
+    <div class="row pb-4 pt-4">
+        <span><img class="img-responsive" src="{% static 'dist/assets/images/quote.png' %}" alt="quote" style="left:48%; position: absolute; z-index: 2"></span>
+    </div>
+    <div class="row pb-5">
+        <div class="col-md-10 offset-md-1">
+            <div class="owl-carousel owl-theme owl-second bg-white border-radius-20 box-shadow-3-3-5-5">
+
+                <div class="row pt-5" style="border: 0px;">
+                    <div class="col-md-4">
+                            <!-- <p class="card-text"></p>-->
+                        <img class="img-responsive mx-auto d-block" src="{% static 'dist/assets/images/Reviews.png' %}" alt="testimonial" style="width:50%;">
+                    </div>
+                    <div class="col-md-8 pt-2">
+                        <p class="pt-4 px-2 pr-4 font-size-15">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                            standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
+                            a type specimen book.</p>
+                        <p class="font-weight-500 font-size-20 px-3">Ema Swan</p>
+                    </div>
+                </div>
+
+                <div class="row pt-5" style="border: 0px;">
+                    <div class="col-md-4">
+                            <!-- <p class="card-text"></p>-->
+                        <img class="img-responsive mx-auto d-block" src="{% static 'dist/assets/images/Reviews.png' %}" alt="testimonial" style="width:50%;">
+                    </div>
+                    <div class="col-md-8 pt-2">
+                        <p class="pt-4 px-2 pr-4 font-size-15">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                            standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
+                            a type specimen book.</p>
+                        <p class="font-weight-500 font-size-20 px-3">Ema Swan</p>
+                    </div>
+                </div>
+
+                <div class="row pt-5" style="border: 0px;">
+                    <div class="col-md-4">
+                            <!-- <p class="card-text"></p>-->
+                        <img class="img-responsive mx-auto d-block" src="{% static 'dist/assets/images/Reviews.png' %}" alt="testimonial" style="width:50%;">
+                    </div>
+                    <div class="col-md-8 pt-2">
+                        <p class="pt-4 px-2 pr-4 font-size-15">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                            standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
+                            a type specimen book.</p>
+                        <p class="font-weight-500 font-size-20 px-3">Ema Swan</p>
+                    </div>
+                </div>
+
+                <div class="row pt-5" style="border: 0px;">
+                    <div class="col-md-4">
+                            <!-- <p class="card-text"></p>-->
+                        <img class="img-responsive mx-auto d-block" src="{% static 'dist/assets/images/Reviews.png' %}" alt="testimonial" style="width:50%;">
+                    </div>
+                    <div class="col-md-8 pt-2">
+                        <p class="pt-4 px-2 pr-4 font-size-15">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                            standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
+                            a type specimen book.</p>
+                        <p class="font-weight-500 font-size-20 px-3">Ema Swan</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+{% endcomment %}
+
+        {% endblock %}
+
+

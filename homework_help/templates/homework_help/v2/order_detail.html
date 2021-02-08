@@ -1,0 +1,670 @@
+{% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% load humanize %}
+
+{% block canonical %}
+    <link href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="pg_order_detail">
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-transparent mb-0">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'homework_help:ask-question-view'%}">Homework</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'homework_help:order-list-view'%}">Order</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{object.order_id}}</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+         {% block messages %}
+             {% if messages %}
+                <div>
+                    <div class="notification-right">
+                    {% for message in messages %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>{{message}}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+             {% endif %}
+         {% endblock %}
+    </section>
+
+    <section class="bg_banner_order_detail">
+        <div class="container pt-2 pb-4 pt-md-5">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h6><strong>Your Question</strong></h6>
+                    <p>{{order.question.question}}</p>
+                </div>
+            </div>
+            <div class="">
+                 {% if order.question.user_questionfiles.all %}
+            <div class="row">
+                <div class="col-sm-12">
+                   <h6 class="d-inline"><strong>Your  Attachments</strong></h6>
+                </div>
+            </div>
+                <div class="row mt-3">
+                     {% for order in order.question.user_questionfiles.all %}
+                    {% comment %}
+    <!--                <div class="col-sm-4 mb-3">-->
+    <!--                    <div class="p-3 bg-light">-->
+    <!--                        <span class="d-inline-block mr-2"><i class="fa fa-file"></i></span><a href="{{order.file.url}}" target = "_blank" class="blue-font">{{order.title|truncatechars:30}}</a>-->
+    <!--                </div>-->
+    <!--                </div>-->
+                    {% endcomment %}
+                    <div class="col-sm-4">
+                        <div class="p-3 bg-light">
+                            <div class="d-flex">
+                                <div class="d-inline-block">
+                                    <span class="d-inline-block"><i class="fa fa-file"></i></span>
+                                </div>
+                                <div class="d-inline-block ml-2">
+                                    <a href="{{order.file.url}}" target = "_blank" class="blue-font">{{order.title|truncatechars:20}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     {% endfor %}
+                </div>
+                  {% endif %}
+            </div>
+
+            <div class="row pt-1 pb-5 my-5">
+                <div class="col-sm-12">
+                    <h6><strong>Status Of Your Order</strong></h6>
+                </div>
+            </div>
+            <ul class="stepper d-md-none">
+                <li class="step one bg-gray  {% if order.status > 1 %} done {% elif order.status == 1 %} active{% endif %}"><div class="">
+                    <div class="step-title">
+                        <span class="d-block mt-n-2">Question Received</span>
+                    </div>
+                </div>
+            </li>
+            <li class="step two bg-gray  {% if order.status > 2 %} done {% elif order.status == 2 %} active{% endif %}">
+                <div class="">
+                    <div class="step-title">
+                        <span class="d-block mt-n-2">Payment Updated</span>
+                    </div>
+                </div>
+            </li>
+            <li class="step three bg-gray {% if order.status > 3 %} done {% elif order.status == 3 %} active{% endif %}">
+                <div class="">
+                    <div class="step-title">
+                        <span class="d-block mt-n-2">Expert Working On Your Answer</span>
+                    </div>
+                </div>
+            </li>
+            <li class="step four bg-gray {% if order.status > 4 %} done {% elif order.status == 4 %} active{% endif %}">
+                <div class="">
+                    <div class="step-title">
+                        <span class="d-block mt-n-2">Answer Is Posted</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 d-none d-md-block">
+                <div class="mt-element-step">
+                    <div class="row step-line">
+                        <!--{% if order.status > 1 %}done{% elif order.status == 1 %}active{% endif %}-->
+                        <div class="col mt-step-col status_1 pt-20 pb-20 {% if order.status > 1 %} done {% elif order.status == 1 %} active{% endif %} d-block text-center">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div>
+                                        <div class="mt-step-number m-0 bg-white assigned">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div>
+                                        <div class="mt-step-title uppercase theme-color-blue">Question Received</div>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col mt-step-col status_2 pt-20 pb-20  {% if order.status > 2 %} done {% elif order.status == 2 %} active{% endif %} d-block text-center">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div>
+                                        <div class="mt-step-number m-0 bg-white assigned">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div>
+                                        <div class="mt-step-title uppercase theme-color-blue">Payment Updated </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col mt-step-col status_3 pt-20 pb-20 {% if order.status > 3 %} done {% elif order.status == 3 %} active{% endif %} d-block text-center">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div>
+                                        <div class="mt-step-number m-0 bg-white assigned">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div>
+                                        <div class="mt-step-title uppercase theme-color-blue">Expert Working On Your Answer</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col mt-step-col status_4 pt-20 pb-20 {% if order.status > 4 %} done {% elif order.status == 4 %} active{% endif %} d-block text-center">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div>
+                                        <div class="mt-step-number m-0 bg-white assigned">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div>
+                                        <div class="mt-step-title uppercase theme-color-blue">Answer Is Posted</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row order_details my-5">
+                <div class="col-md-12 col-lg-12">
+                    <table id="example" class="table table-bordered table-responsive-sm tbl_order_details" style="width:100%">
+                        <thead class="">
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Subject</th>
+                                <th>Deadline</th>
+                                <th>Payment</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> <a href="#"> GAH21011152681B2 </a> </td>
+                                <td>Python Programming</td>
+                                <td>Jan 22, 2021</td>
+                                <td class="text-center"> <button class="btn btn_common btn_blue od_btn_padding"> Pay $30 </button> </td>
+                                <td> <input type="checkbox" name="" value="" class="" /> &nbsp; Unpaid </td>
+                            </tr>
+                            <tr>
+                                <td> <a href="#"> GAH21011152681B2 </a></td>
+                                <td>Python Programming</td>
+                                <td>Jan 22, 2021</td>
+                                <td class="text-center"> <button class="btn btn_common btn_blue od_btn_padding"> Pay $30 </button> </td>
+                                <td> <input type="checkbox" name="" value="" class="" /> &nbsp; Unpaid </td>
+                            </tr>
+                            <tr>
+                                <td> <a href="#"> GAH21011152681B2 </a> </td>
+                                <td>Python Programming</td>
+                                <td>Jan 22, 2021</td>
+                                <td class="text-center"> <button class="btn btn_common btn_blue od_btn_padding"> Pay $30 </button> </td>
+                                <td> <input type="checkbox" name="" value="" class="" /> &nbsp; Unpaid </td>
+                            </tr>
+                            <tr>
+                                <td> <a href="#"> GAH21011152681B2 </a> </td>
+                                <td>Python Programming</td>
+                                <td>Jan 22, 2021</td>
+                                <td class="text-center"> <button class="btn btn_common btn_blue od_btn_padding"> Pay $30 </button> </td>
+                                <td> <input type="checkbox" name="" value="" class="" /> &nbsp; Unpaid </td>
+                            </tr>
+                            <tr>
+                                <td> <a href="#"> GAH21011152681B2 </a> </td>
+                                <td>Python Programming</td>
+                                <td>Jan 22, 2021</td>
+                                <td class="text-center"> <button class="btn btn_common btn_blue od_btn_padding"> Pay $30 </button> </td>
+                                <td> <input type="checkbox" name="" value="" class="" /> &nbsp; Unpaid </td>
+                            </tr>
+                            <tr>
+                                <td> <a href="#"> GAH21011152681B2 </a> </td>
+                                <td>Python Programming</td>
+                                <td>Jan 22, 2021</td>
+                                <td class="text-center"> <button class="btn btn_common btn_blue od_btn_padding"> Pay $30 </button> </td>
+                                <td> <input type="checkbox" name="" value="" class="" /> &nbsp; Unpaid </td>
+                            </tr>
+                            <tr>
+                                <td> <a href="#"> GAH21011152681B2 </a> </td>
+                                <td>Python Programming</td>
+                                <td>Jan 22, 2021</td>
+                                <td class="text-center"> <button class="btn btn_common btn_blue od_btn_padding"> Pay $30 </button> </td>
+                                <td> <input type="checkbox" name="" value="" class="" /> &nbsp; Unpaid </td>
+                            </tr>
+                            <tr>
+                                <td> <a href="#"> GAH21011152681B2 </a> </td>
+                                <td>Python Programming</td>
+                                <td>Jan 22, 2021</td>
+                                <td class="text-center"> <button class="btn btn_common btn_blue od_btn_padding"> Pay $30 </button> </td>
+                                <td> <input type="checkbox" name="" value="" class="" /> &nbsp; Unpaid </td>
+                            </tr>
+                            <tr>
+                                <td> <a href="#"> GAH21011152681B2 </a> </td>
+                                <td>Python Programming</td>
+                                <td>Jan 22, 2021</td>
+                                <td class="text-center"> <button class="btn btn_common btn_blue od_btn_padding"> Pay $30 </button> </td>
+                                <td> <input type="checkbox" name="" value="" class="" /> &nbsp; Unpaid </td>
+                            </tr>
+                            <tr>
+                                <td> <a href="#">GAH21011152681B2 </a> </td>
+                                <td>Python Programming</td>
+                                <td>Jan 22, 2021</td>
+                                <td class="text-center"> <button class="btn btn_common btn_blue od_btn_padding"> Pay $30 </button> </td>
+                                <td> <input type="checkbox" name="" value="" class="" /> &nbsp; Unpaid </td>
+                            </tr>
+                            <tr>
+                                <td> <a href="#">GAH21011152681B2 </a> </td>
+                                <td>Python Programming</td>
+                                <td>Jan 22, 2021</td>
+                                <td class="text-center"> <button class="btn btn_common btn_blue od_btn_padding"> Pay $30 </button> </td>
+                                <td> <input type="checkbox" name="" value="" class="" /> &nbsp; Unpaid </td>
+                            </tr>
+                            <tr>
+                                <td> <a href="#">GAH21011152681B2 </a> </td>
+                                <td>Python Programming</td>
+                                <td>Jan 22, 2021</td>
+                                <td class="text-center"> <button class="btn btn_common btn_blue od_btn_padding"> Pay $30 </button> </td>
+                                <td> <input type="checkbox" name="" value="" class="" /> &nbsp; Unpaid </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row pt-5 pb-5 mt-4">
+				    <div class="col-md-12">
+                        <h1 class="Roboto-Bold text-center"> FAQs </h1>
+                    </div>
+                    <div class="col-md-12">
+					<div id="accordion" class="accordion">
+						<div class="mb-0">
+							{% for content in accordion_content %}
+							<div class="hrz-border" id="{{ content.id }}">
+							<div class="card-header collapsed pb-4 mb-1 pr-0 pl-0" data-toggle="collapse" href="#{{ content.slug }}" style="background-color: transparent; border-bottom: none;">
+								<div class="pr-5"><a class="card-title question-font" onclick="showDetails(this)" data-aacordion="check" data-check="acc{{forloop.counter}}" id="{{ content.accordion_title }}">
+									{{ content.accordion_title }}
+								</a></div>
+							</div>
+							<div id="{{ content.slug }}" class="card-body-p card-body collapse margin-tp" data-parent="#accordion" >
+								<p class="pb-3">{{ content.accordion_description }}</p>
+							</div>
+							</div>
+							{% endfor %}
+						</div>
+					</div>
+				  </div>
+			  </div>
+        </div>
+    </section>
+
+    {% comment %}
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="content_section">
+                        <div class="status_content status_1_content  status-d-none" style="display:{% if order.status == 1 %} block{% endif %}">
+                            <div class="row mt-5">
+                                <div class="col-sm-12">
+                                    <div class="card card-body">
+                                        <p class="text-center mb-0">Your question is being analyzed by our experts.</p>
+                                        <p class="text-center mb-0 mt-2">A quote will be provided shortly maximum wait time: 2 minutes</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="status_content status_2_content status-d-none" style="display:{% if order.status == 2 %} block{% endif %}">
+                            <div class="row mt-5">
+                                <div class="col-sm-12">
+                                    <div class="card card-body">
+                                        <p class="text-center mb-0"></p>
+                                        <form action="{{paypalform.get_endpoint}}" method="post" id="form-check">
+                                        {% csrf_token %}
+                                        {{paypalform}}
+                                        <div class="row mt-3">
+                                            <div class="col-md-12 text-md-center">
+                                             {% if order.budget %}
+                                                <p class=""><strong>You have to pay ${{order.budget}} to get answer</strong></p>
+                                                {% if order.expected_hours %} <p>Expected solution delivery time is for {{order.expected_hours}} hour after your payment</p>{% endif %}
+                                             {% endif %}
+                                                <input type="checkbox" name="checkbox" id="check-box" class="checkbox" required>
+                                                <label class="d-inline" for="check-box" class="blue-theme">&nbsp;I agree to the <a href="{% url 'termsofuse' %}">terms & conditions</a>, <a href="{% url 'privacypolicy' %}"> privacy policy</a>, <a href="{% url 'academicintegrity' %}">Academic Integrity</a>, <a href="{% url 'honorcode' %}">Honor Code</a> and <a href="{% url 'copyright' %}">Copyright</a>
+                                                </label>
+                                            </div>
+                                        </div>
+                                            <div class="row mt-3">
+                                                <div class="col-md-12">
+                                                    <p class="text-md-center">By clicking the link below you will be redirected to PayPal Payment Gateway</p>
+                                                    <div class="text-center">
+                                                        <input type="submit" value="Proceed with Paypal" class="btn btn-bg-theme border-radius-20 text-white px-sm-5 px-4" id="submitButton">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                <input id="id_amount" name="amount" type="hidden" value="{{order.budget}}">
+                                        </form>
+                <!--                    </p>-->
+                                 </div>
+                             </div>
+                         </div>
+                        </div>
+                         <div class="status_content status_3_content status-d-none" style="display:{% if order.status == 3 %} block{% endif %}">
+                             <div class="row mt-5">
+                                 <div class="col-sm-12">
+                                     <div class="card card-body">
+                                         <p class="text-center mb-0">Your payment has been received.</p>
+                                         <p class="text-center mb-0 mt-2">Our expert is working on your query. You will be provided with solution by this deadline.</p><p id="demo" class="text-center mb-0 mt-2"></p>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="status_content status_4_content status-d-none" style="display:{% if order.status == 4 %} block{% endif %}">
+                            <div class="row mt-5">
+                                <div class="col-sm-12">
+                                    <h6><strong>Answer from your tutor:</strong></h6>
+                                </div>
+                            </div>
+                            {% for answer in order.question.answer_question.all %}
+                            <div class="row mt-4">
+                             <div class="col-sm-12">
+                                 <div class="card card-body">
+                                     <h6><strong>Explanation:</strong></h6>
+                                     <p>{{answer.solution|safe}}</p>
+                                 </div>
+                             </div>
+                         </div>
+                            {% for answers in answer.user_answerfiles.all %}
+                            <div class="row mt-4">
+                                <div class="col-sm-12">
+                                    <span class="d-inline-block mr-2"><i class="fa fa-file"></i></span><a href="{{answers.file.url}}" class="" download>{{answers.title}}</a>
+                                    <p class="mt-2">By clicking on the link you can download a file.</p>
+                                </div>
+                            </div>
+                              {% endfor %}
+                            {% endfor %}
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endcomment %}
+
+
+    {% comment %}
+    <div class="comments"></div>
+
+    <form action="" method="post" id="comment-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+
+        <span class="reference_files"></span>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+    {% endcomment %}
+</div>
+{% endblock %}
+
+
+{% block extra_js %}
+{% comment %}
+<script>
+ $(document).ready(function(){
+    var status = $("{{order.get_status_display}}");
+     var st = $(this).data('status');
+        if(status == "Question Recieved")
+           $("ul.stepper li.step-bar.first").addClass('active');
+           $('.status-one').css('display','block');
+   });
+</script>
+{% endcomment %}
+
+<script>
+// Set the date we're counting down to
+var countDownDate = new Date('{{order.deadline_datetime|date:"m d ,y H:i:s"}}').getTime();
+//var countDownDate = new Date('jul 07, 2020 14:18:3').getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+  + minutes + "m " + seconds + "s ";
+
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "EXPIRED";
+  }
+}, 1000);
+</script>
+<script>
+jQuery(document).ready(function() {
+
+setInterval(get_status, 10000);
+
+function get_status(){
+    var feedback = $.ajax({
+          type: 'GET',
+          url: "{% url 'api:homework-help-api:order-status-api' order.uuid %}",
+    success:function(data){
+
+        $(".status_" + data.status).siblings().removeClass("active")
+        $(".status_" + data.status).siblings().removeClass("done")
+        i = data.status
+
+        if(i == 2){
+            $("input#id_amount").val(data.budget)
+//            console.log(data.budget)
+        }
+
+        while(i>=1){
+        $(".status_" + i).addClass("done")
+        if(i == 4){
+            get_answer()
+        }
+//        console.log(i)
+        i--;
+        }
+        $(".status_content").siblings().hide()
+        $(".status_" + data.status + "_content").show()
+        $(".status_" + data.status).addClass("active")
+    }
+})
+}
+
+function get_answer(){
+    var feedback = $.ajax({
+          type: 'GET',
+          url: "{% url 'api:homework-help-api:get-answer-api' order.question.uid %}",
+    success:function(data){
+        $(".status_4_content").empty()
+        for (i in data){
+//        console.log(data[i])
+
+          $(".status_4_content").append("<h6 class='mt-4'><strong>Answer from your tutor:</strong></h6>","<div class='mt-4'><div class='col-sm-12'><div class='card card-body'><h6><strong>Explanation:</strong></h6><p>" + data[i].solution + "</p></div></div></div>" );
+               var str = data[i].solution_files;
+            for(var i = 0; i < str.length; i++) {
+        console.log(str[i]);
+
+               var res = str[i].toString().split("/");
+          $(".status_4_content").append("<div class='row mt-4'><div class='col-sm-12'><span class='d-inline-block mr-2 ml-4'><i class='fa fa-file'></i></span><a href='" + str[i] + "' download>" + res[7] + "</a><p class='ml-4 mt-2'>By clicking on the link you can download a file.</p></div></div>" )
+//               console.log(res[7]);
+               }
+
+        }
+    }
+})
+}
+
+
+
+
+
+
+
+    $.ajax({
+          type: 'GET',
+          url: "{% url 'api:homework-help-api:comment-create-api' order.order_id %}",
+          success: function(data){
+            var catObj;
+            catObj={};
+    $(".comments").empty();
+
+
+            console.log(data);
+//            console.log(data.size());
+//                $.each( data, function( key, value ) {
+                $.each( data, function( index, value ) {
+
+
+                if(value['message'] && value['reference_files']){
+                $(".comments").append('<div class="current' + index + '"></div>');
+                $('.current' + index).text( value['message'] + ' ' + value['reference_files'] )
+                  }
+                else if(value['message']){
+                $(".comments").append('<div class="current' + index + '"></div>');
+                $('.current' + index ).text( value['message'] )
+                  }
+                  else if(value['reference_files']){
+                $(".comments").append('<div class="current' + index + '"></div>');
+                $('.current' + index ).text( value['reference_files'] )
+                  }
+
+
+            });
+
+          },
+          error: function(data) {
+              $(".faqQuesTab").hide();
+              $("#faqPreloader").hide();
+              $(".errorDiv").show();
+          }
+        });
+
+
+    $("#comment-form").submit(function(e) {
+        e.preventDefault();
+        $("span.has-error").empty();
+
+        var data = $("#comment-form").serializeArray();
+
+
+                if(data['message'] && data['reference_files']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] + ' ' + data['reference_files'] )
+                  }
+                else if(data['message']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] )
+                  }
+                  else if(data['reference_files']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['reference_files'] )
+                  }
+
+
+
+
+
+        var myForm = document.getElementById('comment-form');
+        data = new FormData(myForm);
+
+
+        $("div.error_file").text("");
+
+                $(".enquiry-form-popup").hide();
+                $(".form-icon-plane").hide();
+                $(".form-loader").show();
+
+        $.ajax({
+            type : "POST",
+            url : '{% url 'api:homework-help-api:comment-create-api' order.order_id %}',
+            enctype: 'multipart/form-data',
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function(data){
+
+
+                if(data['message'] && data['reference_files']){
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] + ' ' + data['reference_files'] )
+                  }
+                else if(data['message']){
+//                $(".comments").append("<code>" + data['message'] + "</code><br>");
+
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['message'] )
+                  }
+                  else if(data['reference_files']){
+//                    $(".comments").append( data['reference_files'] + "<br>");
+                $(".comments").append('<div class="current"></div>');
+                $(".current").text( data['reference_files'] )
+                  }
+
+
+                document.getElementById("comment-form").reset();
+            },
+            error: function(data){
+
+            var response = data.responseJSON;
+            for (key in response) {
+              $("#comment-form ."+key).addClass("has-error");
+              $("#comment-form span." + key).text(response[key][0]);
+            }
+
+            }
+        });
+    });
+
+});
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable();
+    } );
+</script>
+{% endblock extra_js %}

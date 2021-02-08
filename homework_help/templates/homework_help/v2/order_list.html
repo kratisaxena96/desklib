@@ -1,0 +1,102 @@
+{% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% block content %}
+{% block messages %}
+     {% if messages %}
+        <div>
+            <ul class="notification-right">
+            {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>{{message}}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+ {% endblock %}
+
+<section>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'homework_help:ask-question-view'%}">Homework</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Order</li>
+  </ol>
+</nav>
+</section>
+ {% if object_list %}
+<section class="bg-light">
+    <div class="container pt-5">
+        <div class="row mb-3">
+            <div class="col-sm-12">
+                <h2 class="text-center">List Of Orders</h2>
+            </div>
+        </div>
+        <div class="row">
+             {% for order in object_list %}
+            <div class="col-sm-4 mb-5">
+                <a href="{% url 'homework_help:order-detail-view' uuid=order.uuid %}" class="text-decoration-none h-100">
+                    <div class="card border-0 shadow h-100">
+                        <div class="card-body">
+                            <h6 class="blue-theme line-height-26">{{order.question.question|truncatechars:70}}</h6>
+                            <small class="text-muted">Order-id:</small>
+                            <small class="text-muted add-dash">&nbsp;{{order.order_id}}</small>
+                            <small class="text-muted add-dash">{{order.created|date:"d M Y"}}</small>
+                            <p><small class="text-muted">status:</small>
+                                <small class="text-muted">{{order.get_status_display}}</small>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+
+{% if object.has_other_pages %}
+        <div class="row ">
+            <div class="col-md-12">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item p-3">
+                {% if object.has_previous %}
+                        <a class="previous" href="?page={{ object.previous_page_number }}">
+                            <span aria-hidden="true"><i class='fas fa-angle-left fafa-nav-active blue-theme'></i></span>
+                        </a>
+                {% else %}
+                        <a class="previous"><i class='fas fa-angle-left fafa-nav-in-active'></i></a>
+                {% endif %}
+                    </li>
+                {% for page in object.paginator.page_range %}
+                    {% if object.number == page %}
+                    <li class="page-item active p-3">
+                        <a class="rounded-circle page-link border-color bg-blue-theme" href="?page={{page}}">{{page}}</a>
+                    </li>
+                    {% elif page > object.number|add:'-3' and page < object.number|add:'3' %}
+                    <li class="page-item p-3">
+                        <a class="rounded-circle page-link page-link blue-theme" href="?page={{page}}">{{page}}</a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+                <li class="page-item p-3">
+                {% if object.has_next %}
+                    <a class="previous blue-theme" href="?page={{ object.next_page_number }}"><span aria-hidden="true"><i class='fas fa-angle-right fafa-nav-in-active'></i></span></a>
+                {% else %}
+                  <a class="next"><i class='fas fa-angle-right fafa-nav-in-active'></i></a>
+                {% endif %}
+                </li>
+              </ul>
+        </div>
+      </div>
+{% endif %}
+    </div>
+</section>
+  {% endif %}
+
+{% endblock %}
+
+{% comment %}
+{{object}}
+{{ object_list }}
+{%  endcomment %}

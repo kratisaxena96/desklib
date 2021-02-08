@@ -148,7 +148,7 @@ class AboutPageView(MetadataMixin, JsonLdContextMixin, TemplateView):
     # description = 'Desklib is a single stop solution for all your academic needs. We provide millions of study documents including assignment solutions which can help students achieve better grades.'
     description = 'We as the best choice among students of Aus, UK, USA, and leading towards the globe to become the best online learning library and homework help Service provider Company in the World. Consult our highly-qualified and experienced writers to attain academic excellence.'
     keywords= ['assignment help', 'online learning library', 'homework help websites', 'online dissertation help', 'online thesis writing services', 'college assignment help online', 'college homework help']
-    template_name = "desklib/about.html"
+    template_name = "desklib/v2/about.html"
 
     structured_data = {
         "@type": "Organization",
@@ -210,7 +210,7 @@ class ContactPageView(MetadataMixin, JsonLdContextMixin, TemplateView):
     # description = '24X7 online support for our customers. Reach our customer support and get your queries answered instantly.'
     description = 'If any of you need online assignment help,homework help or dissertation help services,you can contact us through email or via phone.'
     keywords = [ 'homework help', 'online assignment help', 'dissertation help', 'thesis writing help online', 'dissertation writing service uk', 'college assignment help', 'online homework help']
-    template_name = "desklib/contact.html"
+    template_name = "desklib/v2/contact.html"
 
     structured_data = {
         "@type": "Organization",

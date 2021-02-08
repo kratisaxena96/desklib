@@ -2,20 +2,20 @@
 {% load meta %}
 {% load staticfiles %}
 {% block canonical %}
-    {% if canonical %}
-        <link rel="canonical" href="{{canonical}}"/>
-    {% endif %}
+{% if canonical %}
+<link rel="canonical" href="{{canonical}}"/>
+{% endif %}
 {% endblock %}
 
 
 <!--    <link rel="stylesheet" href="https://rawgit.com/mozilla/pdf.js/master/web/viewer.css">-->
 <!--    <link rel="stylesheet" href="https://rawgit.com/mozilla/pdf.js/master/examples/mobile-viewer/viewer.css">-->
 
-    {% block extra_css %}
+{% block extra_css %}
 
 <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">-->
 
-    <style>
+<style>
     .textLayer > span {
         color: black;
     }
@@ -23,8 +23,9 @@
         opacity: 1;
     }
 
-    </style>
-    <style>
+
+</style>
+<style>
 
 
 .textLayer {
@@ -97,8 +98,9 @@ background: rgba(0,0,255,0.3);
 .textLayer .endOfContent.active {
   top: 0px;
 }
-    </style>
-    <style>
+
+</style>
+<style>
         .page{
             margin: 15px auto 0px auto;
             border: 1px solid #c5c5c5;
@@ -108,8 +110,9 @@ background: rgba(0,0,255,0.3);
         .page-image{
             width: 100%;
         }
-    </style>
-    <style>
+
+</style>
+<style>
         .document-pages .owl-nav > .owl-prev, .document-pages .owl-nav > .owl-next {
             position: absolute;
             top: 50%;
@@ -144,360 +147,385 @@ opacity:0.9 !important;
     overflow: hidden !important;
 //    position: fixed !important;
 }
-    </style>
+
+</style>
 <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
 <!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>-->
-    {% endblock %}
+{% endblock %}
 
 {% block content %}
 <section>
     <nav aria-label="breadcrumb">
-      <ol class="breadcrumb mb-0 rounded-0">
-        <li class="breadcrumb-item"><a href="/" class="">Home</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'study:study-search'%}" class="">Study</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{object.title}}</li>
-  </ol>
-</nav>
+        <ol class="breadcrumb mb-0 rounded-0">
+            <li class="breadcrumb-item"><a href="/" class="">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'study:study-search'%}" class="">Study</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{object.title}}</li>
+        </ol>
+    </nav>
 </section>
-      {% block messages %}
-    {% if messages %}
-        <div class="pb-4">
-            <ul class="notification-right">
-                {% for message in messages %}
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <strong>{{message}}</strong>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                </div>
-                {% endfor %}
+{% block messages %}
+{% if messages %}
+<div class="pb-4">
+    <ul class="notification-right">
+        {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>{{message}}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+{% endblock %}
+
+<div class="container">
+    <div class="row pt-0 pt-sm-5">
+        <article class="col-md-8 border-right">
+            <h3>{{object.title}}</h3>
+            <p>Added on - {{object.created|date:"d M Y"}}</p>
+            <ul class="p-0 d-inline-block">
+                {% if object.course %}
+                <li class="d-inline-block p-2 text-center border-right">
+                    <p class="mb-1">{{object.course}}</p>
+                    <p class="mb-0 blue-theme">course code</p>
+                </li>
+                {% endif %}
+                {% comment %}
+                <!--             <li class="d-inline-block p-2 text-center border-right">-->
+                <!--                <p class="mb-1">{% for obj in object.subjects.all %}{{obj.name}}{% endfor %}</p>-->
+                <!--                <p class="mb-0 blue-theme">subject</p>-->
+                <!--            </li>-->
+
+                <!--            {% if object.type %}-->
+                <!--             <li class="d-inline-block p-2 text-center border-right">-->
+                <!--                <p class="mb-1">{{object.type}}</p>-->
+                <!--                <p class="mb-0 blue-theme">type</p>-->
+                <!--            </li>-->
+
+                <!--            {% endif %}-->
+                {% endcomment %}
+                {% if object.pages.all.count %}
+                <li class="d-inline-block p-2 text-center border-right">
+                    <p class="mb-1">{{object.pages.all.count}}</p>
+                    <p class="mb-0 blue-theme">pages</p>
+                </li>
+                {% endif %}
+                {% if object.words %}
+                <li class="d-inline-block p-2 text-center border-right">
+                    <p class="mb-1">{{object.words}}</p>
+                    <p class="mb-0 blue-theme">words</p>
+                </li>
+                {% endif %}
+                <li class="d-inline-block p-2 text-center border-right">
+                    <p class="mb-1">{{object.views}}</p>
+                    <p class="mb-0 blue-theme">views</p>
+                </li>
+                <li class="d-inline-block text-center p-2">
+                    <p class="mb-1">{{object.total_downloads}}</p>
+                    <p class="mb-0 blue-theme">downloads</p>
+                </li>
             </ul>
-        </div>
-    {% endif %}
-  {% endblock %}
-
-<div class="container">
-  <div class="row pt-0 pt-sm-5">
-    <article class="col-md-8 border-right">
-        <h3>{{object.title}}</h3>
-        <p>Added on - {{object.created|date:"d M Y"}}</p>
-        <ul class="p-0 d-inline-block">
-            {% if object.course %}
-           <li class="d-inline-block p-2 text-center border-right">
-                <p class="mb-1">{{object.course}}</p>
-                <p class="mb-0 blue-theme">course code</p>
-            </li>
-            {% endif %}
+            <ul class="p-0 d-inline-block float-md-right">
+                <li class="d-inline-block text-center p-2">
+                    <div class="dropdown">
+                        <a class="btn margin-b" data-toggle="dropdown" href="JavaScript:Void(0);">
+                            <i class="fas fa-share-alt mb-1"></i>
+                            <p class="mb-0">Share</p>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item"
+                               href="https://facebook.com/sharer.php?u=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
+                               target="_blank">Share on Facebook</a>
+                            <a class="dropdown-item"
+                               href="https://twitter.com/intent/tweet?url=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
+                               target="_blank">Share on Twitter</a>
+                            <a class="dropdown-item"
+                               href="https://www.linkedin.com/shareArticle?mini=true&url=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
+                               target="_blank">Share on LinkedIn</a>
+                            <a class="dropdown-item"
+                               href="https://web.whatsapp.com/send?text=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
+                               target="_blank">Share on Whatsapp</a>
+                            <a class="dropdown-item"
+                               href="mailto:?subject=Read{{object.title}}on Scribd&body=I am reading{{object.title}}on Desklib: https://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
+                               target="_blank">Share on Mail</a>
+                            <a class="dropdown-item copy_text"
+                               href="https://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
+                               target="_blank">Copy Link</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
             {% comment %}
-<!--             <li class="d-inline-block p-2 text-center border-right">-->
-<!--                <p class="mb-1">{% for obj in object.subjects.all %}{{obj.name}}{% endfor %}</p>-->
-<!--                <p class="mb-0 blue-theme">subject</p>-->
-<!--            </li>-->
+            <!--            <li class="d-inline-block text-center p-2">-->
+            <!--                <a class="btn" data-toggle="modal" data-target="#myModal" href="JavaScript:Void(0);">-->
+            <!--                  <i class="fas fa-exclamation-circle mb-1"></i>-->
+            <!--                      <p class="mb-0">Report</p>-->
+            <!--                </a>-->
 
-<!--            {% if object.type %}-->
-<!--             <li class="d-inline-block p-2 text-center border-right">-->
-<!--                <p class="mb-1">{{object.type}}</p>-->
-<!--                <p class="mb-0 blue-theme">type</p>-->
-<!--            </li>-->
+            <!--                &lt;!&ndash; The Modal &ndash;&gt;-->
+            <!--                <div class="modal" id="myModal">-->
+            <!--                  <div class="modal-dialog">-->
+            <!--                    <div class="modal-content">-->
+            <!--                        <div class="report-form-popup">-->
+            <!--                            &lt;!&ndash; Modal Header &ndash;&gt;-->
+            <!--                          <div class="modal-header">-->
+            <!--                            <h4 class="modal-title">Report</h4>-->
+            <!--                            <button type="button" class="close" data-dismiss="modal">&times;</button>-->
+            <!--                          </div>-->
 
-<!--            {% endif %}-->
+            <!--                          &lt;!&ndash; Modal body &ndash;&gt;-->
+            <!--                          <div class="modal-body">-->
+
+            <!--                            <div class="report">-->
+            <!--                                <form id="report-form" action="." method="post" data-url="{% url 'api:documents-api:report-document-api' %}" data-title="{{object.pk  }}">-->
+            <!--                                {% csrf_token %}-->
+
+
+            <!--                                  <div class="form-group text-left">-->
+            <!--                                    <p>{{form.issue.label}}</p>-->
+
+
+            <!--                                        {% for x in form.fields.issue.choices %}-->
+            <!--                                          <div class="custom-control custom-radio custom-control-inline">-->
+            <!--                                            <input type="radio" class="custom-control-input" id="{{x.1}}" name="issue" value="{{x.0}}" checked>-->
+            <!--                                            <label class="custom-control-label" for="{{x.1}}">{{x.1}}</label>-->
+            <!--                                          </div>-->
+            <!--                                        {% endfor %}-->
+
+
+            <!--           -->
+            <!--                                      {{form.issue}}-->
+            <!--            -->
+            <!--                                    <span class="issue text-danger"></span>-->
+            <!--                                  </div>-->
+            <!--                                  <div class="form-group text-left">-->
+            <!--                                    <label for="id_other_issue">{{form.other_issue.label}}</label>-->
+            <!--                                      {{form.other_issue}}-->
+            <!--                                  </div>-->
+
+            <!--                                    <input type="submit" value="Report" class="btn btn-bg-theme text-white">-->
+            <!--                                </form>-->
+            <!--                            </div>-->
+
+            <!--                          </div>-->
+            <!--                        </div>-->
+            <!--                        <div class="loader-container jumbotron bg-white m-auto" style="display:none;">-->
+            <!--                            <div class="loader"></div>-->
+            <!--                        </div>-->
+            <!--                        <div class="thank-you jumbotron bg-white mb-0" style="display:none;">-->
+            <!--                            <p class="mb-0">Thank you for your valuable feedback.</p>-->
+            <!--                        </div>-->
+            <!--                         -->
+            <!--                          &lt;!&ndash; Modal footer &ndash;&gt;-->
+            <!--                          <div class="modal-footer">-->
+            <!--                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>-->
+            <!--                          </div>-->
+            <!--                           -->
+
+            <!--                    </div>-->
+            <!--                  </div>-->
+            <!--                </div>-->
+            <!--            </li>-->
+
+            <!--        </ul>-->
             {% endcomment %}
-            {% if object.pages.all.count %}
-            <li class="d-inline-block p-2 text-center border-right">
-                <p class="mb-1">{{object.pages.all.count}}</p>
-                <p class="mb-0 blue-theme">pages</p>
-            </li>
-            {% endif %}
-            {% if object.words %}
-            <li class="d-inline-block p-2 text-center border-right">
-                <p class="mb-1">{{object.words}}</p>
-                <p class="mb-0 blue-theme">words</p>
-            </li>
-            {% endif %}
-            <li class="d-inline-block p-2 text-center border-right">
-                <p class="mb-1">{{object.views}}</p>
-                <p class="mb-0 blue-theme">views</p>
-            </li>
-            <li class="d-inline-block text-center p-2">
-                <p class="mb-1">{{object.total_downloads}}</p>
-                <p class="mb-0 blue-theme">downloads</p>
-            </li>
-        </ul>
-        <ul class="p-0 d-inline-block float-md-right">
-            <li class="d-inline-block text-center p-2">
-              <div class="dropdown">
-                <a class="btn margin-b" data-toggle="dropdown" href="JavaScript:Void(0);">
-                  <i class="fas fa-share-alt mb-1"></i>
-                  <p class="mb-0">Share</p>
-                </a>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="https://facebook.com/sharer.php?u=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank">Share on Facebook</a>
-                  <a class="dropdown-item" href="https://twitter.com/intent/tweet?url=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank" >Share on Twitter</a>
-                   <a class="dropdown-item" href="https://www.linkedin.com/shareArticle?mini=true&url=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank">Share on LinkedIn</a>
-                   <a class="dropdown-item" href="https://web.whatsapp.com/send?text=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank">Share on Whatsapp</a>
-                  <a class="dropdown-item" href="mailto:?subject=Read{{object.title}}on Scribd&body=I am reading{{object.title}}on Desklib: https://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank">Share on Mail</a>
-                  <a class="dropdown-item copy_text" href="https://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}" target="_blank">Copy Link</a>
+            <section>
+                {% comment %}
+                <div class="alert alert-light border mb-4 mt-2">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <span>Number of pages in document:{{object.pages.all.count}}</span>
+                        </div>
+                        <div class="col-sm-6">
+                            <span>Total Words:</span>
+                            <span>{{object.words}}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <span>Subject:</span>
+                            {% for subject in object.subjects.all %}
+                            <span>{{subject.name}} </span>
+                            {% endfor %}
+
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </li>
-        </ul>
-{% comment %}
-<!--            <li class="d-inline-block text-center p-2">-->
-<!--                <a class="btn" data-toggle="modal" data-target="#myModal" href="JavaScript:Void(0);">-->
-<!--                  <i class="fas fa-exclamation-circle mb-1"></i>-->
-<!--                      <p class="mb-0">Report</p>-->
-<!--                </a>-->
-
-<!--                &lt;!&ndash; The Modal &ndash;&gt;-->
-<!--                <div class="modal" id="myModal">-->
-<!--                  <div class="modal-dialog">-->
-<!--                    <div class="modal-content">-->
-<!--                        <div class="report-form-popup">-->
-<!--                            &lt;!&ndash; Modal Header &ndash;&gt;-->
-<!--                          <div class="modal-header">-->
-<!--                            <h4 class="modal-title">Report</h4>-->
-<!--                            <button type="button" class="close" data-dismiss="modal">&times;</button>-->
-<!--                          </div>-->
-
-<!--                          &lt;!&ndash; Modal body &ndash;&gt;-->
-<!--                          <div class="modal-body">-->
-
-<!--                            <div class="report">-->
-<!--                                <form id="report-form" action="." method="post" data-url="{% url 'api:documents-api:report-document-api' %}" data-title="{{object.pk  }}">-->
-<!--                                {% csrf_token %}-->
-
-
-<!--                                  <div class="form-group text-left">-->
-<!--                                    <p>{{form.issue.label}}</p>-->
-
-
-<!--                                        {% for x in form.fields.issue.choices %}-->
-<!--                                          <div class="custom-control custom-radio custom-control-inline">-->
-<!--                                            <input type="radio" class="custom-control-input" id="{{x.1}}" name="issue" value="{{x.0}}" checked>-->
-<!--                                            <label class="custom-control-label" for="{{x.1}}">{{x.1}}</label>-->
-<!--                                          </div>-->
-<!--                                        {% endfor %}-->
-
-
-<!--           -->
-<!--                                      {{form.issue}}-->
-<!--            -->
-<!--                                    <span class="issue text-danger"></span>-->
-<!--                                  </div>-->
-<!--                                  <div class="form-group text-left">-->
-<!--                                    <label for="id_other_issue">{{form.other_issue.label}}</label>-->
-<!--                                      {{form.other_issue}}-->
-<!--                                  </div>-->
-
-<!--                                    <input type="submit" value="Report" class="btn btn-bg-theme text-white">-->
-<!--                                </form>-->
-<!--                            </div>-->
-
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                        <div class="loader-container jumbotron bg-white m-auto" style="display:none;">-->
-<!--                            <div class="loader"></div>-->
-<!--                        </div>-->
-<!--                        <div class="thank-you jumbotron bg-white mb-0" style="display:none;">-->
-<!--                            <p class="mb-0">Thank you for your valuable feedback.</p>-->
-<!--                        </div>-->
-<!--                         -->
-<!--                          &lt;!&ndash; Modal footer &ndash;&gt;-->
-<!--                          <div class="modal-footer">-->
-<!--                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>-->
-<!--                          </div>-->
-<!--                           -->
-
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--            </li>-->
-
-<!--        </ul>-->
-        {% endcomment %}
-<section>
-    {% comment %}
-<div class="alert alert-light border mb-4 mt-2">
-  <div class="row">
-    <div class="col-sm-6">
-       <span>Number of pages in document:{{object.pages.all.count}}</span>
-    </div>
-    <div class="col-sm-6">
-     <span>Total Words:</span>
-     <span>{{object.words}}</span>
-  </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-6">
-       <span>Subject:</span>
-     {% for subject in object.subjects.all %}
-        <span>{{subject.name}} </span>
-      {% endfor %}
-
-    </div>
-</div>
-</div>
-    {% endcomment %}
-</section>
-        {% comment %}
-<!--        <div class="alert alert-light border">-->
-
-<!--            <div class="feedback">-->
-<!--                <form class="feedback-form" action="." method="post" data-url="{% url 'api:documents-api:document-feedback-api' slug=object.slug %}">-->
-<!--                {% csrf_token %}-->
-
-<!--                   <label class="mr-2">{% if object.was_helpful %}-->
-<!--                  {{object.was_helpful}} people found this document helpful.-->
-<!--                  {% endif %} Did you find it helpful?</label>-->
-
-<!--                <button data-value="helpful" class="btn btn-light border submit-feedback mr-2">Yes</button>-->
-<!--                <button data-value="not-helpful" class="btn btn-light border submit-feedback">No</button>-->
-<!--                &lt;!&ndash;<input type="submit" name="was_heplful" value="Yes">&ndash;&gt;-->
-<!--                &lt;!&ndash;<input type="submit" name="not_heplful" value="No">&ndash;&gt;-->
-<!--                </form>-->
-<!--            </div>-->
-<!--            <div class="helpful" style="display:none;">-->
-<!--                Thank you for your valuable feedback.-->
-<!--            </div>-->
-<!--            <div class="not-helpful" style="display:none;">-->
-<!--                Thank you for your feedback. If you want to report an issue about this document <a class="" data-toggle="modal" data-target="#myModal">click here</a>-->
-<!--            </div>-->
-<!--        </div>-->
-
-{% endcomment %}
-        <div class="d-inline-block d-sm-inline-block w-100 text-center text-md-left text-lg-center p-4 mb-3 jumbotron">
-            <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white border-radius-40" rel="nofollow">Download This Document</a>
-
+                {% endcomment %}
+            </section>
             {% comment %}
-            <a href='{% url "documents:document-download-view"%}?slug={{object.slug}}' class="btn btn-bg-theme btn-lg text-white border-radius-40" rel="nofollow">Download</a>
-            <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Plans</a>
-<!--            <a href='{% url "documents:document-download-view"%}?doc={{object.slug}}&single=True' class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Pay Per Download</a>-->
-            {% endcomment %}
-        </div>
-        {% if object.pages.all.count %}
-          <span class="d-inline-block d-sm-inline-block w-100 text-center text-md-left text-lg-center text-muted">Showing pages {{object.preview_from}} to {{object.preview_to}} of {{object.pages.all.count}} pages</span>
-        {% endif %}
-        <div id="viewer" class="documentViewer">
-            {% comment %}
-            {% for page in object.pages.all %}
-            {% endcomment %}
+            <!--        <div class="alert alert-light border">-->
 
-            {% for page in controlled_pages %}
+            <!--            <div class="feedback">-->
+            <!--                <form class="feedback-form" action="." method="post" data-url="{% url 'api:documents-api:document-feedback-api' slug=object.slug %}">-->
+            <!--                {% csrf_token %}-->
+
+            <!--                   <label class="mr-2">{% if object.was_helpful %}-->
+            <!--                  {{object.was_helpful}} people found this document helpful.-->
+            <!--                  {% endif %} Did you find it helpful?</label>-->
+
+            <!--                <button data-value="helpful" class="btn btn-light border submit-feedback mr-2">Yes</button>-->
+            <!--                <button data-value="not-helpful" class="btn btn-light border submit-feedback">No</button>-->
+            <!--                &lt;!&ndash;<input type="submit" name="was_heplful" value="Yes">&ndash;&gt;-->
+            <!--                &lt;!&ndash;<input type="submit" name="not_heplful" value="No">&ndash;&gt;-->
+            <!--                </form>-->
+            <!--            </div>-->
+            <!--            <div class="helpful" style="display:none;">-->
+            <!--                Thank you for your valuable feedback.-->
+            <!--            </div>-->
+            <!--            <div class="not-helpful" style="display:none;">-->
+            <!--                Thank you for your feedback. If you want to report an issue about this document <a class="" data-toggle="modal" data-target="#myModal">click here</a>-->
+            <!--            </div>-->
+            <!--        </div>-->
+
+            {% endcomment %}
+            <div class="d-inline-block d-sm-inline-block w-100 text-center text-md-left text-lg-center p-4 mb-3 jumbotron">
+                <a href='{% url "documents:document-pay"%}?doc={{object.slug}}'
+                   class="btn btn-bg-theme text-white border-radius-40" rel="nofollow">Download This Document</a>
+
+                {% comment %}
+                <a href='{% url "documents:document-download-view"%}?slug={{object.slug}}'
+                   class="btn btn-bg-theme btn-lg text-white border-radius-40" rel="nofollow">Download</a>
+                <a href='{% url "documents:document-pay"%}?doc={{object.slug}}'
+                   class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Plans</a>
+                <!--            <a href='{% url "documents:document-download-view"%}?doc={{object.slug}}&single=True' class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Pay Per Download</a>-->
+                {% endcomment %}
+            </div>
+            {% if object.pages.all.count %}
+            <span class="d-inline-block d-sm-inline-block w-100 text-center text-md-left text-lg-center text-muted">Showing pages {{object.preview_from}} to {{object.preview_to}} of {{object.pages.all.count}} pages</span>
+            {% endif %}
+            <div id="viewer" class="documentViewer">
+                {% comment %}
+                {% for page in object.pages.all %}
+                {% endcomment %}
+
+                {% for page in controlled_pages %}
                 {{ page.html|safe }}
-            {% endfor %}
+                {% endfor %}
 
-        </div>
-        {% if not pay_per_view %}
-<!--        <div class="subscribe mt-3 mb-5">-->
-<!--            <div class="jumbotron p-4 mb-3 text-center">-->
-<!--                <h6 class="mb-3">You’re reading a preview. To view complete document, subscribe to a plan</h6>-->
-<!--                <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white border-radius-40" rel="nofollow">Unlock this Document</a>-->
+            </div>
+            {% if not pay_per_view %}
+            <!--        <div class="subscribe mt-3 mb-5">-->
+            <!--            <div class="jumbotron p-4 mb-3 text-center">-->
+            <!--                <h6 class="mb-3">You’re reading a preview. To view complete document, subscribe to a plan</h6>-->
+            <!--                <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white border-radius-40" rel="nofollow">Unlock this Document</a>-->
 
-<!--            </div>-->
-<!--        </div>-->
-        <section class="pb-10 page">
-<div class="container">
-<div class="row">
-<div class="col-md-12">
-<!--<h2 class="text-center">Expert's Answers</h2>-->
-<div class="blur-content position-relative">
-<div class="card position-absolute card-position width-60 card-border">
-<div class="card-body text-center card-padding">
-    <img class="img-fluid pb-2" src="{% static 'dist/assets/images/deskliblogo.png' %}" alt="desklib-logo"><br>
- <h5 class="pb-2"><strong>You’re reading a preview</strong></h5>
-     <img class="img-fluid pb-2" src="{% static 'dist/assets/images/cardimage.png' %}" alt="card-image"><br>
-    <p>To View Complete Document</p>
-    <p>Become a Desklib Library Member.<br>Subscribe to our plans</p>
-<a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme white border-radius-20 px-4 mt-2">Download This Document</a>
-</div>
-</div>
-</div>
-<div class="text-center">
-{% comment %}
-<form action="" method="post" id="question-form" enctype="multipart/form-data">
-{% csrf_token %}
-<input type="hidden" name="question" value="{{object.id}}">
-<input type="submit" value="View Answer" class="btn btn-bg-theme white border-radius-20 px-4">
-</form>
-{% endcomment %}
-</div>
-</div>
-</div>
-</div>
-</section>
+            <!--            </div>-->
+            <!--        </div>-->
+            <section class="pb-10 page">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!--<h2 class="text-center">Expert's Answers</h2>-->
+                            <div class="blur-content position-relative">
+                                <div class="card position-absolute card-position width-60 card-border">
+                                    <div class="card-body text-center card-padding">
+                                        <img class="img-fluid pb-2"
+                                             src="{% static 'dist/assets/images/deskliblogo.png' %}" alt="desklib-logo"><br>
+                                        <h5 class="pb-2"><strong>You’re reading a preview</strong></h5>
+                                        <img class="img-fluid pb-2"
+                                             src="{% static 'dist/assets/images/cardimage.png' %}" alt="card-image"><br>
+                                        <p>To View Complete Document</p>
+                                        <p>Become a Desklib Library Member.<br>Subscribe to our plans</p>
+                                        <a href='{% url "documents:document-pay"%}?doc={{object.slug}}'
+                                           class="btn btn-bg-theme white border-radius-20 px-4 mt-2">Download This
+                                            Document</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                {% comment %}
+                                <form action="" method="post" id="question-form" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="question" value="{{object.id}}">
+                                    <input type="submit" value="View Answer"
+                                           class="btn btn-bg-theme white border-radius-20 px-4">
+                                </form>
+                                {% endcomment %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        {% endif %}
+            {% endif %}
 
-    </article>
-     <aside class="col-md-4">
-        {% if more_like_this %}
+        </article>
+        <aside class="col-md-4">
+            {% if more_like_this %}
             <section class="similar-resource">
                 <h4>Similar documents also studied by user</h4>
                 <div class="py-4">
                     <div class="row">
                         {% for results in more_like_this %}
-                                <article class="col-6 col-md-12 col-lg-6 mb-3">
-                                    <a href="{% url 'documents:document-view' results.slug %}" class="text-decoration-none">
-                                        <div>
-                                            <div class="main-div border-radius-5 shadow document-similar-height">
-                                                <img class="card-img-top " src="{{ results.cover_image }}" alt="{{ results.title }}">
-                                                <div class="card-body bg-light hover-div">
-                                                    <h6 class="word-wrap blue-theme">{{results.title|truncatechars:30}}</h6>
-                                                    <div class="btn-d-none">
+                        <article class="col-6 col-md-12 col-lg-6 mb-3">
+                            <a href="{% url 'documents:document-view' results.slug %}" class="text-decoration-none">
+                                <div>
+                                    <div class="main-div border-radius-5 shadow document-similar-height">
+                                        <img class="card-img-top " src="{{ results.cover_image }}"
+                                             alt="{{ results.title }}">
+                                        <div class="card-body bg-light hover-div">
+                                            <h6 class="word-wrap blue-theme">{{results.title|truncatechars:30}}</h6>
+                                            <div class="btn-d-none">
                                                     <span class="d-block">
                                                     <small class="text-muted">{{results.no_of_pages}}</small>
                                                     <small class="text-muted add-dash">pages</small>
                                                     </span>
-                                                    <span class="d-block">
+                                                <span class="d-block">
                                                     <small class="text-muted">{{results.no_of_words}}</small>
                                                     <small class="text-muted add-dash">words</small>
                                                     </span>
-                                                    <small class="text-muted d-block">{{results.pub_date|date:"d M Y"}}</small>
-                                                    <a href="{% url 'documents:document-view' results.slug %}" class="btn btn-bg-theme text-white mt-3 mb-3 pt-1 pb-1 border-radius-20 w-100">View</a>
-                                                    </div>
-                                                </div>
+                                                <small class="text-muted d-block">{{results.pub_date|date:"d M
+                                                    Y"}}</small>
+                                                <a href="{% url 'documents:document-view' results.slug %}"
+                                                   class="btn btn-bg-theme text-white mt-3 mb-3 pt-1 pb-1 border-radius-20 w-100">View</a>
                                             </div>
                                         </div>
-                                    </a>
-                                </article>
-                             {% if forloop.counter|divisibleby:2 %}
+                                    </div>
                                 </div>
-                                <div class="row">
-                            {% endif %}
+                            </a>
+                        </article>
+                        {% if forloop.counter|divisibleby:2 %}
+                    </div>
+                    <div class="row">
+                        {% endif %}
 
                         {% endfor %}
                     </div>
                 </div>
             </section>
-        {% endif %}
-      </aside>
-  </div>
+            {% endif %}
+        </aside>
+    </div>
 </div>
 
 {% if not pageviews_flag %}
 <!-- The Modal -->
 <div class="modal show" id="previewModal" style="display: block;" aria-modal="true">
-<div class="modal-dialog">
-<div class="modal-content">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-<!-- Modal Header -->
+            <!-- Modal Header -->
 
-<!-- Modal body -->
-    <div class="bg-dark  pt-5 pb-5">
-        <h4 class="text-white mb-0 text-center">You have reached the preview limit for daily views</h4>
+            <!-- Modal body -->
+            <div class="bg-dark  pt-5 pb-5">
+                <h4 class="text-white mb-0 text-center">You have reached the preview limit for daily views</h4>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <p>Subscribe or upgrade to access study resources for your class.</p>
+                    <a href='{% url "documents:document-pay"%}?doc={{object.slug}}'
+                       class="btn btn-bg-theme text-white border-radius-40" rel="nofollow">Download This Document</a>
+                    <!-- <a href="{% url 'subscription' %}" class="btn btn-bg-theme text-white mb-3">Subscribe</a> -->
+                    <!-- <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white mb-3" rel="nofollow">Pay Per Document</a> -->
+                </div>
+            </div>
+
+
+        </div>
     </div>
-<div class="modal-body">
-    <div class="text-center">
-        <p>Subscribe or upgrade to access study resources for your class.</p>
-         <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white border-radius-40" rel="nofollow">Download This Document</a>
-        <!-- <a href="{% url 'subscription' %}" class="btn btn-bg-theme text-white mb-3">Subscribe</a> -->
-        <!-- <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn-bg-theme text-white mb-3" rel="nofollow">Pay Per Document</a> -->
-    </div>
-</div>
-
-
-</div>
-</div>
 </div>
 <div class="modal-backdrop opacity-1 show"></div>
 {% endif %}
@@ -517,6 +545,7 @@ $(document).ready(function(){
   $("body").addClass("modal-open");
   }
 });
+
 </script>
 
 <script>
@@ -540,6 +569,7 @@ $(document).ready(function(){
     adjustViewer();
 
     window.addEventListener("resize", adjustViewer);
+
 
 </script>
 <script>
@@ -671,6 +701,7 @@ $(document).ready(function(){
 
 });
 
+
 </script>
 
 <script>
@@ -698,6 +729,7 @@ $(document).ready(function(){
             });
 
         });
+
 </script>
 {% endblock %}
 
