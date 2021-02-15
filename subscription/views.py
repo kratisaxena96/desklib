@@ -7,7 +7,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
 class MyDownloads(MetadataMixin,JsonLdContextMixin,LoginRequiredMixin,TemplateView):
-    template_name ="subscription/my_downloads.html"
+    template_name ="subscription/v2/my_downloads.html"
     title = "My-Downloads"
     def get(self, request, *args, **kwargs):
         user_downloads = Download.objects.filter(user=self.request.user).order_by('-created_at')
@@ -36,7 +36,7 @@ class MyDownloads(MetadataMixin,JsonLdContextMixin,LoginRequiredMixin,TemplateVi
 
 
 class MySubscription(MetadataMixin,JsonLdContextMixin,LoginRequiredMixin,TemplateView):
-    template_name ="subscription/my_subscriptions.html"
+    template_name ="subscription/v2/my_subscriptions.html"
 
     def get(self, request, *args, **kwargs):
         subscribed_doc = Subscription.objects.filter(user=self.request.user).order_by('-created_at')

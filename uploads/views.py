@@ -29,7 +29,7 @@ class UploadDocumentView(LoginRequiredMixin, JsonLdContextMixin, CreateView):
 
 class MyUploads(LoginRequiredMixin, ListView):
     model = Upload
-    template_name = "uploads/my_uploads.html"
+    template_name = "uploads/v2/my_uploads.html"
     paginate_by = 6
     title = "My-uploads"
 

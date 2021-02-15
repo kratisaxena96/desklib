@@ -1,0 +1,282 @@
+{% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% block content %}
+{% block messages %}
+    {% if messages %}
+        <div>
+            <ul class="notification-right">
+            {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>{{message}}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}
+
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="text-center py-2">
+                    <img class="img-fluid" src="{% static '/src/assets/images/v2/profile_6@2x.png' %}" />
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="userprofiledtl">
+                    <h1> {{user.username}} </h1>
+                    <div class="row">
+                        <div class="col-md-6">
+                        <div class="Roboto-Bold py-1">Username : <span class="Roboto-Regular text-center">{{user.username}}</span></div>
+                        <div class="Roboto-Bold py-1">Name : <span class="Roboto-Regular text-center">{{user.first_name}} {{user.last_name}}</span></div>
+                        <div class="Roboto-Bold py-1">Contact number : <span class="Roboto-Regular text-center">{{user.contact_no}}</span></div>
+                        {% comment %}
+                            <div class="Roboto-Bold py-1">Email : <span class="Roboto-Regular text-center">{{user.email}}</span></div>
+                        {% endcomment %}
+                    </div>
+                        <div class="col-md-6">
+                            <div class="Roboto-Bold py-1">Country : <span class="Roboto-Regular text-center">{{user.get_country_display}}</span></div>
+                            {% if user.college %}
+                                <div class="Roboto-Bold py-1">College : <span class="Roboto-Regular text-center">{{user.college}}</span></div>
+                            {% endif %}
+                            {% if user.university %}
+                                <div class="Roboto-Bold py-1">University : <span class="Roboto-Regular text-center">{{user.university}}</span></div>
+                            {% endif %}
+                            {% if subscription %}
+                                <div class="Roboto-Bold py-1">Plan : <span class="Roboto-Regular text-center">{{subscription.plan}}</span></div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+<!--                <div class="table-responsive-sm" id="profile-table">-->
+<!--                    <table class="table">-->
+<!--                      {% comment %}-->
+<!--                      <tr>-->
+<!--                        <td>Email</td>-->
+<!--                        <td class="text-center">{{user.email}}</td>-->
+<!--                      </tr>-->
+<!--                      {% endcomment %}-->
+<!--                      <tr>-->
+<!--                        <td>Username</td>-->
+<!--                        <td class="text-center">{{user.username}}</td>-->
+<!--                      </tr>-->
+<!--                      <tr>-->
+<!--                        <td>Name</td>-->
+<!--                        <td class="text-center">{{user.first_name}} {{user.last_name}}</td>-->
+<!--                      </tr>-->
+<!--                      <tr>-->
+<!--                        <td>Contact number</td>-->
+<!--                        <td class="text-center">{{user.contact_no}}</td>-->
+<!--                      </tr>-->
+<!--                      {% if user.college %}-->
+<!--                      <tr>-->
+<!--                        <td>College</td>-->
+<!--                        <td class="text-center">{{user.college}}</td>-->
+<!--                      </tr>-->
+<!--                      {% endif %}-->
+<!--                      {% if user.university %}-->
+<!--                      <tr>-->
+<!--                        <td>University</td>-->
+<!--                        <td class="text-center">{{user.university}}</td>-->
+<!--                      </tr>-->
+<!--                      {% endif %}-->
+<!--                      <tr>-->
+<!--                        <td>Country</td>-->
+<!--                        <td class="text-center">{{user.get_country_display}}</td>-->
+<!--                      </tr>-->
+<!--                      {% if subscription %}-->
+<!--                      <tr>-->
+<!--                        <td>Plan</td>-->
+<!--                        <td class="text-center">{{subscription.plan}}</td>-->
+<!--                      </tr>-->
+<!--                      {% endif %}-->
+<!--                    </table>-->
+<!--                </div>-->
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+      <div class="row">
+          <div class="col-md-4 border-right">
+              <div class="list-group" role="tablist">
+                  <a class="list-group-item-action check" href="{% url 'my-downloads' %}" role="tab" aria-controls="my-downloads">My Downloads</a>
+
+                  {% comment %}
+                    <a class="list-group-item list-group-item-action" href="{% url 'upload-file' %}" role="tab" aria-controls="upload-files">Upload Files</a>
+                  {% endcomment %}
+              </div>
+          </div>
+          <div class="col-md-4 border-right">
+              <div class="list-group" role="tablist">
+                  <a class="list-group-item-action check" href="{% url 'my-uploads' %}" role="tab" aria-controls="my-uploads">My Uploads</a>
+              </div>
+          </div>
+          <div class="col-md-4">
+              <div class="list-group" role="tablist">
+                  <a class="list-group-item-action check" href="{% url 'my-subscription' %}" role="tab" aria-controls="my-subscription">My Subscriptions</a>
+              </div>
+          </div>
+      </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            {% comment %}
+            <aside class="col-md-4 border-right">
+		 	 	<div class="list-group" role="tablist">
+			        <a class="list-group-item list-group-item-action" href="{% url 'my-profile' %}" role="tab" aria-controls="my-profile">My Profile</a>
+                    <a class="list-group-item list-group-item-action bg-active white" href="{% url 'my-downloads' %}" role="tab" aria-controls="my-downloads">My Downloads</a>
+                    <a class="list-group-item list-group-item-action" href="{% url 'my-uploads' %}" role="tab" aria-controls="my-uploads">My Uploads</a>
+
+<!--                    <a class="list-group-item list-group-item-action" href="{% url 'upload-file' %}" role="tab" aria-controls="upload-files">Upload Files</a>-->
+
+                    <a class="list-group-item list-group-item-action" href="{% url 'my-subscription' %}" role="tab" aria-controls="my-subscriptions">My Subscriptions</a>
+                </div>
+            </aside>
+            {% endcomment %}
+
+            <div class="col-md-12 mt-3 mt-md-0">
+                        <h4 class="mb-3" style="display: inline-block;">My Downloads</h4><i class="fa fa-download fa-4" aria-hidden="true" style="font-size:21px;color: #405fbd; padding-left: inherit;"></i>
+                     <div class="table-responsive-sm">
+            		<table class="table table-bordered table-sm">
+            		 	<thead>
+            		 	 	<tr>
+            		 	 	   <th scope="col">Title</th>
+                                <th scope="col">Date</th>
+            		 	    </tr>
+            		    </thead>
+
+                      {% for downloads in user_downloads %}
+
+            		   <tbody>
+            		   	   <tr>
+            		   	   	   <td scope="row">{{downloads.document | truncatechars:40}}</td>
+                               <td scope="row">{{downloads.created_at|date:"N j, Y, H:i"}}</td>
+            		   	   </tr>
+            		   </tbody>
+
+                        {% endfor %}
+
+            	</table>
+                    {% if user_downloads.has_other_pages %}
+                    <div class="container d-flex justify-content-center">
+                      <div class="row">
+                        <div class="col-md-12">
+                            <ul class="pagination" id="user_download">
+                              <li class="page-item p-3">
+                              {% if user_downloads.has_previous %}
+                                  <a class="previous" href="?page1={{ user_downloads.previous_page_number }}">
+                             <span aria-hidden="true"><i class='fas fa-angle-left fafa-nav-active blue-theme'></i></span></a></li>
+                              {% else %}
+                              <li class="page-item disabled p-3">
+                              <a class="previous"><i class='fas fa-angle-left fafa-nav-in-active'></i></a>
+                              </li>
+                              {% endif %}
+                              {% for page in user_downloads.paginator.page_range %}
+                                  {% if user_downloads.number == page %}
+                                  <li class="page-item active p-3">
+                                      <a class="rounded-circle page-link border-color bg-blue-theme" href="?page1={{page}}">{{page}}</a>
+                                  </li>
+                                  {% elif page > user_downloads.number|add:'-3' and page < user_downloads.number|add:'3' %}
+                                  <li class="page-item p-3"><a class="rounded-circle page-link blue-theme" href="?page1={{page}}">{{page}}</a>
+                                  </li>
+                                  {% endif %}
+                              {% endfor %}
+                              <li class="page-item p-3">
+                              {% if user_downloads.has_next %}
+
+                                 <a class="previous blue-theme" href="?page1={{ user_downloads.next_page_number }}"><span aria-hidden="true"><i class='fas fa-angle-right fafa-nav-in-active'></i></span></a></li>
+                              {% else %}
+                               <li class="page-item disabled p-3">
+                                <a class="next"><i class='fas fa-angle-right fafa-nav-in-active'></i></a>
+                              </li>
+                              {% endif %}
+                            </ul>
+                        </div>
+                      </div>
+                    </div>
+				    {% endif %}
+                     </div>
+
+                <div class="mt-5 mb-5">
+                    <h4 class="mb-3" style="display: inline-block;">My page view</h4><i class="fas fa-book-open fa-4" aria-hidden="true" style="font-size:21px;color: #405fbd; padding-left: 14px;"></i>
+                         <div class="table-responsive-sm">
+                        <table class="table table-bordered table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Pages</th>
+                                    <th scope="col">Date</th>
+                                </tr>
+                            </thead>
+            {% for pages in page_view %}
+                            <tbody>
+                                <tr>
+                                    <td scope="row">
+                                    {{pages.document | truncatechars:40}}
+                                    </td>
+                                    <td scope="row">
+                                        {{pages.created_at|date:"N j, Y, H:i"}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                         {% endfor %}
+                        </table>
+                        <!-- pagination 12-11-2019 -->
+                        {% if page_view.has_other_pages %}
+                        <div class="d-flex justify-content-center mb-2">
+                          <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                        {% if page_view.has_previous %}
+                        <li class="page-item p-3">
+                          <a class="previous" href="?page2={{ page_view.previous_page_number }}">
+                            <span aria-hidden="true"><i class='fas fa-angle-left fafa-nav-active blue-theme'></i></span></a>
+                          </li>
+                          {% else %}
+                           <li class="page-item disabled p-3">
+                            <a class="next">
+                              <span aria-hidden="true"><i class='fas fa-angle-left fafa-nav-in-active'></i></span></a>
+                        </li>
+                        {% endif %}
+
+                        {% for page in page_view.paginator.page_range %}
+                          {% if page_view.number == page %}
+                            <li class="page-item active p-3">
+                              <a class="rounded-circle page-link border-color bg-blue-theme" href="?page2={{page}}">{{ page }}<span class="sr-only">(current)</span></a>
+                            </li>
+                          {% elif page > page_view.number|add:'-3' and page < page_view.number|add:'3' %}
+                            <li class="page-item p-3"><a class="page-link rounded-circle blue-theme" href="?page2={{ page }}">{{ page }}</a></li>
+                          {% endif %}
+                        {% endfor %}
+                          <li class="page-item p-3">
+                            {% if page_view.has_next %}
+                            <a class="previous blue-theme" href="?page2={{ page_view.next_page_number }}">
+                                <span aria-hidden="true"><i class='fas fa-angle-right fafa-nav-in-active'></i></span>
+                            </a>
+                          </li>
+                          {% else %}
+                            <li class="page-item disabled p-3">
+                              <span class=""><i class='fas fa-angle-right fafa-nav-in-active'></i></span>
+                            </li>
+                          {% endif %}
+                        </ul>
+                        </nav>
+                        </div>
+				        {% endif %}
+                    </div>
+	 		    </div>
+	 	    </div>
+	    </div>
+    </div>
+</section>
+
+{% endblock %}

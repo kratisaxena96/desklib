@@ -1,0 +1,223 @@
+{% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% comment %}
+{% extends "desklib/base.html" %}
+
+{% block content %}
+
+{{user}}
+{{user.username}}
+{{user.first_name}}
+{{user.last_name}}
+{{user.contact_no}}
+{{user.get_country_display}}
+{{user.college}}
+{{user.university}}
+
+{% endblock %}
+{% endcomment %}
+
+{% block content %}
+{% block messages %}
+     {% if messages %}
+        <div>
+            <ul class="notification-right">
+            {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>{{message}}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+ {% endblock %}
+
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="text-center py-2">
+                    <img class="img-fluid" src="{% static '/src/assets/images/v2/profile_6@2x.png' %}" />
+                </div>
+            </div>
+
+
+
+
+            <div class="col-md-8">
+                <div class="userprofiledtl">
+                    <h1> {{user.username}} </h1>
+                    <div class="row">
+                        <div class="col-md-6">
+                        <div class="Roboto-Bold py-1">Username : <span class="Roboto-Regular text-center">{{user.username}}</span></div>
+                        <div class="Roboto-Bold py-1">Name : <span class="Roboto-Regular text-center">{{user.first_name}} {{user.last_name}}</span></div>
+                        <div class="Roboto-Bold py-1">Contact number : <span class="Roboto-Regular text-center">{{user.contact_no}}</span></div>
+                        {% comment %}
+                            <div class="Roboto-Bold py-1">Email : <span class="Roboto-Regular text-center">{{user.email}}</span></div>
+                        {% endcomment %}
+                    </div>
+                        <div class="col-md-6">
+                            <div class="Roboto-Bold py-1">Country : <span class="Roboto-Regular text-center">{{user.get_country_display}}</span></div>
+                            {% if user.college %}
+                                <div class="Roboto-Bold py-1">College : <span class="Roboto-Regular text-center">{{user.college}}</span></div>
+                            {% endif %}
+                            {% if user.university %}
+                                <div class="Roboto-Bold py-1">University : <span class="Roboto-Regular text-center">{{user.university}}</span></div>
+                            {% endif %}
+                            {% if subscription %}
+                                <div class="Roboto-Bold py-1">Plan : <span class="Roboto-Regular text-center">{{subscription.plan}}</span></div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+<!--                <div class="table-responsive-sm" id="profile-table">-->
+<!--                    <table class="table">-->
+<!--                      {% comment %}-->
+<!--                      <tr>-->
+<!--                        <td>Email</td>-->
+<!--                        <td class="text-center">{{user.email}}</td>-->
+<!--                      </tr>-->
+<!--                      {% endcomment %}-->
+<!--                      <tr>-->
+<!--                        <td>Username</td>-->
+<!--                        <td class="text-center">{{user.username}}</td>-->
+<!--                      </tr>-->
+<!--                      <tr>-->
+<!--                        <td>Name</td>-->
+<!--                        <td class="text-center">{{user.first_name}} {{user.last_name}}</td>-->
+<!--                      </tr>-->
+<!--                      <tr>-->
+<!--                        <td>Contact number</td>-->
+<!--                        <td class="text-center">{{user.contact_no}}</td>-->
+<!--                      </tr>-->
+<!--                      {% if user.college %}-->
+<!--                      <tr>-->
+<!--                        <td>College</td>-->
+<!--                        <td class="text-center">{{user.college}}</td>-->
+<!--                      </tr>-->
+<!--                      {% endif %}-->
+<!--                      {% if user.university %}-->
+<!--                      <tr>-->
+<!--                        <td>University</td>-->
+<!--                        <td class="text-center">{{user.university}}</td>-->
+<!--                      </tr>-->
+<!--                      {% endif %}-->
+<!--                      <tr>-->
+<!--                        <td>Country</td>-->
+<!--                        <td class="text-center">{{user.get_country_display}}</td>-->
+<!--                      </tr>-->
+<!--                      {% if subscription %}-->
+<!--                      <tr>-->
+<!--                        <td>Plan</td>-->
+<!--                        <td class="text-center">{{subscription.plan}}</td>-->
+<!--                      </tr>-->
+<!--                      {% endif %}-->
+<!--                    </table>-->
+<!--                </div>-->
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container py-5">
+      <div class="row">
+          <div class="col-md-4 border-right">
+              <div class="list-group" role="tablist">
+                  <a class="list-group-item-action check" href="{% url 'my-downloads' %}" role="tab" aria-controls="my-downloads">My Downloads</a>
+
+                  {% comment %}
+                    <a class="list-group-item-action check" href="{% url 'upload-file' %}" role="tab" aria-controls="upload-files">Upload Files</a>
+                  {% endcomment %}
+              </div>
+          </div>
+          <div class="col-md-4 border-right">
+              <div class="list-group" role="tablist">
+                  <a class="list-group-item-action check" href="{% url 'my-uploads' %}" role="tab" aria-controls="my-uploads">My Uploads</a>
+              </div>
+          </div>
+          <div class="col-md-4">
+              <div class="list-group" role="tablist">
+                  <a class="list-group-item-action check" href="{% url 'my-subscription' %}" role="tab" aria-controls="my-subscription">My Subscriptions</a>
+              </div>
+          </div>
+      </div>
+    </div>
+</section>
+
+
+
+{% comment %}
+<section class="py-5">
+      <div class="container-fluid">
+      	<div class="row">
+      		<div class="col-md-12">
+      			<h2 class="text-center mb-3">My Profile</h2>
+      		</div>
+      	</div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="border p-1">
+                    <a class="btn btn-light d-block text-decoration-none blue-theme my-profile" href="{% url 'my-profile' %}">My Profile</a>
+                    <a class="btn btn-light d-block text-decoration-none blue-theme" href="{% url 'my-downloads' %}">My Downloads</a>
+                    <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">My Settings</a>
+                    <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">My Accounts</a>
+                    <a class="btn btn-light d-block text-decoration-none blue-theme" href="javascript:void(0);">Upload Files</a>
+
+            </div>
+        </div>
+
+            <div class="col-md-9 mt-3 mt-md-0">
+              <div class="text-center py-2">
+                <img class="img-fluid" src="{% static 'dist/assets/images/user.png' %}" width="100px" height="150px">
+              </div>
+              <div class="table-responsive-sm">
+              <table class="table">              
+                <tr>
+                  <td>Email</td>
+                  <td class="text-center">{{user.email}}</td>
+                </tr>                
+                <tr>
+                  <td>Username</td>
+                  <td class="text-center">{{user.username}}</td>
+                </tr>
+                <tr>
+                  <td>First Name</td>
+                  <td class="text-center">{{user.first_name}}</td>
+                </tr>
+                <tr>
+                  <td>Last Name</td>
+                  <td class="text-center">{{user.last_name}}</td>
+                </tr>
+                <tr>
+                  <td>Contact number</td>
+                  <td class="text-center">{{user.contact_no}}</td>
+                </tr>
+                <tr>
+                  <td>College</td>
+                  <td class="text-center">{{user.college}}</td>
+                </tr>
+                <tr>
+                  <td>University</td>
+                  <td class="text-center">{{user.university}}</td>
+                </tr>
+                <tr>
+                  <td>Country</td>
+                  <td class="text-center">{{user.get_country_display}}</td>
+                </tr>
+              </table>
+              </div>
+            </div>
+      </div>
+     </div>
+</section>
+{% endcomment %}
+
+{% endblock %}

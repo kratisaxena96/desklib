@@ -96,6 +96,15 @@ input, select, textarea, button, i, a {
     font-family: 'Roboto-Light';
 }
 
+
+/*---------- N O T I F I C A T I O N   S E C T I O N   C S S ----------*/
+.notification-right {
+    position: absolute;
+    right: 0;
+    margin-top: 10px;
+    width: 100%;
+    z-index: 1;
+}
 /*---------- H E A D E R   S E C T I O N   C S S ----------*/
 .navbar {
     padding: 1.5rem 0;
@@ -376,7 +385,9 @@ No media query since this is the default in Bootstrap because it is "mobile firs
     font-family: 'Roboto-Regular'
 }
 
-
+.excellent_sol {
+    padding: 0 !important;
+}
 .online-solution-home {
     background: linear-gradient(#405FBD1A 100%,transparent 100%);
 }
@@ -395,6 +406,9 @@ No media query since this is the default in Bootstrap because it is "mobile firs
 }
 .get_online_hwhelp h2 {
     font-family: 'Roboto-Regular';
+}
+.main-content .owl-theme .custom-nav .owl-next, .main-content .owl-theme .custom-nav .owl-prev {
+    height: 60px;
 }
 
 @media (max-width: 575px) {
@@ -840,7 +854,8 @@ ul.hwh_bysubj li {
 .docsdetaildwnld {
     background-color: #fde74a3b;
     border-radius: 2rem;
-    padding: .5rem 1rem;
+    padding: 1.5rem 1rem;
+    margin: 1rem;
 }
 .document-similar-height {
     height: 350px;
@@ -872,6 +887,9 @@ ul.assgnmnt_count li {
     border-right: 1px solid lightgrey;
 }
 .page .card, .task_box .page .page-image {
+    -webkit-border-radius: 2rem;
+    -moz-border-radius: 2rem;
+    -ms-border-radius: 2rem;
     border-radius: 2rem;
 }
 .findatutor {
@@ -905,9 +923,24 @@ ul.assgnmnt_count li {
 }
 .task_box .page .page-image{
 }
+.blur-content {
+    -webkit-border-radius: 2rem;
+    -moz-border-radius: 2rem;
+    -ms-border-radius: 2rem;
+    border-radius: 2rem;
+}
 @media (max-width: 575px) {
     .blur_previewdocs {
         width: auto;
+    }
+    .task_box {
+        padding: 0;
+    }
+    .payforans {
+        width: 90%;
+    }
+    .docs_title, .docs_count, .docs_share {
+        text-align: center;
     }
 }
 
@@ -928,6 +961,9 @@ ul.assgnmnt_count li {
     padding: 4rem 1rem 2rem;
     font-family: Roboto, sans-serif;
 }
+.docs_plan_box_upper:hover {
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
 .docs_plan_box_lower {
     padding: 4rem 1rem 2rem;
     font-family: Roboto, sans-serif;
@@ -939,9 +975,53 @@ ul.assgnmnt_count li {
 .docs_free_plan_box {
     margin: 0 10rem;
 }
-@media (max-width: 575px) {
 
+
+.modal-header, .modal-content {
+    border: none ;
 }
+.modal-header {
+    -webkit-border-radius: 2rem 2rem 0 0;
+    -moz-border-radius: 2rem 2rem 0 0;
+    -ms-border-radius: 2rem 2rem 0 0;
+    border-radius: 2rem 2rem 0 0;
+}
+.modal-content {
+    -webkit-border-radius: 2rem;
+    -moz-border-radius: 2rem;
+    -ms-border-radius: 2rem;
+    border-radius: 2rem;
+}
+@media (max-width: 575px) {
+    .doc-tab {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+    .docs_free_plan_box {
+        margin: 0;
+    }
+    .mt-element-step, .status_1_content, .status_2_content, .status_3_content {
+        margin: 0 !important;
+    }
+    .stepperfont {
+        font-size: .8rem;
+    }
+}
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 768px) {
+    .doc-tab {
+        padding-left: 200px;
+        padding-right: 200px;
+    }
+    .docs_free_plan_box {
+        margin: 0;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+@media (min-width: 768px) {
+}
+
 
 
 
@@ -1402,6 +1482,11 @@ ul.social-icons li:hover {
     }
 }
 
+/*---------- R E G I S T E R   P A G E   C S S   S T A R T S----------*/
+.card-signin input {
+    border: 1px solid #e5e5e5;
+}
+
 /*---------- M E D I A  Q U E R I E S   S T A R T S----------*/
 /*:::::::::: Bootstrap 4 breakpoints ::::::::::*/
 
@@ -1411,7 +1496,9 @@ No media query since this is the default in Bootstrap because it is "mobile firs
 */
 
 @media (max-width: 575px) {
-
+    .userprofiledtl {
+        text-align: center;
+    }
 }
 
 /* Small devices (landscape phones, 576px and up) */

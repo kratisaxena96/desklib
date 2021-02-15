@@ -166,17 +166,21 @@ opacity:0.9 !important;
 </section>
 {% block messages %}
 {% if messages %}
-<div class="pb-4">
-    <ul class="notification-right">
-        {% for message in messages %}
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong>{{message}}</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 pb-4">
+            <ul class="notification-right list-unstyled">
+                {% for message in messages %}
+                <li class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>{{message}}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </li>
+                {% endfor %}
+            </ul>
         </div>
-        {% endfor %}
-    </ul>
+    </div>
 </div>
 {% endif %}
 {% endblock %}
@@ -184,80 +188,88 @@ opacity:0.9 !important;
 <div class="container">
     <div class="row pt-0 pt-sm-5">
         <article class="col-md-8 border-right">
-            <h3>{{object.title}}</h3>
-            <p>Added on - {{object.created|date:"d M Y"}}</p>
-            <ul class="p-0 d-inline-block">
-                {% if object.course %}
-                <li class="d-inline-block p-2 text-center border-right">
-                    <p class="mb-1">{{object.course}}</p>
-                    <p class="mb-0 blue-theme">course code</p>
-                </li>
-                {% endif %}
-                {% comment %}
-                <!--             <li class="d-inline-block p-2 text-center border-right">-->
-                <!--                <p class="mb-1">{% for obj in object.subjects.all %}{{obj.name}}{% endfor %}</p>-->
-                <!--                <p class="mb-0 blue-theme">subject</p>-->
-                <!--            </li>-->
+            <div class="row">
+                <div class="col-md-12 docs_title">
+                    <h3>{{object.title}}</h3>
+                    <p>Added on - {{object.created|date:"d M Y"}}</p>
+                </div>
+                <div class="col-md-10 docs_count">
+                    <ul class="p-0 d-inline-block">
+                        {% if object.course %}
+                        <li class="d-inline-block p-2 text-center border-right">
+                            <p class="mb-1">{{object.course}}</p>
+                            <p class="mb-0 blue-theme">course code</p>
+                        </li>
+                        {% endif %}
+                        {% comment %}
+                        <!--             <li class="d-inline-block p-2 text-center border-right">-->
+                        <!--                <p class="mb-1">{% for obj in object.subjects.all %}{{obj.name}}{% endfor %}</p>-->
+                        <!--                <p class="mb-0 blue-theme">subject</p>-->
+                        <!--            </li>-->
 
-                <!--            {% if object.type %}-->
-                <!--             <li class="d-inline-block p-2 text-center border-right">-->
-                <!--                <p class="mb-1">{{object.type}}</p>-->
-                <!--                <p class="mb-0 blue-theme">type</p>-->
-                <!--            </li>-->
+                        <!--            {% if object.type %}-->
+                        <!--             <li class="d-inline-block p-2 text-center border-right">-->
+                        <!--                <p class="mb-1">{{object.type}}</p>-->
+                        <!--                <p class="mb-0 blue-theme">type</p>-->
+                        <!--            </li>-->
 
-                <!--            {% endif %}-->
-                {% endcomment %}
-                {% if object.pages.all.count %}
-                <li class="d-inline-block p-2 text-center border-right">
-                    <p class="blue-theme font-weight-600 mb-1">{{object.pages.all.count}}</p>
-                    <p class="mb-0 blue-theme">pages</p>
-                </li>
-                {% endif %}
-                {% if object.words %}
-                <li class="d-inline-block p-2 text-center border-right">
-                    <p class="blue-theme font-weight-600 mb-1">{{object.words}}</p>
-                    <p class="mb-0 blue-theme">words</p>
-                </li>
-                {% endif %}
-                <li class="d-inline-block p-2 text-center border-right">
-                    <p class="text_yellow font-weight-600 mb-1">{{object.views}}</p>
-                    <p class="mb-0 blue-theme">views</p>
-                </li>
-                <li class="d-inline-block text-center p-2">
-                    <p class="text_red font-weight-600 mb-1">{{object.total_downloads}}</p>
-                    <p class="mb-0 blue-theme">downloads</p>
-                </li>
-            </ul>
-            <ul class="p-0 d-inline-block float-md-right">
-                <li class="d-inline-block text-center p-2">
-                    <div class="dropdown">
-                        <a class="shadow border-radius-40 btn margin-b" data-toggle="dropdown" href="JavaScript:Void(0);">
-                            <i class="fas fa-share-alt mb-1 blue-theme"></i>
-<!--                            <p class="mb-0">Share</p>-->
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item"
-                               href="https://facebook.com/sharer.php?u=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
-                               target="_blank"> <i class="fa fa-facebook blue-theme"></i> &nbsp; Share on Facebook</a>
-                            <a class="dropdown-item"
-                               href="https://twitter.com/intent/tweet?url=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
-                               target="_blank"> <i class="fa fa-twitter blue-theme"></i> &nbsp; Share on Twitter</a>
-                            <a class="dropdown-item"
-                               href="https://www.linkedin.com/shareArticle?mini=true&url=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
-                               target="_blank"> <i class="fa fa-linkedin blue-theme"></i> &nbsp; Share on LinkedIn</a>
-                            <a class="dropdown-item"
-                               href="https://web.whatsapp.com/send?text=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
-                               target="_blank"> <i class="fa fa-whatsapp blue-theme"></i> &nbsp; Share on Whatsapp</a>
-                            <a class="dropdown-item"
-                               href="mailto:?subject=Read{{object.title}}on Scribd&body=I am reading{{object.title}}on Desklib: https://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
-                               target="_blank"> <i class="fa fa-envelope blue-theme"></i> &nbsp; Share on Mail</a>
-                            <a class="dropdown-item copy_text"
-                               href="https://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
-                               target="_blank"> <i class="fa fa-copy blue-theme"></i> &nbsp; Copy Link</a>
-                        </div>
-                    </div>
-                </li>
-            </ul>
+                        <!--            {% endif %}-->
+                        {% endcomment %}
+                        {% if object.pages.all.count %}
+                        <li class="d-inline-block p-2 text-center border-right">
+                            <p class="blue-theme font-weight-600 mb-1">{{object.pages.all.count}}</p>
+                            <p class="mb-0 blue-theme">pages</p>
+                        </li>
+                        {% endif %}
+                        {% if object.words %}
+                        <li class="d-inline-block p-2 text-center border-right">
+                            <p class="blue-theme font-weight-600 mb-1">{{object.words}}</p>
+                            <p class="mb-0 blue-theme">words</p>
+                        </li>
+                        {% endif %}
+                        <li class="d-inline-block p-2 text-center border-right">
+                            <p class="text_yellow font-weight-600 mb-1">{{object.views}}</p>
+                            <p class="mb-0 blue-theme">views</p>
+                        </li>
+                        <li class="d-inline-block text-center p-2">
+                            <p class="text_red font-weight-600 mb-1">{{object.total_downloads}}</p>
+                            <p class="mb-0 blue-theme">downloads</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-2 docs_share">
+                    <ul class="p-0 d-inline-block float-md-right">
+                        <li class="d-inline-block text-center p-2">
+                            <div class="dropdown">
+                                <a class="shadow border-radius-40 margin-b p-3" data-toggle="dropdown" href="JavaScript:Void(0);">
+                                    <i class="fas fa-share-alt mb-1 blue-theme"></i>
+        <!--                            <p class="mb-0">Share</p>-->
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item"
+                                       href="https://facebook.com/sharer.php?u=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
+                                       target="_blank"> <i class="fa fa-facebook blue-theme"></i> &nbsp; Share on Facebook</a>
+                                    <a class="dropdown-item"
+                                       href="https://twitter.com/intent/tweet?url=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
+                                       target="_blank"> <i class="fa fa-twitter blue-theme"></i> &nbsp; Share on Twitter</a>
+                                    <a class="dropdown-item"
+                                       href="https://www.linkedin.com/shareArticle?mini=true&url=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
+                                       target="_blank"> <i class="fa fa-linkedin blue-theme"></i> &nbsp; Share on LinkedIn</a>
+                                    <a class="dropdown-item"
+                                       href="https://web.whatsapp.com/send?text=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
+                                       target="_blank"> <i class="fa fa-whatsapp blue-theme"></i> &nbsp; Share on Whatsapp</a>
+                                    <a class="dropdown-item"
+                                       href="mailto:?subject=Read{{object.title}}on Scribd&body=I am reading{{object.title}}on Desklib: https://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
+                                       target="_blank"> <i class="fa fa-envelope blue-theme"></i> &nbsp; Share on Mail</a>
+                                    <a class="dropdown-item copy_text"
+                                       href="https://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
+                                       target="_blank"> <i class="fa fa-copy blue-theme"></i> &nbsp; Copy Link</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
             {% comment %}
             <!--            <li class="d-inline-block text-center p-2">-->
             <!--                <a class="btn" data-toggle="modal" data-target="#myModal" href="JavaScript:Void(0);">-->
@@ -475,13 +487,30 @@ opacity:0.9 !important;
         </article>
 
         <aside class="col-md-4">
+            <section>
+                <div class="findatutor text-center">
+                    <h4 class="blue-theme">Click to find the perfect tutor matching your custom needs</h4>
+                    <img src="{% static 'src/assets/images/v2/girl_student.png' %}" class="img-fluid"
+                         alt="Documents Detail"/>
+                    <p class="mt-4 mb-4">Define your needs and let us find you the best tutor tailored solutions about
+                        each topic and all of this with few effortless clicks. </p>
+                    <button class="btn btn_common btn_blue"> Find A Tutor</button>
+                </div>
+                <div class="authentic text-center mt-4 mb-4">
+                    <h4><img src="{% static 'src/assets/images/v2/orange_tick.svg' %}" class="img-fluid"
+                             alt="Documents Detail"/> &nbsp;&nbsp; 100% Authentic</h4>
+                    <p>Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic
+                        or web designs. </p>
+                </div>
+            </section>
+
             {% if more_like_this %}
             <section class="similar-resource">
-                <h4>Similar documents also studied by user</h4>
+                <h3>Similar Resources</h3>
                 <div class="py-4">
                     <div class="row">
                         {% for results in more_like_this %}
-                        <article class="col-6 col-md-12 col-lg-12 mb-3">
+                        <article class="col-md-12 col-lg-12 mb-3">
                             <a href="{% url 'documents:document-view' results.slug %}" class="text-decoration-none">
                                 <div>
                                     <div class="main-div border-radius-5 shadow document-similar-height">
