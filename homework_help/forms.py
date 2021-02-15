@@ -1,5 +1,5 @@
 from django import forms
-from homework_help.models import Comment, Question, Order
+from homework_help.models import Comment, Question, Order, Answers
 from subjects.models import Subject
 from django import forms
 from haystack.forms import SearchForm
@@ -47,6 +47,14 @@ class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
         fields = ['question', 'subjects', 'solution_deadline']
+
+
+class SolutionForm(forms.ModelForm):
+    solution = forms.CharField(label='Question', widget=forms.Textarea(attrs={'placeholder': "Type Your Question here...", 'class': "form-control form-design ", 'id': "dropzone", 'rows': "4"}), required=True)
+
+    class Meta:
+        model = Answers
+        fields = ['solution',]
 
 
 class QuestionHomeForm(forms.ModelForm):

@@ -45,7 +45,6 @@ from datetime import timedelta
 
 from subscription.models import PaypalInvoice
 
-
 def autocomplete(request):
     sqs = SearchQuerySet().models(Question).filter(content_auto=request.GET.get('q', ''))[:5]
     data = {}
