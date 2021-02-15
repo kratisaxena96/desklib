@@ -52,7 +52,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
+    'corsheaders',
     'taggit',
+    'djcelery',
     'user_sessions',
     'ckeditor',
     'ckeditor_uploader',
@@ -92,6 +94,10 @@ SOCIALACCOUNT_QUERY_EMAIL=ACCOUNT_EMAIL_REQUIRED,
 SOCIALACCOUNT_EMAIL_REQUIRED=ACCOUNT_EMAIL_REQUIRED,
 SOCIALACCOUNT_STORE_TOKENS=False
 EXPECTED_IP_API = ['192.168.1.1','127.0.0.1']
+
+# djcelery.setup_loader()
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
@@ -135,6 +141,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     # 'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     # 'django.middleware.cache.FetchFromCacheMiddleware',
@@ -325,9 +332,6 @@ ROBOTS_SITEMAP_URLS = [
 ]
 ROBOTS_CACHE_TIMEOUT = 60*60*24
 ROBOTS_SITEMAP_VIEW_NAME = 'cached-sitemap'
-ROBOTS_USE_SCHEME_IN_HOST = True
-
-
 
 # for chaced db run command "python manage.py createcachetable" for first time sorl-thumbnail required it
 CACHES = {

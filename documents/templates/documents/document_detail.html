@@ -172,11 +172,10 @@ opacity:0.9 !important;
   <div class="container">
   <div class="row pt-0 pt-sm-5">
     <article class="col-md-8 border-right">
-
-        <h3>{{object.title}}</h3>
+        <h1 class="h3">{{object.title}}</h1>
         <p>Added on - {{object.created|date:"d M Y"}}</p>
         <ul class="p-0 d-inline-block">
-      {% if object.course %}
+            {% if object.course %}
            <li class="d-inline-block p-2 text-center border-right">
                 <p class="mb-1">{{object.course}}</p>
                 <p class="mb-0 blue-theme">course code</p>
@@ -205,16 +204,16 @@ opacity:0.9 !important;
             {% if object.words %}
             <li class="d-inline-block p-2 text-center border-right">
                 <p class="mb-1">{{object.words}}</p>
-                <p class="mb-0 blue-theme">words</p>
+                <p class="mb-0 blue-theme">Words</p>
             </li>
             {% endif %}
             <li class="d-inline-block p-2 text-center border-right">
                 <p class="mb-1">{{object.views}}</p>
-                <p class="mb-0 blue-theme">views</p>
+                <p class="mb-0 blue-theme">Views</p>
             </li>
-            <li class="d-inline-block text-center p-2">
+            <li class="d-inline-block p-2 text-center border-right">
                 <p class="mb-1">{{object.total_downloads}}</p>
-                <p class="mb-0 blue-theme">downloads</p>
+                <p class="mb-0 blue-theme">Downloads</p>
             </li>
         </ul>
         <ul class="p-0 d-inline-block float-md-right">
@@ -455,6 +454,11 @@ opacity:0.9 !important;
 {% endif %}
 {% endblock %}
 {% block extra_js %}
+  <script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
 
 <!-- <script>
 $(document).ready(function(){
@@ -463,13 +467,6 @@ $(document).ready(function(){
   });
 });
 </script> -->
-<script>
-$(document).ready(function(){
-  if($('#previewModal').is(':visible')){
-  $("body").addClass("modal-open");
-  }
-});
-</script>
 <script>
 
     var adjustViewer = function(){

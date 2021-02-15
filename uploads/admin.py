@@ -99,6 +99,11 @@ class UploadForDocumentAdmin(admin.ModelAdmin):
     readonly_fields = ('created', 'updated')
     actions = [make_subscription]
 
+    def get_actions(self, request):
+        actions = super().get_actions(request)
+        if not request.user.has_perm('uploads.create_or_reject_pay_per_subscription'):
+            del actions['make_subscription']
+        return actions
 
 class UplaodAdmin(admin.ModelAdmin):
     readonly_fields = ('created', 'updated', 'unique_id')

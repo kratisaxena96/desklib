@@ -85,6 +85,22 @@ class SessionPageView(models.Model):
         return self.document.title
 
 
+class PaypalInvoice(models.Model):
+    buyer_email = models.CharField(_('Buyer Email'), max_length=100, null=True, blank=True, editable=False)
+    amount = models.CharField(_('Amount'), max_length=100, null=True, blank=True, editable=False)
+    invoice_id = models.CharField(_('Invoice Id'), unique=True, max_length=10, default=key_generator, editable=False)
+    status = models.CharField(_('Status'), max_length=100, null=True, blank=True, editable=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True, editable=False, related_name = 'paypal_invoice_user')
+    currency = models.CharField(_('Status'), max_length=100, null=True, blank=True, editable=False)
+    transaction_id = models.CharField(_('Transaction Id'), max_length=100, null=True, blank=True, editable=False)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.invoice_id
+
+
 
 
 

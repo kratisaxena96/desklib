@@ -15,7 +15,7 @@ from desklib.settings.base import *
 # Application definition
 
 ALLOWED_HOSTS = ['.68.183.89.118']
-DEBUG = False
+DEBUG = True
 ADMINS = [('Rishi', 'rishi.dutta@zucolservices.com')]
 
 ALLOWED_IPS = ['68.183.89.118']
@@ -178,3 +178,30 @@ FLAG_MAIL_TO_TEST = True
 #}
 
 # AWS_QUERYSTRING_AUTH = False
+
+
+PAYPAL_CLIENT = os.environ['PAYPAL_CLIENT_ID']
+PAYPAL_SECRET = os.environ['PAYPAL_SECRET_ID']
+PAYPAL_MERCHANT_ID = os.environ['PAYPAL_MERCHANT_ID']
+
+PAYPAL_TOKEN_API = "https://api.sandbox.paypal.com/v1/oauth2/token"
+PAYPAL_CHECKOUT_API = "https://api.sandbox.paypal.com/v2/checkout/orders"
+PAYPAL_RISK_API = "https://api.sandbox.paypal.com/v1/risk/transaction-contexts/"
+
+
+BROKER_HOST = os.environ['BROKER_HOST']
+BROKER_PORT = os.environ['BROKER_PORT']
+BROKER_VHOST = os.environ['BROKER_VHOST']
+BROKER_USER = os.environ['BROKER_USER']
+BROKER_PASSWORD = os.environ['BROKER_PASSWORD']
+
+broker_url = 'amqp://'+BROKER_USER+':'+BROKER_PASSWORD+'@'+BROKER_HOST+':'+BROKER_PORT+'/'+BROKER_VHOST
+
+import djcelery
+djcelery.setup_loader()
+
+from celery.schedules import crontab
+
+# where to store periodic tasks (needed for scheduler)
+CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
+AUTHTOKEN = os.environ['AUTHTOKEN']

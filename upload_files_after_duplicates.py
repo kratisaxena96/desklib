@@ -16,7 +16,7 @@ path = input("Folder Path: ")
 last_file = input("Enter last filename to restart program: ")
 # url = input("Enter Url Of website: ")
 # url = 'http://127.0.0.1:8000/api/document/create/'
-url = 'http://127.0.0.1:8000/api/document/create/'
+url = 'http://127.0.0.1:8000/api/document/dastavej/srijan/api/'
 # ACC-201-Accounting-Cycle-Report-Template1docx-7178.docx
 ALLOWED_EXTENSIONS = ['pdf','docx','doc', 'pptx', 'ppt', 'odt', 'odf']
 IGNORE_FILENAME_KEYWORDS = ['lecture', 'rubic', 'rubric', 'instructions', 'assignmentbrief', 'criteria', 'requirements', 'programmingassignment', 'individual-assignment', 'individualassignment']

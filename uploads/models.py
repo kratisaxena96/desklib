@@ -42,6 +42,10 @@ class UploadForDocument(models.Model):
         verbose_name = _('upload for document')
         verbose_name_plural = _('uploads for document')
 
+        permissions = [
+            ("create_or_reject_pay_per_subscription", "Staff Can Make or Reject Pay Per Subscription"),
+        ]
+
     def __str__(self):
         return self.required_document.title
 

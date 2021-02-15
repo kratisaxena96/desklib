@@ -109,11 +109,11 @@ class HomePageView(MetadataMixin, JsonLdContextMixin, SearchView):
         "description": _("Get homework solutions by desklib online homework help library. Avail math, science, english and all subjects college homework help at affordable prices."),
         "url": "https://desklib.com/",
         "logo": "https://desklib.com/assets/img/desklib_logo.png",
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://desklib.com/study/search/?q={search_term}",
-            "query-input": "required name=search_term"
-        },
+        # "potentialAction": {
+        #     "@type": "SearchAction",
+        #     "target": "https://desklib.com/study/search/?q={search_term}",
+        #     "query-input": "required name=search_term"
+        # },
         "sameAs": [
             "https://www.facebook.com/desklib",
             "https://twitter.com/desklib",
