@@ -384,8 +384,8 @@ class ParentSubjectQuestionView(MetadataMixin, JsonLdContextMixin, DetailView):
         question = question.order_by('-published_date')
 
         context['meta'] = self.get_object().as_meta(self.request)
-        context['recent'] = recent
-        context['top_results'] = top_results
+        # context['recent'] = recent
+        # context['top_results'] = top_results
         context['question'] = question
         context['subject'] = subject
         context['parent_subject'] = parent_subject

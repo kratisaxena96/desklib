@@ -1485,6 +1485,20 @@ ul.social-icons li:hover {
     }
 }
 
+/*---------- P R O F I L E   P A G E   C S S   S T A R T S----------*/
+.tbl_common {
+    border-collapse: separate !important;
+    border: 1px solid #405fbd;
+    -webkit-border-radius: 2rem;
+    -moz-border-radius: 2rem;
+    -ms-border-radius: 2rem;
+    border-radius: 2rem;
+}
+.tbl_common td, .tbl_common th {
+    border: 0;
+    padding: 1rem;
+}
+
 /*---------- R E G I S T E R   P A G E   C S S   S T A R T S----------*/
 .card-signin input {
     border: 1px solid #e5e5e5;
