@@ -20,17 +20,21 @@
 {% block content %}
 {% block messages %}
      {% if messages %}
-        <div>
-            <ul class="notification-right">
-            {% for message in messages %}
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>{{message}}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="notification-right list-unstyled">
+                    {% for message in messages %}
+                        <li class="alert alert-warning alert-dismissible fade show">
+                            <strong>{{message}}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </li>
+                    {% endfor %}
+                    </ul>
                 </div>
-            {% endfor %}
-            </ul>
+            </div>
         </div>
     {% endif %}
  {% endblock %}
@@ -43,9 +47,6 @@
                     <img class="img-fluid" src="{% static '/src/assets/images/v2/profile_6@2x.png' %}" />
                 </div>
             </div>
-
-
-
 
             <div class="col-md-8">
                 <div class="userprofiledtl">
@@ -131,7 +132,7 @@
       <div class="row">
           <div class="col-md-4 border-right">
               <div class="list-group" role="tablist">
-                  <a class="list-group-item-action check" href="{% url 'my-downloads' %}" role="tab" aria-controls="my-downloads">My Downloads</a>
+                  <a class="list-group-item-action check bg-active" href="{% url 'my-downloads' %}" role="tab" aria-controls="my-downloads">My Downloads</a>
 
                   {% comment %}
                     <a class="list-group-item-action check" href="{% url 'upload-file' %}" role="tab" aria-controls="upload-files">Upload Files</a>

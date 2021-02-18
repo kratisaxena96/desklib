@@ -3,17 +3,21 @@
 {% block content %}
 {% block messages %}
     {% if messages %}
-        <div>
-            <ul class="notification-right">
-            {% for message in messages %}
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>{{message}}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="notification-right list-unstyled">
+                    {% for message in messages %}
+                        <li class="alert alert-warning alert-dismissible fade show">
+                            <strong>{{message}}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </li>
+                    {% endfor %}
+                    </ul>
                 </div>
-            {% endfor %}
-            </ul>
+            </div>
         </div>
     {% endif %}
 {% endblock %}
