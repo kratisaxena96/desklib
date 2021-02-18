@@ -53,7 +53,7 @@ class TutorPageView(MetadataMixin, JsonLdContextMixin, TemplateView):
         sub = Subject.objects.get(id=sub)
         if Tutor.objects.filter(subjects__slug=sub.slug).exists():
             if sub is not None:
-                messages.success(request, "there is your tutor list")
+                # messages.success(request, "there is your tutor list")
                 return redirect('{0}?{1}'.format(reverse('tutors:tutor-list'), sub.slug))
         else:
             messages.error(request, "No tutors found in this subject")
