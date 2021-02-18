@@ -1212,6 +1212,9 @@ ul.assgnmnt_count li {
     background-repeat: no-repeat; */
     padding: 6rem 0;
 }
+.tutorlist_profile a {
+    color: #000;
+}
 
 .tutors_profile_box {
     padding: 2rem;

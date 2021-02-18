@@ -1,9 +1,18 @@
 {% extends "desklib/base.html" %}
 {% load staticfiles %}
 {% load meta %}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/darkly/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/darkly/bootstrap.min.css"
+      xmlns="http://www.w3.org/1999/html">
 
 {% block content %}
+
+ {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 <div class="pg_tutor">
     <section class="bg_banner_tutor">
         <div class="container">
@@ -19,12 +28,7 @@
                                 <div class="form-field-design">
 								    {{form.subjects}}
 								</div>
-<!--                                <select class="form-control shadow">-->
-<!--                                    <option> Programming </option>-->
-<!--                                    <option> Business Management </option>-->
-<!--                                    <option> Engineering </option>-->
-<!--                                    <option> Science </option>-->
-<!--                                </select>-->
+                                <input type="hidden" value="{{form.subjects.slug }}" name="sub_slug">
                                 <button class="btn btn_blue btn_find"> Find </button>
                             </div>
                         </form>
@@ -39,6 +43,7 @@
         </div>
     </section>
 
+    <section class="hwitworks desktop_screen_show">
     <section class="hwitworks desktop_screen_show">
         <div class="">
             <div class="container">
