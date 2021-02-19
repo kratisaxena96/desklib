@@ -55,9 +55,9 @@
         <div class="container">
             <div class="row">
                 {% for tutor in object_list %}
-                <div class="col-md-12 col-lg-4">
+                <div class="col-md-12 col-lg-4 d-flex">
                     <a href="{% url 'tutors:tutor-detail' tutor.slug %}">
-                        <div class="tutors_profile_box shadow">
+                        <div class="tutors_profile_box d-flex card shadow">
                             <div class="d-flex">
                                 <div class="tutorimg">
                                     <!--{{ tutor.profile_pic }}-->

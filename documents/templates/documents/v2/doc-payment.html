@@ -379,18 +379,18 @@
                             </div>
 
                             <div class="first-doc status_1_content mx-5 my-5">
-                                <form action="" enctype="multipart/form-data" id="upload-form1">
+                                <form action="" enctype="multipart/form-data" id="upload-form1" class="docpay_form">
                                     {% csrf_token %}
                                     <div class="row mt-3 mb-sm-3">
                                         <div class="col-sm-6 col-md-6">
-                                            <div class="form-group">
+                                            <div class="form-group docpay_input">
                                                 <label for="id_course_name" class="star"><strong>{{form1.course_name.label}}:</strong></label>
                                                 {{form1.course_name}}
                                                 <span class="course_name form-text text-danger ">{{form1.course_name.errors}}</span>
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-6">
-                                            <div class="form-group">
+                                            <div class="form-group docpay_input">
                                                 <label for="id_course_code" class=""> <strong>{{form1.course_code.label}}:</strong></label>
 
                                                 {{ form1.course_code }}
@@ -400,7 +400,7 @@
                                     </div>
                                     <div class="row mb-sm-3">
                                         <div class="col-sm-12 col-md-12">
-                                            <div class="form-group">
+                                            <div class="form-group docpay_subj">
                                                 <label for="id_subject"
                                                        class="star"><strong>{{form1.subjects.label}}:</strong></label>
 
@@ -412,7 +412,7 @@
                                     </div>
                                     <div class="row mb-sm-3">
                                         <div class="col-sm-6 col-md-6">
-                                            <div class="form-group">
+                                            <div class="form-group docpay_country">
                                                 <label for="id_country"
                                                        class="star"><strong>{{form1.country.label}}:</strong></label>
                                                 <div class="position-relative">
@@ -431,7 +431,7 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-6">
-                                            <div class="form-group">
+                                            <div class="form-group docpay_input">
                                                 <label for="id_college" class=""><strong>{{form1.university.label}}:</strong></label>
 
                                                 {{ form1.university }}
@@ -441,7 +441,7 @@
                                     </div>
                                     <div class="row mb-sm-3">
                                         <div class="col-sm-6 col-md-6">
-                                            <div class="form-group">
+                                            <div class="form-group docpay_type">
                                                 <label for="id_document" class="star"><strong>{{form1.type.label}}:</strong></label>
 
                                                 {{ form1.type }}
@@ -449,20 +449,20 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-6">
-                                            <div class="form-group">
+                                            <div class="form-group docpay_file">
                                                 <label for="inputGroupFile02" class="star"><strong>{{form1.upload_file.label}}:</strong></label>
 
                                                 <div class="input-group">
-                                                    <div class="custom-file">
+                                                    <div class="custom-file docpay_file">
                                                         {{ form1.upload_file}}
                                                         <label class="custom-file-label text-truncate"
                                                                for="inputGroupFile02">Choose file</label>
                                                     </div>
                                                     <div class="input-group-append">
-                                                        <span class="input-group-text"></span>
+                                                        <span class=""></span>
                                                     </div>
                                                 </div>
-                                                <small class="form-text text-muted "> You can upload doc, docx, and pdf format. Max file-size should be 5 MB</small>
+                                                <small class="form-text text-muted mt-2"> You can upload doc, docx, and pdf format. Max file-size should be 5 MB</small>
                                                 <span class="upload_file form-text text-danger ">{{form1.upload_file.errors}}</span>
                                             </div>
                                         </div>
@@ -492,58 +492,42 @@
                                 {% endcomment %}
                             </div>
                             <div class="second-doc status_2_content mx-5 my-5" style="display: none">
-                                <form method="POST" action="." enctype="multipart/form-data" id="upload-form2">
+                                <form method="POST" action="." enctype="multipart/form-data" id="upload-form2" class="docpay_form">
                                     {% csrf_token %}
                                     <div class="row mt-3 mb-sm-3">
-                                        <div class="col-sm-4 col-md-4">
-                                            <div class="form-group">
+                                        <div class="col-sm-6 col-md-6">
+                                            <div class="form-group docpay_input">
                                                 <label for="id_course_name_2" class="star"><strong>{{form2.course_name.label}}:</strong></label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <div class="form-group">
                                                 {{form2.course_name}}
                                                 <span class="course_name form-text text-danger ">{{form2.course_name.errors}}</span>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row mb-sm-3">
-                                        <div class="col-sm-4 col-md-4">
-                                            <div class="form-group">
+                                        <div class="col-sm-6 col-md-6">
+                                            <div class="form-group docpay_input">
                                                 <label for="id_course_code_2"
                                                        class=""><strong>{{form2.course_code.label}}:</strong></label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <div class="form-group">
                                                 {{ form2.course_code }}
                                                 <span class="course_code form-text text-danger ">{{form2.course_code.errors}}</span>
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="row mb-sm-3">
-                                        <div class="col-sm-4 col-md-4">
-                                            <div class="form-group">
+                                        <div class="col-sm-12 col-md-12">
+                                            <div class="form-group docpay_subj">
                                                 <label for="id_subject_2"
                                                        class="star"><strong>{{form2.subjects.label}}:</strong></label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <div class="form-group">
                                                 {{ form2.subjects }}
                                                 <span class="subjects form-text text-danger ">{{form2.subjects.errors}}</span>
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="row mb-sm-3">
-                                        <div class="col-sm-4 col-md-4">
-                                            <div class="form-group">
+                                        <div class="col-sm-6 col-md-6">
+                                            <div class="form-group position-relative docpay_country">
                                                 <label for="id_country_2"
                                                        class="star"><strong>{{form2.country.label}}:</strong></label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <div class="form-group position-relative">
                                                 {% get_countries as countries %}
                                                 <select class="form-control js-example-basic-single" name="country">
                                                     {% for country in countries %}
@@ -557,43 +541,27 @@
                                                 <span class="country form-text text-danger ">{{form2.country.errors}}</span>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row mb-sm-3">
-                                        <div class="col-sm-4 col-md-4">
-                                            <div class="form-group">
+                                        <div class="col-sm-6 col-md-6">
+                                            <div class="form-group docpay_input">
                                                 <label for="id_college_2"
                                                        class=""><strong>{{form2.university.label}}:</strong></label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <div class="form-group">
                                                 {{ form2.university }}
                                                 <span class="university form-text text-danger ">{{form2.university.errors}}</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row mb-md-3">
-                                        <div class="col-sm-4 col-md-4">
-                                            <div class="form-group">
+                                    <div class="row mb-sm-3">
+                                        <div class="col-sm-6 col-md-6">
+                                            <div class="form-group docpay_type">
                                                 <label for="id_document_2"
                                                        class="star"><strong>{{form2.type.label}}:</strong></label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <div class="form-group">
                                                 {{ form2.type }}
                                                 <span class="type form-text text-danger ">{{form2.type.errors}}</span>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row mb-sm-3">
-                                        <div class="col-sm-4 col-md-4">
-                                            <div class="form-group">
+                                        <div class="col-sm-6 col-md-6">
+                                            <div class="form-group docpay_file">
                                                 <label for="inputGroupFile02_2" class="star"><strong>{{form2.upload_file.label}}:</strong></label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <div class="form-group">
                                                 <div class="input-group">
                                                     <div class="custom-file">
                                                         {{ form2.upload_file}}
@@ -601,7 +569,7 @@
                                                                for="inputGroupFile02_2">Choose file</label>
                                                     </div>
                                                     <div class="input-group-append">
-                                                        <span class="input-group-text"></span>
+                                                        <span class=""></span>
                                                     </div>
                                                 </div>
                                                 <small class="form-text text-muted ">

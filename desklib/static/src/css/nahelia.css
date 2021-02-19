@@ -976,6 +976,31 @@ ul.assgnmnt_count li {
     margin: 0 10rem;
 }
 
+.docpay_form .docpay_input input, .docpay_form select2-selection, .docpay_file input {
+    padding: 1.5rem 1rem;
+}
+.docpay_form .docpay_subj span.select2-selection {
+    padding: 0.5rem 1rem;
+}
+.docpay_form .docpay_country span.select2-selection, .docpay_type select {
+    height: 3rem;
+    outline: none;
+}
+.docpay_form .docpay_country span.select2-selection__rendered{
+    margin-left: 0.5rem !important;
+    line-height: 2.5rem !important;
+}
+.docpay_form .docpay_file label::after {
+    border-top-right-radius: 2rem !important;
+    border-bottom-right-radius: 2rem !important;
+    height: 3rem;
+    line-height: 2rem;
+}
+.docpay_file label {
+    height: 3rem;
+    top: -1.5rem !important;
+    border-radius: 2rem !important;
+}
 
 .modal-header, .modal-content {
     border: none ;
