@@ -962,6 +962,9 @@ ul.assgnmnt_count li {
     font-family: Roboto, sans-serif;
 }
 .docs_plan_box_upper:hover {
+    box-shadow: none !important;
+}
+.docs_plan_box_upper button:hover {
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
 }
 .docs_plan_box_lower {
