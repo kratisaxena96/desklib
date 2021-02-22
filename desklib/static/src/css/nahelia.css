@@ -1005,6 +1005,21 @@ ul.assgnmnt_count li {
     border-radius: 2rem !important;
 }
 
+.bg-blue-active {
+    background-color: #405fbd!important;
+    color: #000!important;
+}
+.plan-price {
+    font-size: 1rem;
+    font-weight: 300;
+    position: relative;
+    text-align: center;
+    color: #405fbd;
+}
+.slctd_plan_price {
+    border: 1px dashed #405bdf;
+}
+
 .modal-header, .modal-content {
     border: none ;
 }

@@ -3,44 +3,28 @@
 {% load staticfiles %}
 {% load countries %}
 {% block head_title %}{% trans "payment" %}{% endblock %}
-
-{% block extra_css %}
-<style>
-.payment-loader {
-    display: none;
-}
-/* Media query for mobile viewport */
-@media screen and (max-width: 400px) {
-    #paypal-button-container {
-        width: 100%;
-    }
-}
-
-</style>
-{% endblock extra_css %}
 {% block content %}
+{% block messages %}
+{% if messages %}
 <div class="pg_docpaymwnt">
-    {% block messages %}
-         {% if messages %}
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <ul class="notification-right list-unstyled">
-                        {% for message in messages %}
-                            <li class="alert alert-warning alert-dismissible fade show">
-                                <strong>{{message}}</strong>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </li>
-                        {% endfor %}
-                        </ul>
-                    </div>
-                </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="notification-right list-unstyled">
+                    {% for message in messages %}
+                    <li class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>{{message}}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
-         {% endif %}
+        </div>
+    </div>
+    {% endif %}
     {% endblock %}
-
     <section class="pt-5 pb-5">
         <div class="container">
             <div class="row justify-content-center">
@@ -51,194 +35,273 @@
 
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="doc-tab">
-                            <ul class="nav nav-tabs border border-radius-40" id="myTab" role="tablist">
-                              <li class="nav-item col-6 text-center pl-0 pr-0">
-                                <a class="nav-link active pt-3 pb-3 blue-theme border-radius-40" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
-                                    Paid Plan</a>
-                              </li>
-                              <li class="nav-item col-6 text-center pl-0 pr-0">
-                                <a class="nav-link pt-3 pb-3 blue-theme border-radius-40" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
-                                    Free Plan</a>
-                              </li>
-                            </ul>
+                        <ul class="nav nav-tabs border border-radius-40" id="myTab" role="tablist">
+                            <li class="nav-item col-6 text-center pl-0 pr-0">
+                                <a class="nav-link active pt-3 pb-3 blue-theme border-radius-40" id="home-tab" data-toggle="tab" href="#home"
+                                   role="tab" aria-controls="home" aria-selected="true"> Paid Plan </a>
+                            </li>
+                            <li class="nav-item col-6 text-center pl-0 pr-0">
+                                <a class="nav-link pt-3 pb-3 blue-theme border-radius-40" id="profile-tab" data-toggle="tab" href="#profile"
+                                   role="tab" aria-controls="profile" aria-selected="false"> Free Plan </a>
+                            </li>
+                        </ul>
                     </div>
 
                     <div class="tab-content pt-3 pb-3 border-radius-5" id="myTabContent">
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                           <section class="pt-5">
+                            <section class="pt-5" id="check">
                                 <div class="container">
                                     <div class="row">
                                         {% for plan in plan_qs %}
-                                            {% if plan.is_pay_per_download %}
-                                             <div class="col-3 col-sm-3 col-md-3 col-lg-3 crd justify-content-center parent text-center md-margin-30px-bottom wow fadeInUp pl-2 pr-2">
-                                                 <a href="#check">
-                                                    <div class="docs_plan_box shadow mt-4">
-                                                        <label class="d-block label mt-2">
-                                                            <div class="docs_plan_box_upper pt-4 pl-2 pr-2 pb-4">
-                                                                <input class="selected_plan" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}" style="display:none;">
+                                        {% if plan.is_pay_per_download %}
+                                        <div class="col-3 col-sm-3 col-md-6 col-lg-3 crd justify-content-center parent md-margin-30px-bottom wow fadeInUp">
+                                            <a href="#check">
+                                                <div class="docs_plan_box shadow mt-4">
+                                                    <div class="docs_plan_box_upper pt-4 pl-2 pr-2 pb-4">
+                                                        <input class="selected_plan" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}" style="display:none;">
 
-                                                                <div class=" pl-2 pr-2">
-                                                                    <p class="font-weight-bold"> Per Document Plan </p>
-                                                                    <h1 class="font-weight-bold"> $ {{ plan.price }} </h1>
-                                                                    <p><small> /{{ plan.days }}days </small>
-                                                                </div>
+                                                        <div class=" pl-2 pr-2">
+                                                            <p class="font-weight-bold"> Per Document Plan </p>
+                                                            <h1 class="font-weight-bold"> $ {{ plan.price }} </h1>
+                                                            <p><small> /{{ plan.days }}days </small>
+                                                        </div>
 
-                                                                <div class="btn_action text-center pt-4 pb-4">
-                                                                    <button class="btn btn_common btn_magenta"> Get Started </button>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="docs_plan_box_lower text-left pt-4 pl-2 pr-2 pb-4">
-                                                                <ul class="pl-0 pl-4 pr-4">
-                                                                    <li> <i class="fas fa-check-square check_yellow"></i> {{plan.view_limit}} Document view </li>
-                                                                    <li> <i class="fas fa-check-square check_yellow"></i> {{ plan.download_limit }} Document Download </li>
-                                                                    <li> <i class="fas fa-check-square check_yellow"></i> 1 Lesson </li>
-                                                                    <li> <i class="fas fa-check-square check_yellow"></i> Subjects Available </li>
-                                                                </ul>
-                                                            </div>
-                                                        </label>
+                                                        <div class="btn_action text-center pt-4 pb-4">
+                                                            <a href="#"> <button class="btn btn_common btn_magenta"> Get Started </button> </a>
+                                                        </div>
                                                     </div>
-                                                 </a>
-                                             </div>
-                                            {% endif %}
+
+                                                    <div class="docs_plan_box_lower pt-4 pl-2 pr-2 pb-4">
+                                                        <ul class="pl-0 pl-4 pr-4">
+                                                            <li> <i class="fas fa-check-square check_yellow"></i> {{plan.view_limit}} Document view </li>
+                                                            <li> <i class="fas fa-check-square check_yellow"></i> {{ plan.download_limit }} Document Download </li>
+                                                            <li> <i class="fas fa-check-square check_yellow"></i> 1 Lesson </li>
+                                                            <li> <i class="fas fa-check-square check_yellow"></i> Subjects Available </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </a>
+
+                                                {% comment %}
+                                                <div class="card mb-4 payment-card-box">
+                                                    <div class="bg-deep-blue p-2 text-white top-radius-bor head-font"> Pay Per Document </div>
+                                                    <label class="d-block label mt-2">
+                                                        <div class="card-body p-4">
+                                                            <input class="selected_plan" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}" style="display:none;">
+                                                            <h5>{{ plan }}</h5>
+                                                            <h6 class="mb-1 mt-2 plan-content mb-3">Best value for you</h6>
+
+                                                            <div class="plan-price p-2"><sup>$</sup>{{ plan.price }}<span>/{{ plan.days }}days</span>
+                                                                <hr style="width:80%;">
+                                                            </div>
+                                                            <ul class="list-style-non text-left list-font">
+                                                                <li><strong>Views: </strong> {{plan.view_limit}}</li>
+                                                                <li><strong>Downloads: </strong>{{ plan.download_limit }}
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                                {% endcomment %}
+
+                                        </div>
+                                        {% endif %}
                                         {% endfor %}
+
 
                                         {% for plan in plan_qs %}
-                                            {% if not plan.is_pay_per_download %}
-                                                  <div class="col-3 col-sm-3 col-md-3 col-lg-3 crd text-center md-margin-30px-bottom wow fadeInUp pl-2 pr-2 justify-content-center parent"  data-wow-delay="0.2s" style="padding-top:40px">
-<!--                                                      <a href="#check">-->
-<!--                                                        <div class="docs_plan_box shadow card mb-4">-->
-<!--                                                            <label class="d-block label mt-2">-->
-<!--                                                            <div class="card-body p-4">-->
-<!--                                                                <input class="selected_plan" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}" style="display:none;">-->
-<!--                                                                    <h5>{{plan}}</h5>-->
-<!--                                                                    <h6 class="mb-1 mt-2 plan-content mb-3">Top rated plan</h6>-->
+                                        {% if not plan.is_pay_per_download %}
+                                        <div class="col-3 col-sm-3 col-md-6 col-lg-3 crd md-margin-30px-bottom wow fadeInUp justify-content-center parent"
+                                             data-wow-delay="0.2s">
+                                            <a href="#check">
+                                                <div class="docs_plan_box shadow mt-4">
+                                                    <div class="docs_plan_box_upper pt-4 pl-2 pr-2 pb-4">
+                                                        <input class="selected_plan" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}" style="display:none;">
 
-<!--                                                                            <div class="plan-price p-2"><sup>$</sup>{{ plan.price }}<span>/{{ plan.days }}days</span>-->
-<!--                                                                                <hr style="width:80%;"></div>-->
-<!--                                                                             <ul class="list-style-non text-left list-font">-->
-<!--                                                                            <li><strong>Views: </strong> {{plan.view_limit}}</li>-->
-<!--                                                                            <li><strong>Downloads: </strong> {{ plan.download_limit }}</li>-->
-
-<!--                                                                        </ul>-->
-<!--                                                            </div>-->
-<!--                                                            </label>-->
-<!--                                                        </div>-->
-<!--                                                      </a>-->
-                                                      <a href="#check">
-                                                        <div class="docs_plan_box shadow mt-4">
-                                                            <label class="d-block label mt-2">
-                                                                <div class="docs_plan_box_upper pt-4 pl-2 pr-2 pb-4">
-                                                                    <input class="selected_plan" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}" style="display:none;">
-
-                                                                    <div class=" pl-2 pr-2">
-                                                                        <p class="font-weight-bold"> Basic Plan </p>
-                                                                        <h1 class="font-weight-bold"> $ {{ plan.price }} </h1>
-                                                                        <p><small> /{{ plan.days }}days </small>
-                                                                    </div>
-
-                                                                    <div class="btn_action text-center pt-4 pb-4">
-                                                                        <button class="btn btn_common btn_magenta"> Get Started </button>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="docs_plan_box_lower text-left pt-4 pl-2 pr-2 pb-4">
-                                                                    <ul class="pl-0 pl-4 pr-4">
-                                                                        <li> <i class="fas fa-check-square check_yellow"></i> {{plan.view_limit}} Document view </li>
-                                                                        <li> <i class="fas fa-check-square check_yellow"></i> {{ plan.download_limit }} Document Download </li>
-                                                                        <li> <i class="fas fa-check-square check_yellow"></i> 1 Lesson </li>
-                                                                        <li> <i class="fas fa-check-square check_yellow"></i> Subjects Available </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </label>
+                                                        <div class=" pl-2 pr-2">
+                                                            <p class="font-weight-bold"> Basic Plan </p>
+                                                            <h1 class="font-weight-bold"> $ {{ plan.price }} </h1>
+                                                            <p><small> /{{ plan.days }}days </small>
                                                         </div>
-                                                      </a>
-                                                  </div>
-                                            {% endif %}
+
+                                                        <div class="btn_action text-center pt-4 pb-4">
+                                                            <button class="btn btn_common btn_magenta"> Get Started </button>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="docs_plan_box_lower pt-4 pl-2 pr-2 pb-4">
+                                                        <ul class="pl-0 pl-4 pr-4">
+                                                            <li> <i class="fas fa-check-square check_yellow"></i> {{plan.view_limit}} Document view </li>
+                                                            <li> <i class="fas fa-check-square check_yellow"></i> {{ plan.download_limit }} Document Download </li>
+                                                            <li> <i class="fas fa-check-square check_yellow"></i> 1 Lesson </li>
+                                                            <li> <i class="fas fa-check-square check_yellow"></i> Subjects Available </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </a>
+
+                                                {% comment %}
+                                                <div class="card mb-4 payment-card-box">
+                                                    <label class="d-block label mt-2">
+                                                        <div class="card-body p-4">
+                                                            <input class="selected_plan" type="radio" name="radio"
+                                                                   value="{{ plan.price }}" data-key="{{plan.key}}"
+                                                                   style="display:none;">
+                                                            <h5>{{plan}}</h5>
+                                                            <h6 class="mb-1 mt-2 plan-content mb-3">Top rated plan</h6>
+
+                                                            <div class="plan-price p-2"><sup>$</sup>{{ plan.price }}<span>/{{ plan.days }}days</span>
+                                                                <hr style="width:80%;">
+                                                            </div>
+                                                            <ul class="list-style-non text-left list-font">
+                                                                <li><strong>Views: </strong> {{plan.view_limit}}</li>
+                                                                <li><strong>Downloads: </strong> {{ plan.download_limit }}
+                                                                </li>
+
+                                                            </ul>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                                {% endcomment %}
+
+                                        </div>
+                                        {% endif %}
                                         {% endfor %}
                                     </div>
                                 </div>
 
-
-                    {% comment %}
-                    <form action="{{form.get_endpoint}}" method="post" id="form-check">
-                        {% csrf_token %}
-                        {{form}}
-                        <input id="id_custom" name="custom" type="hidden" value=""/>
-                        <input id="id_amount" name="amount" type="hidden"  value=""/>
-                        <div class="row justify-content-center pt-5" >
-                            <div class="col-md-9 col-lg-5"></div>
-                        </div>
-                        <div class="row justify-content-center mt-4">
-                            <div class="col-lg-5 text-center">
-                                <input type="submit" value="Proceed with Paypal" class="btn btn-bg-theme border-radius-20 text-white px-sm-5 px-4" id="submitButton">
-                            </div>
-                        </div>
-                    </form>
-                    {% endcomment %}
-
-
-                            <!-- Set up a container element for the button -->
-                        <div class="row justify-content-center mt-4" id="check">
-                            <div class="col-lg-5 text-center">
-                                <p>
-                                    By continuing you agree to the <a href="{% url 'termsofuse' %}">Terms & Conditions</a>, <a href="{% url 'privacypolicy' %}"> Privacy Policy</a>, <a href="{% url 'academicintegrity' %}">Academic Integrity</a>, <a href="{% url 'honorcode' %}">Honor Code</a> and <a href="{% url 'copyright' %}">Copyright</a>
-                                </p>
-                                <p class="paypal-error text-danger"></p>
-                                <div id="paypal-button-container"></div>
-                            </div>
-                        </div>
-                           </section>
-                      </div>
-                                  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-
-                                <div class="row mt-4 mb-3">
-                                    <div class="col-sm-12">
-                                        <h5 class="text-center">Great work! you are going to get this file free.</h5>
-                                    </div>
-                                </div>
-                                  <div class="row justify-content-center parent">
-                                      <div class="col-6 col-sm-12 col-md-12 col-lg-12 text-center parent" data-wow-delay="0.2s" >
-
-                    <!--					  	<a href="javascript:void(0)"  data-toggle="modal" data-target="#myModal" class="text-black docs_plan_box">-->
-                                        <div class="card mb-4">
-                                            <label class="d-block label mb-0">
-                                            <div class="card-body p-4">
-                                                <input class="selected_plan" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}" style="display:none;">
-                                                    <h5>Free Plan</h5>
-                        <!--							<h6 class="mb-1 mt-2 plan-content mb-3">Upload documents to download</h6>-->
-                                                            <div class="plan-price p-2"><sup>$</sup>0<span>/30days</span>
-                                                                <hr style="width:80%;"></div>
-                                                            <h6 class="text-left"><strong>Views: </strong> 1</h6>
-                                                            <h6 class="text-left"><strong>Downloads: </strong> 1</h6>
-                                                <ul class="text-left pl-1" style="line-height: 1.8rem;">
-                        <!--										 <li>Upload two documents</li>-->
-                                                                 <li>Upload 2 study files ( e.g. assignment, report etc. )</li>
-                                                                 <li>Don't upload plagiarize content.</li>
-                                                                 <li>Upload of similar files will lead to rejection.</li>
-                                                                 <li>Content should not be published on any other website or indexed on search engine.</li>
-                                                                 <li>Content should be grammatically correct.</li>
-                                                                 <li>Our team will review your files.</li>
-                                                                 <li>Estimate approval time 24 hours.</li>
-                                                                 <li>Content should be at least 500 words or more.</li>
-                                                                 <li>Content should not be copyrighted by anyone.</li>
-                                                        </ul>
-                                                <div>
-                                             <a href="javascript:void(0)"  data-toggle="modal" data-target="#myModal" class="btn btn-bg-theme border-radius-20 text-white" style="width:60%" >Upload File </a>
-                                         </div>
-                                            </div>
-                                            </label>
+                                <form action="{{form.get_endpoint}}" method="post" id="form-check">
+                                    {% csrf_token %}
+                                    {{form}}
+                                    <input id="id_custom" name="custom" type="hidden" value=""/>
+                                    <input id="id_amount" name="amount" type="hidden" value=""/>
+                                    <div class="row justify-content-center pt-5">
+                                        <div class="col-md-9 col-lg-5">
+                                            <p>
+                                                By continuing you agree to the
+                                                <a href="{% url 'termsofuse' %}">terms & conditions</a>,
+                                                <a href="{% url 'privacypolicy' %}"> privacy policy</a>,
+                                                <a href="{% url 'academicintegrity' %}">Academic Integrity</a>,
+                                                <a href="{% url 'honorcode' %}">Honor Code</a> and
+                                                <a href="{% url 'copyright' %}">Copyright</a>
+                                            </p>
                                         </div>
-                                      </div>
+                                    </div>
+                                    <div class="row justify-content-center mt-4">
+                                        <div class="col-lg-5 text-center">
+                                            <input type="submit" value="Proceed with Paypal" class="btn btn_common btn_blue px-sm-5 px-4" id="submitButton">
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </section>
+                        </div>
+
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="docs_plan_box docs_free_plan_box shadow mt-4">
+                                        <div class="docs_plan_box_upper pt-4 pl-2 pr-2 pb-4">
+                                            <div class="d-flex pl-2 pr-2">
+                                                <div class="flex-fill text-left font-weight-bold"> Starter Plan </div>
+                                                <div class="d-flex flex-fill justify-content-end">
+                                                    <h5 class="font-weight-bold"> Free <small> /{{ plan.days }}days </small></h5>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="docs_plan_box_lower pt-4 pl-2 pr-2 pb-4">
+                                            <ul class="pl-0 pl-4 pr-4">
+                                                <li> <i class="fas fa-check-square check_yellow"></i> 1 Document view </li>
+                                                <li> <i class="fas fa-check-square check_yellow"></i> 1 Document Download </li>
+                                            </ul>
+
+                                            <ul class="text-left" style="line-height: 1.8rem;">
+                                                <li>Upload 2 study files ( e.g. assignment, report etc. )</li>
+                                                <li>Don't upload plagiarize content.</li>
+                                                <li>Upload of similar files will lead to rejection.</li>
+                                                <li>Content should not be published on any other website or indexed on
+                                                    search engine.
+                                                </li>
+                                                <li>Content should be grammatically correct.</li>
+                                                <li>Our team will review your files.</li>
+                                                <li>Estimate approval time 24 hours.</li>
+                                                <li>Content should be at least 500 words or more.</li>
+                                                <li>Content should not be copyrighted by anyone.</li>
+                                            </ul>
+
+                                            <div class="d-flex justify-content-end">
+                                                <a href="javascript:void(0)" data-toggle="modal" data-target="#myModal" class="btn text-white btn_common btn_magenta"> Upload File </a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+                            {% comment %}
+                            <div class="row mt-4 mb-3">
+                                <div class="col-sm-12">
+                                    <h5 class="text-center">Great work! you are going to get this file free.</h5>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center parent">
+                                <div class="col-4 col-sm-4 col-md-4 col-lg-4 text-center parent" data-wow-delay="0.2s">
+                                    <div class="card mb-4">
+                                        <label class="d-block label mb-0">
+                                            <div class="card-body p-4">
+                                                <input class="selected_plan" type="radio" name="radio"
+                                                       value="{{ plan.price }}" data-key="{{plan.key}}"
+                                                       style="display:none;">
+                                                <h5>Free Plan</h5>
+                                                <div class="plan-price p-2"><sup>$</sup>0<span>/30days</span>
+                                                    <hr style="width:80%;">
+                                                </div>
+                                                <h6 class="text-left"><strong>Views: </strong> 1</h6>
+                                                <h6 class="text-left"><strong>Downloads: </strong> 1</h6>
+                                                <ul class="text-left pl-1" style="line-height: 1.8rem;">
+                                                    <li>Upload 2 study files ( e.g. assignment, report etc. )</li>
+                                                    <li>Don't upload plagiarize content.</li>
+                                                    <li>Upload of similar files will lead to rejection.</li>
+                                                    <li>Content should not be published on any other website or indexed on
+                                                        search engine.
+                                                    </li>
+                                                    <li>Content should be grammatically correct.</li>
+                                                    <li>Our team will review your files.</li>
+                                                    <li>Estimate approval time 24 hours.</li>
+                                                    <li>Content should be at least 500 words or more.</li>
+                                                    <li>Content should not be copyrighted by anyone.</li>
+                                                </ul>
+
+                                                <!--		 <ul class="list-style-non text-left list-font">-->
+                                                <!--			<li>Upload your study documents (e.g. your assignment solutions, reports, research, dissertation etc)</li>-->
+                                                <!--			<li>Our team will review your uploaded documents.</li>-->
+                                                <!--			<li>If your documents are approved, you will get your document for free.</li>-->
+                                                <!--		</ul>-->
+                                                <!--		 <ul class="list-style-non text-left list-font">-->
+                                                <!--			<li>Content should not be published on any other website or indexed on search engine.</li>-->
+                                                <!--			<li>Content should be grammatically correct. Uploads with grammatical mistakes will be rejected.</li>-->
+                                                <!--			<li>Content should be at least 500 words or more.</li>-->
+                                                <!--			<li>Content should not be copyrighted by anyone.</li>-->
+                                                <!--		</ul>-->
+                                                <div>
+                                                    <a href="javascript:void(0)" data-toggle="modal" data-target="#myModal"
+                                                       class="btn btn-bg-theme border-radius-20 text-white"
+                                                       style="width:60%"> Upload File </a>
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endcomment %}
+                        </div>
+                    </div>
                 </div>
             </div>
 
-    {% comment %}
+            {% comment %}
             <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-    {% endcomment %}
+            {% endcomment %}
             <!-- Modal -->
             <div id="myModal" class="modal fade" role="dialog">
                 <div class="modal-dialog modal-lg">
@@ -572,38 +635,36 @@
             </div>
         </div>
     </section>
-
-    <div class="loading payment-loader">
-        <div class="loader-container">
-            <h4 class="text-center text-white">Your payment is being processed...</h4>
-            <div class="loader"></div>
-        </div>
-    </div>
 </div>
 {% endblock %}
+
+
 
 {% block extra_js %}
 <script src='{% static "src/js/jquery.ui.widget.js" %}'></script>
 <!--<script src='{% static "src/js/jquery.iframe-transport.js" %}' ></script>-->
-<script src='{% static "src/js/jquery.fileupload.js" %}' ></script>
+<script src='{% static "src/js/jquery.fileupload.js" %}'></script>
 
 <script>
 $(document).ready(function() {
     $('.js-example-basic-single').select2();
 
 });
+
 </script>
 <script>
 $(document).ready(function() {
     $('.js-example-basic-multiple').select2();
 });
+
 </script>
 <script>
     $(document).on('change', '.custom-file-input', function (event) {
     $(this).next('.custom-file-label').html(event.target.files[0].name);
 })
-</script>
 
+</script>
+<script src="https://www.paypal.com/sdk/js?client-id=Aei6_cYX5hfSF0WsVXJ3VR3Rc_C0KbneVwh3RLYx_OUJG3gS5m2XM-1tg9EFL7ffTjggfvaNhKQQnsyE&amp;currency=USD" data-uid-auto="05bbba0158_mdc6nti6mte"></script>
 <script>
 //multistep form
 
@@ -797,9 +858,9 @@ $(document).ready(function() {
 });
 
 
-  	$('.parent .docs_plan_box').click(function() {
-    $('.parent .docs_plan_box').removeClass("bg-blue-active plan-price");
-    $(this).addClass("bg-blue-active plan-price");
+  	$('.parent .payment-card-box').click(function() {
+    $('.parent .payment-card-box').removeClass("bg-blue plan-price");
+    $(this).addClass("bg-blue plan-price");
   	})
 
   	$("#submitButton").click(function (e) {
@@ -811,270 +872,6 @@ $(document).ready(function() {
         });
  });
 
+
 </script>
-
-<!-- Include the PayPal JavaScript SDK -->
-{% if debug %}
-    <script src="https://www.paypal.com/sdk/js?client-id=Aei6_cYX5hfSF0WsVXJ3VR3Rc_C0KbneVwh3RLYx_OUJG3gS5m2XM-1tg9EFL7ffTjggfvaNhKQQnsyE&currency=USD"></script>
-{% else %}
-    <script src="https://www.paypal.com/sdk/js?client-id=AR64PRuqgne8Tt4-P5USVMPgEq0wl5x3stCFhuJGTa-8u04W5CQXHPW4V4ZKE_A9hUYTpgshJLZaMaVm&currency=USD"></script>
-{% endif %}
-
-<script>
-$( document ).ready(function() {
-
-	function getCookie(name) {
-		let cookieValue = null;
-		if (document.cookie && document.cookie !== '') {
-			const cookies = document.cookie.split(';');
-			for (let i = 0; i < cookies.length; i++) {
-				const cookie = cookies[i].trim();
-				// Does this cookie string begin with the name we want?
-				if (cookie.substring(0, name.length + 1) === (name + '=')) {
-					cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-					break;
-				}
-			}
-		}
-		return cookieValue;
-	}
-	var csrftoken = getCookie('csrftoken');
-	var plan_value;
-	var user = "{{ user }}"
-	var key;
-	var doc = "{{doc}}"
-
-	$(".selected_plan").on("click", function(){
-		if ($("input[type='radio']").is(":checked")) {
-		$('html, body').animate({
-			scrollTop: $($('a[href*="#check"]').attr('href')).offset().top
-		}, 600);
-		key= $(this).data("key");
-		plan_value = $(this).val();
-		$("#id_custom").val("{{ user }}_" + key +"_{{doc}}");
-		$("#id_amount").val(plan_value);
-		}
-	});
-
-        // Render the PayPal button into #paypal-button-container
-
-        function completeOrder(details){
-        	var url= "{% url 'documents:payment-validate' %}"
-			var payment_details = details
-			payment_details.user = user
-			payment_details.key = key
-			payment_details.doc = doc
-
-			body = JSON.stringify(payment_details);
-			$('.payment-loader').siblings().css({"filter": "blur(8px)", "-webkit-filter": "blur(8px)"});
-	    	$('.payment-loader').show();
-
-        	fetch(url, {
-        		method:'POST',
-        		headers:{
-        			'Content-type':'application/json',
-        			'X-CSRFToken':csrftoken,
-        		},
-        		body: body
-        	})
-//        	.then((response) => response.json())
-//        	.then((data) => {
-//        		console.log('success:', data);
-//        		window.location.replace("{% url 'documents:document-view' doc %}");
-//			})
-			.then(function(res) {
-                    return res.json();
-                }).then(function(orderData) {
-                    // Three cases to handle:
-                    //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
-                    //   (2) Other non-recoverable errors -> Show a failure message
-                    //   (3) Successful transaction -> Show a success / thank you message
-
-                    // Your server defines the structure of 'orderData', which may differ
-                    var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
-
-                    if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
-                        // Recoverable state, see: "Handle Funding Failures"
-                        // https://developer.paypal.com/docs/checkout/integration-features/funding-failure/
-                        return actions.restart();
-                    }
-
-                    if (errorDetail) {
-                        var msg = 'Sorry, your transaction could not be processed.';
-                        if (errorDetail.description) msg += '\n\n' + errorDetail.description;
-                        if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
-                        // Show a failure message
-                        return alert(msg);
-                    }
-
-                    // Show a success message to the buyer
-//                    alert('Transaction completed by ' + orderData.payer.name.given_name);
-        		console.log('success:', orderData);
-        		window.location.replace("{% url 'documents:document-view' doc %}");
-                });
-        }
-
-
-	$(".selected_plan").on("click", function(){
-		if ($("input[type='radio']").is(":checked")) {
-		$('html, body').animate({
-			scrollTop: $($('a[href*="#check"]').attr('href')).offset().top
-		}, 600);
-		key= $(this).data("key");
-		plan_value = $(this).val();
-		$("#id_custom").val("{{ user }}_" + key +"_{{doc}}");
-		$("#id_amount").val(plan_value);
-
-
-				var payment_details1 = {}
-				payment_details1['user'] = "{{user}}"
-				payment_details1['key'] = key
-				payment_details1['doc'] = "{{doc}}"
-				payment_details1['tracking_id'] = "{{tracking_id}}"
-
-			body = JSON.stringify(payment_details1);
-
-		}
-	});
-//			var payment_details1 = {}
-//			payment_details1['user'] = "{{user}}"
-//			payment_details1['key'] = key
-//			payment_details1['doc'] = "{{doc}}"
-
-//			console.log(payment_details1)
-
-//			body = JSON.stringify(payment_details1);
-        paypal.Buttons({
-
-        // Customize button (optional)
-			locale: 'en_US',
-			style: {
-				size: 'small',
-				color: 'blue',
-				shape: 'pill',
-				label: 'checkout',
-			},
-
-//            // Set up the transaction
-//            createOrder: function(data, actions) {
-//                return actions.order.create({
-//                    purchase_units: [{
-//                        amount: {
-//                            value: plan_value
-//                        }
-//                    }]
-//                });
-//            },
-
-            createOrder: function(data, actions) {
-                return fetch("{% url 'documents:payment-check' %}", {
-        		method:'POST',
-        		headers:{
-        			'Content-type':'application/json',
-        			'X-CSRFToken':csrftoken,
-        		},
-        		body: body
-        	}).then(function(res) {
-                    return res.json();
-                }).then(function(orderData) {
-					return orderData.id;
-                });
-            },
-
-//            // Finalize the transaction
-//            onApprove: function(data, actions) {
-//                return actions.order.capture().then(function(details) {
-//                    // Show a success message to the buyer
-//                    completeOrder(details)
-//                    // alert('Transaction completed by ' + details.payer.name.given_name + '!');
-//                });
-//            }
-
-
-            // Call your server to finalize the transaction
-            onApprove: function(data, actions) {
-//                    return actions.order.capture().then(function(details) {
-//                    // Show a success message to the buyer
-//                    completeOrder(details)
-        	var url= "{% url 'documents:payment-validate' %}"
-			var payment_details = {}
-			payment_details.user = user
-			payment_details.key = key
-			payment_details.doc = doc
-			payment_details.orderid = data.orderID
-			payment_details.tracking_id = "{{tracking_id}}"
-
-			body = JSON.stringify(payment_details);
-			$('.payment-loader').siblings().css({"filter": "blur(8px)", "-webkit-filter": "blur(8px)"});
-	    	$('.payment-loader').show();
-
-        	fetch(url, {
-        		method:'POST',
-        		headers:{
-        			'Content-type':'application/json',
-        			'X-CSRFToken':csrftoken,
-        		},
-        		body: body
-        	})
-//        	.then((response) => response.json())
-//        	.then((data) => {
-//        		console.log('success:', data);
-//        		window.location.replace("{% url 'documents:document-view' doc %}");
-//			})
-			.then(function(res) {
-                    return res.json();
-                }).then(function(orderData) {
-                    // Three cases to handle:
-                    //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
-                    //   (2) Other non-recoverable errors -> Show a failure message
-                    //   (3) Successful transaction -> Show a success / thank you message
-
-                    // Your server defines the structure of 'orderData', which may differ
-                    var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
-
-                    if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
-                        // Recoverable state, see: "Handle Funding Failures"
-                        // https://developer.paypal.com/docs/checkout/integration-features/funding-failure/
-                        return actions.restart();
-                    }
-
-                    if (errorDetail) {
-                        var msg = 'Sorry, your transaction could not be processed.';
-                        if (errorDetail.description) msg += '\n\n' + errorDetail.description;
-                        if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
-                        // Show a failure message
-                        return alert(msg);
-                    }
-
-                    // Show a success message to the buyer
-//                    alert('Transaction completed by ' + orderData.payer.name.given_name);
-        		console.log('success:', orderData);
-        		window.location.replace("{% url 'documents:document-view' doc %}");
-                });
-
-//                  });
-            },
-            onCancel: function (data) {
-				/*
-				* Buyer cancelled the payment
-				/
-				//alert("Buyer Cancelled the Payment");
-                $('.paypal-error').text("Payment canceled. Please try again to purchase.");
-				//window.location = '<http://test.com/cancelURL';>
-			},
-			onError: function(err) {
-				/
-				 * An error occurred during the transaction
-				 */
-				// alert("An error occured, Pls debug");
-			// window.location = '<http://test.com/ErrorURL';>
-			$('.paypal-error').text("An error occurred during transaction. Please try again.");
-
-			}
-
-
-        }).render('#paypal-button-container');
-});
-
-    </script>
 {% endblock extra_js %}
