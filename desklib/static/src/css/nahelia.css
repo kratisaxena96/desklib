@@ -97,6 +97,18 @@ input, select, textarea, button, i, a {
 }
 
 
+/*---------- B R E A D C R U M B   S E C T I O N   C S S ----------*/
+.breadcrumb-item+.breadcrumb-item::before {
+    font-family: "Font Awesome";
+    display: inline-block;
+    padding-right: .5rem;
+    color: #405fbd;
+    content: "►";
+}
+li.breadcrumb-item a{
+    color: #303030;
+}
+
 /*---------- N O T I F I C A T I O N   S E C T I O N   C S S ----------*/
 .notification-right {
     position: absolute;
@@ -549,6 +561,21 @@ ul.hwh_bysubj li {
     }
 }
 
+/*---------- W R I T I N G - C O M P A R E   P A G E  C S S  S T A R T ----------*/
+ul.wrtng_cmpare_acrdn li {
+    font: normal normal normal 20px/32px Roboto;
+    padding: 1.75rem 1.25rem;
+    margin: 1rem;
+    -webkit-border-radius: 2rem !important;
+    -moz-border-radius: 2rem !important;
+    -ms-border-radius: 2rem !important;
+    border-radius: 2rem !important;
+}
+ul.wrtng_cmpare_acrdn li a {
+    color: #000;
+}
+
+
 /*---------- H O M E W O R K  H E L P  P A G E  C S S  S T A R T ----------*/
 .homework-banner {
     min-height: auto;
@@ -852,9 +879,9 @@ ul.hwh_bysubj li {
 
 /*---------- D O C U M E N T  D E T A I L  P A G E  C S S  S T A R T ----------*/
 .docsdetaildwnld {
-    background-color: #fde74a3b;
+    background-color: #feefd8;
     border-radius: 2rem;
-    padding: 1.5rem 1rem;
+    padding: 1rem 1rem;
     margin: 1rem;
 }
 .document-similar-height {
@@ -913,6 +940,7 @@ ul.assgnmnt_count li {
     border-radius: 2rem;
 }
 .task_box {
+    padding: 0rem 3rem;
     border: 0;
 }
 .task_box .page {
@@ -1547,6 +1575,29 @@ ul.social-icons li:hover {
 .tbl_common td, .tbl_common th {
     border: 0;
     padding: 1rem;
+}
+.myaccount_check {
+    background: #ffffff;
+    color: #405fbd;
+    padding: 1rem;
+    width: 100%;
+    border-color: #405fbd;
+    border-left-style: solid;
+    border-width: 1rem;
+    border-radius: 1rem;
+}
+.myaccount_check:hover {
+    background: #f5f5f5;
+    color: #405fbd;
+    padding: 1rem;
+    width: 100%;
+    border-color: #405fbd;
+    border-left-style: solid;
+    border-width: 1rem;
+    border-radius: 1rem;
+}
+.bg-tab-active {
+    background: #f5f5f5;
 }
 
 /*---------- R E G I S T E R   P A G E   C S S   S T A R T S----------*/

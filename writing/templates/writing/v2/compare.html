@@ -1,0 +1,162 @@
+{% extends "writing/base.html" %}
+{% load meta %}
+
+{% block canonical %}
+<link rel="canonical" href="https://desklib.com/writing/compare/" />
+{% endblock %}
+{% block content %}
+<div class="pg_compare">
+    <section class="container-fluid bg-light-grey pt-5">
+        {% block messages %}
+        {% if messages %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="notification-right list-unstyled">
+                            {% for message in messages %}
+                            <li class="alert alert-warning alert-dismissible fade show">
+                                <strong>{{message}}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+      {% endblock %}
+         <div class="container mb-5 pb-5">
+           <div class="editorHeader">
+                <div class="editorHeaderLeft text-body">
+               <h1 class="blue-theme text-center pb-2">Compare plagiarism similarity of two documents</h1>
+        <p class="text-center">Desklib offers you to ensure the originality of a text by comparing two documents and recognizing possible duplicate plagiarisms with percentage. </p>
+                </div> </div> <br>
+        <form action="." method="POST">
+            {% csrf_token %}
+        <div class="row">
+            <div class="col-md mb-2">
+                {{form.textarea1}}
+            </div>
+            <div class="col-md mb-2">
+                {{form.textarea2}}
+            </div>
+        </div>
+            <div class="row mt-5">
+                <div class="col text-center">
+                  <button type="submit" class="btn text-white btn-bg-theme border-radius-40">Compare Now</button>
+                </div>
+              </div>
+            </form>
+         </div>
+    </section>
+
+    <section class="container pt-4 pb-4 pl-5 pr-5 border-radius-12 text-center check-grammar-box shadow">
+        <h3 class="blue-theme py-2 font">Now, Check Your Grammatical Mistakes 100% Free [No need to Login]</h3>
+        <h5 class="pt-3 pb-3">Our premium service is now free. We help someone, just like yours.</h5>
+        <a href="{% url 'writing:grammar' %}" class="btn btn_common btn_blue mt-md-3 mb-4 mb-md-0">
+                            Check Your Grammar
+        </a>
+    </section>
+
+    <!-- added accordion -->
+    <section class="pb-5 pt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div id="accordion">
+                        <div id="cardOne" class="card">
+                          <div class="card-header">
+                            <a class="card-link" data-toggle="collapse" href="#collapseOne">
+                                Free similarity checker with percentage by Desklib
+                            </a>
+                          </div>
+                          <div id="collapseOne" class="collapse show">
+                            <div class="card-body">
+                                <p>Any student or professional looking to compare two text documents can use our free similarity checker and get an instant comparison. Sometimes it becomes difficult to check if two texts are similar or if one text is copied from another. This tool helps to identify such similarities in the content and provide a complete report with additional details on where the text is matching. It is useful for anyone looking to avoid plagiarism and copied content. This tool is useful only if you have two texts to compare. This doesn't provide plagiarism check over the data available on the internet.</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div id="cardTwo" class="card">
+                          <div class="card-header">
+                            <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+                                How to use Desklib similarity checker
+                          </a>
+                          </div>
+                          <div id="collapseTwo" class="collapse show">
+                            <div class="card-body">
+                                <p>Using this tool is super easy. Firstly, you need to copy both the content t be compared in separate text boxes available in the form. Once that done you need to click on the "Compare Now" button and witness the magic. You will get a complete report on where exactly the content is matching and aggregated information on how much content is similar in both the files. This tool is free to use for anyone.</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div id="cardThree" class="card">
+                          <div class="card-header">
+                            <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+                                Benefits of similarity tool by Desklib
+                            </a>
+                          </div>
+                          <div id="collapseThree" class="collapse show">
+                            <div class="card-body">
+                                <p>This tool is based on diff which means that it compares for the exact text search. This makes it perfect to use in the case where we need to find the similarity between two documents.</p>
+                                <p>Following are some of the use cases for this tool:</p>
+                                <ul>
+                                    <li>Comparing the solutions of two students to find plagiarism.</li>
+                                    <li>Comparing the content of two websites to check if they have similar content.</li>
+                                    <li>Finding if two students cheated in examination by comparing their answers.</li>
+                                    <li>Checking duplicate content on your website. </li>
+                                </ul>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-group sticky-top wrtng_cmpare_acrdn">
+                        <li class="list-group-item"><a href="#cardOne">Free similarity checker with percentage by Desklib</a></li>
+                        <li class="list-group-item"><a href="#cardTwo">How to use Desklib similarity checker</a></li>
+                        <li class="list-group-item"><a href="#cardThree">Benefits of similarity tool by Desklib</a></li>
+                    </ul>
+                </div>
+            </div>
+    </div>
+    </section>
+
+    {% comment %}
+    <section class="container mt-0 mb-5 mt-sm-3 mt-md-5">
+        <!--<h3>FREE SIMILARITY CHECKER WITH PERCENTAGE BY DESKLIB</h3>-->
+        <h3>Free similarity checker with percentage by Desklib</h3>
+        <p>
+            Any student or professional looking to compare two text documents can use our free similarity checker and get an instant comparison. Sometimes it becomes difficult to check if two texts are similar or if one text is copied from another. This tool helps to identify such similarities in the content and provide a complete report with additional details on where the text is matching. It is useful for anyone looking to avoid plagiarism and copied content. This tool is useful only if you have two texts to compare. This doesn't provide plagiarism check over the data available on the internet.
+        </p>
+
+
+        <!--<h3>HOW TO USE DESKLIB SIMILARITY CHECKER </h3>-->
+        <h3>How to use Desklib similarity Checker</h3>
+        <p>
+            Using this tool is super easy. Firstly, you need to copy both the content to be compared in separate text boxes available in the form. Once that done you need to click on the "Compare Now" button and witness the magic. You will get a complete report on where exactly the content is matching and aggregated information on how much content is similar in both the files. This tool is free to use for anyone.
+        </p>
+
+
+        <!--<h3>BENEFITS OF SIMILARITY TOOL BY DESKLIB </h3>-->
+        <h3>Benefits of similarity tool by Desklib</h3>
+        <p>
+            This tool is based on diff which means that it compares for the exact text search. This makes it perfect to use in the case where we need to find the similarity between two documents.
+    Following are some of the use cases for this tool:
+        </p>
+        <ul>
+            <li>Comparing the solutions of two students to find plagiarism.</li>
+            <li>Comparing the content of two websites to check if they have similar content.</li>
+            <li>Finding if two students cheated in examination by comparing their answers.</li>
+            <li>Checking duplicate content on your website. </li>
+        </ul>
+
+
+        <div class="row">
+            <div class="col-6"></div>
+            <div class="col-6"></div>
+        </div>
+    </section>
+    {% endcomment %}
+</div>
+{% endblock %}

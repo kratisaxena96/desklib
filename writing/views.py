@@ -59,7 +59,7 @@ class ComparePageView(MetadataMixin,JsonLdContextMixin, FormView):
     title = 'Paper Checker | Compare Two Documents For Plagiarism'
     description = ' Desklib free plagiarism checker & comparison tool to detect your content originality. Reports with percentage, 100% perfect and authentic.'
     keywords = ['similarity checker', 'text similarity checker', 'compare two documents for plagiarism', 'compare two documents for plagiarism', 'essay checker', 'plagiarism between two documents']
-    template_name = "writing/compare.html"
+    template_name = "writing/v2/compare.html"
 
     context = {}
 

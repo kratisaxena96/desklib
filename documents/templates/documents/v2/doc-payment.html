@@ -105,7 +105,7 @@
 
                                         {% for plan in plan_qs %}
                                             {% if not plan.is_pay_per_download %}
-                                                  <div class="col-3 col-sm-3 col-md-3 col-lg-3 crd text-center md-margin-30px-bottom wow fadeInUp pl-2 pr-2 justify-content-center parent"  data-wow-delay="0.2s" style="padding-top:40px">
+                                                  <div class="col-3 col-sm-3 col-md-3 col-lg-3 crd text-center md-margin-30px-bottom wow fadeInUp pl-2 pr-2 justify-content-center parent"  data-wow-delay="0.2s">
 <!--                                                      <a href="#check">-->
 <!--                                                        <div class="docs_plan_box shadow card mb-4">-->
 <!--                                                            <label class="d-block label mt-2">-->
@@ -190,18 +190,15 @@
                         </div>
                            </section>
                       </div>
-                                  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-
+                      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 <div class="row mt-4 mb-3">
                                     <div class="col-sm-12">
                                         <h5 class="text-center">Great work! you are going to get this file free.</h5>
                                     </div>
                                 </div>
-                                  <div class="row justify-content-center parent">
+                                <div class="row justify-content-center parent">
                                       <div class="col-6 col-sm-12 col-md-12 col-lg-12 text-center parent" data-wow-delay="0.2s" >
-
                     <!--					  	<a href="javascript:void(0)"  data-toggle="modal" data-target="#myModal" class="text-black docs_plan_box">-->
-<!--                                        <div class="card mb-4">-->
                                             <label class="d-block label mb-0">
                                                 <div class="docs_plan_box docs_free_plan_box shadow mt-4">
                                                     <div class="docs_plan_box_upper pt-4 pl-2 pr-2 pb-4">
@@ -239,11 +236,10 @@
                                                     </div>
                                                 </div>
                                             </label>
-<!--                                        </div>-->
                                       </div>
                                     </div>
-                                </div>
-                            </div>
+                      </div>
+                    </div>
                 </div>
             </div>
 
@@ -617,13 +613,8 @@ $(document).ready(function() {
 
 <script>
 //multistep form
-
 //ajax to submit form
-
 // document upload
-
-
-
     $("#upload-form1").submit(function(e) {
         $(".first-doc").css("display", "none");
         jQuery(".show-loader").show();
@@ -859,7 +850,7 @@ $( document ).ready(function() {
 		if ($("input[type='radio']").is(":checked")) {
 		$('html, body').animate({
 			scrollTop: $($('a[href*="#check"]').attr('href')).offset().top
-		}, 100);
+		}, 600);
 		key= $(this).data("key");
 		plan_value = $(this).val();
 		$("#id_custom").val("{{ user }}_" + key +"_{{doc}}");
@@ -930,7 +921,7 @@ $( document ).ready(function() {
 		if ($("input[type='radio']").is(":checked")) {
 		$('html, body').animate({
 			scrollTop: $($('a[href*="#check"]').attr('href')).offset().top
-		}, 100);
+		}, 600);
 		key= $(this).data("key");
 		plan_value = $(this).val();
 		$("#id_custom").val("{{ user }}_" + key +"_{{doc}}");

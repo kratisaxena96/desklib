@@ -150,9 +150,9 @@
                 <div class="col-md-12">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb breadcrumb-transparent mb-0 rounded-0">
-                            <li class="breadcrumb-item"><a href="/" class="">Home</a></li>
-                            <li class="breadcrumb-item"><a href="{% url 'study:study-search'%}" class="">Study</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">{{object.title}}</li>
+                            <li class="breadcrumb-item"><a href="/" class="">Home</a> </li>
+                            <li class="breadcrumb-item"><a href="{% url 'study:study-search'%}" class="">Study</a>  </li>
+                            <li class="breadcrumb-item active Roboto-Bold" aria-current="page">{{object.title}}</li>
                         </ol>
                     </nav>
                 </div>
@@ -167,7 +167,7 @@
             <div class="col-md-12 pb-4">
         <ul class="notification-right list-unstyled">
             {% for message in messages %}
-            <li class="alert alert-warning alert-dismissible fade show" role="alert">
+            <li class="alert alert-warning alert-dismissible fade show">
                 <strong>{{message}}</strong>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -182,10 +182,10 @@
     {% endblock %}
     <div class="container">
         <div class="row pt-0 pt-sm-5">
-            <article class="col-md-8 border-right">
+            <article class="col-md-8">
                 <div class="row">
                     <div class="col-md-12 docs_title">
-                        <h3>{{object.title}}</h3>
+                        <h3 class="Roboto-Bold">{{object.title}}</h3>
                         <p>Added on - {{object.created|date:"d M Y"}}</p>
                     </div>
                     <div class="col-md-10 docs_count">
@@ -213,22 +213,22 @@
                             {% if object.pages.all.count %}
                             <li class="d-inline-block p-2 text-center border-right">
                                 <p class="blue-theme font-weight-600 mb-1">{{object.pages.all.count}}</p>
-                                <p class="mb-0">pages</p>
+                                <p class="Roboto-Medium mb-0">Pages</p>
                             </li>
                             {% endif %}
                             {% if object.words %}
                             <li class="d-inline-block p-2 text-center border-right">
                                 <p class="blue-theme font-weight-600 mb-1">{{object.words}}</p>
-                                <p class="mb-0">words</p>
+                                <p class="Roboto-Medium mb-0">Words</p>
                             </li>
                             {% endif %}
                             <li class="d-inline-block p-2 text-center border-right">
                                 <p class="text_yellow font-weight-600 mb-1">{{object.views}}</p>
-                                <p class="mb-0">views</p>
+                                <p class="Roboto-Medium mb-0">Views</p>
                             </li>
                             <li class="d-inline-block text-center p-2">
                                 <p class="text_red font-weight-600 mb-1">{{object.total_downloads}}</p>
-                                <p class="mb-0">downloads</p>
+                                <p class="Roboto-Medium mb-0">Downloads</p>
                             </li>
                         </ul>
                     </div>
@@ -267,7 +267,7 @@
 
                 <div class="row docsdetaildwnld">
                     <div class="col-lg-6">
-                        <span class="d-inline-block d-sm-inline-block w-100 text-left text-md-left text-lg-left text-muted"> Trusted by +2 million users, <br/> assist thousands of students everyday  </span>
+                        <span class="d-inline-block d-sm-inline-block w-100 text-left text-md-left text-lg-left text-muted Roboto-Bold"> Trusted by +2 million users, <br/> assist thousands of students everyday  </span>
                     </div>
                     <div class="col-lg-6 text-right">
                         <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn_common btn_blue"
@@ -381,7 +381,7 @@
                 {% if object.pages.all.count %}
                 <!--            <span class="d-inline-block d-sm-inline-block w-100 text-center text-md-left text-lg-center text-muted">Showing pages {{object.preview_from}} to {{object.preview_to}} of {{object.pages.all.count}} pages</span>-->
                 <div class="row mr-4">
-                    <div class="col-lg-12 mt-4">
+                    <div class="col-lg-12">
                         <span class="d-inline-block d-sm-inline-block w-100 text-right text-md-left text-lg-right text-muted"> Showing pages {{object.preview_from}} to {{object.preview_to}} of {{object.pages.all.count}} pages </span>
                     </div>
                 </div>
