@@ -201,34 +201,45 @@
                                       <div class="col-6 col-sm-12 col-md-12 col-lg-12 text-center parent" data-wow-delay="0.2s" >
 
                     <!--					  	<a href="javascript:void(0)"  data-toggle="modal" data-target="#myModal" class="text-black docs_plan_box">-->
-                                        <div class="card mb-4">
+<!--                                        <div class="card mb-4">-->
                                             <label class="d-block label mb-0">
-                                            <div class="card-body p-4">
-                                                <input class="selected_plan" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}" style="display:none;">
-                                                    <h5>Free Plan</h5>
-                        <!--							<h6 class="mb-1 mt-2 plan-content mb-3">Upload documents to download</h6>-->
-                                                            <div class="plan-price p-2"><sup>$</sup>0<span>/30days</span>
-                                                                <hr style="width:80%;"></div>
-                                                            <h6 class="text-left"><strong>Views: </strong> 1</h6>
-                                                            <h6 class="text-left"><strong>Downloads: </strong> 1</h6>
-                                                <ul class="text-left pl-1" style="line-height: 1.8rem;">
-                        <!--										 <li>Upload two documents</li>-->
-                                                                 <li>Upload 2 study files ( e.g. assignment, report etc. )</li>
-                                                                 <li>Don't upload plagiarize content.</li>
-                                                                 <li>Upload of similar files will lead to rejection.</li>
-                                                                 <li>Content should not be published on any other website or indexed on search engine.</li>
-                                                                 <li>Content should be grammatically correct.</li>
-                                                                 <li>Our team will review your files.</li>
-                                                                 <li>Estimate approval time 24 hours.</li>
-                                                                 <li>Content should be at least 500 words or more.</li>
-                                                                 <li>Content should not be copyrighted by anyone.</li>
+                                                <div class="docs_plan_box docs_free_plan_box shadow mt-4">
+                                                    <div class="docs_plan_box_upper pt-4 pl-2 pr-2 pb-4">
+                                                        <div class="d-flex pl-2 pr-2">
+                                                            <div class="flex-fill text-left font-weight-bold"> Starter Plan </div>
+                                                            <div class="d-flex flex-fill justify-content-end">
+                                                                <h5 class="font-weight-bold"> Free <small> /{{ plan.days }}days </small></h5>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="docs_plan_box_lower text-left pt-4 pl-2 pr-2 pb-4">
+                                                        <ul class="pl-0 pl-4 pr-4">
+                                                            <li> <i class="fas fa-check-square check_yellow"></i> 1 Document view </li>
+                                                            <li> <i class="fas fa-check-square check_yellow"></i> 1 Document Download </li>
                                                         </ul>
-                                                <div>
-                                             <a href="javascript:void(0)"  data-toggle="modal" data-target="#myModal" class="btn btn-bg-theme border-radius-20 text-white" style="width:60%" >Upload File </a>
-                                         </div>
-                                            </div>
+
+                                                        <ul class="text-left" style="line-height: 1.8rem;">
+                                                            <li>Upload 2 study files ( e.g. assignment, report etc. )</li>
+                                                            <li>Don't upload plagiarize content.</li>
+                                                            <li>Upload of similar files will lead to rejection.</li>
+                                                            <li>Content should not be published on any other website or indexed on
+                                                                search engine.
+                                                            </li>
+                                                            <li>Content should be grammatically correct.</li>
+                                                            <li>Our team will review your files.</li>
+                                                            <li>Estimate approval time 24 hours.</li>
+                                                            <li>Content should be at least 500 words or more.</li>
+                                                            <li>Content should not be copyrighted by anyone.</li>
+                                                        </ul>
+
+                                                        <div class="d-flex justify-content-end">
+                                                            <a href="javascript:void(0)" data-toggle="modal" data-target="#myModal" class="btn text-white btn_common btn_magenta"> Upload File </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </label>
-                                        </div>
+<!--                                        </div>-->
                                       </div>
                                     </div>
                                 </div>
@@ -249,7 +260,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="text-center">
-                                <img src="{% static 'src/assets/images/v2/get_started.svg' %}" class="img-fluid" />
+                                <img src="{% static 'src/assets/images/v2/docs_emailer.png' %}" class="img-fluid" />
                             </div>
                             <div class="mt-element-step mx-5 my-5">
                                 <div class="row step-line">
@@ -848,7 +859,7 @@ $( document ).ready(function() {
 		if ($("input[type='radio']").is(":checked")) {
 		$('html, body').animate({
 			scrollTop: $($('a[href*="#check"]').attr('href')).offset().top
-		}, 600);
+		}, 100);
 		key= $(this).data("key");
 		plan_value = $(this).val();
 		$("#id_custom").val("{{ user }}_" + key +"_{{doc}}");
@@ -919,7 +930,7 @@ $( document ).ready(function() {
 		if ($("input[type='radio']").is(":checked")) {
 		$('html, body').animate({
 			scrollTop: $($('a[href*="#check"]').attr('href')).offset().top
-		}, 600);
+		}, 100);
 		key= $(this).data("key");
 		plan_value = $(this).val();
 		$("#id_custom").val("{{ user }}_" + key +"_{{doc}}");

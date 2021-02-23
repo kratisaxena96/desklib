@@ -395,7 +395,7 @@ No media query since this is the default in Bootstrap because it is "mobile firs
     padding: 0 10rem 2rem;;
 }
 .bg-homedocuments {
-    background-image: url(/static/src/assets/images/v2/bg_homedocuments.svg);
+    background-image: url(/static/src/assets/images/v2/bg_homedocuments.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     padding: 6rem 0;
@@ -1006,10 +1006,17 @@ ul.assgnmnt_count li {
 }
 
 .bg-blue-active {
-    background-color: #405fbd!important;
+    border: 1px dashed #405fbd;
     color: #000!important;
 }
 .plan-price {
+    font-size: 1rem;
+    font-weight: 300;
+    position: relative;
+    text-align: center;
+    color: #405fbd;
+}
+.plan-price a {
     font-size: 1rem;
     font-weight: 300;
     position: relative;
