@@ -63,7 +63,7 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
     model = Order
     slug_field = 'uuid'
     slug_url_kwarg = 'uuid'
-    template_name = 'homework_help/order_detail.html'
+    template_name = 'homework_help/v2/order_detail.html'
     form_class = CommentForm
     title = 'Desklib | homework help | online learning library | assignment solutions '
     description = 'Desklib online learning library provides you 24/7 Homework Help, Q&A help, and solutions to assignments, essays, dissertations, case studies and Best free writing tools for everyone to improve their writing skills.'
