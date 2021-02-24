@@ -116,7 +116,7 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
 
 class OrderListView(LoginRequiredMixin, MetadataMixin, ListView):
     model = Order
-    template_name = 'homework_help/order_list.html'
+    template_name = 'homework_help/v2/order_list.html'
     paginate_by = 6
     title = 'Orders'
     description = 'Desklib online learning library provides you 24/7 Homework Help, Q&A help, and solutions to assignments, essays, dissertations, case studies and Best free writing tools for everyone to improve their writing skills.'

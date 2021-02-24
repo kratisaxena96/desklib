@@ -820,6 +820,15 @@ ul.wrtng_cmpare_acrdn li a {
 
 
 
+/*---------- O R D E R   L I S T   P A G E  C S S  S T A R T ----------*/
+.hwh_listoforder:hover {
+    border: 1px dashed #405fbd;
+    -webkit-border-radius: 2rem;
+    -moz-border-radius: 2rem;
+    -ms-border-radius: 2rem;
+    border-radius: 2rem;
+}
+
 /*---------- O R D E R   D E T A I L  P A G E  C S S  S T A R T ----------*/
 .bg_banner_order_detail {
     background-image: url(/static/src/assets/images/v2/bg_banner_order_detail.svg);

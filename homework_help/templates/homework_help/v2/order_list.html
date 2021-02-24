@@ -3,30 +3,41 @@
 {% block content %}
 {% block messages %}
      {% if messages %}
-        <div>
-            <ul class="notification-right">
-            {% for message in messages %}
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>{{message}}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="notification-right list-unstyled">
+                    {% for message in messages %}
+                        <li class="alert alert-warning alert-dismissible fade show">
+                            <strong>{{message}}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </li>
+                    {% endfor %}
+                    </ul>
                 </div>
-            {% endfor %}
-            </ul>
+            </div>
         </div>
     {% endif %}
  {% endblock %}
 
 <section>
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb mb-0">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'homework_help:ask-question-view'%}">Homework</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Order</li>
-  </ol>
-</nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb breadcrumb-transparent mb-0">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'homework_help:ask-question-view'%}">Homework</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Order</li>
+                      </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
 </section>
+
  {% if object_list %}
 <section class="bg-light">
     <div class="container pt-5">
@@ -39,7 +50,7 @@
              {% for order in object_list %}
             <div class="col-sm-4 mb-5">
                 <a href="{% url 'homework_help:order-detail-view' uuid=order.uuid %}" class="text-decoration-none h-100">
-                    <div class="card border-0 shadow h-100">
+                    <div class="card shadow hwh_listoforder h-100">
                         <div class="card-body">
                             <h6 class="blue-theme line-height-26">{{order.question.question|truncatechars:70}}</h6>
                             <small class="text-muted">Order-id:</small>
