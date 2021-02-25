@@ -244,6 +244,7 @@ class DocumentAdmin(admin.ModelAdmin):
     list_display = ('title', 'published_date', 'is_published', 'is_visible', 'page', 'words')
     list_filter = (SubjectListFilter, 'is_published', 'is_visible' , EmployeeListFilter)
     actions = [publish_documents, un_publish_documents, visble_documents, soft_delete_documents, set_document_subject, restore_documents, hard_delete_documents, chage_publish_date, change_author, get_document_download]
+    exclude = ('seo_title', )
 
     inlines = [
         FileInline,
@@ -266,6 +267,25 @@ class DocumentAdmin(admin.ModelAdmin):
 
     # def get_subjects(self, obj):
     #     return "\n".join(list(obj.subjects.all().values_list('name',flat=True)))
+    def get_fields(self, request, obj=None):
+        field_list = super(DocumentAdmin, self).get_fields(request, obj)
+        if obj:
+            fields_to_remove = []
+            if request.user.is_superuser:
+                return super(self.__class__, self).get_fields(request, obj)
+            else:
+                fields_to_remove.append('payment_completed')
+                if not request.user.has_perm('documents.can_view_all_fields'):
+                    fields_to_remove += ['content', 'summary',  'initial_text', 'upload_file', 'is_published', 'is_visible', 'canonical_url']
+                    self.inlines = []
+                else:
+                    self.inlines = [
+                        FileInline,
+                        PageInline
+                    ]
+            if fields_to_remove:
+                field_list = list(set(field_list) - set(fields_to_remove))
+        return field_list
 
     def get_queryset(self, request):
         queryset = super(DocumentAdmin, self).get_queryset(request)
