@@ -28,16 +28,20 @@
     <section>
          {% block messages %}
              {% if messages %}
-                <div>
-                    <div class="notification-right">
-                    {% for message in messages %}
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            <strong>{{message}}</strong>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="notification-right">
+                            {% for message in messages %}
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <strong>{{message}}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            {% endfor %}
+                            </div>
                         </div>
-                    {% endfor %}
                     </div>
                 </div>
              {% endif %}
@@ -354,7 +358,7 @@
                                                 {% if order.expected_hours %} <p>Expected solution delivery time is for {{order.expected_hours}} hour after your payment</p>{% endif %}
                                              {% endif %}
                                                 <input type="checkbox" name="checkbox" id="check-box" class="checkbox" required>
-                                                <label class="d-inline" for="check-box" class="blue-theme">&nbsp;I agree to the <a href="{% url 'termsofuse' %}">terms & conditions</a>, <a href="{% url 'privacypolicy' %}"> privacy policy</a>, <a href="{% url 'academicintegrity' %}">Academic Integrity</a>, <a href="{% url 'honorcode' %}">Honor Code</a> and <a href="{% url 'copyright' %}">Copyright</a>
+                                                <label class="d-inline blue-theme" for="check-box">&nbsp;I agree to the <a href="{% url 'termsofuse' %}">terms & conditions</a>, <a href="{% url 'privacypolicy' %}"> privacy policy</a>, <a href="{% url 'academicintegrity' %}">Academic Integrity</a>, <a href="{% url 'honorcode' %}">Honor Code</a> and <a href="{% url 'copyright' %}">Copyright</a>
                                                 </label>
                                             </div>
                                         </div>

@@ -1,257 +1,259 @@
   {% extends "desklib/base.html" %}
 {% load staticfiles %}
 {% block content %}
-{% comment %}
-<ul>
-	{% for object in object_list %}
-	<li>{{ object.course_name }}</li>
-	<li>{{ object.course_code }}</li>
-	<li>{{ object.country }}</li>
-	<li>{{ object.university }}</li>
-	<li>{{ object.get_type_display }}</li>
-	{% for i in object.subjects.all %}
-	<li>{{ i }}</li>
-	{% endfor %}
-	<li>{{ object.upload_file}}</li>
-	{% endfor %}
-</ul>
-{% endcomment %}
-{% block messages %}
-    {% if messages %}
+<div class="pg_myuploads">
+    {% comment %}
+    <ul>
+        {% for object in object_list %}
+        <li>{{ object.course_name }}</li>
+        <li>{{ object.course_code }}</li>
+        <li>{{ object.country }}</li>
+        <li>{{ object.university }}</li>
+        <li>{{ object.get_type_display }}</li>
+        {% for i in object.subjects.all %}
+        <li>{{ i }}</li>
+        {% endfor %}
+        <li>{{ object.upload_file}}</li>
+        {% endfor %}
+    </ul>
+    {% endcomment %}
+    {% block messages %}
+        {% if messages %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="notification-right list-unstyled">
+                        {% for message in messages %}
+                            <li class="alert alert-warning alert-dismissible fade show">
+                                <strong>{{message}}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endblock %}
+
+
+    <section class="py-5">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
-                    <ul class="notification-right list-unstyled">
-                    {% for message in messages %}
-                        <li class="alert alert-warning alert-dismissible fade show">
-                            <strong>{{message}}</strong>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </li>
-                    {% endfor %}
-                    </ul>
-                </div>
-            </div>
-        </div>
-    {% endif %}
-{% endblock %}
-
-
-<section class="py-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="text-center py-2">
-                    <img class="img-fluid" src="{% static '/src/assets/images/v2/profile_6@2x.png' %}" />
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="userprofiledtl">
-                    <h1> {{user.username}} </h1>
-                    <div class="row">
-                        <div class="col-md-6">
-                        <div class="Roboto-Bold py-1">Username : <span class="Roboto-Regular text-center">{{user.username}}</span></div>
-                        <div class="Roboto-Bold py-1">Name : <span class="Roboto-Regular text-center">{{user.first_name}} {{user.last_name}}</span></div>
-                        <div class="Roboto-Bold py-1">Contact number : <span class="Roboto-Regular text-center">{{user.contact_no}}</span></div>
-                        {% comment %}
-                            <div class="Roboto-Bold py-1">Email : <span class="Roboto-Regular text-center">{{user.email}}</span></div>
-                        {% endcomment %}
+                <div class="col-md-4">
+                    <div class="text-center py-2">
+                        <img class="img-fluid" src="{% static '/src/assets/images/v2/profile_6@2x.png' %}" />
                     </div>
-                        <div class="col-md-6">
-                            <div class="Roboto-Bold py-1">Country : <span class="Roboto-Regular text-center">{{user.get_country_display}}</span></div>
-                            {% if user.college %}
-                                <div class="Roboto-Bold py-1">College : <span class="Roboto-Regular text-center">{{user.college}}</span></div>
-                            {% endif %}
-                            {% if user.university %}
-                                <div class="Roboto-Bold py-1">University : <span class="Roboto-Regular text-center">{{user.university}}</span></div>
-                            {% endif %}
-                            {% if subscription %}
-                                <div class="Roboto-Bold py-1">Plan : <span class="Roboto-Regular text-center">{{subscription.plan}}</span></div>
-                            {% endif %}
+                </div>
+                <div class="col-md-8">
+                    <div class="userprofiledtl">
+                        <h1> {{user.username}} </h1>
+                        <div class="row">
+                            <div class="col-md-6">
+                            <div class="Roboto-Bold py-1">Username : <span class="Roboto-Regular text-center">{{user.username}}</span></div>
+                            <div class="Roboto-Bold py-1">Name : <span class="Roboto-Regular text-center">{{user.first_name}} {{user.last_name}}</span></div>
+                            <div class="Roboto-Bold py-1">Contact number : <span class="Roboto-Regular text-center">{{user.contact_no}}</span></div>
+                            {% comment %}
+                                <div class="Roboto-Bold py-1">Email : <span class="Roboto-Regular text-center">{{user.email}}</span></div>
+                            {% endcomment %}
                         </div>
-                    </div>
-                </div>
-
-<!--                <div class="table-responsive-sm" id="profile-table">-->
-<!--                    <table class="table">-->
-<!--                      {% comment %}-->
-<!--                      <tr>-->
-<!--                        <td>Email</td>-->
-<!--                        <td class="text-center">{{user.email}}</td>-->
-<!--                      </tr>-->
-<!--                      {% endcomment %}-->
-<!--                      <tr>-->
-<!--                        <td>Username</td>-->
-<!--                        <td class="text-center">{{user.username}}</td>-->
-<!--                      </tr>-->
-<!--                      <tr>-->
-<!--                        <td>Name</td>-->
-<!--                        <td class="text-center">{{user.first_name}} {{user.last_name}}</td>-->
-<!--                      </tr>-->
-<!--                      <tr>-->
-<!--                        <td>Contact number</td>-->
-<!--                        <td class="text-center">{{user.contact_no}}</td>-->
-<!--                      </tr>-->
-<!--                      {% if user.college %}-->
-<!--                      <tr>-->
-<!--                        <td>College</td>-->
-<!--                        <td class="text-center">{{user.college}}</td>-->
-<!--                      </tr>-->
-<!--                      {% endif %}-->
-<!--                      {% if user.university %}-->
-<!--                      <tr>-->
-<!--                        <td>University</td>-->
-<!--                        <td class="text-center">{{user.university}}</td>-->
-<!--                      </tr>-->
-<!--                      {% endif %}-->
-<!--                      <tr>-->
-<!--                        <td>Country</td>-->
-<!--                        <td class="text-center">{{user.get_country_display}}</td>-->
-<!--                      </tr>-->
-<!--                      {% if subscription %}-->
-<!--                      <tr>-->
-<!--                        <td>Plan</td>-->
-<!--                        <td class="text-center">{{subscription.plan}}</td>-->
-<!--                      </tr>-->
-<!--                      {% endif %}-->
-<!--                    </table>-->
-<!--                </div>-->
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="py-5">
-    <div class="container">
-      <hr>
-      <div class="row">
-          <div class="col-md-4 border-right">
-              <div class="list-group" role="tablist">
-                  <a class="list-group-item-action myaccount_check shadow" href="{% url 'my-downloads' %}" role="tab" aria-controls="my-downloads">My Downloads</a>
-
-                  {% comment %}
-                    <a class="list-group-item-action myaccount_check shadow" href="{% url 'upload-file' %}" role="tab" aria-controls="upload-files">Upload Files</a>
-                  {% endcomment %}
-              </div>
-          </div>
-          <div class="col-md-4 border-right">
-              <div class="list-group" role="tablist">
-                  <a class="list-group-item-action myaccount_check shadow" href="{% url 'my-uploads' %}" role="tab" aria-controls="my-uploads">My Uploads</a>
-              </div>
-          </div>
-          <div class="col-md-4">
-              <div class="list-group" role="tablist">
-                  <a class="list-group-item-action myaccount_check shadow" href="{% url 'my-subscription' %}" role="tab" aria-controls="my-subscription">My Subscriptions</a>
-              </div>
-          </div>
-      </div>
-    </div>
-</section>
-
-<section class="py-5">
-    <div class="container">
-        <div class="row">
-            {% comment %}
-            <aside class="col-md-4 border-right">
-                <div class="list-group" role="tablist">
-			         <a class="list-group-item list-group-item-action" href="{% url 'my-profile' %}" role="tab" aria-controls="my-profile">My Profile</a>
-			         <a class="list-group-item list-group-item-action" href="{% url 'my-downloads' %}" role="tab" aria-controls="my-downloads">My Downloads</a>
-			         <a class="list-group-item list-group-item-action bg-active white" href="{% url 'my-uploads' %}" role="tab" aria-controls="my-account">My Uploads</a>
-
-<!--                     <a class="list-group-item list-group-item-action" href="{% url 'upload-file' %}" role="tab" aria-controls="upload-files">Upload Files</a>-->
-
-                     <a class="list-group-item list-group-item-action" href="{% url 'my-subscription' %}" role="tab" aria-controls="my-subscriptions">My Subscriptions</a>
-                </div>
-	        </aside>
-            {% endcomment %}
-            <div class="col-md-12 mt-3 mt-md-0">
-            	 <h4 class="mb-3" style="display: inline-block;">My Uploads</h4><i class="fa fa-upload fa-4" aria-hidden="true" style="font-size:21px;color: #405fbd; padding-left: inherit;"></i>
-            	 <div class="table-responsive-sm">
-            		<table class="table table-bordered table-sm tbl_common">
-            		 	<thead>
-            		 	 	<tr>
-            		 	 	    <th scope="col">Course Name</th>
-                                <th scope="col">Course Code</th>
-                                <th scope="col">University</th>
-                                <th scope="col">Document Type</th>
-                                <th scope="col">Upload Date</th>
-                                <th scope="col">Status</th>
-            		 	 </tr>
-            		 </thead>
-            		   <tbody>
-                         {% for object in object_list %}
-            		   	   <tr>
-            		   	   	 <td scope="row">{{ object.course_name }}</td>
-            		   	   	 <td scope="row">{% if object.course_code %} {{ object.course_code }}{% endif %}</td>
-            		   	   	 <td scope="row">{% if object.university %}{{ object.university }}{% endif %}</td>
-                             <td scope="row">{{ object.get_type_display }}</td>
-                             <td scope="row">{{ object.created|date:"M d Y" }}</td>
-                             <td scope="row">{{ object.get_status_display }}</td>
-            		   	   </tr>
-                             {% endfor %}
-            		   </tbody>
-
-                    </table>
-
-                    {% comment %}
-                    <div class="d-flex justify-content-center my-3">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <li class="page-item">
-                                   <span class="step-links">
-                                        {% if my_uploads.has_previous %}
-                                            <a href="?page={{ my_uploads.previous_page_number }}" class="pagination-previous"> previous </a>
-                                        {% endif %}
-                                        <span class="current">
-                                            Page {{ my_uploads.number }} of {{ my_uploads.paginator.num_pages }}
-                                        </span>
-                                        {% if my_uploads.has_next %}
-                                            <a href="?page={{ my_uploads.next_page_number }}" class="pagination-next"> next </a>
-                                        {% endif %}
-                                   </span>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                    {% endcomment %}
-
-                    {% if object.has_other_pages %}
-                        <div class="container d-flex justify-content-center">
-                          <div class="row">
-                            <div class="col-md-12">
-                                  <ul class="pagination" id="uploads">
-                                    <li class="page-item p-3">
-                                    {% if object.has_previous %}
-                                        <a class="previous" href="?page={{ object.previous_page_number }}">
-                                            <span aria-hidden="true"><i class='fas fa-angle-left fafa-nav-active blue-theme'></i></span>
-                                        </a>
-                                    {% else %}
-                                    <a class="previous"><i class='fas fa-angle-left fafa-nav-in-active'></i></a>
-                                    {% endif %}
-                                    </li>
-                                    {% for page in object.paginator.page_range %}
-                                        {% if object.number == page %}
-                                        <li class="page-item active p-3"><a class="rounded-circle page-link border-color bg-blue-theme" href="?page={{page}}">{{page}}</a></li>
-                                        {% elif page > object.number|add:'-3' and page < object.number|add:'3' %}
-                                        <li class="page-item p-3"><a class="rounded-circle page-link blue-theme" href="?page={{page}}">{{page}}</a></li>
-                                        {% endif %}
-                                    {% endfor %}
-                                    <li class="page-item p-3">
-                                    {% if object.has_next %}
-                                        <a class="previous blue-theme" href="?page={{ object.next_page_number }}"><span aria-hidden="true"><i class='fas fa-angle-right fafa-nav-in-active'></i></span></a>
-                                    {% else %}
-                                      <a class="next"><i class='fas fa-angle-right fafa-nav-in-active'></i></a>
-                                    {% endif %}
-                                    </li>
-                                  </ul>
+                            <div class="col-md-6">
+                                <div class="Roboto-Bold py-1">Country : <span class="Roboto-Regular text-center">{{user.get_country_display}}</span></div>
+                                {% if user.college %}
+                                    <div class="Roboto-Bold py-1">College : <span class="Roboto-Regular text-center">{{user.college}}</span></div>
+                                {% endif %}
+                                {% if user.university %}
+                                    <div class="Roboto-Bold py-1">University : <span class="Roboto-Regular text-center">{{user.university}}</span></div>
+                                {% endif %}
+                                {% if subscription %}
+                                    <div class="Roboto-Bold py-1">Plan : <span class="Roboto-Regular text-center">{{subscription.plan}}</span></div>
+                                {% endif %}
                             </div>
-                          </div>
                         </div>
-                    {% endif %}
+                    </div>
+
+    <!--                <div class="table-responsive-sm" id="profile-table">-->
+    <!--                    <table class="table">-->
+    <!--                      {% comment %}-->
+    <!--                      <tr>-->
+    <!--                        <td>Email</td>-->
+    <!--                        <td class="text-center">{{user.email}}</td>-->
+    <!--                      </tr>-->
+    <!--                      {% endcomment %}-->
+    <!--                      <tr>-->
+    <!--                        <td>Username</td>-->
+    <!--                        <td class="text-center">{{user.username}}</td>-->
+    <!--                      </tr>-->
+    <!--                      <tr>-->
+    <!--                        <td>Name</td>-->
+    <!--                        <td class="text-center">{{user.first_name}} {{user.last_name}}</td>-->
+    <!--                      </tr>-->
+    <!--                      <tr>-->
+    <!--                        <td>Contact number</td>-->
+    <!--                        <td class="text-center">{{user.contact_no}}</td>-->
+    <!--                      </tr>-->
+    <!--                      {% if user.college %}-->
+    <!--                      <tr>-->
+    <!--                        <td>College</td>-->
+    <!--                        <td class="text-center">{{user.college}}</td>-->
+    <!--                      </tr>-->
+    <!--                      {% endif %}-->
+    <!--                      {% if user.university %}-->
+    <!--                      <tr>-->
+    <!--                        <td>University</td>-->
+    <!--                        <td class="text-center">{{user.university}}</td>-->
+    <!--                      </tr>-->
+    <!--                      {% endif %}-->
+    <!--                      <tr>-->
+    <!--                        <td>Country</td>-->
+    <!--                        <td class="text-center">{{user.get_country_display}}</td>-->
+    <!--                      </tr>-->
+    <!--                      {% if subscription %}-->
+    <!--                      <tr>-->
+    <!--                        <td>Plan</td>-->
+    <!--                        <td class="text-center">{{subscription.plan}}</td>-->
+    <!--                      </tr>-->
+    <!--                      {% endif %}-->
+    <!--                    </table>-->
+    <!--                </div>-->
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <section class="py-5">
+        <div class="container">
+          <hr>
+          <div class="row">
+              <div class="col-md-4 border-right">
+                  <div class="list-group" role="tablist">
+                      <a class="list-group-item-action myaccount_check shadow" href="{% url 'my-downloads' %}" role="tab" aria-controls="my-downloads">My Downloads</a>
+
+                      {% comment %}
+                        <a class="list-group-item-action myaccount_check shadow" href="{% url 'upload-file' %}" role="tab" aria-controls="upload-files">Upload Files</a>
+                      {% endcomment %}
+                  </div>
+              </div>
+              <div class="col-md-4 border-right">
+                  <div class="list-group" role="tablist">
+                      <a class="list-group-item-action myaccount_check shadow" href="{% url 'my-uploads' %}" role="tab" aria-controls="my-uploads">My Uploads</a>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="list-group" role="tablist">
+                      <a class="list-group-item-action myaccount_check shadow" href="{% url 'my-subscription' %}" role="tab" aria-controls="my-subscription">My Subscriptions</a>
+                  </div>
+              </div>
+          </div>
+        </div>
+    </section>
+
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                {% comment %}
+                <aside class="col-md-4 border-right">
+                    <div class="list-group" role="tablist">
+                         <a class="list-group-item list-group-item-action" href="{% url 'my-profile' %}" role="tab" aria-controls="my-profile">My Profile</a>
+                         <a class="list-group-item list-group-item-action" href="{% url 'my-downloads' %}" role="tab" aria-controls="my-downloads">My Downloads</a>
+                         <a class="list-group-item list-group-item-action bg-active white" href="{% url 'my-uploads' %}" role="tab" aria-controls="my-account">My Uploads</a>
+
+    <!--                     <a class="list-group-item list-group-item-action" href="{% url 'upload-file' %}" role="tab" aria-controls="upload-files">Upload Files</a>-->
+
+                         <a class="list-group-item list-group-item-action" href="{% url 'my-subscription' %}" role="tab" aria-controls="my-subscriptions">My Subscriptions</a>
+                    </div>
+                </aside>
+                {% endcomment %}
+                <div class="col-md-12 mt-3 mt-md-0">
+                     <h4 class="mb-3" style="display: inline-block;">My Uploads</h4><i class="fa fa-upload fa-4" aria-hidden="true" style="font-size:21px;color: #405fbd; padding-left: inherit;"></i>
+                     <div class="table-responsive-sm">
+                        <table class="table table-bordered table-sm tbl_common">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Course Name</th>
+                                    <th scope="col">Course Code</th>
+                                    <th scope="col">University</th>
+                                    <th scope="col">Document Type</th>
+                                    <th scope="col">Upload Date</th>
+                                    <th scope="col">Status</th>
+                             </tr>
+                         </thead>
+                           <tbody>
+                             {% for object in object_list %}
+                               <tr>
+                                 <td scope="row">{{ object.course_name }}</td>
+                                 <td scope="row">{% if object.course_code %} {{ object.course_code }}{% endif %}</td>
+                                 <td scope="row">{% if object.university %}{{ object.university }}{% endif %}</td>
+                                 <td scope="row">{{ object.get_type_display }}</td>
+                                 <td scope="row">{{ object.created|date:"M d Y" }}</td>
+                                 <td scope="row">{{ object.get_status_display }}</td>
+                               </tr>
+                                 {% endfor %}
+                           </tbody>
+
+                        </table>
+
+                        {% comment %}
+                        <div class="d-flex justify-content-center my-3">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                       <span class="step-links">
+                                            {% if my_uploads.has_previous %}
+                                                <a href="?page={{ my_uploads.previous_page_number }}" class="pagination-previous"> previous </a>
+                                            {% endif %}
+                                            <span class="current">
+                                                Page {{ my_uploads.number }} of {{ my_uploads.paginator.num_pages }}
+                                            </span>
+                                            {% if my_uploads.has_next %}
+                                                <a href="?page={{ my_uploads.next_page_number }}" class="pagination-next"> next </a>
+                                            {% endif %}
+                                       </span>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        {% endcomment %}
+
+                        {% if object.has_other_pages %}
+                            <div class="container d-flex justify-content-center">
+                              <div class="row">
+                                <div class="col-md-12">
+                                      <ul class="pagination" id="uploads">
+                                        <li class="page-item p-3">
+                                        {% if object.has_previous %}
+                                            <a class="previous" href="?page={{ object.previous_page_number }}">
+                                                <span aria-hidden="true"><i class='fas fa-angle-left fafa-nav-active blue-theme'></i></span>
+                                            </a>
+                                        {% else %}
+                                        <a class="previous"><i class='fas fa-angle-left fafa-nav-in-active'></i></a>
+                                        {% endif %}
+                                        </li>
+                                        {% for page in object.paginator.page_range %}
+                                            {% if object.number == page %}
+                                            <li class="page-item active p-3"><a class="rounded-circle page-link border-color bg-blue-theme" href="?page={{page}}">{{page}}</a></li>
+                                            {% elif page > object.number|add:'-3' and page < object.number|add:'3' %}
+                                            <li class="page-item p-3"><a class="rounded-circle page-link blue-theme" href="?page={{page}}">{{page}}</a></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <li class="page-item p-3">
+                                        {% if object.has_next %}
+                                            <a class="previous blue-theme" href="?page={{ object.next_page_number }}"><span aria-hidden="true"><i class='fas fa-angle-right fafa-nav-in-active'></i></span></a>
+                                        {% else %}
+                                          <a class="next"><i class='fas fa-angle-right fafa-nav-in-active'></i></a>
+                                        {% endif %}
+                                        </li>
+                                      </ul>
+                                </div>
+                              </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 {% endblock %}
