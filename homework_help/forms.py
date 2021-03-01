@@ -38,10 +38,10 @@ class CommentForm(forms.ModelForm):
 
 class QuestionForm(forms.ModelForm):
     question = forms.CharField(label='Question', widget=forms.Textarea(attrs={'placeholder': "Type Your Question here...", 'class': "form-design fade well", 'id': "dropzone", 'rows': 14}), required=True)
-    subjects =forms.ModelChoiceField(empty_label='Eg. Maths, Science',queryset=Subject.objects.filter(is_parent=False), label='Subject', widget=forms.Select(attrs={'class':"form-field-design js-example-basic-multiple", }), required=True)
+    subjects =forms.ModelChoiceField(queryset=Subject.objects.filter(is_parent=False), label='Subject', widget=forms.Select(attrs={'class':"form-field-design js-example-basic-multiple", 'placeholder': "Select Subject"}), required=True)
     file =forms.FileField(label='Upload Files', widget=forms.FileInput(attrs={'class': "form-field-design", 'id': "fileupload", 'data-num':"1"}), required=False)
     solution_deadline = forms.DateField(label='Deadline',
-        widget=widgets.AdminDateWidget(attrs={'type': 'date', 'placeholder': "Date", 'class': "form-field-design"}))
+        widget=widgets.AdminDateWidget(attrs={'type': 'date', 'placeholder': "Date", 'class': "form-field-design datechk"}))
 
 
     class Meta:
@@ -59,10 +59,10 @@ class SolutionForm(forms.ModelForm):
 
 class QuestionHomeForm(forms.ModelForm):
     question = forms.CharField(label='Question', widget=forms.Textarea(attrs={'placeholder':"Type Your Question here...", 'class': "form-control form-design ", 'id': "dropzone" ,'rows':"5"}), required=True)
-    subjects =forms.ModelChoiceField(queryset=Subject.objects.filter(is_parent=False), label='Subject', widget=forms.Select(attrs={'class':"form-control js-example-basic-multiple border-radius-20", }), required=True)
+    subjects =forms.ModelChoiceField(queryset=Subject.objects.filter(is_parent=False), label='Subject', widget=forms.Select(attrs={'class':"form-control js-example-basic-multiple border-radius-20", 'placeholder': "Select Subject"}), required=True)
     file =forms.FileField(label='Files', widget=forms.FileInput(attrs={'class': "form-control", 'id': "fileupload",'data-num':"1"}), required=False)
     solution_deadline = forms.DateField(label='Deadline',
-        widget=widgets.AdminDateWidget(attrs={'type': 'date', 'placeholder': "Date", 'class': "form-field-design"}))
+        widget=widgets.AdminDateWidget(attrs={'type': 'date', 'placeholder': "Date", 'class': "form-field-design datechk"}))
 
     class Meta:
         model = Question
