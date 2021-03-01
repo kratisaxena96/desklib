@@ -992,10 +992,12 @@ ul.assgnmnt_count li {
     padding-right: 20rem;
 }
 .docs_plan_box {
+    color: #000 !important;
     box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important
 }
 
 .docs_plan_box:hover {
+    color: #000 !important;
     margin-top: -2rem;
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
     transition: all 0.4s ease-in-out 0s;

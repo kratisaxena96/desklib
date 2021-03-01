@@ -71,9 +71,9 @@
                                                                     <p><small> /{{ plan.days }}days </small>
                                                                 </div>
 
-                                                                <div class="btn_action text-center pt-4">
-                                                                    <button class="btn btn_common btn_magenta btn_gtstrtd"> Get Started </button>
-                                                                </div>
+<!--                                                                <div class="btn_action text-center pt-4">-->
+                                                                    <button class="btn btn_common btn_magenta btn_gtstrtd text-center pt-4"> Get Started </button>
+<!--                                                                </div>-->
                                                             </div>
 
                                                             <div class="docs_plan_box_lower text-left pt-4 pl-2 pr-2 pb-4">
@@ -127,9 +127,9 @@
                                                                         <p><small> /{{ plan.days }}days </small>
                                                                     </div>
 
-                                                                    <div class="btn_action text-center pt-4">
-                                                                        <button class="btn btn_common btn_magenta btn_gtstrtd"> Get Started </button>
-                                                                    </div>
+<!--                                                                    <div class="btn_action ">-->
+                                                                        <button class="btn btn_common btn_magenta btn_gtstrtd text-center pt-4"> Get Started </button>
+<!--                                                                    </div>-->
                                                                 </div>
 
                                                                 <div class="docs_plan_box_lower text-left pt-4 pl-2 pr-2 pb-4">
@@ -962,10 +962,10 @@ $( document ).ready(function() {
 //			payment_details1['user'] = "{{user}}"
 //			payment_details1['key'] = key
 //			payment_details1['doc'] = "{{doc}}"
-
 //			console.log(payment_details1)
-
 //			body = JSON.stringify(payment_details1);
+
+
         paypal.Buttons({
 
         // Customize button (optional)
@@ -1107,35 +1107,6 @@ $(document).ready(function() {
     });
 });
 
-         $(".#paypal-button-container").click(function () {
-
-             $(".payment-loader").show();
-//              $("#waitttAmazingLover").css("display", "block");
-          });
-
-
-// $('#paypal-button-container').click(function () {
-//    $(this).html('<img src="../../src/assets/images/v2/loading.gif" />'); // A GIF Image of Your choice
-// return false
-// });
 
 </script>
-<!--<script>-->
-<!--var spinner = $('.payment-loader');-->
-<!--$(function() {-->
-<!--  $('#paypal-button-container').click(function(e) {-->
-<!--    e.preventDefault();-->
-<!--    spinner.show();-->
-<!--    $.ajax({-->
-<!--      url: '{% url 'documents:payment-validate' %}',-->
-<!--      data: $(this).serialize(),-->
-<!--      method: 'post',-->
-<!--      dataType: 'JSON'-->
-<!--    }).done(function(resp) {-->
-<!--      spinner.hide();-->
-<!--      alert(resp.status);-->
-<!--    });-->
-<!--  });-->
-<!--});-->
-<!--</script>-->
 {% endblock extra_js %}
