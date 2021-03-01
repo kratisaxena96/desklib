@@ -42,6 +42,7 @@ class DocumentAdminForm(forms.ModelForm):
         cleaned_data = super().clean()
         title = cleaned_data.get("title")
         if title:
+            self.instance.seo_title = title
             qs = Document.objects.filter(title=title)
             if qs:
                 if self.instance.pk is not None:
@@ -50,7 +51,7 @@ class DocumentAdminForm(forms.ModelForm):
                     raise forms.ValidationError(
                         "This Title is already associated with another Document Kindly Try again with another Title."
                     )
-            if len(title) < 24:
+            if len(title) < 26:
                 raise forms.ValidationError(
-                    "Title should be greater than 30 characters"
+                    "Title should be greater than 25 characters"
                 )

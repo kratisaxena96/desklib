@@ -309,6 +309,7 @@ class Document(ModelMeta, models.Model):
             ("change_document_author", "Staff Can Assign Document Author"),
             ("document_download_from_admin", "Document Download From Admin"),
             ("search_in_description", "Search in Description"),
+            ("can_view_all_fields", "Can View All Fields"),
         ]
 
     def __str__(self):
