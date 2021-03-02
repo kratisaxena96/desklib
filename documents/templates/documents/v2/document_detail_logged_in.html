@@ -16,14 +16,6 @@
 <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">-->
 
 <style>
-    .textLayer > span {
-        color: black;
-    }
-    .textLayer {
-        opacity: 1;
-    }
-</style>
-<style>
 .textLayer {
   position: absolute;
   left: 0;
@@ -32,8 +24,11 @@
   bottom: 0;
   overflow: hidden;
   line-height: 1.0;
+  opacity: 1;
 }
-
+.textLayer > span {
+        color: black;
+    }
 .textLayer > span {
   // color: black;
   color: transparent;
@@ -94,33 +89,31 @@ background: rgba(0,0,255,0.3);
 .textLayer .endOfContent.active {
   top: 0px;
 }
-</style>
 
-<style>
-        .page{
-            margin: 15px auto 0px auto;
-            border: 1px solid #c5c5c5;
-            position: relative;
-        }
 
-        .page-image{
-            width: 100%;
-        }
-</style>
-<style>
-        .document-pages .owl-nav > .owl-prev, .document-pages .owl-nav > .owl-next {
-            position: absolute;
-            top: 50%;
-            font-size: 100px !important;
-            color: #000 !important;
-            transform: translateY(-50%);
-        }
-        .document-pages .owl-nav > .owl-prev{
-            left: 0;
-        }
-        .document-pages .owl-nav > .owl-next{
-            right: 0;
-        }
+.page{
+    margin: 15px auto 0px auto;
+    border: 1px solid #c5c5c5;
+    position: relative;
+}
+
+.page-image{
+    width: 100%;
+}
+
+.document-pages .owl-nav > .owl-prev, .document-pages .owl-nav > .owl-next {
+    position: absolute;
+    top: 50%;
+    font-size: 100px !important;
+    color: #000 !important;
+    transform: translateY(-50%);
+}
+.document-pages .owl-nav > .owl-prev{
+    left: 0;
+}
+.document-pages .owl-nav > .owl-next{
+    right: 0;
+}
 
 .loader {
   border: 16px solid #f3f3f3; /* Light grey */
@@ -142,8 +135,8 @@ opacity:0.9 !important;
     overflow: hidden !important;
 //    position: fixed !important;
 }
-
 </style>
+
 <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
 <!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>-->
 {% endblock %}
@@ -157,7 +150,7 @@ opacity:0.9 !important;
                     <ol class="breadcrumb breadcrumb-transparent mb-0 rounded-0">
                         <li class="breadcrumb-item"><a href="/" class="">Home</a></li>
                         <li class="breadcrumb-item"><a href="{% url 'study:study-search'%}" class="">Study</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">{{object.title}}</li>
+                        <li class="breadcrumb-item active Roboto-Bold" aria-current="page">{{object.title}}</li>
                     </ol>
                 </nav>
             </div>
@@ -171,7 +164,7 @@ opacity:0.9 !important;
         <div class="col-md-12 pb-4">
             <ul class="notification-right list-unstyled">
                 {% for message in messages %}
-                <li class="alert alert-warning alert-dismissible fade show" role="alert">
+                <li class="alert alert-warning alert-dismissible fade show">
                     <strong>{{message}}</strong>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -190,7 +183,7 @@ opacity:0.9 !important;
         <article class="col-md-8 border-right">
             <div class="row">
                 <div class="col-md-12 docs_title">
-                    <h3>{{object.title}}</h3>
+                    <h3 class="Roboto-Bold">{{object.title}}</h3>
                     <p>Added on - {{object.created|date:"d M Y"}}</p>
                 </div>
                 <div class="col-md-10 docs_count">
@@ -218,22 +211,22 @@ opacity:0.9 !important;
                         {% if object.pages.all.count %}
                         <li class="d-inline-block p-2 text-center border-right">
                             <p class="blue-theme font-weight-600 mb-1">{{object.pages.all.count}}</p>
-                            <p class="mb-0 blue-theme">pages</p>
+                            <p class="Roboto-Medium mb-0">Pages</p>
                         </li>
                         {% endif %}
                         {% if object.words %}
                         <li class="d-inline-block p-2 text-center border-right">
                             <p class="blue-theme font-weight-600 mb-1">{{object.words}}</p>
-                            <p class="mb-0 blue-theme">words</p>
+                            <p class="Roboto-Medium mb-0">Words</p>
                         </li>
                         {% endif %}
                         <li class="d-inline-block p-2 text-center border-right">
                             <p class="text_yellow font-weight-600 mb-1">{{object.views}}</p>
-                            <p class="mb-0 blue-theme">views</p>
+                            <p class="Roboto-Medium mb-0">Views</p>
                         </li>
                         <li class="d-inline-block text-center p-2">
                             <p class="text_red font-weight-600 mb-1">{{object.total_downloads}}</p>
-                            <p class="mb-0 blue-theme">downloads</p>
+                            <p class="Roboto-Medium mb-0">Downloads</p>
                         </li>
                     </ul>
                 </div>

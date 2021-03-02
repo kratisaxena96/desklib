@@ -7,7 +7,7 @@ from subscription.utils import get_current_subscription
 
 
 class MyProfileView(LoginRequiredMixin, TemplateView):
-    template_name = 'account/v2/my_profile.html'
+    template_name = 'account/my_profile.html'
 
     def get_context_data(self, **kwargs):
         context = super(MyProfileView, self).get_context_data(**kwargs)
