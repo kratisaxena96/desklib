@@ -830,11 +830,7 @@ ul.wrtng_cmpare_acrdn li a {
 }
 
 /*---------- O R D E R   D E T A I L  P A G E  C S S  S T A R T ----------*/
-.bg_banner_order_detail {
-    background-image: url(/static/src/assets/images/v2/bg_banner_order_detail.svg);
-    background-size: cover;
-    background-repeat: no-repeat;
-}
+
 #example_wrapper {
     margin: 2rem 0;
 }
@@ -887,7 +883,7 @@ ul.wrtng_cmpare_acrdn li a {
     color: #405fbd;
 }
 @media (max-width: 575px) {
-    .bg_banner_order_detail {
+    .pg_order_detail {
         background-image: none;
     }
 }
@@ -1667,7 +1663,7 @@ ul.social-icons li:hover {
 }
 
 /*---------- P R O F I L E   P A G E   C S S   S T A R T S----------*/
-.pg_myprofile, .pg_mydownloads, .pg_myuploads, .pg_mysubscription, .pg_parent_subject {
+.pg_myprofile, .pg_mydownloads, .pg_myuploads, .pg_mysubscription, .pg_parent_subject, .pg_order_detail {
     background-image: url(/static/src/assets/images/v2/bg_banner_order_detail.svg);
     background-size: cover;
     background-repeat: no-repeat;

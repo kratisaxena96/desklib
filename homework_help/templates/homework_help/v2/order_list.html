@@ -5,8 +5,8 @@
      {% if messages %}
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
-                    <ul class="notification-right list-unstyled">
+                <div class="col-md-4 notification-right">
+                    <ul class="list-unstyled">
                     {% for message in messages %}
                         <li class="alert alert-warning alert-dismissible fade show">
                             <strong>{{message}}</strong>
@@ -30,7 +30,7 @@
                       <ol class="breadcrumb breadcrumb-transparent mb-0">
                         <li class="breadcrumb-item"><a href="/">Home</a></li>
                         <li class="breadcrumb-item"><a href="{% url 'homework_help:ask-question-view'%}">Homework</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Order</li>
+                        <li class="breadcrumb-item active Roboto-Bold" aria-current="page">Order</li>
                       </ol>
                 </nav>
             </div>
