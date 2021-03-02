@@ -1602,19 +1602,17 @@ ul.tutor_skills li {
 .subject_doclist {
     padding: 3rem 0;
 }
-.bg_subjimgbnr {
-    background-image: url(/static/src/assets/images/v2/colors.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    padding: 6rem 3rem;
+.bg_subjbnr {
+    position: absolute;
+    margin: -14rem 2rem 0;
 }
-.bg_subjimgbnr input {
+.bg_subjbnr input {
     background-color: #f8f9faa8 !importants;
     padding: 1.5rem 1rem;
     border: none;
     box-shadow: 3px 4px 5px #808080b3;
 }
-.bg_subjimgbnr .search-bg {
+.bg_subjbnr .search-bg {
     background-color: #405fbd;
     margin-left: -40px !important;
     padding: 0px 10px;
@@ -1669,7 +1667,7 @@ ul.social-icons li:hover {
 }
 
 /*---------- P R O F I L E   P A G E   C S S   S T A R T S----------*/
-.pg_myprofile, .pg_mydownloads, .pg_myuploads, .pg_mysubscription {
+.pg_myprofile, .pg_mydownloads, .pg_myuploads, .pg_mysubscription, .pg_parent_subject {
     background-image: url(/static/src/assets/images/v2/bg_banner_order_detail.svg);
     background-size: cover;
     background-repeat: no-repeat;

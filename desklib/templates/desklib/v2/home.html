@@ -32,15 +32,15 @@
             {% block messages %}
             {% if messages %}
             <div class="row">
-                <div class="col-md-12">
-                    <ul>
+                <div class="col-md-4 notification-right">
+                    <ul class="list-unstyled">
                         {% for message in messages %}
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <li class="alert alert-warning alert-dismissible fade show">
                             <strong>{{message}}</strong>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                        </div>
+                        </li>
                         {% endfor %}
                     </ul>
                 </div>

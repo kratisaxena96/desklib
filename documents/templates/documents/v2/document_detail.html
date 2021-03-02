@@ -8,11 +8,6 @@
 {% endif %}
 {% endblock %}
 
-
-{% if canonical %}
-<link rel="canonical" href="{{canonical}}"/>
-{% endif %}
-
 {% block extra_css %}
 <style>
     .textLayer > span {
@@ -156,8 +151,8 @@
     {% if messages %}
     <div class="container">
         <div class="row">
-            <div class="col-md-12 pb-4">
-        <ul class="notification-right list-unstyled">
+            <div class="col-md-4 notification-right pb-4">
+        <ul class="list-unstyled">
             {% for message in messages %}
             <li class="alert alert-warning alert-dismissible fade show">
                 <strong>{{message}}</strong>

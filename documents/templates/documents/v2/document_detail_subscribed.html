@@ -158,10 +158,10 @@ opacity:0.9 !important;
 {% if messages %}
 <div class="container">
     <div class="row">
-        <div class="col-md-12 pb-4">
-            <ul class="notification-right list-unstyled">
+        <div class="col-md-4 notification-right pb-4">
+            <ul class="list-unstyled">
                 {% for message in messages %}
-                <li class="alert alert-warning alert-dismissible fade show" role="alert">
+                <li class="alert alert-warning alert-dismissible fade show">
                     <strong>{{message}}</strong>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
