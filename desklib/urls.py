@@ -105,6 +105,7 @@ urlpatterns += i18n_patterns(
 
 # url(r'^admin/', include(admin.site.urls)),
 )
+admin.site.site_header = 'Desklib Administration'
 
 if settings.DEBUG:
     import debug_toolbar
