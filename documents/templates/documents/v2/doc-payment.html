@@ -30,7 +30,7 @@
     <section class="pt-5 pb-5">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-md-12 col-lg-12 text-center mb-4">
+                <div class="col-md-12 col-lg-12 text-center">
                     <h1> Choose Your Plan </h1>
                     <p class="pb-4"> Get the help you need, or your money back </p>
                 </div>
@@ -39,11 +39,11 @@
                     <div class="doc-tab">
                             <ul class="nav nav-tabs border border-radius-40" id="myTab" role="tablist">
                               <li class="nav-item col-6 text-center pl-0 pr-0">
-                                <a class="nav-link active pt-3 pb-3 blue-theme border-radius-40" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
+                                <a class="nav-link active pt-3 pb-3 blue-theme border-radius-40 Roboto-Bold" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
                                     Paid Plan</a>
                               </li>
                               <li class="nav-item col-6 text-center pl-0 pr-0">
-                                <a class="nav-link pt-3 pb-3 blue-theme border-radius-40" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
+                                <a class="nav-link pt-3 pb-3 blue-theme border-radius-40 Roboto-Bold" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
                                     Free Plan</a>
                               </li>
                             </ul>
@@ -52,7 +52,7 @@
                     <div class="tab-content pt-3 pb-3 border-radius-5" id="myTabContent">
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                            <section class="pt-5">
-                                <div class="container">
+                                <div class="container mb-5">
                                     <div class="row">
                                         {% for plan in plan_qs %}
                                             {% if plan.is_pay_per_download %}
@@ -65,8 +65,8 @@
                                                                 <input class="selected_plan" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}" style="display:none;">
 
                                                                 <div class=" pl-2 pr-2">
-                                                                    <div class="ribbon"> Popular </div>
-                                                                    <p class="font-weight-bold"> Per Document Plan </p>
+                                                                    <div class="ribbon"> Best Value </div>
+                                                                    <p class="font-weight-bold"> {{plan}} </p>
                                                                     <h1 class="font-weight-bold"> $ {{ plan.price }} </h1>
                                                                     <p><small> /{{ plan.days }}days </small>
                                                                 </div>
@@ -77,11 +77,13 @@
                                                             </div>
 
                                                             <div class="docs_plan_box_lower text-left pt-4 pl-2 pr-2 pb-4">
-                                                                <ul class="pl-0 pl-4 pr-4">
+                                                                <ul class="list-unstyled pl-0 pl-4 pr-4">
                                                                     <li> <i class="fas fa-check-square check_blue"></i> {{plan.view_limit}} Document view </li>
                                                                     <li> <i class="fas fa-check-square check_blue"></i> {{ plan.download_limit }} Document Download </li>
 <!--                                                                    <li> <i class="fas fa-check-square check_blue"></i> 1 Lesson </li>-->
 <!--                                                                    <li> <i class="fas fa-check-square check_blue"></i> Subjects Available </li>-->
+                                                                    <li> <i class="fas fa-check-square check_blue"></i> Free Customer Support </li>
+                                                                    <li> <i class="fas fa-check-square check_blue"></i> Life Time Access </li>
                                                                 </ul>
                                                             </div>
                                                         </label>
@@ -122,7 +124,8 @@
                                                                     <input class="selected_plan" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}" style="display:none;">
 
                                                                     <div class=" pl-2 pr-2">
-                                                                        <p class="font-weight-bold"> Basic Plan </p>
+                                                                        <div class="ribbon"> Popular </div>
+                                                                        <p class="font-weight-bold"> {{plan}} </p>
                                                                         <h1 class="font-weight-bold"> $ {{ plan.price }} </h1>
                                                                         <p><small> /{{ plan.days }}days </small>
                                                                     </div>
@@ -133,11 +136,13 @@
                                                                 </div>
 
                                                                 <div class="docs_plan_box_lower text-left pt-4 pl-2 pr-2 pb-4">
-                                                                    <ul class="pl-0 pl-4 pr-4">
+                                                                    <ul class="list-unstyled pl-0 pl-4 pr-4">
                                                                         <li> <i class="fas fa-check-square check_blue"></i> {{plan.view_limit}} Document view </li>
                                                                         <li> <i class="fas fa-check-square check_blue"></i> {{ plan.download_limit }} Document Download </li>
 <!--                                                                        <li> <i class="fas fa-check-square check_blue"></i> 1 Lesson </li>-->
 <!--                                                                        <li> <i class="fas fa-check-square check_blue"></i> Subjects Available </li>-->
+                                                                        <li> <i class="fas fa-check-square check_blue"></i> Free Customer Support </li>
+                                                                    <li> <i class="fas fa-check-square check_blue"></i> Life Time Access </li>
                                                                     </ul>
                                                                 </div>
                                                             </label>
@@ -167,18 +172,19 @@
                         </div>
                     </form>
                     {% endcomment %}
-                            <div class="all-currency">
-                               <div class="row pt-5" id="check">
+                            <div class="container all-currency border-radius-40 shadow mt-5" id="check">
+                               <div class="row pt-5">
                                    <div class="col-md-12 text-center">
-                                       <h2>Checkout</h2>
-                                       <h4> You'r buying subscription : <span id="add-money"> </span></h4>
-                                       <p>(No worries! Cancel anytime)</p>
+                                       <h2 class="blue-theme">Complete your subscription for instant access</h2>
+                                       <h4> Plan Name : <span id="add-money"> </span></h4>
+
                                    </div>
                                 </div>
                                 <div class="row">
                                    <div class="col-md-6">
                                        <div class="payment_option text-center">
-                                            <p class="paypal-error text-danger"></p>
+                                           <h5 class="text-left">Payment options : </h5>
+                                           <p class="paypal-error text-danger"></p>
                                            <div id="paypal-button-container"></div>
 
                                            <div id="loader"></div>
@@ -227,20 +233,21 @@
                                                 <div class="docs_plan_box docs_free_plan_box shadow mt-4">
                                                     <div class="docs_plan_box_upper pt-4 pl-2 pr-2 pb-4">
                                                         <div class="d-flex pl-2 pr-2">
-                                                            <div class="flex-fill text-left font-weight-bold"> Starter Plan </div>
+                                                            <div class="flex-fill text-left font-weight-bold"> Our popular free plan </div>
                                                             <div class="d-flex flex-fill justify-content-end">
-                                                                <h5 class="font-weight-bold"> Free <small> /{{ plan.days }}days </small></h5>
+                                                                <h5 class="font-weight-bold"> $ {{ plan.price }} <small> /{{ plan.days }}days </small></h5>
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="docs_plan_box_lower text-left pt-4 pl-2 pr-2 pb-4">
-                                                        <ul class="pl-0 pl-4 pr-4">
-                                                            <li> <i class="fas fa-check-square check_yellow"></i> 1 Document view </li>
-                                                            <li> <i class="fas fa-check-square check_yellow"></i> 1 Document Download </li>
+                                                        <ul class="pl-0 pl-4 pr-4 list-unstyled">
+                                                            <li> <i class="fas fa-check-square check_blue"></i> 1 Document view </li>
+                                                            <li> <i class="fas fa-check-square check_blue"></i> 1 Document Download </li>
                                                         </ul>
 
-                                                        <ul class="text-left" style="line-height: 1.8rem;">
+                                                        <h5 class="pl-4"> Terms to use our free plan : </h5>
+                                                        <ul class="text-left list_circle" style="line-height: 1.8rem;">
                                                             <li>Upload 2 study files ( e.g. assignment, report etc. )</li>
                                                             <li>Don't upload plagiarize content.</li>
                                                             <li>Upload of similar files will lead to rejection.</li>
@@ -255,7 +262,7 @@
                                                         </ul>
 
                                                         <div class="d-flex justify-content-end">
-                                                            <a href="javascript:void(0)" data-toggle="modal" data-target="#myModal" class="btn text-white btn_common btn_magenta"> Upload File </a>
+                                                            <a href="javascript:void(0)" data-toggle="modal" data-target="#myModal" class="btn text-white btn_common btn_blue"> Upload File </a>
                                                         </div>
                                                     </div>
                                                 </div>
