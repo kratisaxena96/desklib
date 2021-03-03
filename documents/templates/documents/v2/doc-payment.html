@@ -10,8 +10,8 @@
          {% if messages %}
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12">
-                        <ul class="notification-right list-unstyled">
+                    <div class="col-md-4 notification-right">
+                        <ul class="list-unstyled">
                         {% for message in messages %}
                             <li class="alert alert-warning alert-dismissible fade show">
                                 <strong>{{message}}</strong>
@@ -66,22 +66,22 @@
 
                                                                 <div class=" pl-2 pr-2">
                                                                     <div class="ribbon"> Popular </div>
-                                                                    <p class="font-weight-bold"> Best Document Plan </p>
+                                                                    <p class="font-weight-bold"> Per Document Plan </p>
                                                                     <h1 class="font-weight-bold"> $ {{ plan.price }} </h1>
                                                                     <p><small> /{{ plan.days }}days </small>
                                                                 </div>
 
 <!--                                                                <div class="btn_action text-center pt-4">-->
-                                                                    <button class="btn btn_common btn_magenta btn_gtstrtd text-center pt-4"> Get Started </button>
+                                                                    <button class="btn btn_common btn_blue btn_gtstrtd text-center"> Get Started </button>
 <!--                                                                </div>-->
                                                             </div>
 
                                                             <div class="docs_plan_box_lower text-left pt-4 pl-2 pr-2 pb-4">
                                                                 <ul class="pl-0 pl-4 pr-4">
-                                                                    <li> <i class="fas fa-check-square check_yellow"></i> {{plan.view_limit}} Document view </li>
-                                                                    <li> <i class="fas fa-check-square check_yellow"></i> {{ plan.download_limit }} Document Download </li>
-                                                                    <li> <i class="fas fa-check-square check_yellow"></i> 1 Lesson </li>
-                                                                    <li> <i class="fas fa-check-square check_yellow"></i> Subjects Available </li>
+                                                                    <li> <i class="fas fa-check-square check_blue"></i> {{plan.view_limit}} Document view </li>
+                                                                    <li> <i class="fas fa-check-square check_blue"></i> {{ plan.download_limit }} Document Download </li>
+<!--                                                                    <li> <i class="fas fa-check-square check_blue"></i> 1 Lesson </li>-->
+<!--                                                                    <li> <i class="fas fa-check-square check_blue"></i> Subjects Available </li>-->
                                                                 </ul>
                                                             </div>
                                                         </label>
@@ -128,16 +128,16 @@
                                                                     </div>
 
 <!--                                                                    <div class="btn_action ">-->
-                                                                        <button class="btn btn_common btn_magenta btn_gtstrtd text-center pt-4"> Get Started </button>
+                                                                        <button class="btn btn_common btn_blue btn_gtstrtd text-center"> Get Started </button>
 <!--                                                                    </div>-->
                                                                 </div>
 
                                                                 <div class="docs_plan_box_lower text-left pt-4 pl-2 pr-2 pb-4">
                                                                     <ul class="pl-0 pl-4 pr-4">
-                                                                        <li> <i class="fas fa-check-square check_yellow"></i> {{plan.view_limit}} Document view </li>
-                                                                        <li> <i class="fas fa-check-square check_yellow"></i> {{ plan.download_limit }} Document Download </li>
-                                                                        <li> <i class="fas fa-check-square check_yellow"></i> 1 Lesson </li>
-                                                                        <li> <i class="fas fa-check-square check_yellow"></i> Subjects Available </li>
+                                                                        <li> <i class="fas fa-check-square check_blue"></i> {{plan.view_limit}} Document view </li>
+                                                                        <li> <i class="fas fa-check-square check_blue"></i> {{ plan.download_limit }} Document Download </li>
+<!--                                                                        <li> <i class="fas fa-check-square check_blue"></i> 1 Lesson </li>-->
+<!--                                                                        <li> <i class="fas fa-check-square check_blue"></i> Subjects Available </li>-->
                                                                     </ul>
                                                                 </div>
                                                             </label>
@@ -168,7 +168,7 @@
                     </form>
                     {% endcomment %}
                             <div class="all-currency">
-                               <div class="row py-5" id="check">
+                               <div class="row pt-5" id="check">
                                    <div class="col-md-12 text-center">
                                        <h2>Checkout</h2>
                                        <h4> You'r buying subscription : <span id="add-money"> </span></h4>

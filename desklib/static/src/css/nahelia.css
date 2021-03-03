@@ -118,6 +118,10 @@ li.breadcrumb-item a{
     z-index: 1;
 }
 /*---------- H E A D E R   S E C T I O N   C S S ----------*/
+.bg_light_black {
+    background-color: #46494a;
+    color: #fff;
+}
 .navbar {
     padding: 1.5rem 0;
 }
@@ -226,7 +230,7 @@ textarea {
         font-family: 'Roboto-Bold';
     }
     .testimonial_box {
-        padding: 2rem 3rem;
+        padding: 2rem;
         margin: 2rem;
         border: 1px solid #405fbd;
         position: relative;
@@ -387,7 +391,8 @@ No media query since this is the default in Bootstrap because it is "mobile firs
 .askques_file span {
     background-color: #f8f8f8;
     height: 3.2rem;
-    line-height: 2rem;
+    line-height: 1rem;
+    font-weight: 300;
 }
 .home_btn_action {
     background-color: #405bde;
@@ -421,6 +426,11 @@ No media query since this is the default in Bootstrap because it is "mobile firs
 }
 .main-content .owl-theme .custom-nav .owl-next, .main-content .owl-theme .custom-nav .owl-prev {
     height: 60px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #444;
+    line-height: 40px;
 }
 
 @media (max-width: 575px) {
@@ -830,11 +840,7 @@ ul.wrtng_cmpare_acrdn li a {
 }
 
 /*---------- O R D E R   D E T A I L  P A G E  C S S  S T A R T ----------*/
-.bg_banner_order_detail {
-    background-image: url(/static/src/assets/images/v2/bg_banner_order_detail.svg);
-    background-size: cover;
-    background-repeat: no-repeat;
-}
+
 #example_wrapper {
     margin: 2rem 0;
 }
@@ -887,7 +893,7 @@ ul.wrtng_cmpare_acrdn li a {
     color: #405fbd;
 }
 @media (max-width: 575px) {
-    .bg_banner_order_detail {
+    .pg_order_detail {
         background-image: none;
     }
 }
@@ -1028,7 +1034,7 @@ ul.assgnmnt_count li {
   color: #fff;
   font-weight: bold;
   box-shadow: 0px 2px 3px rgba(136, 136, 136, 0.25);
-  background: #fcaf3ae3;
+  background: #405fbdb5;
   transform: rotate(45deg);
   position: absolute;
   right: -42px;
@@ -1047,9 +1053,9 @@ ul.assgnmnt_count li {
   z-index: 10000;
 }
 .docs_plan_box:hover .btn_gtstrtd{
-    background: #fff;
-    color: #fcaf3a;
-    border:1px solid #fcaf3a;
+    background: transparent;
+    color: #405fbd !important;
+    border: 1px solid #405fbd;
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
     transition: .5s ease;
 }
@@ -1089,25 +1095,35 @@ ul.assgnmnt_count li {
 .docpay_file label {
     height: 3rem;
     top: -1.5rem !important;
+    -webkit-border-radius: 2rem !important;
+    -moz-border-radius: 2rem !important;
+    -ms-border-radius: 2rem !important;
     border-radius: 2rem !important;
 }
 
 .bg-blue-active {
     color: #000!important;
     margin-top: -2rem;
-    border: 2px dashed #fcaf3ae3;
+    border: 2px dashed #405fbd;
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
     transition: .5s ease;
 }
 .bg-blue-active:before {
     content: "✓";
     position: absolute;
-    color: #fcaf3ae3;
-    font-size: 3rem;
+    color: #ffffff;
+    background-color: #28a745;
+    font-size: 1.5rem;
     font-weight: bold;
+    width: 2rem;
+    height: 2rem;
     margin-top: -1rem;
     z-index: 9;
     transition: .5s ease-in-out;
+    -webkit-border-radius: 2rem;
+    -moz-border-radius: 2rem;
+    -ms-border-radius: 2rem;
+    border-radius: 2rem;
     /* color: #000!important;
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
     border: 2px dashed #405fbd;
@@ -1119,6 +1135,10 @@ ul.assgnmnt_count li {
     position: relative;
     text-align: center;
     color: #405fbd;
+}
+.plan-price:hover a {
+    color: #000!important;
+    text-decoration: none;
 }
 .plan-price a {
     font-size: 1rem;
@@ -1602,19 +1622,17 @@ ul.tutor_skills li {
 .subject_doclist {
     padding: 3rem 0;
 }
-.bg_subjimgbnr {
-    background-image: url(/static/src/assets/images/v2/colors.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    padding: 6rem 3rem;
+.bg_subjbnr {
+    position: absolute;
+    margin: -14rem 2rem 0;
 }
-.bg_subjimgbnr input {
+.bg_subjbnr input {
     background-color: #f8f9faa8 !importants;
     padding: 1.5rem 1rem;
     border: none;
     box-shadow: 3px 4px 5px #808080b3;
 }
-.bg_subjimgbnr .search-bg {
+.bg_subjbnr .search-bg {
     background-color: #405fbd;
     margin-left: -40px !important;
     padding: 0px 10px;
@@ -1669,7 +1687,7 @@ ul.social-icons li:hover {
 }
 
 /*---------- P R O F I L E   P A G E   C S S   S T A R T S----------*/
-.pg_myprofile, .pg_mydownloads, .pg_myuploads, .pg_mysubscription {
+.pg_myprofile, .pg_mydownloads, .pg_myuploads, .pg_mysubscription, .pg_parent_subject, .pg_order_detail {
     background-image: url(/static/src/assets/images/v2/bg_banner_order_detail.svg);
     background-size: cover;
     background-repeat: no-repeat;

@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% load meta %}
 {% block content %}
+<div class="pg_parent_subject">
 <section>
     <div class="container">
         <div class="row">
@@ -10,53 +11,56 @@
                     <ol class="breadcrumb breadcrumb-transparent">
                         <li class="breadcrumb-item"><a href="/">Home</a></li>
                         <li class="breadcrumb-item"><a href="{% url 'subjects:subjects'%}">Subjects</a></li>
-                        <li class="breadcrumb-item active text-dark font-weight-bold" aria-current="page">{{object.name}}</li>
+                        <li class="breadcrumb-item active Roboto-Bold" aria-current="page">{{object.name}}</li>
                     </ol>
                 </nav>
             </div>
         </div>
     </div>
 </section>
-<section class="bg_banner_order_detail">
+<section class="">
     <div class="container">
         <div class="row mb-4 mt-4 pb-2 border-bottom">
-            <div class="col-sm-12">
+            <div class="col-md-12">
                 <div class="d-inline-block">
                     {% if object.info_graphic_image %}
                     <img src="{{ object.info_graphic_image.url }}" alt="{{ image_alt_text.title }}"
-                         class="mt-n2 img-fluid width-50px h-auto pb-3">
+                         class="mt-n2 img-fluid h-auto pb-3">
                     {% elif object.image %}
                     <img src="{{ object.image.url }}" alt="{{ image_alt_text.title }}"
-                         class="mt-n2 img-fluid width-50px h-auto">
+                         class="mt-n2 img-fluid h-auto">
                     {% endif %}
-                </div>
-                <div class="bg_subjimgbnr mb-4">
-                    <h2 class="d-inline ml-md-2" style="font-size:2.2rem;">{{object.name}}</h2>
+
+                    <div class="bg_subjbnr">
+                        <h2 class="d-inline ml-md-2" style="font-size:2.2rem;">{{object.name}}</h2>
 
 
-                    <form class="form-inline mt-4" action="{% url 'study:search-results' %}">
-                        <div class="input-group tt-input-group">
-                            {% if request.GET.q %}
-                            <input type="search" name="q" class="sm-search typeahead form-control border-radius-30"
-                                   placeholder="Search here..." value="{{request.GET.q}}">
-                            {% else %}
-                            <input type="search" name="q" class="sm-search typeahead form-control border-radius-30"
-                                   placeholder="Search here..." value="{{request.GET.q}}">
-                            {% endif %}
-                            <div class="input-group-append">
-                                <button class="btn rounded-circle search-bg" type="submit"><i
-                                        class="fa fa-search search-icon"></i></button>
+                        <form class="form-inline mt-4" action="{% url 'study:search-results' %}">
+                            <div class="input-group tt-input-group">
+                                {% if request.GET.q %}
+                                <input type="search" name="q" class="sm-search typeahead form-control border-radius-30"
+                                       placeholder="Search here..." value="{{request.GET.q}}">
+                                {% else %}
+                                <input type="search" name="q" class="sm-search typeahead form-control border-radius-30"
+                                       placeholder="Search here..." value="{{request.GET.q}}">
+                                {% endif %}
+                                <div class="input-group-append">
+                                    <button class="btn rounded-circle search-bg" type="submit"><i
+                                            class="fa fa-search search-icon"></i></button>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
+            </div>
+            <div class="col-md-12">
                 {% if object.sub_heading %}
                 <p class="pt-4">{{object.sub_heading}}</p>
                 {% elif object.short_description %}
                 <p class="pt-4">{{object.short_description}}</p>
                 {% endif %}
             </div>
-            <div class="col-sm-5"></div>
+
         </div>
         <div class="row mt-4 mb-4">
             {% for child in object.subject_set.all %}
@@ -260,5 +264,5 @@
         </div>
     </div>
 </section>
-
+</div>
 {% endblock %}

@@ -32,15 +32,15 @@
             {% block messages %}
             {% if messages %}
             <div class="row">
-                <div class="col-md-12">
-                    <ul>
+                <div class="col-md-4 notification-right">
+                    <ul class="list-unstyled">
                         {% for message in messages %}
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <li class="alert alert-warning alert-dismissible fade show">
                             <strong>{{message}}</strong>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                        </div>
+                        </li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -204,15 +204,8 @@
                 <div class="col-md-6 ml-auto d-flex align-items-center order-md-1 order-2 mt-4 mb-4 pt-4 pb-4">
                     <div class="pl-4 pr-4">
                         <h2 class="mb-5"> Online Homework Solutions Library </h2>
-                        <p class="text-justify">
-                            Desklib is home to more than millions of study resources for your online homework help we offer you
-                            academic study solutions of every subject as per your requirement. We are fully capable to help you
-                            in various college homework or assignment solutions. Getting the right education will bring you
-                            closer to your dreams and help you to boost your academics career and build the right kind of future
-                            that you want.
-                        </p>
-                        <p class="para text-justify">So, what are you waiting for now! choose our online service to make your
-                            study more interesting and make this your best year. </p>
+                        <p class="text-justify"> Desklib is home to more than millions of study resources for your online homework help we offer you academic study solutions for every subject. Our library has millions of online assignment solutions you can pick any and download for you. Getting the right education will bring you closer to your dreams and help you to boost your academics career and build the right kind of future that you want.  </p>
+
                     </div>
                 </div>
                 <div class="col-md-6 order-md-2 order-1 mt-4 mb-4 pt-4 pb-4">
@@ -232,14 +225,7 @@
                 <div class="col-md-6 ml-auto d-flex align-items-center mt-4 mb-4 pt-4 pb-4">
                     <div class="pl-4 pr-4">
                         <h2 class="mb-5">Homework Help For All Stream Subjects</h2>
-                        <p class="text-justify">
-                            We select the best study material for your college homework help and solutions to assignments,
-                            essays, dissertations ,and case studies. Our Homework Solutions resources are diverse so they can be
-                            used by students studying in any college, enrolled in any course ,or pursuing any degree/level.
-                            Moreover, new documents are added regularly and content is updated as well with improvements. We are
-                            an online homework help website developed for the students where anyone can learn, gain ,and
-                            contribute.
-                        </p>
+                        <p class="text-justify"> We select the best study material for your college homework help and solutions to assignments, essays, dissertations ,and case studies. Our Homework Solutions resources are diverse so they can be used by students studying in any college, enrolled in any course ,or pursuing any degree/level. Moreover, new documents are added regularly and content is updated as well with improvements. </p>
                         <div class="align-self-end ml-auto">
                             <a href="{% url 'homework_help:ask-question-view'%}"
                                class="btn btn_common btn_blue mt-4 px-4">Get Homework Help </a>
@@ -252,13 +238,7 @@
                 <div class="col-md-6 ml-auto d-flex align-items-center order-md-1 order-2 mt-4 mb-4 pt-4 pb-4">
                     <div class="pl-4 pr-4">
                         <h2 class="mb-5"> Avail Online Homework Solutions Today </h2>
-                        <p class="text-justify">Access top quality study materials encompass different study courses at
-                            universities all over the world. You can jump into the best homework help online service where you
-                            pick and choose your requirement and avail the solution at affordable prices. We offer every
-                            stream's all subjects online assistance for college students. They can get 24/7 help with homework
-                            here with us. We have every kind of solution for your homework related help.
-                            You can find the number of sections which are generally designed for you to get your
-                            requirement.</p>
+                        <p class="text-justify"> Access top quality study materials encompass different study courses at universities all over the world. You can jump into the best homework help online service where you pick and choose your requirement and avail the solution at affordable prices. We offer every stream's all subjects online assistance for college students.  </p>
                     </div>
                 </div>
                 <div class="col-md-6 order-md-2 order-1 mt-4 mb-4 pt-4 pb-4">
