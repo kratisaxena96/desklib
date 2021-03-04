@@ -435,7 +435,7 @@ No media query since this is the default in Bootstrap because it is "mobile firs
     font-family: 'Roboto-Bold';
 }
 .get_online_hwhelp h2 {
-    font-family: 'Roboto-Regular';
+    font-family: 'Roboto-Bold';
 }
 .main-content .owl-theme .custom-nav .owl-next, .main-content .owl-theme .custom-nav .owl-prev {
     height: 60px;
