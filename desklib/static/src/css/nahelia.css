@@ -254,7 +254,7 @@ textarea {
     .testimonial_box:hover {
         box-shadow: 2px 4px 8px #d6d8da;
         border: 1px solid #fff;
-        transform: scale(1.5);
+        transform: scale(1.2);
         position: relative;
         z-index: 1;
     }
@@ -846,13 +846,21 @@ ul.wrtng_cmpare_acrdn li a {
 
 
 /*---------- O R D E R   L I S T   P A G E  C S S  S T A R T ----------*/
+.hwh_listoforder {
+    position: relative;
+    transition: 1s;
+}
 .hwh_listoforder:hover {
+    transform: scale(1.2);
+    position: relative;
+    z-index: 1;
     border: 1px dashed #405fbd;
     -webkit-border-radius: 2rem;
     -moz-border-radius: 2rem;
     -ms-border-radius: 2rem;
     border-radius: 2rem;
 }
+
 
 /*---------- O R D E R   D E T A I L  P A G E  C S S  S T A R T ----------*/
 
@@ -1756,8 +1764,11 @@ ul.social-icons li:hover {
     }
 }
 
+/*---------- S E A R C H   P A G E   C S S   S T A R T S----------*/
+
+
 /*---------- P R O F I L E   P A G E   C S S   S T A R T S----------*/
-.pg_myprofile, .pg_mydownloads, .pg_myuploads, .pg_mysubscription, .pg_parent_subject, .pg_order_detail {
+.pg_myprofile, .pg_mydownloads, .pg_myuploads, .pg_mysubscription, .pg_parent_subject, .pg_order_detail, .pg_search {
     background-image: url(/static/src/assets/images/v2/bg_banner_order_detail.svg);
     background-size: cover;
     background-repeat: no-repeat;

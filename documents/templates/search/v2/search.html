@@ -1,0 +1,604 @@
+{% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% load meta %}
+{% load render_json_ld from json_ld %}
+{% load thumbnail %}
+{% load highlight %}
+
+
+{% block content %}
+<div class="pg_search pb-5">
+    <div class="container-fluid bg-3 text-center mt-2">
+    {% block messages %}
+        {% if messages %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 notification-right">
+                        <ul class="list-unstyled">
+                        {% for message in messages %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>{{message}}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endblock %}
+     <form method="get" action="." class="form">
+
+        {{ form.non_field_errors }}
+         {% comment %}
+        <div class="form-group">
+           {{ form.as_p }}
+        </div>
+        <div class="form-group">
+           <input id="1232" type="submit" class="btn text-white btn-bg-theme" value="Search">
+        </div>
+         <h1>{{qry_st}}</h1>
+        {% if sqs.fields.subjects %}
+                <dt>Subject</dt>
+         {% for sub in sqs.fields.subjects|slice:":5" %}
+            <ul>
+                <li><input class="facet" id="{{sub.0|cut:' '}}" type="checkbox" name="selected_facets" value="subjects_exact:{{ sub.0|urlencode }}"
+                    data-toggle="toggle" /> {{ sub.0}} ({{ sub.1 }})
+                </li>
+            </ul>
+         {% endfor %}
+            {% else %}
+                <p>No subject filters.</p>
+            {% endif %}
+        {% if suggestion %}
+        <span>
+           Did You Mean: <a href="{{ request.get_absolute_path }}?q={{suggestion}}" id="suggest">{{suggestion}}</a>
+        </span>
+        {% endif %}
+         <div>
+        <!-- Begin faceting. -->
+            <h2>By Subjects</h2>
+
+            <div>
+                <dl>
+                    {% if facets.fields.subjects %}
+                        <dt>Subject</dt>
+                        {# Provide only the top 5 authors #}
+                        {% for sub in facets.fields.subjects|slice:":5" %}
+                            <dd><a href="{{ request.get_full_path }}&amp;selected_facets=subjects_exact:{{ sub.0|urlencode }}">{{ sub.0 }}</a> ({{ sub.1 }})</dd>
+                        {% endfor %}
+                    {% else %}
+                        <p>No subject filters.</p>
+                    {% endif %}
+                </dl>
+            </div>
+            <!-- End faceting -->
+        </div>
+         <h1>{% for data in abbb %}</h1>
+         <h1>{{ data }}</h1>
+         {% endfor %}
+         {% endcomment %}
+         {% if query or facets %}
+     {% if page_obj.object_list %}
+
+         <div class="container ">
+              <div role="tabpanel">
+                 <ul class="nav nav-tabs ">
+            <li class="nav-item">
+                <a class="nav-link active " href="#All" data-toggle="tab">All</a>
+            </li>
+    <!--                <li class="nav-item">-->
+    <!--                    <a class="nav-link " href="#Latest" data-toggle="tab">Latest</a>-->
+    <!--                </li>-->
+    <!--                <li class="nav-item">-->
+    <!--                    <a class="nav-link " href="#Top" data-toggle="tab">Top</a>-->
+    <!--                </li>-->
+    <!--                <li class="nav-item">-->
+    <!--                    <a class="nav-link" href="#Presentation" data-toggle="tab">Presentation</a>-->
+    <!--                </li>-->
+    <!--                         <li class="nav-item">-->
+    <!--                    <a class="nav-link" href="#solution" data-toggle="tab">solution</a>-->
+    <!--                </li>-->
+    <!--                           <li class="nav-item">-->
+    <!--                    <a class="nav-link" href="#most_d_type" data-toggle="tab">Most Download Type</a>-->
+    <!--                </li>-->
+                </ul>
+                <div class='tab-content'>
+                    <div class='tab-pane active' id='All'>
+                        <p></p>
+                    </div>
+                     <div class='tab-pane' id='Latest'>
+                        <p></p>
+                    </div>
+                    <div class='tab-pane active' id='Top'>
+                        <p></p>
+                    </div>
+                    <div class='tab-pane active' id='Presentation'>
+                        <p></p>
+                    </div>
+                     <div class='tab-pane' id='solution'>
+                    </div>
+                     <div class='tab-pane' id='most_d_type'>
+                        <p> Always learn something new and improve existing knowledge.</p>
+                    </div>
+                </div>
+            </div>
+             <div class="row mb-3">
+                 <div class="col-md-8">
+                     <div class="float-left text-left">
+                          {% if suggestion %}
+                            <span class="mt-4">
+                                Did You Mean: <a href="{{ request.get_absolute_path }}?q={{suggestion}}" id="suggest">{{suggestion}}</a>
+                            </span>
+                            {% endif %}
+                         <p>Showing {{ page_obj.end_index }} of {{ page_obj.paginator.count }} resources</p>
+                     </div>
+                 </div>
+                 <div class="col-md-4 mt-3">
+                     {% if page_obj.has_previous or page_obj.has_next %}
+                    <div class="float-right">
+                        {% if selected %}
+                                {% if page_obj.has_previous %}
+                        <a href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ page_obj.previous_page_number }}"/>
+                            <i class='fas fa-angle-left fafa-nav-active'></i>
+                        </a>
+                        {% endif %}
+                        {% if not page_obj.has_previous %}
+                        <i class='fas fa-angle-left fafa-nav-in-active'>
+                        </i>
+                        {% endif %}
+                                     &nbsp; &nbsp; &nbsp;
+                        {% if page_obj.has_next %}
+                        <a href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ page_obj.next_page_number }}">
+                            <i class='fas fa-angle-right fafa-nav-active'></i>
+                        </a>
+                        {% endif %}
+
+                        {% if not page_obj.has_next %}
+                        <i class='fas fa-angle-right fafa-nav-in-active'>
+                        </i>
+                        {% endif %}
+                        {% else %}
+                                 {% if page_obj.has_previous %}
+                        <a href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}"/>
+                            <i class='fas fa-angle-left fafa-nav-active blue-theme'></i>
+                        </a>
+                        {% endif %}
+                        {% if not page_obj.has_previous %}
+                        <i class='fas fa-angle-left fafa-nav-in-active'>
+                        </i>
+                        {% endif %}
+                                     &nbsp; &nbsp; &nbsp;
+                        {% if page_obj.has_next %}
+                        <a href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}">
+                            <i class='fas fa-angle-right fafa-nav-active blue-theme'>
+                            </i>
+                        </a>
+                        {% endif %}{% if not page_obj.has_next %}
+                        <i class='fas fa-angle-right fafa-nav-in-active'>
+                        </i>
+                        {% endif %}
+                        {% endif %}
+                        {% endif %}
+                 </div>
+             </div>
+         </div>
+        <div class="container">
+             <div class="d-flex flex-row-reverse bd-highlight">
+    <!--                      <div class="p-2 bd-highlight">Flex item 2</div>-->
+                 {% if facets.fields.subjects %}
+                  <div class="p-2 bd-highlight ">
+                       <div class="dropdown">
+                            <a class="btn dropdown-toggle" data-toggle="dropdown">
+                              Subjects
+                            </a>
+                           <div class="dropdown-menu scrollable-menu search-drop" role="menu">
+                               {% for sub in slug_faceit %}
+                                       <a class="dropdown-item" id="{{sub.slug}}" href="?q={{ query }}&amp;selected_facets=subjects_exact:{{ sub.slug|urlencode }}"> {{sub.name}}</a>
+                                 {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                 {% endif %}
+    <!--                     ======================FILTER FUNCTIONALITY======================-ENABLE JS in custom.js====== -->
+    <!--                      <div class="p-2 bd-highlight ">-->
+    <!--                          <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#filerModal">Filters <i class="fa fa-filter" aria-hidden="true"></i></button>-->
+    <!--                        </div>-->
+    <!--                     <div class="modal fade" id="filerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+    <!--                          <div class="modal-dialog" role="document">-->
+    <!--                                <div class="modal-content">-->
+    <!--                                      <div class="modal-header">-->
+    <!--                                            <h5 class="modal-title" id="exampleModalLabel">Filters</h5>-->
+    <!--                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+    <!--                                              <span aria-hidden="true">&times;</span>-->
+    <!--                                            </button>-->
+    <!--                                      </div>-->
+    <!--&lt;!&ndash;                        slider            https://codepen.io/gleamland/pen/OmEPdB&ndash;&gt;-->
+    <!--                                      <div class="modal-body">-->
+    <!--                                            <div class="wrapper" style="padding:20px;">-->
+    <!--                                                <div class="range-slider">-->
+    <!--                                                    <input type="text" class="js-range-slider" value="" />-->
+    <!--                                                </div>-->
+    <!--                                                <input type="hidden" name="q" value="{{query}}"/>-->
+    <!--                                                <div class="extra-controls form-inline">-->
+    <!--                                                    <div class="form-group">-->
+    <!--                                                        <input type="text" name="from_page" class="js-input-from form-control" value="0" />-->
+    <!--                                                        <input type="text" name="to_page" class="js-input-to form-control" value="0" />-->
+    <!--                                                    </div>-->
+    <!--                                                </div>-->
+    <!--                                            </div>-->
+    <!--                                          <div class="wrapper" style="padding:20px;">-->
+    <!--                                                <div class="range-slider">-->
+    <!--                                                    <input type="text" class="js-range-slider-words" value="" />-->
+    <!--                                                </div>-->
+    <!--                                                <input type="hidden" name="q" value="{{query}}"/>-->
+    <!--                                                <div class="extra-controls form-inline">-->
+    <!--                                                    <div class="form-group">-->
+    <!--                                                        <input type="text" name="from_words" class="js-input-from-words form-control" value="0" />-->
+    <!--                                                        <input type="text" name="to_words" class="js-input-to-words form-control" value="0" />-->
+    <!--                                                    </div>-->
+    <!--                                                </div>-->
+    <!--                                            </div>-->
+    <!--                                      </div>-->
+    <!--                                      <div class="modal-footer">-->
+    <!--                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+    <!--                                            <button type="submit" class="btn btn-primary">Submit</button>-->
+    <!--                                      </div>-->
+    <!--                                </div>-->
+    <!--                          </div>-->
+    <!--                    </div>-->
+            </div>
+    <!--               <div class="row">-->
+    <!--                  {% for result in page_obj.object_list %}-->
+    <!--                  <div class="col-sm-6 col-12 col-md-2 justify-content-center">-->
+    <!--                     <a href="{% url 'documents:document-view' result.slug %}">-->
+    <!--                         <div class="card shadow mr-1 mb-5 bg-white rounded">-->
+    <!--                             {% thumbnail result.cover_image_name "200x200" crop="80% top" as im %}-->
+    <!--                                <img class="card-img-top rounded img-fluid img-thumbnail" src="{{ im.url }}" alt="Card image cap">-->
+    <!--                             {% empty %}-->
+    <!--                                <p>No image</p>-->
+    <!--                             {% endthumbnail %}-->
+    <!--                             <div>-->
+    <!--                               <div class="card-text">-->
+    <!--                                   <p>{% highlight result.title with query html_tag "span" css_class "highlight" max_length 27 %}</p>-->
+    <!--                               </div>-->
+    <!--                             </div>-->
+    <!--                         </div>-->
+    <!--                     </a>-->
+    <!--                  </div>-->
+    <!--                   {% endfor%}-->
+    <!--                      {% if not page_obj.object_list %}-->
+    <!--                 <h1>heeloo</h1>-->
+    <!--                 {% endif %}-->
+    <!--               </div>-->
+            {% if questionsearch %}
+            <div class="row">
+                {% for result in page_obj.object_list %}
+                <div class="col-sm-12 mb-4">
+                    <a href="{% url 'homework_help:question-detail-view' result.slug %}" class="text-decoration-none h-100">
+                        <div class="card question-search-hover">
+                            <div class="card-body text-left">
+                                <h6 class="black-font"><strong>Q:</strong>&nbsp;&nbsp;{{result.text|truncatechars:120}}</h6>
+                                <p class="mb-0">
+                                    <span class="black-font"><strong>A:</strong></span>&nbsp;&nbsp;<span class="text-dark">{{result.no_of_answers}}</span>
+                                    <span class="text-dark">Answers Available</span>
+                                </p>
+                                <a href="{% url 'homework_help:order-create-view' uid=result.uid %}" class="padding-left-30">Get Answer</a>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor%}
+            </div>
+
+            {% else %}
+            <div class="row mb-5">
+                 {% for result in page_obj.object_list %}
+                <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
+                    <div class="main-div shadow border-radius-40">
+                        <a href="{% url 'documents:document-view' result.slug %}" class="h-350 d-inline-block w-100">
+                            {% thumbnail result.cover_image_name "200x200" crop="80% top" as im %}
+                            <img class="card-img-top rounded img-fluid " src="{{ im.url }}" alt="documents image">
+                         {% empty %}
+                            <p>No image</p>
+                         {% endthumbnail %}
+                        </a>
+                        <a href="{% url 'documents:document-view' result.slug %}" class="text-decoration-none">
+                            <div class="card-body inner-div bg-light text-left">
+                                 <h6 class="blue-theme">{{result.title|truncatechars:40}}</h6>
+                                 <small class="text-muted">{{result.no_of_pages}}</small>
+                                 <small class="text-muted add-dash">pages</small>
+                                 <small class="text-muted">{{result.no_of_words}}</small>
+                                 <small class="text-muted add-dash">words</small>
+                                 <small class="text-muted d-inline d-md-block">{{result.pub_date|date:"d M Y"}}</small>
+                                 <small class="text-muted pt-1 btn-d-none">{{result.description|safe|truncatechars:30}}</small>
+                                 <a href="{% url 'documents:document-view' result.slug %}" class="btn btn_common btn_blue btn-d-none">View Document</a>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                 {% endfor%}
+            </div>
+            {% endif %}
+
+            <div class="row d-flex justify-content-center mb-5">
+                <div class="col-sm-11 border p-4 border-radius-40 shadow border-top-blue">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-8 col-lg-9">
+                            <div class="d-flex mt-2">
+                                <div class="d-md-inline-block d-none">
+                                    <div>
+                                        <img src="{% static 'dist/assets/images/message2.png' %}" class="text-left">
+                                    </div>
+                                </div>
+                                <div class="d-inline-block ml-3 black-font">
+                                    <h6 class="font text-left font-size-20">Can't find what you are searching for?</h6>
+                                    <p class="text-left text-muted mb-0">Don't worry! we can help you, chat with our experts</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-lg-3">
+                            <a href="https://tawk.to/chat/5d52a62677aa790be32eb23b/default" class="btn btn-bg-theme text-white px-4 border-color mt-3" target="_blank">Chat With Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+         <div class="d-flex justify-content-center">
+             <nav class="d-none d-md-block">
+                 {% if is_paginated %}
+                   <ul class="pagination">
+                       <!--                    <img class="img-responsive" src="{% static 'dist/assets/images/search icon.png' %}" alt="search" height="70px" style="margin-top: -11px; margin-left: -50px;">-->
+                       {% if page_obj.has_previous %}
+                        <li class="page-item p-3">
+                        {% if selected %}
+                            <span class="">
+                                <a href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ page_obj.previous_page_number }}">
+                                    <i class='fas fa-angle-left fafa-nav-active blue-theme'></i>
+                                </a>
+                            </span>
+                        {% else %}
+                            <span class="">
+                                <a href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}">
+                                    <i class='fas fa-angle-left fafa-nav-active blue-theme'></i>
+                                </a>
+                            </span>
+                        {% endif %}
+                    </li>
+                       <li class="page-item pt-4 pr-3">
+                           <a class="blue-theme d-inline-block" href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}">Prev</a>
+                       </li>
+
+                       {% else %}
+                       <li class="page-item disabled p-3">
+                           <span><i class='fas fa-angle-left fafa-nav-in-active'></i></span>
+                       </li>
+                        {% endif %}
+                        {% comment %}
+                       {% if page_obj.number < 5 %}
+                       {% for num in '123456789'|make_list %}
+                       <li class="page-item p-3">
+                           <a class="rounded-circle page-link  blue-theme" href="?q={{ query }}&amp;page={{ num }}">{{ num }}</a>
+                       </li>
+                       {% endfor %}
+                         {% if page_obj.has_next %}
+                        <li class="page-item pt-4 pl-3">
+                           <a class="blue-theme d-inline-block" href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}">Next</a>
+                        </li>
+                       <li class="page-item p-3">
+                           <a class="blue-theme d-inline-block" href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}">
+                               <i class='fas fa-angle-right fafa-nav-active blue-theme'></i>
+                           </a>
+                       </li>
+                       {% endif %}
+                       {% else %}
+                        {% endcomment %}
+
+                       {% for num in page_obj.paginator.page_range %}
+                       {% if page_obj.number == num %}
+                       <li class="page-item active p-3">
+                           <a class="rounded-circle page-link border-color bg-blue-theme" href="#">{{ num }}<span class="sr-only">(current)</span>
+                           </a>
+                       </li>
+                       {%  elif num > page_obj.number|add:'-5' and num < page_obj.number|add:'5' %}
+                       <li class="page-item p-3">
+                           {% if selected %}
+                           <a class="rounded-circle page-link  blue-theme" href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ num }}">{{ num }}</a>
+                           {% else %}
+                           <a class="rounded-circle page-link  blue-theme" href="?q={{ query }}&amp;page={{ num }}">{{ num }}</a>
+                           {% endif %}
+                       </li>
+                            {% endif %}
+                            {% endfor %}
+
+                          {% if page_obj.has_next %}
+                        <li class="page-item pt-4 pl-3">
+                           <a class="blue-theme d-inline-block" href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}">Next</a>
+                        </li>
+                        <li class="page-item p-3">
+                            {% if selected %}
+                                <a class="blue-theme" href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ page_obj.next_page_number }}">
+                                    <i class='fas fa-angle-right fafa-nav-active blue-theme'></i>
+                                </a>
+                            {% else %}
+                                <a class="blue-theme d-inline-block" href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}">
+                                    <i class='fas fa-angle-right fafa-nav-active blue-theme'></i>
+                                </a>
+                            {% endif %}
+                        </li>
+                        {% else %}
+                            <li class="page-item disabled p-3">
+                                <span class=""><i class='fas fa-angle-right fafa-nav-in-active'></i></span>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                </ul>
+                  {% endif %}
+                </nav>
+
+    <!--  pagination for responsive devices  -->
+    <nav class="d-md-none">
+    {% if is_paginated %}
+    <ul class="pagination">
+       {% if page_obj.has_previous %}
+       <li class="page-item p-3">
+           {% if selected %}
+           <span class="">
+               <a href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ page_obj.previous_page_number }}">
+                   <i class='fas fa-angle-left fafa-nav-active blue-theme'></i>
+               </a>
+           </span>
+           {% else %}
+           <span class="">
+               <a href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}">
+                   <i class='fas fa-angle-left fafa-nav-active blue-theme'></i>
+               </a>
+           </span>
+           {% endif %}
+       </li>
+       {% else %}
+       <li class="page-item disabled p-3">
+           <span><i class='fas fa-angle-left fafa-nav-in-active'></i></span>
+       </li>
+       {% endif %}
+
+       {% for num in page_obj.paginator.page_range %}
+       {% if page_obj.number == num %}
+       <li class="page-item active p-3">
+           <a class="rounded-circle page-link border-color bg-blue-theme" href="#">{{ num }}<span class="sr-only">(current)</span>
+           </a>
+       </li>
+       {%  elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
+       <li class="page-item p-3">
+           {% if selected %}
+           <a class="rounded-circle page-link  blue-theme" href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ num }}">{{ num }}</a>
+           {% else %}
+           <a class="rounded-circle page-link  blue-theme" href="?q={{ query }}&amp;page={{ num }}">{{ num }}</a>
+           {% endif %}
+       </li>
+       {% endif %}
+       {% endfor %}
+       {% if page_obj.has_next %}
+       <li class="page-item p-3">
+           {% if selected %}
+           <a class="blue-theme" href="?q={{ query }}&amp;selected_facets={{ selected }}&amp;page={{ page_obj.next_page_number }}">
+               <i class='fas fa-angle-right fafa-nav-active blue-theme'></i>
+           </a>
+           {% else %}
+           <a class="blue-theme" href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}">
+               <i class='fas fa-angle-right fafa-nav-active blue-theme'></i>
+           </a>
+           {% endif %}
+       </li>
+       {% else %}
+       <li class="page-item disabled p-3">
+           <span class=""><i class='fas fa-angle-right fafa-nav-in-active'></i></span>
+       </li>
+       {% endif %}
+       {% endif %}
+    </ul>
+    </nav>
+             {% else %}
+        {% endif %}
+         </div>
+        </div>
+
+
+     </form></div>
+    {% if not page_obj.object_list and not is_empty %}
+    <div class="container mt-5 mb-5">
+     <div class="row">
+         <div class="col-md-5 col-sm-5">
+              <div class="float-left text-left">
+                  {% if suggestion %}
+                    <span class="mt-4">
+                       <p>Did You Mean: <a href="{{ request.get_absolute_path }}?q={{suggestion}}" id="suggest">{{suggestion}}</a></p>
+                    </span>
+                    {% endif %}
+             </div>
+         </div>
+           <div class="col-md-2 col-sm-2 mx-auto text-center">
+               <img src="{% static 'dist/assets/images/not-found.svg'%}" width="160px" height="160px" class="img-fluid"/>
+
+               <h5 class="mt-3">No Results found kindly search with another query</h5>
+         </div>
+              <div class="col-md-5 col-sm-5">
+         </div>
+        </div>
+    </div>
+    {% elif is_empty %}
+    <div class="d-flex justify-content-center mt-4">
+      <div class="col-md-6">
+         <form class="form-inline my-2 my-lg-0" action="{% url 'study:search-results' %}">
+            <div class="form-group input-group w-75 mb-3" id="remote" style="margin:auto">
+                  <input type="search" id="search_bar" name="q" class="form-control search-input box-shadow-3-3-5-5 typeahead" placeholder="Search a topic or subject">
+                  <div class="input-group-append">
+                      <button class="btn btn-lg rounded-circle search-bg search-button" type="submit"><i class="fa fa-search rounded-circle search-icon"></i></button>
+                  </div>
+            </div>
+        </form>
+      </div>
+    </div>
+    <section class="container pt-5 pb-4">
+        <h2 class="text-center pb-4">Explore By Subjects</h2>
+        <div class="row mb-3">
+            {% for p in parent %}
+        <div class="col-sm-6 col-md-4">
+            {% if not p.parent_subject %}
+                     <h4>
+                     <a href="{% url 'subjects:parent-subject-view' p.slug %}" class="card-title black-font">{{ p }}</a> </h4>
+
+                        {% for child in p.subject_set.all %}
+                        <h5>
+                        <a class="card-link blue-theme" href="{% url 'subjects:child-subject-view' p.slug child.slug %}">
+                            {{child}}
+                        </a>
+                    </h5>
+                         <span class="d-block text-muted font-size-12 pb-4">
+                            {% for c in doc_count %}
+                                {% if c.name == child.name %}
+                                    {{c.doc_subject}} documents
+                                {% endif %}
+                            {% endfor %}
+                        </span>
+                        {% endfor %}
+            {% endif %}
+
+        </div>
+        {% endfor %}
+    </div>
+    </section>
+
+
+<!--                <div class="container">-->
+<!--                    <div class="row justijustifyfy-content-cen13ter align-self-center">-->
+<!--                        <section class="container pt-5">-->
+<!--                        <h2 class="text-center">Explore By Subjects</h2>-->
+<!--                        <div class="card-columns">-->
+<!--                        {% for p in parent %}-->
+<!--                            <div class="card border-0">-->
+<!--                              <div class="card-body">-->
+<!--                                <h5 class="card-title">{{ p }}</h5>-->
+<!--                                    {% for child in p.subject_set.all %}-->
+<!--                                    <a class="card-link ml-0 mr-4" href="{% url 'study:search-results' %}?q=&amp;selected_facets=subjects_exact:{{child.slug}}">-->
+<!--                                        {{child}}-->
+<!--                                        </a>-->
+<!--                                    {% endfor %}-->
+
+<!--                              </div>-->
+<!--                            </div>-->
+
+<!--                        {% endfor %}-->
+<!--                            </div>-->
+<!--	                </section>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+{% endif %}
+</div>
+{% endblock %}
+
+
