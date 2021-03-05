@@ -140,8 +140,7 @@
                                     <small class="text-muted add-dash">pages</small>
                                     <small class="text-muted">{{documents.no_of_words}}</small>
                                     <small class="text-muted add-dash">words</small>
-                                    <small class="text-muted d-inline d-md-block">{{documents.pub_date|date:"d M
-                                        Y"}}</small>
+                                    <small class="text-muted d-inline d-md-block">{{documents.pub_date|date}}</small>
                                     <small class="text-muted pt-1 btn-d-none">{{documents.description|safe|truncatechars:30}}</small>
                                     <a href="{% url 'documents:document-view' documents.slug %}"
                                        class="btn btn_common btn_blue btn-d-none mt-3 mb-3">View Document</a>
@@ -165,8 +164,7 @@
                                     <small class="text-muted add-dash">pages</small>
                                     <small class="text-muted">{{documents.no_of_words}}</small>
                                     <small class="text-muted add-dash">words</small>
-                                    <small class="text-muted d-inline d-md-block">{{documents.pub_date|date:"d M
-                                        Y"}}</small>
+                                    <small class="text-muted d-inline d-md-block">{{documents.pub_date|date}}</small>
                                     <small class="text-muted pt-1 btn-d-none">{{documents.description|safe|truncatechars:30}}</small>
                                     <a href="{% url 'documents:document-view' documents.slug %}"
                                        class="btn btn_common btn_blue btn-d-none mt-3 mb-3">View Document</a>

@@ -1,7 +1,7 @@
 {% extends 'desklib/base.html' %}
 {% load meta %}
 {% load staticfiles %}
-
+{% load humanize %}
 {% block canonical %}
 {% if canonical %}
 <link rel="canonical" href="{{canonical}}"/>
@@ -175,88 +175,90 @@
                         <h3 class="Roboto-Bold">{{object.title}}</h3>
                         <p>Added on - {{object.created|date:"d M Y"}}</p>
                     </div>
-                    <div class="col-md-10 docs_count">
-                        <ul class="p-0 d-inline-block">
-                            {% if object.course %}
-                            <li class="d-inline-block p-2 text-center border-right">
-                                <p class="mb-1">{{object.course}}</p>
-                                <p class="mb-0 blue-theme">course code</p>
-                            </li>
-                            {% endif %}
-                            {% comment %}
-                            <!--             <li class="d-inline-block p-2 text-center border-right">-->
-                            <!--                <p class="mb-1">{% for obj in object.subjects.all %}{{obj.name}}{% endfor %}</p>-->
-                            <!--                <p class="mb-0 blue-theme">subject</p>-->
-                            <!--            </li>-->
+                    <div class="col-md-12">
+                        <div class="docs_count d-inline-block">
+                            <ul class="p-0 ">
+                                {% if object.course %}
+                                <li class="d-inline-block p-2 text-center border-right">
+                                    <p class="mb-1">{{object.course}}</p>
+                                    <p class="mb-0 blue-theme">course code</p>
+                                </li>
+                                {% endif %}
+                                {% comment %}
+                                <!--             <li class="d-inline-block p-2 text-center border-right">-->
+                                <!--                <p class="mb-1">{% for obj in object.subjects.all %}{{obj.name}}{% endfor %}</p>-->
+                                <!--                <p class="mb-0 blue-theme">subject</p>-->
+                                <!--            </li>-->
 
-                            <!--            {% if object.type %}-->
-                            <!--             <li class="d-inline-block p-2 text-center border-right">-->
-                            <!--                <p class="mb-1">{{object.type}}</p>-->
-                            <!--                <p class="mb-0 blue-theme">type</p>-->
-                            <!--            </li>-->
+                                <!--            {% if object.type %}-->
+                                <!--             <li class="d-inline-block p-2 text-center border-right">-->
+                                <!--                <p class="mb-1">{{object.type}}</p>-->
+                                <!--                <p class="mb-0 blue-theme">type</p>-->
+                                <!--            </li>-->
 
-                            <!--            {% endif %}-->
-                            {% endcomment %}
-                            {% if object.pages.all.count %}
-                            <li class="d-inline-block p-2 text-center border-right">
-                                <p class="blue-theme font-weight-600 mb-1">{{object.pages.all.count}}</p>
-                                <p class="Roboto-Medium mb-0">Pages</p>
-                            </li>
-                            {% endif %}
-                            {% if object.words %}
-                            <li class="d-inline-block p-2 text-center border-right">
-                                <p class="blue-theme font-weight-600 mb-1">{{object.words}}</p>
-                                <p class="Roboto-Medium mb-0">Words</p>
-                            </li>
-                            {% endif %}
-                            <li class="d-inline-block p-2 text-center border-right">
-                                <p class="text_yellow font-weight-600 mb-1">{{object.views}}</p>
-                                <p class="Roboto-Medium mb-0">Views</p>
-                            </li>
-                            <li class="d-inline-block text-center p-2">
-                                <p class="text_red font-weight-600 mb-1">{{object.total_downloads}}</p>
-                                <p class="Roboto-Medium mb-0">Downloads</p>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-md-2 docs_share">
-                        <ul class="p-0 d-inline-block float-md-right">
-                            <li class="d-inline-block text-center p-2">
-                                <div class="d-inline-block dropdown">
-                                    <a class="shadow border-radius-40 margin-b p-3" data-toggle="dropdown" href="JavaScript:Void(0);">
-                                        <i class="fas fa-share-alt mb-1 blue-theme"></i>
-                                    </a>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item"
-                                           href="https://facebook.com/sharer.php?u=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
-                                           target="_blank"> <i class="fa fa-facebook blue-theme"></i> &nbsp; Share on Facebook</a>
-                                        <a class="dropdown-item"
-                                           href="https://twitter.com/intent/tweet?url=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
-                                           target="_blank"> <i class="fa fa-twitter blue-theme"></i> &nbsp; Share on Twitter</a>
-                                        <a class="dropdown-item"
-                                           href="https://www.linkedin.com/shareArticle?mini=true&url=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
-                                           target="_blank"> <i class="fa fa-linkedin blue-theme"></i> &nbsp; Share on LinkedIn</a>
-                                        <a class="dropdown-item"
-                                           href="https://web.whatsapp.com/send?text=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
-                                           target="_blank"> <i class="fa fa-whatsapp blue-theme"></i> &nbsp; Share on Whatsapp</a>
-                                        <a class="dropdown-item"
-                                           href="mailto:?subject=Read{{object.title}}onScribd&body=I am reading{{object.title}}onDesklib:https://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
-                                           target="_blank"> <i class="fa fa-envelope blue-theme"></i> &nbsp; Share on Mail</a>
-                                        <a class="dropdown-item copy_text"
-                                           href="https://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
-                                           target="_blank"> <i class="fa fa-copy blue-theme"></i> &nbsp; Copy Link</a>
+                                <!--            {% endif %}-->
+                                {% endcomment %}
+                                {% if object.pages.all.count %}
+                                <li class="d-inline-block p-2 text-center border-right">
+                                    <p class="blue-theme font-weight-600 mb-1">{{object.pages.all.count}}</p>
+                                    <p class="Roboto-Medium mb-0">Pages</p>
+                                </li>
+                                {% endif %}
+                                {% if object.words %}
+                                <li class="d-inline-block p-2 text-center border-right">
+                                    <p class="blue-theme font-weight-600 mb-1">{{object.words}}</p>
+                                    <p class="Roboto-Medium mb-0">Words</p>
+                                </li>
+                                {% endif %}
+                                <li class="d-inline-block p-2 text-center border-right">
+                                    <p class="text_yellow font-weight-600 mb-1">{{object.views}}</p>
+                                    <p class="Roboto-Medium mb-0">Views</p>
+                                </li>
+                                <li class="d-inline-block text-center p-2">
+                                    <p class="text_red font-weight-600 mb-1">{{object.total_downloads}}</p>
+                                    <p class="Roboto-Medium mb-0">Downloads</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="docs_share d-inline-block">
+                            <ul class="p-0  float-md-right">
+                                <li class="d-inline-block text-center p-2">
+                                    <div class="d-inline-block dropdown">
+                                        <a class="shadow border-radius-40 margin-b p-3" data-toggle="dropdown" href="JavaScript:Void(0);">
+                                            <i class="fas fa-share-alt mb-1 blue-theme"></i>
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item"
+                                               href="https://facebook.com/sharer.php?u=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
+                                               target="_blank"> <i class="fa fa-facebook blue-theme"></i> &nbsp; Share on Facebook</a>
+                                            <a class="dropdown-item"
+                                               href="https://twitter.com/intent/tweet?url=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
+                                               target="_blank"> <i class="fa fa-twitter blue-theme"></i> &nbsp; Share on Twitter</a>
+                                            <a class="dropdown-item"
+                                               href="https://www.linkedin.com/shareArticle?mini=true&url=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
+                                               target="_blank"> <i class="fa fa-linkedin blue-theme"></i> &nbsp; Share on LinkedIn</a>
+                                            <a class="dropdown-item"
+                                               href="https://web.whatsapp.com/send?text=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
+                                               target="_blank"> <i class="fa fa-whatsapp blue-theme"></i> &nbsp; Share on Whatsapp</a>
+                                            <a class="dropdown-item"
+                                               href="mailto:?subject=Read{{object.title}}onScribd&body=I am reading{{object.title}}onDesklib:https://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
+                                               target="_blank"> <i class="fa fa-envelope blue-theme"></i> &nbsp; Share on Mail</a>
+                                            <a class="dropdown-item copy_text"
+                                               href="https://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
+                                               target="_blank"> <i class="fa fa-copy blue-theme"></i> &nbsp; Copy Link</a>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                        </ul>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
                 <div class="row docsdetaildwnld">
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 d-none d-lg-block">
                         <span class="d-inline-block d-sm-inline-block w-100 text-left text-md-left text-lg-left text-muted Roboto-Bold"> Trusted by +2 million users, <br/> assist thousands of students everyday  </span>
                     </div>
-                    <div class="col-lg-6 text-right">
+                    <div class="col-lg-6 text-center text-md-right">
                         <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn_common btn_blue"
                            rel="nofollow"> Download This Document </a>
                     </div>
@@ -457,10 +459,9 @@
                                                     <small class="text-muted">{{results.no_of_words}}</small>
                                                     <small class="text-muted add-dash">words</small>
                                                 </span>
-                                                    <small class="text-muted d-block">{{results.pub_date|date:"d M
-                                                        Y"}}</small>
+                                                    <small class="text-muted d-block">{{results.pub_date | date}}</small>
                                                     <a href="{% url 'documents:document-view' results.slug %}"
-                                                       class="btn btn-bg-theme text-white mt-3 mb-3 pt-1 pb-1 border-radius-20 w-100">View</a>
+                                                       class="btn btn_common btn_blue mt-3 mb-3 w-100">View</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -482,10 +483,9 @@
                                                     <small class="text-muted">{{results.no_of_words}}</small>
                                                     <small class="text-muted add-dash">words</small>
                                                 </span>
-                                                    <small class="text-muted d-block">{{results.pub_date|date:"d M
-                                                        Y"}}</small>
+                                                    <small class="text-muted d-block">{{results.pub_date | date}}</small>
                                                     <a href="{% url 'documents:document-view' results.slug %}"
-                                                       class="btn btn-bg-theme text-white mt-3 mb-3 pt-1 pb-1 border-radius-20 w-100">View</a>
+                                                       class="btn btn_common btn_blue mt-3 mb-3 w-100">View</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -507,8 +507,7 @@
                                                     <small class="text-muted">{{results.no_of_words}}</small>
                                                     <small class="text-muted add-dash">words</small>
                                                 </span>
-                                                    <small class="text-muted d-block">{{results.pub_date|date:"d M
-                                                        Y"}}</small>
+                                                    <small class="text-muted d-block">{{results.pub_date | date}}</small>
                                                     <a href="{% url 'documents:document-view' results.slug %}"
                                                        class="btn btn_common btn_blue mt-3 mb-3 w-100">View</a>
                                                 </div>
@@ -542,7 +541,7 @@
                     <div class="text-center">
                         <p>Subscribe or upgrade to access study resources for your class.</p>
                         <a href='{% url "documents:document-pay"%}?doc={{object.slug}}'
-                           class="btn btn-bg-theme text-white border-radius-40 mb-3" rel="nofollow">Download This
+                           class="btn btn_common btn_blue mt-3 mb-3" rel="nofollow">Download This
                             Document</a>
 
                         <p class="pt-2">Already on Desklib? <a href="{% url 'account_login' %}">Log in</a></p>

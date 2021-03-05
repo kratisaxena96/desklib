@@ -18,9 +18,7 @@
 /*---------- I N D E X I N G  E N D ----------*/
 
 /*---------- C O M M O N  C S S  S T A R T ----------*/
-/*
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-*/
+
 body {
     color: #303030;
     font-size: 1rem;
@@ -925,7 +923,13 @@ ul.wrtng_cmpare_acrdn li a {
     background-color: #feefd8;
     border-radius: 2rem;
     padding: 1rem 1rem;
-    margin: 1rem;
+    margin: 1rem 0;
+}
+.docs_count {
+    width: 80%;
+}
+.docs_share {
+    width: 20%;
 }
 .document-similar-height {
     height: 350px;
@@ -975,7 +979,7 @@ ul.assgnmnt_count li {
 }
 
 .authentic {
-    padding: 2rem 3rem;
+    padding: 2rem 1rem;
     border: 1px solid #405fbd;
     -webkit-border-radius: 2rem;
     -moz-border-radius: 2rem;
@@ -983,13 +987,17 @@ ul.assgnmnt_count li {
     border-radius: 2rem;
 }
 .task_box {
-    padding: 0rem 3rem;
+    padding: 0;
     border: 0;
 }
 .task_box .page {
+    width: 100%;
     margin: 15px auto 0px auto;
     border: 1px solid #405fbd;
     position: relative;
+    -webkit-border-radius: 2rem;
+    -moz-border-radius: 2rem;
+    -ms-border-radius: 2rem;
     border-radius: 2rem;
 }
 .task_box .page .page-image{
@@ -1000,9 +1008,26 @@ ul.assgnmnt_count li {
     -ms-border-radius: 2rem;
     border-radius: 2rem;
 }
+.hover-div {
+    position: absolute;
+    bottom: -140px;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100px;
+    cursor: pointer;
+    transition: .8s ease;
+}
 @media (max-width: 575px) {
     .blur_previewdocs {
         width: auto;
+    }
+    .blur-content {
+        height: 410px;
+    }
+    .page .card {
+        width: 80%;
     }
     .task_box {
         padding: 0;
@@ -1011,7 +1036,7 @@ ul.assgnmnt_count li {
         width: 90%;
     }
     .docs_title, .docs_count, .docs_share {
-        text-align: center;
+        text-align: left;
     }
 }
 
