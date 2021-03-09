@@ -176,15 +176,15 @@ opacity:0.9 !important;
 {% endblock %}
 <div class="container">
     <div class="row pt-0 pt-sm-5">
-        <article class="col-md-8 border-right">
+        <article class="col-md-9">
             <div class="row">
                 <div class="col-md-12 docs_title">
                     <h3 class="Roboto-Bold">{{object.title}}</h3>
                     <p>Added on - {{object.created|date:"d M Y"}}</p>
                 </div>
-                <div class="col-md-12">
-                    <div class="docs_count d-inline-block">
-                        <ul class="p-0 ">
+<!--                <div class="col-md-12">-->
+                    <div class="col-md-6 docs_count ">
+                        <ul class="p-0 d-inline-block">
                             {% if object.course %}
                             <li class="d-inline-block p-2 text-center border-right">
                                 <p class="mb-1">{{object.course}}</p>
@@ -227,8 +227,8 @@ opacity:0.9 !important;
                             </li>
                         </ul>
                     </div>
-                    <div class="docs_share d-inline-block">
-                        <ul class="p-0  float-md-right">
+                    <div class="col-md-6 docs_share ">
+                        <ul class="p-0 d-inline-block float-md-right">
                             <li class="d-inline-block text-center p-2 ">
                                 <div class="dropdown">
                                     <a class="shadow border-radius-40 margin-b p-3" data-toggle="dropdown" href="JavaScript:Void(0);">
@@ -258,7 +258,7 @@ opacity:0.9 !important;
                             </li>
                         </ul>
                     </div>
-                </div>
+<!--                </div>-->
             </div>
             {% comment %}
             <!--            <li class="d-inline-block text-center p-2">-->
@@ -440,7 +440,7 @@ opacity:0.9 !important;
             {% endcomment %}
         </article>
 
-        <aside class="col-md-4">
+        <aside class="col-md-3">
             <section>
                 <div class="findatutor text-center">
                     <h4 class="blue-theme">Click to find the perfect tutor matching your custom needs</h4>

@@ -32,18 +32,18 @@
             <div class="row justify-content-center">
                 <div class="col-md-12 col-lg-12 text-center">
                     <h1> Choose Your Plan </h1>
-                    <p class="pb-4"> Get the help you need, or your money back </p>
+                    <p class="plan_sub_title pb-4"> Get the help you need, or your money back </p>
                 </div>
 
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="doc-tab">
                             <ul class="nav nav-tabs border border-radius-40" id="myTab" role="tablist">
                               <li class="nav-item col-6 text-center pl-0 pr-0">
-                                <a class="nav-link active pt-3 pb-3 blue-theme border-radius-40 Roboto-Bold" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
+                                <a class="nav-link active pt-3 pb-3 blue-theme border-radius-40 Roboto-Bold clickpaid" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
                                     Paid Plan</a>
                               </li>
                               <li class="nav-item col-6 text-center pl-0 pr-0">
-                                <a class="nav-link pt-3 pb-3 blue-theme border-radius-40 Roboto-Bold" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
+                                <a class="nav-link pt-3 pb-3 blue-theme border-radius-40 Roboto-Bold clickfree" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
                                     Free Plan</a>
                               </li>
                             </ul>
@@ -1107,6 +1107,14 @@ $( document ).ready(function() {
 
 <script>
 $(document).ready(function() {
+    $(".clickfree").click(function(){
+        $(".plan_sub_title").hide();
+    });
+    $(".clickpaid").click(function(){
+        $(".plan_sub_title").show();
+    });
+
+
     $("#plan-name").text('');
     $('.parent').on('click',function(){
         var curr = $('.package_name', this).text();

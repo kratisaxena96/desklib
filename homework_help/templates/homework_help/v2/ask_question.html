@@ -237,6 +237,47 @@
 				</div>
 				<div class="col-md-8">
 					<div id="accordion" class="accordion">
+						<div class="card">
+							{% for content in accordion_content %}
+							<div class="" id="{{ content.id }}">
+							<div class="card-header collapsed mb-0" data-toggle="collapse" href="#{{ content.slug }}">
+								<div class="pr-5"><a class="card-title" onclick="showDetails(this)" data-aacordion="check" data-check="acc{{forloop.counter}}" id="{{ content.accordion_title }}">
+									{{ content.accordion_title }}
+								</a></div>
+							</div>
+							<div id="{{ content.slug }}" class="card-body collapse" data-parent="#accordion" >
+								<p class="text-justify pb-3">{{ content.accordion_description }}</p>
+							</div>
+							</div>
+							{% endfor %}
+						</div>
+					</div>
+				  </div>
+
+
+				   <div class="col-md-4 mt-sm-0 mt-md-0 d-none d-lg-block">
+					   <ul class="list-group sticky-top">
+						  {% for content in accordion_content %}
+						   <li class="list-group-item" id="acc{{forloop.counter}}">
+							   <a href=#{{ content.id }} class="">{{ content.accordion_title }}</a>
+						   </li>
+						   {% endfor %}
+					   </ul>
+				   </div>
+			  </div>
+		</div>
+	</section>
+
+
+	{% comment %}
+	<section class="pt-5 pb-5 mt-4">
+		<div class="container">
+			  <div class="row">
+				  <div class="col-sm-12 col-md-12 text-center">
+					<h2 class="pb-4"> Get Qualified Answer to Your Question on Desklib </h2>
+				</div>
+				<div class="col-md-8">
+					<div id="accordion" class="accordion">
 						<div class="mb-0">
 							{% for content in accordion_content %}
 							<div class="hrz-border" id="{{ content.id }}">
@@ -254,8 +295,7 @@
 					</div>
 				  </div>
 
-
-				   <div class="col-md-4 mt-2 mt-sm-0 mt-md-0 pt-4 pr-3 d-none d-lg-block">
+				  <div class="col-md-4 mt-2 mt-sm-0 mt-md-0 pt-4 pr-3 d-none d-lg-block">
 					   <ul class="list-group sticky-top">
 						  {% for content in accordion_content %}
 						   <li class="accordian-border mb-5" id="acc{{forloop.counter}}">
@@ -268,7 +308,7 @@
 			  </div>
 		</div>
 	</section>
-
+	{% endcomment %}
 
 
 {% comment %}
