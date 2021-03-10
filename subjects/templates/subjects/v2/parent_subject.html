@@ -22,13 +22,13 @@
     <div class="container">
         <div class="row mb-4 mt-4 pb-2 border-bottom">
             <div class="col-md-12">
-                <div class="d-inline-block">
+                <div class="d-inline-block ps_subj_bnr">
                     {% if object.info_graphic_image %}
                     <img src="{{ object.info_graphic_image.url }}" alt="{{ image_alt_text.title }}"
-                         class="mt-n2 img-fluid h-auto pb-3">
+                         class="img-fluid">
                     {% elif object.image %}
                     <img src="{{ object.image.url }}" alt="{{ image_alt_text.title }}"
-                         class="mt-n2 img-fluid h-auto">
+                         class="img-fluid">
                     {% endif %}
 
                     <div class="bg_subjbnr">
