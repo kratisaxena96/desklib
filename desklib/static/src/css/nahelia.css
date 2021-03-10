@@ -1853,6 +1853,62 @@ ul.social-icons li:hover {
     color: #000;
 }
 
+.show-loader{
+   display: none;
+}
+.loading:before {
+   content: '';
+   display: block;
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: #000;
+   opacity: .5;
+   z-index: 9999;
+}
+.loader-container{
+   position: fixed;
+   z-index: 9999;
+   height: 249px;
+   max-width: 500px;
+   margin: 1.75rem auto;
+   top: 35%;
+   left: 0;
+   bottom: 0;
+   right: 0;
+}
+.loader {
+   margin-left: auto;
+   margin-right: auto;
+   border: 16px solid #f3f3f3;
+   border-top: 16px solid #3498db;
+   border-radius: 50%;
+   width: 120px;
+   height: 120px;
+   animation: spin 3s linear infinite;
+}
+@keyframes spin {
+   0% {
+   -webkit-transform: rotate(0deg);
+   -moz-transform: rotate(0deg);
+   -ms-transform: rotate(0deg);
+   -o-transform: rotate(0deg);
+   transform: rotate(0deg);
+   }
+   100% {
+   -webkit-transform: rotate(360deg);
+   -moz-transform: rotate(360deg);
+   -ms-transform: rotate(360deg);
+   -o-transform: rotate(360deg);
+   transform: rotate(360deg);
+   }
+}
+.loader-open {
+   overflow: hidden !important;
+}
+
 /*---------- A B O U T   P A G E   C S S   S T A R T S----------*/
 .bg_banner_about {
     background-image: url(/static/src/assets/images/v2/bg_banner_about.svg);

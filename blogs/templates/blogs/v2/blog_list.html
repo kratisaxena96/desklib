@@ -1,65 +1,7 @@
 {% extends "desklib/base.html" %}
 {% load staticfiles %}
 {% load thumbnail %}
-{% block extra_css %}
-<style>
-   .show-loader{
-   display: none;
-   }
-   .loading:before {
-   content: '';
-   display: block;
-   position: fixed;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   background-color: #000;
-   opacity: .5;
-   z-index: 9999;
-   }
-   .loader-container{
-   position: fixed;
-   z-index: 9999;
-   height: 249px;
-   max-width: 500px;
-   margin: 1.75rem auto;
-   top: 35%;
-   left: 0;
-   bottom: 0;
-   right: 0;
-   }
-   .loader {
-   margin-left: auto;
-   margin-right: auto;
-   border: 16px solid #f3f3f3;
-   border-top: 16px solid #3498db;
-   border-radius: 50%;
-   width: 120px;
-   height: 120px;
-   animation: spin 3s linear infinite;
-   }
-   @keyframes spin {
-   0% {
-   -webkit-transform: rotate(0deg);
-   -moz-transform: rotate(0deg);
-   -ms-transform: rotate(0deg);
-   -o-transform: rotate(0deg);
-   transform: rotate(0deg);
-   }
-   100% {
-   -webkit-transform: rotate(360deg);
-   -moz-transform: rotate(360deg);
-   -ms-transform: rotate(360deg);
-   -o-transform: rotate(360deg);
-   transform: rotate(360deg);
-   }
-   }
-   .loader-open {
-   overflow: hidden !important;
-   }
-</style>
-{% endblock extra_css %}
+
 {% block content %}
 <section>
    <div class="container">
@@ -68,7 +10,7 @@
             <nav aria-label="breadcrumb">
                <ol class="breadcrumb breadcrumb-transparent mb-0 rounded-0">
                   <li class="breadcrumb-item"><a href="/" class="">Home</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">blog</li>
+                  <li class="breadcrumb-item active Roboto-Bold" aria-current="page">blog</li>
                </ol>
             </nav>
          </div>
@@ -80,7 +22,7 @@
    <div class="container pt-5 pb-5">
       <div class="row mt-4">
          <div class="col-md-8">
-            <div class="pr-md-4">
+            <div class="col-md-12">
                <div class="row">
                   {% for blog in object_list %}
                   <div class="col-md-6 mb-4">
@@ -94,7 +36,7 @@
                            <div class="card-body">
                               <h6 class="black-font">{{blog.title}}</h6>
                               {% if blog.short_description %}
-                              <small class="text-muted">{{blog.short_description}}</small>
+<!--                              <small class="text-muted">{{blog.short_description}}</small>-->
                               {% endif %}
                               <p class="border-bottom py-2"></p>
                               <small class="border-right text-muted pr-3 text-capitalize">{{blog.author.first_name}}</small>
@@ -106,6 +48,7 @@
                   {% endfor %}
                </div>
             </div>
+
             {% if object.has_other_pages %}
             <div class="row">
                <div class="col-md-12">
@@ -142,91 +85,208 @@
             </div>
             {% endif %}
          </div>
-         <div class="col-lg-4">
-            <div class="row">
-               <div class="col-md-12">
-                  <div class="blog_form_box shadow">
-                     <form method="POST" id="signup" novalidate="novalidate" class="blog_form">
-                        {% csrf_token %}
-                        <div class="row mt-2">
-                           <div class="col-md-12 col-lg-12">
-                              <div class="form-group">
-                                 <img src="{% static 'src/assets/images/v2/banner_contact.svg' %}" alt="Blog Form Image" class="img-fluid" />
+            <div class="col-lg-4">
+               <div class="row">
+                  <div class="col-md-12">
+                     <div class="blog_form_box shadow">
+                        <form method="POST" id="signup" novalidate="novalidate" class="blog_form">
+                           {% csrf_token %}
+                           <div class="row mt-2">
+                              <div class="col-md-12 col-lg-12 d-flex">
+                                 <div class="form-group mx-auto">
+                                    <img src="{% static 'src/assets/images/v2/preview_docs.svg' %}" alt="Blog Form Image" class="img-fluid" />
+                                 </div>
                               </div>
                            </div>
-                        </div>
-                        <div class="row mt-2">
-                           <div class="col-md-12 col-lg-12">
-                              <div class="form-group">
-                                 <input type="text" id="username" name="name" class="mb-2 form-control border-radius-40" placeholder="Enter Name..">
-                                 <span class="name text-danger"></span>
+                           <div class="row mt-2">
+                              <div class="col-md-12 col-lg-12">
+                                 <div class="form-group">
+                                    <input type="text" id="username" name="name" class="mb-2 form-control border-radius-40" placeholder="Enter Name..">
+                                    <span class="name text-danger"></span>
+                                 </div>
                               </div>
                            </div>
-                        </div>
-                        <div class="row mt-2">
-                           <div class="col-md-12 col-lg-12">
-                              <div class="form-group">
-                                 <input type="text" name="email" class="mb-2 form-control border-radius-40" id="newemail" placeholder="Enter Email..">
-                                 <span class="email text-danger"></span>
+                           <div class="row mt-2">
+                              <div class="col-md-12 col-lg-12">
+                                 <div class="form-group">
+                                    <input type="text" name="email" class="mb-2 form-control border-radius-40" id="newemail" placeholder="Enter Email..">
+                                    <span class="email text-danger"></span>
+                                 </div>
                               </div>
                            </div>
-                        </div>
-                        <div class="row mt-2">
-                           <div class="col-md-12 col-lg-12">
-                              <div class="form-group">
-                                 <textarea name="message" class="mb-2 form-control border-radius-40" id="message" placeholder="Type Message"></textarea>
-                                 <span class="message text-danger"></span>
+                           <div class="row mt-2">
+                              <div class="col-md-12 col-lg-12">
+                                 <div class="form-group">
+                                    <textarea name="message" class="mb-2 form-control border-radius-40" id="message" placeholder="Type Message"></textarea>
+                                    <span class="message text-danger"></span>
+                                 </div>
                               </div>
                            </div>
-                        </div>
-                        <div class="row mt-2 mb-2">
-                           <div class="col-lg-12">
-                              <input id="submit-button" type="submit" value="Submit" class="btn btn_common btn_blue d-block w-100">
+                           <div class="row mt-2 mb-2">
+                              <div class="col-lg-12">
+                                 <input id="submit-button" type="submit" value="Submit" class="btn btn_common btn_blue d-block w-100">
+                              </div>
                            </div>
-                        </div>
-                     </form>
-                  </div>
-               </div>
-            </div>
-            {% if featured_blog %}
-            <div class="mt-4 mt-lg-5">
-               <div class="card pt-3 pl-3 pb-3 pr-3 rounded-bottom rounded-0 shadow">
-                  <div class="row">
-                     <div class="col-md-12">
-                        <p class="mt-3 mt-md-0"><strong>Featured Posts</strong></p>
+                        </form>
                      </div>
                   </div>
                </div>
-               <div class="card pt-3 pl-3 pr-3 rounded-bottom rounded-0 border-top-0 shadow">
-                  <div class="row">
-                     {% for featured_blog in featured_blog %}
-                     <div class="col-4 col-md-4 mb-3">
-                        <a href="{% url 'blog_detail' year=featured_blog.published_date|date:'Y' month=featured_blog.published_date|date:'m' date=featured_blog.published_date|date:'d' slug=featured_blog.slug %}" class="">
-                           <div class="">
-                              {% thumbnail featured_blog.cover_image "304x304" crop="top" as im %}
-                              <img src="{{ im.url }}" alt="{{featured_blog.title}}" class="img-fluid">
-                               {% endthumbnail %}
-                           </div>
-                        </a>
+               {% comment %}
+               {% if featured_blog %}
+               <div class="mt-4 mt-lg-5">
+                  <div class="card pt-3 pl-3 pb-3 pr-3 rounded-bottom rounded-0 shadow">
+                     <div class="row">
+                        <div class="col-md-12">
+                           <p class="mt-3 mt-md-0"><strong>Featured Posts</strong></p>
+                        </div>
                      </div>
-                     <div class="col-8 col-md-8 mt-3 mt-md-3 mt-lg-3 mt-xl-0">
-                        <a href="{% url 'blog_detail' year=featured_blog.published_date|date:'Y' month=featured_blog.published_date|date:'m' date=featured_blog.published_date|date:'d' slug=featured_blog.slug %}" class="text-decoration-none">
-                           <div class="px-3 px-md-0">
-                              <p class="black-font">{{featured_blog.title}}</p>
-                              <p class="black-font">
+                  </div>
+                  <div class="card pt-3 pl-3 pr-3 rounded-bottom rounded-0 border-top-0 shadow">
+                     <div class="row">
+                        {% for featured_blog in featured_blog %}
+                        <div class="col-4 col-md-4 mb-3">
+                           <a href="{% url 'blog_detail' year=featured_blog.published_date|date:'Y' month=featured_blog.published_date|date:'m' date=featured_blog.published_date|date:'d' slug=featured_blog.slug %}" class="">
+                              <div class="">
+                                 {% thumbnail featured_blog.cover_image "304x304" crop="top" as im %}
+                                 <img src="{{ im.url }}" alt="{{featured_blog.title}}" class="img-fluid">
+                                  {% endthumbnail %}
+                              </div>
+                           </a>
+                        </div>
+                        <div class="col-8 col-md-8 mt-3 mt-md-3 mt-lg-3 mt-xl-0">
+                           <a href="{% url 'blog_detail' year=featured_blog.published_date|date:'Y' month=featured_blog.published_date|date:'m' date=featured_blog.published_date|date:'d' slug=featured_blog.slug %}" class="text-decoration-none">
+                              <div class="px-3 px-md-0">
+                                 <p class="black-font">{{featured_blog.title}}</p>
+                                 <p class="black-font">
 
-                              <small class="border-right text-muted pr-2 text-capitalize">{{featured_blog.author.first_name}}</small>   <small class="text-muted pl-2">{{featured_blog.published_date|date:"d M Y"}}</small>
-                              </p>
-                           </div>
-                        </a>
+                                 <small class="border-right text-muted pr-2 text-capitalize">{{featured_blog.author.first_name}}</small>   <small class="text-muted pl-2">{{featured_blog.published_date|date:"d M Y"}}</small>
+                                 </p>
+                              </div>
+                           </a>
+                        </div>
+                        {% endfor %}
                      </div>
-                     {% endfor %}
+                  </div>
+               </div>
+               {% endif %}
+               {% endcomment %}
+            </div>
+      </div>
+
+      {% comment %}
+      <div class="row my-4">
+         {% for blog in object_list %}
+         <div class="col-md-6 mb-4">
+            <a href="{{ blog.get_absolute_url }}" class="text-decoration-none">
+               <div class="card border-0 h-100 border-radius-40 shadow">
+
+                  {% thumbnail blog.cover_image "1349x480" as im %}
+                  <img src="{{ im.url }}" alt="{{blog.title}}" class="img-fluid border-radius-40">
+                  {% endthumbnail %}
+
+                  <div class="card-body">
+                     <h6 class="black-font">{{blog.title}}</h6>
+                     {% if blog.short_description %}
+<!--                              <small class="text-muted">{{blog.short_description}}</small>-->
+                     {% endif %}
+                     <p class="border-bottom py-2"></p>
+                     <small class="border-right text-muted pr-3 text-capitalize">{{blog.author.first_name}}</small>
+                     <small class="text-muted pl-2">{{blog.published_date|date:"d M Y"}}</small>
+                  </div>
+               </div>
+            </a>
+         </div>
+         <div class="col-md-6">
+            <div class="col-md-12">
+               <div class="row">
+                  <div class="col-md-6 mb-4">
+               <a href="{{ blog.get_absolute_url }}" class="text-decoration-none">
+                  <div class="card border-0 h-100 border-radius-40 shadow">
+
+                     {% thumbnail blog.cover_image "1349x480" as im %}
+                     <img src="{{ im.url }}" alt="{{blog.title}}" class="img-fluid border-radius-40">
+                     {% endthumbnail %}
+
+                     <div class="card-body">
+                        <h6 class="black-font">{{blog.title}}</h6>
+                        {% if blog.short_description %}
+   <!--                              <small class="text-muted">{{blog.short_description}}</small>-->
+                        {% endif %}
+                        <p class="border-bottom py-2"></p>
+                        <small class="border-right text-muted pr-3 text-capitalize">{{blog.author.first_name}}</small>
+                        <small class="text-muted pl-2">{{blog.published_date|date:"d M Y"}}</small>
+                     </div>
+                  </div>
+               </a>
+            </div>
+                  <div class="col-md-6 mb-4">
+                     <a href="{{ blog.get_absolute_url }}" class="text-decoration-none">
+                        <div class="card border-0 h-100 border-radius-40 shadow">
+
+                           {% thumbnail blog.cover_image "1349x480" as im %}
+                           <img src="{{ im.url }}" alt="{{blog.title}}" class="img-fluid border-radius-40">
+                           {% endthumbnail %}
+
+                           <div class="card-body">
+                              <h6 class="black-font">{{blog.title}}</h6>
+                              {% if blog.short_description %}
+         <!--                                 <small class="text-muted">{{blog.short_description}}</small>-->
+                              {% endif %}
+                              <p class="border-bottom py-2"></p>
+                              <small class="border-right text-muted pr-3 text-capitalize">{{blog.author.first_name}}</small>
+                              <small class="text-muted pl-2">{{blog.published_date|date:"d M Y"}}</small>
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-md-6 mb-4">
+               <a href="{{ blog.get_absolute_url }}" class="text-decoration-none">
+                  <div class="card border-0 h-100 border-radius-40 shadow">
+
+                     {% thumbnail blog.cover_image "1349x480" as im %}
+                     <img src="{{ im.url }}" alt="{{blog.title}}" class="img-fluid border-radius-40">
+                     {% endthumbnail %}
+
+                     <div class="card-body">
+                        <h6 class="black-font">{{blog.title}}</h6>
+                        {% if blog.short_description %}
+   <!--                              <small class="text-muted">{{blog.short_description}}</small>-->
+                        {% endif %}
+                        <p class="border-bottom py-2"></p>
+                        <small class="border-right text-muted pr-3 text-capitalize">{{blog.author.first_name}}</small>
+                        <small class="text-muted pl-2">{{blog.published_date|date:"d M Y"}}</small>
+                     </div>
+                  </div>
+               </a>
+            </div>
+                  <div class="col-md-6 mb-4">
+                     <a href="{{ blog.get_absolute_url }}" class="text-decoration-none">
+                        <div class="card border-0 h-100 border-radius-40 shadow">
+
+                           {% thumbnail blog.cover_image "1349x480" as im %}
+                           <img src="{{ im.url }}" alt="{{blog.title}}" class="img-fluid border-radius-40">
+                           {% endthumbnail %}
+
+                           <div class="card-body">
+                              <h6 class="black-font">{{blog.title}}</h6>
+                              {% if blog.short_description %}
+         <!--                                 <small class="text-muted">{{blog.short_description}}</small>-->
+                              {% endif %}
+                              <p class="border-bottom py-2"></p>
+                              <small class="border-right text-muted pr-3 text-capitalize">{{blog.author.first_name}}</small>
+                              <small class="text-muted pl-2">{{blog.published_date|date:"d M Y"}}</small>
+                           </div>
+                        </div>
+                     </a>
                   </div>
                </div>
             </div>
          </div>
-         {% endif %}
+         {% endfor %}
       </div>
+      {% endcomment %}
    </div>
 </section>
 <div class="modal success-modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
