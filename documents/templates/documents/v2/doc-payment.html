@@ -618,6 +618,19 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="PoPModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header" style="padding-bottom: 0px;">
+          <p>Select your plan first</p>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
 
 {% block extra_js %}
@@ -849,7 +862,7 @@ $(document).ready(function() {
 {% endif %}
 
 <script>
-$( document ).ready(function() {
+/*$( document ).ready(function() {
 
 	function getCookie(name) {
 		let cookieValue = null;
@@ -1084,25 +1097,218 @@ $( document ).ready(function() {
 //                  });
             },
             onCancel: function (data) {
-				/*
-				* Buyer cancelled the payment
-				/
+
+				// Buyer cancelled the payment
+
 				//alert("Buyer Cancelled the Payment");
                 $('.paypal-error').text("Payment canceled. Please try again to purchase.");
 				//window.location = '<http://test.com/cancelURL';>
 			},
 			onError: function(err) {
-				/
-				 * An error occurred during the transaction
-				 */
+				//An error occurred during the transaction
+
 				// alert("An error occured, Pls debug");
 			// window.location = '<http://test.com/ErrorURL';>
-			$('.paypal-error').text("An error occurred during transaction. Please try again.");
-
-			}
+			    $('.paypal-error').text("An error occurred during transaction. Please try again.");
+			},
         }).render('#paypal-button-container');
-});
+});*/
+</script>
 
+<script>
+$( document ).ready(function() {
+	function getCookie(name) {
+		let cookieValue = null;
+		if (document.cookie && document.cookie !== '') {
+			const cookies = document.cookie.split(';');
+			for (let i = 0; i < cookies.length; i++) {
+				const cookie = cookies[i].trim();
+				if (cookie.substring(0, name.length + 1) === (name + '=')) {
+					cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+					break;
+				}
+			}
+		}
+		return cookieValue;
+	}
+
+	var csrftoken = getCookie('csrftoken');
+	var plan_value;
+	var user = "{{ user }}"
+	var key;
+	var doc = "{{doc}}"
+
+	$(".selected_plan").on("click", function(){
+		if ($("input[type='radio']").is(":checked")) {
+            $('html, body').animate({
+                scrollTop: $($('a[href*="#check"]').attr('href')).offset().top
+            }, 600);
+            key= $(this).data("key");
+            plan_value = $(this).val();
+            $("#id_custom").val("{{ user }}_" + key +"_{{doc}}");
+            $("#id_amount").val(plan_value);
+		}
+	});
+
+    function completeOrder(details){
+        var url= "{% url 'documents:payment-validate' %}"
+        var payment_details = details
+        payment_details.user = user
+        payment_details.key = key
+        payment_details.doc = doc
+
+        body = JSON.stringify(payment_details);
+        $('.payment-loader').siblings().css({"filter": "blur(8px)", "-webkit-filter": "blur(8px)"});
+        $('.payment-loader').show();
+
+        fetch(url, {
+            method:'POST',
+            headers:{
+                'Content-type':'application/json',
+                'X-CSRFToken':csrftoken,
+            },
+            body: body
+        })
+        .then(function(res) {
+                return res.json();
+            }).then(function(orderData) {
+                var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
+                if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
+                    return actions.restart();
+                }
+
+                if (errorDetail) {
+                    var msg = 'Sorry, your transaction could not be processed.';
+                    if (errorDetail.description) msg += '\n\n' + errorDetail.description;
+                    if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
+                    return alert(msg);
+                }
+            console.log('success:', orderData);
+            window.location.replace("{% url 'documents:document-view' doc %}");
+        });
+    }
+
+	$(".selected_plan").on("click", function(){
+		if ($("input[type='radio']").is(":checked")) {
+            $('html, body').animate({
+                scrollTop: $($('a[href*="#check"]').attr('href')).offset().top
+            }, 600);
+            key= $(this).data("key");
+            plan_value = $(this).val();
+            $("#id_custom").val("{{ user }}_" + key +"_{{doc}}");
+            $("#id_amount").val(plan_value);
+            var payment_details1 = {}
+            payment_details1['user'] = "{{user}}"
+            payment_details1['key'] = key
+            payment_details1['doc'] = "{{doc}}"
+            payment_details1['tracking_id'] = "{{tracking_id}}"
+            body = JSON.stringify(payment_details1);
+		}
+	});
+
+    paypal.Buttons({
+        locale: 'en_US',
+        style: {
+            size: 'small',
+            color: 'blue',
+            shape: 'pill',
+            label: 'checkout',
+        },
+
+        // this is only for if no plan selected that both button is un-clickable
+        onInit: function(data, actions) {
+            actions.disable();
+            $(".selected_plan").on("click", function(){
+                if ($("input[type='radio']").is(":checked")) {
+                    actions.enable();
+                }else{
+                    actions.disable();
+                }
+            });
+        },
+
+        onClick: function() {
+            if ($("input[type='radio']").is(":checked")) {
+                $(".payment-loader").show();
+                setTimeout(function () {
+                    $('.payment-loader').hide();
+                }, 10000);
+            }else{
+                $('#PoPModal').modal('show');
+            }
+        },
+
+        createOrder: function(data, actions) {
+            return fetch("{% url 'documents:payment-check' %}", {
+            method:'POST',
+            headers:{
+                'Content-type':'application/json',
+                'X-CSRFToken':csrftoken,
+            },
+            body: body
+        }).then(function(res) {
+                return res.json();
+            }).then(function(orderData) {
+                return orderData.id;
+            });
+        },
+
+        onApprove: function(data, actions) {
+            var url= "{% url 'documents:payment-validate' %}"
+            var payment_details = {}
+            payment_details.user = user
+            payment_details.key = key
+            payment_details.doc = doc
+            payment_details.orderid = data.orderID
+            payment_details.tracking_id = "{{tracking_id}}"
+            body = JSON.stringify(payment_details);
+            $('.payment-loader').siblings().css({"filter": "blur(8px)", "-webkit-filter": "blur(8px)"});
+            $('.payment-loader').show();
+
+            fetch(url, {
+                method:'POST',
+                headers:{
+                    'Content-type':'application/json',
+                    'X-CSRFToken':csrftoken,
+                },
+                body: body
+            })
+
+        .then(function(res) {
+                return res.json();
+            }).then(function(orderData) {
+                var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
+
+                if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
+                    return actions.restart();
+                }
+
+                if (errorDetail) {
+                    var msg = 'Sorry, your transaction could not be processed.';
+                    if (errorDetail.description) msg += '\n\n' + errorDetail.description;
+                    if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
+                    return alert(msg);
+                }
+            console.log('success:', orderData);
+            window.location.replace("{% url 'documents:document-view' doc %}");
+            });
+        },
+        onCancel: function (data) {
+            $('.paypal-error').text("Payment canceled. Please try again to purchase.");
+        },
+        onError: function(err) {
+            $('.paypal-error').text("An error occurred during transaction. Please try again.");
+        }
+    }).render('#paypal-button-container');
+});
+</script>
+<script>
+$(document).ready(function() {
+    console.log("its working")
+   // $(".paypal-button-number-1").on("click", function(){
+     //   console.log("its working now also ");
+    //});
+});
 </script>
 
 <script>
