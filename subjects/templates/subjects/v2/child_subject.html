@@ -23,14 +23,16 @@
     <div class="container">
         <div class="row mb-4 mt-4 pb-2 border-bottom">
             <div class="col-sm-12">
-                {% if object.info_graphic_image %}
-                <img src="{{ object.info_graphic_image.url }}" alt="{{ image_alt_text.title }}"
-                     class="img-fluid width-50px h-auto pb-3">
-                {% elif object.image %}
-                <img src="{{ object.image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid width-50px h-auto">
-                {% endif %}
-                <div class="bg_subjimgbnr mb-4">
-                    <h1 class="d-inline ml-md-2" style="font-size:2.2rem;">{{object.name}}</h1>
+                <div class="d-inline-block ps_subj_bnr">
+                    {% if object.info_graphic_image %}
+                    <img src="{{ object.info_graphic_image.url }}" alt="{{ image_alt_text.title }}"
+                         class="img-fluid">
+                    {% elif object.image %}
+                    <img src="{{ object.image.url }}" alt="{{ image_alt_text.title }}" class="img-fluid">
+                    {% endif %}
+                    <div class="bg_subjbnr">
+                        <h1 class="d-inline ml-md-2" style="font-size:2.2rem;">{{object.name}}</h1>
+                    </div>
                 </div>
                 {% if object.sub_heading %}
                 <p class="pt-2">{{object.sub_heading}}</p>
@@ -159,8 +161,7 @@
                                     <small class="text-muted">pages</small>
                                     <small class="text-muted">{{documents.no_of_words}}</small>
                                     <small class="text-muted">words</small>
-                                    <small class="text-muted d-inline d-md-block">{{documents.pub_date|date:"d M
-                                        Y"}}</small>
+                                    <small class="text-muted d-inline d-md-block">{{documents.pub_date}}</small>
                                     <small class="text-muted pt-1 btn-d-none">{{documents.description|safe|truncatechars:30}}</small>
                                     <a href="{% url 'documents:document-view' documents.slug %}"
                                        class="btn btn_common btn_blue btn-d-none text-white mt-3 mb-3">View Document</a>
@@ -184,8 +185,7 @@
                                     <small class="text-muted">pages</small>
                                     <small class="text-muted">{{documents.no_of_words}}</small>
                                     <small class="text-muted">words</small>
-                                    <small class="text-muted d-inline d-md-block">{{documents.pub_date|date:"d M
-                                        Y"}}</small>
+                                    <small class="text-muted d-inline d-md-block">{{documents.pub_date}}</small>
                                     <small class="text-muted pt-1 btn-d-none">{{documents.description|safe|truncatechars:30}}</small>
                                     <a href="{% url 'documents:document-view' documents.slug %}"
                                        class="btn btn-bg-theme border-radius-20 btn-d-none text-white mt-3 mb-3 pt-1 pb-1">View
