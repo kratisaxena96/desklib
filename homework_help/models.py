@@ -422,9 +422,11 @@ class HomeworkAccordion(models.Model):
     updated = models.DateTimeField(auto_now=True)
     is_visible = models.BooleanField(_('Is Visible'), default=False)
     is_published = models.BooleanField(_('Is Published'), default=False)
+    is_faq = models.BooleanField(_('Is FAQ'), default=False)
 
     def __str__(self):
         return self.accordion_title
 
-
-
+    class Meta:
+        verbose_name = "Homework/Faq accordion"
+        verbose_name_plural = "Homework/Faq accordions"

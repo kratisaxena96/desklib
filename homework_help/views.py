@@ -106,11 +106,13 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
         queryset = Question.objects.filter(is_published=True, is_visible=True,
                                            published_date__lte=timezone.now()).order_by('-published_date')
         subject = Subject.objects.all()[:9]
-        accordion_content = HomeworkAccordion.objects.filter
+        accordion_content = HomeworkAccordion.objects.filter(is_faq=True)
+        faq_accordion = HomeworkAccordion.objects.filter(is_faq=False)
         # order = Order.objects.get(order_id=self.kwargs['order_id'])
         context['question'] = queryset
         context['subject'] = subject
         context['accordion_content'] = accordion_content
+        context['faq_accordion'] = faq_accordion
         return context
 
 
@@ -184,7 +186,7 @@ class AskQuestionView(JsonLdContextMixin, MetadataMixin, FormView):
         context[setting.CONTEXT_ATTRIBUTE] = self.get_structured_data()
         queryset = Question.objects.filter(is_published=True, is_visible=True, published_date__lte=timezone.now()).order_by('-published_date')
         subject = Subject.objects.all()[:12]
-        accordion_content = HomeworkAccordion.objects.filter
+        accordion_content = HomeworkAccordion.objects.filter(is_faq=False)
         # order = Order.objects.get(order_id=self.kwargs['order_id'])
         context['question'] = queryset
         context['subject'] = subject
