@@ -395,6 +395,12 @@ No media query since this is the default in Bootstrap because it is "mobile firs
     border: none !important;
     font-family: roboto-light, sans-serif !important;
 }
+.askques_select .select2-selection--single {
+    -webkit-border-radius: 2rem !important;
+    -moz-border-radius: 2rem !important;
+    -ms-border-radius: 2rem !important;
+    border-radius: 2rem !important;
+}
 .askques_select span.select2-selection {
     height: 50px;
 }
@@ -442,7 +448,7 @@ No media query since this is the default in Bootstrap because it is "mobile firs
     height: 60px;
 }
 
-.select2-container--default .select2-selection--single .select2-selection__rendered {
+.askques_select .select2-container--default .select2-selection--single .select2-selection__rendered {
     color: #444;
     line-height: 40px;
 }
@@ -672,6 +678,8 @@ ul.wrtng_cmpare_acrdn li a {
     border-radius: 4rem;
     transition: width 1s ease-in-out 2s;
 }
+
+
 .accordian-border:hover {
     background: #ebeff8 0 0 no-repeat padding-box;
     border: 1px solid #ebeff8;
@@ -679,27 +687,48 @@ ul.wrtng_cmpare_acrdn li a {
 }
 .accordion .card-header.collapsed:after {
     content: "\f067";
-    color: #fff;
-    background-color: #405fbd;
-    border-radius: 50%;
     height: 20px;
     width: 20px;
-    padding-left: 4px;
-    padding-top: 0px;
+    padding: 0 0 0 .3rem;
+    /* padding-left: 4px;
+    padding-top: 0px; */
     line-height: 1.3rem;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%;
 }
 .accordion .card-header:after {
     font-family: FontAwesome;
     content: "\f068";
     float: right;
-    color: #fff;
-    background-color: gray;
-    border-radius: 50%;
     height: 20px;
     width: 20px;
-    padding-left: 5px;
+    padding: 0 0 0 .3rem;
+    /* padding-left: 4px;
+    padding-top: 0px; */
     margin-top: -20px;
     line-height: 1.3rem;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%;
+}
+.accordion .card-header.collapsed:after {
+    color: #f7f7f7;
+    background-color: #f7f7f7;
+}
+.accordion .card-header:after {
+    color: #f7f7f7;
+    background-color: #f7f7f7;
+}
+.accordion .card-header.collapsed.faq_accordion_head:after {
+    color: #f7f7f7;
+    background-color: #415fb7;
+}
+.accordion .card-header.faq_accordion_head:after {
+    color: #f7f7f7;
+    background-color: #415fb7;
 }
 
 
@@ -1327,8 +1356,8 @@ button {
 }
 
 button:hover {
-  border: 1px solid #666666;
-  background: #666666;
+  border: 1px solid #405fbd;
+  background: #405fbd;
   color: #ffffff;
 }
 
@@ -1938,7 +1967,7 @@ ul.social-icons li:hover {
 
 
 /*---------- P R O F I L E   P A G E   C S S   S T A R T S----------*/
-.pg_myprofile, .pg_mydownloads, .pg_myuploads, .pg_mysubscription, .pg_parent_subject, .pg_order_detail, .pg_search {
+.pg_myprofile, .pg_mydownloads, .pg_myuploads, .pg_mysubscription, .pg_parent_subject, .pg_childsubj, .pg_order_detail, .pg_search {
     background-image: url(/static/src/assets/images/v2/bg_banner_order_detail.svg);
     background-size: cover;
     background-repeat: no-repeat;

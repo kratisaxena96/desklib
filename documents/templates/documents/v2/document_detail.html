@@ -469,6 +469,7 @@
                                         </div>
                                     </a>
                                 </div>
+                                {% comment %}
                                 <div class="docslist mt-4">
                                     <a href="{% url 'documents:document-view' results.slug %}" class="text-decoration-none">
                                         <div class="main-div border-radius-5 shadow document-similar-height">
@@ -517,6 +518,7 @@
                                         </div>
                                     </a>
                                 </div>
+                                {% endcomment %}
                             </article>
                             {% if forloop.counter|divisibleby:2 %}
                         </div>

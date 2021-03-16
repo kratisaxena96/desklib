@@ -570,31 +570,31 @@
     </div>
     </section>
 
-{% comment %}
-<!--                <div class="container">-->
-<!--                    <div class="row justijustifyfy-content-cen13ter align-self-center">-->
-<!--                        <section class="container pt-5">-->
-<!--                        <h2 class="text-center">Explore By Subjects</h2>-->
-<!--                        <div class="card-columns">-->
-<!--                        {% for p in parent %}-->
-<!--                            <div class="card border-0">-->
-<!--                              <div class="card-body">-->
-<!--                                <h5 class="card-title">{{ p }}</h5>-->
-<!--                                    {% for child in p.subject_set.all %}-->
-<!--                                    <a class="card-link ml-0 mr-4" href="{% url 'study:search-results' %}?q=&amp;selected_facets=subjects_exact:{{child.slug}}">-->
-<!--                                        {{child}}-->
-<!--                                        </a>-->
-<!--                                    {% endfor %}-->
+        {% comment %}
+        <!--                <div class="container">-->
+        <!--                    <div class="row justijustifyfy-content-cen13ter align-self-center">-->
+        <!--                        <section class="container pt-5">-->
+        <!--                        <h2 class="text-center">Explore By Subjects</h2>-->
+        <!--                        <div class="card-columns">-->
+        <!--                        {% for p in parent %}-->
+        <!--                            <div class="card border-0">-->
+        <!--                              <div class="card-body">-->
+        <!--                                <h5 class="card-title">{{ p }}</h5>-->
+        <!--                                    {% for child in p.subject_set.all %}-->
+        <!--                                    <a class="card-link ml-0 mr-4" href="{% url 'study:search-results' %}?q=&amp;selected_facets=subjects_exact:{{child.slug}}">-->
+        <!--                                        {{child}}-->
+        <!--                                        </a>-->
+        <!--                                    {% endfor %}-->
 
-<!--                              </div>-->
-<!--                            </div>-->
+        <!--                              </div>-->
+        <!--                            </div>-->
 
-<!--                        {% endfor %}-->
-<!--                            </div>-->
-<!--	                </section>-->
-<!--                    </div>-->
-<!--                </div>-->
-{% endcomment %}
+        <!--                        {% endfor %}-->
+        <!--                            </div>-->
+        <!--	                </section>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        {% endcomment %}
     {% endif %}
 </div>
 {% endblock %}

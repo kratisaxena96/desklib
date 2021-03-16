@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% load meta %}
 {% block content %}
+<div class="pg_childsubj">
 <section>
     <div class="container">
         <div class="row">
@@ -161,7 +162,7 @@
                                     <small class="text-muted">pages</small>
                                     <small class="text-muted">{{documents.no_of_words}}</small>
                                     <small class="text-muted">words</small>
-                                    <small class="text-muted d-inline d-md-block">{{documents.pub_date}}</small>
+                                    <small class="text-muted d-inline d-md-block">{{documents.pub_date|date}}</small>
                                     <small class="text-muted pt-1 btn-d-none">{{documents.description|safe|truncatechars:30}}</small>
                                     <a href="{% url 'documents:document-view' documents.slug %}"
                                        class="btn btn_common btn_blue btn-d-none text-white mt-3 mb-3">View Document</a>
@@ -185,7 +186,7 @@
                                     <small class="text-muted">pages</small>
                                     <small class="text-muted">{{documents.no_of_words}}</small>
                                     <small class="text-muted">words</small>
-                                    <small class="text-muted d-inline d-md-block">{{documents.pub_date}}</small>
+                                    <small class="text-muted d-inline d-md-block">{{documents.pub_date|date}}</small>
                                     <small class="text-muted pt-1 btn-d-none">{{documents.description|safe|truncatechars:30}}</small>
                                     <a href="{% url 'documents:document-view' documents.slug %}"
                                        class="btn btn-bg-theme border-radius-20 btn-d-none text-white mt-3 mb-3 pt-1 pb-1">View
@@ -231,7 +232,7 @@
                             </a>
                         </div>
                         <div id="collapseOne{{ forloop.counter }}" class="collapse show">
-                            <div class="card-body">
+                            <div class="card-body text-justify">
                                 <p>{{object.description|safe}}
                             </div>
                         </div>
@@ -272,5 +273,5 @@ child subject page
 {{object.name}}
 {{document}}
 {% endcomment %}
-
+</div>
 {% endblock %}
