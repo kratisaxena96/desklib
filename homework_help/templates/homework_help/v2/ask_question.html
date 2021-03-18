@@ -246,7 +246,7 @@
 								</a></div>
 							</div>
 							<div id="{{ content.slug }}" class="card-body text-justify" data-parent="#accordion" >
-								<p class="text-justify pb-3">{{ content.accordion_description }}</p>
+								<p class="text-justify pb-3">{{ content.accordion_description | safe }}</p>
 							</div>
 							</div>
 							{% endfor %}

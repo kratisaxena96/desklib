@@ -417,7 +417,7 @@ class Comment(models.Model):
 class HomeworkAccordion(models.Model):
     accordion_title = models.CharField(max_length=200, null=True, blank=True)
     slug = models.SlugField(unique=True, null=True, blank=True)
-    accordion_description = models.TextField(_('Description'), null=True, blank=True)
+    accordion_description = RichTextUploadingField(_('Description'), null=True, blank=True)
     created = models.DateTimeField(auto_now=True)
     updated = models.DateTimeField(auto_now=True)
     is_visible = models.BooleanField(_('Is Visible'), default=False)

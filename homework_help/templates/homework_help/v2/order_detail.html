@@ -319,7 +319,7 @@
 								</a></div>
 							</div>
 							<div id="{{ content.slug }}" class="card-body-p card-body collapse margin-tp" data-parent="#accordion" >
-								<p class="pb-3">{{ content.accordion_description }}</p>
+								<p class="pb-3">{{ content.accordion_description | safe }}</p>
 							</div>
 							</div>
 							{% endfor %}

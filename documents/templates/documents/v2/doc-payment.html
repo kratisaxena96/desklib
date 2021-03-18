@@ -123,8 +123,8 @@
                                                                 <div class="docs_plan_box_upper">
                                                                     <input class="selected_plan" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}" style="display:none;">
 
-                                                                    <div class=" pl-2 pr-2">
-<!--                                                                        <div class="ribbon"> Popular </div>-->
+                                                                    <div class="pl-2 pr-2" id="showRibbon">
+<!--                                                                        <p class="ribbon"> Popular </p>-->
                                                                         <p class="font-weight-bold package_name"> {{plan}} </p>
                                                                         <h1 class="font-weight-bold"> $ {{ plan.price }} </h1>
                                                                         <p><small> /{{ plan.days }}days </small>
@@ -1333,5 +1333,13 @@ $(document).ready(function() {
         $(".selected_docs_detail ul").html("").html(check_box);
     });
 });
+
 </script>
+{% comment %}
+<script>
+      $(document).ready(function(){
+        $(".docs_plan_box_upper #showRibbon:first-child").append("<p class="ribbon"> Most Popular</p>");
+    });
+</script>
+{% endcomment %}
 {% endblock extra_js %}
