@@ -1277,7 +1277,15 @@ ul.assgnmnt_count li {
     -ms-border-radius: 2rem;
     border-radius: 2rem;
 }
-
+#showRibbon li.ribbon1:first-child {
+  display: block;
+}
+#showRibbon li.ribbon:last-child {
+  display: none;
+}
+/*li.ribbon:not(:first-child) {
+  display: none;
+}*/
 
 .modal-header, .modal-content {
     border: none ;

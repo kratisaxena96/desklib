@@ -1,0 +1,187 @@
+{% load staticfiles %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Free Plan Mailer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+  <style type="text/css">
+      .arrow_count::after {
+        font-weight: 800;
+        font-size: 5rem;
+        font-family: "Font Awesome";
+        color: #d4e2ff;
+        content: "↓";
+      }
+  </style>
+</head>
+<body style="margin:0; padding:0; background-color:#F2F2F2;">
+  <center>
+      <div class="" style="max-width: 800px; margin: 0 auto;">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#F2F2F2">
+            <tr>
+                <td align="center" valign="top">
+                    <img src="{% static 'src/assets/images/v2/emailer/banner_freeplan.png' %}" alt="desklib-banner" border="0" style="height:auto; display:block;"/>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-top: -30rem;">
+                                    <tr>
+                                        <td width="50%"></td>
+                                        <td style="padding: 2rem; text-align: center;">
+                                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td width="50%">
+                                                        <div class="text" style="padding: 1rem; text-align: center;">
+                                                            <a href="/">
+                                                                <img src="{% static 'src/assets/images/v2/emailer/desklib_logo.png' %}" alt="desklib-banner" border="0" style="height:auto; padding: 1rem; margin-bottom: 7rem; "/>
+                                                            </a>
+                                                            <h4>Want free course Desklib library access?</h4>
+                                                            <a href="#">
+                                                                <button type="button" name="getstarted" value="getstarted" class="btn" style="background: #fe5421; color: #fff; padding: 1rem 2rem; margin: 1rem; border-radius: 2rem;"> Get Started</button>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </td>
+            </tr>
+            <tr>
+                <td valign="middle" width="50%">
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                        <tr>
+                            <td style="text-align: center; padding: 2rem;">
+                                <h4 class="text-muted">Here is how you can get started</h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                    <tr>
+                                        <td style="padding: 2rem;">
+                                            <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                                <tr>
+                                                    <td align="center" valign="top" width="40%">
+                                                        <img src="{% static 'src/assets/images/v2/emailer/docs_upload.png' %}" alt="desklib-banner" border="0" style="height:auto; display:block;"/>
+                                                    </td>
+                                                    <td align="center" valign="center" width="20%" class="arrow_count">
+                                                        <div width="50" height="50" style="width: 3rem; height: 3rem; background: #405fbd; color: #fff; padding: 1rem; border-radius: 50%;">1</div>
+                                                    </td>
+                                                    <td align="center" valign="top" width="40%">
+                                                        <p class="text-muted" align="left">Upload your best study docs</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                    <tr>
+                                        <td style="padding: 2rem;">
+                                            <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                                <tr>
+                                                    <td align="center" valign="top" width="40%">
+                                                        <img src="{% static 'src/assets/images/v2/emailer/confirm_email.png' %}" alt="desklib-banner" border="0" style="height:auto; display:block;"/>
+                                                    </td>
+                                                    <td align="center" valign="center" width="20%" class="arrow_count">
+                                                        <div width="50" height="50" style="width: 3rem; height: 3rem; background: #405fbd; color: #fff; padding: 1rem; border-radius: 50%;">2</div>
+                                                    </td>
+                                                    <td align="center" valign="top" width="40%">
+                                                        <p class="text-muted" align="left">Look for an email confirming <br /> that they've been accepted</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                    <tr>
+                                        <td style="padding: 2rem;">
+                                            <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                                <tr>
+                                                    <td align="center" valign="top" width="40%">
+                                                        <img src="{% static 'src/assets/images/v2/emailer/free_access.png' %}" alt="desklib-banner" border="0" style="height:auto; display:block;"/>
+                                                    </td>
+                                                    <td align="center" valign="center" width="20%" class="arrow_count">
+                                                        <div width="50" height="50" style="width: 3rem; height: 3rem; background: #405fbd; color: #fff; padding: 1rem; border-radius: 50%;">3</div>
+                            <!--                            <img src="{% static 'src/assets/images/v2/emailer/enjoy_freeplan.png' %}" alt="desklib-banner" border="0" style="height:auto; display:block;"/>-->
+                                                    </td>
+                                                    <td align="center" valign="top" width="40%">
+                                                        <p class="text-muted" align="left">Get your free access <br/> within 8 hours</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                    <tr>
+                                        <td style="padding: 2rem;">
+                                            <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                                <tr>
+                                                    <td align="center" valign="top" width="40%">
+                                                        <img src="{% static 'src/assets/images/v2/emailer/enjoy_freeplan.png' %}" alt="desklib-banner" border="0" style="height:auto; display:block;"/>
+                                                    </td>
+                                                    <td align="center" valign="center" width="20%" class="arrow_count">
+                                                        <div width="50" height="50" style="width: 3rem; height: 3rem; background: #405fbd; color: #fff; padding: 1rem; border-radius: 50%;">4</div>
+                            <!--                            <img src="{% static 'src/assets/images/v2/emailer/enjoy_freeplan.png' %}" alt="desklib-banner" border="0" style="height:auto; display:block;"/>-->
+                                                    </td>
+                                                    <td align="center" valign="top" width="40%">
+                                                        <p class="text-muted" align="left">Enjoy our free plan</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="center" valign="top">
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                        <tr>
+                            <td style="padding: 2rem; text-align: center;">
+                                <a href="#">
+                                    <button type="button" name="getstarted" value="getstarted" class="btn" style="background: #405fbd; color: #fff; padding: 1rem 2rem; border-radius: 2rem;"> Get Started</button>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+      </div>
+  </center>
+</body>
+</html>

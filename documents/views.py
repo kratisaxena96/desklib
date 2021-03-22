@@ -610,6 +610,7 @@ class DownloadSuccessView(LoginRequiredMixin, TemplateView):
 
 class PageViewsFinishView(LoginRequiredMixin, TemplateView):
     template_name = 'documents/page_views_finish.html'
+    # template_name= 'documents/mail-templates/paidplan.html'
 
 
 class FilterSimlar():
@@ -643,8 +644,6 @@ class DocumentSearchDescription(LoginRequiredMixin, PermissionRequiredMixin, For
         result = sqs | file
 
         return TemplateResponse(request, "admin/search_in_description.html", context={'result':result, 'form': form})
-
-
 
 
 class PaypalPaymentCheckView(LoginRequiredMixin, View):
@@ -945,3 +944,5 @@ class PaypalPaymentView(LoginRequiredMixin, View):
             return JsonResponse('Payment completed', safe=False)
         else:
             return
+
+
