@@ -967,6 +967,25 @@ ul.wrtng_cmpare_acrdn li a {
 .page-link:hover {
     color: #405fbd;
 }
+
+
+.btn_order_payment{
+    width: 30%;
+}
+.btn_order_payment:hover {
+    background-color: #fff;
+    color: #405fbd;
+    border: 1px solid #405fbd;
+    transition: 2s ease;
+}
+.btn_o_paypal{
+    padding: 0;
+}
+.btn_o_debit{
+    padding: 1rem 2rem;
+}
+
+
 @media (max-width: 575px) {
     .pg_order_detail {
         background-image: none;
@@ -1976,7 +1995,7 @@ ul.social-icons li:hover {
 
 
 /*---------- P R O F I L E   P A G E   C S S   S T A R T S----------*/
-.pg_myprofile, .pg_mydownloads, .pg_myuploads, .pg_mysubscription, .pg_parent_subject, .pg_childsubj, .pg_order_detail, .pg_search {
+.pg_myprofile, .pg_mydownloads, .pg_myuploads, .pg_mysubscription, .pg_parent_subject, .pg_childsubj, .pg_order_detail, .pg_order_payment, .pg_search {
     background-image: url(/static/src/assets/images/v2/bg_banner_order_detail.svg);
     background-size: cover;
     background-repeat: no-repeat;

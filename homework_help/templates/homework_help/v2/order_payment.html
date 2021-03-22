@@ -1,0 +1,53 @@
+{% extends "desklib/base.html" %}
+{% load staticfiles %}
+{% load humanize %}
+
+{% block content %}
+<div class="pg_order_payment">
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center my-5">
+                    <h1> Checkout </h1>
+                    <h3>You are buying a subscription : $ 10/month</h3>
+                    <h5 class="text-muted">(No worries! Cancel anytime!)</h5>
+                </div>
+            </div>
+
+            <div class="row text-center">
+                <div class="col-md-12 my-2">
+                    <button type="submit" value="Paypal" name="paypal" class="btn btn_order_payment btn_o_paypal bg_white shadow">
+                        <img src="{% static 'src/assets/images/v2/paypal.png' %}" alt="paypal icon" class="img-fluid">
+                    </button>
+                </div>
+                <div class="col-md-12 my-2">
+                    <h5 class="blue-theme"> or </h5>
+                </div>
+                <div class="col-md-12 my-2">
+                    <button type="submit" value="Paypal" name="paypal" class="btn btn_order_payment btn_o_debit bg-light shadow">Debit/Credit Card</button>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-md-6">
+                    <div class="payment_option text-center">
+                       <h5 class="text-left">Paypal form here</h5>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="docs_plan_box_lower text-left pt-4 pl-2 pr-2 pb-4">
+                        <ul class="list-unstyled pl-0">
+                            <li> <i class="fas fa-check-square check_blue"></i> {{plan.view_limit}} Document view </li>
+                            <li> <i class="fas fa-check-square check_blue"></i> {{ plan.download_limit }} Document Download </li>
+                            <li> <i class="fas fa-check-square check_blue"></i> Free Customer Support </li>
+                            <li> <i class="fas fa-check-square check_blue"></i> Life Time Access </li>
+                        </ul>
+
+                        <p> By continuing you agree to the <a href="{% url 'termsofuse' %}">Terms & Conditions</a>, <a href="{% url 'privacypolicy' %}"> Privacy Policy</a>, <a href="{% url 'academicintegrity' %}">Academic Integrity</a>, <a href="{% url 'honorcode' %}">Honor Code</a> and <a href="{% url 'copyright' %}">Copyright</a> </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

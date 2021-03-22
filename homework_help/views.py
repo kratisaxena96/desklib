@@ -651,3 +651,5 @@ class HomeworkHelpPaypalPaymentView(LoginRequiredMixin, View):
             mail.send(True)
             return JsonResponse('Payment completed', safe=False)
 
+class OrdersPayment(TemplateView):
+    template_name = "homework_help/v2/order_payment.html"

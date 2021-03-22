@@ -199,7 +199,7 @@
                 </div>
             </div>
 
-            {% comment %}
+
             <div class="row order_details my-5">
                 <div class="col-md-12 col-lg-12">
                     <table id="example" class="table table-bordered table-responsive-sm tbl_order_details" style="width:100%">
@@ -217,7 +217,9 @@
                                 <td> <a href="#"> GAH21011152681B2 </a> </td>
                                 <td>Python Programming</td>
                                 <td>Jan 22, 2021</td>
-                                <td class="text-center"> <button class="btn btn_common btn_blue od_btn_padding"> Pay $30 </button> </td>
+                                <td class="text-center">
+                                    <a href="{% url 'homework_help:order_payment' %}"> <button class="btn btn_common btn_blue od_btn_padding"> Pay $30 </button></a>
+                                </td>
                                 <td> <input type="checkbox" name="" value="" class="" /> &nbsp; Unpaid </td>
                             </tr>
                             <tr>
@@ -301,7 +303,7 @@
                     </table>
                 </div>
             </div>
-            {% endcomment %}
+
 
 
             <div class="row pt-5 pb-5 mt-4">
