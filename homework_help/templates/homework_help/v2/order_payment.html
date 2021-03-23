@@ -15,18 +15,24 @@
             </div>
 
             <div class="row text-center">
-                <div class="col-md-12 my-2">
-                    <button type="submit" value="Paypal" name="paypal" class="btn btn_order_payment btn_o_paypal bg_white shadow">
-                        <img src="{% static 'src/assets/images/v2/paypal.png' %}" alt="paypal icon" class="img-fluid">
-                    </button>
+                <div class="col-md-12">
+                    <p class="paypal-error text-danger"></p>
+                    <div id="paypal-button-container"></div>
                 </div>
-                <div class="col-md-12 my-2">
-                    <h5 class="blue-theme"> or </h5>
-                </div>
-                <div class="col-md-12 my-2">
-                    <button type="submit" value="Paypal" name="paypal" class="btn btn_order_payment btn_o_debit bg-light shadow">Debit/Credit Card</button>
-                </div>
+<!--                <div class="col-md-12 my-2">-->
+<!--                    <button type="submit" value="Paypal" name="paypal" class="btn btn_order_payment btn_o_paypal bg_white shadow">-->
+<!--                        <img src="{% static 'src/assets/images/v2/paypal.png' %}" alt="paypal icon" class="img-fluid">-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--                <div class="col-md-12 my-2">-->
+<!--                    <h5 class="blue-theme"> or </h5>-->
+<!--                </div>-->
+<!--                <div class="col-md-12 my-2">-->
+<!--                    <button type="submit" value="Paypal" name="paypal" class="btn btn_order_payment btn_o_debit bg-light shadow">Debit/Credit Card</button>-->
+<!--                </div>-->
+
             </div>
+
 
             <div class="row mt-5">
                 <div class="col-md-6">
@@ -42,7 +48,6 @@
                             <li> <i class="fas fa-check-square check_blue"></i> Free Customer Support </li>
                             <li> <i class="fas fa-check-square check_blue"></i> Life Time Access </li>
                         </ul>
-
                         <p> By continuing you agree to the <a href="{% url 'termsofuse' %}">Terms & Conditions</a>, <a href="{% url 'privacypolicy' %}"> Privacy Policy</a>, <a href="{% url 'academicintegrity' %}">Academic Integrity</a>, <a href="{% url 'honorcode' %}">Honor Code</a> and <a href="{% url 'copyright' %}">Copyright</a> </p>
                     </div>
                 </div>
@@ -51,3 +56,59 @@
     </section>
 </div>
 {% endblock %}
+{% block extra_js %}
+{% if debug %}
+    <script src="https://www.paypal.com/sdk/js?client-id=Aei6_cYX5hfSF0WsVXJ3VR3Rc_C0KbneVwh3RLYx_OUJG3gS5m2XM-1tg9EFL7ffTjggfvaNhKQQnsyE&currency=USD"></script>
+{% else %}
+    <script src="https://www.paypal.com/sdk/js?client-id=AR64PRuqgne8Tt4-P5USVMPgEq0wl5x3stCFhuJGTa-8u04W5CQXHPW4V4ZKE_A9hUYTpgshJLZaMaVm&currency=USD"></script>
+{% endif %}
+
+<script>
+$( document ).ready(function() {
+   function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+         const cookies = document.cookie.split(';');
+         for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+               cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+               break;
+            }
+         }
+      }
+      return cookieValue;
+   }
+
+   var csrftoken = getCookie('csrftoken');
+   var user = "{{ user }}"
+    var uuid = "{{ order.uuid }}"
+    var order_id = "{{ order.order_id }}"
+
+    paypal.Buttons({
+        locale: 'en_US',
+        style: {
+            size: 'medium',
+            color: 'blue',
+            shape: 'pill',
+            label: 'checkout',
+        },
+
+        createOrder: function(data, actions) {
+            console.log("hello")
+        },
+
+        onApprove: function(data, actions) {
+
+        },
+        onCancel: function (data) {
+            console.log(data)
+            //$('.paypal-error').text("Payment canceled. Please try again to purchase.");
+        },
+        onError: function(err) {
+            $('.paypal-error').text("An error occurred during transaction. Please try again.");
+        }
+    }).render('#paypal-button-container');
+});
+</script>
+{% endblock%}

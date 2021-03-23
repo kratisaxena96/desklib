@@ -139,7 +139,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div>
-                                        <div class="mt-step-title uppercase theme-color-blue">Question Received</div>
+                                        <div class="mt-step-title uppercase theme-color-blue">Your Question</div>
                                         </div>
                                 </div>
                             </div>
@@ -156,7 +156,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div>
-                                        <div class="mt-step-title uppercase theme-color-blue">Payment Updated </div>
+                                        <div class="mt-step-title uppercase theme-color-blue">Payment </div>
                                     </div>
                                 </div>
                             </div>
@@ -173,7 +173,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div>
-                                        <div class="mt-step-title uppercase theme-color-blue">Expert Working On Your Answer</div>
+                                        <div class="mt-step-title uppercase theme-color-blue">Progress</div>
                                     </div>
                                 </div>
                             </div>
@@ -190,7 +190,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div>
-                                        <div class="mt-step-title uppercase theme-color-blue">Answer Is Posted</div>
+                                        <div class="mt-step-title uppercase theme-color-blue">Completed</div>
                                     </div>
                                 </div>
                             </div>
@@ -218,7 +218,7 @@
                                 <td>Python Programming</td>
                                 <td>Jan 22, 2021</td>
                                 <td class="text-center">
-                                    <a href="{% url 'homework_help:order_payment' %}"> <button class="btn btn_common btn_blue od_btn_padding"> Pay $30 </button></a>
+                                    <a href="{% url 'homework_help:order_payment' uid=order.uuid %}"> <button class="btn btn_common btn_blue od_btn_padding"> Pay $30 </button></a>
                                 </td>
                                 <td> <input type="checkbox" name="" value="" class="" /> &nbsp; Unpaid </td>
                             </tr>

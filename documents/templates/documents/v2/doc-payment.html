@@ -71,6 +71,9 @@
                                                                     <p><small> /{{ plan.days }}days </small>
                                                                 </div>
 
+<!--                                                                <div class="btn_common btn_blue btn_gtstrtd text-center"> Get Started </div>-->
+
+
 <!--                                                                <div class="btn_action text-center pt-4">-->
 <!--                                                                    <button class="btn btn_common btn_blue btn_gtstrtd text-center"> Get Started </button>-->
 <!--                                                                </div>-->
@@ -124,7 +127,7 @@
                                                                     <input class="selected_plan" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}" style="display:none;">
 
                                                                     <div class="pl-2 pr-2" id="showRibbon">
-                                                                        <li class="ribbon"> Popular </li>
+                                                                        <p>  </p>
                                                                         <p class="font-weight-bold package_name"> {{plan}} </p>
                                                                         <h1 class="font-weight-bold"> $ {{ plan.price }} </h1>
                                                                         <p><small> /{{ plan.days }}days </small>
@@ -203,6 +206,12 @@
                                         </div>
                                    </div>
                                 </div>
+                                <div class="row text-center">
+                                    <div class="col-md-12 docsPayOption">
+                                        <img src="{% static 'src/assets/images/v2/secured_paypal.png' %}" alt="paypal icon" class="img-fluid">
+                                        <img src="{% static 'src/assets/images/v2/payment_mode.png' %}" alt="paypal icon" class="img-fluid">
+                                    </div>
+                                </div>
                                </div>
 
 
@@ -277,7 +286,7 @@
     {% comment %}
             <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
     {% endcomment %}
-            <!-- Modal -->
+
             <div id="myModal" class="modal fade" role="dialog">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content shadow">
@@ -1335,22 +1344,16 @@ $(document).ready(function() {
 });
 
 </script>
-{% comment %}
+
+
 <script>
       $(document).ready(function(){
-        $(".docs_plan_box_upper #showRibbon:first-child").append("<p class="ribbon"> Most Popular</p>");
+        $('#showRibbon p:first-child').first().addClass('ribbon1').append('Most Popular');
+        //$('#showRibbon').first().addClass('info').html('Information');
+        //$("#showRibbon:first-child").append("<p class="ribbon"> Most Popular</p>");
     });
 </script>
-{% endcomment %}
 
-<script type="text/javascript">
-    $("window").load(function () {
-      $('#showRibbon:first-child').addClass('ribbon').html('<p class="ribbon">Most Popular</p>');
-    });
 
-    $("window").load(function () {
-      $('#showRibbon:not(:first-child)').removeClass('ribbon').html('<p class="ribbon">Most Popular</p>');
-    });
 
-</script>
 {% endblock extra_js %}

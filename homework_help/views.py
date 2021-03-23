@@ -653,3 +653,13 @@ class HomeworkHelpPaypalPaymentView(LoginRequiredMixin, View):
 
 class OrdersPayment(TemplateView):
     template_name = "homework_help/v2/order_payment.html"
+    model = Order
+
+    def get_object(self, queryset=None):
+        object = Order.objects.get(uuid=self.kwargs['uid'])
+        return object
+
+    def get_context_data(self, **kwargs):
+        context = super(self.__class__, self).get_context_data(**kwargs)
+        context["order"] = Order.objects.get(uuid=self.kwargs['uid'])
+        return context

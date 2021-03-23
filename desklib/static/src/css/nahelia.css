@@ -976,7 +976,7 @@ ul.wrtng_cmpare_acrdn li a {
     background-color: #fff;
     color: #405fbd;
     border: 1px solid #405fbd;
-    transition: 2s ease;
+    transition: 2s ease;showRibbon
 }
 .btn_o_paypal{
     padding: 0;
@@ -1168,7 +1168,7 @@ ul.assgnmnt_count li {
 .docs_plan_box_upper .ribbon {
   width: 160px;
   height: 32px;
-  font-size: 12px;
+  font-size: 15px;
   text-align: center;
   color: #fff;
   font-weight: bold;
@@ -1176,8 +1176,23 @@ ul.assgnmnt_count li {
   background: #28a745;
   transform: rotate(45deg);
   position: absolute;
-  right: -55px;
-  top: 13px;
+  right: -50px;
+  top: 20px;
+  padding-top: 7px;
+}
+.docs_plan_box_upper .ribbon1 {
+  width: 160px;
+  height: 32px;
+  font-size: 15px;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 0px 2px 3px rgba(136, 136, 136, 0.25);
+  background: #405fbd;
+  transform: rotate(45deg);
+  position: absolute;
+  right: -45px;
+  top: 20px;
   padding-top: 7px;
 }
 #loader {
@@ -1302,9 +1317,21 @@ ul.assgnmnt_count li {
 #showRibbon li.ribbon:last-child {
   display: none;
 }
+/*
+#showRibbon .info {
+    background-color: #f6f6f6;
+    color: #000;
+    font-size: 1rem;
+}
+*/
 /*li.ribbon:not(:first-child) {
   display: none;
 }*/
+.docsPayOption img {
+    border-radius: 1.5rem;
+    padding: .5rem;
+}
+
 
 .modal-header, .modal-content {
     border: none ;

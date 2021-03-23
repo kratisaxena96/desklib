@@ -16,6 +16,6 @@ urlpatterns = [
     path('search/', CustomSearchQuestionView.as_view(), name='search-question'),
     path(r'autocomplete/', autocomplete, name='autocomplete'),
     path('<slug:slug>/', ParentSubjectQuestionView.as_view(), name='parent-question-view'),
-    path('order_payment', OrdersPayment.as_view(), name='order_payment'),
+    path('order/payment/<uid>/', OrdersPayment.as_view(), name='order_payment'),
 
 ]
