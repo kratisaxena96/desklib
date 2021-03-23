@@ -9,16 +9,35 @@
             <div class="row">
                 <div class="col-md-12 text-center my-5">
                     <h1> Checkout </h1>
-                    <h3>You are buying a subscription : $ 10/month</h3>
+                    <h3>You're buying a plan : $ 10/month</h3>
                     <h5 class="text-muted">(No worries! Cancel anytime!)</h5>
                 </div>
             </div>
 
+            {% comment %}
+            <div class="row">
+                <div class="col"></div>
+                <div class="col-md-4">
+                    <div class="text-left px-4 pb-4">
+                        <ul class="list-unstyled pl-0">
+                            <li> <i class="fas fa-check-square check_blue"></i> {{plan.view_limit}} Document view </li>
+                            <li> <i class="fas fa-check-square check_blue"></i> {{ plan.download_limit }} Document Download </li>
+                            <li> <i class="fas fa-check-square check_blue"></i> Free Customer Support </li>
+                            <li> <i class="fas fa-check-square check_blue"></i> Life Time Access </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+            {% endcomment %}
+
             <div class="row text-center">
-                <div class="col-md-12">
+                <div class="col"></div>
+                <div class="col-md-6">
                     <p class="paypal-error text-danger"></p>
                     <div id="paypal-button-container"></div>
                 </div>
+                <div class="col"></div>
 <!--                <div class="col-md-12 my-2">-->
 <!--                    <button type="submit" value="Paypal" name="paypal" class="btn btn_order_payment btn_o_paypal bg_white shadow">-->
 <!--                        <img src="{% static 'src/assets/images/v2/paypal.png' %}" alt="paypal icon" class="img-fluid">-->
@@ -35,22 +54,13 @@
 
 
             <div class="row mt-5">
+                <div class="col"></div>
                 <div class="col-md-6">
-                    <div class="payment_option text-center">
-                       <h5 class="text-left">Paypal form here</h5>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="docs_plan_box_lower text-left pt-4 pl-2 pr-2 pb-4">
-                        <ul class="list-unstyled pl-0">
-                            <li> <i class="fas fa-check-square check_blue"></i> {{plan.view_limit}} Document view </li>
-                            <li> <i class="fas fa-check-square check_blue"></i> {{ plan.download_limit }} Document Download </li>
-                            <li> <i class="fas fa-check-square check_blue"></i> Free Customer Support </li>
-                            <li> <i class="fas fa-check-square check_blue"></i> Life Time Access </li>
-                        </ul>
+                    <div class="text-center pt-4 pl-2 pr-2 pb-4">
                         <p> By continuing you agree to the <a href="{% url 'termsofuse' %}">Terms & Conditions</a>, <a href="{% url 'privacypolicy' %}"> Privacy Policy</a>, <a href="{% url 'academicintegrity' %}">Academic Integrity</a>, <a href="{% url 'honorcode' %}">Honor Code</a> and <a href="{% url 'copyright' %}">Copyright</a> </p>
                     </div>
                 </div>
+                <div class="col"></div>
             </div>
         </div>
     </section>
