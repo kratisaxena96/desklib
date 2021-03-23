@@ -124,6 +124,7 @@
                                                             <a href="#check">
                                                             <label class="d-block label mt-2">
                                                                 <div class="docs_plan_box_upper">
+                                                                    <span></span>
                                                                     <input class="selected_plan" type="radio" name="radio" value="{{ plan.price }}" data-key="{{plan.key}}" style="display:none;">
 
                                                                     <div class="pl-2 pr-2" id="showRibbon">
@@ -1349,7 +1350,7 @@ $(document).ready(function() {
 <script>
       $(document).ready(function(){
         $('#showRibbon p:first-child').first().addClass('ribbon1').append('Most Popular');
-        //$('#showRibbon').first().addClass('info').html('Information');
+        $('.docs_plan_box_upper span:first-child').first().addClass('info').append('<i class="fa fa-info-circle blue-theme" aria-hidden="true" data-toggle="tooltip" title="Most popular monthly plan "></i>');
         //$("#showRibbon:first-child").append("<p class="ribbon"> Most Popular</p>");
     });
 </script>
