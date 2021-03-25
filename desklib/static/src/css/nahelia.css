@@ -1439,6 +1439,9 @@ button:hover {
     .stepperfont {
         font-size: .8rem;
     }
+    .payment_option, .selected_docs_detail {
+        padding: 1rem 3rem;
+    }
 }
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) and (max-width: 768px) {
