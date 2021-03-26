@@ -62,3 +62,9 @@ class MySubscription(MetadataMixin,JsonLdContextMixin,LoginRequiredMixin,Templat
         context = {'subscribed_doc': subscribed_doc, 'pay_per_download': pay_per_download}
 
         return self.render_to_response(context)
+
+
+
+# class MySubscription(TemplateView):
+#     template_name ="subscription/mail-templates/v2/make_subscription.html"
+

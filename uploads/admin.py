@@ -51,7 +51,7 @@ def make_subscription(modeladmin, request, queryset):
             create.documents.add(document.required_document)
             site_url = Site.objects.get_current().domain
             context = {'document': document.required_document, 'user': user, 'SITE_URL': site_url}
-            htmly = render_to_string('subscription/mail-templates/make_subscription.html',
+            htmly = render_to_string('subscription/mail-templates/v2/make_subscription.html',
                                      context=context, request=None)
             html_message = htmly
             mail = EmailMultiAlternatives(
@@ -66,7 +66,7 @@ def make_subscription(modeladmin, request, queryset):
             user = document.author
             site_url = Site.objects.get_current().domain
             context = {'document': document.required_document, 'user': user, 'SITE_URL': site_url}
-            htmly = render_to_string('subscription/mail-templates/uploads_rejected_email.html',
+            htmly = render_to_string('subscription/mail-templates/v2/uploads_rejected_email.html',
                                      context=context, request=None)
             html_message = htmly
             mail = EmailMultiAlternatives(

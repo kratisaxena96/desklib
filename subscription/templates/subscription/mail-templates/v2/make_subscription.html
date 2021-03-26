@@ -14,14 +14,10 @@
 	<meta name="viewport" content="width=device-width" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<title>Answer Ready - Notify Email Newsletter</title>
-	<link rel="shortcut icon" href="{% static 'dist/assets/images/favicon.ico' %}">
-
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 	<!-- Google Fonts Link -->
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-<!--	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />-->
-<!--	<link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet" />-->
 
 
 	<style type="text/css">
@@ -85,7 +81,6 @@
 		<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px;" width="100%" class="wrapperTable">
 			<tr>
 				<td align="center" valign="top">
-					<!-- Content Table Open // -->
 					<table border="0" cellpadding="0" cellspacing="0" width="100%">
 						<tr>
 							<td align="right" valign="middle" style="padding-top:10px;padding-right:20px;" class="preHeader">
@@ -96,7 +91,6 @@
 							</td>
 						</tr>
 					</table>
-					<!-- Content Table Close // -->
 				</td>
 			</tr>
 		</table>
@@ -124,7 +118,7 @@
 		<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px;" width="100%" class="wrapperTable">
 			<tr>
 				<td align="center" valign="top">
-					<table border="0" cellpadding="0" cellspacing="0" style="background-color:#FFFFFF;" width="100%" class="oneColumn">
+					<table border="0" cellpadding="0" cellspacing="0" style="background-color:#FFFFFF;" width="100%" class="">
 						<tr>
 							<td class="topBorder" height="3" style="background-color: #405fbd;font-size:1px;line-height:3px;">&nbsp;</td>
 						</tr>
@@ -140,22 +134,22 @@
 						<tr>
 							<td align="center" valign="top" style="padding-bottom:40px" class="imgHero">
 								<a href="#" target="_blank" style="text-decoration:none;">
-									<img src="{% static 'src/assets/images/v2/emailer/bg_banner_uploadfailed.svg'%}" width="600" alt="Uploads rejected image" border="0" style="width:100%; max-width:600px; height:auto; display:block;" />
+									<img src="{% static 'src/assets/images/v2/emailer/bg_banner_uploadfailed.svg'%}" alt="unlock docs" border="0" class="img-fluid" style="width:100%; max-width:600px; height:auto; display:block;" />
 								</a>
 							</td>
 						</tr>
 
 						<tr>
 							<td>
-								<table style="margin-top: -21rem; padding: 2rem;">
+								<table cellpadding="0" cellspacing="0" style="margin-top: -15rem;">
 									<tr>
-										<td style="width: 50%;">
-											<img src="{% static 'src/assets/images/v2/emailer/banner_uploadfailed.png'%}" width="600" alt="Uploads rejected image" border="0" style="width:100%; max-width:600px; height:auto; display:block;" />
+										<td style="width: 50%; padding: 1rem;">
+											<img src="{% static 'src/assets/images/v2/emailer/banner_uploadsuccess.png'%}" alt="unlock docs" border="0" class="img-fluid" style="width:100%; max-width:600px; height:auto; display:block;" />
 										</td>
-										<td style="width: 50%;">
-											<h2 style="color: #405fbd; font-family: 'Roboto', sans-serif; font-size: 2rem; text-align: left; margin-bottom: 1rem;">We are Sorry!</h2>
+										<td style="width: 50%; padding: 1rem;">
+											<h2 style="font-family: 'Roboto', sans-serif; padding-bottom: 2rem;">Kudos!</h2>
 											<p class="midText" style="color: #555555; font-family:'Roboto', sans-serif; font-size:16px; font-weight:400; line-height:22px; text-align:left; padding:0; margin:0;">
-												We can not accept your uploaded files. This is due to some reasons which you can read below.
+												Your uploaded documents are successfully accepted.
 											</p>
 										</td>
 									</tr>
@@ -163,64 +157,36 @@
 							</td>
 						</tr>
 
-						<tr>
-							<td align="center" valign="top" style="padding-top: 2rem; padding-left: 2rem; padding-right: 2rem;" class="title">
-								<!-- Main Title Text // -->
-								<h2 class="bigTitle" style="color: #555555; font-family:'Roboto', sans-serif; font-size:26px; font-weight:600; font-style:normal; letter-spacing:normal; line-height:34px; text-align:left; padding:0; margin:0;">
-									Hi  {{ user.first_name }}
-								</h2>
-							</td>
-						</tr>
 
 
-<!--						<tr>-->
-<!--							<td align="left" valign="top" style="padding-bottom:10px;padding-left:20px;padding-right:20px;" class="description">-->
-<!--								<p class="midText" style="color:#919191; font-family:'Roboto', sans-serif; font-size:14px; font-weight:400; line-height:22px; text-align:left; padding:0; margin:0;">-->
-<!--									We can not accept your uploaded files. This is due to some reasons which you can read below.-->
-<!--								</p>-->
-<!--							</td>-->
-<!--						</tr>-->
 						<tr>
-							<td align="left" valign="top" style="padding-top: 2rem; padding-bottom: 2rem; padding-left: 2rem; padding-right: 2rem;" class="description">
-								<p class="midText" style="color: #555555; font-family:'Roboto', sans-serif; font-size:16px; font-weight:400; line-height:22px; text-align:left; padding:0; margin:0;">
-									Your files violate our upload guidelines policy. You can read our guidelines below, before uploading any files.
-								</p>
-							</td>
-						</tr>
+							<table border="0" cellpadding="0" cellspacing="0" style="background-color:#FFFFFF; padding-top: 2rem; padding-bottom: 2rem; padding-left: 2rem; padding-right: 2rem;" width="100%" class="">
+								<tr>
+									<td align="justify" valign="top" style="width: 50%; padding-bottom: 1rem; padding-left: 1rem; padding-right: 1rem;" class="description">
+										<h1 class="bigTitle" style="color:#313131; font-family:'Roboto', sans-serif; font-size:26px; font-weight:600; font-style:normal; letter-spacing:normal; line-height:34px; text-align:left; padding:0; margin:0;">
+											Hello {{ user.first_name }}
+										</h1>
+										<h3 style="font-family:'Roboto', sans-serif; font-weight: 300; padding-top: 1rem; padding-bottom: 2rem;">Congratulations!</h3>
+										<p class="midText" style="color: #555555; text-align: justify; font-family:'Roboto', sans-serif; font-size:16px; font-weight:400; line-height:22px; margin:0;">
+											For your honest submission, Now you can unlock the document which you wanted for free. Click the button below to unlock your document. Click the button below to unlock your document.
+										</p>
+									</td>
 
-						<tr>
-							<td align="left" valign="top" style="padding-bottom:2rem;padding-left:2rem;padding-right:2rem; padding-top:2rem;" class="description">
-								<!-- Description Text // -->
-								<h4 class="bigTitle" style="color:#405fbd; font-family:'Roboto', sans-serif; font-size:22px; font-weight:600; font-style:normal; letter-spacing:normal; line-height:34px; text-align:left; padding-bottom:1rem; margin:0;">
-									<strong>Our Guidelines:</strong>
-								</h4>
-								<ul style="color: #555555; font-family:'Roboto', sans-serif; font-size:16px; font-weight:400; line-height:22px; text-align:left; padding-left:0; margin:0; list-style: none; line-height: 2rem;">
-									<li> <i class="fa fa-long-arrow-right" style="color:#405fbd;"></i> &nbsp; Upload your study documents (e.g. your assignment solutions, reports, research, dissertation, etc).</li>
-									<li> <i class="fa fa-long-arrow-right" style="color:#405fbd;"></i> &nbsp; Content should not be published on any other website or indexed on the search engine.</li>
-									<li> <i class="fa fa-long-arrow-right" style="color:#405fbd;"></i> &nbsp; Content should be grammatically correct. Uploads with grammatical mistakes will be rejected.</li>
-									<li> <i class="fa fa-long-arrow-right" style="color:#405fbd;"></i> &nbsp; Content should be at least 500 words or more.</li>
-									<li> <i class="fa fa-long-arrow-right" style="color:#405fbd;"></i> &nbsp; Content should not be copyrighted by anyone.</li>
-								</ul>
-							</td>
-						</tr>
-
-						<tr>
-							<td align="left" valign="top" style="padding-bottom: 2rem; padding-left: 2rem; padding-right: 2rem; padding-top: 2rem;" class="description">
-								<p class="midText" style="color: #555555; font-family:'Roboto', sans-serif; font-size:16px; font-weight:400; line-height:22px; text-align:left; padding:0; margin:0;">
-									We are waiting to catch you soon again with unique files.
-								</p>
-							</td>
+									<td align="left" valign="top" style="width: 50%; padding-bottom:20px;padding-left:20px;padding-right:20px;" class="description">
+										<img src="{% static 'src/assets/images/v2/emailer/unlock_docs.png'%}" alt="Unlock Docs" class="img-fluid" border="0" style="width:100%; height:auto; display:block;" />
+									</td>
+								</tr>
+							</table>
 						</tr>
 
 
 						<tr>
-							<td align="center" valign="top" style="padding-bottom:40px;padding-left:20px;padding-right:20px;" class="btnCard">
-								<!-- Button Table // -->
+							<td align="center" valign="top" style="background-color:#FFFFFF; padding-top: 2rem; padding-bottom: 2rem; padding-left:2rem;padding-right:2rem;" class="btnCard">
 								<table align="center" border="0" cellpadding="0" cellspacing="0">
 									<tr>
-										<td align="center" class="postButton" style="background-color: #FD5421;padding-top:10px;padding-bottom:10px;padding-left:25px;padding-right:25px;border-radius:2rem;">
+										<td align="center" class="postButton" style="background-color: #FD5421; color: #fff; font-family:'Roboto', sans-serif; font-size:16px; padding-top:1rem;padding-bottom:1rem;padding-left:2rem;padding-right:2rem; border-radius:2rem">
 											<a href="https://{{ SITE_URL }}{% url 'documents:document-view' document.slug %}" target="_blank" style="color:#FFFFFF; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:12px; font-weight:600; letter-spacing:1px; line-height:20px; text-transform:uppercase; text-decoration:none; display:block;" >
-												Upload again
+												Check Document
 											</a>
 										</td>
 									</tr>
@@ -228,121 +194,98 @@
 							</td>
 						</tr>
 
-						<tr>
-							<td height="10" style="font-size:1px;line-height:1px;">&nbsp;</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-		</table>
-		<!-- Email Body Close // -->
 
-		<table border="0" cellpadding="0" cellspacing="0" width="100%" class="wrapperTable" style="max-width:600px; background-color:#FFFFFF; ">
-			<tr>
-				<td align="center" valign="top">
-					<table border="0" cellpadding="0" cellspacing="0">
+
+						<tr style="background-color: #0000000d; padding-top: 1rem; padding-bottom: 1rem; padding-left: 1rem; padding-right: 1rem;">
+							<td align="center" valign="top">
+								<table border="0" cellpadding="0" cellspacing="0">
+									<tr>
+										<td>
+											<h1 style="color: #405fbd; font-family:'Roboto', sans-serif; font-weight: 500; padding: 2rem;">Our Services</h1>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+
 						<tr>
-							<td>
-								<h1 style="color: #405fbd; font-family:'Roboto', sans-serif; font-weight: 500; padding: 2rem;">Our Services</h1>
+							<td align="center" valign="top">
+								<table border="0" cellpadding="0" cellspacing="0" style="background-color: #0000000d; padding-top: 1rem; padding-bottom: 1rem; padding-left: 1rem; padding-right: 1rem;" width="100%" class="">
+									<tbody>
+										<tr>
+											<td valign="top" width="50%" style="padding-top: 1rem; padding-bottom: 1rem; padding-left: 1rem; padding-right: 1rem;">
+												<table cellspacing="0" cellpadding="0" border="0" width="100%">
+													<tbody>
+														<tr>
+															<td>
+																<img src="{% static 'src/assets/images/v2/emailer/Study_docs.svg'%}" alt="study docs" style="width: 100%; max-width: 600px; height: auto; margin: auto; margin-bottom: 20px; display: block;">
+															</td>
+														</tr>
+														<tr>
+															<td class="text-testimony" style="text-align: center;">
+																<h3 style="color: #405fbd; font-family:'Roboto', sans-serif; font-size:16px; font-weight: 500;">Study Docs</h3>
+																<p style="color: #555555; font-family:'Roboto', sans-serif; font-size:15px; font-weight: 300;">Access over 30 million course-specific study documents.</p>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</td>
+											<td valign="top" width="50%" style="padding-top: 1rem; padding-bottom: 1rem; padding-left: 1rem; padding-right: 1rem;">
+												<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+													<tbody>
+														<tr>
+															<td>
+																<img src="{% static 'src/assets/images/v2/emailer/Homework_answers.svg'%}" alt="homework answers" style="width: 100%; max-width: 600px; height: auto; margin: auto; margin-bottom: 20px; display: block;">
+															</td>
+														</tr>
+														<tr>
+															<td class="text-testimony" style="text-align: center;">
+																<h3 style="color: #405fbd; font-family:'Roboto', sans-serif; font-size:16px; font-weight: 500;">Homework answers</h3>
+																<p style="color: #555555; font-family:'Roboto', sans-serif; font-size:15px; font-weight: 300;">Ask our expert tutors questions to get the answers you need.</p>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</td>
+			<!--								<td valign="top" width="33.333%" style="padding-top: 1rem; padding-bottom: 1rem; padding-left: 1rem; padding-right: 1rem;">-->
+			<!--									<table cellspacing="0" cellpadding="0" border="0" width="100%">-->
+			<!--										<tbody>-->
+			<!--											<tr>-->
+			<!--												<td>-->
+			<!--													<img src="{% static 'src/assets/images/v2/emailer/Online_tutoring.svg'%}" alt="online tutoring" style="width: 100%; max-width: 600px; height: auto; margin: auto; margin-bottom: 20px; display: block;">-->
+			<!--												</td>-->
+			<!--											</tr>-->
+			<!--											<tr>-->
+			<!--												<td class="text-testimony" style="text-align: center;">-->
+			<!--													<h3 style="color: #405fbd; font-family:'Roboto', sans-serif; font-size:16px; font-weight: 500;">Online Tutoring</h3>-->
+			<!--													<p style="color: #555555; font-family:'Roboto', sans-serif; font-size:15px; font-weight: 300;">Get step-by-step explanations by choosing our tutors.</p>-->
+			<!--												</td>-->
+			<!--											</tr>-->
+			<!--										</tbody>-->
+			<!--									</table>-->
+			<!--								</td>-->
+										</tr>
+									</tbody>
+								</table>
 							</td>
 						</tr>
 					</table>
-				</td>
-			</tr>
+					<!-- Card Table Close// -->
 
-			<tr>
-				<td align="center" valign="top">
-					<table border="0" cellpadding="0" cellspacing="0" style="background-color:#FFFFFF; padding-top: 1rem; padding-bottom: 1rem; padding-left: 1rem; padding-right: 1rem;" width="100%" class="">
-						<tbody>
-							<tr>
-								<td valign="top" width="50%" style="padding-top: 1rem; padding-bottom: 1rem; padding-left: 1rem; padding-right: 1rem;">
-									<table cellspacing="0" cellpadding="0" border="0" width="100%">
-										<tbody>
-											<tr>
-												<td>
-													<img src="{% static 'src/assets/images/v2/emailer/Study_docs.svg'%}" alt="study docs" style="width: 100%; max-width: 600px; height: auto; margin: auto; margin-bottom: 20px; display: block;">
-												</td>
-											</tr>
-											<tr>
-												<td class="text-testimony" style="text-align: center;">
-													<h3 style="color: #405fbd; font-family:'Roboto', sans-serif; font-size:16px; font-weight: 500;">Study Docs</h3>
-													<p style="color: #555555; font-family:'Roboto', sans-serif; font-size:15px; font-weight: 300;">Access over 30 million course-specific study documents.</p>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</td>
-								<td valign="top" width="50%" style="padding-top: 1rem; padding-bottom: 1rem; padding-left: 1rem; padding-right: 1rem;">
-									<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-										<tbody>
-											<tr>
-												<td>
-													<img src="{% static 'src/assets/images/v2/emailer/Homework_answers.svg'%}" alt="homework answers" style="width: 100%; max-width: 600px; height: auto; margin: auto; margin-bottom: 20px; display: block;">
-												</td>
-											</tr>
-											<tr>
-												<td class="text-testimony" style="text-align: center;">
-													<h3 style="color: #405fbd; font-family:'Roboto', sans-serif; font-size:16px; font-weight: 500;">Homework answers</h3>
-													<p style="color: #555555; font-family:'Roboto', sans-serif; font-size:15px; font-weight: 300;">Ask our expert tutors questions to get the answers you need.</p>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</td>
-<!--								<td valign="top" width="33.333%" style="padding-top: 1rem; padding-bottom: 1rem; padding-left: 1rem; padding-right: 1rem;">-->
-<!--									<table cellspacing="0" cellpadding="0" border="0" width="100%">-->
-<!--										<tbody>-->
-<!--											<tr>-->
-<!--												<td>-->
-<!--													<img src="{% static 'src/assets/images/v2/emailer/Online_tutoring.svg'%}" alt="online tutoring" style="width: 100%; max-width: 600px; height: auto; margin: auto; margin-bottom: 20px; display: block;">-->
-<!--												</td>-->
-<!--											</tr>-->
-<!--											<tr>-->
-<!--												<td class="text-testimony" style="text-align: center;">-->
-<!--													<h3 style="color: #405fbd; font-family:'Roboto', sans-serif; font-size:16px; font-weight: 500;">Online Tutoring</h3>-->
-<!--													<p style="color: #555555; font-family:'Roboto', sans-serif; font-size:15px; font-weight: 300;">Get step-by-step explanations by choosing our tutors.</p>-->
-<!--												</td>-->
-<!--											</tr>-->
-<!--										</tbody>-->
-<!--									</table>-->
-<!--								</td>-->
-							</tr>
-						</tbody>
-					</table>
-				</td>
-			</tr>
-
-			<tr>
-				<td align="center" valign="top">
-					<table cellspacing="0" cellpadding="0" border="0">
-						<tbody>
-							<tr>
-								<td>
-									<a href="#">
-										<button type="button" class="btn" style="background-color: #405fbd; color: #fff; padding: 1rem 2rem; border: 0; border-radius: 2rem;">Get Started</button>
-									</a>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</td>
-			</tr>
-
-			<tr>
-				<td>
 					<!-- Space -->
 					<table border="0" cellpadding="0" cellspacing="0" width="100%" class="space">
 						<tr>
 							<td height="30" style="font-size:1px;line-height:1px;">&nbsp;</td>
 						</tr>
 					</table>
+
 				</td>
 			</tr>
 		</table>
+		<!-- Email Body Close // -->
 
 		<!-- Email Footer Open // -->
-
-		<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px;" width="100%" class="wrapperTable">
+			<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px;" width="100%" class="wrapperTable">
 			<tr>
 				<td align="center" valign="top">
 					<!-- Content Table Open// -->
@@ -399,7 +342,6 @@
 			</tr>
 		</table>
 		<!-- Email Footer Close // -->
-
 
 		<!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
 		</td>

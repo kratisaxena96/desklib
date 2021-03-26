@@ -1,5 +1,6 @@
 {% extends 'desklib/base.html' %}
 {% load meta %}
+{% load staticfiles %}
 
 {% block canonical %}
 {% if canonical %}
@@ -7,727 +8,603 @@
 {% endif %}
 {% endblock %}
 
-<!--    <link rel="stylesheet" href="https://rawgit.com/mozilla/pdf.js/master/web/viewer.css">-->
-<!--    <link rel="stylesheet" href="https://rawgit.com/mozilla/pdf.js/master/examples/mobile-viewer/viewer.css">-->
-
-{% block extra_css %}
-
-<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">-->
-
-<style>
-.textLayer {
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  overflow: hidden;
-  line-height: 1.0;
-  opacity: 1;
-}
-
-.textLayer > span {
-        color: black;
-    }
-.textLayer > span {
-  // color: black;
-  color: transparent;
-  position: absolute;
-  white-space: pre;
-  cursor: text;
-  transform-origin: 0% 0%;
-}
-
-.textLayer .highlight {
-  margin: -1px;
-  padding: 1px;
-
-  background-color: rgb(180, 0, 170);
-  border-radius: 4px;
-}
-
-.textLayer .highlight.begin {
-  border-radius: 4px 0px 0px 4px;
-}
-
-.textLayer .highlight.end {
-  border-radius: 0px 4px 4px 0px;
-}
-
-.textLayer .highlight.middle {
-  border-radius: 0px;
-}
-
-.textLayer .highlight.selected {
-  background-color: rgb(0, 100, 0);
-}
-
-.textLayer ::selection {
-background: rgba(0,0,255,0.3);
-
-}
-
-// ::selection { background: rgba(0,0,255,0.3); }
-
-
-.textLayer .highlight.selected {
-  background-color: rgb(0, 100, 0);
-}
-
-.textLayer .endOfContent {
-  display: block;
-  position: absolute;
-  left: 0px;
-  top: 100%;
-  right: 0px;
-  bottom: 0px;
-  z-index: -1;
-  cursor: default;
-  user-select: none;
-}
-
-.textLayer .endOfContent.active {
-  top: 0px;
-}
-.page{
-    margin: 15px auto 20px auto;
-    border: 1px solid #c5c5c5;
-    position: relative;
-}
-
-.page-image{
-    width: 100%;
-}
-
-.document-pages .owl-nav > .owl-prev, .document-pages .owl-nav > .owl-next {
-    position: absolute;
-    top: 50%;
-    font-size: 100px !important;
-    color: #000 !important;
-    transform: translateY(-50%);
-}
-.document-pages .owl-nav > .owl-prev{
-    left: 0;
-}
-.document-pages .owl-nav > .owl-next{
-    right: 0;
-}
-.loader {
-  border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #3498db; /* Blue */
-  border-radius: 50%;
-  width: 120px;
-  height: 120px;
-  animation: spin 2s linear infinite;
-}
-
-.opacity-1{
-opacity:0.9 !important;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-.modal-open {
-    overflow: hidden !important;
-}
-
-</style>
-<!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
-<!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>-->
-{% endblock %}
-
 {% block content %}
-<section>
+<div class="pg_docsdetail_subscribed">
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-transparent mb-0 rounded-0">
+                            <li class="breadcrumb-item"><a href="/" class="">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'study:study-search'%}" class="">Study</a></li>
+                            <li class="breadcrumb-item active Roboto-Bold" aria-current="page">{{object.title}}</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% block messages %}
+    {% if messages %}
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb breadcrumb-transparent mb-0 rounded-0">
-                        <li class="breadcrumb-item"><a href="/" class="">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{% url 'study:study-search'%}" class="">Study</a></li>
-                        <li class="breadcrumb-item active Roboto-Bold" aria-current="page">{{object.title}}</li>
-                    </ol>
-                </nav>
+            <div class="col-md-4 notification-right pb-4">
+                <ul class="list-unstyled">
+                    {% for message in messages %}
+                    <li class="alert alert-warning alert-dismissible fade show">
+                        <strong>{{message}}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
     </div>
-</section>
-{% block messages %}
-{% if messages %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-4 notification-right pb-4">
-            <ul class="list-unstyled">
-                {% for message in messages %}
-                <li class="alert alert-warning alert-dismissible fade show">
-                    <strong>{{message}}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
-</div>
-{% endif %}
-{% endblock %}
-<div class="container">
-    <div class="row pt-0 pt-sm-5">
-        <article class="col-md-9">
-            <div class="row">
-                <div class="col-md-12 docs_title">
-                    <h3 class="Roboto-Bold">{{object.title}}</h3>
-                    <p>Added on - {{object.created|date:"d M Y"}}</p>
-                </div>
-<!--                <div class="col-md-12">-->
-                    <div class="col-md-6 docs_count ">
-                        <ul class="p-0 d-inline-block">
-                            {% if object.course %}
-                            <li class="d-inline-block p-2 text-center border-right">
-                                <p class="mb-1">{{object.course}}</p>
-                                <p class="mb-0 blue-theme">course code</p>
-                            </li>
-                            {% endif %}
-                            {% comment %}
-                            <!--             <li class="d-inline-block p-2 text-center border-right">-->
-                            <!--                <p class="mb-1">{% for obj in object.subjects.all %}{{obj.name}}{% endfor %}</p>-->
-                            <!--                <p class="mb-0 blue-theme">subject</p>-->
-                            <!--            </li>-->
-
-                            <!--            {% if object.type %}-->
-                            <!--             <li class="d-inline-block p-2 text-center border-right">-->
-                            <!--                <p class="mb-1">{{object.type}}</p>-->
-                            <!--                <p class="mb-0 blue-theme">type</p>-->
-                            <!--            </li>-->
-
-                            <!--            {% endif %}-->
-                            {% endcomment %}
-                            {% if object.pages.all.count %}
-                            <li class="d-inline-block p-2 text-center border-right">
-                                <p class="blue-theme font-weight-600 mb-1">{{object.pages.all.count}}</p>
-                                <p class="Roboto-Medium mb-0">Pages</p>
-                            </li>
-                            {% endif %}
-                            {% if object.words %}
-                            <li class="d-inline-block p-2 text-center border-right">
-                                <p class="blue-theme font-weight-600  mb-1">{{object.words}}</p>
-                                <p class="Roboto-Medium mb-0">Words</p>
-                            </li>
-                            {% endif %}
-                            <li class="d-inline-block p-2 text-center border-right">
-                                <p class="text_yellow font-weight-600 mb-1">{{object.views}}</p>
-                                <p class="Roboto-Medium mb-0">Views</p>
-                            </li>
-                            <li class="d-inline-block text-center p-2">
-                                <p class="text_red font-weight-600 mb-1">{{object.total_downloads}}</p>
-                                <p class="Roboto-Medium mb-0">Downloads</p>
-                            </li>
-                        </ul>
+    {% endif %}
+    {% endblock %}
+    <div class="container">
+        <div class="row pt-0 pt-sm-5">
+            <article class="col-md-9">
+                <div class="row">
+                    <div class="col-md-12 docs_title">
+                        <h3 class="Roboto-Bold">{{object.title}}</h3>
+                        <p>Added on - {{object.created|date:"d M Y"}}</p>
                     </div>
-                    <div class="col-md-6 docs_share ">
-                        <ul class="p-0 d-inline-block float-md-right">
-                            <li class="d-inline-block text-center p-2 ">
-                                <div class="dropdown">
-                                    <a class="shadow border-radius-40 margin-b p-3" data-toggle="dropdown" href="JavaScript:Void(0);">
-                                        <i class="fas fa-share-alt mb-1 blue-theme"></i>
-                                    </a>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item"
-                                           href="https://facebook.com/sharer.php?u=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
-                                           target="_blank"> <i class="fa fa-facebook blue-theme"></i> &nbsp Share on Facebook</a>
-                                        <a class="dropdown-item"
-                                           href="https://twitter.com/intent/tweet?url=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
-                                           target="_blank"> <i class="fa fa-twitter blue-theme"></i> &nbsp; Share on Twitter</a>
-                                        <a class="dropdown-item"
-                                           href="https://www.linkedin.com/shareArticle?mini=true&url=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
-                                           target="_blank"> <i class="fa fa-linkedin blue-theme"></i> &nbsp; Share on LinkedIn</a>
-                                        <a class="dropdown-item"
-                                           href="https://web.whatsapp.com/send?text=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
-                                           target="_blank"> <i class="fa fa-whatsapp blue-theme"></i> &nbsp; Share on Whatsapp</a>
-                                        <a class="dropdown-item"
-                                           href="mailto:?subject=Read {{object.title}}  on Scribd&body=I am reading {{object.title}}  on Desklib: https://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
-                                           target="_blank"> <i class="fa fa-envelope blue-theme"></i> &nbsp; Share on Mail</a>
-                                        <a class="dropdown-item copy_text"
-                                           href="https://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
-                                           target="_blank"> <i class="fa fa-copy blue-theme"></i> &nbsp; Copy Link</a>
+    <!--                <div class="col-md-12">-->
+                        <div class="col-md-6 docs_count ">
+                            <ul class="p-0 d-inline-block">
+                                {% if object.course %}
+                                <li class="d-inline-block p-2 text-center border-right">
+                                    <p class="mb-1">{{object.course}}</p>
+                                    <p class="mb-0 blue-theme">course code</p>
+                                </li>
+                                {% endif %}
+                                {% comment %}
+                                <!--             <li class="d-inline-block p-2 text-center border-right">-->
+                                <!--                <p class="mb-1">{% for obj in object.subjects.all %}{{obj.name}}{% endfor %}</p>-->
+                                <!--                <p class="mb-0 blue-theme">subject</p>-->
+                                <!--            </li>-->
+
+                                <!--            {% if object.type %}-->
+                                <!--             <li class="d-inline-block p-2 text-center border-right">-->
+                                <!--                <p class="mb-1">{{object.type}}</p>-->
+                                <!--                <p class="mb-0 blue-theme">type</p>-->
+                                <!--            </li>-->
+
+                                <!--            {% endif %}-->
+                                {% endcomment %}
+                                {% if object.pages.all.count %}
+                                <li class="d-inline-block p-2 text-center border-right">
+                                    <p class="blue-theme font-weight-600 mb-1">{{object.pages.all.count}}</p>
+                                    <p class="Roboto-Medium mb-0">Pages</p>
+                                </li>
+                                {% endif %}
+                                {% if object.words %}
+                                <li class="d-inline-block p-2 text-center border-right">
+                                    <p class="blue-theme font-weight-600  mb-1">{{object.words}}</p>
+                                    <p class="Roboto-Medium mb-0">Words</p>
+                                </li>
+                                {% endif %}
+                                <li class="d-inline-block p-2 text-center border-right">
+                                    <p class="text_yellow font-weight-600 mb-1">{{object.views}}</p>
+                                    <p class="Roboto-Medium mb-0">Views</p>
+                                </li>
+                                <li class="d-inline-block text-center p-2">
+                                    <p class="text_red font-weight-600 mb-1">{{object.total_downloads}}</p>
+                                    <p class="Roboto-Medium mb-0">Downloads</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 docs_share ">
+                            <ul class="p-0 d-inline-block float-md-right">
+                                <li class="d-inline-block text-center p-2 ">
+                                    <div class="dropdown">
+                                        <a class="shadow border-radius-40 margin-b p-3" data-toggle="dropdown" href="JavaScript:Void(0);">
+                                            <i class="fas fa-share-alt mb-1 blue-theme"></i>
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item"
+                                               href="https://facebook.com/sharer.php?u=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
+                                               target="_blank"> <i class="fa fa-facebook blue-theme"></i> &nbsp Share on Facebook</a>
+                                            <a class="dropdown-item"
+                                               href="https://twitter.com/intent/tweet?url=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
+                                               target="_blank"> <i class="fa fa-twitter blue-theme"></i> &nbsp; Share on Twitter</a>
+                                            <a class="dropdown-item"
+                                               href="https://www.linkedin.com/shareArticle?mini=true&url=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
+                                               target="_blank"> <i class="fa fa-linkedin blue-theme"></i> &nbsp; Share on LinkedIn</a>
+                                            <a class="dropdown-item"
+                                               href="https://web.whatsapp.com/send?text=http://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
+                                               target="_blank"> <i class="fa fa-whatsapp blue-theme"></i> &nbsp; Share on Whatsapp</a>
+                                            <a class="dropdown-item"
+                                               href="mailto:?subject=Read {{object.title}}  on Scribd&body=I am reading {{object.title}}  on Desklib: https://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
+                                               target="_blank"> <i class="fa fa-envelope blue-theme"></i> &nbsp; Share on Mail</a>
+                                            <a class="dropdown-item copy_text"
+                                               href="https://{{request.get_host}}{% url 'documents:document-view' slug=object.slug %}"
+                                               target="_blank"> <i class="fa fa-copy blue-theme"></i> &nbsp; Copy Link</a>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-<!--                </div>-->
-            </div>
-            {% comment %}
-            <!--            <li class="d-inline-block text-center p-2">-->
-            <!--                <a class="btn" data-toggle="modal" data-target="#myModal" href="JavaScript:Void(0);">-->
-            <!--                  <i class="fas fa-exclamation-circle mb-1"></i>-->
-            <!--                      <p class="mb-0">Report</p>-->
-            <!--                </a>-->
-
-            <!--                &lt;!&ndash; The Modal &ndash;&gt;-->
-            <!--                <div class="modal" id="myModal">-->
-            <!--                  <div class="modal-dialog">-->
-            <!--                    <div class="modal-content">-->
-            <!--                        <div class="report-form-popup">-->
-            <!--                            &lt;!&ndash; Modal Header &ndash;&gt;-->
-            <!--                          <div class="modal-header">-->
-            <!--                            <h4 class="modal-title">Report</h4>-->
-            <!--                            <button type="button" class="close" data-dismiss="modal">&times;</button>-->
-            <!--                          </div>-->
-
-            <!--                          &lt;!&ndash; Modal body &ndash;&gt;-->
-            <!--                          <div class="modal-body">-->
-
-            <!--                            <div class="report">-->
-            <!--                                <form id="report-form" action="." method="post" data-url="{% url 'api:documents-api:report-document-api' %}" data-title="{{object.pk}}">-->
-            <!--                                {% csrf_token %}-->
-
-
-            <!--                                  <div class="form-group text-left">-->
-            <!--                                    <p>{{form.issue.label}}</p>-->
-
-
-            <!--                                        {% for x in form.fields.issue.choices %}-->
-            <!--                                          <div class="custom-control custom-radio custom-control-inline">-->
-            <!--                                            <input type="radio" class="custom-control-input" id="{{x.1}}" name="issue" value="{{x.0}}" checked>-->
-            <!--                                            <label class="custom-control-label" for="{{x.1}}">{{x.1}}</label>-->
-            <!--                                          </div>-->
-            <!--                                        {% endfor %}-->
-
-
-            <!--          -->
-            <!--                                      {{form.issue}}-->
-            <!--            -->
-            <!--                                    <span class="issue text-danger"></span>-->
-            <!--                                  </div>-->
-            <!--                                  <div class="form-group text-left">-->
-            <!--                                    <label for="id_other_issue">{{form.other_issue.label}}</label>-->
-            <!--                                      {{form.other_issue}}-->
-            <!--                                  </div>-->
-
-            <!--                                    <input type="submit" value="Report" class="btn btn-bg-theme text-white">-->
-            <!--                                </form>-->
-            <!--                            </div>-->
-
-            <!--                          </div>-->
-            <!--                        </div>-->
-            <!--                        <div class="loader-container jumbotron bg-white m-auto" style="display:none;">-->
-            <!--                            <div class="loader"></div>-->
-            <!--                        </div>-->
-            <!--                        <div class="thank-you jumbotron bg-white mb-0" style="display:none;">-->
-            <!--                            <p class="mb-0">Thank you for your valuable feedback.</p>-->
-            <!--                        </div>-->
-            <!--                          -->
-            <!--                          &lt;!&ndash; Modal footer &ndash;&gt;-->
-            <!--                          <div class="modal-footer">-->
-            <!--                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>-->
-            <!--                          </div>-->
-            <!--                           -->
-
-            <!--                    </div>-->
-            <!--                  </div>-->
-            <!--                </div>-->
-            <!--            </li>-->
-
-            {% endcomment %}
-
-
-
-            <section>
+                                </li>
+                            </ul>
+                        </div>
+    <!--                </div>-->
+                </div>
                 {% comment %}
-                <div class="alert alert-light border mb-4 mt-2">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <span>Number of pages in document:{{object.pages.all.count}}</span>
-                        </div>
-                        <div class="col-sm-6">
-                            <span>Total Words:</span>
-                            <span>{{object.words}}</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <span>Subject:</span>
-                            {% for subject in object.subjects.all %}
-                            <span>{{subject.name}} </span>
-                            {% endfor %}
+                <!--            <li class="d-inline-block text-center p-2">-->
+                <!--                <a class="btn" data-toggle="modal" data-target="#myModal" href="JavaScript:Void(0);">-->
+                <!--                  <i class="fas fa-exclamation-circle mb-1"></i>-->
+                <!--                      <p class="mb-0">Report</p>-->
+                <!--                </a>-->
 
-                        </div>
-                    </div>
-                </div>
-                {% endcomment %}
-            </section>
+                <!--                &lt;!&ndash; The Modal &ndash;&gt;-->
+                <!--                <div class="modal" id="myModal">-->
+                <!--                  <div class="modal-dialog">-->
+                <!--                    <div class="modal-content">-->
+                <!--                        <div class="report-form-popup">-->
+                <!--                            &lt;!&ndash; Modal Header &ndash;&gt;-->
+                <!--                          <div class="modal-header">-->
+                <!--                            <h4 class="modal-title">Report</h4>-->
+                <!--                            <button type="button" class="close" data-dismiss="modal">&times;</button>-->
+                <!--                          </div>-->
 
+                <!--                          &lt;!&ndash; Modal body &ndash;&gt;-->
+                <!--                          <div class="modal-body">-->
 
-            {% comment %}
-            <!--        <div class="alert alert-light border">-->
-
-            <!--            <div class="feedback">-->
-            <!--                <form class="feedback-form" action="." method="post" data-url="{% url 'api:documents-api:document-feedback-api' slug=object.slug %}">-->
-            <!--                {% csrf_token %}-->
-
-            <!--                   <label class="mr-2">{% if object.was_helpful %}-->
-            <!--                  {{object.was_helpful}} people found this document helpful.-->
-            <!--                  {% endif %} Did you find it helpful?</label>-->
-
-            <!--                <button data-value="helpful" class="btn btn-light border submit-feedback mr-2">Yes</button>-->
-            <!--                <button data-value="not-helpful" class="btn btn-light border submit-feedback">No</button>-->
-
-            <!--                &lt;!&ndash;<input type="submit" name="was_heplful" value="Yes">&ndash;&gt;-->
-            <!--                &lt;!&ndash;<input type="submit" name="not_heplful" value="No">&ndash;&gt;-->
-            <!--                </form>-->
-            <!--            </div>-->
-            <!--            <div class="helpful" style="display:none;">-->
-            <!--                Thank you for your valuable feedback.-->
-            <!--            </div>-->
-            <!--            <div class="not-helpful" style="display:none;">-->
-            <!--                Thank you for your feedback. If you want to report an issue about this document <a class="" data-toggle="modal" data-target="#myModal">click here</a>-->
-            <!--            </div>-->
-            <!--        </div>-->
-            {% endcomment %}
-
-            <div class="row docsdetaildwnld">
-                <div class="col-lg-6 d-none d-lg-block">
-                    <span class="d-inline-block d-sm-inline-block w-100 text-left text-md-left text-lg-left text-muted Roboto-Bold"> Trusted by +2 million users, <br/> assist thousands of students everyday  </span>
-                </div>
-                <div class="col-lg-6 text-center text-md-right">
-                    <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn_common btn_blue"
-                       rel="nofollow"> Download This Document </a>
-                </div>
-            </div>
+                <!--                            <div class="report">-->
+                <!--                                <form id="report-form" action="." method="post" data-url="{% url 'api:documents-api:report-document-api' %}" data-title="{{object.pk}}">-->
+                <!--                                {% csrf_token %}-->
 
 
-            {% comment %}
-            <div class="d-inline-block d-sm-inline-block w-100 text-center text-md-left text-lg-center p-4 mb-3 jumbotron">
-                <a href='{% url "documents:document-pay"%}?doc={{object.slug}}'
-                   class="btn btn-bg-theme text-white border-radius-40" rel="nofollow">Download This Document</a>
-                <a href='{% url "documents:document-download-view" %}?doc={{object.slug}}'
-                   class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Download</a>
-                <a href='{% url "documents:document-pay"%}?doc={{object.slug}}'
-                   class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Plans</a>
-                <!--            <a href='{% url "documents:document-download-view"%}?doc={{object.slug}}&single=True' class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Pay Per Download</a>-->
-            </div>
-            {% endcomment %}
+                <!--                                  <div class="form-group text-left">-->
+                <!--                                    <p>{{form.issue.label}}</p>-->
 
 
+                <!--                                        {% for x in form.fields.issue.choices %}-->
+                <!--                                          <div class="custom-control custom-radio custom-control-inline">-->
+                <!--                                            <input type="radio" class="custom-control-input" id="{{x.1}}" name="issue" value="{{x.0}}" checked>-->
+                <!--                                            <label class="custom-control-label" for="{{x.1}}">{{x.1}}</label>-->
+                <!--                                          </div>-->
+                <!--                                        {% endfor %}-->
 
-            {% if object.pages.all.count %}
-            <span class="d-inline-block d-sm-inline-block w-100 text-center text-md-left text-lg-center text-muted">Showing pages {{object.pages.all.count}} of {{object.pages.all.count}}</span>
-            {% endif %}
-            <div id="viewer" class="documentViewer mb-5">
 
-                {% comment %}
-                {% for page in object.pages.all %}
+                <!--          -->
+                <!--                                      {{form.issue}}-->
+                <!--            -->
+                <!--                                    <span class="issue text-danger"></span>-->
+                <!--                                  </div>-->
+                <!--                                  <div class="form-group text-left">-->
+                <!--                                    <label for="id_other_issue">{{form.other_issue.label}}</label>-->
+                <!--                                      {{form.other_issue}}-->
+                <!--                                  </div>-->
+
+                <!--                                    <input type="submit" value="Report" class="btn btn-bg-theme text-white">-->
+                <!--                                </form>-->
+                <!--                            </div>-->
+
+                <!--                          </div>-->
+                <!--                        </div>-->
+                <!--                        <div class="loader-container jumbotron bg-white m-auto" style="display:none;">-->
+                <!--                            <div class="loader"></div>-->
+                <!--                        </div>-->
+                <!--                        <div class="thank-you jumbotron bg-white mb-0" style="display:none;">-->
+                <!--                            <p class="mb-0">Thank you for your valuable feedback.</p>-->
+                <!--                        </div>-->
+                <!--                          -->
+                <!--                          &lt;!&ndash; Modal footer &ndash;&gt;-->
+                <!--                          <div class="modal-footer">-->
+                <!--                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>-->
+                <!--                          </div>-->
+                <!--                           -->
+
+                <!--                    </div>-->
+                <!--                  </div>-->
+                <!--                </div>-->
+                <!--            </li>-->
+
                 {% endcomment %}
 
-                {% for page in object.pages.all %}
-                <img src="{{ page.image_file.url }}" alt="" class="img-fluid border mt-3">
-                {% endfor %}
 
-            </div>
 
-            {% comment %}
-            <div class="subscribe mt-3 mb-5">
-                <div class="jumbotron  text-center">
-                    <h6>You’re reading a preview. To view complete document, subscribe to a plan</h6>
+                <section>
+                    {% comment %}
+                    <div class="alert alert-light border mb-4 mt-2">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <span>Number of pages in document:{{object.pages.all.count}}</span>
+                            </div>
+                            <div class="col-sm-6">
+                                <span>Total Words:</span>
+                                <span>{{object.words}}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <span>Subject:</span>
+                                {% for subject in object.subjects.all %}
+                                <span>{{subject.name}} </span>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                    {% endcomment %}
+                </section>
+
+
+                {% comment %}
+                <!--        <div class="alert alert-light border">-->
+
+                <!--            <div class="feedback">-->
+                <!--                <form class="feedback-form" action="." method="post" data-url="{% url 'api:documents-api:document-feedback-api' slug=object.slug %}">-->
+                <!--                {% csrf_token %}-->
+
+                <!--                   <label class="mr-2">{% if object.was_helpful %}-->
+                <!--                  {{object.was_helpful}} people found this document helpful.-->
+                <!--                  {% endif %} Did you find it helpful?</label>-->
+
+                <!--                <button data-value="helpful" class="btn btn-light border submit-feedback mr-2">Yes</button>-->
+                <!--                <button data-value="not-helpful" class="btn btn-light border submit-feedback">No</button>-->
+
+                <!--                &lt;!&ndash;<input type="submit" name="was_heplful" value="Yes">&ndash;&gt;-->
+                <!--                &lt;!&ndash;<input type="submit" name="not_heplful" value="No">&ndash;&gt;-->
+                <!--                </form>-->
+                <!--            </div>-->
+                <!--            <div class="helpful" style="display:none;">-->
+                <!--                Thank you for your valuable feedback.-->
+                <!--            </div>-->
+                <!--            <div class="not-helpful" style="display:none;">-->
+                <!--                Thank you for your feedback. If you want to report an issue about this document <a class="" data-toggle="modal" data-target="#myModal">click here</a>-->
+                <!--            </div>-->
+                <!--        </div>-->
+                {% endcomment %}
+
+                <div class="row docsdetaildwnld">
+                    <div class="col-lg-6 d-none d-lg-block">
+                        <span class="d-inline-block d-sm-inline-block w-100 text-left text-md-left text-lg-left text-muted Roboto-Bold"> Trusted by +2 million users, <br/> assist thousands of students everyday  </span>
+                    </div>
+                    <div class="col-lg-6 text-center text-md-right">
+                        <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn_common btn_blue"
+                           rel="nofollow"> Download Now! </a>
+                    </div>
+                </div>
+
+
+                {% comment %}
+                <div class="d-inline-block d-sm-inline-block w-100 text-center text-md-left text-lg-center p-4 mb-3 jumbotron">
                     <a href='{% url "documents:document-pay"%}?doc={{object.slug}}'
-                       class="btn btn-bg-theme text-white border-radius-40">View subscription plan</a>
+                       class="btn btn-bg-theme text-white border-radius-40" rel="nofollow">Download This Document</a>
+                    <a href='{% url "documents:document-download-view" %}?doc={{object.slug}}'
+                       class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Download</a>
+                    <a href='{% url "documents:document-pay"%}?doc={{object.slug}}'
+                       class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Plans</a>
+                    <!--            <a href='{% url "documents:document-download-view"%}?doc={{object.slug}}&single=True' class="btn btn-bg-theme btn-lg text-white" rel="nofollow">Pay Per Download</a>-->
                 </div>
-            </div>
-            {% endcomment %}
-        </article>
+                {% endcomment %}
 
-        <aside class="col-md-3">
-            <section>
-                <div class="findatutor text-center">
-                    <div class="ribbon"> Coming soon </div>
 
-                    <h4 class="blue-theme">Click to find the perfect tutor matching your custom needs</h4>
-                    <img src="{% static 'src/assets/images/v2/girl_student.png' %}" class="img-fluid"
-                         alt="Documents Detail"/>
-                    <p class="mt-4 mb-4">Define your needs and let us find you the best tutor tailored solutions about
-                        each topic and all of this with few effortless clicks. </p>
-<!--                    <button class="btn btn_common btn_blue"> Find A Tutor</button>-->
+
+                {% if object.pages.all.count %}
+                <div class="row mr-4">
+                    <div class="col-lg-12 mt-4">
+                        <span class="d-inline-block d-sm-inline-block w-100 text-right text-md-left text-lg-right text-muted">Showing pages {{object.pages.all.count}} of {{object.pages.all.count}}</span>
+                    </div>
                 </div>
-                <div class="authentic text-center mt-4 mb-4">
-                    <h4><img src="{% static 'src/assets/images/v2/orange_tick.svg' %}" class="img-fluid"
-                             alt="Documents Detail"/> &nbsp;&nbsp; 100% Authentic</h4>
-                    <p>Desklib respect your privacy. Only publicly visible question's solutions are visible on our website.  </p>
-                </div>
-            </section>
+                {% endif %}
+                <div id="viewer" class="documentViewer task_box">
 
-            {% if more_like_this %}
-            <section class="similar-resource">
-                <h3>Students who viewed this also studied</h3>
-                <div class="py-4">
-                    <div class="row">
-                        {% for results in more_like_this %}
-                        <article class="col-md-12 col-lg-12 mb-3">
-                            <a href="{% url 'documents:document-view' results.slug %}" class="text-decoration-none">
-                                <div class="">
-                                    <div class="main-div border-radius-5 shadow document-similar-height">
-                                        <img class="card-img-top " src="{{ results.cover_image }}"
-                                             alt="{{ results.title }}">
-                                        <div class="card-body bg-light hover-div">
-                                            <h6 class="word-wrap blue-theme">{{results.title|truncatechars:30}}</h6>
-                                            <div class="btn-d-none">
+                    {% comment %}
+                    {% for page in object.pages.all %}
+                    {% endcomment %}
+
+                    {% for page in object.pages.all %}
+                    {{ page.html|safe }}
+    <!--                <img src="{{ page.image_file.url }}" alt="" class="img-fluid border mt-3">-->
+                    {% endfor %}
+
+                </div>
+
+                {% comment %}
+                <div class="subscribe mt-3 mb-5">
+                    <div class="jumbotron  text-center">
+                        <h6>You’re reading a preview. To view complete document, subscribe to a plan</h6>
+                        <a href='{% url "documents:document-pay"%}?doc={{object.slug}}'
+                           class="btn btn-bg-theme text-white border-radius-40">View subscription plan</a>
+                    </div>
+                </div>
+                {% endcomment %}
+            </article>
+
+            <aside class="col-md-3">
+                <section>
+                    <div class="findatutor text-center">
+                        <div class="ribbon"> Coming soon </div>
+
+                        <h4 class="blue-theme">Click to find the perfect tutor matching your custom needs</h4>
+                        <img src="{% static 'src/assets/images/v2/girl_student.png' %}" class="img-fluid"
+                             alt="Documents Detail"/>
+                        <p class="mt-4 mb-4">Define your needs and let us find you the best tutor tailored solutions about
+                            each topic and all of this with few effortless clicks. </p>
+    <!--                    <button class="btn btn_common btn_blue"> Find A Tutor</button>-->
+                    </div>
+                    <div class="authentic text-center mt-4 mb-4">
+                        <h4><img src="{% static 'src/assets/images/v2/orange_tick.svg' %}" class="img-fluid"
+                                 alt="Documents Detail"/> &nbsp;&nbsp; 100% Authentic</h4>
+                        <p>Desklib respect your privacy. Only publicly visible question's solutions are visible on our website.  </p>
+                    </div>
+                </section>
+
+                {% if more_like_this %}
+                <section class="similar-resource">
+                    <h3>Students who viewed this also studied</h3>
+                    <div class="py-4">
+                        <div class="row">
+                            {% for results in more_like_this %}
+                            <article class="col-md-12 col-lg-12 mb-3">
+                                <a href="{% url 'documents:document-view' results.slug %}" class="text-decoration-none">
+                                    <div class="">
+                                        <div class="main-div border-radius-5 shadow document-similar-height">
+                                            <img class="card-img-top " src="{{ results.cover_image }}"
+                                                 alt="{{ results.title }}">
+                                            <div class="card-body bg-light hover-div">
+                                                <h6 class="word-wrap blue-theme">{{results.title|truncatechars:30}}</h6>
+                                                <div class="btn-d-none">
+                                                        <span class="d-block">
+                                                        <small class="text-muted">{{results.no_of_pages}}</small>
+                                                        <small class="text-muted add-dash">pages</small>
+                                                        </span>
                                                     <span class="d-block">
-                                                    <small class="text-muted">{{results.no_of_pages}}</small>
-                                                    <small class="text-muted add-dash">pages</small>
-                                                    </span>
-                                                <span class="d-block">
-                                                    <small class="text-muted">{{results.no_of_words}}</small>
-                                                    <small class="text-muted add-dash">words</small>
-                                                    </span>
-                                                <small class="text-muted d-block">{{results.pub_date | date}}</small>
-                                                <a href="{% url 'documents:document-view' results.slug %}"
-                                                   class="btn btn_common btn_blue mt-3 mb-3 w-100">View</a>
+                                                        <small class="text-muted">{{results.no_of_words}}</small>
+                                                        <small class="text-muted add-dash">words</small>
+                                                        </span>
+                                                    <small class="text-muted d-block">{{results.pub_date | date}}</small>
+                                                    <a href="{% url 'documents:document-view' results.slug %}"
+                                                       class="btn btn_common btn_blue mt-3 mb-3 w-100">View</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </a>
-                        </article>
-                        {% if forloop.counter|divisibleby:2 %}
-                    </div>
-                    <div class="row">
-                        {% endif %}
+                                </a>
+                            </article>
+                            {% if forloop.counter|divisibleby:2 %}
+                        </div>
+                        <div class="row">
+                            {% endif %}
 
-                        {% endfor %}
+                            {% endfor %}
+                        </div>
                     </div>
-                </div>
-            </section>
-            {% endif %}
-        </aside>
+                </section>
+                {% endif %}
+            </aside>
+        </div>
     </div>
-</div>
 
-{% if not pageviews_flag %}
-<!-- The Modal -->
-<div class="modal show" id="previewModal" style="display: block;" aria-modal="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="bg-dark  pt-5 pb-5">
-                <h4 class="text-white mb-0 text-center">You have reached the preview limit for daily views</h4>
-            </div>
-            <div class="modal-body">
-                <div class="text-center">
-                    <p>Subscribe or upgrade to access study resources for your class.</p>
-                    <a href='{% url "documents:document-pay"%}?doc={{object.slug}}'
-                       class="btn btn-bg-theme text-white border-radius-40 mb-2" rel="nofollow">Download This
-                        Document</a>
-                    <!-- <a href="{% url 'subscription' %}" class="btn btn-bg-theme text-white mb-3">Subscribe</a> -->
-                    <!-- <p>Already on Desklib? <a href="{% url 'account_login' %}">Log in</a> </p> -->
+    {% if not pageviews_flag %}
+    <!-- The Modal -->
+    <div class="modal show" id="previewModal" style="display: block;" aria-modal="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="bg-dark  pt-5 pb-5">
+                    <h4 class="text-white mb-0 text-center">You have reached the preview limit for daily views</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <p>Subscribe or upgrade to access study resources for your class.</p>
+                        <a href='{% url "documents:document-pay"%}?doc={{object.slug}}'
+                           class="btn btn-bg-theme text-white border-radius-40 mb-2" rel="nofollow">Download This
+                            Document</a>
+                        <!-- <a href="{% url 'subscription' %}" class="btn btn-bg-theme text-white mb-3">Subscribe</a> -->
+                        <!-- <p>Already on Desklib? <a href="{% url 'account_login' %}">Log in</a> </p> -->
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="modal-backdrop opacity-1 show"></div>
-{% endif %}
-{% endblock %}
-{% block extra_js %}
+    <div class="modal-backdrop opacity-1 show"></div>
+    {% endif %}
+    {% endblock %}
+    {% block extra_js %}
 
-<!-- <script>
-$(document).ready(function(){
-  $(".visible").click(function(){
-    $(".show-label").show();
-  });
-});
-</script> -->
-<script>
-$(document).ready(function(){
-  if($('#previewModal').is(':visible')){
-  $("body").addClass("modal-open");
-  }
-});
-
-</script>
-<script>
-    var adjustViewer = function(){
-    var viewerWidth = $('#viewer').width();
-    $(".textLayer").each(function() {
-        var layerWidth = $( this ).width();
-        var scale = viewerWidth/layerWidth;
-        $(this).css("transform", "scale(" + scale + ")");
-        $(this).css("transform-origin", "left top 0px");
-        // transform: scale(1.17969);
-        // transform-origin: left top 0px;
-        $(this).parent().css("width", viewerWidth);
-        $(this).parent().css("height", $(this).height()*scale);
-
-
+    <!-- <script>
+    $(document).ready(function(){
+      $(".visible").click(function(){
+        $(".show-label").show();
+      });
     });
-    }
+    </script> -->
+    <script>
+    $(document).ready(function(){
+      if($('#previewModal').is(':visible')){
+      $("body").addClass("modal-open");
+      }
+    });
 
-    adjustViewer();
+    </script>
+    <script>
+        var adjustViewer = function(){
+        var viewerWidth = $('#viewer').width();
+        $(".textLayer").each(function() {
+            var layerWidth = $( this ).width();
+            var scale = viewerWidth/layerWidth;
+            $(this).css("transform", "scale(" + scale + ")");
+            $(this).css("transform-origin", "left top 0px");
+            // transform: scale(1.17969);
+            // transform-origin: left top 0px;
+            $(this).parent().css("width", viewerWidth);
+            $(this).parent().css("height", $(this).height()*scale);
 
-    window.addEventListener("resize", adjustViewer);
 
-
-</script>
-<script>
-    var images = [{% for page in controlled_pages %}"{{ page.image_file.url }}", {% endfor %}];
-    $('.page').each(function(index, ele) {
-
-        // var newimg = $( "img" );
-        var newimg = $('<img />', {
-          src: images[index],
-          class: 'page-image',
         });
-        newimg.prependTo($(ele));
-    });
+        }
 
-$(document).ready(function(){
+        adjustViewer();
 
-    $( ".submit-feedback" ).on( "click", function(e) {
-        // jQuery('.feedback-form').submit( function(e) {
-            e.preventDefault();
-            url = $(this).closest("form").data("url");
-            jQuery('span.has-error').empty();
-            jQuery('.form-group').removeClass('has-error');
-            // var values = {};
-            data = $(this).closest("form").serializeArray();
-            if ($(this).data("value") == "helpful"){
-                data.push({name: "helpful", value: "True"})
-            }
-            else{
-                data.push({name: "helpful", value: "False"})
-            }
-        //    var data = jQuery(".feedback-form").serializeArray();
-            console.log(data);
-            jQuery('div.error_file').text('');
-
-                jQuery.ajax({
-                    type : "POST",
-                    url : url,
-                    data: data,
-                    success: function(data){
-//                        jQuery(".schedule-call-form-popup").hide();
-//                        jQuery(".thank-you").show();
-                        if(data.helpful == true){
-                            $(".helpful").show();
-                            $(".feedback").hide();
-                        }
-                        else{
-                            $(".not-helpful").show();
-                            $(".feedback").hide();
-                        }
-                 //       document.getElementById("schedule-call-form").reset();
-                      },
-                    error: function(data){
-                    //    var response = data.responseJSON;
-
-                        // Begin for loop here
-                      //      for (var key in response) {
-                              console.log("error")
-//                                console.log(key, response[key][0]);
-                        //      jQuery('.schedule-call-form .'+key).addClass('has-error');
-                         //     jQuery('.schedule-call-form span.' + key).text(response[key][0]);
-                         //       }
-                      }
-                });
-             // });
-    });
-
-    $("#report-form").submit(function(e){
-        e.preventDefault();
-        url = $("#report-form").data("url");
-        title = $("#report-form").data("title");
-                      jQuery(".report-form-popup").hide();
-                      jQuery(".loader-container").show();
-        //alert(url)
-            jQuery('span.has-error').empty();
-            jQuery('.form-group').removeClass('has-error');
-            // var values = {};
-            data = $("#report-form").serializeArray();
-                data.push({name: "document", value: title })
-        //    var data = jQuery(".feedback-form").serializeArray();
-        //    console.log(data);
-            jQuery('div.error_file').text('');
-
-                jQuery.ajax({
-                    type : "POST",
-                    url : url,
-                    data: data,
-                    success: function(data){
-                      jQuery(".loader-container").hide();
-                      jQuery(".thank-you").show();
-                        console.log("success")
-                      document.getElementById("report-form").reset();
-                    },
-                    error: function(data){
-                        var response = data.responseJSON;
-
-                        // Begin for loop here
-                        for (var key in response) {
-                            console.log(key, response[key][0]);
-                            jQuery('#report-form .'+key).addClass('has-error');
-                            jQuery('#report-form span.' + key).text(response[key][0]);
-                        }
-                      jQuery(".report-form-popup").show();
-                      jQuery(".loader-container").hide();
-                    }
-                });
-
-    });
-
-    $('.copy_text').click(function (e) {
-       e.preventDefault();
-       var copyText = $(this).attr('href');
-
-       document.addEventListener('copy', function(e) {
-          e.clipboardData.setData('text/plain', copyText);
-          e.preventDefault();
-       }, true);
-
-       document.execCommand('copy');
-    //   console.log('copied text : ', copyText);
-    //   alert('copied text: ' + copyText);
-     });
-
-    $('.document-pages').owlCarousel({
-        loop:true,
-        margin:10,
-        nav:true,
-        items:1
-    });
-
-});
+        window.addEventListener("resize", adjustViewer);
 
 
-</script>
+    </script>
+    <script>
+        var images = [{% for page in controlled_pages %}"{{ page.image_file.url }}", {% endfor %}];
+        $('.page').each(function(index, ele) {
 
-<script>
-    $(document).ready(function () {
-            $(".owl-first").owlCarousel({
-                margin: 50,
-                nav: true,
-                dots: false,
-                loop: true,
-                responsiveClass: true,
-                responsive: {
-                    0: {
-                        items: 1,
-                    },
-                    400: {
-                        items: 2,
-                    },
-                    768: {
-                        items: 4,
-                    },
-                    992: {
-                        items: 5,
-                    }
+            // var newimg = $( "img" );
+            var newimg = $('<img />', {
+              src: images[index],
+              class: 'page-image',
+            });
+            newimg.prependTo($(ele));
+        });
+
+    $(document).ready(function(){
+
+        $( ".submit-feedback" ).on( "click", function(e) {
+            // jQuery('.feedback-form').submit( function(e) {
+                e.preventDefault();
+                url = $(this).closest("form").data("url");
+                jQuery('span.has-error').empty();
+                jQuery('.form-group').removeClass('has-error');
+                // var values = {};
+                data = $(this).closest("form").serializeArray();
+                if ($(this).data("value") == "helpful"){
+                    data.push({name: "helpful", value: "True"})
                 }
+                else{
+                    data.push({name: "helpful", value: "False"})
+                }
+            //    var data = jQuery(".feedback-form").serializeArray();
+                console.log(data);
+                jQuery('div.error_file').text('');
+
+                    jQuery.ajax({
+                        type : "POST",
+                        url : url,
+                        data: data,
+                        success: function(data){
+    //                        jQuery(".schedule-call-form-popup").hide();
+    //                        jQuery(".thank-you").show();
+                            if(data.helpful == true){
+                                $(".helpful").show();
+                                $(".feedback").hide();
+                            }
+                            else{
+                                $(".not-helpful").show();
+                                $(".feedback").hide();
+                            }
+                     //       document.getElementById("schedule-call-form").reset();
+                          },
+                        error: function(data){
+                        //    var response = data.responseJSON;
+
+                            // Begin for loop here
+                          //      for (var key in response) {
+                                  console.log("error")
+    //                                console.log(key, response[key][0]);
+                            //      jQuery('.schedule-call-form .'+key).addClass('has-error');
+                             //     jQuery('.schedule-call-form span.' + key).text(response[key][0]);
+                             //       }
+                          }
+                    });
+                 // });
+        });
+
+        $("#report-form").submit(function(e){
+            e.preventDefault();
+            url = $("#report-form").data("url");
+            title = $("#report-form").data("title");
+                          jQuery(".report-form-popup").hide();
+                          jQuery(".loader-container").show();
+            //alert(url)
+                jQuery('span.has-error').empty();
+                jQuery('.form-group').removeClass('has-error');
+                // var values = {};
+                data = $("#report-form").serializeArray();
+                    data.push({name: "document", value: title })
+            //    var data = jQuery(".feedback-form").serializeArray();
+            //    console.log(data);
+                jQuery('div.error_file').text('');
+
+                    jQuery.ajax({
+                        type : "POST",
+                        url : url,
+                        data: data,
+                        success: function(data){
+                          jQuery(".loader-container").hide();
+                          jQuery(".thank-you").show();
+                            console.log("success")
+                          document.getElementById("report-form").reset();
+                        },
+                        error: function(data){
+                            var response = data.responseJSON;
+
+                            // Begin for loop here
+                            for (var key in response) {
+                                console.log(key, response[key][0]);
+                                jQuery('#report-form .'+key).addClass('has-error');
+                                jQuery('#report-form span.' + key).text(response[key][0]);
+                            }
+                          jQuery(".report-form-popup").show();
+                          jQuery(".loader-container").hide();
+                        }
+                    });
+
+        });
+
+        $('.copy_text').click(function (e) {
+           e.preventDefault();
+           var copyText = $(this).attr('href');
+
+           document.addEventListener('copy', function(e) {
+              e.clipboardData.setData('text/plain', copyText);
+              e.preventDefault();
+           }, true);
+
+           document.execCommand('copy');
+        //   console.log('copied text : ', copyText);
+        //   alert('copied text: ' + copyText);
+         });
+
+        $('.document-pages').owlCarousel({
+            loop:true,
+            margin:10,
+            nav:true,
+            items:1
+        });
+
+    });
+
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+                $(".owl-first").owlCarousel({
+                    margin: 50,
+                    nav: true,
+                    dots: false,
+                    loop: true,
+                    responsiveClass: true,
+                    responsive: {
+                        0: {
+                            items: 1,
+                        },
+                        400: {
+                            items: 2,
+                        },
+                        768: {
+                            items: 4,
+                        },
+                        992: {
+                            items: 5,
+                        }
+                    }
+                });
+
             });
 
-        });
-
-</script>
+    </script>
+</div>
 {% endblock %}
 
 
