@@ -205,29 +205,57 @@
                     <table id="example" class="table table-bordered table-responsive-sm tbl_order_details" style="width:100%">
                         <thead class="">
                             <tr>
-                                <th>Order ID</th>
-                                <th>Subject</th>
-                                <th>Deadline</th>
-                                <th>Payment</th>
-                                <th>Status</th>
+                                <th class="text-center" >Order ID</th>
+                                <th class="text-center">Subject</th>
+                                <th class="text-center">Deadline</th>
+                                <th class="text-center">Payment</th>
+                                <th class="text-center">Chat Now</th>
+                                <th class="text-center">Status</th>
                             </tr>
                         </thead>
                         <tbody>
+
                             <tr>
-                                <td> <a href="#"> GAH21011152681B2 </a> </td>
-                                <td>Python Programming</td>
-                                <td>Jan 22, 2021</td>
-                                <td class="text-center">
-                                    <a href="{% url 'homework_help:order_payment' uid=order.uuid %}"> <button class="btn btn_common btn_blue od_btn_padding"> Pay $30 </button></a>
+                                <td> <a href="#"> {{order.order_id}} </a> </td>
+                                <td>
+                                    {% if order.question %}
+                                        {{ order.question.subjects.name|title }}
+                                    {% else %}
+                                        Not Given
+                                    {% endif %}
                                 </td>
-                                <td> <input type="checkbox" name="" value="" class="" /> &nbsp; Unpaid </td>
+                                <td>
+                                    {% if order.deadline_datetime %}
+                                        {{ order.deadline_datetime|date }}
+                                    {% else %}
+                                        Not Given
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    <a href="{% url 'homework_help:order_payment' uid=order.uuid %}">
+                                        {% if order.budget %}
+                                            <button class="btn btn_common btn_blue od_btn_padding">Pay $ {{ order.budget }}</button>
+                                        {% else %}
+                                            <button class="btn btn_common btn_blue od_btn_padding pay-button"></button>
+                                        {% endif %}
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <button class="btn btn_common btn_blue od_btn_padding chat-button"> Chat Now</button>
+                                </td>
+
+                                <td>
+                                    {% if order.is_paid  %}
+                                        <input type="checkbox" name="" value="" class="" checked/> &nbsp; Paid
+                                    {% else %}
+                                        <input type="checkbox" name="" value="" class="" /> &nbsp; Unpaid
+                                    {% endif %}
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-
-
 
             <div class="row pt-5 pb-5 mt-4">
 				    <div class="col-md-12">
@@ -422,6 +450,8 @@ function get_status(){
 
         $(".status_" + data.status).siblings().removeClass("active")
         $(".status_" + data.status).siblings().removeClass("done")
+        $(".pay-button").text(" ").text("Pay $" + data.budget + " ")
+
         i = data.status
 
         if(i == 2){

@@ -21,6 +21,7 @@ from haystack.generic_views import SearchView
 from django.shortcuts import render
 from django.views.generic import TemplateView, FormView, ListView, DetailView
 
+from accounts.models import UserAccount
 from documents.utils import key_generator
 from homework_help.models import Order, Comment, Question, Answers, HomeworkAccordion
 from homework_help.forms import CommentForm, QuestionForm, QuestionHomeForm, SolutionForm
@@ -651,7 +652,9 @@ class HomeworkHelpPaypalPaymentView(LoginRequiredMixin, View):
             mail.send(True)
             return JsonResponse('Payment completed', safe=False)
 
-class OrdersPayment(TemplateView):
+
+class OrdersPayment(LoginRequiredMixin, TemplateView):
+
     template_name = "homework_help/v2/order_payment.html"
     model = Order
 
@@ -662,4 +665,209 @@ class OrdersPayment(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(self.__class__, self).get_context_data(**kwargs)
         context["order"] = Order.objects.get(uuid=self.kwargs['uid'])
+        context['tracking_id'] = key_generator()
         return context
+
+
+class PaypalOrderPaymentCheckView(LoginRequiredMixin, View):
+
+    def post(self, request, *args, **kwargs):
+        body = json.loads(request.body.decode("utf-8"))
+        url = settings.PAYPAL_TOKEN_API
+        data = {
+            "grant_type": "client_credentials"
+        }
+        headers = {
+            'content-type': "application/x-www-form-urlencoded",
+        }
+        client = settings.PAYPAL_CLIENT
+        secret = settings.PAYPAL_SECRET
+        auth = (client, secret)
+        auth_token = requests.request("POST", url, data=data, headers=headers, auth=auth)
+        token = json.loads(auth_token.text).get('access_token')
+        url = settings.PAYPAL_RISK_API + settings.PAYPAL_MERCHANT_ID + "/" + body.get('tracking_id')
+        payload = json.dumps({
+            "tracking_id": body.get('tracking_id'),
+            "additional_data": [
+                {
+                    "key": "sender_first_name",
+                    "value": request.user.first_name
+                },
+                {
+                    "key": "sender_email",
+                    "value": request.user.email
+                },
+                {
+                    "key": "sender_phone",
+                    "value": str(request.user.contact_no)
+                },
+                {
+                    "key": "sender_country_code",
+                    "value": str(request.user.country)
+                },
+                {
+                    "key": "sender_create_date",
+                    "value": str(datetime.now())
+                },
+            ],
+        })
+        headers = {
+            'accept': "application/json",
+            'content-type': "application/json",
+            'accept-language': "en_US",
+            'authorization': "Bearer " + token
+        }
+
+        risk_response = requests.request("PUT", url, data=payload, headers=headers)
+        url = settings.PAYPAL_CHECKOUT_API
+        payment_invoice = PaypalInvoice(user=request.user)
+        payment_invoice.save()
+        order_id = body.get('uuid')
+        order = Order.objects.get(uuid=order_id)
+
+        data = json.dumps({
+            "intent": "CAPTURE",
+            "application_context": {
+                "brand_name": "Desklib",
+                "shipping_preference": "NO_SHIPPING",
+                "user_action": "PAY_NOW",
+                "payment_method": {
+                    "payer_selected": "PAYPAL",
+                    "payee_preferred": "IMMEDIATE_PAYMENT_REQUIRED"
+                }
+            },
+            "payer": {
+                "name": {
+                    "given_name": request.user.first_name,
+                    "surname": request.user.last_name
+                },
+                "email_address": request.user.email,
+            },
+            "purchase_units": [{
+                    "amount": {
+                        "currency_code": "USD",
+                        "value": order.budget,
+                        "breakdown": {
+                            "item_total": {
+                                "currency_code": "USD",
+                                "value": order.budget
+                            }
+                        }
+                    },
+                    "items": [{
+                            "name": order.question.question[0:15:],
+                            "quantity": "1",
+                            "category": "DIGITAL_GOODS",
+                            "unit_amount": {
+                                "currency_code": "USD",
+                                "value": order.budget
+                            }
+                        }],
+                    "soft_descriptor": "Desklib",
+                    "invoice_id": payment_invoice.invoice_id
+                }
+            ]
+        })
+
+        headers = {
+            'accept': "application/json",
+            'content-type': "application/json",
+            'accept-language': "en_US",
+            'authorization': "Bearer " + token
+        }
+
+        response = requests.request("POST", url, data=data, headers=headers)
+        return HttpResponse(response, content_type='application/json')
+
+
+class PaypalOrderPaymentUpdateView(LoginRequiredMixin, View):
+
+    def post(self, request, *args, **kwargs):
+        url = settings.PAYPAL_TOKEN_API
+        data = {
+            "grant_type": "client_credentials",
+        }
+        headers = {
+            'content-type': "application/x-www-form-urlencoded",
+        }
+        auth = (settings.PAYPAL_CLIENT, settings.PAYPAL_SECRET)
+        auth_token = requests.request("POST", url, data=data, headers=headers, auth=auth)
+        token = json.loads(auth_token.text).get('access_token')
+        body = json.loads(request.body.decode("utf-8"))
+        url = settings.PAYPAL_CHECKOUT_API + "/" + body.get('order_id') + "/capture"
+
+        headers = {
+            'content-type': "application/json",
+            'authorization': "Bearer " + token,
+            'PayPal-Client-Metadata-Id': body.get('tracking_id'),
+            'PayPal-Request-id': key_generator()
+        }
+        response = requests.request("POST", url, headers=headers)
+        resp_json = json.loads(response.text)
+        if resp_json.get('purchase_units')[0].get('payments').get('captures')[0].get('invoice_id'):
+            resp_short = resp_json.get('purchase_units')[0].get('payments').get('captures')[0]
+            invoice_id = resp_short.get('invoice_id')
+            payment = PaypalInvoice.objects.get(invoice_id=invoice_id)
+            payment.buyer_email = resp_json.get('payer').get('email_address')
+            payment.amount = resp_short.get('amount').get('value')
+            payment.status = resp_short.get('status')
+            payment.currency = resp_short.get('amount').get("currency_code")
+            payment.transaction_id = resp_short.get('id')
+            payment.save()
+
+            receiver_email = "payment@locusrags.com"
+            if not settings.DEBUG:
+                receiver_email = "ankushtambi-facilitator@gmail.com"
+
+            locus_email = "developers@zucol.in"
+            if not settings.DEBUG:
+                locus_email = "info@desklib.com"
+
+            if resp_json.get('status') == "COMPLETED":
+                order = Order.objects.get(uuid=body.get('uuid'))
+                amount = int(float(resp_short.get('amount').get('value')))
+                order.amount_paid = amount
+                time_split = order.expected_hours
+                if time_split:
+                    if time_split > 24:
+                        total_days = time_split // 24
+                        total_hours = time_split % 24
+                        order.deadline_datetime = datetime.strptime(resp_short.get('create_time'), '%Y-%m-%dT%H:%M:%SZ') + timedelta(days=total_days, hours=total_hours)
+                    else:
+                        total_hours = time_split
+                        order.deadline_datetime = datetime.strptime(resp_short.get('create_time'), '%Y-%m-%dT%H:%M:%SZ') + timedelta(hours=total_hours)
+
+                order.status = Order.STATUS_EXPERT_WORKING
+                order.save()
+
+                if order.author.email:
+                    context = {
+                        'first_name': order.author.first_name,
+                        'order_id': order.order_id,
+                        'SITE_URL': "https://" + Site.objects.get_current().domain,
+                        'uuid': order.uuid,
+                        'amount': amount
+                    }
+                    html_message = render_to_string('homework_help/mail-templates/order_payment_completed.html', context=context, request=None)
+                    mail = EmailMultiAlternatives(
+                        subject='payment for ' + order.order_id + ' completed',
+                        body='payment for ' + order.order_id + ' completed',
+                        from_email=settings.DEFAULT_FROM_EMAIL,
+                        to=[order.author.email, ]
+                    )
+                    mail.attach_alternative(html_message, 'text/html')
+                    mail.send(True)
+
+                if locus_email:
+                    msg_new = "Hello <br>Payment received from order: {order_id}".format(order_id=order.order_id)
+                    mail = EmailMultiAlternatives(
+                        subject='payment for ' + order.order_id + ' received',
+                        body='payment for ' + order.order_id + ' received',
+                        from_email=settings.DEFAULT_FROM_EMAIL,
+                        to=[locus_email, ]
+                    )
+                    mail.attach_alternative(msg_new, 'text/html')
+                    mail.send(True)
+                return JsonResponse('Payment completed', safe=False)
+            else:
+                return JsonResponse('Something Wrong Try Again ', safe=False)

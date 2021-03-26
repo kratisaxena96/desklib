@@ -1,9 +1,20 @@
-from django.contrib.sitemaps.views import sitemap
-from django.urls import path, include
-from .views import OrderDetailView, AskQuestionView, QuestionDetailView, OrderCreateView, OrderListView, CustomSearchQuestionView, autocomplete, HomeworkHelpPaypalPaymentView, HomeworkHelpPaypalPaymentCheckView, ParentSubjectQuestionView, OrdersPayment
-from django.views.generic import TemplateView
-# from .sitemaps import all_sitemaps as sitemaps
 
+from django.urls import path
+from .views import (
+    OrderDetailView,
+    AskQuestionView,
+    QuestionDetailView,
+    OrderCreateView,
+    OrderListView,
+    CustomSearchQuestionView,
+    autocomplete,
+    HomeworkHelpPaypalPaymentView,
+    HomeworkHelpPaypalPaymentCheckView,
+    ParentSubjectQuestionView,
+    OrdersPayment,
+    PaypalOrderPaymentCheckView,
+    PaypalOrderPaymentUpdateView,
+)
 
 urlpatterns = [
     path('', AskQuestionView.as_view(), name='ask-question-view'),
@@ -17,5 +28,6 @@ urlpatterns = [
     path(r'autocomplete/', autocomplete, name='autocomplete'),
     path('<slug:slug>/', ParentSubjectQuestionView.as_view(), name='parent-question-view'),
     path('order/payment/<uid>/', OrdersPayment.as_view(), name='order_payment'),
-
+    path('payment/check', PaypalOrderPaymentCheckView.as_view(), name='payment-check'),
+    path('payment/update', PaypalOrderPaymentUpdateView.as_view(), name='payment-update'),
 ]

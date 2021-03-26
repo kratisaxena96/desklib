@@ -48,7 +48,7 @@ class OrderStatusSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('status', 'budget')
+        fields = ('status', 'budget', 'amount_paid', "is_paid")
 
 
 class QuestionAnswerSerializer(serializers.ModelSerializer):

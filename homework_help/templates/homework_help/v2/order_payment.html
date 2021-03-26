@@ -19,6 +19,29 @@
                 <div class="col"></div>
                 <div class="col-md-4">
                     <div class="text-left px-4 pb-4">
+            <div class="row text-center">
+<!--                <div class="col-md-12 my-2">-->
+<!--                    <button type="submit" value="Paypal" name="paypal" class="btn btn_order_payment btn_o_paypal bg_white shadow">-->
+<!--                        <img src="{% static 'src/assets/images/v2/paypal.png' %}" alt="paypal icon" class="img-fluid">-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--                <div class="col-md-12 my-2">-->
+<!--                    <h5 class="blue-theme"> or </h5>-->
+<!--                </div>-->
+<!--                <div class="col-md-12 my-2">-->
+<!--                    <button type="submit" value="Paypal" name="paypal" class="btn btn_order_payment btn_o_debit bg-light shadow">Debit/Credit Card</button>-->
+<!--                </div>-->
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-md-6">
+                    <div class="payment_option text-center">
+                       <h5 class="text-left">Paypal form here</h5>
+                    </div>
+                </div>
+                <div class="col-md-6">
+
+                    <div class="docs_plan_box_lower text-left pt-4 pl-2 pr-2 pb-4">
                         <ul class="list-unstyled pl-0">
                             <li> <i class="fas fa-check-square check_blue"></i> {{plan.view_limit}} Document view </li>
                             <li> <i class="fas fa-check-square check_blue"></i> {{ plan.download_limit }} Document Download </li>
@@ -30,6 +53,9 @@
                 <div class="col"></div>
             </div>
             {% endcomment %}
+            <div class="show-loader">
+                <div class="loader"> </div>
+            </div>
 
             <div class="row text-center">
                 <div class="col"></div>
@@ -61,37 +87,46 @@
                     </div>
                 </div>
                 <div class="col"></div>
+
             </div>
         </div>
     </section>
 </div>
+
+<div class="loading payment-loader">
+    <div class="loader-container">
+        <h4 class="text-center text-white">Your payment is being processed...</h4>
+        <div class="loader"></div>
+    </div>
+</div>
 {% endblock %}
 {% block extra_js %}
+<!-- Include the PayPal JavaScript SDK -->
 {% if debug %}
-    <script src="https://www.paypal.com/sdk/js?client-id=Aei6_cYX5hfSF0WsVXJ3VR3Rc_C0KbneVwh3RLYx_OUJG3gS5m2XM-1tg9EFL7ffTjggfvaNhKQQnsyE&currency=USD"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=Aei6_cYX5hfSF0WsVXJ3VR3Rc_C0KbneVwh3RLYx_OUJG3gS5m2XM-1tg9EFL7ffTjggfvaNhKQQnsyE"></script>
 {% else %}
-    <script src="https://www.paypal.com/sdk/js?client-id=AR64PRuqgne8Tt4-P5USVMPgEq0wl5x3stCFhuJGTa-8u04W5CQXHPW4V4ZKE_A9hUYTpgshJLZaMaVm&currency=USD"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AR64PRuqgne8Tt4-P5USVMPgEq0wl5x3stCFhuJGTa-8u04W5CQXHPW4V4ZKE_A9hUYTpgshJLZaMaVm"></script>
 {% endif %}
 
 <script>
 $( document ).ready(function() {
-   function getCookie(name) {
-      let cookieValue = null;
-      if (document.cookie && document.cookie !== '') {
-         const cookies = document.cookie.split(';');
-         for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-               cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-               break;
-            }
-         }
-      }
-      return cookieValue;
-   }
+	function getCookie(name) {
+		let cookieValue = null;
+		if (document.cookie && document.cookie !== '') {
+			const cookies = document.cookie.split(';');
+			for (let i = 0; i < cookies.length; i++) {
+				const cookie = cookies[i].trim();
+				if (cookie.substring(0, name.length + 1) === (name + '=')) {
+					cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+					break;
+				}
+			}
+		}
+		return cookieValue;
+	}
 
-   var csrftoken = getCookie('csrftoken');
-   var user = "{{ user }}"
+	var csrftoken = getCookie('csrftoken');
+	var user = "{{ user }}"
     var uuid = "{{ order.uuid }}"
     var order_id = "{{ order.order_id }}"
 
@@ -105,15 +140,62 @@ $( document ).ready(function() {
         },
 
         createOrder: function(data, actions) {
-            console.log("hello")
+            $('.payment-loader').show();
+            var payment_details = {}
+            payment_details["user"] = user
+            payment_details["uuid"] = uuid
+            payment_details["order_id"] = order_id
+            payment_details["tracking_id"] = '{{tracking_id}}'
+            body = JSON.stringify(payment_details);
+            return fetch("{% url 'homework_help:payment-check' %}", {
+            method:'POST',
+            headers:{
+                'Content-type':'application/json',
+                'X-CSRFToken':csrftoken,
+            },
+            body: body
+            }).then(function(res) {
+                $('.payment-loader').hide();
+                return res.json();
+            }).then(function(orderData) {
+                return orderData.id;
+            });
         },
 
         onApprove: function(data, actions) {
-
+            var url= "{% url 'homework_help:payment-update' %}"
+            var payment_details = {}
+            payment_details["user"] = user
+            payment_details["uuid"] = uuid
+            payment_details["order_id"] = data.orderID
+            payment_details["tracking_id"] = '{{tracking_id}}'
+            body = JSON.stringify(payment_details);
+            fetch(url, {
+                method:'POST',
+                headers:{
+                    'Content-type':'application/json',
+                    'X-CSRFToken':csrftoken,
+                },
+                body: body
+            })
+            .then(function(res) {
+                return res.json();
+            }).then(function(orderData) {
+                var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
+                if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
+                    return actions.restart();
+                }
+                if (errorDetail) {
+                    var msg = 'Sorry, your transaction could not be processed.';
+                    if (errorDetail.description) msg += '\n\n' + errorDetail.description;
+                    if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
+                    return alert(msg);
+                }
+            });
+            window.location.replace("{% url 'homework_help:order-detail-view' uuid=order.uuid  %}");
         },
         onCancel: function (data) {
             console.log(data)
-            //$('.paypal-error').text("Payment canceled. Please try again to purchase.");
         },
         onError: function(err) {
             $('.paypal-error').text("An error occurred during transaction. Please try again.");
