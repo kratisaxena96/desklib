@@ -3,7 +3,7 @@
 {% load humanize %}
 
 {% block canonical %}
-    <link href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css" type="text/css" rel="stylesheet">
+<!--    <link href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css" type="text/css" rel="stylesheet">-->
 {% endblock %}
 
 {% block content %}
@@ -202,7 +202,7 @@
 
             <div class="row order_details my-5">
                 <div class="col-md-12 col-lg-12">
-                    <table id="example" class="table table-bordered table-responsive-sm tbl_order_details" style="width:100%">
+                    <table id="example" class="table table-bordered table-responsive-sm tbl_order_details text-center" style="width:100%">
                         <thead class="">
                             <tr>
                                 <th class="text-center" >Order ID</th>
@@ -246,9 +246,9 @@
 
                                 <td>
                                     {% if order.is_paid  %}
-                                        <input type="checkbox" name="" value="" class="" checked/> &nbsp; Paid
+                                        <i class="fas fa-check-square check_blue"></i> &nbsp; Paid
                                     {% else %}
-                                        <input type="checkbox" name="" value="" class="" /> &nbsp; Unpaid
+                                        <i class="fa fa-times-circle check_blue"></i> &nbsp; Unpaid
                                     {% endif %}
                                 </td>
                             </tr>
@@ -622,12 +622,12 @@ function get_answer(){
 });
 </script>
 
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#example').DataTable();
-    } );
-</script>
+<!--<script src="https://code.jquery.com/jquery-3.5.1.js"></script>-->
+<!--<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>-->
+<!--<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>-->
+<!--<script>-->
+<!--    $(document).ready(function() {-->
+<!--        $('#example').DataTable();-->
+<!--    } );-->
+<!--</script>-->
 {% endblock extra_js %}
