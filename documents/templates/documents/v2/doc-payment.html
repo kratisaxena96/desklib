@@ -1349,10 +1349,13 @@ $(document).ready(function() {
 
 <script>
       $(document).ready(function(){
-        $('#showRibbon p:first-child').first().addClass('ribbon1').append('Most Popular');
-       // $('.docs_plan_box_upper span:first-child').first().addClass('info').append('<i class="fa fa-info-circle blue-theme" aria-hidden="true" data-toggle="tooltip" title="Most popular monthly plan "></i>');
+        setTimeout(function(){
+            $('#showRibbon p:first-child').first().addClass('ribbon1').append('Most Popular');
+        }, 1);
+
+        // $('.docs_plan_box_upper span:first-child').first().addClass('info').append('<i class="fa fa-info-circle blue-theme" aria-hidden="true" data-toggle="tooltip" title="Most popular monthly plan "></i>');
         //$("#showRibbon:first-child").append("<p class="ribbon"> Most Popular</p>");
-    });
+      });
 </script>
 
 

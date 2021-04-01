@@ -97,6 +97,47 @@ input, select, textarea, button, i, a {
 }
 
 
+input[type="date"] {
+    position: relative;
+}
+
+
+
+
+/*---------- Date Input Css ----------*/
+/* make the native arrow invisible and stretch it over the whole field so you can click anywhere in the input field to trigger the native datepicker*/
+input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    height: auto;
+    color: transparent;
+    background: transparent;
+}
+/* adjust increase/decrease button */
+
+
+/* adjust clear button */
+input[type="date"]::-webkit-clear-button {
+ z-index: 1;
+}
+
+
+.pg_copyright, .pg_terms_of_use, .pg_privacypolicy {
+    text-align: justify;
+}
+@media (max-width: 575px) {
+    .btn-facebook {
+        color: #fff;
+        background-color: #3b5998;
+        font-size: 1.2rem;
+    }
+}
+
+
 /*---------- B R E A D C R U M B   S E C T I O N   C S S ----------*/
 .breadcrumb-transparent {
     padding-left: 0;
@@ -139,11 +180,19 @@ ul.navbar-nav li{
 }
 
 @media (max-width: 575px) {
+    .navbar-collapse {
+        flex-direction: column;
+    }
+    .navbar-nav {
+        text-align: center !important;
+        margin-right: 0 !important;
+    }
     .bg_light_black {
         background-color: #46494a;
         color: #fff;
         text-align: center;
     }
+    .acntSetting { right: 0; left: 0; width: 13rem; }
 }
 
 /*---------- F O O T E R   S E C T I O N   C S S ----------*/
@@ -246,6 +295,7 @@ textarea {
         border: 1px solid #405fbd;
         position: relative;
         transition: 1s;
+        transform: scale(0.9);
         background-color: #fff;
         -webkit-border-radius: 4rem;
         -moz-border-radius: 4rem;
@@ -255,7 +305,7 @@ textarea {
     .testimonial_box:hover {
         box-shadow: 2px 4px 8px #d6d8da;
         border: 1px solid #fff;
-        transform: scale(1.2);
+        transform: scale(1);
         position: relative;
         z-index: 1;
     }
@@ -594,6 +644,8 @@ ul.hwh_bysubj li {
 /*---------- W R I T I N G - C O M P A R E   P A G E  C S S  S T A R T ----------*/
 ul.wrtng_cmpare_acrdn li {
     font: normal normal normal 20px/32px Roboto;
+    transition: 1s;
+    transform: scale(0.9);
     padding: 1.75rem 1.25rem;
     margin: 1rem;
     -webkit-border-radius: 2rem !important;
@@ -604,7 +656,18 @@ ul.wrtng_cmpare_acrdn li {
 ul.wrtng_cmpare_acrdn li a {
     color: #000;
 }
-
+ul.wrtng_cmpare_acrdn li:hover {
+    border: 1px dashed #405fbd;
+    transition: 1s;
+    transform: scale(1);
+}
+.compare_accordian .card {
+    border: 0;
+    margin: 1rem 0;
+}
+.compare_accordian .card .card-header {
+    border: 0;
+}
 
 /*---------- H O M E W O R K  H E L P  P A G E  C S S  S T A R T ----------*/
 .homework-banner {
@@ -903,7 +966,7 @@ ul.wrtng_cmpare_acrdn li a {
     transition: 1s;
 }
 .hwh_listoforder:hover {
-    transform: scale(1.2);
+    transform: scale(1);
     position: relative;
     z-index: 1;
     border: 1px dashed #405fbd;

@@ -1,91 +1,93 @@
 {% extends "desklib/base.html" %}
 {% load meta %}
 {% block content %}
-<div class="container py-2 py-md-5">
+<div class="pg_copyright">
+	<div class="container py-2 py-md-5">
 	  {% block messages %}
-    {% if messages %}
-        <div>
-            <ul>
-                {% for message in messages %}
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <strong>{{message}}</strong>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                </div>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
-  {% endblock %}
-    <h1>Desklib Intellectual Property Rights Owner Program.</h1>
+		{% if messages %}
+			<div>
+				<ul class="list-unstyled">
+					{% for message in messages %}
+					<li class="alert alert-warning alert-dismissible fade show">
+							<strong>{{message}}</strong>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+		{% endif %}
+	  {% endblock %}
+		<h1>Desklib Intellectual Property Rights Owner Program.</h1>
 
-    <p>Desklib has developed the Desklib Intellectual Property Rights Owner program to protect
-		the rights of the intellectual property owners, and consumers as well. Our program is designed to:</p>
-		<p>
-			<ul>
-				<li>Quickly remove listings reported by intellectual property rights owners to Desklib</li>
-				<li>Proactively monitor and remove postings that violate Desklib policies designed to prevent the listing of infringing items on Desklib sites.</li>
-				<li>Suspend users who repeatedly violate our policies and the rights of others.</li>
-				<li>Cooperate with rights owners seeking personal information on alleged infringers.</li>
-			</ul>
-		</p>
-		<p>Desklib is not an expert in each individual intellectual property owner's rights, and owners are ultimately responsible
-		for protecting their own intellectual property. If you believe that a particular posting violates your intellectual property
-		rights, we need your help to identify the listing.</p>
+		<p>Desklib has developed the Desklib Intellectual Property Rights Owner program to protect
+			the rights of the intellectual property owners, and consumers as well. Our program is designed to:</p>
 
-		<h3>How to report infringing content to Desklib</h3>
-		<p><strong>Only the intellectual property rights owner can report potentially infringing content to Desklib.</strong> If you are not the rights owner, you can help by reaching out to the rights owner and encouraging them to contact us.</p>
-		<p>To report a listing, you can fill out our Notice of Claimed Infringement form available through this page, print it out, email it to <a data-in-app="true" href="mailto:info@desklib.com">info@desklib.com</a>.</p>
+				<ul>
+					<li>Quickly remove listings reported by intellectual property rights owners to Desklib</li>
+					<li>Proactively monitor and remove postings that violate Desklib policies designed to prevent the listing of infringing items on Desklib sites.</li>
+					<li>Suspend users who repeatedly violate our policies and the rights of others.</li>
+					<li>Cooperate with rights owners seeking personal information on alleged infringers.</li>
+				</ul>
 
-		<h3>Policy Against Repeat Infringers</h3>
-		<p>Desklib does not tolerate the abuse of its website
-		by those who knowingly infringe on the intellectual property rights of content owners. Our policy is simple: when we have a good faith,
-		reasonable belief that infringing material has been placed on one of our sites either through a notice of claimed infringement from a rights owner or
-		our own proactive efforts, we will: (1) promptly remove the infringing material; (2) send a message to the user posting the material informing
-		them of the takedown and providing them with links to educational information; and (3) warn first time offenders that posting infringing materials will
-		lead to suspension of Desklib account privileges. Should a review of the user's account reveal that there have been prior postings of
-		infringing material, we will take further action up to and including the suspension of that user's ability to post content on all Desklib sites.</p>
-		<br>
-		<h2><strong>FAQs:</strong></h2>
+			<p>Desklib is not an expert in each individual intellectual property owner's rights, and owners are ultimately responsible
+			for protecting their own intellectual property. If you believe that a particular posting violates your intellectual property
+			rights, we need your help to identify the listing.</p>
 
-		<h3>Why was my listing removed?</h3>
-		<p>Before a posting is removed, the rights owner must give us information that ensures that the person reporting the item is authorized to do so. It also
-		allows us to correctly identify the material to be removed. If your posting is reported, you'll receive an email notifying you that a rights owner
-		requested your posting be removed.</p>
-		<p>We require the rights owner to provide us with an email address so you can contact them directly for more information about why your posting infringes
-		their intellectual property rights. You can find the rights owner's email address in the email you received when your posting was removed. If you
-		have concerns or questions about why your posting was reported, please contact the content owner directly using the email address we provided.</p>
+			<h3>How to report infringing content to Desklib</h3>
+			<p><strong>Only the intellectual property rights owner can report potentially infringing content to Desklib.</strong> If you are not the rights owner, you can help by reaching out to the rights owner and encouraging them to contact us.</p>
+			<p>To report a listing, you can fill out our Notice of Claimed Infringement form available through this page, print it out, email it to <a data-in-app="true" href="mailto:info@desklib.com">info@desklib.com</a>.</p>
 
-		<h3>Can I repost material that you have removed?</h3>
-		<p>Generally, no. If your listing was reported by a rights owner, and you believe that your post was removed in error, try to contact the rights
-		owner directly. The email we sent you about the removal will include their contact information. If the rights owner agrees that they made a mistake,
-		have them email Desklib and we'll allow you to relist your item.</p>
-		<p>A counter notice is a form provided by Desklib in compliance with the requirements of the federal Digital Millennium Copyright Act. Find out what
-		information you need to provide when filing a counter notice. (http://www.citmedialaw.org/legal-guide/responding-dmca-takedown-notice-targeting-your-content)</p>
-		<p>Once we receive a valid counter notice, we'll provide a copy of the notice to the rights owner and inform them that the content will be reinstated
-		after 10 business days if they don't inform us that they have filed an action seeking a court order to restrain you from relisting. If you want
-		to file a counter notice, contact us at info@desklib.com.</p>
-		<p>If you continue to post infringing material or repost items that have been reported to and taken down by Desklib, Desklib may suspend your ability to post
-		content on all Desklib sites.</p>
+			<h3>Policy Against Repeat Infringers</h3>
+			<p>Desklib does not tolerate the abuse of its website
+			by those who knowingly infringe on the intellectual property rights of content owners. Our policy is simple: when we have a good faith,
+			reasonable belief that infringing material has been placed on one of our sites either through a notice of claimed infringement from a rights owner or
+			our own proactive efforts, we will: (1) promptly remove the infringing material; (2) send a message to the user posting the material informing
+			them of the takedown and providing them with links to educational information; and (3) warn first time offenders that posting infringing materials will
+			lead to suspension of Desklib account privileges. Should a review of the user's account reveal that there have been prior postings of
+			infringing material, we will take further action up to and including the suspension of that user's ability to post content on all Desklib sites.</p>
+			<br>
+			<h2><strong>FAQs:</strong></h2>
 
-		<h3>Can I copy portions of documents or other Desklib properties?</h3>
-		<p>Generally, you may not copy portions of copyrighted works and include them in your postings without permission from the rights owner. Postings
-		that include excerpts from copyrighted works may be blocked, removed by Desklib or reported by the intellectual property owner.
-		<strong>Desklib does not permit postings that contain portions of or whole textbooks, ebooks, documents, solutions manuals, or teachers editions books,
-		unless you are the author of such materials.</strong></p>
+			<h3>Why was my listing removed?</h3>
+			<p>Before a posting is removed, the rights owner must give us information that ensures that the person reporting the item is authorized to do so. It also
+			allows us to correctly identify the material to be removed. If your posting is reported, you'll receive an email notifying you that a rights owner
+			requested your posting be removed.</p>
+			<p>We require the rights owner to provide us with an email address so you can contact them directly for more information about why your posting infringes
+			their intellectual property rights. You can find the rights owner's email address in the email you received when your posting was removed. If you
+			have concerns or questions about why your posting was reported, please contact the content owner directly using the email address we provided.</p>
 
-		<h3>Are a professor's lectures copyrighted? Can I legally post lecture notes on Desklib?</h3>
-		<p>Many professors do not have copyrights in their lectures, as the lectures are often not fixed in a tangible medium nor sufficiently original to meet
-		the standard for copyrightability. Many classes are an interactive exercise between students and professors, and the professor certainly doesn't
-		have a copyright in student input, either in or out of class.</p>
-		<p>Even so, Desklib requires class notes to be truly original, independent works, not recordings of the professor's lectures. Your class notes should
-		include information raised by students in or outside of class, and independent thought, analysis and commentary. Class notes must be substantially
-		rewritten after class and include independent material; notes that use a lecturer's words or that are not carefully reviewed, rethought and rewritten
-		after class are not useful to or appreciated by students, and may be removed by Desklib.</p>
-		<p>Still, if a professor reviews your notes and reports to Desklib that the notes do, in fact, violate their copyright, Desklib will remove the
-		notes. If a professor informs you that they do not allow students to sell notes from their lectures, or if your school has a policy against the
-		sale of class notes, you should honor those wishes and immediately stop posting class notes. Professors may use the CHIPRO program to report
-		infringing materials.</p>
+			<h3>Can I repost material that you have removed?</h3>
+			<p>Generally, no. If your listing was reported by a rights owner, and you believe that your post was removed in error, try to contact the rights
+			owner directly. The email we sent you about the removal will include their contact information. If the rights owner agrees that they made a mistake,
+			have them email Desklib and we'll allow you to relist your item.</p>
+			<p>A counter notice is a form provided by Desklib in compliance with the requirements of the federal Digital Millennium Copyright Act. Find out what
+			information you need to provide when filing a counter notice. (http://www.citmedialaw.org/legal-guide/responding-dmca-takedown-notice-targeting-your-content)</p>
+			<p>Once we receive a valid counter notice, we'll provide a copy of the notice to the rights owner and inform them that the content will be reinstated
+			after 10 business days if they don't inform us that they have filed an action seeking a court order to restrain you from relisting. If you want
+			to file a counter notice, contact us at info@desklib.com.</p>
+			<p>If you continue to post infringing material or repost items that have been reported to and taken down by Desklib, Desklib may suspend your ability to post
+			content on all Desklib sites.</p>
+
+			<h3>Can I copy portions of documents or other Desklib properties?</h3>
+			<p>Generally, you may not copy portions of copyrighted works and include them in your postings without permission from the rights owner. Postings
+			that include excerpts from copyrighted works may be blocked, removed by Desklib or reported by the intellectual property owner.
+			<strong>Desklib does not permit postings that contain portions of or whole textbooks, ebooks, documents, solutions manuals, or teachers editions books,
+			unless you are the author of such materials.</strong></p>
+
+			<h3>Are a professor's lectures copyrighted? Can I legally post lecture notes on Desklib?</h3>
+			<p>Many professors do not have copyrights in their lectures, as the lectures are often not fixed in a tangible medium nor sufficiently original to meet
+			the standard for copyrightability. Many classes are an interactive exercise between students and professors, and the professor certainly doesn't
+			have a copyright in student input, either in or out of class.</p>
+			<p>Even so, Desklib requires class notes to be truly original, independent works, not recordings of the professor's lectures. Your class notes should
+			include information raised by students in or outside of class, and independent thought, analysis and commentary. Class notes must be substantially
+			rewritten after class and include independent material; notes that use a lecturer's words or that are not carefully reviewed, rethought and rewritten
+			after class are not useful to or appreciated by students, and may be removed by Desklib.</p>
+			<p>Still, if a professor reviews your notes and reports to Desklib that the notes do, in fact, violate their copyright, Desklib will remove the
+			notes. If a professor informs you that they do not allow students to sell notes from their lectures, or if your school has a policy against the
+			sale of class notes, you should honor those wishes and immediately stop posting class notes. Professors may use the CHIPRO program to report
+			infringing materials.</p>
+	</div>
 </div>
 {% endblock %}

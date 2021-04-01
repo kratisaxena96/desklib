@@ -55,14 +55,14 @@
                 
                     {% if messages %}
     <div>
-        <ul >
+        <ul class="list-unstyled">
         {% for message in messages %}
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <li class="alert alert-warning alert-dismissible fade show">
                 <strong>{{message}}</strong>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-        </div>
+        </li>
         {% endfor %}
         </ul>
     </div>
@@ -118,9 +118,9 @@
               <button class="btn btn-lg text-white btn-bg-theme w-100 btn-block text-uppercase form-btn-group custom-rounded-circle" type="submit">Register</button>
               <a class="d-block text-center mt-2 form-btn-group" href="{% url 'account_login' %}{% if redirect_field_value %}?{{ redirect_field_name }}={{ redirect_field_value }}{% endif %}" rel="nofollow">Sign In</a>
               <hr class="my-4">
-                <a class="btn btn-lg btn-google btn-block custom-rounded-circle form-btn-group" href="{% provider_login_url 'google' method='oauth2'%}" rel="nofollow"><i class="fab fa-google mr-2"></i>Google Sign up</a>
+                <a class="btn btn_common btn-lg btn-google btn-block custom-rounded-circle form-btn-group" href="{% provider_login_url 'google' method='oauth2'%}" rel="nofollow"><i class="fab fa-google mr-2"></i>Google Sign up</a>
               &nbsp
-                <a class="btn btn-lg btn-facebook btn-block form-btn-group custom-rounded-circle" id="facebook_login" href="{% provider_login_url 'facebook' method='oauth2' %}" rel="nofollow"><i class="fab fa-facebook-f mr-2"></i>Facebook Sign up</button></a>
+                <a class="btn btn_common btn-lg btn-facebook btn-block form-btn-group custom-rounded-circle" id="facebook_login" href="{% provider_login_url 'facebook' method='oauth2' %}" rel="nofollow"><i class="fab fa-facebook-f mr-2"></i>Facebook Sign up</a>
               </form>
           </div>
         </div>
