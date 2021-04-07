@@ -794,6 +794,19 @@ ul.wrtng_cmpare_acrdn li:hover {
     background-color: #415fb7;
 }
 
+.ans_tips {
+    padding: 1rem 2rem;
+    border: 0;
+    border-radius: 1rem;
+}
+.good_ans {
+    background-color: #6685E0;
+}
+.wrong_ans {
+    background-color: #FD542133;
+}
+
+
 
 .pg_parent_subject_ques {
 }
@@ -1001,6 +1014,8 @@ ul.wrtng_cmpare_acrdn li:hover {
 }
 .tbl_order_details.table-bordered td, .tbl_order_details.table-bordered th {
     border: 0;
+    font-weight: 500;
+    vertical-align: middle;
 }
 .tbl_order_details.table thead th {
     vertical-align: bottom;
@@ -1037,6 +1052,7 @@ ul.wrtng_cmpare_acrdn li:hover {
 }
 
 
+
 .btn_order_payment{
     width: 30%;
 }
@@ -1052,7 +1068,30 @@ ul.wrtng_cmpare_acrdn li:hover {
 .btn_o_debit{
     padding: 1rem 2rem;
 }
+.btnpay_hover:hover::after {
+    background-color: black;
+    color: #fff;
+}
 
+.showTooltip {
+    display: none;
+}
+.btnpay_hover:hover + .showTooltip {
+  width: 20%;
+  display: block;
+  background-color: #fff;
+  color: #000;
+  padding: 1rem;
+  font-weight: 300;
+  transition: 1s ease;
+  position: absolute;
+  z-index: 1;
+}
+.mt-element-step .step-line .mt-step-title {
+    font-size: 15px;
+    font-weight: 600;
+    position: relative;
+}
 
 @media (max-width: 575px) {
     .pg_order_detail {

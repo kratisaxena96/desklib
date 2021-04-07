@@ -89,7 +89,7 @@
                   {% endif %}
             </div>
 
-            <div class="row pt-1 pb-5 my-5">
+            <div class="row pt-1 my-5">
                 <div class="col-sm-12">
                     <h6><strong>Status Of Your Order</strong></h6>
                 </div>
@@ -234,13 +234,13 @@
                                 <td class="payopt text-center">
                                     {% if order.budget %}
                                     <a href="{% url 'homework_help:order_payment' uid=order.uuid %}">
-                                        <button class="btn btn_common btn-success shadow od_btn_padding">
+                                        <button class="btn btn_common btn-success shadow od_btn_padding pay-button">
                                             Pay $ {{ order.budget }}
                                         </button>
                                     </a>
                                     {% else %}
-                                        <button class="btn btn_common btn_blue od_btn_padding pay-button">Pay </button>
-                                        <i class="fa fa-info-circle blue-theme" aria-hidden="true" data-toggle="tooltip" title="Click on button for payment"></i>
+                                        <button class="btn btn_common btn_blue od_btn_padding pay-button btnpay_hover">Pay </button>
+<!--                                        <div class="showTooltip shadow">The payment will be updated once you confirm your order, after discussing it all with the experts on chat. </div>-->
                                     {% endif %}
                                 </td>
                                 <td class="text-center">
@@ -251,9 +251,11 @@
 
                                 <td>
                                     {% if order.is_paid  %}
-                                        <i class="fas fa-check-square check_blue"></i> &nbsp; Paid
+                                    <a href="{% url 'homework_help:order_payment' uid=order.uuid %}">
+                                        <i class="fas fa-check-square check_blue orderpaid"></i> &nbsp; Paid
+                                    </a>
                                     {% else %}
-                                        <i class="fa fa-times-circle check_blue"></i> &nbsp; Unpaid
+                                        <i class="fa fa-times-circle check_blue orderunpaid"></i> &nbsp; Unpaid
                                     {% endif %}
                                 </td>
                             </tr>
@@ -445,6 +447,7 @@ var x = setInterval(function() {
 <script>
 jQuery(document).ready(function() {
 
+
 setInterval(get_status, 10);
 
 function get_status(){
@@ -459,12 +462,16 @@ function get_status(){
 
         // if budget is null it show only pay
         if(data.budget){
-            $(".pay-button").text(" ").text("Pay $" + data.budget + " ").css("background-color", "green")
+            $(".pay-button").text(" ").text("Pay $" + data.budget + " ").css("background-color", "green");
         }else{
-            $(".pay-button").text(" ").text("Pay");
-            //$('.payopt span').append('<i class="fa fa-info-circle bg_light_black" aria-hidden="true" data-toggle="tooltip" title="Most popular monthly plan "></i>');
-
+            $(".pay-button").text(" ").text("Pay")
         }
+
+        /*if (data.is_paid) {
+            $(".orderpaid").text(" ").style.display = "block";
+        } else {
+            $(".orderunpaid").text(" ").style.display = "none";
+        }*/
 
         i = data.status
 
@@ -634,6 +641,7 @@ function get_answer(){
     });
 
 });
+</script>
 </script>
 
 <!--<script src="https://code.jquery.com/jquery-3.5.1.js"></script>-->
