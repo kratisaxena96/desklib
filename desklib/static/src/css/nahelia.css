@@ -795,7 +795,7 @@ ul.wrtng_cmpare_acrdn li:hover {
 }
 
 .ans_tips {
-    font-weight: 600;
+    font-weight: 400;
     padding: 5rem 2rem;
     border: 0;
     -webkit-border-radius: 1rem;
@@ -804,21 +804,24 @@ ul.wrtng_cmpare_acrdn li:hover {
     border-radius: 1rem;
 }
 .good_ans {
-    background-color: #6685E0;
+    background-color: #6685E0; transform: scale(0.9);
+    transition: 1s;
 }
+.good_ans:hover, .wrong_ans:hover { transform: scale(1); transition: 1s; }
 .wrong_ans {
     background-color: #FD542133;
+    color: #000; transform: scale(0.9); transition: 1s;
 }
 .right_wrong {
     width: 20%;
-    height: 40%;
+    height: 38%;
     text-align: center;
     padding: 2rem;
     background-color: #fff;
     Color: #405fbd;
     position: absolute;
     z-index: 1;
-    margin: -6% 40%;
+    margin: -25% 34%;
     -webkit-border-radius: 4rem;
     -moz-border-radius: 4rem;
     -ms-border-radius: 4rem;
@@ -953,7 +956,7 @@ ul.wrtng_cmpare_acrdn li:hover {
 
     .right_wrong {
         height: 20%;
-        margin: -12% 35%;
+        margin: -35% 30%;
     }
 
 
@@ -1112,11 +1115,39 @@ ul.wrtng_cmpare_acrdn li:hover {
     color: #fff;
 }
 
+
+
+.od_tooltip {
+  position: relative;
+  display: inline-block;
+  opacity:1;
+}
+
+.od_tooltip .tooltiptext {
+    visibility: hidden;
+    width: 315px;
+    background-color: #fff;
+    color: #000;
+    text-align: center;
+    border-radius: 6px;
+    padding: 1rem;
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: -84px;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+}
+
+.od_tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+/*
 .showTooltip {
     display: none;
 }
 .btnpay_hover:hover + .showTooltip {
-  width: 20%;
+  width: 40%;
   display: block;
   background-color: #fff;
   color: #000;
@@ -1127,6 +1158,9 @@ ul.wrtng_cmpare_acrdn li:hover {
   z-index: 1;
   box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
 }
+*/
+
+
 .mt-element-step .step-line .mt-step-title {
     font-size: 15px;
     font-weight: 600;

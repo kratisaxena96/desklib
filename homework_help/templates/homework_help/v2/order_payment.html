@@ -7,9 +7,9 @@
     <section>
         <div class="container">
             <div class="row">
-                <div class="col-md-12 text-center my-5">
-                    <h1> Complete Your Payment </h1>
-                    <h3> Your budget for this question's solution : $ {{ order.budget }}</h3>
+                <div class="col-md-12 text-center my-3">
+                    <h3> Complete Your Payment </h3>
+                    <h5> Your budget for this question's solution : $ {{ order.budget }}</h5>
                 </div>
             </div>
 
@@ -32,7 +32,7 @@
 <!--                </div>-->
             </div>
 
-            <div class="row mt-5">
+            <div class="row">
                 <div class="col-md-6">
                     <div class="payment_option text-center">
                        <h5 class="text-left">Paypal form here</h5>
@@ -78,15 +78,21 @@
             </div>
 
 
-            <div class="row mt-5">
+            <div class="row">
                 <div class="col"></div>
                 <div class="col-md-6">
-                    <div class="text-center pt-4 pl-2 pr-2 pb-4">
+                    <div class="text-center px-2">
                         <p> By continuing you agree to the <a href="{% url 'termsofuse' %}">Terms & Conditions</a>, <a href="{% url 'privacypolicy' %}"> Privacy Policy</a>, <a href="{% url 'academicintegrity' %}">Academic Integrity</a>, <a href="{% url 'honorcode' %}">Honor Code</a> and <a href="{% url 'copyright' %}">Copyright</a> </p>
                     </div>
                 </div>
                 <div class="col"></div>
 
+            </div>
+            <div class="row text-center mb-5">
+                <div class="col-md-12 docsPayOption">
+                    <img src="{% static 'src/assets/images/v2/secured_paypal.png' %}" alt="paypal icon" class="img-fluid">
+                    <img src="{% static 'src/assets/images/v2/payment_mode.png' %}" alt="paypal icon" class="img-fluid">
+                </div>
             </div>
         </div>
     </section>
