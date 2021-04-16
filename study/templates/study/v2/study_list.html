@@ -38,12 +38,12 @@
         <div class="row">
             <div class="col-md-6 mt-8">
                 <div class="banner_study_img text-center">
-                    <img src="{% static 'src/assets/images/v2/girl_student.png' %}" alt="Study List" class="img-fluid" />
+                    <img src="{% static 'src/assets/images/v2/girl_student.png' %}" alt="Study Resources" class="img-fluid" />
                 </div>
             </div>
             <div class="col-md-6 mt-8">
                 <div class="banner_study_content">
-                    <h1 class="blue-theme Roboto-Bold py-2">Best resources for your studies</h1>
+                    <h1 class="blue-theme Roboto-Bold py-2"> Best Study Material by Subjects </h1>
                     <p class="Roboto-Regular pb-4">Search from over 2 million study documents</p>
 
                     <form class="form-inline my-2 my-lg-0" action="{% url 'study:search-results' %}">
@@ -64,7 +64,7 @@
 
 <section class="hwhelp_subjects pt-5 pb-5">
     <div class="container">
-        <h1 class="text-center pb-5">Homework Help By Subjects</h1>
+        <h2 class="text-center pb-5"> Best Study Resources for Your Homework  </h2>
         <div class="row mb-2">
             {% for p in parent %}
             <div class="col-sm-6 col-md-4 mt-4">

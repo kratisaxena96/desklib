@@ -92,6 +92,7 @@
     <div class="container pt-5 pb-3">
        <h2 class="sub-heading-homew alt-font font-weight-700 text-extra-dark-gray text-center pb-4">Top Asked questions</h2>
 
+        {% comment %}
         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
             {% for child in child_subject %}
                 <li class="col nav-item child-subject-homework mb-2 Roboto-Regular">
@@ -99,6 +100,8 @@
                 </li>
             {% endfor %}
         </ul>
+        {% endcomment %}
+
     <div class="row pt-5">
         <div class="col-sm-12 col-md-9 pb-4 mb-1 homew tab-content" id="pills-tabContent">
             {% for child in child_subject %}
@@ -141,16 +144,18 @@
                     <p class="mb-0 mt-2">Get step by step solution and explanation to your question.</p>
                 </div>
 
+               {% comment %}
                <div class="mt-4 subject-tag-pills">
                    <h5 class="mb-4">Popular Programming</h5>
                     <span class="badge badge-pill badge-primary h5 pill-bg-golden">C++</span>
-    <span class="badge badge-pill badge-primary h5 pill-bg-orangered">Ruby/Ruby</span>
-    <span class="badge badge-pill badge-primary h5 pill-bg-royalblue">C</span>
-    <span class="badge badge-pill badge-primary h5 pill-bg-royalblue">Ruby/Ruby</span>
-    <span class="badge badge-pill badge-primary h5 pill-bg-golden">Guide C++</span>
-    <span class="badge badge-pill badge-primary h5 pill-bg-golden">C</span>
-    <span class="badge badge-pill badge-primary h5 pill-bg-orangered">Ruby/Ruby</span>
+                    <span class="badge badge-pill badge-primary h5 pill-bg-orangered">Ruby/Ruby</span>
+                    <span class="badge badge-pill badge-primary h5 pill-bg-royalblue">C</span>
+                    <span class="badge badge-pill badge-primary h5 pill-bg-royalblue">Ruby/Ruby</span>
+                    <span class="badge badge-pill badge-primary h5 pill-bg-golden">Guide C++</span>
+                    <span class="badge badge-pill badge-primary h5 pill-bg-golden">C</span>
+                    <span class="badge badge-pill badge-primary h5 pill-bg-orangered">Ruby/Ruby</span>
                </div>
+               {% endcomment %}
            </div>
     </div>
 
@@ -301,6 +306,8 @@
     </section>
     {% endif %}
 
+
+    {% comment %}
     <section class="blue-background feedback">
         <div class="container pt-5 pb-5 text-center">
             <div class="pt-4 pb-4">
@@ -310,6 +317,7 @@
             <h5 class="">– Antoine de Saint-Exupery</h5>
         </div>
     </section>
+    {% endcomment %}
 
     <section class="pt-5 pb-5 mt-4">
         <div class="container">

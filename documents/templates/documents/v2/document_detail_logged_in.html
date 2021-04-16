@@ -258,10 +258,10 @@
 
             <div class="row pt-4 pb-4 docsdetaildwnld">
                 <div class="col-lg-6 d-none d-lg-block">
-                    <span class="d-inline-block d-sm-inline-block w-100 text-left text-md-left text-lg-left text-muted Roboto-Bold"> Trusted by +2 million users, <br/> assist thousands of students everyday  </span>
+                    <span class="d-inline-block d-sm-inline-block w-100 text-left text-md-left text-lg-left Roboto-Bold"> Trusted by +2 million users, <br/> 1000+ happy students everyday  </span>
                 </div>
-                <div class="col-lg-6 text-center text-md-right">
-                    <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn_common btn_blue"
+                <div class="col-lg-6 text-md-right">
+                    <a href='{% url "documents:document-pay"%}?doc={{object.slug}}' class="btn btn_common btn_blue Roboto-Bold"
                        rel="nofollow"> Download This Document </a>
                 </div>
             </div>
@@ -323,7 +323,7 @@
                                         <img class="img-fluid pb-2"
                                              src="{% static 'src/assets/images/v2/preview_docs.svg' %}" alt="Preview Document" /><br>
                                         <p>To View Complete Document</p>
-                                        <p>Become a Desklib Library Member.<br>Subscribe to our plans</p>
+                                        <p>Click the button to download <br>Subscribe to our plans</p>
                                         <a href='{% url "documents:document-pay"%}?doc={{object.slug}}'
                                            class="btn btn_common btn_blue px-4 mt-2">Download This
                                             Document</a>
@@ -360,9 +360,11 @@
 <!--                    <button class="btn btn_common btn_blue"> Find A Tutor</button>-->
                 </div>
                 <div class="authentic text-center mt-4 mb-4">
-                    <h4><img src="{% static 'src/assets/images/v2/orange_tick.svg' %}" class="img-fluid"
-                             alt="Documents Detail"/> &nbsp;&nbsp; 100% Authentic</h4>
-                    <p>Desklib respect your privacy. Only publicly visible question's solutions are visible on our website.  </p>
+                    <h4>
+<!--                        <img src="{% static 'src/assets/images/v2/orange_tick.svg' %}" class="img-fluid"-->
+<!--                             alt="Documents Detail"/> -->
+                        <i class="fas fa-lock text-success"></i>  100% Authentic</h4>
+                    <p class="pt-3 mb-0">Desklib respects your privacy. Register now! to explore millions of study resources.  </p>
                 </div>
             </section>
 

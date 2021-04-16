@@ -13,10 +13,11 @@ from .views import (
     ParentSubjectQuestionView,
     OrdersPayment,
     PaypalOrderPaymentCheckView,
-    PaypalOrderPaymentUpdateView,
+    PaypalOrderPaymentUpdateView, EmailerView
 )
 
 urlpatterns = [
+    path('order_added/', EmailerView.as_view(), name='emailer'),
     path('', AskQuestionView.as_view(), name='ask-question-view'),
     path('question/<slug>/', QuestionDetailView.as_view(), name='question-detail-view'),
     path('paypal/check-payment/', HomeworkHelpPaypalPaymentCheckView.as_view(), name='homework-help-check'),
