@@ -225,37 +225,71 @@
                                     {% endif %}
                                 </td>
                                 <td>
-                                    {% if order.deadline_datetime %}
-                                        {{ order.deadline_datetime|date }}
+                                    {% if order.question.solution_deadline %}
+                                        {{ order.question.solution_deadline|date }}
                                     {% else %}
                                         Not Given
                                     {% endif %}
                                 </td>
-                                <td class="text-center">
-                                   {% if order.budget %}
-                                    <a href="{% url 'homework_help:order_payment' uid=order.uuid %}">
-                                        <button class="btn btn_common btn_blue od_btn_padding">
+
+                                <td class="payopt text-center">
+                                    <div class="show-payment">
+                                        <a href="{% url 'homework_help:order_payment' uid=order.uuid %}">
+                                            <button class="btn btn_common btn-success shadow od_btn_padding pay-button">
+                                                Pay $ {{ order.budget }}
+                                            </button>
+                                        </a>
+                                    </div>
+
+                                    <div class="od_tooltip hide-payment">
+                                        <button class="btn btn_common btn_blue od_btn_padding pay-button btnpay_hover">Pay </button>
+                                         <span class="tooltiptext">The payment will be updated once you confirm your order, after discussing it all with the experts on chat. Please click the chat button right after the pay button.</span>
+                                    </div>
+                                </td>
+
+                                {% comment %}
+                                <td class="payopt text-center">
+                                    {% if order.budget %}
+                                    <a href="{% url 'homework_help:order_payment' uid=order.uuid %}" class="anchor_pay_btn">
+                                        <button class="btn btn_common btn-success shadow od_btn_padding pay-button">
                                             Pay $ {{ order.budget }}
                                         </button>
+                                        <span></span>
                                     </a>
                                     {% else %}
-                                        <button class="btn btn_common btn_blue od_btn_padding pay-button">Pay</button>
+                                        <button class="btn btn_common btn_blue od_btn_padding pay-button btnpay_hover">Pay </button>
+                                        <span></span>
                                     {% endif %}
                                 </td>
+                                {% endcomment %}
+
                                 <td class="text-center">
-                                    <button class="btn btn_common btn_blue od_btn_padding chat-button" data-toggle="modal" data-target="#exampleModal"> Chat Now</button>
+                                    <a href="javascript:void(Tawk_API.toggle())">
+                                        <button class="btn btn_common btn_blue shadow od_btn_padding chat-button"> Chat Now</button>
+                                    </a>
                                 </td>
-<!--                                <td class="text-center">-->
-<!--                                    <button class="btn btn_common btn_blue od_btn_padding chat-button"> Chat Now</button>-->
-<!--                                </td>-->
 
                                 <td>
+                                    <div class="orderpaid">
                                     {% if order.is_paid  %}
-                                        <i class="fas fa-check-square check_blue"></i> &nbsp; Paid
+                                             Paid
                                     {% else %}
-                                        <i class="fa fa-times-circle check_blue"></i> &nbsp; Unpaid
+                                            Unpaid
+                                    {% endif %}
+                                    <div>
+                                </td>
+
+                                {% comment %}
+                                <td>
+                                    {% if order.is_paid  %}
+                                    <a href="{% url 'homework_help:order_payment' uid=order.uuid %}">
+                                        <i class="fas fa-check-square check_blue orderpaid"></i> &nbsp; Paid
+                                    </a>
+                                    {% else %}
+                                        <i class="fa fa-times-circle check_blue orderunpaid"></i> &nbsp; Unpaid
                                     {% endif %}
                                 </td>
+                                {% endcomment %}
                             </tr>
                         </tbody>
                     </table>
@@ -263,27 +297,31 @@
             </div>
 
             <div class="row pt-5 pb-5 mt-4">
-				    <div class="col-md-12">
-                        <h1 class="Roboto-Bold text-center"> FAQs </h1>
+                <div class="col-md-12">
+                    <h1 class="Roboto-Bold text-center"> FAQs </h1>
+                </div>
+                <div class="col-md-6">
+                    <div id="accordion" class="accordion">
+                        <div class="mb-0">
+                            {% for content in accordion_content %}
+                            <div class="hrz-border" id="{{ content.id }}">
+                            <div class="card-header collapsed faq_accordion_head pb-4 mb-1 pr-0 pl-0" data-toggle="collapse" href="#{{ content.slug }}" style="background-color: transparent; border-bottom: none;">
+                                <div class="pr-5"><a class="card-title question-font" onclick="showDetails(this)" data-aacordion="check" data-check="acc{{forloop.counter}}" id="{{ content.accordion_title }}">
+                                    {{ content.accordion_title }}
+                                </a></div>
+                            </div>
+                            <div id="{{ content.slug }}" class="card-body-p card-body collapse margin-tp" data-parent="#accordion" >
+                                <p class="pb-3">{{ content.accordion_description | safe }}</p>
+                            </div>
+                            </div>
+                            {% endfor %}
+                        </div>
                     </div>
-                    <div class="col-md-12">
-					<div id="accordion" class="accordion">
-						<div class="mb-0">
-							{% for content in accordion_content %}
-							<div class="hrz-border" id="{{ content.id }}">
-							<div class="card-header collapsed faq_accordion_head pb-4 mb-1 pr-0 pl-0" data-toggle="collapse" href="#{{ content.slug }}" style="background-color: transparent; border-bottom: none;">
-								<div class="pr-5"><a class="card-title question-font" onclick="showDetails(this)" data-aacordion="check" data-check="acc{{forloop.counter}}" id="{{ content.accordion_title }}">
-									{{ content.accordion_title }}
-								</a></div>
-							</div>
-							<div id="{{ content.slug }}" class="card-body-p card-body collapse margin-tp" data-parent="#accordion" >
-								<p class="pb-3">{{ content.accordion_description | safe }}</p>
-							</div>
-							</div>
-							{% endfor %}
-						</div>
-					</div>
-				  </div>
+                </div>
+                <div class="col-md-6 text-center">
+                    <img src="{% static 'src/assets/images/v2/faq.png' %}" alt="paypal icon" class="img-fluid">
+                </div>
+
 			  </div>
 
         </div>
@@ -466,9 +504,12 @@ var x = setInterval(function() {
 }, 1000);
 </script>
 <script>
+$(".show-payment").hide()
+$(".hide-payment").show()
 jQuery(document).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip();
 
-setInterval(get_status, 10000);
+setInterval(get_status, 10);
 
 function get_status(){
     var feedback = $.ajax({
@@ -479,12 +520,51 @@ function get_status(){
         $(".status_" + data.status).siblings().removeClass("active")
         $(".status_" + data.status).siblings().removeClass("done")
         //$(".pay-button").text(" ").text("Pay $" + data.budget + " ")
-        // if budget is null it show only pay
+
+
+
+                // if budget is null it show only pay
         if(data.budget){
-            $(".pay-button").text(" ").text("Pay $" + data.budget + " ")
+            $(".show-payment").show();
+            $(".hide-payment").hide();
+            $(".pay-button").text(" ").text("Pay $" + data.budget + " ").css("background-color", "green");
+
         }else{
-            $(".pay-button").text(" ").text("Pay");
+            $(".show-payment").hide();
+            $(".hide-payment").show();
+            $(".pay-button").text(" ").text("Pay").css("background-color", "blue");
         }
+
+        if (data.is_paid) {
+            console.log(data.is_paid)
+            $(".orderpaid").text(" ").text("Paid");
+        } else {
+            console.log(data.is_paid)
+            $(".orderpaid").text(" ").text("UnPaid");
+        }
+
+
+
+        // if budget is null it show only pay
+        /* if(data.budget){
+                $(".pay-button").text(" ").text("Pay $" + data.budget + " ").css("background-color", "green").hover(
+                    function(){
+                        $(".payopt span").removeClass('showTooltip').text(" ")
+                    }
+                );
+        }else{
+            $(".pay-button").text(" ").text("Pay").hover(
+                function(){
+                    $(".payopt span").addClass('showTooltip').text("The payment will be updated once you confirm your order, after discussing it all with the experts on chat. Please click the chat button right after the pay button.")
+                }
+            );
+        } */
+
+        /*if (data.is_paid) {
+            $(".orderpaid").text(" ").style.display = "block";
+        } else {
+            $(".orderunpaid").text(" ").style.display = "none";
+        }*/
 
         i = data.status
 
@@ -655,6 +735,7 @@ function get_answer(){
 
 });
 </script>
+
 
 <!--<script src="https://code.jquery.com/jquery-3.5.1.js"></script>-->
 <!--<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>-->

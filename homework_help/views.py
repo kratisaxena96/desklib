@@ -838,6 +838,7 @@ class PaypalOrderPaymentUpdateView(LoginRequiredMixin, View):
                         order.deadline_datetime = datetime.strptime(resp_short.get('create_time'), '%Y-%m-%dT%H:%M:%SZ') + timedelta(hours=total_hours)
 
                 order.status = Order.STATUS_EXPERT_WORKING
+                order.is_paid = True
                 order.save()
 
                 if order.author.email:
