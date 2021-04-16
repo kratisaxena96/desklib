@@ -200,7 +200,7 @@ $( document ).ready(function() {
             window.location.replace("{% url 'homework_help:order-detail-view' uuid=order.uuid  %}");
         },
         onCancel: function (data) {
-            console.log(data)
+            console.log("cancelled")
         },
         onError: function(err) {
             $('.paypal-error').text("An error occurred during transaction. Please try again.");
