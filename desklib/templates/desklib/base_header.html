@@ -52,25 +52,28 @@
                     <ul class="text-sm-left pl-0 mb-0">
                         <li class="list-inline-item white mr-4 Roboto-Medium">
                             <a href="https://api.whatsapp.com/send?phone=+13129975479" class="text-white text-decoration-none">
-                                <i class="fa fa-whatsapp text-white font-size-20"></i> &nbsp; For any query: &nbsp; +1-312 997 5479
+                                <i class="fa fa-whatsapp text-white font-size-20"></i> +1-312 997 5479
                             </a>
+<!--                            <a href="https://api.whatsapp.com/send?phone=+13129975479" class="text-white text-decoration-none">-->
+<!--                                <i class="fa fa-whatsapp text-white font-size-20"></i> &nbsp; For any query: &nbsp; +1-312 997 5479-->
+<!--                            </a>-->
                         </li>
                     </ul>
                 </div>
 
-                <div class="col-4 col-sm-2 col-md-4 d-none d-md-block">
-                    <ul class="text-sm-right mb-0">
-                        <li class="list-inline-item white mr-4"><a href="https://www.linkedin.com/company/desklib/">
-                            <i class="fa fa-linkedin text-white font-size-20"></i></a>
-                        </li>
-                        <li class="list-inline-item white mr-4"><a href="https://www.facebook.com/desklib/">
-                            <i class="fa fa-facebook text-white font-size-20"></i></a>
-                        </li>
-                        <li class="list-inline-item white mr-4"><a href="https://www.instagram.com/desklib/">
-                            <i class="fa fa-instagram text-white font-size-20"></i></a>
-                        </li>
-                    </ul>
-                </div>
+<!--                <div class="col-4 col-sm-2 col-md-4 d-none d-md-block">-->
+<!--                    <ul class="text-sm-right mb-0">-->
+<!--                        <li class="list-inline-item white mr-4"><a href="https://www.linkedin.com/company/desklib/">-->
+<!--                            <i class="fa fa-linkedin text-white font-size-20"></i></a>-->
+<!--                        </li>-->
+<!--                        <li class="list-inline-item white mr-4"><a href="https://www.facebook.com/desklib/">-->
+<!--                            <i class="fa fa-facebook text-white font-size-20"></i></a>-->
+<!--                        </li>-->
+<!--                        <li class="list-inline-item white mr-4"><a href="https://www.instagram.com/desklib/">-->
+<!--                            <i class="fa fa-instagram text-white font-size-20"></i></a>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </div>-->
             </div>
         </div>
     </div>
@@ -92,7 +95,7 @@
                                 <a class="nav-link home" href="/">Home <span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link study" href="{% url 'study:study-search'%}">Study</a>
+                                <a class="nav-link study" href="{% url 'study:study-search' %}">Study</a>
                             </li>
 
                             <!--        <li class="nav-item dropdown">-->
@@ -121,7 +124,7 @@
 
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link homework" href="{% url 'homework_help:ask-question-view' %}">Homework Help</a>
+                                <a class="nav-link homework" href="{% url 'homework_help:ask-question-view' %}"> Expert Q&A </a>
                             </li>
 <!--                            <li class="nav-item">-->
 <!--                                <a class="nav-link tutor" href="{% url 'tutors:tutor' %}"> Tutor </a>-->
@@ -145,7 +148,7 @@
                             <!--        </li>-->
                         </ul>
 
-                        <form class="form-inline" action="{% url 'study:search-results' %}">
+                        <form class="form-inline d-none d-md-block" action="{% url 'study:search-results' %}">
                             <!--          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
                             <!--          <button class="btn btn-outline-secondary rounded-circle" type="submit"><i class="fa fa-search rounded-circle"></i></button>-->
                             <div class="input-group tt-input-group">
@@ -198,7 +201,7 @@
                             </li>
                         </ul>
                         {% else %}
-                        <ul class="navbar-nav text-left">
+                        <ul class="navbar-nav mr-auto text-left">
                             <li class="nav-item">
                                 <a class="nav-link login blue-theme" href="{% url 'account_login' %}" rel="nofollow">Login</a>
                                 {% endif %}

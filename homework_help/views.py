@@ -151,6 +151,9 @@ class OrderListView(LoginRequiredMixin, MetadataMixin, ListView):
         return context
 
 
+class EmailerView(TemplateView):
+    template_name = 'homework_help/mail-templates/v2/order_added.html'
+
 class AskQuestionView(JsonLdContextMixin, MetadataMixin, FormView):
     template_name = 'homework_help/v2/ask_question.html'
     form_class = QuestionForm
@@ -186,7 +189,12 @@ class AskQuestionView(JsonLdContextMixin, MetadataMixin, FormView):
         context = super(JsonLdContextMixin, self).get_context_data(**kwargs)
         context[setting.CONTEXT_ATTRIBUTE] = self.get_structured_data()
         queryset = Question.objects.filter(is_published=True, is_visible=True, published_date__lte=timezone.now()).order_by('-published_date')
-        subject = Subject.objects.all()[:12]
+        # subject = Subject.objects.all()[:12]
+        id_list = [1, 9, 3, 5]
+        try:
+            subject = Subject.objects.filter(id__in=id_list)
+        except:
+            subject = Subject.objects.all()[:4]
         accordion_content = HomeworkAccordion.objects.filter(is_faq=False)
         # order = Order.objects.get(order_id=self.kwargs['order_id'])
         context['question'] = queryset

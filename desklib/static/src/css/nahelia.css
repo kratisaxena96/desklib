@@ -162,6 +162,16 @@ li.breadcrumb-item a{
     z-index: 1;
 }
 /*---------- H E A D E R   S E C T I O N   C S S ----------*/
+header {
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    width: 100%;
+    background-color: #fffffff7;
+}
+main {
+    padding-top: 9rem;
+}
 .bg_light_black {
     background-color: #46494a;
     color: #fff;
@@ -184,8 +194,9 @@ ul.navbar-nav li{
         flex-direction: column;
     }
     .navbar-nav {
-        text-align: center !important;
-        margin-right: 0 !important;
+        text-align: left !important;
+        margin-right: auto !important;
+        padding: 0 0.5rem;
     }
     .bg_light_black {
         background-color: #46494a;
@@ -398,10 +409,10 @@ No media query since this is the default in Bootstrap because it is "mobile firs
 
 /*---------- H O M E   P A G E  C S S  S T A R T ----------*/
 .homepage-banner {
-    padding: 6rem 0;
+    padding: 1rem;
 }
 .home_banner_content {
-    padding: 0 2rem;
+    padding: 4rem 2rem;
 }
 .home_banner_content ul {
     border-radius: 4rem 4rem 0 0;
@@ -470,6 +481,11 @@ No media query since this is the default in Bootstrap because it is "mobile firs
     background-color: #405bde;
     border-radius: 0 0 2rem 2rem;
 }
+.home_btn_action input {
+    color: #fff;
+    background-color: #405bde;
+    border: none;
+}
 .home_benefits h5 {
     font-family: 'Roboto-Regular'
 }
@@ -487,7 +503,7 @@ No media query since this is the default in Bootstrap because it is "mobile firs
     background-image: url("../../src/assets/images/v2/bg_homedocuments.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    padding: 6rem 0;
+    padding: 3rem 0;
 }
 
 .home_banner_content h1, .bg-homedocuments h1, .easy_online_sol h1, .get_online_hwhelp h2 {
@@ -714,6 +730,9 @@ ul.wrtng_cmpare_acrdn li:hover {
     border-width: 15px;
     border-color: #f8f9fa;
     color: #303030;
+    transition: 1s;
+    text-align: center;
+    font-size: 1.5rem;
 }
 .check:hover {
     background: #ffffff;
@@ -995,6 +1014,11 @@ ul.wrtng_cmpare_acrdn li:hover {
 }
 .qd_formbtn input[type=submit], .qd_formbtn input[type=submit] {
     text-align: right;
+}
+
+
+.homework-footer-banner::before, .homework-footer-banner::after {
+    background-image: none;
 }
 @media (max-width: 575px) {
     .share_answer_box, .ask_question_box {
@@ -1437,14 +1461,15 @@ opacity:0.9 !important;
 }
 .docs_plan_box {
     color: #000 !important;
-    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important
+    transition: 1s;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
 }
 
 .docs_plan_box:hover {
     color: #000 !important;
     margin-top: -2rem;
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
-    transition: all 0.4s ease-in-out 0s;
+    transition: 1s;
 }
 
 .docs_plan_box, .docs_plan_box_upper, .docs_plan_box_lower {
@@ -1505,7 +1530,13 @@ opacity:0.9 !important;
   background: rgba(0,0,0,0.75) url(images/loading2.gif) no-repeat center center;
   z-index: 10000;
 }
-.docs_plan_box:hover .btn_gtstrtd{
+.docs_plan_box .btn_gtstrtd {
+    background-color: #405fbd;
+    color: #fff !important;
+    padding: 1rem 2rem;
+    border-radius: 2rem;
+}
+.docs_plan_box:hover .btn_gtstrtd {
     background: transparent;
     color: #405fbd !important;
     border: 1px solid #405fbd;
@@ -2324,7 +2355,7 @@ ul.social-icons li:hover {
 
 
 /*---------- P R O F I L E   P A G E   C S S   S T A R T S----------*/
-.pg_myprofile, .pg_mydownloads, .pg_myuploads, .pg_mysubscription, .pg_parent_subject, .pg_childsubj, .pg_order_detail, .pg_order_payment, .pg_search {
+.pg_myprofile, .pg_mydownloads, .pg_myuploads, .pg_mysubscription, .pg_parent_subject, .pg_childsubj, .pg_order_detail, .pg_order_payment, .pg_search, .pg_docpaymwnt, .pg_homeworkhelp_qd {
     background-image: url(/static/src/assets/images/v2/bg_banner_order_detail.svg);
     background-size: cover;
     background-repeat: no-repeat;
